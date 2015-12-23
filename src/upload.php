@@ -4,13 +4,22 @@ require_once('config.php');
 require_once('db.php');
 
 
-class Upload extends $db
+class Upload extends Database
 {
 
-	public function unzip_and_save($file, $db, $values, $save_as="")
+	function __construct($file=NULL, $values=NULL, $save_as="")
 	{
-		Upload::unzip($file, $save_as);
-		Upload::create_db_entry($db, $values);
+		parent::__construct();
+
+		if (!is_null($file) && !is_null($values) && !is_null($save_as))
+			$this->unzip_and_save($file, $values, $save_as);
+	}
+
+
+	public function unzip_and_save($file, $values, $save_as="")
+	{
+		$this->unzip($file, $save_as);
+		$this->create_db_entry($values);
 	}
 
 
@@ -29,32 +38,33 @@ class Upload extends $db
 	}
 
 
-	public function create_db_entry($db, $values)
+	public function create_db_entry($values)
 	{
 		if (array_key_exists("quarter", $values))
-			$values["quarter"] = Upload::handle_quarter($db, $values["quarter"]);
+			$values["quarter"] = $this->handle_quarter($values["quarter"]);
 
 		$cols = implode(",", array_keys($values));
 		$vals = "'" . implode("','", $values) . "'";
 
 		$q =  "insert into results ($cols) values ($vals)";
-		$db->query($q);
+		$this->query($q);
 	}
 
 
-	private function handle_quarter($db, $quarter)
+	private function handle_quarter($quarter)
 	{
 		switch (gettype($quarter))
 		{
 			case "string":
-				$results = $db->query("select id from quarters where name='$quarter'", $formate="assoc");
+				$results = $this->query("select id from quarters where name='$quarter'", $formate="assoc");
 				return (int)$results["id"];
 			case "integer":
 				return $quarter;
 			default:
-				throw new Exception("Upload::handle_quarter: quarter ($quarter) must be an int or a string");
+				throw new Exception("Upload->handle_quarter: quarter ($quarter) must be an int or a string");
 		}
 	}
 }
+
 
 ?>
