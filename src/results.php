@@ -4,7 +4,7 @@ require_once('config.php');
 require_once('db.php');
 
 
-class Upload extends Database
+class Results extends Database
 {
 
 	function __construct($file=NULL, $values=NULL, $save_as="")
@@ -61,7 +61,7 @@ class Upload extends Database
 			case "integer":
 				return $quarter;
 			default:
-				throw new Exception("Upload->handle_quarter: quarter ($quarter) must be an int or a string");
+				throw new Exception("Results->handle_quarter: quarter ($quarter) must be an int or a string");
 		}
 	}
 }
