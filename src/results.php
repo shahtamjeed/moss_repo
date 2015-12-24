@@ -23,7 +23,19 @@ class Results extends Database
 
 	public function get($values=array(), $cols="*", $type="AND", $format="json")
 	{
-		return str_replace('"', "'", $this->select("results", $values, $cols, $type, $format));
+		$q = $this->select_query("results", $values, $cols, $type, $format);
+		$join =  "join (quarters,users,courses) on results.quarter=quarters.id and users.id=results.uploaded_by";
+		$join .= " and results.course=courses.id";
+
+		if (count($values) > 0)
+		{
+			$q = explode("where", $q);
+			$q = $q[0] . $join . " where" . $q[1];
+		}
+		else
+			$q .= " $join";
+
+		return $this->query($q, $format);
 	}
 
 
@@ -74,12 +86,13 @@ class Results extends Database
 
 
 $r = new Results();
-// var_dump($r->get(array("name" => "lab2")));
+//var_dump($r->get());
+
 //$r->create(array("name" => "Assign. 1",
 //				 "year" => 2015,
 //				 "quarter" => 1,
 //				 "location" => "results/assign1",
 //				 "uploaded_by" => 1));
-
+//
 
 ?>

@@ -116,7 +116,7 @@ class Database
 	}
 
 
-	public function select($table, $values=array(), $cols="*", $type="and", $format="json")
+	public function select_query($table, $values=array(), $cols="*", $type="and", $format="json")
 	{
 		if (!isset($table))
 			throw new Exception("Database->select: select require a value for table");
@@ -134,26 +134,30 @@ class Database
 			$q .= " where $vals";
 		}
 
+		return $q;
+	}
+
+
+	public function select($table, $values=array(), $cols="*", $type="and", $format="json")
+	{
+		
+		$q = $this->select_query($table, $values, $cols, $type, $format);
 		return $this->query($q, $format);
+	}
+
+
+	public function insert_query($table, $values)
+	{
+		list($cols,$vals) = $this->query_prep($values);
+		$q = "insert into $table ($cols) values ($vals)";
+		return $q;
 	}
 
 
 	public function insert($table, $values)
 	{
-		list($cols,$vals) = $this->query_prep($values);
-		$q = "insert into $table ($cols) values ($vals)";
+		$q = $this->insert_query($table, $values);
 		$this->query($q);
-	}
-
-
-	private function json($data)
-	{
-		$result = array();
-
-		while (($row = $data->fetch_assoc()) !== NULL)
-			array_push($result, $row);
-
-		return $result;
 	}
 
 
@@ -192,7 +196,28 @@ class Database
 
 		return array($cols, $vals);
 	}
+
+
+	private function json($data)
+	{
+		$result = array();
+
+		while (($row = $data->fetch_assoc()) !== NULL)
+			array_push($result, $row);
+
+		return $result;
+	}
 }
+
+
+$vals = array();
+$vals['firstname'] = "brittany";
+$vals['lastname'] = "roberts";
+$vals['email'] = "broberts@uci.edu";
+$vals['ucinetid'] = "broberts";
+
+// $db = new Database();
+// var_dump($db->select("users", $vals));
 
 
 ?>

@@ -22,7 +22,7 @@
 		<nav class="top-bar" data-topbar role="navigation">
 			<ul class="title-area">
 				<li class="name">
-					<h1><a href="/">Detective</a></h1>
+					<h1><a href="/"></a></h1>
 				</li>
 			</ul>
 
@@ -33,44 +33,61 @@
 		</nav>
 		<!-- end nav bar -->
 
-		<!-- get data -->
-		<?php 
-			$r = new Results();
-			$results = $r->get();
-		?>
-
-		<script>
-			var results = <?php echo $results; ?>;
-			console.log(results);
-		</script>
-
-		<!-- display it -->
-		<div ng-app="" ng-init="results=<?php echo $results; ?>" class="row fullwidth">
+		<!-- init angular app -->
+		<div ng-app="app" ng-controller="getData" class="row fullwidth">
 
 			<br>
 
 			<div class="small-12 panel">
 				<table>
 					<tr>
-						<th class="text-center">Name</th>
-						<th class="text-center">Quarter</th>
-						<th class="text-center">Year</th>
-						<th class="text-center">Upload Date</th>
-						<th class="text-center">Uploaded By</th>
+						<th class="text-center">
+        					<a href="#" ng-click="orderByField='name'; reverseSort = !reverseSort">
+								Name
+          					</a>
+						</th>
+						<th class="text-center">
+        					<a href="#" ng-click="orderByField='course'; reverseSort = !reverseSort">
+								Course
+          					</a>
+						</th>
+						<th class="text-center">
+        					<a href="#" ng-click="orderByField='quarter'; reverseSort = !reverseSort">
+								Quarter
+          					</a>
+						</th>
+						<th class="text-center">
+        					<a href="#" ng-click="orderByField='year'; reverseSort = !reverseSort">
+								Year
+          					</a>
+						</th>
+						<th class="text-center">
+        					<a href="#" ng-click="orderByField='created'; reverseSort = !reverseSort">
+								Uploaded Date
+          					</a>
+						</th>
+						<th class="text-center">
+        					<a href="#" ng-click="orderByField='uploaded_by'; reverseSort = !reverseSort">
+								Uploaded By
+          					</a>
+						</th>
 					</tr>
 
-					<tr ng-repeat="r in results">
+					<tr ng-repeat="r in results|orderBy:orderByField:reverseSort">
 						<td class="text-center"><a href="{{ r.location }}">{{ r.name }}</a></td>
+						<td class="text-center">{{ r.course }}</td>
 						<td class="text-center">{{ r.quarter }}</td>
 						<td class="text-center">{{ r.year }}</td>
 						<td class="text-center">{{ r.created }}</td>
-						<td class="text-center">{{ r.uploaded_by }}</td>
+						<td class="text-center">{{ r.ucinetid }}</td>
 					</tr>
 				</table>
 			</div>
 
 		</div>
 
+		<!-- include angular app -->
+		<script src="<?php echo $static_root; ?>js/app.js"></script>
 		<!-- js includes (for foundation)-->
 		<script src="<?php echo $static_root; ?>foundation/js/vendor/jquery.js"></script>
 		<script src="<?php echo $static_root; ?>foundation/js/vendor/fastclick.js"></script>
