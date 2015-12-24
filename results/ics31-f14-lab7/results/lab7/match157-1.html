@@ -1,0 +1,295 @@
+<HTML>
+<HEAD>
+<TITLE>rooconno/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+sttse/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Stephanie Chan 23867028 and Samuel Tse .  ICS 31 Lab sec 7.  Lab asst 7.
+
+print()
+print('-------part c-------')
+print()
+
+print()
+print('-------part c.1-------')
+print()
+
+'''random_names() doesn't work unless other functions are defined first;
+random_names() is under part c.3'''
+    
+print()
+print('-------part c.2-------')
+print()
+
+infile = open("surnames.txt", 'r')
+data = infile.read()
+datalines = data.split("\n")
+infile.close()
+surname = []
+other_info = []
+surname2 = []
+for line in datalines:
+    surname.append(line[:line.find('\t')])
+    other_info.append(line[line.find('\t'):])
+for name in surname:
+    surname2.append(name.title())
+
+
+infile = open("femalenames.txt", 'r')
+data = infile.read()
+datalines_f = data.split("\n")
+infile.close()
+fem_name = []
+other_info_f = []
+fem_name2 = []
+for line in datalines_f:
+    fem_name.append(line[:line.find('\t')])
+    other_info_f.append(line[line.find('\t'):])
+for name in fem_name:
+    fem_name2.append(name.title())
+
+infile = open("malenames.txt", 'r')
+data = infile.read()
+datalines_m = data.split("\n")
+infile.close()
+male_name = []
+other_info_m = []
+male_name2 = []
+for line in datalines_m:
+    male_name.append(line[:line.find('\t')])
+    other_info_m.append(line[line.find('\t'):])
+for name in male_name:
+    male_name2.append(name.title()) 
+
+print()
+print('-------part c.3-------')
+print()
+
+from random import randrange
+
+def random_name() -&gt; 'random name':
+    '''Generates a single random name: a random surname, choice of male or
+    female, and a first name from that list.'''
+    rand_surname = rand_name_gen(surname2)
+    rand_fem_name = rand_name_gen(fem_name2)
+    rand_male_name = rand_name_gen(male_name2)
+    if randrange(0,2) == 0:
+        return '{}, {}'.format(rand_surname, rand_fem_name)
+    return '{}, {}'.format(rand_surname, rand_male_name)
+
+def rand_name_gen(name_list: [str]) -&gt; 'name from list':
+    '''Takes a list name and returns a name chosen at random from that list.
+    '''
+    rand_name = name_list[randrange(0, len(name_list)+1)]
+    return rand_name
+
+#tests rand_name_gen()
+print(rand_name_gen(surname2))
+print(rand_name_gen(fem_name2))
+print(rand_name_gen(male_name2))
+print()
+
+#tests random_name()
+print(random_name())
+print()
+
+#from part c.1
+def random_names(num: int) -&gt; [str]:
+    '''Takes an integer and returns a list of that many strings.'''
+    result = []
+    for i in range(num):
+        result.append(random_name())
+    return result
+
+#tests random_names()
+print(random_names(10))
+
+print()
+print('-------part d-------')
+print()
+
+print()
+print('-------part d.1-------')
+print()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotation(key:int)-&gt; str:
+    '''Takes a number and produces a "rotated" alphabet with the specified
+    number of characters taken off the front and added on to the end of the
+    string'''
+    i = 0
+    alphabet2 = 'abcdefghijklmnopqrstuvwxyz'
+    while i &lt; key:
+        first = alphabet2[0]
+        alphabet2 = alphabet2.replace(first, '')
+        alphabet2 += first
+        i += 1
+    return(alphabet2)
+
+#used to encrypt message, not part of Caesar_break
+def Caesar_encrypt(s:str, key:int)-&gt;str:
+    '''Returns the cipher text'''
+    a = s.lower()
+    encryption = a.maketrans(ALPHABET, rotation(key%26))
+    return (a.translate(encryption))
+
+def Caesar_decrypt(s:str, key:int)-&gt;str:
+    '''Returns the plain text'''
+    b = s.lower()
+    decryption = b.maketrans(ALPHABET, rotation((26 - key)% 26))
+    return (b.translate(decryption))
+
+file = open('wordlist.txt')
+lines = file.read()
+lines1 = lines.split('\n')
+file.close()
+lines2 = []
+for word in lines1:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match157-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    lines2.append(word.lower())
+
+def Caesar_break(s:str)-&gt; str:
+    '''Takes a ciphertext string and returns the plaintext for that string
+    without having the key.'''
+</FONT>    new_s1 = []
+    new_s = s.split()
+    for word in new_s:
+        new_s1.append(word.lower())
+    count = [0] * 25
+    for i in new_s1:
+        for num in range(26):
+            A = Caesar_decrypt(i, num)
+            if A in lines2:
+                count[num-1] += 1
+    return Caesar_decrypt(s, count.index(max(count))+1)
+
+#tests Caesar_break()
+print(Caesar_break("Gdkkn sgdqd! Hs'r z adztshetk czx snczx. Xzx? "))
+
+print()
+print('-------part d.2-------')
+print()
+
+print(Caesar_break("Mn Xfrzjq! (: Ymfspx ktw gjnsl rd qfg ufwysjw ymnx bjjp. Mfaj f lwjfy ifd!"))
+print()
+print(Caesar_break("Yvccf, kfurp zj Nvuevjurp."))
+
+print()
+print('-------part e-------')
+print()
+
+#part e.3
+def count_lines(l:list)-&gt; int:
+    '''Returns the number of lines'''
+    num = 0
+    for i in l:
+        num += 1
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match157-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return(num)
+
+def count_elines(l:list)-&gt; int:
+    '''Returns the number of empty lines'''
+    num = 0
+    for i in l:
+        if i == '\n':
+            num += 1
+    return(num)
+
+def ave_char(l:list)-&gt; int:
+    '''Returns the average characters per line'''
+    num = 0
+</FONT>    for i in l:
+        num += len(i)
+    return(num/len(l))
+    
+
+def ave_char2(l:list)-&gt; int:
+    '''Returns the average characters per non-empty line.'''
+    count = 0
+    num = 0
+    for i in l:
+        if i != '\n':
+            num += len(i)
+            count += 1
+    return(num/count)
+
+def stats(l: list) -&gt; str:
+    '''Returns the statistics'''
+    lines = count_lines(l)
+    elines = count_elines(l)
+    ave = ave_char(l)
+    ave2 = ave_char2(l)
+    final = ('''
+{:5}    lines in the list
+{:5}    empty lines
+{:8.2f} average characters per line
+{:8.2f} average character per non-empty line'''.format(lines, elines, ave, ave2))
+    return(final)
+
+#parts e.1-e.4
+def copy_file(s:str):
+    '''Copies the file; may include line numbers ('line numbers'), omit the
+    "housekeeping" information('Gutenberg trim'), or print the statistics
+    ('statistics').'''
+    count = 1
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    if s == 'line numbers':
+        for line in infile:
+            outfile.write('{0:5}: {1}'.format(count, line))
+            count += 1
+
+    elif s == 'Gutenberg trim':
+        stimes = 0
+        etimes = 0
+        start = 0
+        end = 0
+        for i in infile:
+            if i.find('*** START') &gt;= 0 and stimes == 0:
+                start = count
+                stimes = 1
+            if i.find('*** END') &gt;= 0 and etimes == 0:
+                end = count
+                etimes = 0
+            count += 1
+        count = 1
+        infile1 = open(infile_name, 'r')
+        for line in infile1:
+            if count &gt;= start and count &lt;= end:
+                outfile.write(line)
+            count += 1
+
+    elif s == 'statistics':
+        linelist = []
+        for line in infile:
+            outfile.write(line)
+            linelist.append(line)
+        outfile.write(str(stats(linelist)))
+    else:
+        for line in infile:
+            outfile.write(line)
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+#tests different parameters for copy_file()
+copy_file('line numbers') #line numbers (part e.2)
+print()
+copy_file('Gutenberg trim') #removes "housekeeping" information (part e.3)
+print()
+copy_file('statistics') #statistics (part e.4)
+print()
+copy_file('string') #just copies file as before
+</PRE>
+</PRE>
+</BODY>
+</HTML>

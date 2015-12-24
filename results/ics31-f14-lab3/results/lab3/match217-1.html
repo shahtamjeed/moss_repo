@@ -1,0 +1,268 @@
+<HTML>
+<HEAD>
+<TITLE>cayuso/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+sijiel2/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Sijie Lu 92684581 and John Barlow 56303787.  ICS 31 Lab sec 13.  Lab asst 3.
+#
+#
+# Part (c)
+#
+print('\n')
+print('---------- Part (c) ----------')
+print()
+# (1)
+def abbreviate (n: str) -&gt; str:
+    return n[0:3]
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+print()
+print('---------- Part (c.1) ----------')
+print()
+print(abbreviate('October')) # function testing
+# (2)
+def find_area_square (n: float) -&gt; float:
+    return n**2
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+print()
+print('---------- Part (c.2) ----------')
+print()
+print(find_area_square(7)) # function testing
+# (3)
+pi = 3.14159
+def find_area_circle (n: float) -&gt; float:
+    return pi * n **2
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+print()
+print('---------- Part (c.3) ----------')
+print()
+print(find_area_circle(10)) # function testing
+# (4)
+def print_even_numbers (n:list) -&gt; int:
+    for i in n:
+        if i % 2 == 0:
+            print (i)
+print()
+print('---------- Part (c.4) ----------')
+print()
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004]) # function testing
+# (5)
+def calculate_shipping (n:float) -&gt; float:
+    if n &lt; 2:
+        a = 2
+    elif 2 &lt;= n &lt; 10:
+        a = 5
+    else:
+        a = 5 + (n-10)*1.5
+    return a
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+print()
+print('---------- Part (c.5) ----------')
+print()
+print(calculate_shipping(20)) # function testing
+# (6)
+import tkinter
+#
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas.pack()
+def create_square (x:float, y:float, l:float):
+    my_canvas.create_rectangle(x,y,x+l,y+l)
+    tkinter.mainloop()
+create_square (100, 100, 100) # function testing
+# (7)
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas.pack()
+def create_circle (x:float, y:float, d: float):
+    my_canvas.create_oval(x,y,x+d,y+d)
+    tkinter.mainloop()
+create_circle (100, 100, 100) # function testing   
+#
+#
+#
+# Part d
+print('\n')
+print('---------- Part (d) ----------')
+print()
+from collections import namedtuple
+#
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+#
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+# (d.1)
+def restaurant_price (n: Restaurant) -&gt; float:
+    return n.price
+assert restaurant_price(RC[1]) == 5.50
+assert restaurant_price(RC[5]) == 35.50
+print()
+print('---------- Part (d.1) ----------')
+print()
+print (restaurant_price(RC[1])) # function testing
+# (d.2)
+RC.sort(key=restaurant_price)
+print()
+print('---------- Part (d.2) ----------')
+print()
+print(RC)
+# (d.3)
+def costliest (n:list) -&gt; str:
+    n.sort(key=restaurant_price)
+    return n[-1].name
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50)]
+print()
+print('---------- Part (d.3) ----------')
+print()
+print (costliest (RL))
+# (d.4)
+def costliest2 (n:list) -&gt; str:
+    return sorted(n, key=restaurant_price)[-1].name
+RL2 = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50)]
+print()
+print('---------- Part (d.4) ----------')
+print()
+print(costliest2 (RL2))
+print()
+print(RL2) # test the order of the list
+#
+#
+#
+# Part e
+print('\n')
+print('---------- Part (e) ----------')
+print()
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book("Ina Garten", "Make It Ahead", "Cookbook", 2014, 35.00, 200),
+    Book("Charles M. Schulz", "Snoopy: Cowabunga!", "Comic", 1995, 8.99, 50),
+    Book("Michio Kaku", "The Future of the Mind", "Technology", 2014, 28.95, 195),
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match217-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Book("Mark Lutz", "Learning Python", "Technology", 2013, 64.99, 95),
+    Book("James Risen", "State of War", "History", 2000, 26.00, 105),
+    Book("Maya Angelou", "I Know Why the Caged Bird Sings", "Literature", 1999, 6.99, 35)]
+# (e.1)
+print()
+print('---------- Part (e.1) ----------')
+print()
+for i in range(len(BSI)):
+    print(BSI[i].title)
+# (e.2)
+print()
+print('---------- Part (e.2) ----------')
+print()
+def book_title (n:list) -&gt; str:
+    return n.title
+</FONT>for i in range(len(BSI)):
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match217-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print(sorted(BSI, key=book_title)[i].title)
+# (e.3)
+print()
+print('---------- Part (e.3) ----------')
+print()
+for i in range(len(BSI)):
+    BSI[i]= BSI[i]._replace(price = BSI[i].price*1.10)
+print(BSI)
+# (e.4)
+print()
+print('---------- Part (e.4) ----------')
+print()
+for i in range(len(BSI)):
+    if BSI[i].genre is "Technology":
+</FONT>        print(BSI[i].title)
+# (e.5)
+print()
+print('---------- Part (e.5) ----------')
+print()
+BL1=[]
+BL2=[]
+for i in range(len(BSI)):
+    if BSI[i].year &lt; 2000:
+        BL1=BL1+[BSI[i]]
+    else:
+        BL2=BL2+[BSI[i]]
+a = 0
+for i in range(len(BL1)):
+    a = a + BL1[i].instock
+b = 0
+for i in range(len(BL2)):
+    b = b + BL2[i].instock
+if a &gt; b:
+    print('More titles before 2000 (', a, 'vs.', b, ')')
+else:
+    print('More titles 2000 or later (', b, 'vs.', a, ')')
+# (e.6)
+print()
+print('---------- Part (e.6) ----------')
+print()
+# inventory_value function
+def inventory_value (n: Book) -&gt; float:
+    return n.price * n.instock
+assert inventory_value(BSI[0]) == 7700.00   # for here, we need to use the updated price due to part e.3 
+assert inventory_value(BSI[5]) == 269.115
+# top_value function
+def top_value (n: list) -&gt; Book:
+    print(sorted(n, key = inventory_value)[-1])
+    print()
+    print('The highest-value book is', sorted(n, key = inventory_value)[-1].title, 'by', sorted(n, key = inventory_value)[-1].author, 'at a value of $', inventory_value (sorted(n, key = inventory_value)[-1]), '.')
+#
+top_value(BSI)  # function testing
+#
+#
+#
+# Part e
+print('\n')
+print('---------- Part (f) ----------')
+print()
+print('See the new window.')
+#
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas.pack()
+# draw_eye function
+def draw_eye (x:float, y:float, z:float):    
+    my_canvas.create_oval (x+z, x+y-90, x+z+100, x+y-10,fill='white')
+    my_canvas.create_oval (x+z+15, x+y-85, x+z+85, x+y-15,fill='green')
+    my_canvas.create_oval (x+z+35, x+y-75, x+z+65, x+y-35, fill='black')
+# draw_nose function
+def draw_nose (x:float, y:float):
+    my_canvas.create_oval (x, y, x+20, y+20, fill='black')
+# draw_mouth function
+def draw_mouth (x:float, y:float):
+    my_canvas.create_oval (x,y,x+50,y+30, fill='pink')
+# draw_face function
+def draw_face (x:float, y:float):
+    draw_eye(x+100, y+60, 0)  # left eye
+    draw_eye(x+100, y+60, 140)    # right eye
+    draw_nose(x+210, y+145)
+    draw_mouth(x+185,y+185)
+    tkinter.mainloop()
+#
+draw_face (10,0)    # function testing
+</PRE>
+</PRE>
+</BODY>
+</HTML>

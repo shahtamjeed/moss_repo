@@ -1,0 +1,220 @@
+<HTML>
+<HEAD>
+<TITLE>moonsm/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+wtbui/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Warren Bui 27377640 Christian Poon 79555434. ICS 31 Lab Sec 4. Lab Asst 2
+
+#c
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  ', rate)
+print('Weekly salary:  ', hours * rate)
+
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour?'))
+print('This many dollars per hour:  $', rate)
+print('Weekly salary:  $', hours * rate)
+
+
+'''
+(i) In the first version, the answer to be inputted was on a separate line
+while in the second version, the answer to be inputted was on the same line.
+
+(ii) The second version requires fewer lines and is more compressed.
+'''
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match123-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+name = input('Hello. What is your name?')
+print('Hello, ', name)
+print('It\'s nice to meet you.')
+age = int(input('How old are you?'))
+print('Next year you will be', (age + 1))
+print('Good-bye!')
+
+#d
+krone_per_euro = 7.46
+krone_per_britishpound = 8.81
+krone_per_usd = 5.50
+
+name = input('What is your business name?')
+euros = int(input('Number of euros: '))
+</FONT>pounds = int(input('Number of pounds: '))
+dollars = int(input('Number of dollars: '))
+
+ekrone = euros * krone_per_euro
+pkrone = krone_per_britishpound * pounds
+dkrone = krone_per_usd * dollars
+
+print()
+print('Copenhagen Chamber of Commerce')
+print('Business name: ', name)
+print(euros, 'euros is ', ekrone, 'krone')
+print(pounds, 'pounds is ', pkrone, 'pounds')
+print(dollars, 'dollars is ', dkrone, 'dollars')
+
+print('Total krone: ', (ekrone+pkrone+dkrone))
+
+#e
+from collections import namedtuple
+
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+print(still_another.title)
+print(another.price)
+print((favorite.price + another.price + still_another.price) / 3)
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match123-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(favorite.year &lt; 1900)
+
+still_another = still_another._replace(price = 26.00)
+print('$', still_another.price)
+
+still_another = still_another._replace(price = still_another.price + (still_another.price * .2))
+</FONT><A NAME="2"></A><FONT color = #0000FF><A HREF="match123-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('$', still_another.price)
+
+#f
+Animal = namedtuple('Animal', 'name species age weight food')
+elephant = Animal('Jumbo', 'elephant', 50, 1000, 'peanuts')
+platypus = Animal('Perry', 'platypus', 7, 1.7, 'shrimp')
+
+print(elephant.weight &lt; platypus.weight)
+
+#g
+
+booklist = [favorite, another, still_another]
+</FONT>print(booklist[0].price &lt; booklist[1].price)
+print(booklist[0].year &gt; booklist[-1].year)
+
+#h
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print(RL[2].name)
+print(RL[0].cuisine == RL[3].cuisine)
+print(RL[-1].price)
+RL.sort()
+print(RL)
+print(RL[-1].dish)
+
+new_list = [RL[0], RL[1], RL[-2], RL[-1]]
+print(new_list)
+
+
+#i
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(100, 100, 300, 300, fill='orange') # Draw orange line
+my_canvas.create_line(300, 100, 100, 300, fill='blue')   # Draw blue line
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+#i.1
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(100, 100, 100, 300, fill='orange') # Draw orange line
+my_canvas.create_line(100, 100, 300, 100, fill='blue')   # Draw blue line
+my_canvas.create_line(300, 300, 100, 300, fill='orange') # Draw orange line
+my_canvas.create_line(300, 300, 300, 100, fill='blue')   # Draw blue line
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+#i.2
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+#                     x1   y1   x2   y2
+my_canvas.create_line(241, 100, 382, 241, fill='orange') # Draw orange line
+my_canvas.create_line(383, 241, 241, 382, fill='blue')   # Draw blue line
+my_canvas.create_line(241, 382, 100, 241, fill='red') # Draw red line
+my_canvas.create_line(100, 241, 241, 100, fill='green')   # Draw green line
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+#i.3
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(241, 100, 382, 241, fill='orange') # Draw orange line
+my_canvas.create_line(100, 241, 241, 100, fill='green')  # Draw green line
+my_canvas.create_line(100, 241, 382, 241, fill='blue')   # Draw blue line
+my_canvas.create_rectangle(150, 241, 332, 400, fill='red')# Draw red rectangle
+my_canvas.create_rectangle(200, 400, 250, 340, fill='brown') # Draw door
+my_canvas.create_oval(210, 370, 220, 380, fill='yellow')     # Draw doorknob
+my_canvas.create_rectangle(270, 350, 300, 380, fill='white') # Draw blue window
+my_canvas.create_line(285, 350, 285, 380, fill='black') # Draw black line
+my_canvas.create_line(270, 365, 300, 365, fill='black') # Draw black line
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+#i.4
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_oval(100, 300, 400, 200, fill='white') # Create main eye
+my_canvas.create_oval(200, 300, 300, 200, fill='brown') # Create iris
+my_canvas.create_oval(225, 225, 275, 275, fill='black') # Create pupil
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+
+#i.5
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_rectangle(100, 100, 300, 500, fill='black') # Create phone
+my_canvas.create_rectangle(110, 150, 290, 450, fill='white') # Create screen
+my_canvas.create_rectangle(175, 120, 225, 125, fill='gray') # Create speaker
+my_canvas.create_oval(180, 455, 220, 490, fill='gray') # Create button
+my_canvas.create_rectangle(190, 465, 210, 480, fill='gray') # Create square 
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

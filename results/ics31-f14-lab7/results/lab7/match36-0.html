@@ -1,0 +1,201 @@
+<HTML>
+<HEAD>
+<TITLE>biscochn/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+biscochn/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Noel Biscocho 10062289 and Luc Nguyen 30031868. ICS 31 Lab sec 4. Lab asst 7.
+
+from random import randrange
+
+#
+#
+# PART C
+#
+#
+
+print()
+print('----------Part C----------')
+print()
+
+#####OPENING THE FILES AND PLACING THE FILE INTO A LIST#####
+
+infile = open("surnames.txt", 'r')
+surnames = infile.readlines()
+infile.close
+
+infile = open("femalenames.txt", 'r')
+femaleNames = infile.readlines()
+infile.close
+
+infile = open("malenames.txt", 'r')
+maleNames = infile.readlines()
+infile.close
+
+infile = open('wordlist.txt', 'r')
+dictionary = infile.readlines()
+infile.close
+
+#####PLACING ONLY THE NAMES INTO A LIST, REMOVING PERCENT AND RANKING#####
+
+surnameList = []
+for i in surnames:
+    surnameList.append(i[0:i.find('\t')].title())
+
+femaleList = []
+for i in femaleNames:
+    femaleList.append(i[0:i.find('\t')].title())
+
+maleList = []
+for i in maleNames:
+    maleList.append(i[0:i.find('\t')].title())
+
+lowercaseDictionary = []
+for i in dictionary:
+    lowercaseDictionary.append(i[0:i.find('\n')].lower())
+lowercaseDictionary.append('you')
+    
+#####DEFINING FUNCTIONS#####
+    
+def randsurname():
+    '''Returns a random surname from the list of female names'''
+    N = randrange(1000)
+    return surnameList[N]
+
+def randfemale():
+    '''Returns a random female name fron the list of female names'''
+    N = randrange(1000)
+    return femaleList[N]
+
+def randmale():
+    '''Returns a random male name from the list of male names'''
+    N = randrange(1000)
+    return maleList[N]
+
+def random_name(x:int):
+    '''Returns a random name in the form of "LastName, Firstname".'''
+    for i in range(x):
+        gender = randrange(2)
+        if gender == 0:
+            print(randsurname()+',',randfemale())
+        elif gender == 1:
+            print(randsurname()+',',randmale())
+random_name(10)
+
+#
+#
+# PART D
+#
+#
+
+print()
+print('----------Part D----------')
+print()
+
+def Caesar_break(s:str):
+    '''Returns the decrypted string without the use of a key.'''
+    s = s.lower()
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    for k in range(26):
+        new = ''
+        for i in s:
+            if i in alphabet:
+                new = new+alphabet[(alphabet.find(i)+k)%26]
+            else:
+                new = new+i
+        if new[0:new.find(' ')] in lowercaseDictionary:
+            break
+    return new
+
+print('Partner 1: csy ampp pswi -&gt;', Caesar_break('csy ampp pswi'))
+
+#
+#
+# PART E
+#
+#
+
+print()
+print('----------Part E----------')
+print()
+
+def copy_file(s:str):
+    '''Copies the specified file into a new file. Different parameters have different effects on the copying process
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match36-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+       1. Inputting "line numbers" will copy the file and place line numbers at the start of each line
+       2. Inputting "Gutenberg trim" will copy the file while cutting out the housekeeping text at start and end
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match36-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+       3. Inputting "statistics" will copy the file and print out the statistics of the file at the end.'''
+    
+    if s == 'line numbers':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        lineNumber = 1
+        for line in infile:
+            outfile.write("{:5d}: ".format(lineNumber)+line)
+</FONT><A NAME="0"></A><FONT color = #FF0000><A HREF="match36-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_14.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            lineNumber += 1
+        infile.close()
+        outfile.close()
+    elif s == 'Gutenberg trim':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        result = []
+        for line in infile:
+            if line.startswith('*** START'):
+                result = []
+            if line.startswith('*** END'):
+                result.append(line)
+                break
+            result.append(line)
+        for i in result:
+            outfile.write(i)
+        infile.close()
+        outfile.close()
+    elif s == 'statistics':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+</FONT>        lineNumber = 0
+        emptylines = 0
+        number_of_characters = 0
+        for line in infile:
+            if line == '\n':
+                emptylines += 1
+            lineNumber += 1
+            for i in line:
+                number_of_characters += 1
+            outfile.write(line)
+        AverageCharPerLine = number_of_characters/lineNumber
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match36-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        AverageCharPerNone = number_of_characters/(lineNumber-emptylines)
+        outfile.write("\n{:5d}   ".format(lineNumber)+'lines in the file\n')
+        outfile.write("{:5d}   ".format((emptylines))+'empty line\n')
+        outfile.write("{:7.1f} ".format((AverageCharPerLine))+'average characters per line\n')
+        outfile.write("{:7.1f} ".format((AverageCharPerNone))+'average character per non-empty line\n')
+</FONT>        infile.close()
+        outfile.close()
+    else:
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

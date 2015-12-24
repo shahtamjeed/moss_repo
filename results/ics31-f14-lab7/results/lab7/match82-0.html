@@ -1,0 +1,252 @@
+<HTML>
+<HEAD>
+<TITLE>alvizoj/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+alvizoj/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab7.py
+#Joseph Alvizo 82474994 and Iqjot Singh 15548861. ICS 31 Lab sec 14. lab asst 7.
+
+from random import randrange
+
+#
+#
+#Part C
+#
+#
+print('----Part C----')
+
+#Part c.2
+
+def extractnames(x) -&gt; list:
+    "Opens a file and extracts only the names and puts them into a list"
+    infile = open(x, 'r')
+    data = infile.readlines()
+    infile.close()
+    NewList = []
+    for d in data:
+        NewList.append(d.split()[0].lower().capitalize())
+    return NewList
+
+#Part c.3
+print('Part c.3')
+Lastnames = extractnames('surnames.txt')
+Malenames = extractnames('malenames.txt')
+Femalenames = extractnames('femalenames.txt')
+def random_name() -&gt; str:
+    "Takes a list of surnames, female names, and male names, and generates a random name"
+    Name = ''
+    Name += Lastnames[randrange(len(Lastnames))] + ', '
+    gender = randrange(2)
+    if gender == 0:
+        Name += Femalenames[randrange(len(Femalenames))]
+    else:
+        Name += Malenames[randrange(len(Malenames))]
+    return Name
+
+print(random_name())
+    
+
+#Part C.1
+print('Part c.1')
+def random_names(x: int)-&gt; list:
+    Names = []
+    for i in range(x):
+        Names.append(random_name())
+    return Names
+
+print(random_names(25))
+print(random_names(2))
+
+#
+#
+#Part D
+#
+#
+
+print('----Part D----')
+Wordlist = extractnames('wordlist.txt')
+for word in range(len(Wordlist)):
+    Wordlist[word] = Wordlist[word].lower()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotated_alphabet(key: int) -&gt; str:
+    "Shift each letter of the alphabet by the key"
+    return ALPHABET[(key%26):] + ALPHABET[:(key%26)]
+assert rotated_alphabet(5) == 'fghijklmnopqrstuvwxyzabcde'
+assert rotated_alphabet(33) == 'hijklmnopqrstuvwxyzabcdefg'
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match82-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_encrypt(plaintext: str, key: int) -&gt; str:
+    "Use a Caesar cipher to encrypt plaintext with a key"
+    table = plaintext.maketrans(ALPHABET, rotated_alphabet(key))
+    return plaintext.lower().translate(table)
+assert Caesar_encrypt('Julius Caesar', 5) == 'ozqnzx hfjxfw'
+
+
+def Caesar_decrypt(ciphertext: str, key: int) -&gt; str:
+    "Decrypt a ciphertext using a Caesar decryption algorithm given the key"
+    table = ciphertext.maketrans(ALPHABET, rotated_alphabet(key))
+    return ciphertext.lower().translate(table)
+</FONT>
+a1 = rotated_alphabet(1)
+a2 = rotated_alphabet(2)
+a3 = rotated_alphabet(3)
+a4 = rotated_alphabet(4)
+a5 = rotated_alphabet(5)
+a6 = rotated_alphabet(6)
+a7 = rotated_alphabet(7)
+a8 = rotated_alphabet(8)
+a9 = rotated_alphabet(9)
+a10 = rotated_alphabet(10)
+a11 = rotated_alphabet(11)
+a12 = rotated_alphabet(12)
+a13 = rotated_alphabet(13)
+a14 = rotated_alphabet(14)
+a15 = rotated_alphabet(15)
+a16 = rotated_alphabet(16)
+a17 = rotated_alphabet(17)
+a18 = rotated_alphabet(18)
+a19 = rotated_alphabet(19)
+a20 = rotated_alphabet(20)
+a21 = rotated_alphabet(21)
+a22 = rotated_alphabet(22)
+a23 = rotated_alphabet(23)
+a24 = rotated_alphabet(24)
+a25 = rotated_alphabet(25)
+a26 = rotated_alphabet(26)
+
+Tables = [
+a1,
+a2,
+a3,
+a4,
+a5,
+a6,
+a7,
+a8,
+a9,
+a10,
+a11,
+a12,
+a13,
+a14,
+a15,
+a16,
+a17,
+a18,
+a19,
+a20,
+a21,
+a22,
+a23,
+a24,
+a25,
+a26 ]
+
+def Caesar_break(x: str) -&gt; str:
+    "Takes a ciphertext and returns the message in plaintext"
+    total = 0
+    maxnum = 0
+    decword = ''
+    for i in range(len(Tables)):
+        y = Caesar_decrypt(x, i)
+        z = y.split()
+        for t in range(len(z)):
+            total = 0
+            total += Wordlist.count(z[t])
+            if total &gt; maxnum:
+                maxnum = total
+                decword = y
+    return y
+        
+                
+print(Caesar_break('j mjlf bqqmft'))
+
+#
+#
+#Part E
+#
+#
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match82-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('----Part E----')
+
+
+def copy_file(x: str):
+    "Promts user to read and write files"
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+</FONT>    if x == 'line numbers':
+        text = infile.readlines()
+        for i in range(len(text)):
+            p = i + 1
+            outfile.write("{:5d}: {:}".format(p, text[i]))
+    elif x == 'Gutenberg trim':
+        text = infile.readlines()
+        s = text.index('*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n')
+        e = text.index('*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n')
+        for i in range(s + 1, e):
+            outfile.write(text[i])
+    elif x == 'statistics':
+        text = infile.readlines()
+        statistics(text)
+        
+    else:
+        for line in outfile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+def statistics(L: 'list of str'):
+    "Takes a list of strings and prints out the number of lines in the list, number of empty lines, average characters per line, and the average characters per non-empty line"
+    # find the number of lines in the list
+    num_lines = len(L)
+
+    # find the number of empty lines
+    num_empty_lines = 0
+    for i in L:
+        if i.strip() == '':
+            num_empty_lines +=1
+
+    # find the total characters of all lines
+    # find the total characters of all non-empty lines
+    total_char = 0
+    total_char_in_non_empty = 0
+    for i in L:
+        total_char += len(i)
+        if i.strip() != '':
+            total_char_in_non_empty += len(i)
+
+    # find the average characters per line
+    # find the average characters per non-empty line
+    # make sure program doesn't divide by 0 when finding averages
+    if num_lines == 0 or num_lines - num_empty_lines == 0:
+        avg_char = 0
+        avg_char_in_non_empty = 0
+    else:
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match82-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        avg_char = total_char / num_lines
+        avg_char_in_non_empty = total_char_in_non_empty / (num_lines - num_empty_lines)
+
+    print("{:5}   lines in the list".format(num_lines))
+    print("{:5}   empty lines".format(num_empty_lines))
+    print("{:7.1f} average characters per line".format(avg_char))
+    print("{:7.1f} average characters per non-empty line".format(avg_char_in_non_empty))
+</FONT>    print()
+
+#add these to a string and return them in the file
+copy_file('statistics')
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

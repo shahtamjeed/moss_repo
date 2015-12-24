@@ -1,0 +1,207 @@
+<HTML>
+<HEAD>
+<TITLE>luos5/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+luos5/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# RAN LI 42282457 & Sheng Luo 10772379.  ICS 31 Lab sec 4.  Lab asst 6.
+print()
+print('---------- Part (c1) ----------')
+print()
+def contains(n:str,m:str)-&gt;bool:
+    if n.find(m) == -1:
+        return False
+    else:
+        return True
+    
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+
+
+print()
+print('---------- Part (c2) ----------')
+print()
+fktcs = 'abcdefghijklmnopqrstuvwxyz '
+def sentence_stats(n:str)-&gt;str:
+    length = len(n)
+    x = []    
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match156-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    temps = ''
+    for i in n:
+        if i.lower() in fktcs:
+            temps += i
+    x = temps.split(' ')
+    for i in x:
+        if i == '':
+            x.remove(i)
+    words = len(x)
+</FONT>    for i in '!?., *:':
+        
+        n = n.replace(i,'')
+        
+    return 'Characters:' + str(length) + '\n' + 'Words:' + str(words) + '\n' + 'Average word length:' + str(len(n)/words)
+
+
+
+print()
+print('---------- Part (c3) ----------')
+print()
+def initials(n:str)-&gt;str:
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match156-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    k = []
+    k = n.split(' ')
+    p = ''
+    for i in k:
+        p += i[0]
+    return p.upper()
+assert initials('Bill Cosby') == 'BC'
+</FONT>assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+print()
+print('---------- Part (d1) ----------')
+print()
+from random import randrange
+print('from 1-10')
+for i in range(50):
+    
+    print(randrange(11))
+print('from 1-6')
+for i in range(50):
+   
+    print(randrange(1,7))
+
+print()
+print('---------- Part (d2) ----------')
+print()
+print('2dice')
+def roll2dice()-&gt;int:
+    return randrange(1,7) + randrange(1,7)
+for i in range(50):
+    print(roll2dice())
+   
+print()
+print('---------- Part (d3) ----------')
+print()
+def distribution_of_rolls(n:int)-&gt;str:
+    print('Distribution of dice rolls' + '\n')
+    k = []
+    for i in range(n):
+        k.append(roll2dice())
+    
+    for i in range(2,13):
+        print('{:2}:   {:2} ({:6.1f}%)  {}'.format(i, k.count(i), k.count(i)/n*100, '*'*k.count(i)))
+    print('-----------------------------')
+    print('    ',n, 'rolls')
+distribution_of_rolls(200)
+
+print()
+print('---------- Part (e1) ----------')
+print()
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def rotateAlphabet(n:str,m:int)-&gt;str:
+    if m &gt; 26:
+        m = m % 26
+    p = ''
+    p = n[m:] + n[:m]
+    
+    return p
+    
+assert rotateAlphabet(ALPHABET, 1) == 'bcdefghijklmnopqrstuvwxyza'
+def Caesar_encrypt(n:str,m:int)-&gt;str:
+    toTranslate = n.maketrans(ALPHABET,rotateAlphabet(ALPHABET,m))
+    
+    return n.translate(toTranslate)
+
+assert Caesar_encrypt('kenny',1) == 'lfooz'
+assert Caesar_encrypt('cat',1) == 'dbu'
+
+def Caesar_decrypt(n:str,m:int)-&gt;str:
+  
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match156-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    toTranslate = n.maketrans(rotateAlphabet(ALPHABET,m),ALPHABET)
+    return n.translate(toTranslate)
+plaintext = str(input('input a plaintext: '))
+key = int(input('input a key: '))
+print('\n','encrypted document: ')
+print(Caesar_encrypt(plaintext,key),'\n')
+print('decrypted document: ')
+print(Caesar_decrypt(Caesar_encrypt(plaintext,key),key))
+</FONT>
+print()
+print('---------- Part (e2) ----------')
+print()
+print('Already done by gmail')
+
+print()
+print('---------- Part (e3) ----------')
+print()
+print('Not already done in part e1')
+ALPHABET2 = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+print()
+print('---------- Part (f1) ----------')
+print()
+Gettysburg = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+def print_line_numbers(n:list)-&gt;str:
+    a = 1
+    for i in n:
+        print('{}:  {}'.format(a,i))
+        a = a + 1
+
+print_line_numbers(Gettysburg)
+
+print()
+print('---------- Part (f2) ----------')
+print()
+def characters_count(n:list)-&gt;int:
+    result = ''
+    for i in n:
+        for c in i:
+            if c in ALPHABET2:
+                result = result + c
+    return len(result)
+
+def stats(n:list)-&gt;str:
+    return '\n{:6.1f} {}\n{:6.1f} {}\n{:6.1f} {}\n{:6.1f} {}\n'.format(len(n),'lines in the list',n.count(''),'empty lines',characters_count(n)/len(n),'average characters per line',characters_count(n)/(len(n) - n.count('')),'average characters per non-empty line')
+print(stats(Gettysburg))
+
+print()
+print('---------- Part (f3) ----------')
+print()
+def list_of_words(n:list)-&gt;list:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match156-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    k = []
+    for i in n:
+        k.extend(i.split(' '))
+    while k.count('') != 0:
+        for i in k:
+            if i == '':
+                k.remove(i)
+    for i in range(len(k)):
+        k[i]=k[i].strip('.')
+        k[i]=k[i].strip(',')
+</FONT>        k[i]=k[i].strip('\t\t')
+    return k
+print(list_of_words(Gettysburg))
+    
+    
+    
+        
+    
+    
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

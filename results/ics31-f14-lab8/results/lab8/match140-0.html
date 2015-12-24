@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/kenth1/(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/kenth1/(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: BandBI.py
+#  Kent Han 23271274 and Adiel Flores 75947180.  ICS 31 Lab sec 7.  Lab asst 8.
+
+def bednb (i: str) -&gt;None:
+    bedlist = []
+    text = i.split('\n')
+    for i in range(len(text)):
+        text[i] = text[i].strip()
+        text[i] = text[i][0:2].upper() + text[i][2:]
+        if text[i][0:2] == 'PL':
+            print(text[i][2:].strip())
+        text[i] = text[i].replace(' ', '')
+        if text[i][0:2] == 'AB':
+            bedlist.append(text[i][2:])
+        elif text[i][0:2] == 'BL':
+            print('Number of bedrooms in service:  ', len(bedlist), 
+                  '\n------------------------------------')
+            for b in bedlist:
+                print(b)
+
+infile = open('bedandbreakfast.txt', 'r')
+content = infile.read()
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match140-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_45.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+bednb('''** This is a sample command file for the Anteater BandB, Stage I
+PL ***********************************************************
+PL Here is a list of available bedrooms (before adding any!)
+** A well-written program works gracefully with empty lists.
+BL
+PL ***********************************************************
+** Now let's add a bedroom:
+AB 101
+BL
+** And some more:
+AB 104
+** Extra blanks around the command should be ignored
+ab    102
+    AB 201
+    Ab      203
+ BL
+PL Thank you for using the Anteater BandB Reservation System!
+** That's the end of the sample data for Stage I.''')
+</FONT>
+# If input is saved as bedandbreakfast.txt in the same directory as this BandBI.py file,
+# use the following.
+
+'''
+infile = open('bedandbreakfast.txt', 'r')
+content = infile.read()
+
+bednb(content)
+
+'''
+</PRE>
+</PRE>
+</BODY>
+</HTML>

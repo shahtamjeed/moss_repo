@@ -1,0 +1,216 @@
+<HTML>
+<HEAD>
+<TITLE>bplihal/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+michadt1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab 7.py
+#  Michael Tran 24802426 and Vicky Nguyen  28891477.  ICS 31 Lab sec 7.  Lab asst 7.
+print('part(c)')
+print('-----------------------------------')
+#c.1,c.2,c.3
+file = open('surnames.txt','r')
+file2 = open('femalenames.txt','r')
+file3 = open('malenames.txt','r')
+surnames=file.read()
+femalenames=file2.read()
+malenames=file3.read()
+newlist=surnames.split()
+newlist2=femalenames.split()
+newlist3=malenames.split()
+surnames_list=[]
+femalenames_list=[]
+malenames_list=[]
+
+alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+for i in alphabet:
+    for x in newlist:
+        if i in x:
+            if x in surnames_list:
+                surnames_list.append('')
+                surnames_list.remove('')
+            else:
+                surnames_list.append(x)
+
+for i in alphabet:
+    for x in newlist2:
+        if i in x:
+            if x in femalenames_list:
+                femalenames_list.append('')
+                femalenames_list.remove('')
+            else:
+                femalenames_list.append(x)
+
+for i in alphabet:
+    for x in newlist3:
+        if i in x:
+            if x in malenames_list:
+                malenames_list.append('')
+                malenames_list.remove('')
+            else:
+                malenames_list.append(x)
+from random import randrange
+
+
+def random_names(num:int)-&gt;list:
+    '''Selects a random last name, and a boy/girl name and returns them as a
+    string'''
+    result=[]
+    for x in range (0,num):
+        firstname=''
+        BG=randrange(1,20)
+        if BG &lt; 10:
+            RNG2=randrange(1,len(femalenames_list))
+            firstname=femalenames_list[RNG2]
+        else:
+            RNG2=randrange(1,len(malenames_list))
+            firstname=malenames_list[RNG2]
+        RNG1=randrange(1,len(surnames_list))
+        lastname=surnames_list[RNG1]
+        newname=lastname+', '+firstname
+        result.append(newname)
+    return result
+print(random_names(5))
+print('-----------------------------------')
+print('part(d)')
+print('-----------------------------------')
+#d  
+file4 = open('wordlist.txt','r')
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+punctuation = ''',./?'";:!@#$%^&*'''
+
+def Caesar_break (x:str)-&gt; str:
+    "Decrypts a message"
+    infile = open('wordlist.txt', 'r')
+    wordlist = infile.read().lower().split()
+    infile.close()
+    
+    
+    key = []
+    for i in range(1, 27):
+        key.append(i)
+    messages=[]
+    for y in key:
+        if(y&gt;26):
+            y -= 26
+        ALPHABET="abcdefghijklmnopqrstuvwxyz"
+        shift_alpha = ALPHABET[y:] + ALPHABET[:y]
+        table = str.maketrans(shift_alpha,ALPHABET)
+        message = x.lower().translate(table)
+        messages.append(message)
+    count_list = []
+    for x in messages:
+       count=0
+       x = x.split()
+       for i in x:
+           if i in wordlist:
+               count+=1
+       count_list.append(count)
+    i = count_list.index(max(count_list))
+    return messages[i]
+
+    
+
+print(Caesar_break("ifmmp eph ipx bsf zpv?"))
+
+
+print('-----------------------------------')
+print('part(e)')
+print('-----------------------------------')
+#e.1, e.2, e.3, e.4
+def print_line_numbers(wordlist: list)-&gt;str:
+    '''Takes in a list of strings and returns the same
+    list with line numbers in the front'''
+    result=''
+    for i in range(len(wordlist)):
+        result+=("{:2}:  {:}".format(str(i+1), wordlist[i]))
+    return result
+
+def stats(wordlist: list)-&gt;str:
+    '''Takes a list of strings and returns a string with
+    stats about the list'''
+    result=''
+    length = len(wordlist)
+    empty = 0
+    total = 0
+    non_empty_total = 0
+    for i in wordlist:
+        if " " in i:
+            empty += 1
+            total += 1
+        total += len(i)
+        non_empty_total += len(i)
+    result+=("{:6} {:}".format((length),"lines in the list"))+'\n'
+    result+=("{:6} {:}".format((empty), "empty lines"))+'\n'
+    result+=("{:6.1f} {:}".format((total/length), "average characters per line")+'\n')
+    result+=("{:6.1f} {:}".format((non_empty_total), "average characters per non-empty line"))+'\n'
+    return result
+
+
+def copy_file(s1:str)-&gt;None:
+    '''makes a copy of a file based on the parameter passed in'''
+    if 'line numbers' in s1:
+        listing=[]
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            listing.append(line)
+        outfile.write(print_line_numbers(listing))
+        infile.close()
+        outfile.close()
+    elif 'Gutenberg trim' in s1:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match212-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        listing=[]
+        x=0
+        y=0
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            listing.append(line)
+            for i in listing:
+</FONT>                if  "*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***" in i:
+                    x = listing.index(i)
+            for i in listing:
+                if  "*** END" in i:
+                    y = listing.index(i)
+        l=listing[x:y+1]
+        for line in l:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+    elif 'statisticss' in s1:
+        listing=[]
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            listing.append(line)
+            outfile.write(line)
+        outfile.write(stats(listing))
+        infile.close()
+        outfile.close()
+    else:
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match212-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+copy_file('line numbers')
+copy_file('statisticss')
+copy_file('Gutenberg trim')
+</FONT></PRE>
+</PRE>
+</BODY>
+</HTML>

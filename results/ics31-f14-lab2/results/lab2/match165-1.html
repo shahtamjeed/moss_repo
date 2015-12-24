@@ -1,0 +1,151 @@
+<HTML>
+<HEAD>
+<TITLE>hkasraei/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+vdlai/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+#  Joshua Huie ID#92078021 and Victoria Lai ID#49451704 ICS 31 Lab sec 8  Lab Asst 2.
+
+#Part C
+hours = int(input('How many hours? '))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour? $'))
+print('This many dollars per hour: $', rate)
+print('Weekly salary: $', hours * rate)
+
+name = input('What is your name? ')
+print('Hello ',name)
+print('It\'s nice to meet you.')
+age = int(input('How old are you? '))
+print('Next year you will be',age+1,'years old.')
+print('Good-bye!')
+
+# Part D
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND = 8.81
+KRONE_PER_DOLLARS = 5.50
+print('Please provide this information:')
+business = input('Business name: ')
+euros = float(input('Number of euros: '))
+pounds = float(input('Number of pounds: '))
+dollars = float(input('Number of dollars: '))
+math = (euros * KRONE_PER_EURO) + (pounds * KRONE_PER_POUND) + (dollars * KRONE_PER_DOLLARS)
+print('Copenhagen Chamber of Commerce')
+print('Business name:', business)
+print(euros,'euros is', euros * KRONE_PER_EURO,'krone')
+print(pounds,'pounds is',pounds * KRONE_PER_POUND,'krone')
+print(dollars,'dollars is',dollars * KRONE_PER_DOLLARS,'krone')
+
+print('Total krone:', math)
+
+# Part E
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+print('Title:',still_another.title)
+print('Price:',another.price)
+print((favorite.price + another.price + still_another.price)/3)
+print(bool(favorite.year &lt; 1900))
+replace_price_return = still_another._replace(price = 26.00)
+replace_price_percent = still_another._replace(price = 26.00 * 1.20)
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match165-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+booklist = [favorite, another, still_another] # Part G
+print(bool(booklist[0].price &lt; booklist[1].price))
+print(bool(booklist[0].year &gt; booklist[-1].year))
+
+# Part F
+animal = namedtuple('animal', 'name species age weight food')
+i = animal('Jumbo', 'elephant', '50', '1000', 'Peanuts')
+</FONT>ii = animal('Perry', 'platypus', '7', '1.7', 'Shrimp')
+print(bool(i[3] &lt; ii[3]))
+
+# Part H
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match165-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+print(RL[2].name)
+print(bool(RL[0].cuisine == RL[3].dish))
+print(RL[-1].price)
+RL.sort() # alphabetize
+</FONT>print(RL)
+new_list = [RL[0], RL[1]]
+new_list1 = [RL[-1], RL[-2]]
+new_list.extend(new_list1)
+print(new_list)
+
+# Part I
+import tkinter              # Load the library; do this just once per program
+
+import math                 # Load math functions for sqrt later
+
+# square
+my_window = tkinter.Tk()
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas.pack()
+
+my_canvas.create_line(100, 100, 100, 300, fill='orange')
+my_canvas.create_line(100, 300, 300, 300, fill='blue')
+my_canvas.create_line(300, 300, 300, 100, fill='purple')
+my_canvas.create_line(300, 100, 100, 100, fill='green')
+
+# diamond
+my_window1 = tkinter.Tk()
+
+my_canvas1 = tkinter.Canvas(my_window1, width=500, height=500)
+my_canvas1.pack()
+
+my_canvas1.create_line(200, 200, 200-(100*math.sqrt(2)), 200+(100*math.sqrt(2)), fill='orange')
+my_canvas1.create_line(200-(100*math.sqrt(2)), 200+(100*math.sqrt(2)), 200, 200+(2*(100*math.sqrt(2))), fill='blue')
+my_canvas1.create_line(200, 200+(2*(100*math.sqrt(2))), 200+(100*math.sqrt(2)), 200+(100*math.sqrt(2)), fill='purple')
+my_canvas1.create_line(200+(100*math.sqrt(2)), 200+(100*math.sqrt(2)), 200, 200, fill='green')
+
+# house
+my_window2 = tkinter.Tk()
+
+my_canvas2 = tkinter.Canvas(my_window2, width=500, height=500)
+my_canvas2.pack()
+
+my_canvas2.create_rectangle(100, 250, 400, 450, outline='purple') # house base
+my_canvas2.create_polygon(100, 250, 250, 100, 400, 250, fill='', outline='red') # roof
+my_canvas2.create_rectangle(220, 350, 280, 450, outline='yellow') # door
+my_canvas2.create_oval(265, 400, 275, 410, outline='blue') # doorknob
+my_canvas2.create_rectangle(137.5, 287.5, 220, 340) # left window
+my_canvas2.create_line(137.5, 313.75, 220, 313.75) # left horizontal window line
+my_canvas2.create_line(178.75, 287.5, 178.75, 340) # left vertical window line
+my_canvas2.create_rectangle(280, 287.5, 362.5, 340) # right window
+my_canvas2.create_line(280, 313.75, 362.5, 313.75) # right horizontal window line
+my_canvas2.create_line(321.25, 287.5, 321.25, 340) # right vertical window line
+
+#eye
+my_window3=tkinter.Tk()
+
+my_canvas3=tkinter.Canvas(my_window3,width=500,height=500)
+my_canvas3.pack()
+
+my_canvas3.create_oval(100,100,400,250, fill='white') # scalera
+my_canvas3.create_oval(170,100,320,250,fill='light green') # iris
+my_canvas3.create_oval(205,135,285,220,fill='black') # pupil
+
+tkinter.mainloop()          # Combine all the elements and display the window
+</PRE>
+</PRE>
+</BODY>
+</HTML>

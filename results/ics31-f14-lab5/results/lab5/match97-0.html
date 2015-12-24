@@ -1,0 +1,272 @@
+<HTML>
+<HEAD>
+<TITLE>isilva1/(c,e,g,h)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+isilva1/(c,e,g,h)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab5 (1).py
+# Isabel Silva 35084189 and Sreeja Sthothra Bhashyam 25185345
+print('-------------(Part C)-----------')
+print('--------------(C.1)-------------')
+#C.1
+from collections import namedtuple
+Dish = namedtuple('Dish', 'name price calories')
+d1 = Dish('Pizza', 5.00, 300)
+d2 = Dish('Pizza', 5.00, 300)
+d3 = Dish('Pizza', 10.00, 300)
+d4 = Dish('Pasta', 8.00, 300)
+print()
+print('----------(C.2)----------------')
+#C.2
+def Dish_str(dsh: Dish) -&gt; str:
+    return print(dsh.name, '($', dsh.price, '): ', dsh.calories, 'cal')
+Dish_str(d1)
+print()
+print('-------------(C.3)-------------')
+#C.3
+def Dish_same(dsh1: Dish, dsh2: Dish) -&gt; bool:
+    return(dsh1.name==dsh2.name) and (dsh1.calories==dsh2.calories)
+assert(Dish_same(d1,d2)) == True
+assert(Dish_same(d1,d3)) == True
+assert(Dish_same(d1,d4)) == False
+print()
+print('------------(C.4)--------------')
+#C.4
+def Dish_change_price(ds: Dish, n: float) -&gt; Dish:
+    newprice = ((n/100)*ds.price)+ds.price
+    return ds._replace(price=newprice)
+print(Dish_change_price(d3, -50))
+print()
+print('----------(C.5)----------------')
+#C.5
+def Dish_is_cheap(ds1: Dish, num: float) -&gt; bool:
+    return ds1.price &lt; num
+assert(Dish_is_cheap(d1, 2)) == False
+print()
+print('-----------(C.6)---------------')
+#C.6
+DL = [
+    Dish('Sushi', 5.00, 400),
+    Dish('Ice Cream', 4.00, 500),
+    Dish('Spaghetti', 9.00, 1000),
+    Dish('Taco', 5.00, 500),
+    Dish('Sandwich', 7.00, 800)
+    ]
+
+DL2 = [
+    Dish('French fries', 4.00, 1000),
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match97-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Dish('Onion rings', 4.00, 800),
+    Dish('Chicken alfredo', 9.00, 1200),
+    Dish('Tortas', 4.00, 500),
+    ]
+
+DL3 = DL
+DL.extend(DL2)
+print(DL3)
+</FONT>
+print()
+
+def Dishlist_display(dlist:list) -&gt; str:
+    for x in range(len(dlist)):
+        print(dlist[x], '\n')
+Dishlist_display(DL3)
+print()
+print('----------(C.7)---------')
+def Dishlist_all_cheap(dshs: list, n: float) -&gt; bool:
+    for x in dshs:
+        return Dish_is_cheap(x, n)
+
+assert(Dishlist_all_cheap(DL3, 5.00)) == False
+print()
+print('----------(C.8)---------')
+
+#C.8
+'''
+def Dishlist_change_price(d: list, pc: float)-&gt; list:
+    newL= list()
+    for x in d:
+        new = (pc/100)*x.price + x.price
+        x = x._replace(price=new)
+        newL.extend(x)
+    return (newL)
+print(Dishlist_change_price(DL3, 20))
+print('\n')
+'''
+def Dishlist_change_price(d: list, pc: float)-&gt; list:
+    newL= list()
+    for x in d:
+        new = (pc/100)*x.price + x.price
+        x = x._replace(price=new)
+        newL.append(x)
+    return (newL)
+print(Dishlist_change_price(DL3, 20))
+
+print()
+print('----------(C.9)----------')
+#C.9
+def Dishlist_prices(dshes: list) -&gt; list:
+    priceslist = []
+    for x in dshes:
+        priceslist.append(x.price)
+    return priceslist
+print(Dishlist_prices(DL3))
+print()
+print('-----------(C.10)---------')
+#C.10
+def Dishlist_average(Dishes: list) -&gt; list:
+    totalsum = sum(Dishlist_prices(Dishes))
+    avgprice=(totalsum)/len(Dishes)
+    return avgprice
+print(Dishlist_average(DL3))
+print()
+print('-----------(C.11)---------')
+def Dishlist_keep_cheap(a: DL3, num: float)-&gt; list:
+    empty = []
+    for i in a:
+        if i.price &lt; num:
+            empty.append(i)
+    return (empty)
+print(Dishlist_keep_cheap(DL3, 8))
+print()
+print('----------(C.12)----------')
+
+DL4 =[
+    Dish('Frijoles', 6, 550),
+    Dish('Ham', 2, 98),
+    Dish('Hamburgers', 10, 700),
+    Dish('Enchiladas', 6, 500),
+    Dish('Salad', 7, 150),
+    Dish('Cerael', 1, 250),
+    Dish('Smashed Potato', 5, 400),
+    Dish('Fried Chicken', 9, 600),
+    Dish('Avacado', 3, 300),
+    Dish('Pork', 5, 700),
+    Dish('Carne Asada', 6, 400),
+    Dish('Carne Asada Fries', 8, 600),
+    Dish('Posole', 10, 650),
+    Dish('Fries', 2, 500),
+    Dish('Chicken', 5, 200),
+    Dish('Chicken Salad', 7, 300),
+    Dish('Alfredo Pasta', 21, 500),
+    Dish('Shrimp', 4, 200),    
+    Dish('Pasta Shrimp', 7, 400),     
+    Dish('Ravioli', 9, 300),
+    Dish('Rataoutile',10, 300),
+    Dish('Strawberry Flan',12, 450),
+    Dish('Lobster', 14, 300),
+    Dish('Wings', 12, 500),
+    Dish('Ribs', 11, 400)]
+
+def before_and_after():
+    Dishlist_display(DL4)
+    percentage_change = float(input('Enter the number representing a percentage change in prices:'))
+    CP = []
+    CP = Dishlist_change_price(DL4, percentage_change)
+    Dishlist_display(CP)
+    
+before_and_after()
+print()
+print('--------(PartE)----------')
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone menu')
+Dish = namedtuple('Dish', 'name price calories')
+r1 = Restaurant('Thai Dishes', 'Thai', '334-4433', [Dish('Mee Krob', 12.50, 500), Dish('Larb Gai', 11.00, 450)])
+r2 = Restaurant('Taillevent', 'French', '01-44-95-15-01', [Dish('Homard Bleu', 45.00, 750), Dish('Tournedos Rossini', 65.00, 950), Dish("Selle d'Agneau", 60.00, 850)])
+
+print('--------(e.1)-----------')
+
+r3= Restaurant('Pascal', 'French', '940-752-0107',
+                       [Dish('Escargots', 12.95, 250),
+                        Dish('Salmon', 18.50, 550),
+                        Dish('Lamb', 2400, 850),
+                        Dish('Marjolaine Cake', 8.50, 950)])
+
+print()
+print('----------(e.2)---------')
+
+def Restaurant_first_dish_name(r: Restaurant) -&gt; str:
+    return r.menu[0].name
+        
+assert Restaurant_first_dish_name(r1) == 'Mee Krob'
+assert Restaurant_first_dish_name(r2) == 'Homard Bleu'
+assert Restaurant_first_dish_name(r3) == 'Escargots'
+
+print()
+print('--------(e.3)----------')
+
+def Restaurant_is_cheap(r: Restaurant, n: float) -&gt; bool:
+    totalsum = sum(Dishlist_prices(r.menu))
+    avgprice=(totalsum)/len(r.menu)
+    return (avgprice&gt;=n)
+
+def Dishlist_prices(dshes: list) -&gt; list:
+    priceslist = []
+    for x in dshes:
+        priceslist.append(x.price)
+    return priceslist
+
+print(Restaurant_is_cheap(r1, 13.00))
+print()
+print('-------(e.4)----------')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match97-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_13.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+c = [r1, r2, r3]
+def Menu_raise_prices(men: list, prc: float) -&gt; list:
+    for x in range(len(men)):
+        men[x] = men[x]._replace(price=men[x].price+prc)
+    return men
+print(Menu_raise_prices(c[0].menu, 2.50))
+def Collection_raise_prices(wholecollection: list, prc: float) -&gt; list:
+    RaisedCollection = []
+    for y in range(len(wholecollection)):
+        k = Menu_raise_prices(wholecollection[y].menu, prc)
+        wholecollection[y]._replace(menu = k)
+        RaisedCollection.append(wholecollection[y])
+    return RaisedCollection
+print(Collection_raise_prices(c, 2.50))
+#(e.5)
+print()
+print('-----(e.5)-----')
+print()
+def Collection_select_cheap(Cllction: list, num: float) -&gt; list:
+    lstcheap = []
+    for x in Cllction:
+        if Restaurant_is_cheap(x, num) == True:
+            lstcheap.append(x)
+    return lstcheap
+print(Collection_select_cheap(c, 25))
+</FONT>print()
+print(Collection_select_cheap(c, 10))
+print('--------(G)----------')
+
+def letter_count(st1, st2: str) -&gt; list:
+    '''Takes in letters to look for, and returns
+    the number of times these letters occur in given message
+    assert letter_count('apples', 'pe') == [Count(letter='p', number=2),
+    Count(letter='e', number=1)]'''
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match97-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    from collections import namedtuple
+    Count = namedtuple('Count', 'letter number')
+    C = []
+    for x in st2:
+        total=0
+        for y in st1:
+            if x==y: 
+</FONT>                total+=1
+        C.append(Count(x, total))
+    return C
+print(letter_count('chocolate', 'oce'))
+
+
+
+
+      
+</PRE>
+</PRE>
+</BODY>
+</HTML>

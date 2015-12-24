@@ -1,0 +1,326 @@
+<HTML>
+<HEAD>
+<TITLE>binhnn1/(g)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+clpachec/(g)/<p><PRE>
+&gt;&gt;&gt;&gt; file: restaurantsg.py
+__author__ = 'dgk'
+
+# RESTAURANT COLLECTION PROGRAM
+# ICS 31, UCI, David G. Kay, Fall 2012
+
+# Implement Restaurant as a namedtuple, collection as a list
+
+##### MAIN PROGRAM (CONTROLLER)
+
+def restaurants():  # nothing -&gt; interaction
+    """ Main program
+    """
+    print("Welcome to the restaurants program!")
+    our_rests = Collection_new()
+    our_rests = handle_commands(our_rests)
+    print("\nThank you.  Good-bye.")
+
+MENU = """
+Restaurant Collection Program --- Choose one
+ n:  Add a new restaurant to the collection
+ r:  Remove a restaurant from the collection
+ e:  Remove (erase) all the restaurants from the collection
+ s:  Search the collection for selected restaurants
+ u:  Search the collection for selected cuisine
+ d:  Search the collection for selected dish
+ c:  Change prices for the dishes served
+ a:  Find all restaurants that are cheaper
+ p:  Print all the restaurants
+ q:  Quit
+"""
+
+def handle_commands(C: list) -&gt; list:
+    """ Display menu, accept and process commands.
+    """
+    while True:
+        response = input(MENU)
+        if response=="q":
+            return C
+        elif response=='n':
+            r = Restaurant_get_info()
+            C = Collection_add(C, r)
+        elif response=='r':
+            n = input("Please enter the name of the restaurant to remove:  ")
+            C = Collection_remove_by_name(C, n)
+        elif response=='e':
+            C = []
+        elif response=='c':
+            n = float(input("Please enter a number to change the prices of the collection:  "))
+            C = Collection_change_price(C, n)
+        elif response=='a':
+            n = float(input("Please enter a number to compare to the average price of each restaurant:  "))
+            print(Collection_str(Collection_select_cheap(C, n)))
+        elif response=='p':
+            print(Collection_str(C))
+        elif response=='s':
+            n = input("Please enter the name of the restaurant to search for:  ")
+            for r in Collection_search_by_name(C, n):
+                print(Restaurant_str(r))
+        elif response=='u':
+            n = input("Please enter the cuisine of the restaurant to search for:  ")
+            for r in Collection_search_cuisine(C, n):
+                print(Restaurant_str(r))
+        elif response=='d':
+            n = input("Please enter the dish of the restaurant to search for:  ")
+            for r in Collection_search_dish(C, n):
+                print(Restaurant_str(r))
+        else:
+            invalid_command(response)
+
+def invalid_command(response):  # string -&gt; interaction
+    """ Print message for invalid menu command.
+    """
+    print("Sorry; '" + response + "' isn't a valid command.  Please try again.")
+
+##### Dish
+from collections import namedtuple
+Dish = namedtuple('Dish', 'name price calories')
+d1 = Dish('Hamburger', 3.25, 400)
+d2 = Dish('Pizza', 8.50, 800)
+d3 = Dish('Ice Cream', 1.25, 325)
+d4 = Dish('French Fries', 2.25, 290)
+d5 = Dish('Gummy Bears', 1.00, 200)
+d6 = Dish('Cheese', 5.00, 400)
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match214-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+d7 = Dish('Chicken', 10.25, 800)
+d8 = Dish('Steak', 12.25, 465)
+d9 = Dish('Lobster', 25.00, 700)
+
+def Dish_str(D:Dish) -&gt; str:
+    "returns a string in this form: name ($price): calories cal"
+</FONT>    return '%s ($%s): %s cal' %(D.name, D.price, D.calories)
+assert Dish_str(d1) == 'Hamburger ($3.25): 400 cal'
+assert Dish_str(d2) == 'Pizza ($8.5): 800 cal'
+
+def Dish_get_info() -&gt; Dish:
+    """ Prompt user for fields of Dish; create and return.
+    """
+    return Dish(
+        input("Please enter the Dish's name:  "),
+        float(input("Please enter the Dish price:  ")),
+        float(input("Please enter the Dish's calories:  ")))
+
+def Dish_change_price(D: Dish, num: float) -&gt; Dish:
+    '''returns Dish that's the same as the parameter except that its price
+    is change by the given percentage'''
+    result = D._replace(price = D.price + (D.price * num/100))
+    return (result)
+assert Dish_change_price(d1, 50) == Dish('Hamburger', 3.25 * 1.50, 400)
+assert Dish_change_price(d2, 100) == Dish('Pizza', 8.50 * 2, 800)
+
+##### Menu
+testMenu = [d1, d2, d3]
+
+def Menu_str(M:'list of Dish') -&gt; str:
+    "returns a string in this form,: name ($price): calories cal"
+    result = ''
+    for i in M:
+        result += (Dish_str(i) + '\n')
+    return result
+assert Menu_str(testMenu) == Dish_str(d1) + '\n' + Dish_str(d2) + '\n' + Dish_str(d3) + '\n'
+
+def Menu_enter() -&gt; 'list of Dish':
+    "Repeatedly ask user if they want to create dishes, then returns the list of dishes created"
+    menu = []
+    while True:
+        response = input("Do you want to create another dish? (Y/N): ")
+        if response == 'Y':
+            menu.append(Dish_get_info())
+        elif response == 'N':
+            return menu
+        else:
+            invalid_command(response)
+
+def Dishlist_change_price(listDish: list, num: float) -&gt; list:
+    "returns a list of Dish with each price changed by given percentage"
+    newlist = []
+    for i in listDish:
+        newlist.append(Dish_change_price(i, num))
+    return newlist
+assert Dishlist_change_price(testMenu, 100) == [Dish_change_price(d1, 100), Dish_change_price(d2, 100), Dish_change_price(d3, 100)]
+assert Dishlist_change_price(testMenu, 50) == [Dish_change_price(d1, 50), Dish_change_price(d2, 50), Dish_change_price(d3, 50)]
+
+def Dishlist_prices(listDish: list) -&gt; list:
+    "returns a list of numbers containing the prices on the given list"
+    newlist = []
+    for i in listDish:
+        newlist.append(i.price)
+    return newlist
+assert Dishlist_prices(testMenu) == [3.25, 8.50, 1.25]
+
+def Dishlist_average(listDish: list) -&gt; float:
+    "returns the average price of the given list of Dish"
+    return sum(Dishlist_prices(listDish)) / len(listDish)
+assert Dishlist_average(testMenu) == (3.25 + 8.50 + 1.25) / 3
+
+def Menu_average_calories(listDish: list) -&gt; float:
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match214-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    "returns the average calories of the given list of Dish"
+    total = 0
+    for i in listDish:
+        total += i.calories
+    return total/len(listDish)
+
+def Menu_search_dish(listDish: list, dish:str) -&gt; bool:
+</FONT>    "Returns True if the menu contains the given dish"
+    for i in listDish:
+        if (dish.lower() in i.name.lower()):
+            return True
+    return False
+assert Menu_search_dish(testMenu, 'Cream')
+assert not Menu_search_dish(testMenu, 'Steak')
+
+
+##### Restaurant
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match214-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone menu')
+
+r1 = Restaurant('Thai Dishes', 'Thai', '334-4433', [Dish('Mee Krob', 12.50, 500),
+                                                    Dish('Larb Gai', 11.00, 450)])
+r2 = Restaurant('Taillevent', 'French', '01-44-95-15-01', 
+				[Dish('Homard Bleu', 45.00, 750),
+				 Dish('Tournedos Rossini', 65.00, 950),
+				 Dish("Selle d'Agneau", 60.00, 850)])
+r3 = Restaurant('Pascal', 'French', '940-752-0107', 
+				[Dish('Escargots', 12.95, 250),
+				 Dish('Poached Salmon', 18.50, 550),
+				 Dish("Rack of Lamb", 24.00, 850),
+</FONT>				 Dish("Marjolaine Cake", 8.50, 950)])
+
+def Restaurant_str(self: Restaurant) -&gt; str:
+    return (
+        "Name:     " + self.name + "\n" +
+        "Cuisine:  " + self.cuisine + "\n" +
+        "Phone:    " + self.phone + "\n" +
+        "Menu:     " + "\n" +
+        Menu_str(self.menu) +
+        "Average price:  $" + str(Dishlist_average(self.menu)) + ".   " +
+        "Average calories:  " + str(Menu_average_calories(self.menu)) + "\n\n"        
+        )
+
+def Restaurant_get_info() -&gt; Restaurant:
+    """ Prompt user for fields of Restaurant; create and return.
+    """
+    return Restaurant(
+        input("Please enter the restaurant's name:  "),
+        input("Please enter the kind of food served:  "),
+        input("Please enter the phone number:  "),
+        Menu_enter())
+
+def Restaurant_change_price(R:Restaurant, num: float) -&gt; Restaurant:
+    "returns a Restaurant that changes all the dish in the menu by the given number percentage."
+    return R._replace(menu = Dishlist_change_price(R.menu, num))
+assert Restaurant_change_price(r1, 100) == Restaurant('Thai Dishes', 'Thai', '334-4433', Dishlist_change_price(r1.menu, 100))
+assert Restaurant_change_price(r1, 50) == Restaurant('Thai Dishes', 'Thai', '334-4433', Dishlist_change_price(r1.menu, 50))
+
+def Restaurant_is_cheap(R:Restaurant, num:float) -&gt; bool:
+    "return True if the average price of the Restaurant's menu is less than or equal to the given number"
+    if R.menu == []:
+        return 0 &lt;= num
+    return Dishlist_average(R.menu) &lt;= num
+assert Restaurant_is_cheap(r1, 50)
+assert not Restaurant_is_cheap(r1, 5)
+
+#### COLLECTION
+# A collection is a list of restaurants
+CL = [r1, r2, r3]
+
+def Collection_new() -&gt; list:
+    ''' Return a new, empty collection
+    '''
+    return [ ]
+
+def Collection_str(C: list) -&gt; str:
+    ''' Return a string representing the collection
+    '''
+    s = ""
+    for r in C:
+        s = s + Restaurant_str(r)
+    return s
+assert Collection_str(CL) == Restaurant_str(r1) + Restaurant_str(r2) + Restaurant_str(r3)
+
+def Collection_search_by_name(C: list, name: str) -&gt; list:
+    """ Return list of Restaurants in input list whose name matches input string.
+    """
+    result = [ ]
+    for r in C:
+        if r.name == name:
+            result.append(r)
+    return result
+    # alternative (using a list comprehension):
+    # return [r for r in C if r.name == name]
+assert Collection_search_by_name(CL, 'Thai Dishes') == [r1]
+
+def Collection_search_cuisine(C: list, cuisine: str) -&gt; list:
+    "returns the list of restaurants that serve the specified cuisine"
+    result = [ ]
+    for r in C:
+        if r.cuisine == cuisine:
+            result.append(r)
+    return result
+
+def Collection_search_dish(C: list, dish: str) -&gt; list:
+    "returns the list of restaurants that serve the specified cuisine"
+    result = [ ]
+    for r in C:
+        if Menu_search_dish(r.menu, dish):
+            result.append(r)
+    return result
+
+def Collection_add(C: list, R: Restaurant) -&gt; list:
+    """ Return list of Restaurants with input Restaurant added at end.
+    """
+    C.append(R)
+    return C
+assert Collection_add([], r1) == [r1]
+assert Collection_add([r1], r2) == [r1, r2]
+
+def Collection_remove_by_name(C: list, name: str) -&gt; list:
+    """ Given name, remove all Restaurants with that name from collection.
+    """
+    result = [ ]
+    for r in C:
+        if r.name != name:
+            result.append(r)
+    return result
+    #    Alternative:
+    #    return [r for r in self.rests if r.name != name]
+assert Collection_remove_by_name(CL, 'Taillevent') == [r1, r3]
+
+def Collection_change_price(C: list, num: float) -&gt; list:
+    "returns Collection with each price changed by given percentage"
+    newlist = []
+    for i in C:
+        newlist.append(Restaurant_change_price(i, num))
+    return newlist
+assert Collection_change_price(CL, 100) == [Restaurant_change_price(r1, 100), Restaurant_change_price(r2, 100), Restaurant_change_price(r3, 100)]
+assert Collection_change_price(CL, 50) == [Restaurant_change_price(r1, 50), Restaurant_change_price(r2, 50), Restaurant_change_price(r3, 50)]
+
+def Collection_select_cheap(C:'list of Restaurant', num:float) -&gt; 'list of Restaurants':
+    "return a list of Restaurant that the average price of the menu are less or equal to the given number"
+    result = []
+    for i in C:
+        if Restaurant_is_cheap(i, num):
+            result.append(i)
+    return result
+assert Collection_select_cheap(CL, 12) == [r1]
+assert Collection_select_cheap(CL, 100) == [r1, r2, r3]
+
+Restaurant_str(r3)
+restaurants()
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

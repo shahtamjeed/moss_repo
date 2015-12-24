@@ -1,0 +1,194 @@
+<HTML>
+<HEAD>
+<TITLE>kvongpas/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kvongpas/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Jacob Washburn 72471539 and Katie Vongpasert 87454947.  ICS 31 Lab sec 7.  Lab asst 7.
+
+#
+#
+# Part (c)
+#
+#
+
+print()  
+print()
+print('---------- Part (c) ----------')
+print()
+#(c.1)
+
+from random import randrange
+
+infile=open("femalenames.txt", 'r')
+f=infile.read()
+infile.close()
+
+infile=open("malenames.txt", 'r')
+m=infile.read()
+infile.close()
+
+infile=open("surnames.txt", 'r')
+s=infile.read()
+infile.close()
+
+def choose_random_name(n: str) -&gt; str:
+    '''Takes the given list of names and returns a random name from within
+    '''
+    nameList = n.split('\n')
+    names = []
+    for i in nameList:
+        subList = i.split('\t')
+        names.append(subList[0])
+    number = randrange(len(names))
+    return names[number]
+
+def random_names(x:int)-&gt;list:
+    """takes an integer and returns a list of that many strings, with each
+    string a randomly generated name"""
+    result=[]
+    for i in range(x):
+        maleorfemale = randrange(2)
+        if  maleorfemale == 1:
+            x = m
+        else:
+            x = f
+        fullname=choose_random_name(s)+', '+choose_random_name(x)
+        result.append(fullname)
+    return result
+print(random_names(20))
+
+#
+#
+# Part (d)
+#
+#
+
+print()  
+print()
+print('---------- Part (d) ----------')
+print()
+#(d.1)
+
+infile=open("wordlist.txt", 'r')
+w=infile.read()
+infile.close()
+
+alphabet='abcdefghijklmnopqrstuvwxyz'
+def rotate_alphabet(s:str, num:int)-&gt;str:
+    '''
+    '''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match238-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    num = num % 26
+    return s[num:] + s[0:num]
+
+def Caesar_decrypt(s: str, k: int) -&gt; str:
+    '''Decrypts the message using key k
+</FONT>    '''
+    s2 = s.lower()
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match238-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    table2 = str.maketrans(rotate_alphabet(alphabet, k), alphabet)
+    return s2.translate(table2)
+
+def Caesar_encrypt(s: str, k: int) -&gt; str:
+    '''Encrypts the message using key k
+</FONT>    '''
+    s2 = s.lower()
+    table2 = str.maketrans(alphabet, rotate_alphabet(alphabet, k))
+    return s2.translate(table2)
+
+def Caesar_break(c: str) -&gt; str:
+    '''Decrypts input string by using rotated alphabet encryptions
+    '''
+    count = 0
+    new_count = 0
+    L = c.split()
+    dictlist = w.split()
+    for i in range(1,27):
+        for j in L:
+            test_word = Caesar_decrypt(j, i)
+            if test_word in dictlist:
+                new_count += 1
+            if new_count &gt; count:
+                count = new_count
+                correct_rotation = i
+        new_count = 0
+    return Caesar_decrypt(c, correct_rotation)
+#print(Caesar_break('tqxxa iadxp'))
+#print(Caesar_break('Drsc sc k vyxq cdbsxq dy docd ryg qyyn yeb nombizdsyx pexmdsyx sc.'))
+#print(Caesar_break("uqjfxj btwp n hfs'y yfpj rzhm rtwj tk ymnx."))
+
+#
+#
+# Part (e)
+#
+#
+
+print()  
+print()
+print('---------- Part (e) ----------')
+print()
+#(e.1)
+def copy_file(p: str) -&gt; None:
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy (WARNING: DO NOT OVERWRITE):  ")
+    outfile = open(outfile_name, 'w')
+    s = []
+    i = 1
+#(e.2)
+    if p == 'line numbers':
+        i = 0
+        for line in infile:
+            outfile.write('{0:5d}: {1}'.format(i, line))
+            i += 1
+#(e.3)
+    elif p == 'Gutenberg trim':
+        check = False
+        for line in infile:
+            if '*** START' in line:
+                check = True
+            elif '*** END' in line:
+                check = False
+            elif check:
+                outfile.write(line)
+
+#(e.4)
+    elif p == 'statistics':
+        for line in infile:
+            stats = '''{0:5}   lines in the file
+{1:5}   empty lines
+{2:7.1f} average characters per line
+{3:7.1f} average characters per non-empty line'''
+            linestrip = line.replace('\n', '')
+            s.append(linestrip)
+        num_lines = len(s)
+        num_empty_lines = line.count('')
+        avg_per_line = len(''.join(s))/len(s)
+        avg_per_non_empty_line = len(''.join(s))/(len(s)-s.count(''))
+        print(stats.format(num_lines, num_empty_lines, avg_per_line, avg_per_non_empty_line))
+        outfile.write('{:-6}      {}\n {:-5}      {}\n {:-7.1f}    {}\n {:-7.1f}    {}\n'.format(
+            num_lines, 'lines in the file', num_empty_lines, 'empty lines', avg_per_line, 'average charaters per line',
+            avg_per_non_empty_line, 'average charaters per non-empty line')) 
+    
+    infile.close()
+    outfile.close()
+
+#copy_file('')
+#copy_file('Gutenberg trim')
+#copy_file('line numbers')
+#copy_file('statistics')
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

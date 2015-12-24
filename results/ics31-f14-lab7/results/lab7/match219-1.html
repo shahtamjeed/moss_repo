@@ -1,0 +1,178 @@
+<HTML>
+<HEAD>
+<TITLE>scbabu/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+thams/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Susan Tham 52877004 and Ming Huang 89334833
+
+from random import randrange
+
+#c
+print('\n----------part(c)----------\n')
+
+def random_part_name(s: str) -&gt; str:
+    '''Takes in a file name (surnames, femalenames, malenames)
+       and returns part of a name'''
+    infile = open(s + '.txt', 'r')
+    l = infile.read().split()
+    infile.close()
+    femalenames = []
+    for x in range(0, len(l), 4):
+        femalenames.append(l[x])
+    return femalenames[randrange(len(l)/4)]
+
+print(random_part_name('femalenames'))
+print(random_part_name('malenames'))
+print(random_part_name('surnames'))
+
+def random_name() -&gt; str:
+    '''Returns a randomly generated name'''
+    temp = random_part_name('surnames')
+    name = temp[0] + temp[1:].lower() + ', '   
+    if randrange(2) == 0:
+        temp = random_part_name('femalenames')
+        name += temp[0] + temp[1:].lower()
+    else:
+        temp = random_part_name('malenames')
+        name += temp[0] + temp[1:].lower()
+    return name
+
+print(random_name())
+
+def random_names(x: int) -&gt; list:
+    '''Returns a list of randomly generated names'''
+    names = []
+    for i in range(x):
+        names.append(random_name())
+    return names
+
+print(random_names(20))
+
+print('\n----------part(d)----------\n')
+
+#d
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate_alphabet (K: int) -&gt; str:
+    '''Takes an int (a key) and returns
+    the alphabet modified by the key.'''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match219-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return ALPHABET[K:] + ALPHABET[0: K]
+
+def Caesar_encrypt (P: str, K: int) -&gt; str:
+    '''Takes two arguments, a string containing the message and
+</FONT>    an int for key then returns the ciphertext.'''
+    K = K % 26
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match219-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    trantab = P.maketrans(ALPHABET, rotate_alphabet(K))
+    return P.translate(trantab)
+
+def Caesar_decrypt(P: str, K: int) -&gt; str:
+    '''Takes two arguments, a string containing the message and
+</FONT>    an int for key then returns the plaintext.'''
+    trantab = P.maketrans(rotate_alphabet(K), ALPHABET)
+    return P.translate(trantab)
+
+def Caesar_break (s: str) -&gt; str:
+    infile = open('wordlist.txt', 'r')
+    wordlist = infile.read().split()
+    maxkey = 0
+    maxhits = 0
+    for i in range(26):
+        temp = Caesar_decrypt(s, i)
+        templ = temp.split()
+        hits = 0
+        for j in templ:
+            if j in wordlist:
+                hits += 1
+            if hits &gt; maxhits:
+                maxhits = hits
+                maxkey = i
+    return Caesar_decrypt(s, maxkey)
+
+print(Caesar_encrypt('university of california, irvine', 5))
+print(Caesar_break('zsnajwxnyd tk hfqnktwsnf, nwansj'))
+
+print('\n----------part(d2)----------\n')
+#d2
+print(Caesar_break('kdwwhafy ak tdakk'))
+print(Caesar_break('miznquly yhachyylcha'))
+
+#e1
+print('\n----------part(e1)----------\n')
+
+def stats (L: list) -&gt; str:
+    '''Takes a list of strings and prints statistic as follows.'''
+    lines = len(L)
+    emptylines = 0
+    chars_per_line = 0
+    chars_per_nonemp_line = 0
+    for i in L:
+        if i == '\n':
+            emptylines += 1
+        else:
+            chars_per_nonemp_line += len(i)
+        chars_per_line += len(i)
+    chars_per_line = chars_per_line / lines
+    chars_per_nonemp_line = chars_per_nonemp_line / (lines - emptylines)
+    return '{:7}   {}'.format((lines), 'lines in the file\n') + '{:7}   {}'.format((emptylines), 'empty lines\n') +'{:9.1f} {}'.format((chars_per_line), 'average characters per line\n') + '{:9.1f} {}'.format((chars_per_nonemp_line), 'average characters per non-empty line\n')
+    
+def copy_file(s:str) -&gt; None:
+    '''Takes in a string (line numbers - each line is numbered,
+    statistics - stats of file, Gutenberg trim - trims from *** START to *** END)
+    and prompts user for a file name, then creates a copy of the file'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'line numbers':
+        linenum = 1
+        for line in infile:
+            outfile.write('{:5}'.format(linenum) + ': ' + line)
+            linenum += 1
+    elif s == 'Gutenberg trim':
+        body = infile.readlines()
+        start = 0
+        end = 0
+        for s in range(len(body)):
+            if '*** START' in body[s]:
+                start = s
+            if '*** END' in body[s]:
+                end = i
+                break
+        body = body[start + 1: end]
+        for line in body:
+            outfile.write(line)
+    elif s == 'statistics':
+        L = infile.readlines()
+        for line in L:
+            outfile.write(line)
+        st = stats(L)
+        outfile.write('\n' + st)
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file('statistics')
+copy_file('Gutenberg trim')
+copy_file('line numbers')
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

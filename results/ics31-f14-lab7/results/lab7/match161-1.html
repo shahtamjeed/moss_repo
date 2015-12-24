@@ -1,0 +1,267 @@
+<HTML>
+<HEAD>
+<TITLE>davidhn3/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+hakobyag/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Gagik Hakobyan 46809943 and Jacqueline Lee 25723713.  ICS 31 Lab sec 10.  Lab asst 10.
+'''
+print()
+print()
+print('---------- Part (c) ----------')
+print()
+
+#
+#
+# Part (c)
+#
+#
+
+infile = open("surnames.txt", 'r')
+listSurnames = []
+for line in infile:
+    name = line.split("\t")
+    listSurnames.append(name[0])
+infile.close()
+    
+infile = open("male_names.txt", 'r')
+listMalenames = []
+for line in infile:
+    name = line.split("\t")
+    listMalenames.append(name[0])
+infile.close()
+
+infile = open("female_names.txt", 'r')
+listFemalenames = []
+for line in infile:
+    name = line.split("\t")
+    listFemalenames.append(name[0])
+infile.close()
+
+listFirstNames = listMalenames + listFemalenames
+
+from random import randrange
+def random_names(n:int) -&gt; list:
+   #Returns random full names using the text files provided
+    new_list = []
+    for i in range(n):
+       newname = listSurnames[randrange(1,1001)], listFirstNames[randrange(1,2001)]
+       new_list.append(newname)
+    return new_list
+'''
+print()
+print()
+print('---------- Part (d) ----------')
+print()
+
+#
+#
+# Part (d)
+#
+#
+
+def rotate_alphabet(order:int)-&gt;str:
+    Alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    newAlpha = Alphabet[order:] + Alphabet[:order]
+    return newAlpha
+
+key1 = rotate_alphabet(1)
+key2 = rotate_alphabet(2)
+key3 = rotate_alphabet(3)
+key4 = rotate_alphabet(4)
+key5 = rotate_alphabet(5)
+key6 = rotate_alphabet(6)
+key7 = rotate_alphabet(7)
+key8 = rotate_alphabet(8)
+key9 = rotate_alphabet(9)
+key10 = rotate_alphabet(10)
+key11 = rotate_alphabet(11)
+key12 = rotate_alphabet(12)
+key13 = rotate_alphabet(13)
+key14 = rotate_alphabet(14)
+key15 = rotate_alphabet(15)
+key16 = rotate_alphabet(16)
+key17 = rotate_alphabet(17)
+key18 = rotate_alphabet(18)
+key19 = rotate_alphabet(19)
+key20 = rotate_alphabet(20)
+key21 = rotate_alphabet(21)
+key22 = rotate_alphabet(22)
+key23 = rotate_alphabet(23)
+key24 = rotate_alphabet(24)
+key25 = rotate_alphabet(25)
+key26 = rotate_alphabet(26)
+listKeys = [key1, key2, key3, key4, key5, key6, key7, key8, key9, key10, key11, key12,
+            key13, key14, key15, key16, key17, key18, key19, key20, key21, key22, key23, key24, key25]
+
+def Caesar_decrypt(transstr: str, key:str) -&gt; str:
+    table = str.maketrans('abcdefghijklmnopqrstuvwxyz', key)
+    return transstr.translate(table)
+
+def Caesar_break(code:str) -&gt; str:
+    answer = ''
+    numMatch = 0
+    infile = open('wordlist.txt', 'r')
+    dictionary = ''
+    for line in infile:
+        dictionary+=(line)
+    for i in listKeys:       
+        possible = Caesar_decrypt(code, i)
+        possibleList = possible.split(' ')
+        #print(possibleList)
+        num = 0
+        for p in possibleList:
+            if p in dictionary:
+                num += 1
+        if num &gt; numMatch:
+            numMatch = num
+            answer = possible
+        #print(num, numMatch)
+    infile.close()
+    return answer
+print(Caesar_break('dpnqvufs tdjfodf jt dppm'), ' : computer science is cool')
+print(Caesar_break('wqg awrhsfa cb hvifgrom'), ' : ics midterm on thursday')
+
+
+
+print()
+print()
+print('---------- Part (e.1) ----------')
+print()
+
+#
+#
+# Part (e.1)
+#
+#
+
+def copy_file():
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+print()
+print()
+print('---------- Part (e.2) ----------')
+print()
+
+#
+#
+# Part (e.2)
+#
+#
+
+def copy_file(a:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if a =='line numbers':
+        num = 1
+        for line in infile:
+            string = (str(num) + ': ' + line)
+            outfile.write(string)
+            num +=1
+    else:
+        for line in infile:
+           outfile.write(line)
+    infile.close()
+    outfile.close()
+
+print()
+print()
+print('---------- Part (e.3) ----------')
+print()
+
+#
+#
+# Part (e.3)
+#
+#
+
+def copy_file(a:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if a == 'Gutenberg trim':
+        for line in infile:
+            if line[:3] == '***':
+                print('yes')
+                for line in infile:
+                    if line[:4] != '*** ':
+                        outfile.write(line)
+                    else:
+                        return
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+    
+
+print()
+print()
+print('---------- Part (e.4) ----------')
+print()
+
+#
+#
+# Part (e.4)
+#
+#
+
+def stats(listofstring: list)-&gt;str:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match161-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    lenstr = len(listofstring)
+    numEmpty = 0
+    nonEmptyList = []
+    for j in listofstring:
+        if j.isspace() == True:
+            numEmpty += 1
+        else:
+            nonEmptyList.append(j)
+    aveChar = 0
+    for i in listofstring:
+        aveChar += len(i)
+    aveChar = aveChar/len(listofstring)
+    aveCharNonEmpty = 0
+    for x in nonEmptyList:
+        aveCharNonEmpty += len(x)
+    aveCharNonEmpty = aveCharNonEmpty/len(nonEmptyList)
+</FONT>
+    return('{}    lines in the file \n{}    empty lines\n{}    average characters per line\n{} average characters per non-empty line'.format(lenstr, numEmpty, aveChar, aveCharNonEmpty))
+
+
+
+def copy_file(a:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    infile2 = open(infile_name, 'r', errors = 'ignore')
+
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    if a == 'statistics':
+        fileList = []
+        for line in infile2:
+            fileList.append(line)
+        #print(len(fileList))
+        print(stats(fileList))
+    infile.close()
+    outfile.close()
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

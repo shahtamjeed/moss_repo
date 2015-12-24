@@ -1,0 +1,235 @@
+<HTML>
+<HEAD>
+<TITLE>hoangkt1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+rolandf/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab7.py
+# Roland A. Fernando 11573179   and Hugo Torres 19221981 Lab 14 Assignment 7
+
+def new_section(s:str)-&gt;str:
+    print("\n---" + s + "---\n")
+
+new_section('c')
+
+Surnames = open('surnames.txt')
+
+Female = open('femalenames.txt')
+
+Male = open('malenames.txt')
+
+Mnames = Male.readlines()
+Fnames = Female.readlines()
+Lnames = Surnames.readlines()
+
+from random import randrange
+
+def random_name()-&gt;str:
+    """Makes a random name
+    """
+    s = ''
+    i = randrange(1000)
+    if i%2 == 0:
+        s = Lnames[i].split()[0] + ', ' + Mnames[i].split()[0]
+    else:
+        s = Lnames[i].split()[0] + ', ' +Fnames[i].split()[0]
+    return s
+#print(random_name())
+
+def capitalization(s:str)-&gt;str:
+    """fixes capitalization
+    """
+    result=''
+    r = s.split()
+    result = r[0][0].upper()+ r[0][1:].lower()+ " " + r[1][0].upper() + r[1][1:].lower()
+    return result
+
+new_section('c1')
+
+def random_names(x:int)-&gt;list:
+    """Adds a certain amount of names to a list
+    """
+    result=[]
+    for i in range(x):
+        result.append(capitalization(random_name()))
+    return result
+print(random_names(50))
+
+new_section('c2')
+
+print(capitalization("FERNANDO, anthony"))
+
+new_section('c3')
+
+print(capitalization(random_name()))
+
+new_section('d')
+
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match34-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+alphabet = "abcdefghijklmnopqrstuvwxyz"
+
+def rotate(x: int) -&gt; str:
+    """ Rearrange the alphabet by shifting it "x" places
+    """
+    return alphabet[x:] + alphabet[:x]
+</FONT>
+
+
+def ceasar_break(s:str)-&gt;str:
+    """Code breaking
+    """
+    word = ''
+    count = 1
+    d = 0
+    z = []
+    w = open('wordlist.txt').readlines()
+    for i in w:
+        z.append(i[:-1])
+    for i in range(26):
+        table = str.maketrans(rotate(i), alphabet)
+        r = s.translate(table)
+        for q in r.split():
+            if q in z:
+                d += 1
+                if d &gt; count == True:
+                    word = r
+                    count = d
+    return word
+        
+print(ceasar_break('mj m hsrx kix qc qsric fc 5 tq sr rsziqfiv 18xl m ampp ompp csyv jepmpc'))
+
+#e
+
+new_section('e1')
+
+def copy_file():
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+new_section('e2')
+
+def line_num(l:"list of str")-&gt;str:
+    """ Display the list of strings with the associated number
+    """
+    t= ''
+    for x in range(len(l)):
+        t += "{}: {}".format(x+1,l[x-1])
+    return t
+    
+
+
+def copy_file2(x:str):
+    result=[]
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if x == 'line numbers':
+        for line in infile:
+            result.append(line)
+            outfile.write(line_num(result))
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+#copy_file2('line number')
+
+#e3
+new_section('e3')
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match34-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def empty_string(s: str) -&gt; bool:
+    """ Decides whether or not the string is empty
+        1) Empty     = return True
+        2) Not empty = return False
+    """
+    empty = True
+    if s == "":
+        return True
+    else:
+        for letter in s:
+            if letter != " ":
+                empty = False
+        if empty == False:
+            return False
+</FONT>        else:
+            return True
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match34-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats(s:"list of strings")-&gt; str:
+    """ Display the stats of the list of strings:
+        lines in list, empty lines, avg characters per line, avg characters per non-empty line
+    """ 
+    lines = len(s)
+</FONT>    empty = 0
+    avg_line = 0
+    avg_ne_line = 0
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match34-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for x in s:
+        if empty_string(x) == True:
+            empty += 1
+    for x in s:
+        for letter in x:
+            avg_line += 1
+    avg_line = avg_line/lines
+    avg_ne_line = avg_line/(lines-empty)
+</FONT><A NAME="3"></A><FONT color = #00FFFF><A HREF="match34-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print("{:5} Lines in the list\n\
+{:5} empty lines\n\
+{:7.1f} average characters per line\n\
+{:7.1f} average characters per non-empty line".format(lines, empty, avg_line, avg_ne_line))
+</FONT>
+def copy_file3(x:str):
+    result=[]
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if x == 'line numbers':
+        for line in infile:
+            result.append(line)
+            outfile.write(line_num(result))
+    elif x == 'Gutenberg trim':
+        for line in infile:
+            result.append(line)
+            for i in range(len(result)):
+                if '*' in result[i]:
+                    a = i
+                    break
+            for i in range(len(result)):
+                if '*' in result[i]:
+                    z = i
+        result2 = result[a:z-1]
+        for g in result2:
+            outfile.write(g)
+    elif x == 'statistics':
+        for line in infile:
+            outfile.write(line)
+            result.append(line)
+        stats(result)
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+copy_file3('Gutenberg trim')
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

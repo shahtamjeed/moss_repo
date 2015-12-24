@@ -1,0 +1,371 @@
+<HTML>
+<HEAD>
+<TITLE>melodc2/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+melodc2/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  ShanWei Lin 68642387 and Melody Chung 38078045.  ICS 31 Lab sec 8.  Lab asst 7.
+#
+##c
+#
+#
+
+print('------------(C)------------')
+
+m = 'malenames.txt'
+f = 'femalenames.txt'
+s = 'surnames.txt'
+
+from random import randrange
+
+infile = open(m, 'r')
+infile2 = open(f, 'r')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match177-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+infile3 = open(s, 'r')
+data = infile.readlines()
+data2 = infile2.readlines()
+data3 = infile3.readlines()
+
+def name_list(l: list)-&gt;str:
+    '''return a random name from the list'''
+    L = []
+    for i in l:
+        i.split()
+</FONT>    for i in l:
+        L.append(i.split()[0])
+    t = randrange(0, len(L) + 1)
+    return L[t]
+
+def gender_select() -&gt; str:
+    '''Returns either a  male name or a female name'''
+    g = randrange(1,3)
+    if g == 1:                     #1 = male
+        return name_list(data)
+    if g == 2:                     #2 = female
+        return name_list(data2)
+
+def random_name() -&gt; str:
+    '''Returns a randomly generated name from the 3 lists'''
+    name = ''
+    name += name_list(data3)
+    return name + ', ' + gender_select()
+
+def random_names(x:int)-&gt;list:
+    '''return a list of randomly generate name'''
+    names_list = []
+    for i in range(x):
+        names_list.append(random_name())
+    return names_list
+
+print(name_list(data))
+print(gender_select())
+print(random_name())
+print(random_names(0))
+print(random_names(5))
+
+infile.close()
+infile2.close()
+infile3.close()
+
+print('\n----------------(D)-----------------\n')
+#
+##D
+#
+
+print('\n----(d.1)----\n')
+#
+##(d.1)
+#
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+dictionary = open('wordlist.txt', 'r')
+words = dictionary.readlines()
+words2 = []
+for line in words:
+    words2.append(line.strip().lower())
+
+def cipherkey(x: int) -&gt; str:
+    '''Takes a number and returns a rotated alphabet with the specified
+    number of characters taken off the front and added on to the end of
+    the string'''
+    newalphabet = alphabet[x:]
+    newalphabet = newalphabet + alphabet[:x]
+    return newalphabet
+assert cipherkey(1) == 'bcdefghijklmnopqrstuvwxyza'
+assert cipherkey(26) == 'abcdefghijklmnopqrstuvwxyz'
+
+def Ceasar_encrypt(p: str, key: int) -&gt; str:
+    '''Takes a string and an int and returns a string of the ciphertext'''
+    encryptkey = cipherkey(key)
+    table = str.maketrans(alphabet, encryptkey)
+    return p.lower().translate(table)
+assert Ceasar_encrypt('Hello', 1) == 'ifmmp'
+assert Ceasar_encrypt('Bye', 2) == 'dag'
+
+def Ceasar_decrypt(c: str, key: int) -&gt; str:
+    '''Takes a string and an int and returns a string of the plaintext'''
+    decryptkey = cipherkey(key)
+    table = str.maketrans(decryptkey, alphabet)
+    return c.lower().translate(table)
+assert Ceasar_decrypt('ifmmp', 1) == 'hello'
+assert Ceasar_decrypt('dag', 2) == 'bye'
+
+def key_list()-&gt;list:
+    '''Returns a list of 26 possible Caesar decryption keys'''
+    key_list = []
+    for i in range(26):
+        key_list.append(cipherkey(i + 1))
+    return key_list
+assert key_list() == ['bcdefghijklmnopqrstuvwxyza', 'cdefghijklmnopqrstuvwxyzab', 'defghijklmnopqrstuvwxyzabc', 'efghijklmnopqrstuvwxyzabcd', 'fghijklmnopqrstuvwxyzabcde', 'ghijklmnopqrstuvwxyzabcdef', 'hijklmnopqrstuvwxyzabcdefg', 'ijklmnopqrstuvwxyzabcdefgh', 'jklmnopqrstuvwxyzabcdefghi', 'klmnopqrstuvwxyzabcdefghij', 'lmnopqrstuvwxyzabcdefghijk', 'mnopqrstuvwxyzabcdefghijkl', 'nopqrstuvwxyzabcdefghijklm', 'opqrstuvwxyzabcdefghijklmn', 'pqrstuvwxyzabcdefghijklmno', 'qrstuvwxyzabcdefghijklmnop', 'rstuvwxyzabcdefghijklmnopq', 'stuvwxyzabcdefghijklmnopqr', 'tuvwxyzabcdefghijklmnopqrs', 'uvwxyzabcdefghijklmnopqrst', 'vwxyzabcdefghijklmnopqrstu', 'wxyzabcdefghijklmnopqrstuv', 'xyzabcdefghijklmnopqrstuvw', 'yzabcdefghijklmnopqrstuvwx', 'zabcdefghijklmnopqrstuvwxy', 'abcdefghijklmnopqrstuvwxyz']
+
+def attempt_decrypt(s: str) -&gt; list:
+    '''Takes a Caesar-encrypted string and returns a list of all
+    possible decryptions'''
+    list_of_keys = key_list()
+    decryptions = []
+    for i in list_of_keys:
+        table = str.maketrans(i, alphabet)
+        decryptions.append(s.lower().translate(table))
+    return decryptions
+assert attempt_decrypt('mjqqt, rd sfrj nx gtg.') ==['lipps, qc reqi mw fsf.', 'khoor, pb qdph lv ere.', 'jgnnq, oa pcog ku dqd.', 'ifmmp, nz obnf jt cpc.', 'hello, my name is bob.', 'gdkkn, lx mzld hr ana.', 'fcjjm, kw lykc gq zmz.', 'ebiil, jv kxjb fp yly.', 'dahhk, iu jwia eo xkx.', 'czggj, ht ivhz dn wjw.', 'byffi, gs hugy cm viv.', 'axeeh, fr gtfx bl uhu.', 'zwddg, eq fsew ak tgt.', 'yvccf, dp erdv zj sfs.', 'xubbe, co dqcu yi rer.', 'wtaad, bn cpbt xh qdq.', 'vszzc, am boas wg pcp.', 'uryyb, zl anzr vf obo.', 'tqxxa, yk zmyq ue nan.', 'spwwz, xj ylxp td mzm.', 'rovvy, wi xkwo sc lyl.', 'qnuux, vh wjvn rb kxk.', 'pmttw, ug vium qa jwj.', 'olssv, tf uhtl pz ivi.', 'nkrru, se tgsk oy huh.', 'mjqqt, rd sfrj nx gtg.'] 
+
+def compare_words(l: list) -&gt; str:
+    '''Takes a list of decrypted strings, looks up each word of each string in
+    the dictionary, and returns the string with the most words that match the
+    words in the dictionary'''
+    result = []
+    for i in l:
+         s = str.maketrans('?!@#$%^&*?&gt;&lt;:;.,/\ ','                   ')
+         r = i.translate(s)
+         result.append(r.split())
+    matches = []
+    for i in result:
+        total = 0
+        for w in range(len(i)):
+            if i[w] in words2:
+                total += 1
+        matches.append(total)
+    decrypt_index = 0
+    for i in range(len(matches)):
+        if matches[i] &gt; decrypt_index:
+            decrypt_index = i
+    return l[decrypt_index]
+assert compare_words(['lipps, qc reqi mw fsf.', 'khoor, pb qdph lv ere.', 'jgnnq, oa pcog ku dqd.', 'ifmmp, nz obnf jt cpc.', 'hello, my name is bob.', 'gdkkn, lx mzld hr ana.', 'fcjjm, kw lykc gq zmz.', 'ebiil, jv kxjb fp yly.', 'dahhk, iu jwia eo xkx.', 'czggj, ht ivhz dn wjw.', 'byffi, gs hugy cm viv.', 'axeeh, fr gtfx bl uhu.', 'zwddg, eq fsew ak tgt.', 'yvccf, dp erdv zj sfs.', 'xubbe, co dqcu yi rer.', 'wtaad, bn cpbt xh qdq.', 'vszzc, am boas wg pcp.', 'uryyb, zl anzr vf obo.', 'tqxxa, yk zmyq ue nan.', 'spwwz, xj ylxp td mzm.', 'rovvy, wi xkwo sc lyl.', 'qnuux, vh wjvn rb kxk.', 'pmttw, ug vium qa jwj.', 'olssv, tf uhtl pz ivi.', 'nkrru, se tgsk oy huh.', 'mjqqt, rd sfrj nx gtg.']) == 'hello, my name is bob.'
+
+def Caesar_break(s: str) -&gt; str:
+    '''Takes in a Caesar-encrypted string and returns the decryption!'''
+    return compare_words(attempt_decrypt(s))
+assert Caesar_break('jt uijt xpsljoh?') == 'is this working?'
+assert Caesar_break('') == ''
+    
+print(key_list())
+print()
+print(attempt_decrypt(Ceasar_encrypt('Hello, my name is Bob.', 5)))
+print()
+print(compare_words(attempt_decrypt(Ceasar_encrypt('Hello, my name is Bob.', 5))))
+print()
+print((Ceasar_encrypt('Hello, my name is Bob.', 5)))
+print((Ceasar_encrypt('I love computer science class!', 25)))
+print((Ceasar_encrypt('Is this working?', 1)))
+print()
+print(Caesar_break('mjqqt, rd sfrj nx gtg.'))
+print(Caesar_break('h knud bnlotsdq rbhdmbd bkzrr!'))
+print(Caesar_break('jt uijt xpsljoh?'))
+
+print('\n----(d.2)----\n')
+#
+##(d.2)
+#
+
+# Melody's message
+print("Melody's message:")
+print('znoy rgh cgy xkgrre ngxj')
+print(Caesar_break('znoy rgh cgy xkgrre ngxj'))
+
+print()
+
+# ShanWei's message
+print("ShanWei's message:")
+print('mjqqt! rd sfrj nx ifsnjq')
+print(Caesar_break('mjqqt! rd sfrj nx ifsnjq'))
+
+dictionary.close()
+
+print('\n----------------(E)-----------------\n')
+
+#
+##E
+#
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match177-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('----(e.1)----')
+
+#
+##(e.1)
+#
+
+def copy_file() -&gt; None:
+    '''Copies a file, line by line'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+</FONT>        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file()
+
+sherlock = open('gutenburg.txt', 'r')
+
+print('\n----(e.2)----\n')
+
+#
+##(e.2)
+#
+
+def copy_file2(s: str) -&gt; None:
+    '''Copies a file, line by line. Depending on the parameter, the file
+    will copy differently.'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    line_number = 1
+    if s == '':
+        for line in infile:
+            outfile.write(line)
+    elif s == 'line numbers':
+        for line in infile:
+            outfile.write('{:5d}'.format(line_number) + ': ' + line)
+            line_number += 1
+    infile.close()
+    outfile.close()
+
+copy_file2('line numbers')
+
+
+print('\n----(e.3)----\n')
+
+#
+##(e.3)
+#
+
+def copy_file3(s: str) -&gt; None:
+    '''Copies a file, line by line. Depending on the parameter, the file
+    wil copy differently.'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    line_number = 1
+    if s == '':
+        for line in infile:
+            outfile.write(line)
+    elif s == 'line numbers':
+        for line in infile:
+            outfile.write('{:5d}'.format(line_number) + ': ' + line)
+            line_number += 1
+    elif s == 'Gutenburg trim':
+        sherlock = infile.readlines()
+        ignore_start = 0
+        ignore_end = 0
+        for line in range(len(sherlock)):
+            if sherlock[line].startswith('*** START'):
+                ignore_start = line
+                break
+        sherlock = sherlock[ignore_start + 1:]
+        for line in range(len(sherlock)):
+            if sherlock[line].startswith('*** END'):
+                ignore_end = line
+        sherlock = sherlock[:ignore_end]
+        for line in sherlock:
+            outfile.write('{:5d}'.format(line_number) + ': ' + line)
+            line_number += 1
+    infile.close()
+    outfile.close()
+
+copy_file3('Gutenburg trim')
+
+
+print('\n----(e.4)----\n')
+
+#
+##(e.4)
+#
+
+def copy_file4(s: str) -&gt; None:
+    '''Copies a file, line by line. Depending on the parameter, the file
+    will copy differently.'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    line_number = 1
+    if s == '':
+        for line in infile:
+            outfile.write(line)
+    elif s == 'line numbers':
+        for line in infile:
+            outfile.write('{:5d}'.format(line_number) + ': ' + line)
+            line_number += 1
+    elif s == 'Gutenburg trim':
+        sherlock = infile.readlines()
+        ignore_start = 0
+        ignore_end = 0
+        for line in range(len(sherlock)):
+            if sherlock[line].startswith('*** START'):
+                ignore_start = line
+                break
+        sherlock = sherlock[ignore_start + 1:]
+        for line in range(len(sherlock)):
+            if sherlock[line].startswith('*** END'):
+                ignore_end = line
+        sherlock = sherlock[:ignore_end]
+        for line in sherlock:
+            outfile.write('{:5d}'.format(line_number) + ': ' + line)
+            line_number += 1
+    elif s == 'statistics':
+        sherlock = infile.readlines()
+        print('{:&gt;8.2f} {:}'.format(len(sherlock), 'lines in the file'))
+        print('{:&gt;8.2f} {:}'.format(sherlock.count('\n'), 'empty lines in the file'))
+        char_length = 0
+        for line in sherlock:
+            char_length += len(line)
+        print('{:&gt;8.2f} {:}'.format(char_length/len(sherlock), 'average characters per line in the file'))
+        print('{:&gt;8.2f} {:}'.format(char_length/(len(sherlock) - sherlock.count('\n')), 'average characters per non-blank line in the file'))
+        for line in sherlock:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+    
+
+copy_file4('statistics')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

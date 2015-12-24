@@ -1,0 +1,163 @@
+<HTML>
+<HEAD>
+<TITLE>nadelros/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+summadi/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: LAB7.py
+#Suneela Ummadi 81126144 and Samantha Young 59566370
+print('-----------------PartC-----------------')
+
+from random import randrange
+
+def random_names1 () -&gt; list:
+    L=[]
+    k=0
+    infile = open("femalenames.txt",'r')
+    for i in infile:
+        content= infile.readline()
+        name=content.split()
+        k= name[0] 
+        L.append(k)
+    infile.close()
+    return L[randrange(len(L))]
+
+def random_names2 () -&gt; list:
+    L=[]
+    k=0
+    infile = open("malenames.txt",'r')
+    for i in infile:
+        content= infile.readline()
+        name=content.split()
+        k= name[0] 
+        L.append(k)
+    infile.close()
+    return L[randrange(len(L))]
+
+
+
+def random_names3 () -&gt; list:
+    L=[]
+    k=0
+    infile = open("surnames.txt",'r')
+    for i in infile:
+        content= infile.readline()
+        name=content.split()
+        k= name[0] 
+        L.append(k)
+    infile.close()
+    return L[randrange(len(L))]
+
+
+def random_names(num:int)-&gt; str:
+    L=[]
+    for i in range(num):
+        fullname= ''
+        variable= randrange(0,2)
+        if variable == 0:
+            fullname += random_names1()+' '
+        elif variable ==1:
+            fullname += random_names2()+' '
+        fullname += random_names3()
+        L.append(fullname)
+    return(L)
+
+print(random_names(3))
+
+
+print('-----------------------PARTD--------------------')
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match231-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ALPHABET='abcdefghijklmnopqrstuvwxyz'
+
+def Caesar_encrypt(msg1:str, key:int) -&gt; str:
+    '''encrypt given message'''
+    s =key % 26
+    table=str.maketrans(ALPHABET,ALPHABET[s:]+ ALPHABET[0:s])
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match231-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return msg1.translate(table)
+
+def Caesar_decrypt (msg1:str, key:int) -&gt; str:
+    '''decrypt given message'''
+    table=str.maketrans((ALPHABET[key:]+ ALPHABET[0:key]),ALPHABET)
+</FONT>    return msg1.translate(table)
+
+def Caesar_break(msg1:str) -&gt; str: 
+    '''decrypt given message'''
+    code_breaker(msg1)
+def file_open(opens:str):
+    infile= open(opens,'r')
+    wordlist = infile.read()
+    return wordlist
+def code_breaker(msg1:str)-&gt; str:
+    S=[]
+    count_words = 0
+    for i in range(27):
+        count_words += 1
+        X = Caesar_decrypt(msg1,count_words)
+        Xsplit = X.split()
+        hits = 0
+        for w in Xsplit:
+            if w in file_open('wordlist.txt'):
+                hits += 1
+        S.append(hits)
+    highest = 0
+    decrypt_key = 0
+    for t in range(len(S)):
+        if S[t] &gt; highest:
+            decrypt_key = t
+            highest = S[t]
+    print (Caesar_decrypt(msg1, decrypt_key+1))
+
+                  
+Caesar_break('owc uhnyunyl huncih')
+Caesar_break('tcif gqcfs obr gsjsb msofg ouc')
+
+
+
+print('------------------PartE---------------------')
+
+
+def copy_file(str1:str):
+    '''makes a copy of a file depending on parameter'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    char=0
+    blank_count=0
+    count=0
+    if str1 == 'line numbers':
+        for line in infile:
+            count+=1
+            outfile.write(str(count)+':'+ ' '+ line)
+    elif str1 == 'Gutenberg trim':
+        for line in infile:
+            if '*** START' in line:
+                for line in infile:
+                    outfile.write(line)
+                if '*** END' in line:
+                    break
+    elif str1 == 'statistics':
+        for line in infile:
+            if line == '\n':
+                blank_count += 1
+            count+=1
+            outfile.write(line)
+            char+=len(line)
+        outfile.write('\n' + '\n')
+        outfile.write(str(count)+' '+'lines in the file')
+        outfile.write('\n'+ str(blank_count) + ' ' + 'empty lines')
+        outfile.write('\n'+ str(char/count) + ' ' + 'average characters per line')
+        outfile.write('\n'+ str(char/(count-blank_count)) + ' '+ 'average characters per non-empty line') 
+        infile.close()
+        outfile.close()
+
+print('-------------Lab7--------------')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

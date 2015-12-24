@@ -1,0 +1,124 @@
+<HTML>
+<HEAD>
+<TITLE>galazzah/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+lawrenh1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Lawrence Huang 32104927 and Paula Padilla 32966122 Lab 7 Sect 8
+
+#c
+
+from random import randrange
+def random_names(num: int) -&gt;list:
+    for i in range(num):
+        infile = open('surnames.txt', 'r')
+        s = infile.readlines()
+        infile.close()
+        last_name = s[randrange(1, 1001)].split()[0].lower().title()
+
+        infile = open('femalenames.txt', 'r')
+        fn = infile.readlines()
+        infile.close()
+        female_name = fn[randrange(1, 1001)].split()[0].lower().title()
+
+        infile = open('malenames.txt', 'r')
+        mn = infile.readlines()
+        infile.close()
+        male_name = mn[randrange(1,1001)].split()[0].lower().title()
+
+        a = randrange(1,3)
+        if a == 1:
+            print (last_name + ', ' + female_name)
+        else:
+            print (last_name + ', ' + male_name)
+            
+random_names(3)
+
+#d
+print ('\n\n')
+def Caesar_break(s: str) -&gt; str:
+    infile = open('dictionary.txt' , 'r')
+    d = infile.read()
+    infile.close()
+    a = []
+    ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+    for i in range(len(ALPHABET)):
+        table = str.maketrans(ALPHABET, (ALPHABET[i:] + ALPHABET[0:i]))
+        a.append((s.translate(table)))
+    b = []
+    for i in range(len(a)):
+        b.append(str(a[i]).split())
+    for i in range(len(b)):
+        for j in range(len(b[i])):
+            if b[i][j] in d and b[i][j-1] in d:
+                c = i
+    e = []
+    table = str.maketrans(ALPHABET, (ALPHABET[c:] + ALPHABET[0:c]))
+    e.append((s.translate(table)))
+    return ' '.join(e)
+print (Caesar_break('dcpcpc yqtf'))
+print(Caesar_break('xpae'))
+
+#e
+def copy_file(x):
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match28-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_20.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    file = input("Name of file to copy:")
+    infile = open(file, 'r', errors= 'ignore')
+    NL = infile.readlines()
+    copiedfile = input("Name of copied file: ")
+    outfile = open(copiedfile, 'w')
+    start = False
+    for i in range(len(NL)):
+        if x == 'line numbers':
+            outfile.write('{0:5}: {1}'.format(i+1, NL[i]))
+        elif x == 'Gutenberg trim':
+            if '*** END' in NL[i]:
+                break
+            if start:
+                outfile.write(NL[i])
+            if '*** START' in NL[i]:
+                start = True
+        else:
+            outfile.write(NL[i])
+    if x == 'statistics':
+        line_stats(NL)
+    infile.close()
+    outfile.close()
+    
+def stats_average(g):
+    var = 0
+</FONT><A NAME="2"></A><FONT color = #0000FF><A HREF="match28-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if len(g) == 0:
+        return 0
+    for i in range(len(g)):
+        var += len(g[i])
+    return var/len(g)
+
+def line_stats(h):
+    EL = []
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match28-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_15.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    FL = []
+    for i in h:
+        if i == '\n':
+            EL.append(i)
+        if i != '\n':
+            FL.append(i)
+    print('''
+{0:5} lines in the file
+{1:5} empty lines
+{2:5.1f} average characters per line
+{3:5.1f} average characters per non-empty line'''\
+          .format(len(h),len(EL),stats_average(h),stats_average(FL)))
+    
+copy_file("pg1661.txt")
+copy_file("Gutenberg trim")
+copy_file("statistics")
+</FONT></PRE>
+</PRE>
+</BODY>
+</HTML>

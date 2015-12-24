@@ -1,0 +1,467 @@
+<HTML>
+<HEAD>
+<TITLE>cayuso/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+cayuso/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3 .py
+# Christopher Ayuso 27096088 and Christian Ramirez 77826425. ICS 31 Lab sec 7. Lab asst 3.
+
+#
+#
+# Part (c.1)
+#
+#
+
+
+
+print()
+print('---------- Part (c.1) ----------')
+print()
+
+def abbreviate(s: str) -&gt; str:
+    return s[0:3]
+
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+
+s = input('Enter your word: ')
+print(abbreviate(s))
+
+#
+#
+# Part (c.2)
+#
+#
+
+print()
+print('---------- Part (c.2) ----------')
+print()
+
+def find_area_square(n: int) -&gt; int:
+    return n ** 2
+
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+n = int(input('Enter the side of the square: '))
+
+print(find_area_square(n))
+
+#
+#
+# Part (c.3)
+#
+#
+
+print()
+print('---------- Part (c.3) ----------')
+print()
+
+def find_area_circle(c: float) -&gt; float:
+    return 3.14159 * (c ** 2)
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+c = float(input('Enter radius'))
+print(float(find_area_circle(c)))
+
+#
+#
+# Part (c.4)
+#
+#
+
+print()
+print('---------- Part (c.4) ----------')
+print()
+
+def printEvenNumbers(l: list) -&gt; int:
+    for i in l:
+        if i % 2 == 0:
+            print (i)
+    return
+
+myList = [2, 47, 31, 99, 20, 19, 23, 105, 710, 1004]
+printEvenNumbers(myList)
+
+#
+#
+# Part (c.5)
+#
+#
+
+print()
+print('---------- Part (c.5) ----------')
+print()
+
+def calculate_shipping(p: float) -&gt; float:
+    rate=0
+    if(p&lt;2):
+        rate=2.00
+    elif(p&gt;=2 and p&lt;10):
+        rate=5.00
+    elif(p&gt;=10):
+        rate=5.00+((int(p)-10)*1.5)
+    return rate
+
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+p = float(input('Enter number of pounds'))
+print(calculate_shipping(p))
+
+#
+#
+# Part (c.6)
+#
+#
+
+print()
+print('---------- Part (c.6) ----------')
+print()
+
+import tkinter
+my_window = tkinter.Tk()
+
+my_canvas = tkinter.Canvas(my_window, width = 1000, height = 1000)
+my_canvas.pack()
+
+def createSquare(x: int, y: int, side: int) -&gt; int:
+    my_canvas.create_rectangle(x, y, x + side, y + side)
+    return
+
+x = int(input('Enter the x coordinate of corner: '))
+y = int(input('Enter the y coordinate of corner: '))
+side = int(input('Enter the side of the square: '))
+createSquare(x,y,side)
+
+#
+#
+# Part (c.7)
+#
+#
+
+print()
+print('---------- Part (c.7) ----------')
+print()
+
+def create_circle(xc: int, yc: int, diameter: int) -&gt; int:
+    my_canvas.create_oval(xc, yc, xc + diameter, yc + diameter)
+    return
+
+xc = int(input('Enter the x coordinate of corner: '))
+yc = int(input('Enter the y coordinate of corner: '))
+diameter = int(input('Enter the diameter of the circle: '))
+create_circle(xc,yc,diameter)
+
+
+#
+#
+# Part (d.1)
+#
+#
+
+print()
+print('---------- Part (d.1) ----------')
+print()
+
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurantPrice(n: list) -&gt; float:
+    return n.price
+assert restaurantPrice(RL[2]) == 25.50
+assert restaurantPrice(RL[3]) == 15.50
+
+
+
+print(restaurantPrice(RL[0]))
+
+#
+#
+# Part (d.2)
+#
+#
+
+print()
+print('---------- Part (d.2) ----------')
+print()
+
+RC = [
+    RL[0],
+    RL[1],
+    RL[2],
+    RL[3],
+    RL[4],
+    RL[5],
+    RL[6] ]
+
+RC.sort(key=restaurantPrice)
+
+print(RC)
+
+
+#
+#
+# Part (d.3)
+#
+#
+
+print()
+print('---------- Part (d.3) ----------')
+print()
+
+testRL = RL
+
+def costliest(n: list) -&gt; str:
+    n.sort(key=restaurantPrice)
+    return n[-1].name
+print(costliest(testRL))
+
+#
+#
+# Part (d.4)
+#
+#
+
+print()
+print('---------- Part (d.4) ----------')
+print()
+
+def costliest2(n:list) -&gt; str:
+    L = sorted(n, key = restaurantPrice)
+    return L[-1].name
+print(costliest2(RL))
+
+#
+#
+# Part (e)
+#
+#
+
+Book = namedtuple('Book', 'author title genre year price instock')
+
+BSI = [
+    Book("Juan", "Juan('s) Adventure", "Adventure", 1969, 12.50, 20),
+    Book("Christopher", "Tofu Recipies", "Cooking", 2000, 30.25, 5),
+    Book("Christian", "How to Use a Computer", "Technology", 2010, 10.99, 10),
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match217-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Book("Jaymie", "How to go MLG 4 COD", "Gaming", 2011, 11.99, 15),
+    Book("Jonathan", "Terror of Insects", "Horror", 1999, 13.99, 50),
+    Book("Nezar", "How to Install Windows on a Mac", "Mystery", 2009, 12.99, 25)
+    ]
+
+#
+#
+# Part (e.1)
+#
+#
+
+print()
+print('---------- Part (e.1) ----------')
+print()
+
+for i in range(len(BSI)):
+    print(BSI[i].title)
+
+#
+#
+# Part (e.2)
+#
+#
+
+print()
+print('---------- Part (e.2) ----------')
+print()
+
+def bookTitle(n: list) -&gt; str:
+    return n.title
+</FONT>
+
+
+x = sorted(BSI, key = bookTitle)
+for i in range(len(x)):
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match217-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print(x[i].title)
+
+#
+#
+# Part (e.3)
+#
+#
+
+print()
+print('---------- Part (e.3) ----------')
+print()
+
+for i in range(len(BSI)):
+    BSI[i] = BSI[i]._replace(price = BSI[i].price *1.1)
+
+print(BSI)
+
+#
+#
+# Part (e.4)
+#
+#
+
+print()
+print('---------- Part (e.4) ----------')
+print()
+
+for i in range(len(BSI)):
+    if BSI[i].genre == "Technology":
+</FONT>        print(BSI[i].title)
+
+#
+#
+# Part (e.5)
+#
+#
+
+print()
+print('---------- Part (e.5) ----------')
+print()
+
+L2 = []
+M2 = []
+totalL = 0
+totalM = 0
+
+print('Published before 2000:', L2)
+print('Published after 2000:', M2)
+
+for i in range(len(BSI)):
+    if BSI[i].year&lt;2000:
+        L2. insert(i, BSI[i].title)
+        totalL = totalL + BSI[i].instock
+
+print()
+for i in range(len(BSI)):
+    if BSI[i].year&gt;=2000:
+        M2.insert(i, BSI[i].title)
+        totalM = totalM + BSI[i].instock
+
+if len(L2)&gt;len(M2):
+    print('More titles before 2000','(' , totalL ,'vs.',totalM,')')
+else:
+    print('More titles 2000 or later','(' , totalL ,'vs.',totalM,')')
+
+#
+#
+# Part (e.6)
+#
+#
+
+print()
+print('---------- Part (e.6) ----------')
+print()
+
+
+def inventoryValue(n: Book) -&gt; float:
+    return n.price * n.instock
+
+print(inventoryValue(BSI[0]))
+
+
+def topValue(n: list) -&gt; Book:
+    x = sorted(n, key = inventoryValue)
+    return x[-1]
+
+mostExpensive = topValue(BSI)
+
+
+print("The highest-value book is", mostExpensive.title, "by", mostExpensive.author, "at a value of $", inventoryValue(mostExpensive))
+
+#
+#
+# Part (f)
+#
+#
+
+print()
+print('---------- Part (f) ----------')
+print()
+
+
+#Input x and y coordinates at least 200 pixels apart
+
+x = int(input("Enter the x coordinate of the left eye: "))
+y = int(input("Enter the y coordinate of the left eye: "))
+x2 = int(input("Enter the x coordinate of the second face: "))
+y2 = int(input("Enter the y coordinate of the second face: "))
+
+def drawFace(x: int, y: int):
+    drawEyes(x, y)
+    drawNose(x + 115, y + 50)
+    drawMouth(x + 60, y + 150)
+
+def drawEyes(x: int, y: int):
+    p = x + 70
+    q = y + 70
+    my_canvas.create_oval(x, y, p, q)
+    my_canvas.create_oval(x + 15, y + 15, p - 15, q - 15, fill = 'blue')
+    my_canvas.create_oval(x + 25, y + 25, p - 25, q - 25, fill = 'black')
+
+    x += 150
+    p = x + 70
+    my_canvas.create_oval(x, y, p, q)
+    my_canvas.create_oval(x + 15, y + 15, p - 15, q - 15, fill = 'blue')
+    my_canvas.create_oval(x + 25, y + 25, p - 25, q - 25, fill = 'black')
+
+def drawNose(x: int, y: int):
+    p = x - 25
+    q = y + 50
+    my_canvas.create_line(x, y, p, q)
+    my_canvas.create_line(p, q, x, q)
+
+def drawMouth(x: int, y: int):
+    p = x + 100
+    my_canvas.create_line(
+        x - 50, y - 25, x - 25, y,
+        x, y, p, y, 
+        p + 25, y, p + 50, y - 25, smooth = "true")
+
+drawFace(x, y)
+drawFace(x2, y2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

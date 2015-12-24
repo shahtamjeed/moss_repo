@@ -1,0 +1,263 @@
+<HTML>
+<HEAD>
+<TITLE>kmamiit/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kmamiit/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Kyle Mamiit 84015575 Allan So 86107676 ICS 31 Lab sec 7. Lab asst 3.
+
+#c1
+def abbreviate (value: str) -&gt; str:
+    "Return first three letters of month"
+    return value [0:3]
+
+assert abbreviate ('January') == 'Jan'
+assert abbreviate ('abril') == 'abr'
+
+#c2
+def find_area_square (value: int) -&gt; int:
+    "Return area of square given the value of a side"
+    return value**2
+
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+#c3
+def find_area_circle (value: int) -&gt; float:
+    "Return area of circle given the radius"
+    return 3.14159 * value**2
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+#c4
+print_even_numbers = [2, 47, 31, 99, 20, 19, 23, 105, 710, 1004]
+for n in print_even_numbers:
+    if n % 2 == 0:
+        print(n)
+
+#c5
+def calculate_shipping(x):
+    if x &lt; 2:
+        return(2.00)
+    if 2 &lt;= x &lt; 10:
+        return(5.00)
+    if x &gt;= 10:
+        return(5.00 + (1.50 * (x - 10.00)))
+
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+#c6
+import tkinter
+my_window = tkinter.Tk() #Creates the graphic window
+my_canvas = tkinter.Canvas(my_window, width = 500, height = 500) #500x500 window
+my_canvas.pack() #Put canvas into window
+
+def create_square(x1:int, y1:int, length:int) -&gt; int:   
+    my_canvas.create_rectangle(x1, y1, x1 + length, y1 + length)
+create_square(10, 10, 5)
+
+
+#c7
+my_window = tkinter.Tk() #Creates the graphic window
+my_canvas = tkinter.Canvas(my_window, width = 500, height = 500) #500x500 window
+my_canvas.pack() #Put canvas into window
+
+def create_circle(x1:int, y1:int, diameter:int) -&gt; int:
+    my_canvas.create_oval(x1, y1, x1 + diameter, y1 + diameter)
+create_circle(50, 50, 100)
+
+
+#d
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#d.1
+def restaurant_price(Restaurant:str)-&gt;float:
+    "Return price of restaurants"
+    return Restaurant.price
+
+assert restaurant_price(RC[0]) == 12.50 
+assert restaurant_price(RC[-1]) == 10.50
+
+#d.2
+RC.sort(key=restaurant_price)
+print(RC)
+
+#d.3
+def costliest (RC: 'list of Restaurants')-&gt;str:
+    'Returns costliest restaurant name'
+    return RC[-1].name
+
+print(costliest(RC))
+assert costliest(RC) == "Noma"
+
+#d.4
+print(RC) #trying it to see side effect
+sorted(RC, key = restaurant_price)
+def costliest2 (RC: 'list of Restaurants')-&gt;str:
+    'Returns costliest restaurant name sorted'    
+    return RC[-1].name
+print(costliest2(RC))
+assert costliest2(RC) == "Noma"
+
+
+#e
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book("J.K. Rowling", "Harry Potter and the Philosopher's Stone", "Drama", 1900, 1, 5),
+    Book("Alan So", "Biography of Alan So", "Biography", 1200, 50, 1),
+    Book("Kyle Mamiit", "Autobiography of Kyle Mamiit", "Biography", 2010, 51, 100),
+    Book("Stephenie Meyer", "New Moon", "Comedy", 1800, 1, 1),
+    Book("Suzanne Collins", "Catching Fire", "Suspense", 2000, 15, 1000),
+    Book("Veronica Roth", "Insurgent", "Technology", 1700, 2, 3) ]
+
+#e1
+for Book in BSI:
+    print(Book[1]) 
+
+#e2
+def book_title(Book:str)-&gt;str:
+    "Returns titles of books"
+    return Book.title
+
+BSI.sort(key=book_title)
+for Book in BSI:
+    print(Book[1])
+
+assert book_title(BSI[0]) == "Autobiography of Kyle Mamiit"
+assert book_title(BSI[1]) == "Biography of Alan So"
+#e3
+for Book in BSI:
+    print(Book.price*1.1)
+    
+#e4
+for a in range(0, len(BSI)):   
+    if BSI[a].genre == "Technology":
+        print(BSI[a].title)
+
+#e5
+####NEEED TO FINISH####
+print("\n")
+print("Titles before 2000:")
+for before_2000 in range(0, len(BSI)):
+    if BSI[before_2000].year &lt; 2000:
+        print(BSI[before_2000].title)
+
+before2000 = []
+before2000.append("Harry Potter and the Philosopher's Stone")
+before2000.append("New Moon")
+before2000.append("Biography of Alan So")
+before2000.append("Insurgent")
+print(before2000)
+
+
+print("\n")
+print("Titles 2000 or later:")
+for after_equals2000 in range(0, len(BSI)):
+    if BSI[after_equals2000].year &gt;= 2000:
+        print(BSI[after_equals2000].title)
+
+
+
+after2000 = []
+after2000.append("Autobiography of Kyle Mamiit")
+after2000.append("Catching Fire")
+print(after2000)
+
+print("\n")
+print("More titles before 2000", "(", len(before2000), "vs.", len(after2000), ")")
+
+#e6
+
+def inventory_value(Book: namedtuple)-&gt;float:
+    x = Book.price * Book.instock
+    return x
+assert inventory_value(BSI[-1]) == 1
+
+
+def top_value(value: list)-&gt;"Book":
+    y = 0
+    highestbookname = ()
+    for Book in BSI:
+        if inventory_value(Book) &gt; y:
+            y = inventory_value(Book)
+            highestbookname = Book
+    return highestbookname
+assert top_value(BSI) == BSI[2]
+
+print("The highest-value book is ", BSI[2].title, "by ", BSI[2].author, "at a value of $15000.") 
+
+#f
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=1500, height=1500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match25-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_22.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def draw_eye(x, y: int) -&gt; None:
+   "Draws eye without duplicating code"
+   my_canvas.create_oval(x + 100, y - 300, x + 300, y - 200)
+   my_canvas.create_oval(x + 150, y - 300, x + 250, y - 200, fill = "blue")
+   my_canvas.create_oval(x + 175, y - 275, x + 225, y - 225, fill = "white")
+   
+   my_canvas.create_oval(x - 100, y - 300, x - 300, y - 200)
+   my_canvas.create_oval(x - 150, y - 300, x - 250, y - 200, fill="blue")
+   my_canvas.create_oval(x - 175, y - 275, x - 225, y - 225, fill = "white")
+
+
+def draw_nose(x, y: int) -&gt; None:
+   "Draws nose without duplicating code"
+   my_canvas.create_line(x, y - 100, x - 50, y + 100)
+   my_canvas.create_line(x, y - 100, x + 50, y + 100)
+   my_canvas.create_line(x - 50, y + 100, x + 50, y + 100)
+
+
+def draw_mouth(x, y: int) -&gt; None:
+   "Draws mouth without duplicating code"
+   my_canvas.create_oval(x - 150, y + 200, x + 150, y + 300, fill="red")
+   my_canvas.create_line(x - 150, y + 250, x + 150, y + 250)
+
+def draw_face(x, y: int) -&gt; None:
+   "Draws face"
+   draw_mouth(x, y)
+   draw_nose(x, y)
+   draw_eye(x,y)
+
+   "Creates head"
+   my_canvas.create_oval(x - 500, y - 600, x + 500, y + 600)
+
+
+draw_face(600, 350)
+</FONT>tkinter.mainloop()
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=1000, height=1000)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+draw_face(500, 300)
+</PRE>
+</PRE>
+</BODY>
+</HTML>

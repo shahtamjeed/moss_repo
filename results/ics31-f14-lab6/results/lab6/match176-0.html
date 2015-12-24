@@ -1,0 +1,235 @@
+<HTML>
+<HEAD>
+<TITLE>jpadill3/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jpadill3/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Zachary Greenspan 73253253 and Jason Padilla 20502573
+
+#
+#
+# Part (c)
+#
+#
+
+print()
+print()
+print('---------- Part (c) ----------')
+print()
+
+def contains(string1, string2: str) -&gt; bool:
+    '''The function checks if the second string occurs in the first string and if the
+    second string does occur than the function returns True if not, it returns False.'''
+    return string1.find(string2) &gt;= 0
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+assert contains('apple', 'ap')
+assert not contains('peach', 'pee')
+
+def translate_punctuation(string: str) -&gt; str:
+    '''Replaces non alphabetical characters with spaces'''  
+    result = string
+    for c in string:
+        if not c.isalpha():
+            result = result.replace(c, ' ')
+    return result
+
+def sentence_stats(string: str) -&gt; None:
+    '''Takes in a string as a parameter and prints out these statistics about the string: its
+    length in characters, its length in words, and the average length of each word.'''
+    string = translate_punctuation(string)
+    print('Characters: ', len(string))
+    print('Words: ', len(string.split()))
+    total = 0
+    for w in string.split():
+        total += len(w)
+    average = total / len(string.split())
+    print('Average Word Length: ', average)
+    print(string.split())
+    print()
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match176-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+sentence_stats('I love UCI')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+def initials(name: str) -&gt; str:
+    '''Takes as input a string representing a full name and returns the
+    initials of the name in all capital letters.'''
+</FONT>    result = ''
+    words = name.split()
+    for w in words:
+        result += w[0].upper()
+    return result
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match176-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+#
+#
+# Part (d)
+#
+#
+
+print()
+print()
+print('---------- Part (d) ----------')
+print()
+
+from random import randrange
+
+for num in range(51):
+    print(randrange(11))
+print()      
+
+for num in range(51):
+    print(randrange(1,7))
+print()
+</FONT>
+def roll2dice () -&gt; int:
+    '''Takes no parameters and returns a number that reflects the random roll of two dice.'''    
+    return randrange(1,7) + randrange(1,7)
+
+for num in range(51):
+    print(roll2dice())
+print()
+
+def distribution_num_string(num: int, numList: list) -&gt; str:
+    '''Takes the number of times to roll two dice and prints the distribution of the values of those rolls'''    
+    result = ''
+    count = numList.count(num)
+    length = len(numList)
+    result += str(count) + ' (' + str(count/length) + '%)   '
+    for i in range(count):
+        result += '*'
+    return result
+
+def distribution_of_rolls (n: int) -&gt; None:
+    '''Takes the number of times to roll two dice and prints the distribution of the values of those rolls'''    
+    rollResult = []
+    for i in range(n + 1):
+        rollResult.append(roll2dice())
+    for i in range(2, 13):
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match176-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        print(i, ':   ', distribution_num_string(i, rollResult))
+    print('-----------------------------')
+    print('      200 rolls')
+
+distribution_of_rolls(200)
+
+#
+#
+# Part (e)
+#
+#
+
+print()
+print()
+print('---------- Part (e) ----------')
+print()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotated_alphabet(regular: str, num: int) -&gt; str:
+</FONT>    '''Takes two arguments: a string containing the message and an int for the key which indicates how far
+    down the alphabet to find each substitute letter.'''
+    return regular[num % 26:] + regular[:num % 26]
+
+def Caesar_encrypt(plaintext: str, key: int) -&gt; str:
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match176-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    '''Takes two arguments: a string containing the message and an int for the key which indicates how far
+    down the alphabet to find each substitute letter. The encryption function returns the ciphertext.'''
+    trantab = str.maketrans(ALPHABET, rotated_alphabet(ALPHABET, key))
+</FONT>    return plaintext.lower().translate(trantab)
+
+def Caesar_decrypt(ciphertext: str, key: int) -&gt; str:
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match176-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    '''Takes two arguments: a string containing the message and an int for the key which indicates how far
+    down the alphabet to find each substitute letter.The decryption function returns the plaintext.'''
+    trantab = str.maketrans(rotated_alphabet(ALPHABET, key), ALPHABET)
+</FONT>    return ciphertext.lower().translate(trantab)
+
+print(Caesar_encrypt('hi there', 3))
+print(Caesar_decrypt('kl wkhuh', 3))
+print(Caesar_encrypt('I hate pie', 7))
+print(Caesar_decrypt('p ohal wpl', 7))
+print(Caesar_encrypt('hi there', 29))
+print(Caesar_decrypt('kl wkhuh', 29))
+
+#
+#
+# Part (f)
+#
+#
+
+print()
+print()
+print('---------- Part (f) ----------')
+print()
+
+SL = [ "Four score and seven years ago, our fathers brought forth on",
+  "this co'ntinent a new nation, conc'eived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a gr'eat 		civil war, tes'ting whether that nation, or any",
+  "nat'ion so conce'ived and so dedic'ated, can long endure.        ", "\n"]
+
+def print_line_numbers(SL: list) -&gt; None:
+    '''Takes a list of strings and prints each string preceded by a line number.'''
+    num = 1
+    for s in SL:
+        print(str(num) + ':  ' + s)
+        num += 1
+    print()
+
+print_line_numbers(SL)
+
+def stats(SL: list) -&gt; None:
+    ''' Takes a list of strings and prints statistics in different lines.'''
+    lines = 1
+    for i in SL:
+        if '\n' in i:
+            lines += 1
+    empty = 0
+    for i in SL:
+        if i == '\n':
+            empty += 1
+    totalChar = 0
+    for i in SL:
+        totalChar += len(i)
+    print("{:6d}   lines in the list".format(lines))
+    print("{:6d}   empty lines in the list".format(empty))
+    print("{:8.1f} average character per line".format(totalChar/lines))
+    print("{:8.1f} average character per non-empty line".format(totalChar/(lines - empty)))
+
+stats(SL)
+print()
+
+def translate_punctuation_exception(string: str) -&gt; str:
+    '''Replaces non alphabetical characters with spaces except apostrophies'''  
+    result = string
+    for c in string:
+        if not c.isalpha() and not c == "'":
+            result = result.replace(c, ' ')
+    return result
+
+def list_of_words(SL: list) -&gt; list:
+    ''' Takes a list of strings and returns a list of individual words with all white space and punctuation removed.''' 
+    result = ''
+    for s in SL:
+        result += translate_punctuation_exception(s) + " "
+    return result.split()
+
+print(list_of_words(SL))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,184 @@
+<HTML>
+<HEAD>
+<TITLE>lcunnin2/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+lcunnin2/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Lee Cunningham 26815508 and Sheng Luo 10772379. ICS 31 Lab sec 4. Lab asst 7.
+
+#
+#
+# Part c
+#
+#
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match19-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_37.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print("\n---Part C---\n")
+
+from random import randrange
+
+def random_single_name(namelist: "file containing the list of names") -&gt; str:
+    '''Take one of the name list files, then return a random name from that list.'''
+    result = namelist.readlines()[randrange(1000)]
+    return result[0:result.find("\t")].lower().capitalize()
+
+def random_full_name()-&gt; str:
+    '''Return a random full name.'''
+    if randrange(1) == 0: #This random number decides if the program uses a female or male name
+        firstlist = open("malenames.txt", 'r')
+    else:
+        firstlist = open("femalenames.txt", 'r')
+    result = random_single_name(open("surnames.txt", 'r')) + ', ' + random_single_name(firstlist)
+    return result
+
+def random_names(number_of_names: int) -&gt; [str]:
+    '''Return a list of names, with a number of names equal to the parameter.'''
+    result = []
+    for x in range(number_of_names):
+        result.append(random_full_name())
+    return result
+
+print(random_names(10))
+
+#
+#
+# Part d
+#
+#
+
+print("\n---Part d---\n")
+
+def Caesar_cypher_create(key: int) -&gt; "translation table":
+    '''Used to create the table needed for the translate method in both Caesar cypher programs.'''
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    cypher_list = []
+    for x in range(26):
+        selection = x + key
+        while selection &gt; 25:
+            selection = selection - 26
+        while selection &lt; 0:
+            selection = selection + 26
+        cypher_list.append(alphabet[selection])
+    cypher = "".join(cypher_list)
+    return str.maketrans(alphabet, cypher)
+#Included here for use in Caesar_encrypt and Caesar_decrypt
+
+def Caesar_encrypt(text: str, key: int) -&gt; str:
+    '''Encrypt text using a Caesar cypher with the specified key.'''
+    return text.lower().translate(Caesar_cypher_create(key))
+#Included here to expedite testing for the Caesar_break code.
+
+def Caesar_decrypt(text: str, key: int) -&gt; str:
+    '''Take a string encrypted by Caesar_encrypt and the key used by that encryption and return the decrypted message'''
+    return text.lower().translate(Caesar_cypher_create(-key))
+</FONT>#Copied from the prievious lab to obtain translations for use within Caesar_break
+
+''' #Unused prototype code for the Caesar_break function, please ignore.
+def Caesar_break(encrypted_text: str) -&gt; str:
+    k = []
+    for i in range(26):
+        k.append(Caesar_decrypt(encrypted_text,i))
+    
+    for  in i.split(' '):
+'''
+
+def Words_in_dictionary(sentence: str) -&gt; int:
+    '''Count the number of words in the string that appear within the dictionary given.
+    This exists for use in the Caesar_break function.
+    '''
+    result = 0
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match19-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    wordlist = open("wordlist.txt", "r").readlines()
+    for word in sentence.split():
+        if (word+"\n") in wordlist:
+            result += 1
+    return result
+#Cannot properly test with assertions - attempting to do so resulted in finding that many words were missing from the dictionary, and thus a precise total is uncertain.
+
+def Caesar_break(encrypted_text: str) -&gt; str:
+</FONT>    '''Take a string encrypted with a Caesar cypher and find the most probable translation.'''
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match19-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    best_translation = ""
+    accuracy = 0
+    for i in range(26):
+        if Words_in_dictionary(Caesar_decrypt(encrypted_text, i)) &gt; accuracy:
+            best_translation = Caesar_decrypt(encrypted_text, i)
+            accuracy = Words_in_dictionary(Caesar_decrypt(encrypted_text, i))
+    return best_translation
+</FONT>CAESAR_BREAK_TEXT = "This is a test of the Caesar_break function. I will encrypt it and then decrypt it as this program runs."
+print("Initial text:", CAESAR_BREAK_TEXT)
+CAESAR_BREAK_TEXT = Caesar_encrypt(CAESAR_BREAK_TEXT, 15)
+print("Encrypted with key 15:", CAESAR_BREAK_TEXT)
+CAESAR_BREAK_TEXT = Caesar_break(CAESAR_BREAK_TEXT)
+print("Decrypted by Caeser_break:", CAESAR_BREAK_TEXT)
+
+
+#
+#
+# Part e
+#
+#
+
+print("\n---Part e\n")
+
+ALPHABET2 = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match19-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def characters_count(n:list)-&gt;int:
+    result = ''
+    for i in n:
+        for c in i:
+            if c in ALPHABET2:
+                result = result + c
+    return len(result)
+
+def copy_file(parameter: str):
+</FONT>    '''Copies a file. By using parameters, one can modify the file to add or remove certain information.'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    
+    if parameter == "line numbers":
+        line_number = 1
+        for line in infile:
+            outfile.write("{:5}: {}".format(line_number, line))
+            line_number += 1
+            
+    elif parameter == "Gutenberg trim":
+        text = infile.readlines()
+        text_start = 0
+        text_end = 0
+        for line_number in range(len(text)):
+            if "*** START" in text[line_number] and text_start == 0:
+                text_start = line_number
+            if "*** END" in text[line_number] and text_end == 0:
+                text_end = line_number
+        for line in text[text_start+1:text_end]:
+            outfile.write(line)
+            
+    elif parameter == "statistics":
+        
+        
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match19-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    else:
+        if n == 'statistics':
+            line_list = infile.readlines()
+            print('\n{:8.1f} {}\n{:8.1f} {}\n{:8.1f} {}\n{:8.1f} {}\n'.format(len(line_list),'lines in the list',line_list.count('\n'),'empty lines',characters_count(line_list)/len(line_list),'average characters per line',characters_count(line_list)/(len(line_list) - line_list.count('\n')),'average characters per non-empty line'))
+            infile.seek(0)
+            
+        for line in infile:
+            outfile.write(line)
+
+    infile.close()
+    outfile.close()
+</FONT></PRE>
+</PRE>
+</BODY>
+</HTML>

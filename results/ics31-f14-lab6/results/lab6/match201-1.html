@@ -1,0 +1,290 @@
+<HTML>
+<HEAD>
+<TITLE>davidl12/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+mccabect/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6 (1).py
+#Cailey McCabe 27757640 and Alan Carlos 93059720 Lab 6 sect 5
+
+#
+#
+#Part C
+#
+#
+print()
+print()
+print('Part C')
+print()
+print()
+
+#c.1
+def contains(a:str, b:str) -&gt; bool:
+    '''checks if second string is in first string'''
+    length = len(b)
+    for i in range(len(a)):
+        if b[0] == a[i]:
+            if a[i:i+length] == b:
+                return(True)
+    return(False)
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+assert contains('apple', 'ppl')
+assert not contains('orange', 'ch')
+
+#c.2
+def sentence_stats(s:str) -&gt; str:
+    '''prints out these statistics about the string: its length in characters,
+    its length in words, and the average length of each word'''
+    char_length = len(s)
+    table = str.maketrans('.,!*?;:"', '        ')
+    s = s.translate(table)
+    word_length = len(s.split())
+    sum = 0
+    for i in s.split():
+        sum = sum + len(i)
+    average = sum/len(s.split())
+    print('Characters: ', char_length)
+    print('Words: ', word_length)
+    print('Average word length: ', average)
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+sentence_stats('I love UCI')
+
+#c.3
+def initials(s:str) -&gt; str:
+    '''takes a name and returns the initials'''
+    table = str.maketrans('qwertyuiopasdfghjklzxcvbnm', 'QWERTYUIOPASDFGHJKLZXCVBNM')
+    s = s.translate(table)
+    item = s.split()
+    result = ''
+    for i in item:
+        result = result + i[0]
+    return result
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+#
+#
+#Part D
+#
+#
+print()
+print()
+print('Part D')
+print()
+print()
+
+#d.1
+from random import randrange
+for i in range(50):
+    print(randrange(11))
+print()
+print()
+for i in range(50):
+    print(randrange(1,7))
+print()
+print()
+
+#d.2
+def roll2dice() -&gt; int:
+    one = randrange(1,7)
+    two = randrange(1,7)
+    return(one + two)
+for i in range(50):
+    print(roll2dice())
+print()
+print()
+
+#d.3
+def distribution_of_rolls(num:int):
+    '''prints the possible number of rolls for each number'''
+    data = [0,0,0,0,0,0,0,0,0,0,0]
+    FORMAT_STRING = "{:2d}:    {:2d} ({:4.1f}%)   {}"  
+    for i in range(num):
+        n = roll2dice()
+        data[n-2] = data[n-2] + 1
+    for i in range(len(data)):
+        percent = (data[i]/num) *100
+        stars = '*' * data[i]
+        print(FORMAT_STRING.format(i+2, data[i], percent, stars))
+        
+    print('-------------------------------')
+    print(num, 'rolls')
+distribution_of_rolls(200)
+
+#
+#
+#Part E
+#
+#
+print()
+print()
+print('Part E')
+print()
+print()       
+
+#e.1
+def alpha_rotate(n: int)-&gt; str:
+    '''Rotates alpahbet by specified number'''
+    a = 'abcdefghijklmnopqrstuvwxyz'
+    for l in range(n):
+        d = a[0]
+        a = a[1:] + d
+    return a
+assert alpha_rotate(3) == 'defghijklmnopqrstuvwxyzabc'
+print(alpha_rotate(5))
+print()
+
+def Caesar_encrypt(mes: str, key: int)-&gt; str:
+    '''Encrypts message with key'''
+    table = str.maketrans('ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')
+    mes = mes.translate(table)
+    table1 = str.maketrans('abcdefghijklmnopqrstuvwxyz', alpha_rotate(key))
+    mes = mes.translate(table1)
+    return mes
+assert Caesar_encrypt('iloveuci', 5) == 'nqtajzhn'
+print(Caesar_encrypt('ics temporary account', 4))
+print()
+
+def Caesar_decrypt(mes: str, key: int)-&gt;str:
+    '''Decrypts message with key'''
+    table = str.maketrans('ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')
+    mes = mes.translate(table)
+    table1 = str.maketrans(alpha_rotate(key), 'abcdefghijklmnopqrstuvwxyz')
+    mes = mes.translate(table1)
+    return mes
+assert Caesar_decrypt(Caesar_encrypt('DAVIDGKAY', 5), 5) == 'davidgkay'
+print(Caesar_decrypt('vdj apu', 1))
+print()
+
+#e.2
+print(Caesar_encrypt('Check UCI emails. Useful code for your labs.', 10))
+print(Caesar_decrypt('mromu ems owksvc. ecopev myno pyb iyeb vklc.', 10))
+print()
+print(Caesar_encrypt('Normal Spongebob says hi, how are you?', 15))
+print(Caesar_decrypt('cdgbpa hedcvtqdq hpnh wx, wdl pgt ndj?', 15))
+print()
+
+#e.3
+def Caesar_encrypt1(mes: str, key: int)-&gt; str:
+    '''Encrypts message with key'''
+    if key &gt; 25:
+        key = key % 26
+    table = str.maketrans('ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')
+    mes = mes.translate(table)
+    table1 = str.maketrans('abcdefghijklmnopqrstuvwxyz', alpha_rotate(key))
+    mes = mes.translate(table1)
+    return mes
+assert Caesar_encrypt('CS, CSE, CGS, BIM', 29) == 'fv, fvh, fjv, elp'
+print(Caesar_encrypt('qwertyuiop', 31))
+
+#
+#
+#Part F
+#
+#
+print()
+print()
+print('Part F')
+print()
+print()       
+
+#f.1
+def print_line_numbers(l: list):
+    '''Prints line numbers before each line'''
+    length = len(l)
+    FORMAT_STRING = "{:2d}:  {}"
+    for i in range(length):
+        print(FORMAT_STRING.format(i+1,l[i]))
+        
+
+print_line_numbers(['qwerty', 'asdf', 'zxcv', 'ICS', 'DGK','dsafd','dasfa','asdfa','asdfa','adfass','adsfafds','asdfa'])
+print()
+
+#f.2
+def stats(l: list):
+    '''Prints statistics of list of strings'''
+    fmstr = "{:5d}   lines in the list"
+    print(fmstr.format(len(l)))
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match201-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    e = 0
+    sm = 0
+    sm1 = 0
+    for i in l:
+        sm = sm+ len(i)
+        if i == '':
+            e = e+1
+        else:
+            sm1 = sm1+len(i)
+</FONT>    fmstr = "{:5d}   empty lines"
+    print(fmstr.format(e))
+    fmstr = "{:7.1f} average characters per line"
+    print(fmstr.format(sm/len(l)))
+    fmstr = "{:7.1f} average characters per non-empty line"
+    print(fmstr.format(sm1/(len(l)-e)))
+
+stats(['123', '1234', '12345', '0987', '0987654', '10293', '', '', '9087'])
+print()
+
+#f.3
+
+def list_of_words(l:list) -&gt; list:
+    '''yjhsdfkla;'''
+    table = str.maketrans('.,?!:;@#$%^&*()','               ')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match201-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    result = []
+    
+    for i in l:
+        start = 0
+        i = i.translate(table)
+        for n in range(len(i)):
+            
+            if i[n] == ' ':
+                if not n == len(i) - 1:
+                    if not i[n+1] == ' ':
+                        start = n+1
+            else:
+                if n == len(i) - 1:
+                    result.append(i[start:])
+                elif i[n+1] == ' ':
+                    result.append(i[start:n+1])
+    return result
+</FONT>hi = ['Hello, my name ','is Cailey McCabe!']
+print(list_of_words(hi))
+print(list_of_words(['At the top of your file','please give information','about the assignment partners']))
+print()
+
+
+
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+        
+</PRE>
+</PRE>
+</BODY>
+</HTML>

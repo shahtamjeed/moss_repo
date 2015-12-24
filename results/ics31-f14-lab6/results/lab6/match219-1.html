@@ -1,0 +1,216 @@
+<HTML>
+<HEAD>
+<TITLE>akazim/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+elised/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Elise Dang 45026272 and Tony Phan 43284383. ICS 31 sec 13. Lab asst 6.
+
+print("--C1--")
+
+def contains(s1:str, s2:str)-&gt;bool:
+    ''' Checks if second string occurs in the first string '''
+    return s2 in s1
+
+assert contains('banana', 'ana') == True
+assert not contains('racecar', 'ck') == True
+
+print(contains('potato', 'ato'))
+
+print()
+print("--C2--")
+
+def remove_punctuation(s:str) -&gt; list:
+    '''Takes string and converts words in string to list'''
+    translation = str.maketrans("!@#$%^&*(),.&lt;&gt;/?';:-_=+", '                       ')
+    return(s.translate(translation).split())
+
+def sentence_stats(s:str) -&gt; None:
+    '''Takes a string and prints out stats'''
+    print('Characters: ' , len(s))
+    print('Words: ', len(remove_punctuation(s)))
+    total = 0
+    for i in remove_punctuation(s):
+        total += len(i)
+    print('Average word length: ', total/len(remove_punctuation(s)))
+    return
+
+sentence_stats('I love UCI')
+sentence_stats(" Hi ?! How? are* you?! today_ ")
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+print()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match219-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print("--C3--")
+
+def initials(s:str)-&gt;str:
+    '''Takes a name and returns the initials of the name in all caps'''
+    p = s.upper() # ALANTURING
+    x = p.split() # ['ALAN', 'TURING']
+    a =''
+    for i in x:
+        a+= i[0]
+</FONT>    return a
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials("alan turing") == 'AT'
+
+print()
+print("--D1--")
+from random import randrange
+
+for i in range(50):
+    print (randrange(11))
+
+print()
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match219-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+for i in range(50):
+    print (randrange(1,7))
+
+print()
+print("--D2--")
+
+def roll2dice()-&gt;int:
+    '''Returns a number that reflects the random roll of two dice'''
+    return randrange(1,7) + randrange(1,7)
+
+for i in range(50):
+    print(roll2dice())
+</FONT>
+print()
+print("--D3--")
+
+def distribution_of_rolls(n: int) -&gt; list:
+    '''Takes a number and rolls two dice that many times, then returns stats'''
+    rollList = []
+    for i in range(n):
+        p = rollList.append(roll2dice())
+    print('Distribution of dice rolls')
+    print()
+    f = "{:2}:    {:2} ({:4.1f}%)  {}"
+    for i in range(2, 13):
+        print(f.format(i, rollList.count(i), (rollList.count(i)/n)*100, rollList.count(i) * '*'))
+    print('-' * 25)
+    print('       ', n, ' rolls')
+
+print(distribution_of_rolls(200))
+
+print()
+print("--E1--")
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def shift_table(key:int):
+    ''' Takes a integer and produces a shifted alphabet based on that integer '''
+    shift_alphabet = alphabet[key:26] + alphabet[0:key]
+    return shift_alphabet
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match219-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_encrypt(str1:str, key:int)-&gt;str:
+    ''' Takes a string and a integer (key) and creates a Caeser cipher '''
+    str2 = str1.lower()
+    table = str.maketrans(alphabet,shift_table(key))
+    return str2.translate(table)
+    
+assert Caesar_encrypt('Apple', 1) == 'bqqmf'
+assert Caesar_encrypt("Mouse", 5) == 'rtzxj'
+</FONT>
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match219-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_decrypt(s:str, key:int) -&gt; str:
+    ''' Takes an encrypted string and the key and deciphers it'''
+    s2 = s.lower()
+    table = str.maketrans(shift_table(key),alphabet)
+    return s2.translate(table)
+
+assert Caesar_decrypt('bqqmf', 1) == 'apple'
+assert Caesar_decrypt("rtzxj", 5) == 'mouse'
+</FONT>
+print()
+print("--E2--")
+
+# 'lgeslg ak s xjmal', 18
+
+# Answer: 'tomato is a fruit'
+
+print()
+print("--E3--")
+
+
+print()
+print("--F1--")
+
+def print_line_numbers(L:list)-&gt;None:
+    ''' Takes a list of strings and prints each string preceded by a line number '''
+    for i in range(len(L)): # L is a list of strings, so L[i] is a string.
+        line_number = i + 1
+        f = "{:2}: {}"
+        print(f.format(line_number, L[i]))
+
+print_line_numbers([ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ])
+        
+print()
+print("--F2--")
+
+def stats(L:list)-&gt;None:
+    ''' Takes a list of strings and prints its stats '''
+    lines_in_list = len(L)
+    empty_lines = 0
+    total_characters = 0
+    characters = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*(),.&lt;&gt;/?';:-_=+"
+    translation = str.maketrans(characters, len(characters)*'h' )
+    for i in range(len(L)):
+        if 'h' not in  L[i].translate(translation):
+            empty_lines += 1
+    for i in range(len(L)):
+        total_characters += len(L[i])
+    average_characters = total_characters / len(L)
+    non_empty = total_characters/ (len(L) - empty_lines)
+    f = '{:5}   lines in the list \n {:4}   empty lines\n {:6.1f} average characters per line \n {:6.1f} average characters per non-empty line'
+    print(f.format(lines_in_list, empty_lines, average_characters, non_empty))
+    
+print(stats(["Apple", "Orange", "Potato", "Carrots", "Peaches", "", "    "]))
+
+print()
+print("--F3--")
+
+def list_of_words(L:list)-&gt;list:
+    ''' Takes a list of strings and returns a list of individual words with all white space and punctuation
+removed'''
+    translation = str.maketrans("!@#$%^&*(),.&lt;&gt;/?;:-_=+", '                      ')
+    result = []
+    for i in L:
+        result.extend(((i.translate(translation)).strip()).split())
+    return result
+
+assert list_of_words([ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]) == ['Four', 'score', 'and', 'seven', 'years', 'ago', 'our', 'fathers', 'brought', 'forth', 'on', 'this', 'continent', 'a', 'new', 'nation', 'conceived', 'in', 'liberty', 'and', 'dedicated', 'to', 'the', 'proposition', 'that', 'all', 'men', 'are', 'created', 'equal', 'Now', 'we', 'are', 'engaged', 'in', 'a', 'great', 'civil', 'war', 'testing', 'whether', 'that', 'nation', 'or', 'any', 'nation', 'so', 'conceived', 'and', 'so', 'dedicated', 'can', 'long', 'endure']
+
+
+print()
+print("--G--")
+
+print("Please see restaurantsg.py. Thank you!")
+
+
+
+# Submit partner evaluation and submit lab6.py and restaurants program file (Part G) to Checkmate.
+</PRE>
+</PRE>
+</BODY>
+</HTML>

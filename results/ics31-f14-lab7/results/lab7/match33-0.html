@@ -1,0 +1,170 @@
+<HTML>
+<HEAD>
+<TITLE>liey1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+liey1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Angel Hernandez 35662719 and Evelyn Li 74788807. ICS 31 Lab sec 7. Lab asst 7.
+
+#
+#
+# PART C
+#
+#
+from random import randrange
+
+def random_name(l: str) -&gt; str:
+    """Returns a single random name from a file
+    """    
+    list_names = []
+    infile = open(l, 'r')
+    data = infile.read()
+    datalines = data.split('\n')
+    for i in datalines:
+        temp = i.split('\t')
+        list_names.append(temp[0])
+    return list_names[randrange(len(l))]
+    infile.close()
+
+#c.1
+def random_names(n: int) -&gt; list:
+    """Takes a number and Returns a random last name and first name in
+    the form a list from the files"""
+    result_list = []
+    result_name = ''
+    for i in range(n):
+        surname = random_name('surnames.txt')
+        i = randrange(2)
+        if i == 0:
+            firstname = random_name('malenames.txt')
+        else:
+            firstname = random_name('femalenames.txt')
+        result_name = surname + ', ' + firstname
+        result_list.append(result_name)
+    return result_list
+
+#
+#
+# PART D
+#
+#
+
+#from Evelyn Li's lab 6
+def rotate_alpha(n: int) -&gt; str:
+    '''Takes a specified number of characters from the front of
+    the alphabet and moves it to the end'''
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    return alphabet[n:] + alphabet[:n]
+assert rotate_alpha(3) == 'defghijklmnopqrstuvwxyzabc'
+
+
+def Caesar_encrypt(text: str, n: int) -&gt; str:
+    '''Encrypts the string by the specific key'''
+    text = text.lower()
+    table = str.maketrans('abcdefghijklmnopqrstuvwxyz', rotate_alpha(n))
+    return text.translate(table)
+assert Caesar_encrypt('hi there', 3) == 'kl wkhuh'
+
+
+def Caesar_decrypt(text: str, n: int) -&gt; str:
+    '''Decrypts the string by the specific key'''
+    table = str.maketrans(rotate_alpha(n), 'abcdefghijklmnopqrstuvwxyz')
+    return text.translate(table)
+assert Caesar_decrypt('kl wkhuh', 3) == 'hi there'
+
+#d.1
+
+infile = open('wordlist.txt', 'r')
+data = infile.read()
+dictionary = data.split('\n')
+infile.close()
+
+def Caesar_break(s: str) -&gt; str:
+    """Takes a ciphertest string and returns the plaintest for that string,
+    without having the key"""
+    message_list = []
+    count_list = []
+    table = str.maketrans('.,?!:;"*', '        ')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match33-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    s = s.translate(table)
+    for i in range(28):
+        message_list.append(Caesar_decrypt(s, i))
+    for j in range(28):
+        count = 0
+        words = message_list[j].split()
+        for w in words:
+            if w in dictionary:
+                count += 1
+        count_list.append(count)
+    hits = max(count_list)
+</FONT>    key = count_list.index(hits)
+    return Caesar_decrypt(s, key)
+assert Caesar_break('kl wkhuh') == 'hi there'
+assert Caesar_break('hi there') == 'hi there'
+
+#e
+
+#From Evelyn Li's lab 6
+def stats(x: str):
+    '''Takes a string and prints its statistics'''
+    s = x.split('\n')
+    lines = len(s)
+    empty_lines = 0
+    for i in range(len(s)):
+        if s[i] == '':
+            empty_lines += 1
+    total_char = 0
+    for j in range(len(s)):
+        total_char += len(s[j])
+    avg_lines = total_char/lines
+    avg_nonempty_lines = total_char/(lines-empty_lines)
+    list_stats = [lines, empty_lines, avg_lines, avg_nonempty_lines]
+    list_print = ['lines in the list', 'empty lines', 'average characters per line', 'average characters per non-empty line']
+    for k in range(len(list_stats)):
+        print("{:8} {}".format(list_stats[k], list_print[k]))
+
+def copy_file(s: str)-&gt;None:
+    """Takes a file and copies it while making alterations dependeing
+    on parameter value"""
+    infile_name = input("Please enter the name of the file to copy: ")
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match33-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    linenumber = 1
+    for line in infile:
+        if s == 'line numbers':
+            outfile.write('{:6}: '.format(linenumber) + line)
+            linenumber += 1
+        elif s == 'Gutenberg trim':
+            data = infile.read()
+</FONT>            book = data.split('\n')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match33-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_13.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            new_book = []
+            for j in range(len(book)):
+                index = book[j].find('*** START OF THIS PROJECT GUTENBERG EBOOK')
+                if index != -1:
+                    new_book = book[(j + 1):]
+            for k in range(len(book)):
+                index = book[k].find('*** END OF THIS PROJECT GUTENBERG EBOOK')
+                if index != -1:
+                    new_book = new_book[:k]
+            book_str = '\n'.join(new_book)
+            outfile.write(book_str)
+        elif s == 'statistics':
+            outfile.write(line)
+            data = infile.read()
+            stats(data)
+        else:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+</FONT></PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,369 @@
+<HTML>
+<HEAD>
+<TITLE>bplihal/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+bplihal/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab7.py
+# Brandon Plihal 49467162.  ICS 31 Lab sec 14.  Lab asst 7.
+
+#
+#
+# Part (c)
+#
+#
+print('\n') 
+print('---------- Part (c) ----------')
+print('\n')
+
+from random import randrange
+infile = open('surnames.txt')
+surname = infile.read()
+infile.close()
+surname_copy = surname
+
+infile = open('malenames.txt')
+malename = infile.read()
+infile.close()
+malename_copy = malename
+
+infile = open('femalenames.txt')
+femalename = infile.read()
+infile.close()
+femalename_copy = femalename
+
+def remove_punctuation(string:str)-&gt; str:
+    '''removes all punctuation in a string'''
+    s = ''
+    letter_list = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+    for letter in string:
+        if letter.lower() not in letter_list:
+            s+=' '
+        else:
+            s+=letter
+    return s
+
+def split_clean_str(s: str)-&gt;list:
+    '''splits and cleans a string'''
+    s=remove_punctuation(s)
+    return s.split()
+
+surname_copy = split_clean_str(surname_copy)
+malename_copy = split_clean_str(malename_copy)
+femalename_copy = split_clean_str(femalename_copy)
+
+
+
+def random_names(x:int)-&gt;list:
+    ''' takes an integer and returns a list of that many strings, with each string a randomly generated name'''
+    name_list =[]
+    for y in range(x):
+        name = '{}, {}'.format(random_last(), random_first())
+        name_list.append(name)
+    return name_list
+
+def random_first()-&gt;str:
+    '''generates a random first name'''
+    rand = randrange(1)
+    if rand == 0:
+        return malename_copy[randrange(len(malename_copy))]
+    if rand == 1:
+        return femalename_copy[randrange(len(femalename_copy))]
+
+def random_last()-&gt;str:
+    '''generates a random last name'''
+    return surname_copy[randrange(len(surname_copy))]
+
+print(random_names(10))
+#
+#
+# Part (d)
+#
+#
+print('\n') 
+print('---------- Part (d) ----------')
+print('\n')
+
+# D1
+infile = open('wordlist.txt','r')
+wordlist = infile.read()
+infile.close()
+wordlist_copy = wordlist
+wordlist_copy = wordlist_copy.split()
+
+
+def remove_punctuation_crypt(string:str)-&gt; str:
+    '''removes punctuation in a string'''
+    s = ''
+    letter_list = ['\'','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+    for letter in string:
+        if letter.lower() not in letter_list:
+            s+=' '
+        else:
+            s+=letter
+    return s
+
+
+def Caesar_decrypt(cipherText: str, y: int)-&gt; str:
+    '''decrypts an encrypted string'''
+    x = y%26
+    plainText = ''
+    for i in range(len(cipherText)):
+        letter = cipherText[i].lower()
+        plainText += chr(ord(letter)-x)
+    return plainText
+
+def Caesar_break(cipherText: str)-&gt; str:
+    '''decrypts an encrypted string'''
+    plainText = ''
+    countList = []
+    for x in range(0,26):
+        count = 0
+        string = Caesar_decrypt(cipherText.lower(),x).split()
+        for i in string:
+            for word in wordlist_copy:
+                if i == word:
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match222-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                    count += 1
+        countList.append(count)
+    index = 0
+    countMax = 0
+    for num in range(len(countList)):
+        if countList[num] &gt; countMax:
+            countMax = countList[num]
+            index = num
+</FONT>    return Caesar_decrypt(cipherText.lower(),index)
+
+
+
+def Caesar_encrypt(plainText: str, y: int)-&gt; str:
+    '''takes a string and encrypts it'''
+    x = y%26
+    cipherText = ''
+    for i in range(len(plainText)):
+        letter = plainText[i].lower()
+        cipherText += chr(ord(letter)+x)
+    return cipherText
+
+print(Caesar_break(Caesar_encrypt('supercalifragilisticexpialidocious',5)))
+print(Caesar_break(Caesar_encrypt('To get the dictionary',5)))
+print(Caesar_break(Caesar_encrypt('For each of the 26 possibly-decrypted messages, we\'ll look up each possibly-decrypted word in a dictionary. If the word is in the dictionary, then it\'s an English word; if there are a lot of English words in this possibly-decrypted message, it\'s likely that this message is the correct decrypted plaintext. So we need to count up how many of the words in each possibly-decrypted message we find in the dictionary, saving that total along with the message that produced it.',28)))
+
+# D2
+'''have no partner to do this with so I just emailed between my 2 email accounts'''
+
+#
+#
+# Part (e)
+#
+#
+print('\n') 
+print('---------- Part (e) ----------')
+print('\n')
+
+# E1
+'''
+def copy_file():
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+'''
+# E2
+'''
+def copy_file(operation: str):
+    if operation == 'line numbers':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        count = 1
+        for line in infile:
+            outfile.write('{}. {}'.format(count,line))
+            count+=1
+        infile.close()
+        outfile.close()
+    else:
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+'''
+# E3
+'''
+def copy_file(operation: str):
+    if operation == 'line numbers':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        count = 1
+        for line in infile:
+            outfile.write('{}. {}'.format(count,line))
+            count+=1
+        infile.close()
+        outfile.close()
+        exit
+    if operation == 'Guterberg Trim':
+        line_list = []
+        start = 0
+        end = 0
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            line_list.append(line)
+        for x in range(len(line_list)):
+            if '*** START' in line_list[x]:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match222-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                start = x
+                break
+        for x in range(len(line_list)):
+            if '*** END' in line_list[x]:
+                end = x
+                break
+        for y in range(start, end+1):
+</FONT>            outfile.write(line_list[y]) 
+        infile.close()
+        outfile.close()
+        exit
+    if operation != 'line numbers' and operation != 'Guterberg Trim':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+        exit
+
+'''
+# E4
+
+def copy_file(operation: str):
+    '''takes one parameter (string) if it is 'line numbers' then it will add line numbers
+            to the string, if it is 'Gutenburg Trim it will trim the excess of the book,
+            if it is 'statistics' it will print the statistics''''
+    if operation == 'line numbers':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        count = 1
+        for line in infile:
+            outfile.write('{}. {}'.format(count,line))
+            count+=1
+        infile.close()
+        outfile.close()
+    if operation == 'Guterberg Trim':
+        line_list = []
+        start = 0
+        end = 0
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            line_list.append(line)
+        for x in range(len(line_list)):
+            if '*** START' in line_list[x]:
+                start = x
+                break
+        for x in range(len(line_list)):
+            if '*** END' in line_list[x]:
+                end = x
+                break
+        for y in range(start, end+1):
+            outfile.write(line_list[y]) 
+        infile.close()
+        outfile.close()
+    if operation == 'statistics':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        lines = 0
+        empty = 0
+        char = 0
+        for line in infile:
+            outfile.write(line)
+            lines+=1
+            char += len(line)
+            if line == '':
+                empty+=1
+        outfile.write('{:10}   lines in the file \n'.format(lines))
+        outfile.write('{:10}   empty lines \n'.format(empty))
+        outfile.write('{:10.5f}   average characters per line \n'.format(char/lines))
+        outfile.write('{:10.5f}   average characters per non-empty line \n'.format(char/(lines-empty)))
+        infile.close()
+        outfile.close()
+    if operation != 'line numbers' and operation != 'Guterberg Trim' and operation != 'statistics':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+
+
+copy_file('line numbers')
+copy_file('Guterberg Trim')
+copy_file('statistics')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

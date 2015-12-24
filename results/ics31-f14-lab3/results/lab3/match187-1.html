@@ -1,0 +1,292 @@
+<HTML>
+<HEAD>
+<TITLE>kyounis/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+skruse/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: ICS.Lab3.py
+
+# Seth Kruse 70075430 and James Nguyen 36686189. ICS 31 Lab sec 7. Lab Asst 3
+
+from collections import namedtuple
+
+print('------------------Part C------------------')
+print()
+
+#1.
+def abbreviate(month: str) -&gt;str:
+#takes in a string as an argument and returns a str
+        return month[0:3]
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+
+#2.
+def find_area_square(length: int) -&gt; int:
+#takes in a int as a parameter an returns that value squared
+    return length**2
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+#3
+
+def find_area_circle(radius: float) -&gt; float:
+#takes in a float as a radius value and returns a area of a circle (float value)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match187-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return (3.14159*(radius**2))
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+#4
+def print_even_numbers(integers:list):
+        
+#for loop that will go through each value in our list.  print statement() does not return a value.
+    for c in integers:
+        if((c % 2) == 0):
+            print(c)
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+</FONT>print()
+
+#5
+def calculate_shipping(weight: float) -&gt; float:
+#accepts a float and calculates a shipping price depending on weight.
+    if(weight &lt; 2.00):
+        print(weight)
+        return (2.00)
+    elif(weight&gt; 2.00 and weight &lt; 10.00):
+        print(weight)
+        return(5.00)
+    elif(weight &gt; 10):
+        print(weight)
+        return (5.00 + (1.50 * (weight -10)))    
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+print()
+
+#6
+import tkinter              # Load the library; do this just once per program
+#acceping floats as parameters to draw our squares.
+def create_square(Xvalue: float, Yvalue: float, lenvalue: float ) -&gt; float:
+    my_window = tkinter.Tk()    # Create the graphics window
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+    my_canvas.pack()            # Put the canvas into the window
+    my_canvas.create_rectangle(Xvalue, Yvalue, Xvalue+lenvalue, Yvalue+lenvalue, fill='orange') # Draw orange line
+    tkinter.mainloop()          # Combine all the elements and display the window5
+
+create_square(100, 100, 200)
+
+#7
+def create_oval(Xvalue: float, Yvalue: float, lenvalue: float ) -&gt; float:
+    my_window = tkinter.Tk()    # Create the graphics window
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+    my_canvas.pack()            # Put the canvas into the window
+    my_canvas.create_oval(Xvalue, Yvalue, Xvalue+lenvalue, Yvalue+lenvalue, fill='orange') # Draw orange line
+    tkinter.mainloop()          # Combine all the elements and display the window5
+create_oval(100, 100, 200)
+
+#D
+print('---------------------Part D---------------------')
+print()
+
+#d.1
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#accepts a list of restaurants  and returns their price
+def restauraunt_price(restaurant: list) -&gt; float:
+        return restaurant.price
+assert restauraunt_price(RL[0])                          
+assert restauraunt_price(RL[3])
+print (restauraunt_price(RL[1]))
+print(restauraunt_price(RL[5]))
+print()
+
+#d.2
+#we call a sort method and make our key the restaurant price which our list will be sorted by
+RL.sort(key=restauraunt_price)
+print(RL)
+print()
+
+#d.3
+
+#functions accepts a list and calls upon upon a sort method by our key value.  It will then
+#grab  the last index in the list and return the str name of that restaurant
+
+def costliest(restaurant: list)-&gt;  str:
+        RL.sort(key=restauraunt_price)
+        return(RL[-1].name)
+print(costliest(RL))
+print()
+
+#d.4
+
+#functions accepts a list and calls upon upon a sort method by our key value.  It will then
+#grab  the last index in the list and return the str name of that restaurant.  However the
+#sorted method does not alter the orginal list.
+
+def costliest2(restauraunt: list)-&gt;  str:
+        L = sorted(RL, key=restauraunt_price)
+        print(L[-1].price)
+        return(L[-1].name)
+
+#E
+print('---------------------Part E---------------------')
+print()
+Book = namedtuple('Book', 'author title genre year price instock')
+
+BSI =   [
+        Book("Cruz, John",  "Human Instances", "Technology", 2003, 19.99, 2),
+        Book("Stefano, Rocco ", "Fast College Meals", "Cookbook", 1997, 8.99, 5),
+        Book("Phi,Steven", "Stones, Jewels, & Diamonds", "Informational", 2000, 25.00, 2),
+        Book("Quinonez, Andrew ", "Dark Side of the Moon", "Horror", 1976, 8.99, 3),
+        Book("Daghaly, Kathleen", "Design Aspects of Software Design", "Technology", 2012, 14.99, 3),
+        Book("Alva, Johana", "The Blacklist", "Horror", 2004, 49.99, 2)
+        ]
+
+#e.1
+#functions takes in a listof  books and prints all the titles
+def print_titles(B: list):
+        i=0
+        for Book in B:
+                print(B[i].title)
+                i += 1
+print_titles(BSI)
+print()
+
+#e.2
+#function accepts a list and returns thestr book title
+def titles(book: list) -&gt; str:
+        return book.title
+
+#functions accepts a list and uses our titles function as a sort key to sort our list
+#in alphabeticl order and  then uses a print statement to bring the title of each book.
+def alphabetical_order(booklist: list):
+        t = 0
+        booklist = sorted(BSI, key=titles)
+        for book in booklist:
+                print(booklist[t].title)
+                t +=1
+alphabetical_order(BSI)
+print()
+
+#e.3
+#Function will accept a list and use a built in function called replace
+#it will actually go into our namedtuple and change all values of our prices for each book
+def raise_price(B: list):
+        i=0
+        for Book in B:               
+                B[i] = B[i]._replace(price= (1.1*B[i].price))
+                i =+ 1
+raise_price(BSI)
+print(BSI)
+print()
+
+#e.4
+#functions accepts  a list and cycles through our list in a for loop to search 
+#for book's genre paramter and prints that book and attributes if it is a technology
+#based genre book
+def technology_seek(B: list):
+        inc = 0
+        for book in B:
+                if(B[inc].genre == ("Technology")):
+                        print(B[inc].title)
+                        inc += 1
+                else:
+                        inc += 1
+technology_seek(BSI)
+print()
+
+#e.5
+Before2k = []
+After2k = []
+#functions accepts a list  and  we create two new list depending on date publication.
+#We use the append() built in function to add ech namedtuple to the end of the list.  
+def splitbooks(B:list):
+    i = 0
+    for book in B:
+        if (B[i].year &gt;= 2000):
+            After2k.append(B[i].title)
+            i+= 1
+        else:
+            Before2k.append(B[i].title)
+            i+=1
+splitbooks(BSI)
+print('More titles 2000 or later vs. titles before the year 2000 (', len(After2k), 'vs.', len(Before2k), ')')
+print()
+
+#e.6
+#functions accepts a object, and returns a float value of our inventory
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match187-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def inventory_value(b: object) -&gt; float:
+        return b.price * b.instock
+
+#our function will accepts a list and call another functions to grab a float value.
+#This float value is our book value and we walk through our list of book seeking the
+#highest book value.  We then will return the whole book object as requested in the
+#directions. 
+def top_value(B: list)-&gt; list:
+        i = 0
+</FONT>        tempValue = inventory_value(B[i])
+        for book in B:
+                if((inventory_value(B[i])&gt; tempValue)):
+                        tempValue = inventory_value(B[i])
+                        tempValueList = B[i]
+                i += 1
+        return tempValueList
+tempList = top_value(BSI)
+print('The highest-valuebook is', tempList.title,'by', tempList.author, 'at a  value of $', tempList.price*tempList.instock)
+print()
+
+#F
+
+#we will use functions within functions along with tkinter to draw a face.  
+print('---------------------Part F---------------------')
+print()
+def draw_face():
+    my_window = tkinter.Tk()    # Create the graphics window
+    my_canvas = tkinter.Canvas(my_window, width=750, height=1000)  # Create a 500x500 canvas to draw on
+    my_canvas.pack()            # Put the canvas into the window
+    my_canvas.create_oval(25, 25, 680, 490, fill='orange', outline='orange') # Draw orange line
+    my_canvas.create_oval(150, 350, 520, 650, fill='orange', outline='orange')
+    draw_eye(100, 100, 300, 200, my_canvas)    
+    draw_eye(350, 100, 550, 200, my_canvas)
+    draw_nose(my_canvas)
+    tkinter.mainloop()          # Combine all the elements and display the window5
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match187-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def draw_eye(xvalue: float, yvalue: float, x1value: float, y2value: float, my_canvas: tkinter):
+        #my_window = tkinter.Tk()    # Create the graphics window
+        #my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+        #my_canvas.pack()            # Put the canvas into the window
+        my_canvas.create_oval(xvalue, yvalue, x1value, y2value, fill = 'white')
+        my_canvas.create_oval(xvalue+50, yvalue, x1value-50, y2value, fill = 'blue')
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match187-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        my_canvas.create_oval(xvalue+75, yvalue+25, x1value-75, y2value-25, fill = 'grey')
+        #tkinter.mainloop()          # Combine all the elements and display the window5
+
+def draw_nose(my_canvas: tkinter):
+        my_canvas.create_line(300, 275, 250, 420, fill='black')
+</FONT>        my_canvas.create_line(250, 420, 420, 420, fill='black')
+        my_canvas.create_polygon(250, 500, 425, 500, 330, 550, 270, 550, fill = 'white')
+        my_canvas.create_line(255, 520, 390, 520, fill='black')
+
+draw_face()
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/truongjp/(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/truongjp/(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: BandB1.py
+# Vivian Pham 18035987 and Jean Truong 19113020 ICS sec 5
+
+########################################################
+########################################################
+#####################ANTEATER BandB#####################
+########################################################
+########################################################
+
+
+"""
+Reservation software
+-Keep track of:
+    -The rooms available for rent
+    -Guest reservations for these rooms
+"""
+
+
+################################ STAGE 1 ################################
+"""
+-Keep track of:
+    -The rooms available for rent
+
+AB
+    (for "add a new bedroom") followed
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match105-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_23.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    by an integer room number (in the range 1–999).
+    Add a new bedroom with the specified room number.
+BL
+    (for "bedroom list").
+    Print a list of the bedrooms currently available.
+    The input file may contain any number of these commands in any order;
+    each BL command prints a list of available bedrooms
+    based on what has been added as of that point.
+    See the sample output below for the format of the printed bedroom list. For this stage, it doesn't matter what order the bedrooms appear in.
+PL
+    (for "print line"), followed by any text.
+    Simply print (or "echo") a line,
+    copying the input (not counting the PL and leading whitespace)
+    to the output.
+</FONT>    You'll find it useful in testing,
+    and it's also a simple way to make the program's
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match105-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    reports clearer or fancier.
+**
+    Comment, followed by any text.
+    Like comments in a program,
+    comment lines don't have any effect on the program's behavior;
+    they just serve as annotations in the command file.
+</FONT>"""
+
+def bednbreakfast():
+    '''Starts the BandB program'''
+    print("Welcome to the Anteater BandB program!")
+    thefile = str(input("What is the name of the input file?"))
+    infile = open(thefile, 'r')
+    our_room = Rooms_new()
+    our_room = handle_commands(our_room, infile)
+    infile.close()
+    print("\nThank you. Good-bye.")
+
+def handle_commands(c: list, file: 'str') -&gt; list:
+    """ Accept and process commands"""
+    while True:
+        response = input_format(file.readlines())
+        for line in response:
+            wordlist = line.split(' ')
+            for word in wordlist:
+                if 'AB' == word:
+                    r = line.strip('AB').replace(' ', '')
+                    if int(r) &gt;=1 and int(r) &lt;=999:
+                        c = Rooms_add_room(c,r)
+                    else:
+                        print('Sorry,', r, ',is not a room')
+                elif 'BL' == word:
+                    print('Number of bedrooms in service: {}\n------------------------------------'.format(Rooms_count(c)))
+                    for room in c:
+                        print(room)
+                elif 'PL' == word:
+                    print_line(line)
+        break
+### INPUT 
+def astericks_comment(theinput: str):
+    """Make astericks a comment function"""
+    i = theinput.index('**')
+    return theinput[:i]
+
+def uppercase(string: str)-&gt; str:
+    '''Uppercase first two letters'''
+    new = string[0:2].upper()
+    return string.replace(string[0:2], new)
+
+def input_format(thefile: [str]) -&gt; [str]:
+    '''Format the string of the file'''
+    result = [ ]
+    for line in thefile:
+        line = uppercase(line.strip())
+        if '**' in line[0:2]: 
+            response = astericks_comment(line.strip())
+        else:
+            response = line.strip()
+        result.append(response)
+    return result
+
+### DISPLAY
+def print_line(line: str):
+    '''print the line without the command and its whitespace'''
+    print(line.strip('PL '))
+
+### ROOMS 
+def Rooms_new():
+    """Starts a new collection of rooms"""
+    return [ ]
+
+def Rooms_add_room(c: [str], R:str) -&gt; [str]:
+    """Adds room to the collection"""
+    c.append(R)
+    return c
+
+def Rooms_count(c: [str]) -&gt; int:
+    '''Count number of rooms in the list'''
+    return len(c)
+
+
+
+bednbreakfast()
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

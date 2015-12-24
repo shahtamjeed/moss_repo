@@ -1,0 +1,192 @@
+<HTML>
+<HEAD>
+<TITLE>kelassaa/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kelassaa/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Khalid Elassaad 56213184 and Anuj Shah 32046445. ICS 31 Lab sec 13.  Lab Asst 7.
+
+# -- PART C
+print("-- PART C")
+
+from random import randrange
+
+def random_name()-&gt;str:
+    """ Returns a random name"""
+    infile_male = open("malenames.txt","r")
+    male_names = []
+    for line in infile_male.readlines():
+        male_names.append(line.split()[0])
+    infile_male.close()
+
+    infile_female = open("femalenames.txt","r")
+    female_names = []
+    for line in infile_female.readlines():
+        female_names.append(line.split()[0])
+    infile_female.close()
+
+    infile_surnames = open("surnames.txt","r")
+    surnames = []
+    for line in infile_surnames.readlines():
+        surnames.append(line.split()[0])
+    infile_surnames.close()
+    newname = ""
+    newname+=(surnames[randrange(len(surnames))].capitalize())
+    if randrange(2) == 1:
+        newname+=(", " + male_names[randrange(len(male_names))].capitalize())
+    else:
+        newname+=(", " + female_names[randrange(len(female_names))].capitalize())
+    return newname
+
+def random_names(num:int)-&gt;[str]:
+    """ Returns a list of specified length of randomly generated names"""
+    return_list = []
+    for x in range(num):
+        return_list.append(random_name())
+    return return_list
+    
+print(random_names(10))
+print(random_names(20))
+
+# -- PART D
+print("-- PART D")
+### COPIED FROM LAB 6 to give encryptions to test
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match26-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_encrypt(plaintext:str, key:int) -&gt; str:
+    """ Returns plaintext encrypted by Caesarian cipher with given key"""
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    key_alphabet = alphabet
+    for x in range(key):
+        key_alphabet = key_alphabet[1:] + key_alphabet[0]
+    ciphertext = ""
+    for char in plaintext:
+        if char.lower() in alphabet:
+            if char.lower() == char:
+                ciphertext += key_alphabet[alphabet.find(char)]
+            else:
+                ciphertext += key_alphabet[alphabet.find(char.lower())].upper()
+        else:
+            ciphertext += char
+</FONT>    return ciphertext
+
+# COPIED FROM LAB 6
+def Caesar_decrypt(ciphertext:str, key_alphabet:str) -&gt; str:
+    """ Returns plaintext decrypted by Caesarian cipher with given key alphabet and ciphertext"""
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match26-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    plaintext = ""
+    for char in ciphertext:
+        if char.lower() in alphabet:
+            if char.lower() == char:
+                plaintext += key_alphabet[alphabet.find(char)]
+            else:
+                plaintext += key_alphabet[alphabet.find(char.lower())].upper()
+        else:
+            plaintext += char
+</FONT>    return plaintext
+
+alphabets = []
+for x in range(26):
+    alphabets.append("abcdefghijklmnopqrstuvwxyz"[x:] + "abcdefghijklmnopqrstuvwxyz"[:x])
+
+def all_decryptions(ciphertext:str) -&gt;[str]:
+    """ Decrypt a ciphertext with all keys, create and return a list"""
+    return_list = []
+    for x in range(26):
+        return_list.append(Caesar_decrypt(ciphertext, alphabets[x]))
+    return return_list
+
+def list_check(decryptions:[str]) -&gt; int:
+    """ Returns the index of the decryption with the most real words"""
+    infile = open("wordlist.txt","r")
+    words = infile.read().lower().split("\n")
+    infile.close()
+    countlist = []
+    for decryption in decryptions:
+        count = 0
+        nopunc = ""
+        for char in decryption:
+            if char not in """~!@#$%^&*()_+`-={}|[]\\:";'&lt;&gt;,.?/""":
+                nopunc += char
+        for word in nopunc.split():
+            if word.lower() in words:
+                count += 1
+        countlist.append(count)
+    return countlist.index(max(countlist))
+
+assert list_check(all_decryptions("Hello")) == 0
+assert list_check(all_decryptions("World!")) == 0
+
+def Caesar_break(ciphertext:str) -&gt; str:
+    return all_decryptions(ciphertext)[list_check(all_decryptions(ciphertext))]
+
+assert Caesar_break("") == ""
+assert Caesar_break("Gdkkn") == "Hello"
+
+print(Caesar_break("Vdds bdgcxcv, Kxticpb!"))
+
+        
+# -- PART E
+print("-- PART E")
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match26-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats(string_list:[str]): ### COPIED FROM LAB 6
+    """ Prints stats about the list of strings """
+    empty_lines = 0
+    characters = 0
+    for string in string_list:
+        characters += len(string)
+        if string == "":
+            empty_lines += 1
+    print(("{0:"+str(len(str(len(string_list))))+"}\t{1}").format(len(string_list),"lines in the list"))
+    print(("{0:"+str(len(str(len(string_list))))+"}\t{1}").format(empty_lines,"empty lines"))
+    print(("{0:"+str(len(str(len(string_list)))+2)+".1f}\t{1}").format(characters/len(string_list),"average characters per line"))
+    print(("{0:"+str(len(str(len(string_list)))+2)+".1f}\t{1}").format(characters/(len(string_list)-empty_lines),"average characters per non-empty line"))
+</FONT>
+
+def copy_file(modifier:str):
+    """ Copies a file in the local directory """
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    all_lines = infile.readlines()
+    if modifier == "line numbers":
+        linenum = 1
+        for line in all_lines:
+            outfile.write(("{0:5}: {1}").format(linenum,line))
+            linenum += 1
+    elif modifier == "Gutenberg trim":
+        for line in all_lines:
+            if "*** START OF THIS PROJECT" in line:
+                start_index = all_lines.index(line)
+            if "*** END OF THIS PROJECT" in line:
+                end_index = all_lines.index(line)
+        for line in all_lines[start_index:end_index + 1]:
+            outfile.write(line)
+    elif modifier == "statistics":
+        for line in all_lines:
+            outfile.write(line)
+        if all_lines == []:
+            print("all_lines is blank")
+        new = []
+        for line in all_lines:
+            new.append(line.strip())
+        stats(new)
+    else:
+        for line in all_lines:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file("statistics")
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

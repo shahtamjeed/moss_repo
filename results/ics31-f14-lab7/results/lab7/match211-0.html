@@ -1,0 +1,213 @@
+<HTML>
+<HEAD>
+<TITLE>cnapoli/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+cnapoli/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Jonathan Nguyen 93726859 and Cameron Napoli 73223093. ICS 31 Lab sec 5. Lab Asst 7
+
+SURNAMES_FILE = 'surnames.txt'
+MALENAMES_FILE = 'malenames.txt'
+FEMALENAMES_FILE = 'femalenames.txt'
+
+DICTIONARY = 'wordlist.txt'
+
+def space():
+    print()
+
+from random import randrange
+
+# (c)
+
+print('--------------------------- Part (c) ---------------------------\n')
+
+def file_num_lines(filename: str) -&gt; int:
+    ''' find the total number of lines in a file '''
+    file = open(filename, 'r')
+    num_lines = 0
+    for line in file:
+        num_lines += 1
+    file.close()
+    return num_lines
+assert file_num_lines('surnames.txt') == 1000
+
+def trim_name(txt: str) -&gt; str:
+    ''' Trims text to name '''
+    for x in range(len(txt)):
+        if txt[x] == " " or txt[x] == "\t":
+            return txt[0:x]
+assert trim_name('MARY	2.629	 3,991,060	1') == "MARY"
+assert trim_name('BARBARA	0.98	 1,487,729	4') == "BARBARA"
+assert trim_name('ELIZABETH	0.937	 1,422,451	5') == "ELIZABETH"
+ 
+
+def random_name(txt: str) -&gt; str:
+    ''' Takes a file and truncates to the name '''
+    file = open(txt, 'r')
+    rand = randrange(0, file_num_lines(txt))
+    for x in range(file_num_lines(txt)):
+        temp = file.readline()
+        if x == rand:
+            file.close()
+            return trim_name(temp).title()
+       
+    
+def random_names(times: int) -&gt; list:
+    ''' return random list of full names '''
+    result = [ ]
+    for i in range(times):
+        x = randrange(2)
+        if x == 0:
+            result.append( random_name(MALENAMES_FILE) + ' ' + random_name(SURNAMES_FILE) )
+        else:
+            result.append( random_name(FEMALENAMES_FILE) + ' ' + random_name(SURNAMES_FILE) )
+    return result
+
+print(random_names(50))
+space()
+
+
+# (d)
+
+print('--------------------------- Part (d) ---------------------------\n')
+
+# d.1
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+
+def Caesar_encrypt(message: str, key: int) -&gt; str:
+    ''' Returns encrypted text '''
+    table = (message.lower()).maketrans(ALPHABET, ALPHABET[(key % 26):] + ALPHABET[:(key % 26)])
+    return (message.lower()).translate(table)
+
+def Caesar_decrypt(message: str, key:int) -&gt; str:
+    ''' Returns decrypted text '''
+    table = (message.lower()).maketrans(ALPHABET[(key % 26):] + ALPHABET[:(key % 26)], ALPHABET)
+    return (message.lower()).translate(table)
+
+def remove_punctuation(txt: str) -&gt; str:
+    modified_text = txt
+    for x in modified_text:
+        if (x.lower() not in ALPHABET):
+            modified_text = modified_text.replace(x, '')
+    return modified_text
+
+def Caesar_break(coded_message: str) -&gt; str:
+    ''' runs through a coded message, and brute forces it to
+        find the decoded sequence without needing the decryption key '''
+    frequency_list = [ ] # contains frequency of each decoding sequence
+    for i in range(26):
+        print('Brute forcing with key:', i)
+        
+        # Process the dictionary first
+        dictionary_file = open(DICTIONARY, 'r')
+        dictionary_list = (dictionary_file.read()).split('\n') # list containing english words
+        dictionary_file.close()
+        
+        frequency_of_words = 0
+        decoded_message = Caesar_decrypt(coded_message, i)
+        temp_list = decoded_message.split() # dont forget to remove punctuation
+
+        # remove punctuation from all words
+        for index in range(len(temp_list)):
+            temp_list[index] = remove_punctuation(temp_list[index])
+
+        # loop through and check the frequency of english words in each decoding
+        for word in temp_list:
+            if word.lower() in dictionary_list:
+                frequency_of_words += 1
+                break
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match211-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        frequency_list.append(frequency_of_words)
+    
+    # next find index with greatest frequency and return the decrypted string
+    key_current = 0
+    most_frequent = 0
+    
+    for index in range(len(frequency_list)):
+        if frequency_list[index] &gt; most_frequent:
+            key_current = index
+</FONT>            most_frequent = frequency_list[index]
+
+    if most_frequent != 0:
+        return '\nDecrypted Message: ' + Caesar_decrypt(coded_message, key_current)
+    else:
+        return '\n***** Message Could not be broken *****'
+
+encrypted_message = 'mjd ufwysjw, uqjfxj qttp zsijw ymj yfgqj yt knsi ymj fsxbjw.'
+
+print('Encryped Message:', encrypted_message)
+print('\nLoading . . . (this may take some time)')
+print('_____________________________________\n')
+print(Caesar_break(encrypted_message),'\n')
+
+
+# (e)
+
+print('--------------------------- Part (e) ---------------------------\n')
+
+def copy_file(param: str):
+    ''' Copies a file to another file of the users choosing
+            according a parameter:
+        line numbers -&gt; adds line numbers to file
+        Gutenberg trim -&gt; trims file from *** START line to *** END line
+        statistics -&gt; prints out statistics after copying the file
+        '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    if param == 'line numbers':
+        index = 1 # line numbers start on 1
+        for line in infile:
+            format_line = '{:5d}'.format(index) + ': ' + line
+            outfile.write(format_line)
+            index += 1
+    elif param == 'Gutenberg trim':
+        has_started = False
+        for line in infile:
+            if has_started:
+                if '*** END' in line:
+                    break
+                outfile.write(line)
+            else:
+                if '*** START' in line:
+                    has_started = True
+    elif param == 'statistics':
+        line_count = 0
+        empty_lines = 0
+        total_characters = 0
+
+        for line in infile:
+            outfile.write(line)
+            line_count += 1
+            total_characters += len(line)
+            if line.replace('\n','') == '':
+                empty_lines += 1
+        
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match211-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        print('{:6d}   lines in the file'.format(line_count))
+        print('{:6d}   empty lines'.format(empty_lines))
+        print('{:8.1f} average characters per line'.format(total_characters/line_count))
+        print('{:8.1f} average characters per non-empty line'.format( total_characters/
+                                                                      (line_count-empty_lines) ))
+    else:
+        for line in infile:
+            outfile.write(line)
+
+    infile.close()
+</FONT>    outfile.close()
+
+copy_file('statistics')
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

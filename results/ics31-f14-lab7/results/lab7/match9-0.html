@@ -1,0 +1,194 @@
+<HTML>
+<HEAD>
+<TITLE>keungh/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+keungh/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab 7.py
+# Keung Huang 76679882 and Luhanzhi Li 94523635 ICS 31 LAB Sec 12. Lab Asst 7.
+
+#
+#C
+#
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match9-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_54.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print("-----Part C  -----")
+print('\n')
+# create a function that reads everything as a line, cleans up the line
+# and returns just the name part, which will then be put in a new list
+
+from random import randrange
+
+def name_list(giantSL: list)-&gt; list:  # requires a str with no '\n' char
+    "returns a list of names from a giant str"
+    newList = []
+    for item in giantSL:
+        sublist = item.split() # because giantS is still a list of lines
+        newList.append(sublist[0]) # This should isolate the names
+    return newList
+        
+        
+def listChoice(List1: list, List2: list)-&gt; str:
+    num = randrange(2)
+    if num == 0:
+        return name_list(List1)     # choose a female name 
+    else:
+        return name_list(List2)     # choose a male name
+   
+
+def random_names(n: int)-&gt; list:
+    surnames = open("surnames.txt")
+    fNames = open("femalenames.txt")
+    mNames = open("malenames.txt")
+
+    names_sur = surnames.readlines() # This converts giant str into list of char per line
+    names_f = fNames.readlines()
+    names_m = mNames.readlines()
+    
+    surnames.close()
+    fNames.close()
+    mNames.close()
+    
+
+    newList = []
+    for num in range(n):
+        sur = randrange(101)
+        first = randrange(101)
+
+        s_list = name_list(names_sur)
+        f_list = name_list(listChoice(names_f,names_m))
+        randname = f_list[first] + " " + s_list[sur]  
+        newList.append(randname)
+
+
+    return newList
+
+#
+#Part D
+#
+print("----- D -----")
+print('\n')
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def rotated(num:int):
+    s = ALPHABET[num:] + ALPHABET[:num]
+    return s
+
+def Caesar_encrypt(x1:str,num:int) -&gt; str:
+    newsent = x1.lower()
+    table = str.maketrans(ALPHABET,rotated(num))
+    code = newsent.translate(table)
+    return code
+    
+def Caesar_decrypt(x1:str, num: int) -&gt; str:
+    newsent = x1.lower()
+    table = str.maketrans(rotated(num), ALPHABET)
+    code = newsent.translate(table)
+    return code
+
+def Caesar_break(x:str) -&gt; str:
+    infile = open('wordlist.txt','r')
+    wordlist = infile.readlines()
+    newwordlist = []
+    for word in wordlist:
+        newwordlist.append(word[:-1])
+    infile.close()
+    txt = x
+    split = txt.split()
+    plaintxt = ''
+    for word in split:
+        lowerword = word.lower()
+        for num in range(26):
+            original = Caesar_decrypt(lowerword,num)
+            caporiginal = original.capitalize()
+            if caporiginal in newwordlist:
+                plaintxt += caporiginal
+    return plaintxt
+
+print(Caesar_break('mpwf'))
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match9-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_41.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+
+
+#
+#E
+#
+print("-----Part E -----")
+print('\n')
+
+def empty_lines(l: list)-&gt; int:
+        "returns number of blank/empty lines in a list of strings"
+        num_blank = 0
+        for string in l:
+                if string.count(" ") == len(string) or string == '\n':
+                        num_blank += 1
+        return num_blank
+
+def char_count(l: list)-&gt; float:
+    "returns character count of characters in a list of strs"
+    a = 0
+    for strings in l:
+        a = a + len(strings) 
+    return a
+
+def avg_char_line(l:list)-&gt; float:
+    '''computes average chars per line'''
+    a = char_count(l) / len(l)
+    return a
+
+def avg_char_line2(l: list)-&gt; float:
+    '''computes average chars per line without empty strings'''
+    a = char_count(l)
+    b = a / (len(l)- empty_lines(l))
+    return b
+
+def stats(a: list)-&gt; str:
+    "prints out rows of stats "
+    print("{:7d} lines in the list".format(len(a)))
+    print("{:7d} empty lines".format(empty_lines(a)))
+    print("{:7.1f} average characters per line".format(avg_char_line(a)))
+    print("{:7.1f} average characters per non_empty line".format(avg_char_line2(a)))
+
+def copy_file(s: str)-&gt; str:
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+
+        lineList = infile.readlines()  # lineList, a list of each individual line
+        if s == "line numbers":
+            for item in range(1,len(lineList) + 1):
+                line = "{:5d}:  {}".format(item, lineList[item - 1])
+                outfile.write(line)
+
+        if s == "Gutenberg trim":
+            result = []
+            for line in range(len(lineList)):
+                if "*** START" in lineList[line]:
+                    start = line
+                if "*** END" in lineList[line]:
+                    end = line
+                    break
+                
+            for item in lineList[start + 1: end]:
+                outfile.write(item)
+</FONT>        
+        if s =="statistics":
+                stats(lineList)
+        else:
+            for line in infile:
+                outfile.write(line)
+
+        infile.close()
+        outfile.close()
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

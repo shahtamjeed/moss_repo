@@ -1,0 +1,193 @@
+<HTML>
+<HEAD>
+<TITLE>marcosa/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+marcosa/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Marcos Avila 58548681 and April Huie 32817908. ICS 31 Lab Section 16
+
+#
+#
+#c
+#
+#
+
+from random import randrange
+
+surnameFile = open('surnames.txt', 'r')
+maleNamesFile = open('malenames.txt', 'r')
+femaleNamesFile = open('femalenames.txt', 'r')
+
+surnameString = surnameFile.read()
+maleNamesString = maleNamesFile.read()
+femaleNamesString = femaleNamesFile.read()
+
+
+def extract_names(s: str) -&gt; list:
+    '''reads a file and returns a list of names'''
+    result = []
+    for i in s.split('\n'):
+        l = i.split('\t')
+        result.append(l[0])
+    return result
+
+surnameList = extract_names(surnameString)
+maleNameList = extract_names(maleNamesString)
+femaleNameList = extract_names(femaleNamesString)
+
+def random_names(UIint: int) -&gt; list:
+    '''Returns a list of random names'''
+    result = []
+    last = ''
+    i = 0
+    while i &lt; UIint: 
+        last = surnameList[randrange(len(surnameList))]
+        if randrange(1) == 1:
+           first = femaleNameList[randrange(len(femaleNameList))]
+        else:
+            first = maleNameList[randrange(len(maleNameList))]
+        i += 1
+        result.append(last + ', ' + first)
+    return(result)
+print(random_names(5))
+
+
+#
+#
+#d
+#
+#
+
+alphabet="abcdefghijklmnopqrstuvwxyz"
+alphabet_list = []
+dictionary = open('dictionary.txt', 'r')
+dictionaryList = dictionary.read().lower().split('\n')
+
+from string import *
+
+def rotated_alphabet(num: int) -&gt; str:
+    '''Returns a rotated alphabet with specified number of characters taken off the front'''
+    return alphabet[num%26:] + alphabet[:num%26]
+def decryption_alphabets() -&gt; list:
+    '''Returns a list of decryption alphabets'''
+    for i in range(26):
+        alphabet_list.append(rotated_alphabet(i))
+    return alphabet_list
+
+#*******************ENCRYPTION TEST STUFF*******************#
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match126-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def is_capital(UIstring:str, convertString: str) -&gt; str:
+    upperCaseList = []
+    returnString = ""
+    for character in UIstring:
+        upperCaseList.append(character.isupper())
+
+    for index in range(len(convertString)):
+        if(upperCaseList[index]):
+            returnString += convertString[index].upper()
+        else:
+            returnString += convertString[index]
+    return(returnString)
+
+def Caesar_encrypt(n1:str, k1:int):
+    lowerCaseString = n1.lower()
+    cipher = alphabet[k1:]+alphabet[:k1]
+</FONT>    table = str.maketrans(alphabet,
+                          cipher)
+    
+    return is_capital(n1,lowerCaseString.translate(table))
+
+#*******************ENCRYPTION TEST STUFF*******************#
+
+def Caesar_break(s: str) -&gt; str:
+    '''takes a ciphertext string and returns th plaintxt for that string'''
+    lowerCaseString = s.lower()
+    decryptedMessages = []
+    numDictionaryWords = []
+    text = ''
+    indexCounter = 0
+    for i in range(26):
+        decryptedMessages.append(lowerCaseString.translate(lowerCaseString.maketrans(alphabet, rotated_alphabet(i))))
+    for m in decryptedMessages:
+        dictionaryWords = 0
+        words = m.split(' ')
+        for word in words:
+            w=""
+            for char in word:
+                if char not in "~!@#$%^&*()_+&lt;&gt;?:\"\\{}[],./;'":
+                    w += char
+            w = w.lower()
+            if w in dictionaryList:
+                dictionaryWords += 1
+        numDictionaryWords.append(str(dictionaryWords) + " " + str(indexCounter))
+        indexCounter += 1
+    numDictionaryWords.sort(reverse=True)
+    temp = numDictionaryWords[0].split()
+    key = int(temp[-1])
+    
+    text = "Message: \'" + is_capital(s, decryptedMessages[key]) + "\'\nKey: " + str(26 - key) + "\nWord Matches: " + temp[0]
+    return text
+
+encryptMessage = Caesar_encrypt('Yay for no assert statements.', 17)
+
+print(Caesar_break(encryptMessage))
+
+#
+#
+#e
+#
+#
+
+def copy_file(s: str):
+    '''adds line numbers at the beginning of each line if s is 'line numbers'
+    otherwise copies the file normally'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    linenumber = 0
+    emptylines = 0
+    totalCharacters = 0
+    start = False
+    end = False
+    for line in infile:
+        linenumber +=1
+        totalCharacters += len(line)
+        if line == '\n':
+            emptylines += 1
+        if s == 'line numbers':
+            outfile.write('{:5d}'.format(linenumber) + ":" + line)
+        elif s == 'Gutenberg trim':
+            if line == "*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n":
+                end = True
+            if start and not end:
+                outfile.write(line)
+            if line == "*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n":
+                start = True
+        else:
+            outfile.write(line)
+    if s == 'statistics':
+        outfile.write('\n{:5d}'.format(linenumber) + " lines in the file\n")
+        outfile.write('{:5d}'.format(emptylines) + " empty lines\n")
+        outfile.write('{:5.1f}'.format(float(totalCharacters) / float(linenumber)) + " average characters per line\n")
+        outfile.write('{:5.1f}'.format(float(totalCharacters) / float(linenumber - emptylines) ) + " average characters per non-empty line\n")
+    infile.close()
+    outfile.close()
+
+
+surnameFile.close()
+maleNamesFile.close()
+femaleNamesFile.close()
+dictionary.close()                
+
+    
+    
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

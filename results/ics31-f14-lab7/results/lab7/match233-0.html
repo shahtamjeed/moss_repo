@@ -1,0 +1,249 @@
+<HTML>
+<HEAD>
+<TITLE>luisg5/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+luisg5/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Luis Garcia 63055935 and Gordon Jung 71159276 ICS 31 Lab sec 11.  Lab asst 7.
+
+#
+#
+# Part (c)
+#
+#
+
+print() 
+print()
+print('---------- Part (c) ----------')
+print()
+
+
+infile1 = open('malenames.txt', 'r')
+infile2 = open('femalenames.txt', 'r')
+infile3 = open('surnames.txt', 'r')
+content = infile1.readlines()
+content2 = infile2.readlines()
+content3 = infile3.readlines()
+
+#Appends to a new list the male names
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match233-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+male = []
+for i in content:
+    new = i.split()
+    male.append(new[0])
+
+#Appends to a new list the female names
+female = []
+for i in content2:
+    new = i.split()
+    female.append(new[0])
+
+# Append to a new list the surnames
+surnames = []
+for i in content3:
+    new = i.split()
+    surnames.append(new[0])
+</FONT>
+
+from random import randrange
+
+def random_selection (L: 'list of names'):
+    "return a random male or female name"
+    return L[randrange(0, len(L))]
+
+
+
+def random_name() -&gt; str:
+    "return a random full name"
+    decision = randrange(0,1)
+    if decision == 0:
+        return '{}, {}'.format(str(random_selection(surnames)), str(random_selection(female))).lower().title()
+    else:
+        return '{}, {}'.format(str(random_selection(surnames)), str(random_selection(male))).lower().title()
+
+
+
+def random_names(num: int) -&gt; list:
+    "Return a list of names indicated by the number"
+    L = []
+    for i in range(0, num):
+        L.append(random_name())
+    return L
+
+# Tests to show the fuction works.
+print(random_names(10))
+print()
+print(random_names(5))
+
+
+
+#
+#
+# Part (d)
+#
+#
+
+print() 
+print()
+print('---------- Part (d) ----------')
+print()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def move(n:int):
+    "Return a Caesar cipher translator"
+    new=''
+    new = ALPHABET.replace(ALPHABET[0:n], '') + ALPHABET[0:n]
+    return new
+
+def Caesar_encrypt(message:str, key:int) -&gt; str:
+    "Return the encrypter of a Caesar cipher"
+    table1 = str.maketrans(ALPHABET,
+                          move(key))
+    return message.lower().translate(table1)
+
+
+
+
+def Caesar_decrypt(message:str, key:int) -&gt; str:
+    'Return the decrypter of a Caesar cipher'
+    table2 = str.maketrans(move(key),
+                           ALPHABET)
+    return message.lower().translate(table2)
+
+
+Dictionary = open('wordlist.txt', 'r')
+content = Dictionary.read().split()
+
+
+def Caesar_break (s: str) -&gt; str:
+    previous_hit = 0
+    decrypt = ''
+    for i in range(26):
+        v = 0
+        word = s
+        message = Caesar_decrypt(s, i)
+        new = message.split()
+        for j in new:
+            for word in content:
+                if j == word:
+                    v += 1
+                    break
+        if v &gt; previous_hit:
+            v = previous_hit
+            decrypt = message
+    Dictionary.close()
+    return decrypt
+
+assert Caesar_break('igkygx ktixevz') == 'caesar encrypt'
+print(Caesar_break('igkygx ktixevz'))
+assert Caesar_break('pmttw bpqa qa') == 'hello this is'
+print(Caesar_break('pmttw bpqa qa'))
+assert Caesar_break('qy ain cn qilecha') == 'we got it working'
+print(Caesar_break('qy ain cn qilecha'))
+
+#
+#
+# Part (e)
+#
+#
+
+print() 
+print()
+print('---------- Part (e) ----------')
+print()
+
+
+def lines (L: list):
+    "Return the ammount of lines a list has"
+    return len(L)
+
+
+def empty_lines(L: list):
+    "Return the ammount of empty lines in a list of strings"
+    count = 0
+    for i in range(0,len(L)):
+        if L[i].strip():
+            count += 1
+    return len(L) - count
+
+def characters (L:list):
+    "Counts the numbe of chars in a list (including spaces)"
+    count = 0
+    for i in range(0, len(L)):
+        L[i].strip()
+        for j in L[i]:
+            count += 1
+    return count
+
+def letters1(L:list):
+    "Return the number of letters in a List"
+    letters = 0
+    for i in range(0, len(L)):
+        for j in L[i]:
+            if j in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ':
+                letters += 1
+    return letters
+
+
+def stats (L: 'list of strings') -&gt; None:
+    "Take a list of strings and print out its statistics formatted"
+    for i in range(0,1):
+        print('{:5}   {:1}'.format(lines(L),'lines int the list'))
+        print('{:5}   {:1}'.format(empty_lines(L),'empty lines'))
+        print('{:7.1f} {:1}'.format(characters(L)/lines(L),'average characters per line'))
+        print('{:7.1f} {:1}'.format(letters1(L) / (lines(L) - empty_lines(L)), 'average characters per non-empty line'))    
+
+
+def copy_file (s: str):
+    "Return a txt file formatted according to the users response"
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'line numbers':
+        v = 0
+        for line in infile:
+            v += 1
+            outfile.write('{:5}: {:1}'.format(v,line))
+    elif s == 'Gutenberg trim':
+        for line in infile:
+            if '*** START' in line:
+                outfile.write(line)
+                for line in infile:
+                    if '*** END' in line:
+                        outfile.write(line)
+                        break
+                    else:
+                        outfile.write(line)
+    elif s == 'statistics':
+        L = []
+        for line in infile:
+            outfile.write(line)
+            L.append(line)
+        stats(L)
+    else:
+        for line in infile:
+            outfile.write(line)
+        
+    infile.close()
+    outfile.close()
+
+copy_file(input('Enter anything: '))
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,165 @@
+<HTML>
+<HEAD>
+<TITLE>cyuan6/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+cyuan6/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Cheng Yuan 23824794 Pafoua Fang 84351619 ICS 31 Lab sec 15. Lab asst 7.
+print('(c)')
+from random import randrange
+import random
+
+infile1 = open("surnames.txt", 'r')
+infile2 = open("femalenames.txt", 'r')
+infile3 = open("malenames.txt", 'r')
+
+lastname = []
+surname = infile1.readlines()
+for sur in surname:
+    s = sur.split()
+    l = s[0]
+    lastname.append(l)
+
+firstname1 = []
+femalename = infile2.readlines()
+for female in femalename:
+    f = female.split()
+    f1 = f[0]
+    firstname1.append(f1)
+
+firstname2 = []
+malename = infile3.readlines()
+for male in malename:
+    m = male.split()
+    f2 = m[0]
+    firstname2.append(f2)
+    
+infile1.close()
+infile2.close()
+infile3.close()
+
+def random_surname (sur: list) -&gt; str:
+    return random.choice(lastname)
+def random_femalename (female: list) -&gt; str:
+    return random.choice(firstname1)
+def random_malename (male: list) -&gt; str:
+    return random.choice(firstname2)
+
+def random_names(L:int) -&gt; 'list of str':
+    result = []
+    for i in range(L):
+        last_name = random_surname(lastname)    
+        first_name = random_femalename(firstname1) + random_malename(firstname2)
+        random_name = last_name+','+ first_name
+        result.append(random_name)
+    return (result)
+
+print('(d.1)')
+infile = open("wordlist.txt",'r')
+
+wordlists = []
+wordlist = infile.readlines()
+
+
+for word in wordlist:
+    w = word.split()
+    wordlists.append(word)
+
+r = ''.join(wordlists)
+
+def Caesar_break (cipher: str) -&gt; str:
+    cipher = cipher.lower()
+    ALPHABET = ('abcdefghijklmnopqrstuvwxyz')
+    for k in range (1,26):
+        k = 26 - k
+        table = str.maketrans(ALPHABET[:],ALPHABET[k:]+ALPHABET[:k])
+        plaintext = cipher.translate(table)
+        if r.find(plaintext) != -1:
+            return plaintext
+
+assert Caesar_break('abdbupot') == 'zacatons'
+assert Caesar_break("avvtqvcpvcnkvg'u") == "yttrotantalite's"
+
+    
+infile.close()
+
+print('(e.1)')
+def copy_file ():
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+print('(e.2)')
+def copy_file1 (s: str) :
+    result = []
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s != 'line numbers':
+        for line in infile:
+            outfile.write(line)
+    else:
+        for line in infile:
+            result.append(line)
+            for i in range(len(result)):
+                format_str = '''{0:5}: {1}'''
+                outfile.write(format_str.format(i, line))
+    infile.close()
+    outfile.close()
+
+print('(e.3)')
+def copy_file2 (s: 'Gutenberg trim'):
+    result = []
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'Gutenberg trim':
+        for line in infile:
+            result.append(line)
+            r = result [20: 12693]
+            l = ''.join(r)
+            outfile.write(l)
+    infile.close()
+    outfile.close()
+    
+print('(e.4)')
+def copy_file3 (s: str):
+    result = []
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match171-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if s == 'statistics':
+        for line in infile:
+            format_str = '''{0:5}      lines in the list
+{1:5}      empty lines
+{2:7.3}    average characters per line
+</FONT><A NAME="0"></A><FONT color = #FF0000><A HREF="match171-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+{3:7.3}    average characters per non-empty line'''
+            result.append(line)
+        number_of_lines = len(result)
+        number_of_empty_lines = line.count('')
+        avg_char_per_line = len(''.join(result)) / len(result)
+        avg_char_per_non_empty_line = len(''.join(result)) / (len(result) - line.count(''))
+
+        print(format_str.format(number_of_lines,number_of_empty_lines,avg_char_per_line,avg_char_per_non_empty_line))
+        outfile.write(line)
+</FONT>            
+    infile.close()
+    outfile.close()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

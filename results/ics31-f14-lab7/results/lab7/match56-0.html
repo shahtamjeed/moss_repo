@@ -1,0 +1,296 @@
+<HTML>
+<HEAD>
+<TITLE>codyh1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+codyh1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab 7.py
+# Cody Han 80197269 and Gina Robinson 73188675. ICS 31
+# Lab 7. Section 14.
+
+### TO DO LIST ###
+"""
+make caesar_break() case insensitive. DONE
+
+"""
+
+#########################
+# PART C
+# RANDOM NAME GENERATOR
+print('---Part C---')
+print('-=-=-=-=-=-=-Random Name Generation-=-=-=-=-=-=-=-')
+
+from random import randrange, choice
+
+
+surnamesfile = open('surnames.txt', 'r')
+malenamesfile = open('malenames.txt', 'r')
+femalenamesfile = open('femalenames.txt', 'r')
+
+surnames = surnamesfile.read().split()
+malenames = malenamesfile.read().split()
+femalenames = femalenamesfile.read().split()
+
+surnamesfile.close()
+malenamesfile.close()
+femalenamesfile.close()
+
+def isolateNames(nameList) -&gt; 'list of just names':
+    """
+    Takes list of strings and returns new list of just the strings
+    are names.
+    """
+    result = []
+    for string in nameList:
+        if string.isalpha():
+            result.append(string.title())
+    return result
+
+### THE LIST OF NAMES
+surnameList = isolateNames(surnames)
+malenameList = isolateNames(malenames)
+femalenameList = isolateNames(femalenames)
+firstnameList = malenameList + femalenameList
+
+
+
+def random_name(namelist) -&gt; str:
+    """Takes list of names and returns one random name from it.
+    """
+    return str(choice(namelist))
+
+# main
+def random_names(n: int) -&gt; 'list of n strings':
+    """
+    Takes n and returns list of n strings, each string being a randomly
+    generated full name.
+    """
+    result = []
+
+    for i in range(n):
+        name = random_name(surnameList) + ', ' + random_name(firstnameList)
+        result.append(str(name))
+    return result
+print('Generating list of 10 random names: ')
+print(random_names(10))
+
+####################
+# PART D
+# CRYPTOANALYSIS
+print('\n---Part D----')
+print('-=-=-=-=-=-=-Cryptoanalysis-=-=-=-=-=-=-=-')
+print()
+
+# BASE ENCRYPTION/DECRYPTION code
+
+def makekey(ALPHA, n: int) -&gt; 'BETA': # BETA is the new alphabet
+    """Takes the alphabet and n and moves each letter in the
+    alphabet over n times.
+    """
+    lowercase = ALPHA[:26]
+    uppercase = ALPHA[26:]
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match56-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    BETA = lowercase[n:] + lowercase[:n] + uppercase[n:] + uppercase[:n]
+    return BETA
+
+def Caesar_encrypt(message: str, n: int) -&gt; str:
+    """Takes message and key and encrypts message by changing each
+    character according to key.
+</FONT>    Works with both uppercase and lowercase characters.
+    """
+    while n &gt; 25: # wraps n around 25 until n is lower than 25
+        n = n % 25
+
+    ALPHA = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    BETA = makekey(ALPHA, n) # BETA will be the translation
+    
+    table = str.maketrans(ALPHA, BETA)
+    
+    message = message.translate(table) # the actual encrypting
+    return message
+assert Caesar_encrypt('poop', 2) == 'rqqr'
+assert Caesar_encrypt('PooP', 27) == 'RqqR'
+assert Caesar_encrypt('P,ooP!', 27) == 'R,qqR!'
+
+
+def Caesar_decrypt(message: str, n: int) -&gt; str:
+    """
+    Returns decrypted message.
+    """
+    return Caesar_encrypt(message, -n)
+
+assert Caesar_decrypt('rqqr', 2) == 'poop'
+assert Caesar_decrypt('R,qqR!', 2) == 'P,ooP!'
+
+
+#################################################
+# CODE BREAKING
+dictionaryfile = open('wordlist.txt', 'r')
+dictionary = dictionaryfile.read().split() 
+dictionaryfile.close()
+
+def wordHits(message: str)-&gt; int:
+    """Counts the number of words in the message that are in the dictionary.
+    """
+    hits = 0
+    for word in message.split():
+        if word in dictionary or word.lower() in dictionary or word.title() in dictionary:
+            hits += 1
+    return hits
+
+
+def Caesar_break(Message: str)-&gt; str:
+    """
+    Takes the param ciphertext and decrypts with all 26 possible keys and
+    returns the decryption with the most hits in the dictionary.
+    Works with both uppercase and lowercase characters.
+    """
+    print('Decrypting "' + Message + '"\n. . .')
+    possibleDecryptions = []
+    for i in range(26):
+        possibleDecryptions.append(Caesar_decrypt(Message, i))
+
+    bestDecryption = ''
+    bestHits = 0
+    
+    for n in range(len(possibleDecryptions)):
+        currentMessage = possibleDecryptions[n]
+        if n == 0:
+            bestDecryption = currentMessage
+        else: # n != 0
+            currentHits = wordHits(currentMessage)
+##            print(currentMessage, wordHits(currentMessage))
+            if currentHits &gt; bestHits:
+                bestDecryption = currentMessage
+                bestHits = currentHits
+                
+
+    print('Decrypted:' + '\n' + bestDecryption)
+                
+    return bestDecryption
+
+Caesar_break('U xahq Bdmfqqw-- tq ue egbqd miqeayq mzp ue ftq nqef FM qhqd')
+
+
+
+####################################################################
+# PART E
+
+# e.4 (includes e.1, e.2, and e.3, with e.4 being the final modification)
+
+def stats(stringlist: list):
+    """
+    takes a list of strings and prints statistics as follows:
+ 16824   lines in the list
+   483   empty lines
+    53.7 average characters per line
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match56-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    65.9 average characters per non-empty line
+    """
+    # lines in the list
+    LINECOUNT = len(stringlist)
+    
+    # empty lines
+    nonEmptyList = []
+    EmptyList = []  
+    for line in stringlist:
+        if line == '\n':
+            EmptyList.append(line)
+        else:
+            nonEmptyList.append(line)
+    EMPTYLINES = len(EmptyList)
+
+    # average characters per line
+    avg_CHAR = len(''.join(stringlist))/len(stringlist)
+
+    # average characters per non-empty line
+    avg_CHAR_NONEMPTY = len(''.join(stringlist))/len(nonEmptyList)
+
+    variableList = [LINECOUNT, EMPTYLINES, avg_CHAR, avg_CHAR_NONEMPTY]
+    descList = ['lines in the list',
+                'empty lines',
+                'average characters per line',
+                'average characters per non-empty line']
+    # display
+    for v, d in zip(variableList, descList): 
+        if type(v) == float:
+            print('{:6.1f} '.format(v), d)
+        else: # an int
+</FONT>            print('{:4} '.format(v), ' ', d)
+
+
+def copy_file(parameter: str) -&gt; None:
+    """Takes user input as the name of a file and copies the contents of the file
+    into a new file which name is user specified.
+    
+    The called function takes optional string parameters:
+    
+    'line numbers': writes to new file with line numbers preceding the lines
+    
+    'Gutenberg trim': finds two lines containing '*** START' and '*** END', respectively
+        and only copies the text between those two lines.
+        
+    'statistics': copies as normal in addition to printing statistics about the text
+        in the file.
+    """
+    
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    
+    if parameter == 'line numbers':
+        stringlist = infile.readlines()
+        digits = len(str(len(stringlist)))
+        formatstring = '{:' + str(digits) + '} :'
+        for i in range(len(stringlist)):
+            outfile.write(formatstring.format(i+1) + ' ' + stringlist[i])
+            
+    elif parameter == 'Gutenberg trim':
+        stringlist = infile.readlines()
+        startIndex = 0
+        endIndex = 0
+        
+        for i in range(len(stringlist)):
+            if '*** START' in stringlist[i]:
+                startIndex = i + 1
+                break # in case more than one '*** START'
+                
+        for i in range(len(stringlist)):
+            if '*** END' in stringlist[i]:
+                endIndex = i
+                
+        print(startIndex, endIndex)
+        for line in stringlist[startIndex:endIndex]:
+            outfile.write(line)
+            
+    else:
+        for line in infile:
+            outfile.write(line)
+        if parameter == 'statistics':
+            infile.seek(0)
+            stringlist = infile.readlines()
+            stats(stringlist)
+            
+    infile.close()
+    outfile.close()
+
+
+
+
+    
+
+
+
+
+    
+    
+    
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

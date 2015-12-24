@@ -1,0 +1,163 @@
+<HTML>
+<HEAD>
+<TITLE>georgeh2/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+georgeh2/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#George Huang 30187201 and Matthew McLaughlin 34026707 ICS 31 Lab sec 3. Lab asst 7.
+
+#C
+file = open("surnames.txt","r")
+file1 = open("female names.txt","r")
+file2 = open("male names.txt","r")
+datalines = file.readlines()
+datalines1= file1.readlines()
+datalines2= file2.readlines()
+file.close()
+file1.close()
+file2.close()
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match111-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+surnames=[]
+for i in datalines:
+    v=i.split()
+    surnames.append(v[0])
+
+femalenames=[]
+for f in datalines1:
+    y= f.split()
+    femalenames.append(y[0])
+
+malenames=[]
+for m in datalines2:
+    z =m.split()
+    malenames.append(z[0])
+</FONT>
+from random import randrange
+
+def random_surname(namelist:list)-&gt;str:
+    result=''
+    result+=namelist[randrange(len(namelist))]
+    return result
+def random_female_name(namelist:list)-&gt;str:
+    result2=''
+    result2+=namelist[randrange(len(namelist))]
+    return result2
+def random_male_name(namelist:list)-&gt;str:
+    result3=''
+    result3+=namelist[randrange(len(namelist))]
+    return result3
+
+def random_name()-&gt;str:
+    result=randrange(0,2)
+    if result==0:
+        firstname=random_female_name(femalenames)
+    if result==1:
+        firstname=random_male_name(malenames)
+    final_name=''
+    final_name+= random_surname(surnames)+', '+ firstname
+    return final_name
+def random_names(number:int)-&gt;list:
+    names=[]
+    for i in range(number):
+        names.append(random_name())
+    return names
+
+print(random_names(5))
+#D
+def Caesar_decrypt(ciphertext:str,key:int)-&gt;str:
+    ciphertext=ciphertext.lower()
+    ALPHABET='abcdefghijklmnopqrstuvwxyz'
+    ALPHABET1=ALPHABET[key:]+ALPHABET[:key]
+    table = str.maketrans(ALPHABET1,
+                          ALPHABET)
+    return ciphertext.translate(table)
+
+
+def Caesar_break (ciphertextstring:str)-&gt;str:
+    "takes a ciphertext and returns plaintext"
+    fileword= open("wordslist.txt","r")
+    wordlines= fileword.readlines()
+    fileword.close()
+    words=[]
+    for i in wordlines:
+        w= i.strip('\n')
+        words.append(w)
+    result = []
+    for i in range(26):
+        result.append(0)
+    ciphertextstring=ciphertextstring.lower()
+    for i in range(26):
+        ALPHABET='abcdefghijklmnopqrstuvwxyz'
+        ALPHABET1=ALPHABET[i:]+ALPHABET[:i]
+        table = str.maketrans(ALPHABET1,
+                              ALPHABET)
+        x = ciphertextstring.translate(table).split()
+        for word in x:
+            if word in words:
+                result[i]+=1
+    key = 0
+    maxNum = 0
+    for i in range(len(result)):
+        if result[i]&gt; maxNum:
+            key = i
+            maxNum = result[i]
+    ALPHABET2=ALPHABET[key:]+ALPHABET[:key]
+    table2 = str.maketrans(ALPHABET2,
+                            ALPHABET)
+    return ciphertextstring.translate(table2)
+assert Caesar_break('svofdsbgu')== 'runecraft'
+#E
+def copy_file(parameter:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    number=0
+    
+    if parameter == 'line numbers':
+        for line in infile:
+            number+=1
+            outfile.write("{:5}:  {:}".format(number,line))
+    elif parameter == 'Gutenberg trim':
+        startWrite = False
+        for line in infile:
+            if "*** START" in line:
+                startWrite= True
+            elif "*** END" in line:
+                break
+            elif startWrite:
+                outfile.write(line)
+    elif parameter == 'statistics':
+        listoflines= infile.readlines()
+        lines=len(listoflines)
+        char_amount=0
+        empty_lines = 0
+        for x in listoflines:
+            if x=='\n':
+                empty_lines += 1
+            char_amount+=len(x)
+        average_characters=0
+        for i in range(len(listoflines)):
+            average_characters+=(len(listoflines[i]))/(len(listoflines))
+        non_empty_lines=(len(listoflines))-(empty_lines)
+        average_for_nonempty=char_amount/non_empty_lines
+        print("{:6d}{:2} lines in the list".format(lines, ""))
+        print("{:6d}{:2} empty lines".format(empty_lines, ""))
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match111-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        print("{:8.1f} average characters per line".format(average_characters))
+        print("{:8.1f} average characters per non-empty line".format(average_for_nonempty))
+
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+</FONT></PRE>
+</PRE>
+</BODY>
+</HTML>

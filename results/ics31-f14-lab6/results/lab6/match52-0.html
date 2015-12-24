@@ -1,0 +1,249 @@
+<HTML>
+<HEAD>
+<TITLE>annievt1/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+annievt1/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Khaleel Younis 54282187 and Annie Tran 33579687   ICS 31 Lab sec 3.  Lab asst 6.
+
+print()
+print('-------SECTION c---------')
+print()
+
+#c.1
+print('c.1')
+print()
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match52-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def contains(x: str, y: str)-&gt;bool:
+    '''Returns True if y occurs in x'''
+    return y in x
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+print('"ck" in "racecar"?:', contains('racecar', 'ck'))
+assert contains('chocolate', 'late')
+print('"late" in "chocolate"?:', contains('chocolate', 'late'))
+assert not contains('cake', 'pie')
+
+print()
+
+#c.2
+print('c.2')
+print()
+
+def punctuation(x: str)-&gt;None:
+    ''' Translates all punctuation marks to blanks'''
+    blank = str.maketrans('.,!?;:"*@#$%^&(){}[]&lt;&gt;/','                       ')
+</FONT>    return x.translate(blank).split()
+
+def sentence_stats(x: str)-&gt;None:
+    '''Prints out statistics about character, words, and average word length'''
+<A NAME="7"></A><FONT color = #0000FF><A HREF="match52-1.html#7" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print('Characters:', len(x))  
+    print('Words:', len(punctuation(x)))
+    total_length = 0
+    for i in punctuation(x):      
+        total_length += len(i)
+    print('Average length of words:', total_length/len(punctuation(x)))
+</FONT>
+sentence_stats('I love UCI')
+
+print()
+#c.3
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match52-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('c.3')
+
+def initials(x:str)-&gt;str:
+    '''Returns initials of name in all capital letters'''
+    result = ''
+    for i in x.split():
+        result = result + i[0].upper()
+    return result
+    
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+</FONT>assert initials('alan turing') == 'AT'
+
+print()
+print()
+print('-------SECTION d---------')
+print()
+print()
+
+#d.1
+print('d.1')
+print()
+
+from random import randrange
+
+for x in range(50):
+    print(randrange(11))
+
+for x in range(50):
+    print(randrange(7))
+
+#d.2
+print('d.2')
+print()
+
+def roll2dice():
+    for x in range(50):
+        print(randrange(1,7)+randrange(1,7))
+
+#d.3
+print('d.3')
+print()
+
+def distribution_of_rolls(x):
+    ''' Takes one number - the number of times to roll two dice - and prints
+    the distribution of the values of those rolls in a certain form '''
+    print('Distribution of dice rolls')
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match52-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print('')
+    result = []
+    h='{:5}: {:5} ({:5.2f}%) {}'
+    for y in range(x):
+        result.append(randrange(1,7)+randrange(1,7))
+    for p in range(2,13):
+        count=result.count(p)
+        percent=(result.count(p)/x) * 100
+        stars=result.count(p)*'*'
+        print(h.format(p,count,percent,stars))
+    print('------------------------------')
+</FONT>    print('          ',x,'rolls      ')
+    
+distribution_of_rolls(200)
+
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match52-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+print()
+print('-------SECTION e---------')
+print()
+print()
+
+#e.1
+print('e.1')
+print()
+
+alphabet =  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+
+def rotated_alphabet(x:str,y:int)-&gt; str:
+    '''Returns x with its letters moved down the alphabet by y letters'''
+    result = ''
+    change = len(x)
+    for i in range(change):
+        if y + i &lt; change:
+            result += x[y + i]
+        if y + i &gt;= change:
+            result += x[y + i - change]
+    return result
+
+def Caesar_encrypt(x:str, y:int)-&gt;str:
+</FONT>    '''Takes two arguments - a string containing the message and an int for
+    the key indicating how far down the alphabet to find each substitute letter.
+    Returns the ciphertext'''
+<A NAME="8"></A><FONT color = #00FFFF><A HREF="match52-1.html#8" TARGET="1"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    table = str.maketrans(alphabet, rotated_alphabet(alphabet,y))
+    return x.translate(table).lower()
+
+def Caesar_decrypt(x:str, y:int)-&gt;str:
+    '''Takes two arguments - a string containing the message and an int for
+</FONT>    the key indicating how far down the alphabet to find each substitute letter.
+    Returns the plaintext'''
+    return Caesar_encrypt(x, -y)
+    
+print()
+print()
+#e.2
+print('e.2')
+print()
+
+''' Khaleel's encrypted message ''' 
+assert Caesar_encrypt('Computer science is hard', 5) == 'htruzyjw xhnjshj nx mfwi'
+assert Caesar_decrypt('htruzyjw xhnjshj nx mfwi', 5) == 'computer science is hard'
+'''Annie's encrypted message '''
+assert Caesar_encrypt('I like anchovies', 2) == 'k nkmg cpejqxkgu'
+assert Caesar_decrypt('k nkmg cpejqxkgu', 2) == 'i like anchovies'
+ 
+print()
+<A NAME="9"></A><FONT color = #FF00FF><A HREF="match52-1.html#9" TARGET="1"><IMG SRC="../../bitmaps/tm_4_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+print('-------SECTION f---------')
+print()
+print()
+
+#f.1
+print('f.1')
+print()
+
+list_of_string = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+def print_line_numbers(L:list)-&gt;None:
+</FONT>    '''Prints each string in list by preceding line number'''
+    for i in range(len(L)):
+        print(i+1, L[i])
+
+print_line_numbers(list_of_string)
+
+print()
+#f.2
+<A NAME="6"></A><FONT color = #00FF00><A HREF="match52-1.html#6" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('f.2')
+print()
+
+def stats(L:list)-&gt;None:
+    '''Prints statistics about lines in list, empty lines,
+       average characters per line, and
+       average characters per non-empty line'''
+    lines_in_list = len(L)
+</FONT><A NAME="3"></A><FONT color = #00FFFF><A HREF="match52-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    characters_per_line = 0
+    empty_lines = 0
+    for i in L:
+        if i == "":
+            empty_lines += 1
+        characters_per_line += len(i)
+    average_per_line = characters_per_line / lines_in_list
+    average_per_nonempty_line = characters_per_line / (lines_in_list - empty_lines)
+</FONT>    print(lines_in_list, "lines in the list")
+    print(empty_lines, "empty lines")
+    print(average_per_line, "average characters per line")
+    print(average_per_nonempty_line, "average characters per non-empty line")
+
+stats(list_of_string)
+
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match52-1.html#5" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+#f.3
+print('f.3')
+print()
+
+def list_of_words(L:list)-&gt;list:
+    '''Returns L as individual words without space or punctuation'''
+    result = []
+    for i in L:
+        for x in punctuation(i):
+            result.append(x)
+    return result
+</FONT>print(list_of_words("I'm not sure why I bought 5 lbs. of tater tots."))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

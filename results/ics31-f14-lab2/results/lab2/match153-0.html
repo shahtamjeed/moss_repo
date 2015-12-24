@@ -1,0 +1,181 @@
+<HTML>
+<HEAD>
+<TITLE>ahuie1/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ahuie1/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# April Huie 32817908 and Xuan (Tina) Feng 57156464. ICS 31 Lab sec 16. Lab Asst 2.
+
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  ', rate)
+print('Weekly salary:  ', hours * rate)
+
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour?'))
+print('This many dollars per hour:  ', rate)
+print('Weekly salary:  ', hours * rate)
+
+'''
+In the first block of code, the input is printed on the next line.
+In the second block of code, the input is printed on the same line.
+
+'''
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match153-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour? $'))
+print('This many dollars per hour:  $', rate)
+print('Weekly salary:  $', hours * rate)
+
+print()
+
+name = str(input('Hello. What is your name?') )
+print('Hello ', name)
+print("It's nice to meet you.")
+age = int(input('How old are you?') )
+print('Next year you will be ', age+1 , 'years old.')
+print('Good-bye!')
+
+print()
+
+
+krone_per_euro = 7.46
+krone_per_pound = 8.81
+krone_per_usd = 5.50
+
+print('Please provide this information:')
+business_name = str(input('Business name: ') )
+</FONT>num_euros = int(input('Number of euros:') )
+num_pounds = int(input('Number of pounds: ') )
+num_dollars = int(input('Number of dollars: ') )
+
+print()
+
+print('Copenhagen Chamber of Commerce')
+print(' Business name: ', business_name )
+print( num_euros, 'euros is ', num_euros*krone_per_euro,'krone' )
+print( num_pounds, 'pounds is ', num_pounds*krone_per_pound, 'krone' )
+print( num_dollars, 'dollars is ', num_dollars*krone_per_usd, 'krone' )
+print()
+print( 'Total krone: ' , (num_euros*krone_per_euro)+(num_pounds*krone_per_pound)+(num_dollars*krone_per_usd) )
+
+print()
+
+
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+booklist = [favorite, another, still_another]
+
+print( still_another.title )
+print( another.price )
+print( (favorite.price+another.price+still_another.price)/3 )
+print( favorite.year &lt; 1900 )
+
+print()
+
+still_another = Book('Return of the Sherlock Holmes', 
+                     'Arthur Conan Doyle', 1905, 26.00 )
+print( still_another.price )
+still_another = Book('Return of the Sherlock Holmes', 
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match153-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                     'Arthur Conan Doyle', 1905, (26.00*.2)+26.00 )
+print( still_another.price )
+
+print()
+
+
+Animal = namedtuple('Animal', 'name species age weight favoritefood')
+elephant = Animal('Jumbo', 'elephant', 50, '1000 kg', 'peanuts' )
+platypus = Animal('Perry', 'platypus', 7, '1.7 kg', 'shrimp' )
+print( elephant.weight &lt; platypus.weight )
+</FONT>
+print()
+
+print(booklist[0].price &lt; booklist[1].price)
+print(booklist[1].year &gt; booklist[-1].year)
+
+print()
+
+
+
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print(RL[2].name)
+print( RL[0].cuisine == RL[3].cuisine )
+print( RL[-1].price )
+RL.sort()
+print( RL )
+print( RL[-1].dish )
+new_RL = [ RL[0], RL[1], RL[-2], [-1] ]
+print( new_RL )
+
+
+
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(100, 100, 300, 300, fill='orange') # Draw orange line
+my_canvas.create_line(300, 100, 100, 300, fill='blue')   # Draw blue line
+
+
+#(1) Using tkinter, draw a series of lines on a canvas that
+# form a square with sides 200 pixels long.
+my_canvas.create_rectangle( 200,200,400,400 )
+
+#(2) As you did in the previous exercise, draw a diamond
+# with sides 200 pixels long.
+my_canvas.create_line(200,200,300,300)
+my_canvas.create_line(300,300,200,400)
+my_canvas.create_line(200,400,100,300)
+my_canvas.create_line(100,300,200,200)
+
+#(3) Draw a simple front-view picture of a house
+#(with a roof, walls, at least one window, and a door).
+my_canvas.create_rectangle(100,300,300,500, fill="blue") #walls
+my_canvas.create_rectangle(120,400,170,350, fill="yellow") #window
+my_canvas.create_rectangle(180,400,220,500, fill="green") #door
+my_canvas.create_polygon( 100,300 , 200,200 , 300,300 ) #roof
+
+
+#(4) Draw a picture of an eye (with a pupil and an iris, at least).
+my_canvas.create_oval(50,50,250,175) #eye
+my_canvas.create_oval(100,50,200,175, fill="brown") #iris
+my_canvas.create_oval(125,90,175,150, fill="black") #pupil
+my_canvas.create_oval(135,100,160,125, fill="white") #light
+
+tkinter.mainloop()          # Combine all the elements and display the window
+</PRE>
+</PRE>
+</BODY>
+</HTML>

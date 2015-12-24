@@ -1,0 +1,288 @@
+<HTML>
+<HEAD>
+<TITLE>blink/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+blink/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Brendan Link 10144699 and Collin Pham 77702561, ICS 31 Lab 5, Week (10/20 - 10/24)
+
+# PART C
+print('\n ---PART C---')
+### 1
+print('#1 \n')
+
+def abbreviate (word: str) -&gt; str:
+    "Leave the first three letters of each word."
+    return word[0] + word[1] + word[2]
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+print(abbreviate ('January'))
+print(abbreviate ('abril'))
+# We can test it further with ANY word longer than 3 characters (try it):
+print('We can test it further with ANY word longer than 3 characters (Give it two examples):')
+print(abbreviate(input()))
+print(abbreviate(input()))
+print('\n')
+
+### 2
+print('#2 \n')
+
+def find_area_square (value: int) -&gt; int:
+    "Multiply the input value by itself to get area of square."
+    return value**2
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+print('Find the area of a square with length of one side (Type in a value):')
+print(find_area_square(int(input())))
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match103-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('\n')
+
+### 3
+print('#3 \n')
+
+def find_area_circle (value: int) -&gt; int:
+    "The area of a circle is radius squared times pi."
+    return (value ** 2) * 3.14159
+assert find_area_circle(1) == 3.14159
+</FONT>assert find_area_circle(5) == 78.53975
+print('Find the area of a circle with the radius (Type in a value):')
+print(find_area_circle(int(input())))
+print('\n')
+
+### 4 ############### NOT DONE
+print('#4 \n')
+
+def print_even_numbers (even: list):
+    "Printing only if even."
+    for x in even:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match103-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        if x%2==0:
+            print (x)
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+print('\n')
+
+### 5
+print('#5 \n')
+
+def calculate_shipping (weight: float):
+</FONT>    'Shipping rates based on weight'
+    if weight &lt; 2:
+        return (2.00)
+    if 2 &lt;= weight &lt; 10:
+        return (5.00)
+    if weight &gt;= 10:
+        return (5.00 + 1.5 * (weight - 10))
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+print('PRICE OF SHIPPING WEIGHT OF 1.5 POUNDS')
+print('$',calculate_shipping(1.5))
+print('PRICE OF SHIPPING WEIGHT OF 7 POUNDS')
+print('$', calculate_shipping(7))
+print('PRICE OF SHIPPING WEIGHT OF 15 POUNDS')
+print('$', calculate_shipping(15))
+print('Price of shipping is $', calculate_shipping(float(input('What is the weight of your package?'))))
+
+print('\n')
+
+### 6
+print('#6 \n')
+
+def create_square(x,y,z: int):
+    import tkinter
+    my_window = tkinter.Tk()
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500) 
+    my_canvas.pack()
+    my_canvas.create_rectangle(x, y, x + z, y + z)
+print(create_square(100, 100, 200))
+
+###7
+print('#7 \n')
+
+def create_circle(x,y,d: int):
+    import tkinter
+    my_window = tkinter.Tk()
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500) 
+    my_canvas.pack()
+    my_canvas.create_oval(x, y, x + d, y + d)
+print(create_circle(100, 100, 200))
+
+     
+print('\n')
+# PART D
+print('\n---PART D---')
+### 1
+print('#1 \n')
+
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50)
+    ]
+
+def restaurant_price (Rest: list):
+    return (Rest.price)
+assert restaurant_price(RL[1]) == 5.50
+print(restaurant_price(RL[2]))
+print('\n')
+
+### 2
+print ('#2 \n')
+RL.sort(key=restaurant_price)
+print(RL)
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match103-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('\n')
+
+### 3
+print('#3 \n')
+
+def costliest (Rest: list) -&gt; str:
+    RL.sort(key=restaurant_price)
+    return RL[-1].name
+</FONT>print (costliest(RL))
+print('\n')
+
+### 4
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match103-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('#4 \n')
+
+def costliest2 (Rest:list) -&gt; str:
+    sorted(RL, key=restaurant_price)
+    return RL [-1].name
+print(costliest2(RL))
+</FONT>print('\n')
+
+# PART E
+print('\n---PART E---')
+print('\n')
+
+
+Book = namedtuple('Book', 'author title genre year price instock')
+
+BSI = [
+    Book('Dr. Seuss', 'The Cat In The Hat', 'Poetry', 1957, 6.00, 23),
+    Book('D.J. MacHale', 'Pendragon: The Merchant of Death', 'Fantasy', 2002, 9.00, 18),
+    Book('Stephen Chbosky', 'The Perks of Being a Wallflower', 'Young Adult', 1999, 4.00, 28),
+    Book('Christine Ha', 'Recipes From My Home Kitchen', 'Cookbook', 2013, 17.00, 32),
+    Book('William Landay', 'Defending Jacob', 'Thriller', 2012, 10.00, 13),
+    Book('Jonathan Zittrain', 'The Future of the Internet', 'Technology', 2008, 20.00, 18)]
+
+
+
+### 1
+print ('#1 \n')
+
+for book in BSI:
+    print (book.title)
+print('\n')
+
+### 2
+print('#2 \n')
+def return_title (book: list):
+    return (book.title)
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match103-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+BSI2 = sorted(BSI, key = return_title)
+for book in BSI2:
+    print(book.title)
+print('\n')
+
+### 3
+print('#3 \n')
+
+for book in BSI:
+    print ('$', book.price + (book.price *.10))
+</FONT>print('\n')
+
+### 4
+print('#4 \n')
+
+if book.genre == 'Technology':
+    print (book.title)
+print('\n')
+
+### 5
+print('#5 \n')
+
+before2000 = []
+after2000 = []
+for book in BSI:
+    if book.year &lt; 2000:
+        before2000.append(book.title)
+    elif book.year &gt; 2000:
+        after2000.append(book.title)
+print('Titles before 2000:', before2000)
+print('Titles after 2000:', after2000)
+print('\n')
+if len(before2000) &gt; len(after2000):
+    print('More titles before 2000', '(', len(before2000), 'vs.', len(after2000),')')
+else:
+    print('More titles after 2000', '(', len(before2000), 'vs.', len(after2000),')')
+print('\n')
+
+### 6
+print('#6 \n')
+
+def inventory_value(BSI: 'list of books') -&gt; float:
+    return (BSI.price * BSI.instock)
+
+for book in BSI:
+    print( book.title, 'has an inventory value of $',inventory_value(book))
+print('\n')
+def top_value(BSI: 'list of books') -&gt; float:
+    BSI.sort(key = inventory_value)
+    return BSI[-1] 
+print('The highest value book is', top_value(BSI).title, 'by', top_value(BSI).author, 'at a value of $', inventory_value(BSI[-1]))
+
+### PART F
+print('\n---PART F---')
+import tkinter
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=700, height=900) 
+my_canvas.pack()
+
+def draw_head(x1,y1,x2,y2,x3,y3,x4,y4,x5,y5,x6,y6,x7,y7,x8,y8,x9,y9,x10,y10,x11,y11,x12,y12,x13,y13,x14,y14,x15,y15:int):
+    my_canvas.create_polygon(x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6, x7, y7, x8, y8, x9, y9, x10, y10, x11, y11, x12, y12, x13, y13, x14, y14, x15, y15, fill='navajowhite')
+head=draw_head(200, 100, 160, 140, 140, 180, 120, 240, 120, 640, 200, 740, 300, 780, 480, 780, 580, 740, 660, 640, 660, 240, 640, 180, 620, 140, 580, 100, 200, 100)
+
+def draw_eyes(x1,y1,x2,y2,x3,y3,x4,y4,x5,y5,x6,y6,x7,y7,x8,y8,x9,y9,x10,y10,x11,y11,x12,y12:int):
+    my_canvas.create_oval(x1, y1, x2, y2, fill='white', outline='black')
+    my_canvas.create_oval(x3, y3, x4, y4, fill='blue', outline='blue')
+    my_canvas.create_oval(x5, y5, x6, y6, fill='black')
+    my_canvas.create_oval(x7, y7, x8, y8, fill='white', outline='black')
+    my_canvas.create_oval(x9, y9, x10, y10, fill='blue', outline='blue')
+    my_canvas.create_oval(x11, y11, x12, y12, fill='black')
+eyes=draw_eyes(160, 320, 320, 400, 210, 330, 270, 390, 220, 340, 260, 380, 460, 320, 620, 400, 510, 330, 570, 390, 520, 340, 560, 380)
+
+def draw_nose(x1,y1,x2,y2,x3,y3,x4,y4,x5,y5,x6,y6,x7,y7,x8,y8,x9,y9,x10,y10:int):
+    my_canvas.create_line(x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6, x7, y7, x8, y8, x9, y9, x10, y10)
+nose=draw_nose(340, 360, 340, 440, 320, 460, 320, 480, 340, 500, 440, 500, 460, 480, 460, 460, 440, 440, 440, 360)
+
+def draw_mouth(x1,y1,x2,y2,x3,y3,x4,y4,x5,y5,x6,y6,x7,y7,x8,y8,x9,y9,x10,y10:int):
+    my_canvas.create_polygon(x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6, x7, y7, x8, y8, fill='lightsalmon', outline='black')
+    my_canvas.create_polygon(x2, y2, x3, y3, x9, y9, x10, y10, fill='lightsalmon', outline='black')
+    my_canvas.create_line(x2, y2, x3, y3) 
+mouth=draw_mouth(290, 560, 250, 600, 530, 600, 490, 560, 410, 560, 390, 580, 370, 560, 290, 560, 490, 620, 290, 620)
+
+def draw_face(head, eyes, nose, mouth: int):
+    print(head + eyes + nose + mouth)
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

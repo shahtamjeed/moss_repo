@@ -1,0 +1,251 @@
+<HTML>
+<HEAD>
+<TITLE>haoyanl2/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+nguyenjj/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Jasmine Nguyen 32506859 and Jarvis Wang 39519852. ICS 31 Lab sec 3. Last asst 7.
+
+print("--------Part C--------")
+print()
+
+
+print("-----C1, C2, C3-----")
+from random import randrange
+
+def random_first_names(num: int) -&gt; list:
+    '''Takes an integer and returns a list of that many strings
+    where each string is a randomly generated female or name
+    first name.'''
+    a = open('femalenames.txt','r')
+    b = open('malenames.txt','r')
+    girl_name = a.readlines()
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match13-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    male_name = b.readlines()
+    allNames = girl_name + male_name
+    random_index = []
+    newList = []
+    newListTwo = []
+    for n in range(num):
+        random_index.append(randrange(len(allNames)))
+    for r in random_index:
+        newList.append(allNames[r])
+    for s in newList:
+        newListTwo.append(s.split()[0])
+    return newListTwo
+
+def random_surnames(num:int) -&gt;list:
+</FONT>    '''Takes an integer and returns a list of that many strings
+    where each string is a randomly generated last name.'''
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match13-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    a = open('surnames.txt','r')
+    lines = a.readlines()
+    random_index = []
+    newlist = []
+    newnewlist = []
+    for n in range(num):
+        random_index.append(randrange(len(lines)))
+    for r in random_index:
+        newlist.append(lines[r])
+    for s in newlist:
+        newnewlist.append(s.split()[0])
+    return newnewlist
+
+def random_names(num:int)-&gt; list:
+</FONT>    '''Takes an integer and returns a list of that many strings
+    where each string is a randomly generated full name.'''
+    emptyList = []
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match13-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    newi = []
+    news = []
+    newnewi=[]
+    newnews= []
+    i = random_first_names(num) 
+    s = random_surnames(num)
+    for x in i:
+        newi.append(x.lower())
+    for x in s:
+        news.append(x.lower())
+    for x in newi:
+        newnewi.append(x.capitalize())
+    for x in news:
+        newnews.append(x.capitalize())
+    for x in range(num):
+        emptyList.append(newnewi[x] + " " + newnews[x])
+    return emptyList
+print(random_names(10))
+print()
+print(random_names(5))
+</FONT>print()
+print(random_names(2))
+
+print()
+print()
+print()
+print("--------Part D--------")
+print()
+
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match13-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_13.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print("-----D1-----")
+ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+
+def rotated(ALPHABET: str, num: int) -&gt; str:
+    '''Returns a rotated alphabet with the specified number of characters
+    taken off the front and added on the end of the string.'''
+    for c in ALPHABET:
+        ALPHABET2 = ALPHABET[num:] + ALPHABET[:num]        
+    return ALPHABET2
+assert rotated(ALPHABET, 2) == 'cdefghijklmnopqrstuvwxyzab'
+assert rotated(ALPHABET, 5) == 'fghijklmnopqrstuvwxyzabcde'
+assert rotated(ALPHABET, 1) == 'bcdefghijklmnopqrstuvwxyza'
+
+def Caesar_encrypt(s: str, num: int) -&gt; str:
+    '''Returns the ciphertext for decryption.'''
+    for c in s:
+        s2 = s.lower()
+    return s2.translate(s2.maketrans(ALPHABET, rotated(ALPHABET, num)))
+assert Caesar_encrypt("Hi", 2) == 'jk'
+assert Caesar_encrypt("abc", 5) == 'fgh'
+assert Caesar_encrypt('School', 1) == 'tdippm'
+
+def convertToLowerWithoutNewline() -&gt; list:
+</FONT>    '''Returns a list that converts the wordlist file into
+    lowercase and replaces each newline with nothing.'''
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match13-0.html#5" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    f = open('wordlist.txt', 'r')
+    wordlist = f.readlines()
+    f.close()
+    newlist = []
+    
+    for n in wordlist:
+        x = n.replace("\n", "")
+        x = x.lower()
+        newlist.append(x)
+
+    return newlist
+
+def Caesar_break(s: str) -&gt; str:
+</FONT>    '''Takes a ciphertext string and returns the plaintext
+    for that string without having the key.'''
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match13-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    tablelist = []
+    count = 0
+    splitlist = []
+    countlist = []
+    wordlist = convertToLowerWithoutNewline()
+
+    for i in range(26):
+        tablelist.append( s.translate(s.maketrans(rotated(ALPHABET, i), ALPHABET)).lower() )
+
+    for x in tablelist:
+        splitlist.append(x.split())
+
+    for x in splitlist:
+        for i in x:
+            if i in wordlist:
+                count = count + 1
+        countlist.append(count)
+        count = 0
+
+    check = countlist[0]
+    for i in countlist:
+        if i &gt;=check:
+            check = i
+</FONT>
+    print(tablelist[countlist.index(check)])
+            
+cipher = Caesar_encrypt("Itala Ives ABMs", 5)
+Caesar_break(cipher)
+print()
+cipher2 = Caesar_encrypt('it sweetpea', 2)
+Caesar_break(cipher2)
+
+print("\n-----D2-----")
+print("Don't have to show.")
+
+print()
+print()
+print()
+print("--------Part E--------")
+print()
+
+
+print("-----E1, E2, E3, E4-----")
+
+def stats(ls: list) -&gt; None:
+    '''Prints statistics from a list of strings.'''
+    numLine = len(ls)
+    emptyLine = 0
+    numChar = 0
+    numCharEmpt = 0
+    for i in ls:
+        if( i == '\n'):
+            emptyLine += 1
+    for c in ls:
+        numChar += len(c)
+    for c in ls:
+        if c.strip() != '':
+            numCharEmpt += len(c)
+    avgPerLine = numChar / numLine
+    avgPerNon = numChar / (numLine - emptyLine)
+    a = ("{:5} {:&gt;19}".format(numLine, "lines in the list"))
+    b = ("{:5} {:&gt;13}".format(emptyLine, "empty lines"))
+    c =("{:7.1f} average characters per line".format(avgPerLine))
+    d =("{:7.1f} average characters per non-empty line".format(avgPerNon))
+    e = a + '\n' + b + '\n' + c + '\n' + d
+    return e
+
+def copy_file(s:str) -&gt; list:
+    '''Returns lines if the parameter is 'line numbers',
+    Returns body of Project Gutenberg file if parameter is
+    'Gutenberg trim' while omitting the housekeeping material
+    at the front nad the end, and prints out the statistics
+    if the parameter is 'statistics'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+  
+    
+    linecontent = infile.readlines()
+    if s == "line numbers":
+        for x in range(len(linecontent)):
+            outfile.write("{:5}: {:}".format(x+1,linecontent[x]))
+    elif s == 'Gutenberg trim':
+        w = False
+        for x in linecontent:
+            if '*** START' in x:
+                w = True
+                
+            elif '*** END' in x:
+                break
+            elif w:
+                outfile.write(x) 
+    elif s == 'statistics':
+        outfile.write(stats(linecontent))      
+    else:
+        for line in linecontent:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+copy_file('statistics')
+copy_file('meow')
+
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

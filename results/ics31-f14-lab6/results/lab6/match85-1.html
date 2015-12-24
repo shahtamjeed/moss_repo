@@ -1,0 +1,557 @@
+<HTML>
+<HEAD>
+<TITLE>kvongpas/(g)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+nathanaj/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+##############################################
+# Kevin Wong 38236232
+# Nathanael Jones 29797850
+# ICS 31 Lab 4 Sec. 15
+# 11.10.2014
+##############################################
+
+##############################################
+#           IMPORTS
+##############################################
+import string
+<A NAME="6"></A><FONT color = #00FF00><A HREF="match85-0.html#6" TARGET="0"><IMG SRC="../../bitmaps/tm_1_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+from random import randrange
+
+
+##############################################
+#           FUNCTION DECLARATIONS
+##############################################
+def print_banner(s:str)-&gt; str:
+    '''
+    *********************************************
+</FONT>    PRINT_BANNER
+    ---------------------------------------------
+    Description:
+    Prints a banner with a message
+
+    PARAMETERS:
+    s: str    -   message
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match85-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    RETURNS:
+    a string of the output
+    *********************************************
+    '''
+</FONT>    number_of_char = 35
+    char = '*'
+    string = char * number_of_char + '\n\t' + s +'\n' + char * number_of_char
+    print(string)
+    return string
+##############################################
+#               PART C.1
+#  Implement the function contains
+##############################################
+print_banner('PART C.1')
+
+def contains(s1: str, s2) -&gt; bool:
+    '''
+    *********************************************
+    CONTAINS
+    ---------------------------------------------
+    Description:
+    The function checks if the second string occurs
+    in the first string. If the second string does
+    occur, the function returns True; if not,
+    it returns False
+
+    PARAMETERS:
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match85-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    s1: str    -   string to check against
+    s2: str    -   string to compare with
+
+    RETURNS:
+    bool
+    *********************************************
+</FONT>    '''
+    return s2 in s1
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+# end c1
+print()
+##############################################
+#               PART C.2
+#  Implement the function sentence_stats
+##############################################
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match85-0.html#5" TARGET="0"><IMG SRC="../../bitmaps/tm_0_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print_banner('PART C.2')
+
+def no_punctuation(s: str) -&gt; str:
+    '''
+    *********************************************
+</FONT>    NO_PUNCTUATION
+    ---------------------------------------------
+    Description:
+    Translates the string so there is no punctuation
+
+    PARAMETERS:
+    s: str - string to modify
+
+    RETURNS:
+    str
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match85-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    *********************************************
+    '''
+    result = ''
+    for i in s:
+</FONT>        if not i in string.punctuation:
+            result += i
+    return result
+assert no_punctuation('asdf123!!') == 'asdf123'
+
+def average_word(s: str) -&gt; float:
+    '''
+    *********************************************
+    AVERAGE_WORD
+    ---------------------------------------------
+    Description:
+    Returns the average length of each word in the
+    string s
+
+    PARAMETERS:
+    s: str - string to count
+
+    RETURNS:
+    float
+    *********************************************
+    '''
+    result = 0
+    s = no_punctuation(s).split()
+    if len(s) == 0:
+        return result
+    
+    for i in s:
+        result += len(i)
+
+    return result/len(s)
+assert average_word('I Love UCIe') == 3
+        
+                       
+def sentence_stats(s: str) -&gt; None:
+    '''
+    *********************************************
+    SENTENCE_STATS
+    ---------------------------------------------
+    Description:
+    prints out these statistics about the string:
+    its length in characters, its length in words,
+    and the average length of each word.
+    (We'll say that a word is any substring
+    that's delimited by white space, after
+    punctuation has been eliminated. You might
+    find it helpful to write a function that
+    translates all punctuation marks to blanks.)
+
+    PARAMETERS:
+    s1: str    -   string to check against
+    s2: str    -   string to compare with
+
+    RETURNS:
+    a string of the output
+    *********************************************
+    '''
+    print('Characters: ' + len(s) )
+    print('Words: ' + len(no_punctuation(s).split() ) )
+    print('Average Word Length: ' + average_word(s) )
+
+
+# end c.2
+print()
+##############################################
+#               PART C.3
+#  Implement the function initials
+##############################################
+print_banner('PART C.3')
+
+def initials(s: str) -&gt; str:
+    '''
+    *********************************************
+    INITIALS
+    ---------------------------------------------
+    Description:
+    Returns the abbreviation of the string s
+
+    PARAMETERS:
+    s: str - string to parse
+
+    RETURNS:
+    float
+    *********************************************
+    '''
+    result =''
+    for i in no_punctuation(s).split():
+        result += i[0].upper()
+    return result
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+# end c.3
+print()
+##############################################
+#               PART D
+#  Implement the function initials
+##############################################
+print_banner('PART D.1')
+
+print('Print 50 random #s ranging from 0 to 10 inclusive:')
+for i in range(1,51):
+    if i%10 == 0:
+        print(str.format('{:3d}', randrange(11)))
+    else:
+        print(str.format('{:3d}, ', randrange(11)), end='')
+        
+print()
+print('Print 50 random #s ranging from 1 to 6 inclusive:')
+for i in range(1,51):
+    if i%10 == 0:
+        print(str.format('{:3d}', randrange(1,7)))
+    else:
+        print(str.format('{:3d}, ', randrange(1,7)), end='')
+# end d.1
+print()
+##############################################
+#               PART D.2
+#  Write a function called roll2dice
+##############################################
+print_banner('PART D.2')
+
+def roll2dice() -&gt; int:
+    ''' roll 2 dice'''
+    return randrange(1,7) + randrange(1,7)
+
+print('Testing roll2dice 50 times:')
+for i in range(1,51):
+    if i%10 == 0:
+        print(str.format('{:3d}', roll2dice()))
+    else:
+        print(str.format('{:3d}, ', roll2dice()), end ='')
+# end d.2
+print()
+##############################################
+#               PART D.3
+#  Write a function called distribution_of_rolls
+##############################################
+print_banner('PART D.3')
+
+def distribution_of_rolls(rolls: int) -&gt; None:
+    '''
+    *********************************************
+    DISTRIBUTION_OF_ROLLS
+<A NAME="7"></A><FONT color = #0000FF><A HREF="match85-0.html#7" TARGET="0"><IMG SRC="../../bitmaps/tm_2_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    ---------------------------------------------
+    Description:
+    Prints the formatted results of a number of
+    rolls
+
+    PARAMETERS:
+</FONT>    rolls: int - number of rolls
+
+    RETURNS:
+    none
+    *********************************************
+    '''
+    results = [0] * 11
+    for i in range(rolls):
+        num = roll2dice()
+        results[num - 2] += 1
+
+    for i in range(len(results) ):
+        print( '%3s %6d (%5.1f%%)  %s' % ( (str(i + 2) + ':'), results[i],
+                results[i]/rolls * 100, '*'*results[i] ) )
+
+print('Distribution of 200 rolls')
+distribution_of_rolls(200)
+        
+# end d.3
+print()
+##############################################
+#               PART E
+# Write the two functions Caesar_encrypt
+# and  Caesar_decrypt
+##############################################
+print_banner('PART E')
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def Caesar_encrypt(s: str, key: int) -&gt; str:
+    '''
+    *********************************************
+    CAESAR_ENCRYPT
+    ---------------------------------------------
+    Description:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match85-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Encypts the strings, s, with a given key
+
+    PARAMETERS:
+    s: str - string to encrypt
+    key: int - key to use
+
+    RETURNS:
+    str
+    *********************************************
+</FONT>    '''
+    return s.lower().translate( str.maketrans(ALPHABET, ALPHABET[key % len(ALPHABET):] + ALPHABET[:key % len(ALPHABET)]))
+assert Caesar_encrypt('Cat', 27) == 'dbu'
+<A NAME="8"></A><FONT color = #00FFFF><A HREF="match85-0.html#8" TARGET="0"><IMG SRC="../../bitmaps/tm_3_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert Caesar_encrypt('abc', 5) == 'fgh' 
+
+def Caesar_decrypt(s: str, key: int) -&gt; str:
+    '''
+    *********************************************
+</FONT>    CAESAR_DECRYPT
+    ---------------------------------------------
+    Description:
+    Decypts the strings, s, with a given key
+
+    PARAMETERS:
+    s: str - string to decrypt
+    key: int - key to use
+
+    RETURNS:
+<A NAME="10"></A><FONT color = #FF0000><A HREF="match85-0.html#10" TARGET="0"><IMG SRC="../../bitmaps/tm_0_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    str
+    *********************************************
+    '''
+    return Caesar_encrypt(s, -1 * key)
+</FONT>assert Caesar_decrypt('dbu', 1) == 'cat'
+assert Caesar_decrypt('fgh', 5) == 'abc'
+
+print('The encrypted phrase is: ' + Caesar_encrypt(input('Enter a phrase to encrpyt: '), int(input('Enter a key to encrpyt with: '))) )
+print('The decrypted phrase is: ' + Caesar_decrypt(input('Enter an encrypted phrase: '), int(input('Enter a key to decrypt with: ') ) ) )
+
+# end E
+print()
+##############################################
+#               PART F
+##############################################
+four_score = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposi%&^&*()&%$'tion that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ", "       ", "", "Testing", "More", "Lines.", "Still", "Need", "More" ]
+
+##############################################
+#               PART F.1
+# Write the function print_line_numbers
+##############################################
+print_banner('PART F.1')
+
+def find_longest_line_number(s: [str]) -&gt; int:
+    '''
+    *********************************************
+    FIND_LONGEST_LINE_NUMBER
+    ---------------------------------------------
+    Description:
+    Returns the length of the longest line number
+
+    PARAMETERS:
+    s: [str] - list of strings
+
+    RETURNS:
+<A NAME="11"></A><FONT color = #00FF00><A HREF="match85-0.html#11" TARGET="0"><IMG SRC="../../bitmaps/tm_1_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    int
+    *********************************************
+    '''
+    if len(s) == 0:
+</FONT>        return 0
+    else:
+        result = 0
+        for i in str(len(s)):
+            result += 1
+    return result
+
+def print_line_numbers(s: [str]) -&gt; None:
+    '''
+    *********************************************
+    PRINT_LINE_NUMBERS
+    ---------------------------------------------
+    Description:
+    Prints the line numbers for each element of
+    the list s
+
+    PARAMETERS:
+    s: [str] - list of strings
+
+    RETURNS:
+<A NAME="9"></A><FONT color = #FF00FF><A HREF="match85-0.html#9" TARGET="0"><IMG SRC="../../bitmaps/tm_4_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    none
+    *********************************************
+    '''
+    for i in range(len(s)):
+</FONT>        print(str.format('{:' + str(find_longest_line_number(s)+ 2) + 's}{}', (str( i + 1) + ':'), s[i]))
+print('Printing line numbers of four score...')    
+print_line_numbers( four_score ) 
+
+# end f.1
+print()
+##############################################
+#               PART F.2
+# Write the function stats
+##############################################
+print_banner('PART F.2')
+
+def empty_lines(s: [str]) -&gt; int:
+    '''
+    *********************************************
+    EMPTY_LINES
+    ---------------------------------------------
+    Description:
+    Counts the number of empty lines in a list
+    of strings
+
+    PARAMETERS:
+    s: [str] - list of strings
+
+    RETURNS:
+    int
+    *********************************************
+    '''
+    result = 0
+    for i in s:
+        if len(i.split()) == 0:
+            result += 1
+    return result
+assert empty_lines( ['', '        ', '          efwef  ']) == 2
+
+def average_characters_per_line(s: [str]) -&gt; float:
+    '''
+    *********************************************
+    AVERAGE_CHARACTERS_PER_LINE
+    ---------------------------------------------
+    Description:
+    Returns the average characters per line
+    includes punctuation and blank lines
+
+    PARAMETERS:
+    s: [str] - list of strings
+
+    RETURNS:
+    int
+    *********************************************
+    '''
+    total = 0
+    if len(s)==0:
+        return 0
+    for i in s:
+        total = total + len(i)
+    return total/len(s)
+
+def average_characters_per_non_empty_line(s: [str]) -&gt; float:
+    '''
+    *********************************************
+    AVERAGE_CHARACTERS_PER_LINE
+    ---------------------------------------------
+    Description:
+    Returns the average characters per line
+    includes punctuation but not empty lines
+
+    PARAMETERS:
+    s: [str] - list of strings
+
+    RETURNS:
+    int
+    *********************************************
+    '''
+    total = 0
+    empty = 0
+    if len(s)==0:
+        return 0
+    for i in s:
+        if not len(i.split()) == 0:
+            total = total + len(i)
+        else:
+            empty +=1
+    return total/(len(s)-empty)
+
+def stats(s: [str] ) -&gt; None:
+    '''
+    *********************************************
+    STATS
+    ---------------------------------------------
+    Description:
+    Prints out the formatted results of a list
+    of strings
+
+    PARAMETERS:
+    s: [str] - list of strings
+
+    RETURNS:
+    none
+    *********************************************
+    '''
+    print( str.format('{:7d}   {}', len(s), 'lines in the list') )
+    print( str.format('{:7d}   {}', empty_lines(s),'empty lines') )
+    print( str.format('{:9.1f} {}', average_characters_per_line(s), 'average characters per line') )
+    print( str.format('{:9.1f} {}', average_characters_per_non_empty_line(s), 'average characters per non-empty line') )
+
+print('Printing statistics of Four Score...')
+stats(four_score)
+
+# end f.2
+print()
+##############################################
+#               PART F.3
+# Write the function list_of_words
+##############################################
+print_banner('PART F.3')
+
+def list_of_words(s: [str])-&gt;[str]:
+    '''
+    *********************************************
+    LIST_OF_WORDS
+    ---------------------------------------------
+    Description:
+    Returns a list of strings with all punctuation
+    removed except an apostrophe
+
+    PARAMETERS:
+    s: [str] - list of strings
+
+    RETURNS:
+    [str]
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match85-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    *********************************************
+    '''
+    result = []
+    punc = list(string.punctuation)
+</FONT>    punc.remove("'")
+    for i in s:
+        i = ''.join(ch for ch in i if ch not in punc)
+        result.extend(i.split())
+    return result
+
+list_of_words = list_of_words(four_score)
+for i in range(len(list_of_words)):
+    if (i+1) % 10 == 0:
+           print(list_of_words[i])
+            
+    else:
+        print(list_of_words[i], end= ', ')
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

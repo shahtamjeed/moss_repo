@@ -1,0 +1,186 @@
+<HTML>
+<HEAD>
+<TITLE>choe4/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+choe4/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Eric Cho 45658719 and Nicholas Nchamukong 52921913. ICS 31 Lab sec 5. Lab asst 7.
+
+print('Part C -----------------------------------------------------------')
+from random import randrange
+
+def random_names (count:int) -&gt; list:
+    '''Returns a list of random names with length given by count'''
+    infile1 = open('surnames.txt')
+    infile2 = open('femalenames.txt')
+    infile3 = open('malenames.txt')
+    surnames = infile1.readlines()
+    female_names = infile2.readlines()
+    male_names = infile3.readlines()
+    infile1.close()
+    infile2.close()
+    infile3.close()
+    
+    for i in range(len(surnames)):
+        surnames[i] = (surnames[i])[0:surnames[i].find('\t')]
+        surnames[i] = surnames[i][0] + surnames[i][1:].lower()
+        female_names[i] = (female_names[i])[0:female_names[i].find('\t')]
+        female_names[i] = female_names[i][0] + female_names[i][1:].lower()
+        male_names[i] = (male_names[i])[0:male_names[i].find('\t')]
+        male_names[i] = male_names[i][0] + male_names[i][1:].lower()
+
+    names = []
+    
+    for i in range(count):
+        if (randrange(0,2) == 0):
+            names.append(surnames[randrange(0,1000)] + ', ' + male_names[randrange(0,1000)])
+        else:
+            names.append(surnames[randrange(0,1000)] + ', ' + female_names[randrange(0,1000)])                     
+        
+    return names
+
+for i in range(10):
+    print(random_names(10)[i])
+
+print('Part D -----------------------------------------------------------')
+ALPHABET = ''
+for i in range(26):
+    ALPHABET += chr(97 + i)
+        
+def rotate_alphabet(key: int) -&gt; list:
+    '''Pushes the starting point of the alphabet back by key'''
+    return ALPHABET[key:] + ALPHABET[0:key]
+
+def Caesar_break (ciphertext:str) -&gt; str:
+    '''Takes a ciphertext and brute forces its key to return a plaintext message'''
+    dictionary_words_amount = []
+    infile = open('wordlist.txt')
+    wordlist = infile.readlines()
+    infile.close()
+    
+    for i in range(len(wordlist)):
+        wordlist[i] = wordlist[i][0:wordlist[i].find('\n')].lower()
+    for i in range(26):
+        dictionary_words_amount.append(0)
+        temp = (ciphertext.lower()).translate(str.maketrans(rotate_alphabet(i), ALPHABET))
+        temp = temp.split()   
+        for j in temp:
+            if j.lower() in wordlist:
+                dictionary_words_amount[i] += 1
+    rotated_alphabet = rotate_alphabet(dictionary_words_amount.index(max(dictionary_words_amount)))
+    table = str.maketrans(rotated_alphabet, ALPHABET)
+    return (ciphertext.lower()).translate(table)
+
+print(Caesar_break('wklv lv d whvw phvvdjh!'))
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match52-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Part E1 ----------------------------------------------------------')
+def copy_file():
+    '''Copies the file given to a new file'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+
+copy_file()
+
+print('Part E2 ----------------------------------------------------------')
+def copy_file(parameter: str):
+    '''Upgraded to include line numbers'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    line_counter = 1
+    for line in infile:
+        if (parameter == 'line numbers'):
+            outfile.write('{:5d}: '.format(line_counter))
+</FONT>            line_counter += 1
+            outfile.write(line)   
+        else:
+            outfile.write(line)
+    for i in infile:
+        print(infile)
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match52-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    infile.close()
+    outfile.close()
+
+copy_file('line numbers')
+
+print('Part E3 ----------------------------------------------------------')
+def copy_file(parameter: str):
+    '''Upgraded to get rid of housekeeping stuff in text'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+</FONT>    line_counter = 1
+    if (parameter == 'line numbers'):
+        for line in infile:
+            outfile.write('{:5d}: '.format(line_counter))
+            line_counter += 1
+            outfile.write(line)
+    elif (parameter == 'Gutenberg trim'):
+        text = infile.read()
+        text = text[text.index('*** START'):text.index('*** END')]
+        outfile.write(text)
+    else:
+        outfile.write(line)
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match52-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    infile.close()
+    outfile.close()
+
+copy_file('Gutenberg trim')
+
+print('Part E4 ----------------------------------------------------------')
+def copy_file(parameter: str):
+    '''Upgraded to give statistical information about file'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+</FONT>    line_counter = 1
+    if (parameter == 'line numbers'):
+        for line in infile:
+            outfile.write('{:5d}: '.format(line_counter))
+            line_counter += 1
+            outfile.write(line)
+    elif (parameter == 'Gutenberg trim'):
+        text = infile.read() #This method makes the file a list of char
+        text = text[text.index('*** START'):text.index('*** END')]
+        outfile.write(text)
+    elif (parameter == 'statistics'):
+        text = infile.readlines()
+        empty_lines, nonempty_line_characters, total_characters  = 0, 0, 0
+        
+        for i in range(len(text)):
+            total_characters += len(text[i])
+            if (text[i] == '\n'):
+                empty_lines += 1
+            else:
+                nonempty_line_characters += len(text[i])
+
+        print('{0:5}   lines in the list'.format(len(text)))
+        print('{0:5}   empty lines'.format(empty_lines))
+        print('{0:7.1f} average characters per line'.format(total_characters/len(text)))
+        print('{0:7.1f} average characters per non-empty line'.format(nonempty_line_characters/(len(text) - empty_lines)))
+    else:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file('statistics')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,224 @@
+<HTML>
+<HEAD>
+<TITLE>ethands/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kuanhy/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Kuan Hao Yu 33115939 and James Hardjadinata 19301180. ICS 31 Lab sec 2. Lab asst 7.
+
+#
+#
+# Part (c)
+#
+#
+from random import randrange
+print('c.1')
+def random_names(length: int) -&gt; list:
+    ''' Generate a list of random male/female names with first and last names '''
+    # Open, read, and close files
+    surname_f = open('surnames.txt', 'r')
+    malename_f = open('malenames.txt', 'r')
+    femalename_f = open('femalenames.txt', 'r')
+    surname_data = surname_f.read()
+    malename_data = malename_f.read()
+    femalename_data = femalename_f.read()
+    surname_f.close()
+    malename_f.close()
+    femalename_f.close()
+
+    # Construct lists
+    surname_list = surname_data.split()[::4]
+    firstname_list = femalename_data.split()[::4] + malename_data.split()[::4]
+
+    # Change list strings to proper capitalization
+    for i in range(len(surname_list)):
+        surname_list[i] = surname_list[i].replace(surname_list[i][1:], surname_list[i][1:].lower())
+    for i in range(len(firstname_list)):
+        firstname_list[i] = firstname_list[i].replace(firstname_list[i][1:], firstname_list[i][1:].lower())
+
+    # Generate random name list
+    name_list = []
+    for i in range(length):
+        name_list.append('{0:s}, {1:s}'.format(surname_list[randrange(len(surname_list))], firstname_list[randrange(len(firstname_list))]))
+    return name_list
+print(random_names(10))
+
+#
+#
+# Part (d)
+#
+#
+def rotate_alphabet(string: str, key: int) -&gt; str:
+    ''' Rotate the alphabet with a given key '''
+    return string[key:] + string[:key]
+
+def Caesar_encrypt(plaintext: str, key: int) -&gt; str:
+    ''' Encrypt a plaintext with a given key using a Caeser cipher. Return ciphertext. '''
+    ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+    NEW_ALPHABET = rotate_alphabet(ALPHABET, key%26)
+    return (plaintext.lower()).translate(plaintext.maketrans(ALPHABET, NEW_ALPHABET))
+assert Caesar_encrypt('abcdefghijklmnopqrstuvwxyz', 29) == 'defghijklmnopqrstuvwxyzabc'
+
+def Caesar_decrypt(ciphertext: str, key: int) -&gt; str:
+    ''' Decrypt a plaintext with a given key using a Caeser cipher. Return plaintext. '''
+    ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+    NEW_ALPHABET = rotate_alphabet(ALPHABET, key%26)
+    return (ciphertext.lower()).translate(ciphertext.maketrans(NEW_ALPHABET, ALPHABET))
+assert Caesar_decrypt('defghijklmnopqrstuvwxyzabc', 3) == 'abcdefghijklmnopqrstuvwxyz'
+
+print('d.1')
+def Caesar_break(ciphertext: str) -&gt; str:
+    ''' Brute force Caesar ciphertext and return correct plaintext '''
+    wordlist = open('wordlist.txt', 'r').read().split()
+
+    key = 0
+    count1 = 0
+    count2 = 0
+    for i in range(26):
+        for j in Caesar_decrypt(ciphertext, i).split():
+            if j in wordlist:
+                count1 += 1
+        if count2 &gt;= count1:
+            key = i+1
+    return Caesar_decrypt(ciphertext, key)
+assert Caesar_break('uonichzywncih uonichnircwuhn utcgonbuffs') == 'autoinfection autointoxicant azimuthally'
+
+print('d.2')
+print(Caesar_encrypt('bacteriochlorophylls baby guesser hoos intercessors inters', 41))
+print(Caesar_break('qpritgxdrwadgdewnaah qpqn vjthhtg wddh xcitgrthhdgh xcitgh'), '\n')
+
+print(Caesar_encrypt('The oldest classical Greek and Latin writing ' +
+                     'had little or no spaces between words or other ' +
+                     'ones, and could be written in boustrophedon.', 123))
+print(Caesar_break('max hewxlm vetllbvte zkxxd tgw etmbg pkbmbgz atw ' +
+                   'ebmmex hk gh litvxl uxmpxxg phkwl hk hmaxk hgxl, ' +
+                   'tgw vhnew ux pkbmmxg bg uhnlmkhiaxwhg.'), '\n')
+
+#
+#
+# Part (e)
+#
+#
+print('e.1')
+def copy_file():
+    ''' Prompt user to make a separate copy of the file '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+# copy_file()
+
+print('e.2')
+def copy_file(command: str):
+    ''' Prompt user to make a separate copy of the file with 1 pther command '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    infile_contents = infile.readlines()
+    if command == 'line numbers':
+        for i in range(len(infile_contents)):
+            outfile.write('{0:5d}: {1:s}'.format(i+1,infile_contents[i]))
+    else:
+        for line in infile_contents:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+# copy_file('line numbers')
+# copy_file('')
+
+print('e.3')
+def copy_file(command: str):
+    ''' Prompt user to make a separate copy of the file with 2 pther commands '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    infile_contents = infile.readlines()
+    if command == 'line numbers':
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match208-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        for i in range(len(infile_contents)):
+            outfile.write('{0:5d}: {1:s}'.format(i+1,infile_contents[i]))
+    elif command == 'Gutenberg trim':
+        for i in range(len(infile_contents)):
+            if '*** START' in infile_contents[i]:
+</FONT>                index_start = i+1
+            elif '*** END' in infile_contents[i]:
+                index_end = i
+                break
+        for i in range(index_start, index_end):
+            outfile.write('{0}'.format(infile_contents[i]))
+    else:
+        for line in infile_contents:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+# copy_file('')
+# copy_file('line numbers')
+# copy_file('Gutenberg trim')
+
+print('e.4')
+def stats(lines: list) -&gt; str:
+    ''' Print a list of stats for the list of strings '''
+    empty = 0
+    result = []
+    for i in lines:
+        if i == '':
+            empty += 1
+        else:
+            result.append(i)
+    average_length = len(''.join(lines)) / len(lines)
+    average_nonempty_length = len(''.join(result)) / len(result)
+    print('{0:6d}   lines in the list'.format(len(lines)) + '\n' +
+          '{0:6d}   empty lines'.format(empty) + '\n' +
+          '{0:8.1f} average characters per line'.format(average_length) + '\n' +
+          '{0:8.1f} average characters per non-empty line'.format(average_nonempty_length))
+
+
+def copy_file(command: str):
+    ''' Prompt user to make a separate copy of the file with 3 other commands '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    infile_contents = infile.readlines()
+    
+    if command == 'line numbers':
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match208-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        for i in range(len(infile_contents)):
+            outfile.write('{0:5d}: {1:s}'.format(i+1,infile_contents[i]))
+    elif command == 'Gutenberg trim':
+        for i in range(len(infile_contents)):
+            if '*** START' in infile_contents[i]:
+</FONT>                index_start = i+1
+            elif '*** END' in infile_contents[i]:
+                index_end = i
+                break
+        for i in range(index_start, index_end):
+            outfile.write('{0}'.format(infile_contents[i]))
+    elif command == 'statistics':
+        for line in infile_contents:
+            outfile.write(line)
+        stats(open(infile_name, 'r', errors='ignore').read().splitlines())
+    else:
+        for line in infile_contents:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+copy_file('')
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+copy_file('statistics')
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

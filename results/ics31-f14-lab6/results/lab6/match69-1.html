@@ -1,0 +1,182 @@
+<HTML>
+<HEAD>
+<TITLE>ajching/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+michadt1/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+#  Michael Tran 24802426 and Dong Hun Shin 18891445.  ICS 31 Lab sec 7.  Lab asst 6.
+
+#c.1
+def contains(s1:str,s2:str)-&gt;bool:
+    '''Takes two strings as parameters
+    and returns True if the second string occurs in the first.'''
+    if s2 in s1:
+        return True
+    else:
+        return False
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+print(contains('banana', 'ana'))
+
+#c.2
+def sentence_stats(s1:str)-&gt;None:
+    print('Characters: ',len(s1))
+    newlist=s1.split()    
+    print('Words: ',len(newlist))
+    a=''.join(newlist)
+    print('Average Word Length: ',(len(a)/len(newlist)))
+sentence_stats('I love UCI')
+
+#c.3
+def initials(s1:str)-&gt;str:
+    result=''
+    newlist=s1.split()
+    for x in newlist:
+        result = result+x[0]
+    return result.upper()
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+   
+print(initials('Michael tran'))
+
+#d.1
+from random import randrange
+'''
+for x in range(0,50):
+    print(randrange(1,11))
+print('')
+for x in range(0,50):
+    print(randrange(1,7))
+'''
+
+#d.2
+
+def roll2dice()-&gt;int:
+    a=randrange(1,7)
+    b=randrange(1,7)
+    return a+b
+'''
+for x in range(0,50):
+    print(roll2dice())
+'''
+
+#d.3
+def distribution_of_rolls(num:int)-&gt;None:
+
+    counts=[0]*13
+    for x in range(0,num):
+        a=roll2dice()
+        counts[a]+=1
+    for y in range(2,len(counts)):
+        print(y,':      ',counts[y],'(',counts[y]/num,'%)  ','*'*counts[y])      
+distribution_of_rolls(200)
+
+#e.1
+ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match69-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_36.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+punctuation = ''',./?'";:!@#$%^&*'''
+
+def Caesar_encrypt(word: str, shift: int) -&gt; str:
+    word = word.lower()
+    newword = []
+    for i in range(len(word)):
+        for j in range(len(alphabet)):
+            if word[i] == alphabet[j]:
+                if ((j + shift) &gt; 25):
+                    shift = shift - 26
+                else:
+                    newword.append(alphabet[j+shift])
+        for k in range(len(punctuation)):
+            if word[i] == punctuation[k]:
+                newword.append(word[i])
+        
+    return "".join(newword)
+
+print(Caesar_encrypt("Hello school", 1))
+
+def Caesar_decrypt(word: str, shift: int) -&gt; str:
+    newword = []
+    for i in range(len(word)):
+        for j in range(len(alphabet)):
+            if word[i] == alphabet[j]:
+                if ((j - shift) &lt; 0):
+                    shift = shift + 26
+                else:
+                    newword.append(alphabet[j-shift])
+        for k in range(len(punctuation)):
+            if word[i] == punctuation[k]:
+                newword.append(word[i])
+                               
+    return "".join(newword)
+
+print(Caesar_decrypt(Caesar_encrypt("Hello school", 1), 1))
+
+
+#f.1
+def print_line_numbers(wordlist: list):
+    for i in range(len(wordlist)):
+        print("{:2}:  {:}".format(str(i+1), wordlist[i]))
+print_line_numbers(["I like to play",
+                    "basketball and videogames",
+                    "but also eat",
+                    "it's getting really cold",
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match69-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                    "what"])      
+
+#f.2
+
+def stats(wordlist: list):
+    length = len(wordlist)
+    empty = 0
+    total = 0
+    non_empty_total = 0
+    for i in wordlist:
+        if i == "":
+            empty += 1
+            total += 1
+        total += len(i)
+        non_empty_total += len(i)
+    print("{:6} {:}".format((length),"lines in the list"))
+    print("{:6} {:}".format((empty), "empty lines"))
+    print("{:6.1f} {:}".format((total/length), "average characters per line"))
+    print("{:6.1f} {:}".format((non_empty_total), "average characters per non-empty line"))
+
+stats(["I like to play",
+       "basketball and videogames",
+       "but also eat",
+       "it's getting really cold",
+       "what"])      
+</FONT>
+#f.3
+def spaces(phrase: str) -&gt; str:
+    table = str.maketrans('.,!?:;"/*',
+                          '         ')
+    return phrase.translate(table)
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match69-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def list_of_words(words: list) -&gt; list:
+    for i in range(len(words)):
+        words[i] = spaces(words[i])
+    new = " ".join(words)    
+    newlist = new.split()
+    return newlist
+
+print(list_of_words(["I like to play",
+                     "basketball and videogames",
+                     "but also eat",
+</FONT>                     "it's getting really cold",
+                     "what"]))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

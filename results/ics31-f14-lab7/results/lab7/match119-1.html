@@ -1,0 +1,211 @@
+<HTML>
+<HEAD>
+<TITLE>cqtrang/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+rdalwadi/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+
+# Jamil Semaan 39071855 Rushabh Dalwadi 66644893 Lab 2 Assignment 7
+
+
+##Part (c)
+print('------Part (c)------', '\n')
+from random import randrange
+
+print('------Part (c.1)------', '\n')
+def random_surname() -&gt; str:
+    last = open("surnames.txt", "r")
+    '''Generates a random surname from the file with surnames'''
+    sur = last.read()
+    sur_split = sur.split()
+    surname_list = []
+    for i in sur_split[::4]:
+        surname_list.append(i)
+    last.close()
+    return surname_list[randrange(1000)]
+
+
+def random_malename() -&gt; str:
+    '''Generates a random surname from the file with surnames'''
+    first = open("malenames.txt", "r")
+    fir = first.read()
+    fir_split = fir.split()
+    firstname_list = []
+    for i in fir_split[::4]:
+        firstname_list.append(i)
+    first.close()
+    return firstname_list[randrange(1000)]
+
+def random_single_name() -&gt; str:
+    '''Generates a single random name'''
+    return(random_surname()+', '+random_malename())
+
+
+def random_names(n: int) -&gt; str:
+    '''Takes integer as argument and returns that many random names.'''
+    for i in range(n):
+        print (random_single_name())
+   
+        
+random_names(50)
+
+
+
+##Part (d)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match119-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_14.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('\n', '------Part (d)------', '\n')
+##Taken from my(Jamil's) lab6 file, to use for reference
+def Caesar_encrypt(message: str, key: int)-&gt; str:
+    '''Encrypts using Caesar cipher based on given key.'''
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    tablealpha = str.maketrans(alphabet,
+                               alphabet[key:]+alphabet[:key])
+    return message.lower().translate(tablealpha)
+
+def Caesar_decrypt(message: str, key: int)-&gt; str:
+    '''Decrypts using Caesar cipher based on given key.'''
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    tablealpha = str.maketrans(alphabet[key:]+alphabet[:key],
+                               alphabet)
+    return message.lower().translate(tablealpha)
+</FONT>
+
+print('\n', '------Part (d.1)------', '\n')
+
+def Caesar_break(ciphertext: str) -&gt; str:
+    '''Uses brute force to decrypt ciphertext Caesar style'''
+    diction = open("wordlist.txt", "r")
+    words = diction.read()
+    lowerwords = words.lower()
+    possibilities =[]
+    for i in range(26):
+        possibilities.append(Caesar_decrypt(ciphertext, i))
+    for x in possibilities:
+        if x in lowerwords:
+            return x
+    diction.close()
+            
+print(Caesar_break('ghhuzyut'))
+
+
+##Part (e)
+print('\n', '------Part (e)------', '\n')
+
+print('\n', '-----Part (e.2)-----', '\n')
+
+def copy_file(cmd: str):
+    '''If the parameter is 'line numbers', the copied file includes line numbers at the start of each line.
+    its parameter is 'Gutenberg trim' it will copy only the body of a Project Gutenberg file, omitting the "housekeeping" material at the front and end. '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    book_list = []
+    non_empty_lines = []
+    empty_lines = []
+    for i in infile:
+        book_list.append(i)
+    if cmd == "line numbers":
+        for x in range(len(book_list)):
+            outfile.write("{:&gt;5}: {}".format(str(x+1),book_list[x]))
+        
+    elif cmd == 'Gutenberg trim':
+        for i in range(len(book_list)):
+            for w in range(len(book_list)):
+                if '*** START' in book_list[i] and '*** END' in book_list[w]:
+                    newlist = book_list[(i+1):(w)]
+                    for q in newlist:
+                        outfile.write(q)
+    elif cmd == 'statistics':
+        for line in book_list:
+            outfile.write(line)
+        num_line = len(book_list)
+        for i in book_list:
+            if i == '\n':
+                empty_lines.append(i)
+        a = 0
+        for i in book_list:
+            a = a + len(i)           
+        avg_char_per_line = a/len(book_list)
+        
+        for i in book_list:
+            if i != '\n':
+                non_empty_lines.append(i)
+        total = 0
+        for i in non_empty_lines:
+            total = total + len(i)           
+        avg_char_per_non_emp_line = total/len(non_empty_lines)
+        print('{:5}   {}'.format(num_line, 'lines in the file'))
+        print('{:5}   {}'.format(len(empty_lines), 'empty lines'))
+        print('  {:5.1f}{}'.format(avg_char_per_line, ' average characters per line'))
+        print('  {:5.1f}{}'.format(avg_char_per_non_emp_line, ' average characters per non-empty line'))
+    infile.close()
+    outfile.close()
+
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+copy_file('statistics')
+
+
+        
+        
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

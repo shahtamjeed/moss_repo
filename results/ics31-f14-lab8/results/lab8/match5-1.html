@@ -1,0 +1,138 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/hyliu1/(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/yuqit1/(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: BandBI.py
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match5-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_98.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+from collections import namedtuple
+Reservation=namedtuple('Reservation','num roomnum arrive_date depart_date name')
+Date=namedtuple('Date','month day year')
+def hotel(file):
+    inputfile=open(file,'r').read()
+    inputlines=inputfile.split('\n')
+    l=[]
+    for i in inputlines:
+        if i[0]!=' ':
+            l.append(i)
+        else:
+            while i[0]==' ':
+                i=i[1:]
+            l.append(i)
+    bedroom_list=[]
+    reservation_list=[]
+    confirmnum=1
+    for i in l:
+        if i[:2]=='PL' or i[:2]=='Pl' or i[:2]=='pL' or i[:2]=='pl':
+            print(i[3:])
+        elif i[:2]=='BL' or i[:2]=='Bl' or i[:2]=='bL' or i[:2]=='bl':
+            print('Number of bedrooms in service:  '+str(len(bedroom_list)))
+            print('------------------------------------')
+            for i in bedroom_list:
+                print(i)
+        elif i[:2]=='AB' or i[:2]=='Ab' or i[:2]=='aB' or i[:2]=='ab':
+            num=i.split()[1]
+            bedroom_list.append(num)
+        elif i[:2]=='BD' or i[:2]=='Bd' or i[:2]=='bD' or i[:2]=='bd':
+            num=i.split()[1]
+            if num in bedroom_list:
+                bedroom_list.remove(num)
+                l=[]
+                for r in reservation_list:
+                    if r.roomnum==num:
+                        l.append(r)
+                for i in l:
+                    reservation_list.remove(i)
+                    print("Deleting room "+num+" forces cancellation of this reservation:"+"\n"+
+                              "\t"+i.name+" arriving "+date_str(i.arrive_date)+" and departing "+date_str(i.depart_date)+" (Conf. #"+str(i.num)+")")
+            else:
+                print("Sorry, can't delete room "+str(num)+"; it is not in service now")
+        elif i[:2]=='NR' or i[:2]=='Nr' or i[:2]=='nR' or i[:2]=='nr':
+            roomnum=i.split()[1]
+            arrive_date=i.split()[2].split('/')
+            depart_date=i.split()[3].split('/')
+            name=i.split()[4]+' '+i.split()[5]
+            AD=Date(arrive_date[0],arrive_date[1],arrive_date[2])
+            DD=Date(depart_date[0],depart_date[1],depart_date[2])
+            R=Reservation(confirmnum,roomnum,AD,DD,name)
+            if (roomnum in bedroom_list):
+                reservation_roomnum_list=[]
+                for r in reservation_list:
+                    reservation_roomnum_list.append(r.roomnum)
+                if (roomnum not in reservation_roomnum_list) or Same_room_but_time_not_overlap(R,reservation_list):
+                    if B_is_later_than_A(AD, DD):
+                        reservation_list.append(R)
+                        confirmnum+=1
+                        print("Reserving room "+R.roomnum+" for "+R.name+" -- Confirmation #"+str(R.num)+"\n"+
+                              "\t(arriving "+i.split()[2]+", departing "+i.split()[3]+")")
+                    elif (AD.year==DD.year and AD.month==DD.month and AD.day==DD.day):
+                        print("Sorry, can't reserve room "+R.roomnum+" ("+i.split()[2]+" to "+i.split()[3]+");"+"\n"+
+                              "\t"+"can't arrive and leave on the same day.")
+                    else:
+                        print("Sorry, can't reserve room "+R.roomnum+" ("+i.split()[2]+" to "+i.split()[3]+");"+"\n"+
+                              "\t"+"can't leave before you arrive.")
+                else:
+                    print("Sorry, can't reserve room "+R.roomnum+" ("+i.split()[2]+" to "+i.split()[3]+");"+"\n"+
+                          "\t"+"it's already booked (Conf. #"+str(find_existed_confirmation(R,reservation_list))+")")
+            else:
+                print("Sorry; can't reserve room 777; room not in service")
+            
+        elif i[:2]=='RL' or i[:2]=='Rl' or i[:2]=='rL' or i[:2]=='rl':
+            print("Number of reservations:  "+str(len(reservation_list)))
+            print('No. Rm. Arrive      Depart     Guest')
+            print('------------------------------------------------')
+            for i in reservation_list:
+                print("{:3d}".format(i.num)+" "+i.roomnum+" "+date_str(i.arrive_date)+" "+date_str(i.depart_date)+" "+i.name)
+        elif i[:2]=='RD' or i[:2]=='Rd' or i[:2]=='rD' or i[:2]=='rd':
+            l=[]
+            deletenum=i.split()[1]
+            for r in reservation_list:
+                l.append(r.num)
+                if r.num==int(deletenum):
+                    reservation_list.remove(r)
+            if int(deletenum) not in l:
+                print("Sorry, can't cancel reservation; no confirmation number "+deletenum)
+        
+        
+        
+        
+        
+def date_str(date):
+    return ("{:2d}".format(int(date.month))+"/"+"{:2d}".format(int(date.day))+"/"+"{:2d}".format(int(date.year)))
+
+def B_is_later_than_A(A,B):
+    return ((A.year==B.year and A.month==B.month and A.day&lt;B.day)or
+            (A.year==B.year and A.month&lt;B.month)or
+            (A.year&lt;B.year))
+    
+def Same_room_but_time_not_overlap(new_reservation,reservation_list):
+    for r in reservation_list:
+        if r.roomnum==new_reservation.roomnum:
+            return B_is_later_than_A(r.depart_date,new_reservation.arrive_date) or B_is_later_than_A(new_reservation.depart_date,r.arrive_date) or (new_reservation.depart_date==r.arrive_date) or (new_reservation.arrive_date==r.depart_date)
+
+def Calculate_confirm_num(reservation_list):
+    numlist=[]
+    for r in reservation_list:
+        numlist.append(r.num)
+    if numlist==[]:
+        x=1
+    else:
+        x=max(numlist)+1
+    return x
+
+def find_existed_confirmation(new_reservation,reservation_list):
+    for r in reservation_list:
+        if (new_reservation.roomnum==r.roomnum) and not Same_room_but_time_not_overlap(new_reservation,reservation_list):
+            return r.num
+</FONT>
+print('===================================================================================')
+print('            TESTING FOR STAGE 1')
+print('===================================================================================')
+hotel('sample input file (stage 1).txt')
+print('\n\n\n')</PRE>
+</PRE>
+</BODY>
+</HTML>

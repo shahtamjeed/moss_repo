@@ -1,0 +1,323 @@
+<HTML>
+<HEAD>
+<TITLE>alongazo/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+nikyd/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Niky Dang 94909076 & Samantha Alexandra Aligaen 21304905 ICS 31 Lab sec 9.  Lab asst 7.
+
+from collections import namedtuple
+from random import randrange
+import random
+
+names = namedtuple('names', 'name percent number_of_people popularity')
+
+print ('\n------C.1------\n') 
+
+###### (C)(1)
+
+def name_get(namefile: str) -&gt; list:
+    '''Retrieve names from a document and put them into a list.'''
+    name_list = []
+    name_file = open(namefile, 'r')
+    for x in name_file:
+        field_list = x.split()
+        result = field_list[0].capitalize()
+        name_list.append(result)
+    name_file.close()
+    return name_list
+
+f = name_get('femalenames.txt')
+m = name_get('malenames.txt')
+s = name_get('surnames.txt')
+
+def random_name_part(n: list) -&gt; str:
+    '''Generate a random male/female first name or surname given a list of names.'''
+    return random.choice(n)    
+
+def random_name() -&gt; str:
+    '''Generates a random female or male name + surname.'''
+    for n in range(1):
+        if randrange(0,2) == 0:
+            result = random_name_part(m)
+        else:
+            result = random_name_part(f)
+    name = random_name_part(s) + ', ' + result
+    return name
+
+def random_names(x: int) -&gt; list:
+    'Takes in an integer as input and returns a single "random name" that consist of a random first name and a random surname while taking into regard the randomization of male or female'
+    random = []
+    for n in range(x):
+        result = random_name()
+        random.append(result)
+    return random
+
+print (random_names(15))
+
+print ('\n------C.2------\n')
+
+###### (C)(2)
+
+def name_get(namefile: str) -&gt; list:
+    '''Retrieve names from a document and put them into a list.'''
+    name_list = []
+    name_file = open(namefile, 'r')
+    for x in name_file:
+        field_list = x.split()
+        result = field_list[0].capitalize()
+        name_list.append(result)
+    name_file.close()
+    return name_list
+
+print ('\n------C.3------\n') 
+
+###### (C)(3)
+
+f = name_get('femalenames.txt')
+m = name_get('malenames.txt')
+s = name_get('surnames.txt')
+
+def random_name_part(n: list) -&gt; str:
+    '''Generate a random male/female first name or surname given a list of names.'''
+    return random.choice(n)    
+
+def random_name() -&gt; str:
+    '''Generates a random female or male name + surname.'''
+    for n in range(1):
+        if randrange(0,2) == 0:
+            result = random_name_part(m)
+        else:
+            result = random_name_part(f)
+    name = random_name_part(s) + ', ' + result
+    return name
+
+
+print (random_name())
+
+
+print ('\n------D.1------\n') 
+
+###### (D)(1)
+
+
+print ('\n')
+
+def rotate_alphabet(s: str, key:int) -&gt; str:
+    '''Takes in a string and rotates it by putting the first half at the end'''
+    new_str = s[key:] + s[:key]
+    return new_str
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def Caesar_decrypt(message:str, key:int) -&gt; str:
+    '''Takes in a Caesar cipher and returns a decrypted string based on the integer given'''
+    if key &gt; 26:
+        key = key % 26
+    cipher = str.maketrans(rotate_alphabet(ALPHABET,key), ALPHABET)
+    return message.lower().translate(cipher)
+
+def Caesar_decrypt26(message: str) -&gt; list:
+    '''Generates decryption alphabets for 26 possible keys.''' 
+    result = []
+    for n in range(26):
+        x = Caesar_decrypt(message, n)
+        result.append(x)
+    return result
+
+print(Caesar_decrypt26('dbi drsc yx pyb csjo!'))
+
+def Caesar_break(message: str) -&gt; str:
+    '''Takes a ciphertext string as input and returns the plaintext
+    for that string, without having the key'''
+    infile = open('wordlist.txt','r')
+    listed_file = infile.read()
+    decrypt_l = Caesar_decrypt26(message)
+    amountCorrect = []
+    temp = []
+    key = 0
+    for trans in range(len(decrypt_l)):
+        count = 0
+        temp = decrypt_l[trans].split()
+        for word in temp:
+            if word in listed_file:
+                count += 1
+        amountCorrect.append(count)
+    key = amountCorrect.index(max(amountCorrect))
+    decrypted = Caesar_decrypt(message, key)
+    infile.close()
+    return decrypted.capitalize()
+                    
+Encrypt = Caesar_decrypt("Try this on for size!", 9)
+print (Caesar_break(Encrypt))
+
+print ('\n------D.2------\n')
+
+###### (D)(2)
+
+print (Caesar_break('wkh txlfn ira mxpsv ryhu wkh odcb grj!'))
+print (Caesar_break('dl hss msvha kvdu olyl.'))
+
+print ('\n------E.1------\n')
+
+###### (E)(1)
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match58-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def copy_file() -&gt; None:
+    '''Creates a copy of a file based off user inputs.'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+print ('\n------E.2------\n')
+</FONT>
+###### (E)(2)
+
+def line_numbers(L: [str]) -&gt; None:
+    '''Returns each line numbered in the provided list of strings.'''
+    result = []
+    result_str = ''
+    for i in range(len(L)):
+        x = ('{:5}:  {}'.format(i+1, L[i]))
+        result.append(x)
+    for n in result:
+        result_str += (n +'\n')
+    return result_str
+        
+    
+def copy_file(s: str) -&gt; None:
+    '''Creates a copy of a file based off user inputs.'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s in 'line numbers':
+        datalines = infile.read().split('\n')
+        n = line_numbers(datalines)
+        outfile.write(n)
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+print('Copy of a file with line numbers -&gt;')
+copy_file('line numbers')
+print('Copy of a file -&gt;')
+copy_file('blah')
+
+print ('\n------E.3------\n')
+
+###### (E)(3)
+def Gutenburg_trim(L: [str]) -&gt; [str]:
+    '''Trims everything before "*** START" and after "*** END" on a Gutenburg
+    text file.'''
+    result_str = ''
+    for line in L:
+        if '*** START' in line:
+            index_trim = L.index(line)
+            result = L[index_trim+1:]
+            for line in result:
+                if '*** END' in line:
+                    index_trim = result.index(line)
+                    result = result[:index_trim]
+                    for n in result:
+                        result_str += (n + '\n')
+    return result_str
+
+def copy_file(s: str) -&gt; None:
+    '''Creates a copy of a file based off user inputs.'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'line numbers':
+        datalines = infile.read().split('\n')
+        n = line_numbers(datalines)
+        for line in n:
+            outfile.write(line)
+    elif s == 'Gutenburg trim':
+        datalines = infile.read().split('\n')
+        n = Gutenburg_trim(datalines)
+        for line in n:
+            outfile.write(line)
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+print('Copy of a file without "housekeeping" info: -&gt;')
+copy_file('Gutenburg trim')
+
+print ('\n------E.4------\n')
+
+###### (E)(4)
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match58-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats (L: [str]) -&gt; None:
+    '''Prints the stats of the list of strings including how many lines
+    in the list, how many empty lines in the list, and the average amount
+    of characters per line'''
+    count=0
+    char_sum = 0
+    non_empty_lines = 0
+    for word in L:
+        if word == '':
+            count+=1
+    for word in L:
+        char_sum += len(word)
+        if word != '':
+            non_empty_lines +=1
+    average = char_sum/len(L)
+    average_non_empty_lines = char_sum/non_empty_lines
+</FONT>    x = ('{:&gt;5}    lines in the list\n{:&gt;5}    empty lines\n{:8.2f} average characters per line\n{:8.2f} average characters per non-empty line'.format(len(L), count, average,average_non_empty_lines))
+    return x
+
+def copy_file(s: str) -&gt; None:
+    '''Creates a copy of a file based off user inputs.'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    result = []
+    if s == 'line numbers':
+        datalines = infile.read().split('\n')
+        n = line_numbers(datalines)
+        for line in n:
+            outfile.write(line)
+    elif s == 'Gutenburg trim':
+        datalines = infile.read().split('\n')
+        n = Gutenburg_trim(datalines)
+        for line in n:
+            outfile.write(line)
+    elif s == 'statistics':
+        datalines = infile.read().split('\n')
+        n = stats(datalines)
+        datalines.insert(0,n + '\n\n')
+        for line in datalines:
+            outfile.write(line + '\n')
+    else:
+        for line in infile:
+            outfile.write(line)
+        
+    infile.close()
+    outfile.close()
+
+print ('Copy of a file and the file\'s statistics: -&gt;')
+copy_file('statistics')
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

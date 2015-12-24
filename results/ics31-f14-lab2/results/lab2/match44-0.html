@@ -1,0 +1,358 @@
+<HTML>
+<HEAD>
+<TITLE>cnapoli/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+cnapoli/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Brian Wong 34216498 and Cameron Napoli 73223093. ICS 31 Lab 5
+
+#c.1
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match44-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  $', rate)
+print('Weekly salary:  $', hours * rate)
+print()
+
+#c.2
+name = input('Hello. What is your name? ') # use input(PARAMETER) to get user info on the same line
+</FONT>print('Hello,', name)
+print('It\'s nice to meet you.')
+age = int(input('How old are you? '))
+print('Next year you will be', (age + 1), 'years old.')
+print('Good-bye!')
+print()
+
+#d
+print('Please provide this information:')
+business_name = input('Business name: ')
+num_euros = int(input('Number of euros: '))
+num_pounds = int(input('Number of pounds: '))
+num_dollars = int(input('Number of dollars: '))
+print()
+
+# define all exchange rates
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND = 8.81
+KRONE_PER_DOLLAR = 5.50
+
+print('Copenhagen Chamber of Commerce')
+print('Business name:  ', business_name)
+print(num_euros, 'euros is', (num_euros * KRONE_PER_EURO), 'krone')
+print(num_pounds, 'pounds is', (num_pounds * KRONE_PER_POUND), 'krone')
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match44-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(num_dollars, 'dollars is', (num_dollars * KRONE_PER_DOLLAR), 'krone')
+print()
+
+print('Total krone:  ', (num_euros * KRONE_PER_EURO) +
+                        (num_pounds * KRONE_PER_POUND) +
+                        (num_dollars * KRONE_PER_DOLLAR) )
+print()
+
+
+#e
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+</FONT>                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+#e.1
+print(still_another.title)
+#e.2
+print(another.price)
+#e.3
+print((favorite.price + another.price + still_another.price)/3) # averate price of all 3 books
+#e.4
+print(favorite.year &lt; 1900)
+
+#e.5
+#redefine Book still_another with same title,author and year, but with a new price
+still_another = Book(still_another.title, still_another.author,
+                    still_another.year, 26.00)
+#e.6
+still_another = Book(still_another.title, still_another.author,
+                    still_another.year, still_another.price*1.2)
+print()
+
+#f
+Animal = namedtuple( 'Animal', 'name species age weight favorite_food')
+elephant = Animal('Jumbo', 'elephant', 50, 1000, 'peanuts')
+platypus = Animal('Perry', 'platypus', 7, 1.7, 'shrimp')
+print(elephant.weight &lt; platypus.weight)
+print()
+
+
+#g
+booklist = [favorite, another, still_another]
+
+#g.1
+print(booklist[0].price &lt; booklist[1].price)
+#g.2
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match44-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(booklist[0].year &gt; booklist[-1].year)
+print()
+
+#h
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+</FONT>    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#h.1
+print(RL[2].name)
+#h.2
+print(RL[0].dish == RL[3].dish)
+#h.3
+print(RL[-1].price)
+#h.4
+RL.sort()
+print()
+print(RL)
+print()
+#h.5
+print(RL[-1].dish)
+print()
+#h.6
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match44-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+RL2 = [RL[0], RL[1], RL[-2], RL[-1]]
+print(RL2)
+print()
+
+
+#i
+import tkinter           # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=400, height=400)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+#(1)
+# draw blue rectangle with side length 200
+my_canvas.create_line(100, 100, 300, 100, fill = 'lightblue')
+</FONT>my_canvas.create_line(300, 100, 300, 300, fill = 'lightblue')
+my_canvas.create_line(300, 300, 100, 300, fill = 'lightblue')
+my_canvas.create_line(100, 300, 100, 100, fill = 'lightblue')
+
+
+#(2)
+
+#create a new window and canvas
+my_window2 = tkinter.Tk()
+my_canvas2 = tkinter.Canvas(my_window2, width=400, height=400) 
+my_canvas2.pack()
+
+import math # import math to use sqrt function
+TRANSFORM_X = 200 # Values use to move the whole diamond as whole
+TRANSFORM_Y = 20
+side_length = 200
+
+# Next four line draw a red diamond.
+#   creates a line at a 45deg angle with the side length.
+#   Trigonometry for x-coordinate/y-coordinates -&gt; sqrt(2)/2 * sidelength
+
+my_canvas2.create_line(0 + TRANSFORM_X, 0 + TRANSFORM_Y,
+                      (math.sqrt(2)/2)*side_length + TRANSFORM_X, (math.sqrt(2)/2)*side_length + TRANSFORM_Y, fill = 'purple2')
+
+my_canvas2.create_line( (math.sqrt(2)/2)*side_length + TRANSFORM_X, (math.sqrt(2)/2)*side_length + TRANSFORM_Y,
+                       0 + TRANSFORM_X, (math.sqrt(2)/2)*side_length*2 + TRANSFORM_Y, fill = 'purple2')
+
+my_canvas2.create_line(0 + TRANSFORM_X, (math.sqrt(2)/2)*side_length*2 + TRANSFORM_Y,
+                      -(math.sqrt(2)/2)*side_length + TRANSFORM_X, (math.sqrt(2)/2)*side_length + TRANSFORM_Y, fill = 'purple2')
+
+my_canvas2.create_line(0 + TRANSFORM_X, 0 + TRANSFORM_Y,
+                      -(math.sqrt(2)/2)*side_length + TRANSFORM_X, (math.sqrt(2)/2)*side_length + TRANSFORM_Y, fill = 'purple2')
+
+
+# (3)
+
+# Draw a house!
+my_window3 = tkinter.Tk()
+my_canvas3 = tkinter.Canvas(my_window3, width=400, height=400) 
+my_canvas3.pack()
+
+# These two variables allow the house to be programmatically positioned without having
+#    to move each piece
+TRANSFORM_X3 = 150
+TRANSFORM_Y3 = 100
+
+# chimney
+my_canvas3.create_polygon(60 + TRANSFORM_X3, -10 + TRANSFORM_Y3,
+                          80 + TRANSFORM_X3, -10 + TRANSFORM_Y3,
+                          80 + TRANSFORM_X3, -40 + TRANSFORM_Y3,
+                          60 + TRANSFORM_X3, -40 + TRANSFORM_Y3,
+                          60 + TRANSFORM_X3, -10 + TRANSFORM_Y3,
+                          fill = 'firebrick3')
+
+# roof
+my_canvas3.create_polygon(0 + TRANSFORM_X3,   0 + TRANSFORM_Y3,
+                          100 + TRANSFORM_X3, 0 + TRANSFORM_Y3,
+                          70 + TRANSFORM_X3,  -25 + TRANSFORM_Y3,
+                          50 + TRANSFORM_X3,  -30 + TRANSFORM_Y3,
+                          30 + TRANSFORM_X3,  -25 + TRANSFORM_Y3,
+                          0 + TRANSFORM_X3,  0 + TRANSFORM_Y3,
+                          fill = 'firebrick4')
+
+#wall
+my_canvas3.create_polygon(5 + TRANSFORM_X3,  0 + TRANSFORM_Y3,
+                          5 + TRANSFORM_X3,  90 + TRANSFORM_Y3,
+                          95 + TRANSFORM_X3, 90 + TRANSFORM_Y3,
+                          95 + TRANSFORM_X3, 0 + TRANSFORM_Y3,
+                          5 + TRANSFORM_X3,  0 + TRANSFORM_Y3,
+                          fill = 'light goldenrod yellow')
+
+# door
+my_canvas3.create_polygon(40 + TRANSFORM_X3, 90 + TRANSFORM_Y3,
+                          60 + TRANSFORM_X3, 90 + TRANSFORM_Y3,
+                          60 + TRANSFORM_X3, 60 + TRANSFORM_Y3,
+                          40 + TRANSFORM_X3, 60 + TRANSFORM_Y3,
+                          40 + TRANSFORM_X3, 90 + TRANSFORM_Y3,
+                          fill = 'chocolate3')
+
+# doorknob
+my_canvas3.create_oval(44 + TRANSFORM_X3,  75 + TRANSFORM_Y3,
+                       47 + TRANSFORM_X3, 78 + TRANSFORM_Y3,
+                       fill = 'grey')
+
+# windows
+my_canvas3.create_polygon(20 + TRANSFORM_X3,   20 + TRANSFORM_Y3,
+                          40 + TRANSFORM_X3,   20 + TRANSFORM_Y3,
+                          40 + TRANSFORM_X3,   40 + TRANSFORM_Y3,
+                          20 + TRANSFORM_X3,   40 + TRANSFORM_Y3,
+                          20 + TRANSFORM_X3,   20 + TRANSFORM_Y3,
+                          fill = 'lightblue2')
+
+my_canvas3.create_polygon(80 + TRANSFORM_X3,   20 + TRANSFORM_Y3,
+                          60 + TRANSFORM_X3,   20 + TRANSFORM_Y3,
+                          60 + TRANSFORM_X3,   40 + TRANSFORM_Y3,
+                          80 + TRANSFORM_X3,   40 + TRANSFORM_Y3,
+                          80 + TRANSFORM_X3,   20 + TRANSFORM_Y3,
+                          fill = 'lightblue2')
+
+# window bars
+my_canvas3.create_line(20 + TRANSFORM_X3, 30 + TRANSFORM_Y3,
+                       40 + TRANSFORM_X3, 30 + TRANSFORM_Y3,
+                       fill = 'grey60')
+my_canvas3.create_line(30 + TRANSFORM_X3, 20 + TRANSFORM_Y3,
+                       30 + TRANSFORM_X3, 40 + TRANSFORM_Y3,
+                       fill = 'grey60')
+
+my_canvas3.create_line(70 + TRANSFORM_X3, 20 + TRANSFORM_Y3,
+                       70 + TRANSFORM_X3, 40 + TRANSFORM_Y3,
+                       fill = 'grey60')
+my_canvas3.create_line(60 + TRANSFORM_X3, 30 + TRANSFORM_Y3,
+                       80 + TRANSFORM_X3, 30 + TRANSFORM_Y3,
+                       fill = 'grey60')
+
+# title
+my_canvas3.create_text(30 + TRANSFORM_X3, 100 + TRANSFORM_Y3, text='My Dream Home')
+
+
+# (4)
+# Draw an eye!
+my_window4 = tkinter.Tk()
+my_canvas4 = tkinter.Canvas(my_window4, width=500, height=500) 
+my_canvas4.pack() 
+
+#pupil
+my_canvas4.create_oval(200,300,300,200,fill="RoyalBlue1",outline="black", width='3')
+
+#eye outline
+my_canvas4.create_oval(125,300,375,200,outline="black", width='2')
+
+#iris
+my_canvas4.create_oval(235,235, 265, 265, fill='black')
+
+#coloring near iris
+my_canvas4.create_line(235,235,237,237,239,234,fill="lightblue",smooth="true", width='2')
+my_canvas4.create_line(240,240,237,237,239,234,fill="lightblue",smooth="true", width='2')
+my_canvas4.create_line(265,250,266,257,fill="lightblue",smooth="true",width='2')
+my_canvas4.create_line(245,265,255,267,256,269,fill="lightblue",smooth="true", width='2')
+my_canvas4.create_line(235,250,235,257,230,256,fill="lightblue",smooth="true", width='2')
+my_canvas4.create_line(258,235,259,236,262,232,fill="lightblue",smooth="true", width='2')
+
+#eyebrow
+my_canvas4.create_line(115,175,255,80, 385, 175,fill="dark goldenrod",capstyle='round',smooth="true", width='20')
+
+#eyelash
+my_canvas4.create_line(135,230,145,205,135,180,fill="black",smooth="true", width='2')
+my_canvas4.create_line(375,245,385,220,375,195,fill="black",smooth="true", width='2')
+my_canvas4.create_line(150,220,155,205,150,180,fill="black",smooth="true", width='2')
+my_canvas4.create_line(165,214,175,205,165, 170,fill="black",smooth="true", width='2')
+my_canvas4.create_line(225,200,235,180,225,160,fill="black",smooth="true", width='2')
+my_canvas4.create_line(305,207,315,180,305,160,fill="black",smooth="true", width='2')
+
+#Text
+my_canvas4.create_text(250,360,fill="darkblue",font="Times 30 bold",text="Plucked too many eyelashes!")
+
+# (5)
+
+# Draw the solar system
+
+my_window5 = tkinter.Tk()
+my_canvas5 = tkinter.Canvas(my_window5, width=500, height=500) 
+my_canvas5.pack()
+
+# Sun
+my_canvas5.create_oval(225, 225, 275, 275, fill = 'goldenrod', outline = 'white')
+
+# Mercury
+my_canvas5.create_oval(200, 200, 300, 300, outline = 'firebrick4')
+my_canvas5.create_oval(195, 245, 205, 255, fill = 'firebrick4', outline = 'white')
+
+# Venus
+my_canvas5.create_oval(180, 180, 320, 320, outline = 'firebrick3')
+my_canvas5.create_oval(320-8, 250-8, 320+8, 250+8, fill = 'firebrick3', outline = 'white')
+
+# Earth
+my_canvas5.create_oval(155, 155, 345, 345, outline = 'blue')
+my_canvas5.create_oval(155-10, 250-10, 155+10, 250+10, fill = 'blue', outline = 'green')
+
+# Mars
+my_canvas5.create_oval(135, 135, 365, 365, outline = 'red')
+my_canvas5.create_oval(365-9, 250-9, 365+9, 250+9, fill = 'red', outline = 'white')
+
+# Jupiter
+my_canvas5.create_oval(100, 100, 400, 400, outline = 'chocolate')
+my_canvas5.create_oval(100-16, 250-16, 100+16, 250+16, fill = 'chocolate4', outline = 'white')
+
+# Saturn
+
+my_canvas5.create_oval(70, 70, 430, 430, outline = 'goldenrod2')
+my_canvas5.create_oval(430-14, 250-14, 430+16, 250+14, fill = 'goldenrod2', outline = 'white')
+
+# Uranus
+
+my_canvas5.create_oval(35, 35, 465, 465, outline = 'lightblue')
+my_canvas5.create_oval(35-12, 250-12, 35+12, 250+12, fill = 'lightblue', outline = 'white')
+
+# Neptune
+
+my_canvas5.create_oval(10, 10, 490, 490, outline = 'darkblue')
+my_canvas5.create_oval(490-10, 250-10, 490+10, 250+10, fill = 'darkblue', outline = 'white')
+
+
+tkinter.mainloop()          # Combine all the elements and display the window
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,237 @@
+<HTML>
+<HEAD>
+<TITLE>alvinvn/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+robertww/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Marlene Guerrero 84775181 and Robert Wong 75389310. ICS Lab sec12. Lab Asst2
+
+# C Pure input statement return line by line
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  ', rate)
+print('Weekly salary:  ', hours * rate)
+print()
+
+# C.1 Input statement used to return value directly on the line
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour?')) # The value is explained on the line instead of a new line.
+print('This many dollars per hour:  ', rate)
+print('Weekly salary:  ', hours * rate)
+print()
+
+# C.2 Age next year input program
+name = input('What is your name?')
+print('Hello,', name)
+print('It\'s nice to meets you.')
+age = int(input('How old are you?')) # You want to return an integer value to use for next year
+print('Next year you will be,',age + 1,'years old')
+print('Good-bye!')
+
+
+#D Foreign currency converter
+
+print('Please provide this information:')
+Business_name = input('Business name: ')
+Numbers_of_euros = int( input('Numbers of euros: '))
+Numbers_of_pounds = int( input('Numbers of pounds: '))
+Numbers_of_dollars = int( input('Numbers of dollars: '))
+print()
+print('Copenhagen Chamber of Commerce')
+
+euro_to_krone = Numbers_of_euros*7.46  #This is conversion ammount
+pounds_to_krone = Numbers_of_pounds*8.81 #It will be total at the end
+dollars_to_krone = Numbers_of_dollars*5.5
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match75-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+Business_name
+print(Numbers_of_euros, 'euros is', euro_to_krone , 'krone')
+print(Numbers_of_pounds,'pounds is', pounds_to_krone ,'krone')
+print(Numbers_of_dollars,'dollars is',dollars_to_krone ,' krone')
+print()
+print('Total krone:  ', euro_to_krone + pounds_to_krone + dollars_to_krone)
+
+print()
+
+#e
+print('-----Part e-----')
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+</FONT>still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+#e.1
+print(still_another.title) #Value through Method 
+print(still_another[0])    #Value through indexing
+
+#e.2
+print('Price of Book:', another.price) #Put some wording later
+
+#e.3
+print('Average of all books:', (favorite.price + another.price + still_another.price)/3)
+
+#e.4
+print('Is this book published before 1900?\n' , favorite.year &lt; 1900)
+
+#f
+animals = namedtuple('animals', 'names species age weight favorite_food')
+Jumbo = animals('Jumbo' , 'elephant' , 50, 1000, 'peanuts')
+Perry = animals('Perry' , 'platypus' , 7, 1.7, 'shrimp')
+print('-----Part f-----')
+print('\n Is Jumbo\'s weight the same as Perry\'s:', Jumbo.weight == Perry.weight)
+
+#g
+print('-----Part g-----')
+booklist = [favorite, another, still_another]
+
+#g.1
+print('Is the price of the first book on the list less than the \n'
+      'second one?', booklist[0].price &lt; booklist[1].price)
+
+#g.2
+print('Is the first book more recently published than the last book?\n' ,
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match75-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+       booklist[0].year &gt; booklist[-1].year)
+print()
+#h
+print('-----Part h-----')
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+</FONT>    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+#h.1 Name of the third restaurant on list RL
+print(RL[2].name)
+
+#h.2 Checking if first and fourth restaurant serve the same type of food.
+print(RL[0].cuisine == RL[3].cuisine)
+
+#h.3 Value of dish of the last restaurant of list RL
+print(RL[-1].price)
+
+#h.4 Sort list RL alphabetically by name
+a = RL
+a.sort()
+
+
+question = input('Do you want to see the name on the list clearly? yes or no:')
+
+if question in ' yes ':
+    a = sorted(RL, key = lambda Restaurant: Restaurant.name)
+    for restaurant in RL:
+        print(restaurant.name)
+    print('This is the name of the old list, unalphabetized.')
+    print()
+
+    for restaurant in a:
+        print(restaurant.name)
+    print('This the name of the list that has been alphabetized base on name.')
+else:
+    print('\n', a)
+    
+'''or through the use of the sorted function and lambda
+a = sorted(RL, key = lambda Restaurant: Restaurant.name)
+for restaurant in RL:
+    print(restaurant.name)
+print('This is the name of the old list, unalphabetized.')
+print()
+
+for restaurant in a:
+    print(restaurant.name)
+print('This the name of the list that has been alphabetized base on name.')
+'''
+
+#Used the sorted function to help sort out a list of tuples by a specific order
+#lambda is used to specify what EACH ITEM in the list will be examined.
+#In this case, we are sorting the tuples in this list by their tuple.name
+
+print()
+
+#h.5 The price of the last dish of the new list
+print('This is the price of the last dish on the list alphabetically:',
+      a[-1].price)
+print()
+
+#h.6 Create another list composing of the first two and last two alphabetically named restaurants
+new_list = a[0:2] + a[-2:]
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match75-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(new_list)
+print()
+print('----Part i -----')
+
+
+
+#i Draw stuff in with tkinter
+import tkinter              # Load the library; do this just once per program
+
+
+#1.square
+my_window = tkinter.Tk()    # Create the graphics window
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a canvas at my_window
+my_canvas.pack()# Put the canvas into the window. Remember to unpack all canvas type
+</FONT>
+my_canvas.create_line(100, 100, 300, 100, fill='orange') # Draw orange line
+my_canvas.create_line(300, 100, 300, 300, fill='blue')   # Draw blue line
+my_canvas.create_line(300, 300, 100, 300, fill='orange')
+my_canvas.create_line(100, 300, 100, 100, fill='orange')
+
+
+
+#2.diamond
+
+my_otw = tkinter.Tk() #new window otw
+my_canvas1 = tkinter.Canvas(my_otw, width=500, height=500) #specify your window here
+my_canvas1.pack()
+
+my_canvas1.create_line(300, 200, 341, 59, fill='orange') 
+my_canvas1.create_line(341, 59, 382, 200, fill='blue')   
+my_canvas1.create_line(382, 200, 341, 341, fill='orange')
+my_canvas1.create_line(341, 341, 300, 200, fill='orange')
+
+
+#3.house
+my_stw = tkinter.Tk() #new window stw
+my_canvas2 = tkinter.Canvas(my_stw, width=500, height=500)#specify your window here
+
+my_canvas2.pack()
+
+my_canvas2.create_rectangle(50,450,450,250, fill='blue')
+my_canvas2.create_rectangle(200,450,275,325, fill='gray')
+my_canvas2.create_rectangle(300, 375, 350, 325, fill ='purple')
+my_canvas2.create_line(300, 350, 350, 350, fill='yellow')
+my_canvas2.create_line(325, 325, 325, 375, fill='yellow')
+my_canvas2.create_polygon(50, 250, 250, 25, 450,250, fill='orange')
+
+
+#4.eyeball
+my_rtw = tkinter.Tk() #new window rtw
+my_canvas3 = tkinter.Canvas(my_rtw, width=500, height=500)#specify your window here
+
+my_canvas3.pack()
+
+my_canvas3.create_oval(150,150, 350,350, fill= 'white')
+my_canvas3.create_oval(200,200, 300,300, fill= 'brown')
+my_canvas3.create_oval(225,225, 275,275, fill= 'black')
+tkinter.mainloop() # Combine all the elements and display the window
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

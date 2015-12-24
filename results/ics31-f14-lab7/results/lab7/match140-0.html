@@ -1,0 +1,185 @@
+<HTML>
+<HEAD>
+<TITLE>bkcho/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+bkcho/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Bum Keun Cho 71092926 and Zichao Yuan 31208024.  ICS 31 Lab sec 14.  Lab asst 7.
+
+#c
+print('------part(c)------')
+print()
+from random import randrange
+
+Surname = open('Surnames.txt')
+Female = open('Female Names.txt')
+Male = open('Male Names.txt')
+s = Surname.read()
+f = Female.read()
+m = Male.read()
+
+ss = s.split()
+ff = f.split()
+mm = m.split()  
+
+def getnames(l:list)-&gt;list:
+    '''Takes a list and returns only the names from the list using %'''
+    templist = []
+    for x in range(0,len(l)):
+        if x%4 == 0:
+            templist.append(l[x])
+    return templist
+
+sss = getnames(ss)
+fff = getnames(ff)
+mmm = getnames(mm)
+
+firstname = fff
+firstname.append(mmm)
+
+def random_names(X:int) -&gt; list:
+    '''Takes an int and returns a new list of surnames and names'''
+    namelist = []
+    tempint = 0
+    tempint2 = 0
+    tempname = ''
+    for length in range(X):
+        tempint = randrange(0,len(sss))
+        tempint2 = randrange(0,len(firstname))
+        tempname = sss[tempint].capitalize() +', ' + firstname[tempint2].capitalize()
+        namelist.append(tempname)
+    return namelist
+print(random_names(50))
+
+#d
+print('------part(d)------')
+print()
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+dictionary = open('Dictionary.txt')
+words = dictionary.read()
+tem = words.split()
+wordslist=[]
+for w in tem:
+    wordslist.append(w.upper())
+
+def Caesar_encrypt(word:str,code:int)-&gt;str:
+    '''Takes a string and a number and returns a string that has the letters\
+    shifted to the amount number inputted'''
+    if code &gt; 26:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match140-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        code = code%26
+    newstr = ALPHABET[code:] + ALPHABET[:code]
+    table = str.maketrans(ALPHABET,newstr)
+    return word.translate(table)
+</FONT>
+def Caesar_decrypt(word:str,code:int) -&gt;str:
+    '''Takes a string and a number and returns a string that has the letters\
+    shifted back the amount number inputted'''
+    if code &gt; 26:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match140-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        code = code%26
+    newstr = ALPHABET[code:] + ALPHABET[:code]
+    table = str.maketrans(newstr,ALPHABET)
+    return word.translate(table)
+</FONT>
+def Caesar_break(t:str)-&gt;str:
+    '''Takes a string and returns decrypted plain text'''
+    templist = []
+    tempstring = ''
+    tempint = 0
+    listofint = []
+    key = 0
+    tt = t
+    for i in range(26):
+        for k in range(len(t)):
+            if not t[k].isalpha():
+                t=t.replace(t[k],' ')
+        tempstring = Caesar_decrypt(t,i)
+        templist = tempstring.split()
+        tempint = 0
+        
+        for i in range(len(templist)):            
+            if templist[i].upper() in wordslist:                
+                tempint += 1
+        listofint.append(tempint)        
+        key = listofint.index(max(listofint))        
+    return Caesar_decrypt(tt,key)
+
+print(Caesar_encrypt('hello my name is zichao',18))            
+print(Caesar_break(Caesar_encrypt('hello, my name is zichao!',18)))
+print(Caesar_break(Caesar_encrypt('hello, my name is zichao! All the special marks works here: \"!@#$%^&*()_\"',98)))
+assert Caesar_encrypt('Here is the code I made for my partner: today is Wednesday',18) =='Hwjw ak lzw ugvw I esvw xgj eq hsjlfwj: lgvsq ak Wwvfwkvsq'
+assert Caesar_break('I fwwv lg klmvq xgj eavlwje') == 'I need to study for midterm'
+
+#e
+print('------part(e)------')
+print()
+
+def copy_file(S:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    lines =  infile.readlines()
+    
+    if S == 'line numbers':
+        '''Copies the file with numbers in front'''
+        for i in range(len(lines)):
+            linenum = ('    '+str(i+1)+':'+lines[i])
+            outfile.write(linenum)
+    tempstart = 0
+    tempend = 0
+    
+    if S == 'Gutenberg trim':
+        '''Trims the file from line with ***START to line with ***END'''
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match140-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        for i in range(len(lines)):
+            if  "*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***" in lines[i]:
+                tempstart = i
+            elif "*** END" in lines[i]:
+                tempend = i
+</FONT>        tempstart,tempend
+        for x in range(tempstart,tempend+1):
+            Guten_trim = lines[x]
+            outfile.write(Guten_trim)
+            
+    if S == 'statistics':
+        '''Formats the file into subjects, lines in the list, empty lines, average characters per line, and average characters per non-empty lines'''
+        newline = '\n'
+        stat1 = '{0:5d}{1:23s}'.format(sum(1 for line in lines),'   lines in the list')
+        outfile.write(stat1)
+        outfile.write(newline)
+        stat2 = '{0:5d}{1:20s}'.format(sum(1 for line in lines if line ==('\n')),'   empty lines')
+        outfile.write(stat2)
+        outfile.write(newline)
+        temp=''
+        for k in lines:
+            temp+= k
+        t = temp.split()
+        temp=''
+        for m in t:
+            temp+=m
+        stat3 = '{0:5.1f}{1:30s}'.format((len(t)/sum(1 for line in lines)),'   average characters per line')
+        outfile.write(stat3)
+        outfile.write(newline)
+        stat4 = '{0:5.1f}{1:30s}'.format((len(t)/(sum(1 for line in lines)-sum(1 for line in lines if line ==('\n')))),'   average characters  non-empty line')
+        outfile.write(stat4)
+        outfile.write(newline)
+
+    infile.close()
+    outfile.close()
+
+copy_file('line numbers')
+print()
+copy_file('Gutenberg trim')
+print()
+copy_file('statistics')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

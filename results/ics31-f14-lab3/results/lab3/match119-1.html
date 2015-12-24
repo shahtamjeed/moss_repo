@@ -1,0 +1,255 @@
+<HTML>
+<HEAD>
+<TITLE>nsou/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ssmasood/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+#Shah Masood 16608754 Christian Kellinger 43879538 ICS 31 Lab sec 6. Lab asst 3.
+#
+#
+# Part C
+#
+#1
+def abbreviate (name: str): 
+    if len(name) &gt;= 3:
+        name = name[:3]
+        return name
+    else:
+        return name
+
+assert abbreviate('January') == 'Jan'
+#
+#2
+#
+def find_area_square (value: int):
+    return value * value
+
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+#
+#3
+#
+def find_area_circle (radius: float) :
+    return radius * radius * 3.14159 
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+#
+#4
+#
+def print_even_numbers (even: list):
+    for x in even:
+        if x%2 == 0:
+            print(x)
+        
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+#
+#5
+#
+def calculate_shipping (weight: float):
+    if weight &lt; 2.00:
+        return 2.00
+    if 2.00 &lt;= weight &lt; 10.00:
+        return 5.00
+    if weight &gt;= 10.00:
+        return 5.00 + 1.50 *(weight - 10.00)
+
+
+assert calculate_shipping(1.9) == 2.00
+assert calculate_shipping(5) == 5.00
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match119-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert calculate_shipping(15) == 12.50
+assert calculate_shipping(10) == 5.00
+
+import tkinter
+#
+#6
+#
+def create_square(x: int, y: int, side: int) :
+    my_window = tkinter.Tk()
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+    my_canvas.pack()            
+    my_canvas.create_rectangle(x,y,x+side,y+side)
+    tkinter.mainloop()
+create_square(100,100,100)
+#
+#7
+#
+def create_circle(x: int, y: int, d: int) :
+    my_window2 = tkinter.Tk()
+    my_canvas = tkinter.Canvas(my_window2, width=500, height=500)
+    my_canvas.pack()
+    my_canvas.create_oval(x, y, x+d, y+d)
+    tkinter.mainloop()
+create_circle(100,200,200)
+
+#
+#Part d
+#
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+</FONT>    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]   
+    
+#
+#d1
+#
+def restaurant_price(Restaurant: object) :
+    return Restaurant.price
+assert restaurant_price(RC[0]) == 12.50
+#
+#d2
+#
+RC.sort(key=restaurant_price)
+print(RC)
+#
+#d3
+#
+def costliest (restlist: list):
+    restlist.sort(key=restaurant_price)
+    return restlist[-1].name
+rc2 = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50)]
+print(costliest(rc2)) #should print out Nonna by changing list
+#
+#d4
+#
+def costliest2 (restlist: list) :
+    newlist = sorted(restlist, key=restaurant_price)
+    return newlist[-1].name
+rc3 = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50)]
+print(costliest2(rc3)) #should print out Nonna without changing list
+#
+#Part e
+#
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book("Tom Guy", "The Lamp", "Mystery", 1996, 13.00, 40),
+    Book("Jane Doe", "Follow", "Motivational", 2012, 5.00, 20),
+    Book("John Doe", "Uh", "Horror", 1890, 14.00, 1),
+    Book("Phat Guy", "LOL", "Sports", 1900, 12.00, 50),
+    Book("Person Name", "Help", "Cookbook", 2010, 10.00, 15),
+    Book("Last Name", "Keyboard", "Technology", 2000, 9.00, 35),
+    ]
+#
+#e1
+#
+for i in BSI:
+    print(i.title)
+#
+#e2
+#
+def book_alphabetical(Book: object) :
+    return Book.title
+
+newlist = sorted(BSI, key=book_alphabetical)
+
+for i in newlist:
+    print(i.title)
+#
+#e3
+#
+newbook = [] #new list for changed prices
+
+for i in BSI:
+    i = i._replace(price=i.price *1.1)
+    print(i.price)
+    newbook.append(i) #adds new books to list
+BSI = newbook #assigns newbook to BSI list
+for i in BSI:
+    print (i.price)
+#
+#e4
+#
+for i in BSI:
+    if i.genre == 'Technology':
+        print(i.title)
+#
+#e5
+#
+books_before2000 = []
+books_after2000 = []
+n = 0
+x = 0
+for i in BSI:
+    if i.year &lt; 2000:
+        books_before2000.append(i.title) #adds books before 2000 to new list
+        n = n+ i.instock #counts total stock of books before 2000
+for i in BSI:
+    if i.year &gt;=2000:
+        books_after2000.append(i.title) #adds books after 2000 to new list
+        x = x+ i.instock #counts total stock of books after 2000 
+for i in books_before2000:
+    print(i) #checks if the titles are actually before 2000
+for i in books_after2000:
+    print(i) #checks if the titles are actually after 2000
+if (x &lt; n):
+    print('More titles before 2000', n, 'vs', x)
+else:
+    print('More titles 2000 or later', x, 'vs', n)
+#
+#e6
+#
+def inventory_value(Book: object):
+    value = Book.instock * Book.price
+    return value
+print(inventory_value(BSI[0])) #checks the value of the first book in BSI
+
+def top_value(Booklist: list):
+    topvalue = []
+    for i in Booklist:
+        topvalue.append(inventory_value(i))
+    topvalue.sort()
+    for i in Booklist:
+        if i.price * i.instock == topvalue[-1]:
+            return i
+print('The highest-value book is,', top_value(BSI).title,'by', top_value(BSI).author, 'at a value of,', (top_value(BSI).instock * top_value(BSI).price))
+#
+#Part F
+#
+my_window2 = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window2, width=5000, height=5000)
+my_canvas.pack()
+def draw_eye(x: int,y: int):  #where x,y is the center of the eye
+    my_canvas.create_oval(x-100, y-45, x+100, y+45) 
+    my_canvas.create_oval(x-45, y-45, x+45, y+45, fill ='black')
+    my_canvas.create_oval(x-27.5, y-27.5, x+27.5, y+27.5, fill ='white') 
+def draw_nose(x: int,y: int): #where x,y is the starting coordinates of the tip of the nose
+    my_canvas.create_line(x,y,x+25,y+50)
+    my_canvas.create_line(x,y,x-25,y+50)
+    my_canvas.create_line(x+25,y+50,x-25,y+50)
+
+def draw_mouth(x: int,y:int): #where x,y is the top left coordinates
+    my_canvas.create_rectangle(x,y,x+200,y+100, fill ="white")
+
+def draw_face(x: int, y:int): #where x,y is the center of the face
+    my_canvas.create_oval(x-300,y-300,x+300,y+300)
+ 
+    draw_eye(x-150,y-150)
+    draw_eye(x+150,y-150)
+    draw_nose(x,y)
+    draw_mouth(x-100,y+150)
+
+
+draw_face(250,250)
+draw_face(900,500)
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

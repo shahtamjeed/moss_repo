@@ -1,0 +1,260 @@
+<HTML>
+<HEAD>
+<TITLE>ssmasood/(c)-(g)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ssmasood/(c)-(g)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab4.py
+# Bryan Dang 39795750 and Shah Masood 16608754. ICS 31 Lab 6. Lab asst 4.
+
+#
+#Part C
+#
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match74-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def test_number (x: int, s1: str):
+    if (s1 == 'even' and x % 2== 0):
+        return True
+    if (s1 == 'odd' and x%2 == 1):
+</FONT>        return True
+    if (s1 == 'positive' and x &gt;= 0): #we count 0 as positive
+        return True
+    if (s1 == 'negative' and x &lt; 0):
+        return True
+    else:
+        return False
+
+
+assert test_number(14, 'even')
+assert not test_number(100 , 'odd')
+assert test_number(33, 'positive')
+assert not test_number(100, 'negative')
+
+def display()-&gt;str:
+    s1 = str(input('Type a word'))
+    for i in range(len(s1)):
+        print(s1[i])
+
+display()
+
+def square_list(intlist: list)-&gt; list:
+    for i in intlist:
+        print(i**2)
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match74-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+square_list([2,3,4,10])
+
+def match_first_letter(s1: str, movielist: list):
+    for i in movielist:
+        if ( s1 == i[0]):
+            print(i)
+
+match_first_letter('I', ['Iron Man', 'Iron Man 2', 'The Avengers', 'Superman', 'I am Legend'])
+
+def match_area_code(areacodes: list, phonenumbers: list):
+    for x in phonenumbers:
+        for i in areacodes:
+            if i == x[1:4]:
+                print (x)
+
+match_area_code(['949', '714'], ['(714)824-1234', '(419)312-8732', '(949)555-1234'])
+
+def matching_area_codes(areacodes: list, phonenumbers: list):
+    newlist = []
+    for x in phonenumbers:
+        for i in areacodes:
+            if i == x[1:4]:
+</FONT>                newlist.append(x)
+    return newlist, print(newlist)
+
+matching_area_codes(['949', '714'], ['(714)824-1234', '(419)312-8732', '(949)555-1234'])
+
+#
+#
+#Part D
+#
+
+def is_vowel(s1: str):
+    vowel = ['a', 'e', 'i', 'o', 'u','A', 'E', 'I', 'O', 'U']
+    for i in vowel:
+        if i == s1:
+            return True
+    else:
+        return False
+
+assert is_vowel('o')
+assert not is_vowel('b')
+
+def print_nonvowels(s1: str):
+    for i in s1:
+        if is_vowel(i) == False:
+            print(i)
+            
+(print_nonvowels('loud')) 
+(print_nonvowels('12,.lp3'))
+
+def nonvowels(s1: str) -&gt; str:
+    result = ""
+    for i in s1:
+        if is_vowel(i) == False:
+            result = result + i
+    return result
+
+assert(nonvowels('loud')) == 'ld'
+assert(nonvowels('Aaron')) == 'rn'
+
+def consonants(s1: str) -&gt; str:
+    ''' Returns letters that are not vowels '''
+    consonant = ['b', 'B', 'c', 'C', 'd', 'D', 'f', 'F', 'g', 'G', 'h', 'H', 'j', 'J', 'k', 'K', 'l', 'L', 'm', 'M', 'n', 'N', 'p', 'P', 'q', 'Q', 'r', 'R', 's', 'S', 't', 'T', 'v', 'V', 'w', 'W', 'x', 'X', 'y', 'Y', 'z', 'Z']
+    result = ""
+    for x in s1:
+        for i in consonant:
+            if x == i:
+                result = result + x
+    return result
+
+assert(consonants('12,.lp3')) == 'lp'
+print(consonants('12,.lp3'))
+
+def select_letters(letter: str, s1: str) -&gt; str:
+    result = ''
+    if letter == 'v':
+        for i in s1:
+            if is_vowel(i):
+                result = result + i 
+        return result
+    if letter == 'c':
+        return consonants(s1)
+    else:
+        return result
+    
+print (select_letters('v','facetiously'))
+print(select_letters('c','facetiously'))
+
+def hide_vowels(s1: str) -&gt; str:
+    for x in s1:
+        if(is_vowel(x)):
+            s1 = s1.replace(x, "-")
+    return s1
+
+print (hide_vowels("aejjik"))
+
+#
+#Part E
+#
+
+from collections import namedtuple
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number,
+#	best dish, price of that dish
+
+R1 = Restaurant("Taillevent", "French", "343-3434", "Escargots", 24.50)
+R2 = Restaurant("La Tour D'Argent", "French", "343-3344", "Ris de Veau", 48.50)
+R3 = Restaurant("Pascal", "French", "333-4444", "Bouillabaisse", 32.00)
+R4 = Restaurant("Thai Touch", "Thai", "444-3333", "Mee Krob", 10.95)
+R5 = Restaurant("Thai Dishes", "Thai", "333-4433", "Paht Woon Sen",  8.50)
+R6 = Restaurant("Thai Spoon", "Thai", "334-3344", "Mussamun", 9.00)
+R7 = Restaurant("McDonald's", "Burgers", "333-4443", "Big Mac", 3.95)
+R8 = Restaurant("Burger King", "Burgers", "444-3344", "Whopper", 3.75)
+R9 = Restaurant("Wahoo's", "Fish Tacos", "443-4443", "Mahi Mahi Burrito", 7.50)
+R10 = Restaurant("In-N-Out Burger", "Burgers", "434-3344", "Cheeseburger", 2.50)
+R11 = Restaurant("The Shack", "Burgers", "333-3334", "Hot Link Burger", 4.50)
+R12 = Restaurant("Gina's", "Pizza", "334-4433", "Combo Pizza", 12.95)
+R13 = Restaurant("Peacock, Room", "Indian", "333-4443", "Rogan Josh", 12.50)
+R14 = Restaurant("Gaylord", "Indian", "333-3433", "Tandoori Chicken", 13.50)
+R15 = Restaurant("Mr. Chow", "Chinese", "222-3333", "Peking Duck", 24.50)
+R16 = Restaurant("Chez Panisse", "California", "222-3322", "Grilled Duck Breast", 25.00)
+R17 = Restaurant("Spago", "California", "333-2222", "Striped Bass", 24.50)
+R18 = Restaurant("Sriped Bass", "Seafood", "333-2233", "Cedar Plank Salmon", 21.50)
+R19 = Restaurant("Golden Pagoda", "Chinese", "232-3232", "Egg Foo Young", 8.50)
+R20 = Restaurant("Langer's", "Delicatessen", "333-2223", "Pastrami Sandwich", 11.50)
+R21 = Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50)
+R22 = Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50)
+R23 = Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50)
+R24 = Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50)
+R25 = Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50)
+R26 = Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) 
+
+
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match74-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+RL = [R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16,
+	R17, R18, R19, R20, R21, R22, R23, R24, R25, R26]
+   
+def Restaurant_change_price(Restaurant: object, x: int):
+</FONT>    Restaurant = Restaurant._replace(price= price + x)
+    return Restaurant
+#
+#Part F
+#
+
+def alphabetical(RLL: list):
+    RLL.sort()
+    return RLL
+
+def alphabetical_names(RLL: list):
+    RLL.sort()
+    return RLL.name
+
+def all_Thai (RLL: list):
+    TRL = []
+    for i in RLL:
+        if (i.cuisine == "Thai"):
+            TRL.append(i)
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match74-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return TRL
+
+def select_cuisine(RLL: list, s1: str):
+    TRL = []
+    for i in RLL:
+        if (i.cuisine == s1):
+            TRL.append(i)
+</FONT>    return TRL
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match74-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def select_cheaper(RLL: list, x: float):
+    TRL = []
+    for i in RLL :
+        if (i.price &lt; x):
+            TRL.append(i)
+    return TRL
+</FONT>
+def average_price(RLL: list):
+    x = 0
+    y = 0                       #counter
+    for i in RLL:
+        x = i.price + x
+        y = y + 1
+    x = x/y
+    return x
+
+print (average_price(select_cuisine(RL, "Indian")))
+
+print ((average_price(select_cuisine(RL, "Thai")+select_cuisine(RL, "Chinese"))))
+
+print (select_cheaper(RL, 15.00))
+
+#
+#Part G
+#
+
+import tkinter              
+def create_rectangle_from_center(x1: int, y1: int, height: int, width: int):
+    my_window = tkinter.Tk()   
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+    my_canvas.pack()
+    my_canvas.create_rectangle(x1-(width/2), y1-(height/2), x1+(width/2), y1+(height/2))
+    tkinter.mainloop()          
+
+create_rectangle_from_center(250,250,50,100)
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

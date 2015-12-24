@@ -1,0 +1,194 @@
+<HTML>
+<HEAD>
+<TITLE>hnamanka/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+qiushic/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+#   Frances Liu 13931652  and Qiushi Cai 39992785 ICS 31 Lab sec 9. Lab asst 3.
+
+#Part(c)
+print('---------- Part (c) ----------')
+#c1
+def abbreviate(s: str) -&gt; str:
+    #abbreviate string to first three letters
+    return s[:3]
+assert abbreviate('January')=='Jan'
+assert abbreviate('abril')=='abr'
+
+#c2
+def find_area_square(n:int)-&gt;int:
+    #return area of square side length n
+    return n**2
+assert find_area_square(1)==1
+assert find_area_square(5)==25
+
+#c3
+def find_area_circle(a:int)-&gt;int:
+    #return area of circle radius length a
+    return 3.14159*(a**2)
+assert find_area_circle(1)==3.14159
+assert find_area_circle(5)==78.53975
+
+#c4
+def print_even_numbers(b:[int])-&gt;[int]:
+    #print all the even numbers
+    for x in b:
+        if x%2==0:
+            print(x)
+
+#c5
+def calculate_shipping(w:float)-&gt;float:
+    #calculates shipping cost
+    if w&lt;2:
+        return 2.00
+    elif w&lt;10:
+        return 5.00
+    else:
+        return 5+((w-10)*1.5)
+assert calculate_shipping(1.5)==2
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match216-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert calculate_shipping(7)==5.00
+assert calculate_shipping(15)==12.50
+
+#c6
+import tkinter
+def create_square(x:int,y:int,l:int):
+    my_window1=tkinter.Tk()
+    my_canvas1=tkinter.Canvas(my_window1,width=1000,height=1000)
+</FONT>    my_canvas1.pack()
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match216-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    my_canvas1.create_rectangle(x,y,x+l,y+l)
+    tkinter.mainloop()
+
+#c7
+def create_circle(x:int,y:int,d:int):
+    my_window2=tkinter.Tk()
+    my_canvas2=tkinter.Canvas(my_window2,width=1000,height=1000)
+</FONT>    my_canvas2.pack()
+    my_canvas2.create_oval(x,y,x+d,y+d)
+    tkinter.mainloop()
+
+
+#Part(d)
+print('---------- Part (d) ----------')
+#d1
+from collections import namedtuple
+Restaurant=namedtuple('Restaurant','name cuisine phone dish price')
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+def retaurant_price(r:Restaurant):
+    return r.price
+
+#d2
+RL_pricesort=sorted(RL,key=lambda restaurant:restaurant.price)
+for r in RL_pricesort:
+    print(r)
+
+#d3
+def costliest(c:[Restaurant])-&gt;str:
+   c_sort=sorted(c,key=lambda restaurant:restaurant.price)
+   print(c_sort[len(c_sort)-1].name)
+
+#d4
+def costliest2(d:[Restaurant])-&gt;str:
+   d_sort=sorted(d,key=lambda restaurant:restaurant.price)
+   print(d_sort[len(d_sort)-1].name)
+
+
+#Part(e)
+print('---------- Part (e) ----------')
+#e1
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book("ccdd","ABBA","horror",1990,19.99,10),
+    Book("ddee","BCCB","satire",1991,29.99,20),
+    Book("eeff","CDDC","comedy",2992,39.99,30),
+    Book("ffgg","DEED","Technology",2993,49.99,40),
+    Book("gghh","EFFE","nonfiction",2994,59.99,50),
+    Book("hhii","FGGF","fiction",2995,69.99,60)   ]
+for b in BSI:
+    print(b.title)
+    
+#e2
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match216-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+BSI_sort=sorted(BSI,key=lambda book:book.title)
+for b in BSI:
+    print(b.title)
+
+#e3
+for i in range (0,len(BSI)):
+    BSI[i]=BSI[i]._replace(price=BSI[i].price*1.1)
+</FONT>
+#e4
+for b in BSI:
+    if b.genre=="Technology":
+        print(b)
+
+#e5
+before=[]
+after=[]
+for b in BSI:
+    if b.year&lt;2000:
+        before.append(b)
+    else:
+        after.append(b)
+if len(before)&gt;len(after):
+    print("More titles before 2000","(",len(before),"vs.",len(after),")")
+else:
+    print("More titles 2000 or later","(",len(after),"vs.",len(before),")")
+
+#e6
+def inventory_value(b:Book)-&gt;int:
+    return b.instock*b.price
+def top_value(l:[Book])-&gt;Book:
+    keep=l[0]
+    temp=inventory_value(l[0])
+    for b in l:
+        if inventory_value(b)&gt;temp:
+            keep=b
+            temp=inventory_value(b)
+    print("The highest-value book is",keep.title,"by",keep.author,"at a value of $",temp,".")
+    return keep
+
+
+#f
+my_window3=tkinter.Tk()
+my_canvas3=tkinter.Canvas(my_window3,width=1000,height=1000)
+my_canvas3.pack()
+
+def draw_eye(a:int, b:int, l:int):
+      my_canvas3.create_oval(a+0.123*l, b+0.4*l, a+0.293*l,b+0.47*l,fill='White Smoke') #left eye
+      my_canvas3.create_oval(a+0.407*l, b+0.4*l, a+0.577*l,b+0.47*l,fill='White Smoke') #right eye
+      my_canvas3.create_oval(a+0.173*l, b+0.4*l, a+0.243*l,b+0.47*l,fill='Gainsboro') #left pupil
+      my_canvas3.create_oval(a+0.457*l, b+0.4*l, a+0.527*l,b+0.47*l,fill='Gainsboro') #right pupil
+      my_canvas3.create_oval(a+(0.173+0.035-0.01)*l, b+(0.4+0.035-0.01)*l, a+(0.173+0.035+0.01)*l,b+       (0.4+0.035+0.01)*l,fill='black') # iris
+      my_canvas3.create_oval(a+(0.457+0.035-0.01)*l, b+(0.4+0.035-0.01)*l, a+(0.457+0.035+0.01)*l,b+(0.4+0.035+0.01)*l,fill='black') #right iris
+
+def draw_nose(a:int,b:int,l:int):
+      my_canvas3.create_polygon(a+0.293*l, b+0.666*l, a+0.407*l, b+0.666*l, a+0.35*l, b+0.616*l, fill='red')  #nose
+
+def draw_mouth(a:int,b:int,l:int):
+      my_canvas3.create_oval(a+(0.35-0.15)*l, b+0.72*l, a+(0.35+0.15)*l,b+0.82*l,fill='red') #mouth
+
+def draw_face(a:int, b:int, l:int):
+      my_canvas3.create_oval(a, b, a+0.7*l, b+l, fill='Linen')    #face
+      draw_eye(a,b,l)
+      draw_nose(a,b,l)
+      draw_mouth(a,b,l)
+      tkinter.mainloop()
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

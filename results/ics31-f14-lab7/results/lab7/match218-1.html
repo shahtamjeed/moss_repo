@@ -1,0 +1,153 @@
+<HTML>
+<HEAD>
+<TITLE>ademerat/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+wyassine/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Wajih Yassine 42139560 and Peipei Nie 44488631. ICS 31 Lab sec 16. Lab asst 7.
+
+print("\n---Part C---\n")
+
+from random import randrange
+
+surnames = open("surnames.txt", "r")
+malenames = open("malenames.txt", "r")
+femalenames = open("femalenames.txt", "r")
+
+firstnames = []
+lastnames = []
+male = malenames.readlines()
+female = femalenames.readlines()
+surname = surnames.readlines()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match218-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+for mname in male:
+    p = mname.split('\t')
+    firstnames.append(p[0].lower().capitalize())
+for fname in female:
+    z = fname.split('\t')
+    firstnames.append(z[0].lower().capitalize())
+for ln in surname:
+    r = ln.split('\t')
+    lastnames.append(r[0].lower().capitalize())
+</FONT>    r[0]
+
+def random_names(num: int) -&gt; list:
+    name = []
+    for n in range(num):
+        random1=randrange(0, len(firstnames))
+        random2 = randrange(0, len(lastnames))
+        name1= lastnames[random2]+", "+firstnames[random1]
+        name.append(name1)
+    return name
+
+
+print(random_names(2))
+
+
+
+print("\n---Part D----\n")
+
+from random import *
+infile = open("wordlist.txt", "r")
+
+list = []
+for x in infile:
+    list.append(x.strip())
+
+DICT = {}
+for w in list:
+    DICT[w] = 0
+
+infile.close()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+
+def rotate(n: int) -&gt; str:
+    return ALPHABET[n:] + ALPHABET[:n]
+
+translation = []
+for n in range(26):
+    translation.append(str.maketrans(rotate(n), ALPHABET))
+
+def Caesar_encrypt(plaintext: str, n: int) -&gt; str:
+    encrypt = str.maketrans(ALPHABET, rotate(n))
+    return plaintext.lower().translate(encrypt)
+
+
+
+def Caesar_break(cyphertext: str) -&gt; str:
+        words = 0
+        var1 = 0
+        for x in range(26):
+            hits = 0       
+            for word in cyphertext.strip().split():
+                words += 1 
+                if word.translate(translation[x]) in DICT:
+                    hits += 1
+            if hits &gt; var1:
+                var1 = hits
+                plaintext1 = cyphertext.translate(translation[x])
+        return plaintext1
+
+print(Caesar_encrypt("jk", 23))
+print(Caesar_break("czggj"))
+
+print("\n---Part E----\n")
+
+
+
+def copy_file(word: str ):
+    """ Copys a file and returns the same copy"""
+    count = 0
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if word == "line numbers":
+        for line in infile:
+            count += 1
+            outfile.write('{:5}: {}'.format(count, line))
+    if word == "Gutenberg trim":
+        for line in infile:
+            if "*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***" in line:
+                for line in infile:
+                    outfile.write(line)
+                if "*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***" in line:
+                    break
+                break
+    if word == "statistics":
+        empty_line_count = 0
+        char_count = 0
+        
+        for line in infile:
+            count += 1
+            if line == "\n":
+                empty_line_count += 1
+            split_line = line.split()
+            for i in split_line:
+                char_count += len(i)
+            char_count_per_nonempty_line = char_count/(count - empty_line_count)
+            char_count_per_line = char_count/count
+            
+        print('{0:5d}'.format(count), '\tlines in the list')
+        print('{0:5d}'.format(empty_line_count), '\tempty lines')
+        print('{:7.1f}'.format(char_count_per_line), 'average characters per line')
+        print('{:7.1f}'.format(char_count_per_nonempty_line), 'average characters per non-empty line')
+            
+                    
+                
+    infile.close()
+    outfile.close()
+    
+copy_file("statistics")
+    
+    
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

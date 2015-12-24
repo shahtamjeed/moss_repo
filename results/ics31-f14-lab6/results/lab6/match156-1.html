@@ -1,0 +1,335 @@
+<HTML>
+<HEAD>
+<TITLE>luos5/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ranl7/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# RAN LI 42282457 & Sheng Luo 10772379.  ICS 31 Lab sec 4.  Lab asst 6.
+
+#-----------------------import part & predifine part----------------------
+#-----------------------import part & predifine part----------------------
+#-----------------------import part & predifine part----------------------
+#-----------------------import part & predifine part----------------------
+
+from random import randrange
+
+
+#-----------------------import part & predifine part----------------------
+#-----------------------import part & predifine part----------------------
+#-----------------------import part & predifine part----------------------
+#-----------------------import part & predifine part----------------------
+
+print()
+print('---------- Part (c) ----------')
+print()
+
+print('''
+(1)
+''')
+
+def contains(cs1: str, cs2: str) -&gt; bool:
+    '''check if cs2 occurs in cs1'''
+    a = cs1.find(cs2)
+    if a == -1:
+        return False
+    else:
+        return True
+assert contains('banana', 'ana') == True
+assert contains('banana', 'aan') == False
+assert not contains('racecar', 'ck') == True
+
+cs1 = str(input('a str: '))
+cs2 = str(input('b str: '))
+print(contains(cs1,cs2))
+    
+print('''
+(2)
+''')
+alphabets = 'abcdefghijklmnopqrstuvwxyz '
+def sentence_states(sss: str) -&gt;str:
+    '''print the states of a string'''
+    x = []    
+    slen = int(len(sss))
+    scount = 0
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match156-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    temps = ''
+    for i in sss:
+        if i.lower() in alphabets:
+            temps += i
+    x = temps.split(' ')
+    for i in x:
+        if i == '':
+            x.remove(i)
+    scount = len(x)
+</FONT>    for i in temps:
+        if i ==' ':
+            temps =temps.replace(i,'')
+    sav = len(temps)/scount
+    print('{}{}\n{}{}\n{}{}'.format('Characters: ',slen,'Words: ',scount,'Average Word Length: ',sav))
+
+a = str(input('input a string: '))
+sentence_states(a)
+
+print('''
+(3)
+''')
+
+def initials(iss:str) -&gt;str:
+    '''take a name and return a initial'''
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match156-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    isl = []
+    isl = iss.split(' ')
+    isss = ''
+    for i in isl:
+        isss += i[0]
+    return isss.upper()
+
+assert initials('Bill Cosby') == 'BC'
+</FONT>assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+a = str(input('input a name: '))
+print(initials(a))
+
+print()
+print('---------- Part (d) ----------')
+print()
+
+print('''
+(1)
+''')
+print('for numbers between 0,10')
+for i in range(50):
+    print(randrange(11))
+print('for numbers between 1,6')
+for i in range(50):
+    print(randrange(1,7))
+
+print('''
+(2)
+''')
+
+def roll2dice() -&gt;int:
+    '''roll two dice'''
+    return randrange(1,7)+randrange(1,7)
+
+for i in range(50):
+    print(roll2dice())
+
+print('''
+(3)
+''')
+
+def distribution_of_rolls(dort:int) -&gt;str:
+    '''test the dice'''
+    dl = []
+    dls = ''
+    for i in range(dort):
+        
+        dl.append(randrange(1,7)+randrange(1,7))
+    print('\n','Distribution of dice rolls','\n')
+    for i in range(2,13):
+        dln = dl.count(i)
+        dls += '{:3}:{:6} ({:5.2f}%)  {}\n'.format(i,dln,(dln/len(dl))*100,'*'*dln)
+    print(dls)
+    print('-----------------------------')
+    print('      ',dort,' rolls')
+a = int(input('input a roll number: '))    
+distribution_of_rolls(a)
+
+print()
+print('---------- Part (e) ----------')
+print()
+
+print('''
+(1)
+''')
+
+alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l',
+             'm','n','o','p','q','r','s','t','u','v','w','x','y','z']
+
+def set_the_table1() -&gt;str:
+    '''set the first for .translate'''
+    charoriginal = []
+    charoriginal.extend(alphabet)
+    charsoriginal = ''
+    for i in charoriginal:
+        charsoriginal = charsoriginal+i
+    return charsoriginal
+
+def set_the_table2(stt2:int) -&gt;str:
+    '''set the second for .translate'''
+    char1 = []
+    char1.extend(alphabet)
+    char2 = []
+    char3 = []
+    chars3 = ''
+    if stt2 &gt; 26:
+        stt2 = stt2 % 26
+               
+    for i in range(stt2):
+        char2.extend(char1[0])
+        char1.remove(char1[0])
+            
+    char3.extend(char1)
+    char3.extend(char2)
+
+    for i in char3:
+        chars3 = chars3+i
+    return chars3
+
+def Caesar_encrypt(ces:str,cek:int) -&gt;str:
+    '''encrypt to ciphertext'''
+    table = str.maketrans(set_the_table1(),set_the_table2(cek))
+    return ces.translate(table)
+    
+
+def Caesar_decrypt(cds:str,cdk:int) -&gt;str:                                       
+    '''decrypt to plaintext'''            
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match156-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    table = str.maketrans(set_the_table2(cdk),set_the_table1())
+    return cds.translate(table)
+
+
+plaintext = str(input('input a plaintext: '))
+key = int(input('input a key: '))
+print('\n','encrypted document: ')
+print(Caesar_encrypt(plaintext,key),'\n')
+print('decrypted document: ')
+print(Caesar_decrypt(Caesar_encrypt(plaintext,key),key))
+</FONT>
+print('''
+(2)
+''')
+
+print('we have done it')
+
+print('''
+(3)
+''')
+
+print('i have already done it on the previously code')
+
+print()
+print('---------- Part (f) ----------')
+print()        
+
+alist = [ 'Four score and seven years ago, our fathers brought forth on',
+  'this continent a new nation, conceived in liberty and dedicated',
+  'to the proposition that all men are created equal.  Now we are',
+  '   engaged in a great 		civil war, testing whether that nation, or any',
+  'nation so conceived and so dedicated, can long endure.        ' ]
+
+print('''
+(1)
+''')
+
+def print_line_numbers(plnl:list):
+    '''print a list of string'''
+    a = 1
+    for i in plnl:
+        print('{:5}:  {}\n'.format(a,i))
+        a += 1
+
+print_line_numbers(alist)
+
+
+alphabetss = 'abcdefghijklmnopqrstuvwxyz'
+print('''
+(2)
+''')
+def count_list_words(clw:list) -&gt;int:
+    '''for the below function'''
+    clwn = 0
+    for i in clw:
+        for j in i:
+            if j.lower() in alphabetss:
+                clwn += 1
+                print(j)
+
+                                
+    return clwn
+
+
+    
+def stats(sl:list):
+    '''print statistics'''
+    
+
+    return '\n{:6.1f} {}\n{:6.1f} {}\n{:6.1f} {}\n{:6.1f} {}\n'.format(len(sl),'lines in the list',sl.count(''),'empty lines',
+                                                                   count_list_words(sl)/len(sl),'average characters per line',
+                                                                   count_list_words(sl)/(len(sl)-sl.count('')),'average characters per non-empty line')
+                                                                   
+print(stats(alist))                                                                 
+
+
+
+print('''
+(3)
+''')
+
+def list_of_words(low:list) -&gt;list:
+    '''return a list of words without space and punctuation'''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match156-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    nlist = []
+    for i in low:
+        nlist.extend(i.split(' '))
+    while nlist.count('') != 0:
+        for i in nlist:
+            if i == '':
+                nlist.remove(i)
+    for i in range(len(nlist)):
+        nlist[i]=nlist[i].strip('.')
+        nlist[i]=nlist[i].strip(',')
+</FONT>    return nlist
+print(list_of_words(alist))
+    
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+              
+</PRE>
+</PRE>
+</BODY>
+</HTML>

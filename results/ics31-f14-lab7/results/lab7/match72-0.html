@@ -1,0 +1,176 @@
+<HTML>
+<HEAD>
+<TITLE>katalinc/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+katalinc/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Katalina Chen 90019055 and Pardeep Judge 39344348. ICS 31 Lab sec 6. Lab asst 7.
+
+#
+# Part (c)
+#
+from random import randrange
+
+ffile = open("femalenames.txt",'r')
+fdatatabs = ffile.read().replace('\n','\t').split("\t")
+female = []
+female.extend(fdatatabs[::4])
+ffile.close()
+mfile = open("malenames.txt",'r')
+mdatatabs = mfile.read().replace('\n','\t').split('\t')
+male = []
+male.extend(mdatatabs[::4])
+mfile.close()
+sfile = open("surnames.txt",'r')
+sdatatabs = sfile.read().replace('\n','\t').split('\t')
+surnames = []
+surnames.extend(sdatatabs[::4])
+sfile.close()
+
+def random_single_name (L: list) -&gt; str:
+    '''returns a random name from specified list of names'''
+    return L[randrange(0,1000)]
+
+def random_names (n: int) -&gt; list:
+    '''returns a list of random names of a specified number'''
+    result = []
+    for i in range(0,n):
+        x = randrange(0,1)
+        if x == 0:
+            gender = male
+        else:
+            gender = female
+        fullname = random_single_name(gender)+' '+random_single_name(surnames)
+        result.append(fullname)
+    return result
+print("Part (c)\nList of 5 random names:")
+for i in random_names(5):
+    print(i)
+#
+# Part (d)
+#
+dfile = open('wordlist.txt','r')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match72-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ddatalines = dfile.read().split('\n')
+
+# from lab 6
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate_alphabet(s:str,key:int)-&gt;str:
+    '''rotates an alphabet using given key for a Caesar cipher'''
+    key = key%26 #part e3
+    table = s.maketrans(ALPHABET,ALPHABET[key:]+ALPHABET[:key])
+    return s.translate(table)
+
+def Caesar_encrypt(plaintext:str,key:int)-&gt;'ciphertext':
+    '''encrypts a specified message using a specified key for a
+    Caesar cipher'''
+    return rotate_alphabet(plaintext.lower(),key)
+</FONT>
+def Caesar_decrypt(ciphertext:str,key:int)-&gt;'plaintext':
+    '''decrypts a specified message using a specified key for a
+    Caesar cipher'''
+    return rotate_alphabet(ciphertext.lower(),26-key)
+
+# Part (d1) continued
+
+def Caesar_break(c:str)-&gt;str:
+    '''breaks a Caesar ciphertext'''
+    count = 0
+    new = []
+    testcount = 0
+    testnew = []
+    for i in range(1,26):
+        new.append(Caesar_decrypt(c,i))
+    for i in new:
+        for x in i.split():
+            if x in ddatalines:
+                testcount+=1
+            if testcount &gt; count:
+                count+=1
+                testnew.append(i)
+            testcount = 0
+    return testnew[0]
+print("\nPart (d1)\nBreak the ciphertext 'sghr hr z rdmsdmbd!!!':")
+print(Caesar_break('sghr hr z rdmsdmbd!!!'))
+
+#
+# Part (d2)
+#
+
+print("\nPart (d2)\nBreak Pardeep's ciphertext:")
+print(Caesar_break("qefp fp x qbpq lc qeb crkzqflk clo lro ixy"))
+print("\nBreak Kat's ciphertext:")
+print(Caesar_break("x rpc'i qtaxtkt xi'h cdi qjiitg!"))
+
+#
+# Part (e)
+#
+
+def copy_file(s:str):        
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    file = infile.read().split('\n')
+    # Part (e2)
+    if s == 'line numbers':
+        for i in range(1,len(file)):
+            outfile.write(('{:5.0f}: {:5s}'.format(i,file[i-1])+'\n'))
+    # Part (e3)
+    elif s == 'Gutenberg trim':
+        start = False
+        for line in file:
+            if "*** END" in line:
+                break
+            if start:
+                outfile.write(line+'\n')
+            if "*** START " in line:
+                start = True
+    elif s == 'statistics':
+        for line in file:
+            outfile.write(line+'\n')
+        outfile.close()
+        outfile = open(outfile_name, 'r')
+        statsfile = outfile.read().split('\n')
+        stats(statsfile)
+    else:
+        for line in file:
+            outfile.write(line+'\n')
+    infile.close()
+    outfile.close()
+
+# from lab 6
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match72-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats (L:list):
+    '''prints statistics of a list of strings'''
+    linesCount = len(L)
+    empty = 0
+    sum_characters = 0
+    for i in L:
+        if i == "":
+            empty+=1
+        sum_characters+=len(i)
+</FONT>    print("{:5d}   {:1s}".format(linesCount,"lines in the list"))
+    print("{:5d}   {:1s}".format(empty,"empty lines"))
+    print("{:7.1f} {:1s}".format(sum_characters/len(L),
+                                 "average characters per line"))
+    print("{:7.1f} {:1s}".format((sum_characters/(len(L)-empty)),
+                                 "average characters per non-empty line"))
+print("\nPart (e1): anything")
+copy_file('anything')
+print("Part (e2): line numbers")
+copy_file('line numbers')
+print("Part (e3): Gutenberg trim")
+copy_file('Gutenberg trim')
+print("Part (e4): statistics")
+copy_file('statistics')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

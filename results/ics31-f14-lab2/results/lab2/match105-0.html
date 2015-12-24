@@ -1,0 +1,248 @@
+<HTML>
+<HEAD>
+<TITLE>arakij/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+arakij/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+#Jeffrey Araki 56679814 and Jonathan Mayer 66268081. ICS 31. Lab 2. Sec 6.
+#part (b)
+#calculates the weekly salary based on the hours multiplied by the hours worked
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match105-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('part (b)')
+hours = int(input('How many hours? '))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour? '))
+print('This many dollars per hour:  ', rate)
+print('Weekly salary:  $', hours * rate)
+
+#part (c)
+#asks for the user's name and age and tells them how old they will be next year
+print('\npart (c)')
+name = input('Hello. What is your name? ')
+</FONT>print('Hello,', name,'\nIt\'s nice to meet you.')
+age = int(input('How old are you? '))
+print('Next year you will be', age + 1, 'years old.\nGood-bye!')
+
+#part (d)
+#converts euros, pounds, and dollars to krones and prints the total krone
+print('\npart (d)')
+print("Please provide this information:")
+business_name = input("Enter name of Business: ")
+euros = float(input("Enter number of Euros: "))
+pounds = float(input("Enter number of Pounds: "))
+dollars = float(input("Enter number of Dollars: "))
+CONVERSION_EUROS = 7.46
+CONVERSION_POUNDS = 8.81
+CONVERSION_DOLLARS = 5.5
+
+print()
+print("Copenhagen Chamber of Commerce")
+print("Business name:", business_name)
+print(euros, "euros is", euros * CONVERSION_EUROS, "krone")
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match105-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(pounds, "pounds is", pounds * CONVERSION_POUNDS, "krone")
+print(dollars, "dollars is", dollars* CONVERSION_DOLLARS, "krone")
+print("Total krone:", euros * CONVERSION_EUROS + pounds * CONVERSION_POUNDS + dollars* CONVERSION_DOLLARS)
+
+#part (e)
+print('\npart (e)')
+#imports namedtuple from collections
+from collections import namedtuple
+
+#creates a namedtuple Book, that has the attributes title, author, year, and price
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+</FONT>               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+#(e.1)
+#prints the title Return of Sherlock Holmes
+print('(e.1)', still_another.title)
+
+#(e.2)
+#prints the price of Memoirs of Sherlock Holmes
+print('(e.2)', another.price)
+
+#(e.3)
+#prints the average price of the three books
+print('(e.3)', (favorite.price + another.price + still_another.price)/3)
+
+#(e.4)
+#checks whether Adventures of Sherlock Holmes was published before 1900 and returns the boolean value
+print('(e.4)', favorite.year &lt; 1900)
+
+#(e.5)
+#creates a new instance of Book that is the same as still_another, changing the price to $26
+still_another1 = Book(still_another.title, still_another.author, still_another.year, 26)
+#prints the price of this new instance
+print('(e.5)', still_another1.price)
+
+#(e.6)
+#creates a new instance of Book that is the same as still_another, changing the price to $30, 20% more than its original price
+still_another2 = Book(still_another.title, still_another.author, still_another.year, still_another.price*1.2)
+#prints the price of this new instance
+print('(e.6)', still_another2.price)
+
+#part (f)
+print('\npart (f)')
+#creates a namedtuple Animal with attributes name, species, age, weight, favorite food
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match105-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+Animal = namedtuple("Animal", "name species age weight favorite_food")
+Jumbo = Animal('Jumbo', 'elephant', 50, 1000, 'peanuts')
+Perry = Animal('Perry', 'platypus', 7, 1.7, 'shrimp')
+#creates two Animal objects and compares their respective weights, printing the boolean value
+print(Jumbo.weight &lt; Perry.weight)
+
+#part (g)
+print('\npart (g)')
+#creates a list of Books
+booklist = [favorite, another, still_another]
+</FONT>
+#(g.1)
+#checks whether Adventures of Sherlock Holmes is cheaper than Memoirs of Sherlock Holmes, printing the boolean value
+print('(g.1)', booklist[0].price &lt; booklist[1].price)
+
+#(g.2)
+#checks whether Adventures of Sherlock Holmes was published before Return of Sherlock Holmes, printing the boolean value
+print('(g.2)', booklist[0].year &lt; booklist[-1].year)
+
+
+# part (h)
+print('\npart (h)')
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+#creates a namedtuple Restaurant with attributes name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#(h.1)
+#prints the name of the third Restaurant of RL
+print('(h.1)', RL[2].name)
+
+#(h.2)
+#checks whether Thai Dishes has the same kind of food as Jitlada, printing the boolean value
+print('(h.2)', RL[0].cuisine == RL[3].cuisine)
+
+#(h.3)
+#prints the price of the best dish at Addis Ababa
+print('(h.3)', RL[-1].price)
+
+#(h.4)
+RL.sort()
+#prints a list of the sorted names in an array
+RL_names = []
+for x in range(0, len(RL)):
+    RL_names.append(RL[x].name)
+print('(h.4)', RL_names)
+
+#(h.5)
+#prints the last element of the list of the sorted dishes
+RL_dishes = []
+for x in range(0, len(RL)):
+    RL_dishes.append(RL[x].dish)
+RL_dishes.sort()
+print('(h.5)', RL_dishes[-1])
+
+#(h.6)
+#prints a new list of the first, second, second-to-last, and last elements of RL
+RL.sort()
+new_RL = [RL[0], RL[1], RL[-2], RL[-1]]
+new_RL_names = []
+for x in range(0, len(new_RL)):
+    new_RL_names.append(new_RL[x].name)
+print('(h.5)', new_RL_names)
+
+#part (i)
+#imports tkinter
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(100, 100, 300, 300, fill='orange') # Draw orange line
+my_canvas.create_line(300, 100, 100, 300, fill='blue')   # Draw blue line
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+#(i.1)
+#draws a red square with side length 200 pixels
+#close other tkinter window to see
+red_box_window = tkinter.Tk()
+
+red_box_canvas = tkinter.Canvas(red_box_window, width=500, height = 500)
+red_box_canvas.pack()
+
+red_box_canvas.create_line(100, 100, 300, 100, fill='red')
+red_box_canvas.create_line(300, 100, 300, 300, fill='red')
+red_box_canvas.create_line(300, 300, 100, 300, fill='red')
+red_box_canvas.create_line(100, 300, 100, 100, fill='red')
+
+tkinter.mainloop()
+
+#(i.2)
+#draws a red diamond with side length 200 pixels
+#close other tkinter window to see
+red_diamond_window = tkinter.Tk()
+
+red_diamond_canvas = tkinter.Canvas(red_diamond_window, width=500, height = 500)
+red_diamond_canvas.pack()
+
+red_diamond_canvas.create_line(250, 100, 250+141, 100+141, fill='red')
+red_diamond_canvas.create_line(250+141, 100+141, 250, 100+141*2, fill='red')
+red_diamond_canvas.create_line(250, 100+141*2, 250-141, 100+141, fill='red')
+red_diamond_canvas.create_line(250-141, 100+141, 250, 100, fill='red')
+
+tkinter.mainloop()
+
+#(i.3)
+#draws a red house with a black window
+#close other tkinter window to see
+red_house_window = tkinter.Tk()
+
+red_house_canvas = tkinter.Canvas(red_house_window, width=500, height = 500)
+red_house_canvas.pack()
+
+red_house_canvas.create_line(150, 150, 350, 150, fill='red')
+red_house_canvas.create_line(350, 150, 350, 350, fill='red')
+red_house_canvas.create_line(350, 350, 150, 350, fill='red')
+red_house_canvas.create_line(150, 350, 150, 150, fill='red')
+red_house_canvas.create_oval(170, 170, 225, 225)
+red_house_canvas.create_line(250, 350, 250, 250, fill='red')
+red_house_canvas.create_line(300, 350, 300, 250, fill='red')
+red_house_canvas.create_line(250, 250, 300, 250, fill='red')
+red_house_canvas.create_line(150, 150, 250, 50, fill='red')
+red_house_canvas.create_line(250, 50, 350, 150, fill='red')
+
+tkinter.mainloop()
+
+#(i.4)
+#draws a red eye with a black pupil and white sclera
+#close other tkinter window to see
+red_eye_window = tkinter.Tk()
+
+red_eye_canvas = tkinter.Canvas(red_eye_window, width=500, height = 500)
+red_eye_canvas.pack()
+
+red_eye_canvas.create_oval(100, 200, 400, 400, fill = 'white')
+red_eye_canvas.create_oval(150, 200, 350, 400, fill = 'red')
+red_eye_canvas.create_oval(200, 250, 300, 350, fill = 'black')
+
+tkinter.mainloop()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

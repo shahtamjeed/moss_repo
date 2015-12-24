@@ -1,0 +1,299 @@
+<HTML>
+<HEAD>
+<TITLE>hatorres/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+hatorres/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Brandon Plihal 49467162 and Hugo Torres 19221981.  ICS 31 Lab sec 14.  Lab asst 3.
+import math
+import tkinter
+from collections import namedtuple
+#
+#
+# Part (c)
+#
+#
+print()
+print()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match237-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('---------- Part (c) ----------')
+print()
+# C1
+def abbreviate(n: str)-&gt;str:
+    new = n[0]+n[1]+n[2]
+    return new
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+</FONT># C2
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match237-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def find_area_square(a: int)-&gt;int:
+    area = a**2
+    return area
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+</FONT># C3
+
+def find_area_circle(r:int)-&gt;int:
+    C_area = (r**2)*math.pi
+    return C_area
+assert find_area_circle(1) == math.pi
+assert find_area_circle(5) == 25*math.pi
+# C4
+def print_even_numbers(n: list):
+    for x in range(len(n)):
+        if (n[x]%2==0):
+            print(n[x])
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+# C5
+def calculate_shipping(w: float)-&gt;float:
+    if w&lt;2:
+        return 2.00
+    if 2&lt;=w and w&lt;10:
+        return 5.00
+    if w&gt;=10:
+        return 5.00+int((w-10))*1.50
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+assert calculate_shipping(15.32) == 12.50
+# C6
+my_square = tkinter.Tk()
+my_drawing = tkinter.Canvas(my_square, width=500, height=500)
+my_drawing.pack()
+def create_square(x: int,y: int, s: int):
+    my_drawing.create_rectangle(x,y,x+s,y+s,outline='black',fill='')
+create_square(5,5,10)
+create_square(15,15,20)
+create_square(40,40,50)
+tkinter.mainloop()
+# C7
+my_circle = tkinter.Tk()
+my_drawing = tkinter.Canvas(my_circle, width=500, height=500)
+my_drawing.pack()
+def create_circle (x: int,y: int, d: int):
+    my_drawing.create_oval(x,y,x+d,y+d,outline='black',fill='')
+create_circle(1,1,10)
+create_circle(15,15,25)
+create_circle(50,50,100)
+tkinter.mainloop()
+#
+#
+# Part (d)
+#
+#
+print()
+print()
+print('---------- Part (d) ----------')
+print()
+# D1
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+def restaurant_price(r: Restaurant)-&gt; float:
+    return r.price
+assert restaurant_price(RC[0])==12.50
+assert restaurant_price(RC[1])==5.50
+assert restaurant_price(RC[2])==25.50
+# D2
+def sort_price(n: list)-&gt;list:
+    n.sort(key=restaurant_price)
+    return n
+print(sort_price(RC))
+# D3
+#Check ,ask TA
+print()
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match237-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def costliest(l: list)-&gt;str:
+    l.sort(key=restaurant_price, reverse=True)
+    return l[0].name
+assert costliest(RC)=='Noma'
+</FONT>print(costliest(RC))
+# D4
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match237-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def costliest2(L: list)-&gt;Restaurant:
+    sorted(L,key=restaurant_price, reverse=True)
+    return L[0]
+assert costliest2(RC).name=='Noma'
+assert costliest2(RC).price==35.50
+</FONT>#
+#
+# Part (e)
+#
+#
+print()
+print()
+print('---------- Part (e) ----------')
+print()
+# E1
+Book = namedtuple('Book', 'author title genre year price instock')
+
+BSI = [
+    Book('John','Reds','Mystery',1990,10.21,1),
+    Book('Mathew', 'Trails', 'Sci-fy',1800,30.43,0),
+    Book('Redi', 'CSgsy', 'Thriller',2014,14.00,2),
+    Book('Michael','Goobers','Drama',2013, 00.00, 3),
+    Book('Xavier','Tree Life','Romance', 1600, 5.32, 4),
+    Book('Omead','Frenzy', 'Mystery',2012, 10.00,5) ]
+print(BSI[0].title)
+print(BSI[1].title)
+print(BSI[2].title)
+print(BSI[3].title)
+print(BSI[4].title)
+print(BSI[5].title)
+# E2
+print(sorted(BSI)[0])
+print(sorted(BSI)[1])
+print(sorted(BSI)[2])
+print(sorted(BSI)[4])
+print(sorted(BSI)[5])
+# E3
+BSI[0]=BSI[0]._replace(price=BSI[0].price*1.1)
+BSI[1]=BSI[1]._replace(price=BSI[1].price*1.1)
+BSI[2]=BSI[2]._replace(price=BSI[2].price*1.1)
+BSI[3]=BSI[3]._replace(price=BSI[3].price*1.1)
+BSI[4]=BSI[4]._replace(price=BSI[4].price*1.1)
+BSI[5]=BSI[5]._replace(price=BSI[5].price*1.1)
+# E4
+if BSI[0].genre=='Technology':
+    print(BSI[0].title)
+if BSI[1].genre=='Technology':
+    print(BSI[1].title)
+if BSI[2].genre=='Technology':
+    print(BSI[2].title)
+if BSI[3].genre=='Technology':
+    print(BSI[3].title)
+if BSI[4].genre=='Technology':
+    print(BSI[4].title)
+if BSI[5].genre=='Technology':
+    print(BSI[5].title)
+# E5
+def before_2000(books: list)-&gt;list:
+    l=[]
+    for x in range(len(books)):
+        if books[x].year&lt;2000:
+            l.append(books[x])
+    return l
+def after_2000(books: list)-&gt;list:
+    l=[]
+    for x in range(len(books)):
+        if books[x].year&gt;=2000:
+            l.append(books[x])
+    return l
+print()
+def numBooks(books: list)-&gt;int:
+    count=0
+    for x in range(len(books)):
+        count=count+books[x].instock
+    return count
+assert len(before_2000(BSI))==3
+assert len(after_2000(BSI))==3
+assert len(before_2000(BSI))==len(after_2000(BSI))
+if(numBooks(before_2000(BSI))&gt;numBooks(after_2000(BSI))):
+    print('More titles before 2000 (',len(before_2000(BSI)), 'vs.', len(after_2000(BSI)),')')
+if(numBooks(before_2000(BSI))&lt;numBooks(after_2000(BSI))):
+    print('More titles 2000 or later (',len(after_2000(BSI)), 'vs.', len(before_2000(BSI)),')')
+# E6
+BSI = [
+    Book('John','Reds','Mystery',1990,10.21,1),
+    Book('Mathew', 'Trails', 'Sci-fy',1800,30.43,0),
+    Book('Redi', 'CSgsy', 'Thriller',2014,14.00,2),
+    Book('Michael','Goobers','Drama',2013, 00.00, 3),
+    Book('Xavier','Tree Life','Romance', 1600, 5.32, 4),
+    Book('Omead','Frenzy', 'Mystery',2012, 10.00,5) ]
+
+def inventory_value(Book: str)-&gt;float:
+    value=0
+    for x in range(len(BSI)):
+        if Book == BSI[x]:
+            value=BSI[x].price*BSI[x].instock
+    return value
+assert inventory_value(BSI[1])==0
+assert inventory_value(BSI[-1])==50.00
+print()
+def top_value(Book:list) -&gt; int:
+    Book.sort(key = inventory_value)
+    return Book[-1]
+print("The highest-value book is", top_value(BSI).title, "by", top_value(BSI).author,"at a value of $",inventory_value(top_value(BSI)))
+#
+#
+# Part (f)
+#
+#
+print()
+print()
+print('---------- Part (f) ----------')
+print()
+# F
+my_face = tkinter.Tk()
+my_image = tkinter.Canvas(my_face, width=500, height=500)
+my_image.pack()
+
+def draw_eyes(x: int, y: int,z: int):
+    '''x is distance between eyes, y is hight of eyes, zis starting x point'''
+    my_image.create_oval(z,y+55,z+80,y,fill = 'blue')
+    my_image.create_oval(z+15,y+15,z+55,y+55,fill='black')
+    '''distance=2'''
+    '''z=45'''
+    '''y=45'''
+    my_image.create_oval(z+80+x,y,z+160+x,y+55,fill='blue')
+    my_image.create_oval(z+100,y+15,z+135,y+55,fill='black')
+
+
+def draw_mouth(y,z):
+    my_image.create_line(z+55,y+105,z+105,y+105)
+def draw_nose(y,z):
+    my_image.create_arc(z+55,y+55,z+105,y+105)
+
+def draw_face(x,y,z):
+    my_image.create_oval(z+155,y+155,z-20,y-35, fill='')
+    draw_eyes(x,y,z)
+    draw_nose(y,z)
+    draw_mouth(y,z)
+
+draw_face(2,45,45)
+draw_face(4,200,200)
+tkinter.mainloop()
+#
+#
+# Part (g)
+#
+#
+print()
+print()
+print('---------- Part (g) ----------')
+print()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,272 @@
+<HTML>
+<HEAD>
+<TITLE>xjin4/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+xjin4/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# xin jin 90797760 and Antoino Canongo 26623707   ICS 31 Lab sec 7
+
+#c
+
+
+
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  ', rate)
+print('Weekly salary:  ', hours * rate)
+print('''
+
+
+      ''')
+
+
+#c.1
+
+hours = int(input('how many hours?  '))
+print('this many hours : ', hours)
+rate=int(input('how may dollars per hour?   $ '))
+print('this many dollars per hour: $ ', rate)
+print('weekly salary : $', hours*rate)
+print('''
+
+
+      ''')
+
+#c2
+print("hello, what's your name?")
+user_name=input()
+print("hello,", user_name)
+print("It's nice to meet you")
+print("how old are you?")
+user_age=int(input())
+print("Next year you will be",user_age+1,"years old.")
+print("Good-bye")
+
+
+
+#d
+KRONE_PER_EURO = 7.46
+KRONE_PER_BRITISH_POUND = 8.81
+KRONE_PER_USA_DOLLAR = 5.50
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match148-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+business_name = input('please enter the name of the business:  ')
+euros=float(input('How many Euros does the business have?  '))
+british_pounds=float(input('How many British pounds does the business have?  '))
+usa_dollars= float(input('How many U.S. dollars does the compnay have?  '))
+
+print('Business name :  ', business_name)
+print(euros, ' is ', euros * KRONE_PER_EURO, ' krone')
+print(british_pounds, ' is ', british_pounds * KRONE_PER_BRITISH_POUND, 'krone')
+print(usa_dollars, ' is ', usa_dollars * KRONE_PER_USA_DOLLAR, ' krone') 
+
+total_krone= (euros*KRONE_PER_EURO) + (british_pounds*KRONE_PER_BRITISH_POUND)+ (usa_dollars * KRONE_PER_USA_DOLLAR)
+</FONT>print('Total krone:  ', total_krone)
+
+#e
+
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+
+# e.1 
+print('the title of the book in the variable still_another is ', still_another.title)
+
+# e.2 
+print('the price of the book Memoris of Sherlock Holmes is ', another.price)
+
+# e.3
+print('the average of three books is')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match148-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print((favorite.price + another.price + still_another.price)/3)
+
+#e.4
+print(favorite.year&lt;1900)
+
+#e.5
+still_another=still_another._replace( price =26.00)
+
+print(still_another)
+#e.6
+
+still_another=still_another._replace( price=still_another.price*1.2)
+</FONT><A NAME="2"></A><FONT color = #0000FF><A HREF="match148-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+
+print(still_another)
+
+#f
+
+from collections import namedtuple
+
+Animal= namedtuple('Animal','name species age weight food')
+elephant=Animal('Jumbo', 'African', 50,1000, 'peanuts')
+platypus=Animal('Perry', 'anatinus', 7,7.1 ,'shrimp')
+
+print(elephant.weight &lt; platypus.weight)
+</FONT>
+#g
+
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+booklist = [favorite, another, still_another]
+
+#1.
+print(booklist[0].price&lt;booklist[1].price)
+#2.
+print(booklist[0].year&gt;booklist[-1].year)
+
+
+#h
+
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#h.1
+print(RC[2].name)
+#h.2
+print(RC[0].cuisine==RC[3].cuisine)
+#h.3
+print(RC[-1].price)
+#h.4
+RC.sort()
+print(RC)
+#h.5
+RC.sort()
+print(RC[-1].dish)
+#h.6
+RC.sort
+print(RC[0],RC[1],RC[-1],RC[-2])
+
+
+#i
+
+import tkinter
+
+#1.
+my_window = tkinter.Tk()
+
+my_canvas = tkinter.Canvas (my_window, width=500, height=500)
+my_canvas.pack()
+my_canvas.create_line(50,50,250,50,fill='black')
+my_canvas.create_line(50,50,50,250,fill='black')
+my_canvas.create_line(250,50,250,250,fill='black')
+my_canvas.create_line(50,250,250,250,fill='black')
+tkinter.mainloop()
+
+
+#2
+
+my_window=tkinter.Tk()
+
+my_canvas = tkinter.Canvas(my_window,width=500, height=500)
+my_canvas.pack()
+
+my_canvas.create_polygon(250,100,390,240,250,380,110,240)
+
+tkinter.mainloop()
+
+#3
+
+my_window=tkinter.Tk()
+
+my_canvas=tkinter.Canvas(my_window,width=500,height=500)
+my_canvas.pack()
+
+my_canvas.create_polygon(250,50,290,80,210,80,fill='brown')
+my_canvas.create_rectangle(210,80,290,180,fill='gray')
+my_canvas.create_rectangle(220,130,250,180,fill='red')
+my_canvas.create_rectangle(260,100,280,120,fill='yellow')
+tkinter.mainloop()
+#4
+my_window=tkinter.Tk()
+my_canvas=tkinter.Canvas(my_window,width=500, height=500)
+my_canvas.pack()
+my_canvas.create_oval(100,100,400,300,fill='white')
+my_canvas.create_oval(150,300,350,100,fill='black')
+my_canvas.create_oval(220,230,280,170,fill='gray')
+tkinter.mainloop()
+
+#5
+my_window=tkinter.Tk()
+my_canvas=tkinter.Canvas(my_window,width=500,height=500)
+my_canvas.pack()
+my_canvas.create_rectangle(100,100,300,400,fill='white')
+my_canvas.create_rectangle(120,120,280,330,fill='black')
+my_canvas.create_oval(180,340,220,380,fill='gray')
+tkinter.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

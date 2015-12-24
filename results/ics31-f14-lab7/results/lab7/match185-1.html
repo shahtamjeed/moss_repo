@@ -1,0 +1,252 @@
+<HTML>
+<HEAD>
+<TITLE>shaneenl/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+zahnd/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Derek Zahn 15546893 and Nezar Eltal 70754500. ICS 31 Lab sec 15. Lab asst 7.
+
+def print_banner(s: str) -&gt; None:
+    "Prints a banner/heading including specified text."
+    print('----------------\n' + s +  '\n----------------')
+
+#Part C
+print_banner('Part C')
+
+from random import randrange
+
+def split_list(l: list) -&gt; list:
+    "Seperates a name from the numerical data."
+    result = []
+    for i in l:
+        temp_list = i.split()
+        result.append(temp_list[0])
+    return result
+
+def convert_letter_case(l: list) -&gt; list:
+    "Coverts the string within a given list to title case."
+    result = []
+    for i in l:
+        result.append(i.title())
+    return result
+
+def random_names(x: int) -&gt; list:
+    "Returns a list with a specified number of randomly generated names."
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match185-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    surnames_file = open("surnames.txt", 'r')
+    surnames_list = surnames_file.readlines()
+    malenames_file = open("malenames.txt", 'r')
+    malenames_list = malenames_file.readlines()
+    femalenames_file = open("femalenames.txt", 'r')
+    femalenames_list = femalenames_file.readlines()
+</FONT>    
+    surnames_list_name_only = convert_letter_case(split_list(surnames_list))
+    malenames_list_name_only = convert_letter_case(split_list(malenames_list))
+    femalenames_list_name_only = convert_letter_case(split_list(femalenames_list))
+    fornames = malenames_list_name_only + femalenames_list_name_only
+    
+    temp_name = ''
+    result = []
+    for i in range(x):
+        rand_for = randrange(len(fornames))
+        rand_sur = randrange(len(surnames_list_name_only))
+        temp_name = fornames[rand_for] + ' ' + surnames_list_name_only[rand_sur]
+        result.append(temp_name)
+        
+    surnames_file.close()
+    malenames_file.close()
+    femalenames_file.close()
+    return result
+
+print(random_names(10))
+print(random_names(20))
+
+#Part D.1
+print_banner('Part D.1')
+
+Alphabet= 'abcdefghijklmnopqrstuvwxyz'
+def rotate_alphabet(x: int) -&gt; str:
+    '''Roatates the alphabet based on a given integer.'''
+    return Alphabet[(26-x):27] + Alphabet[0:(26-x)]
+
+assert rotate_alphabet(2) == 'yzabcdefghijklmnopqrstuvwx'
+assert rotate_alphabet(14) == 'mnopqrstuvwxyzabcdefghijkl'
+
+def Caesar_encrypt (x:str,y:int) -&gt; str:
+    '''Encrypt a given string by a specified Caesar cipher.'''
+    table = str.maketrans(Alphabet, rotate_alphabet(y))
+    return x.lower().translate(table)
+
+assert Caesar_encrypt('Hello World', 2) == 'fcjjm umpjb'
+assert Caesar_encrypt('Welcome to San Francisco', 4)=='sahykia pk owj bnwjyeoyk'
+assert Caesar_encrypt('The US is great', 8)=='lzw mk ak yjwsl'
+assert Caesar_encrypt('I love the city by the bay', 7)=='b ehox max vbmr ur max utr'
+
+
+def Caesar_decrypt (x:str,y:int) -&gt; str:
+    '''Encrypt a given string by a specified Caesar cipher.'''
+    table = str.maketrans(rotate_alphabet(y), Alphabet)
+    return x.lower().translate(table)
+
+assert Caesar_decrypt('fcjjm umpjb', 28)== 'hello world'
+assert Caesar_decrypt('sahykia pk owj bnwjyeoyk', 4)== 'welcome to san francisco' 
+assert Caesar_decrypt('lzw mk ak yjwsl', 8)== 'the us is great'
+
+
+def Caesar_break(x:str) -&gt; str:
+    '''Decrypt any given string no matter the Caesar cipher'''
+    dictionary_file = open('wordlist.txt','r')
+    dictionary = dictionary_file.read()
+    words = x.split()
+    hits = []
+    for i in range(26):
+        hit = 0
+        temp_key = rotate_alphabet(i)
+        for p in words:
+            table= str.maketrans(temp_key, Alphabet)
+            if p.lower().translate(table) in dictionary:
+                hit += 1
+            if p.title().translate(table) in dictionary:
+                hit += 1
+        hits.append(hit)
+    key = hits.index(max(hits))
+    return Caesar_decrypt(x, key)
+assert(Caesar_break('Hello world. I am here'))== 'hello world. i am here'
+assert(Caesar_break('sahykia pk owj bnwjyeoyk')) == 'welcome to san francisco'
+assert(Caesar_break('lzw mk ak yjwsl')) == 'the us is great'
+
+#Part D.2
+print_banner('Part D.2')
+
+#Derek's Message
+print('Encrypted Message:')
+print(Caesar_encrypt('''Lose away off why half led have near bed. At engage simple
+father of period others except. My giving do summer of though
+narrow marked at. Spring formal no county ye waited. My whether
+cheered at regular it of promise blushes perhaps. Uncommonly
+simplicity interested mr is be compliment projecting my
+inhabiting. Gentleman he september in oh excellent.''', 14))
+print('\nDecrypted Message:')
+print(Caesar_break('''xaeq mimk arr itk tmxr xqp tmhq zqmd nqp. mf qzsmsq euybxq
+rmftqd ar bqduap aftqde qjoqbf. yk suhuzs pa egyyqd ar ftagst
+zmddai ymdwqp mf. ebduzs radymx za oagzfk kq imufqp. yk itqftqd
+tqqdqp mf dqsgxmd uf ar bdayueq nxgetqe bqdtmbe. gzoayyazxk
+euybxuoufk uzfqdqefqp yd ue nq oaybxuyqzf bdavqofuzs yk
+uztmnufuzs. sqzfxqymz tq eqbfqynqd uz at qjoqxxqzf.'''))
+
+#Nezar's Message
+print('\nEncrypted Message:')
+print(Caesar_encrypt('''This is Nezar's message.''', 14))
+print('\nDecrypted Message:')
+print(Caesar_break('''wklv lv qhcdu'v phvvdjh.'''))
+
+
+#Part E.1
+print_banner('Part E.1')
+
+def copy_file_test() -&gt; None:
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+#copy_file_test()
+
+#Part E.2/E.3/E.4
+print_banner('Part E.2/E.3/E.4')
+
+def count_lines(x:list) -&gt; int:
+    '''Counts the number of line(items) in a list of strings.'''
+    return len(x)
+
+def count_empty_lines(x:list) -&gt; int:
+    '''Counts the number of empty lines(items) in a list of strings.'''
+    result = 0
+    for i in x:
+        if len(i) == 1:
+            result += 1
+    return result
+
+def characters_per_line(x:str) -&gt; int:
+    '''Counts the number of characters in a line.'''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match185-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return len(x)
+
+def average_characters_per_line(x:list) -&gt; float:
+    '''Returns the average number of characters per line within a given list of strings.'''
+    total_chars = 0
+    for i in x:
+        total_chars += characters_per_line(i)
+    return total_chars/len(x)
+
+def average_characters_per_non_empty_line (x:list) -&gt; float:
+    '''Returns the average number of characters per non empty line within a given
+</FONT>    list of strings.'''
+    total_chars = 0
+    for i in x:
+        if len(i) &gt; 0:
+            total_chars += characters_per_line(i)
+    return total_chars/(count_lines(x) - count_empty_lines(x))
+
+def stats (x:list) -&gt; str:
+    '''Returns a string of the statistics of list of strings.'''
+    result = ''
+    result = "{:5}   lines in that list".format(count_lines(x))
+    result = result + '\n' + "{:5}   empty lines".format(count_empty_lines(x))
+    result = result + '\n' + "{:7.1f} average characters per line".format(average_characters_per_line(x))
+    result = result + '\n' + "{:7.1f} average characters per non-empty line".format(average_characters_per_non_empty_line(x))
+    return result
+
+def copy_file(s: str) -&gt; None:
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    if s.lower() == 'line numbers':
+        line_count = 1
+        for line in infile:
+            outfile.write('{:5}: {:}'.format(line_count, line))
+            line_count += 1
+
+    if s.lower() == 'gutenburg trim':
+        linelist = infile.readlines()
+        for j in range(len(linelist)):
+            if '*** START OF THIS PROJECT GUTENBERG EBOOK' in linelist[j]:
+                start_pos = j
+            if '*** END OF THIS PROJECT GUTENBERG EBOOK' in linelist[j]:
+                end_pos = j
+        for i in range(start_pos + 1, end_pos):
+            outfile.write(linelist[i])
+    
+    if s.lower() == 'statistics':
+        linelist = infile.readlines()
+        outfile.write('Statistics:\n')
+        outfile.write(stats(linelist) + '\n')
+        for i in linelist:
+            outfile.write(i)
+
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file('klfklfks;df')
+copy_file('line numbers')
+copy_file('gutenburg trim')
+copy_file('statistics')
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

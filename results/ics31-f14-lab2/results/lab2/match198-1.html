@@ -1,0 +1,273 @@
+<HTML>
+<HEAD>
+<TITLE>diepnn/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ekhou/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+#Luis Arreguin 30834199 and Erik Khou 83063403 ICS 31 Lab section 3
+
+
+#c
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  ', rate)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match198-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Weekly salary:  ', hours * rate)
+
+print ('\n')
+
+#c.1
+hours = int(input('How many hours? '))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour? :' + '$'))
+print('This many dollars per hour: ' + '$', rate)
+print('Weekly salary: $', hours * rate)
+
+print ('\n')
+
+#c.2
+name = (input('Hello. What is your name? '))
+print ('Hello,' , name)
+print ("It's nice to meet you.")
+age = int(input('How old are you?'))
+print ('Next year you will be', age + 1, 'years old')
+print ('Good-bye!')
+
+print ('\n')
+</FONT>
+#d
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND = 8.81
+KRONE_PER_DOLLAR = 5.50
+print ('Please provide this information: ')
+Buisness_name = (input('Buisness name: '))
+Number_of_euros = int(input('Number of euros: '))
+Number_of_pounds = int(input('Number of pounds: '))
+Number_of_dollars = int(input('Number of dollars: '))
+print ('\n')
+print ('Copenhagen Chamber of Commerce')
+print ('Buisness name: ', Buisness_name)
+print (Number_of_euros, 'Euros is', (Number_of_euros * KRONE_PER_EURO))
+print (Number_of_pounds, 'Pounds is', (Number_of_pounds * KRONE_PER_POUND))
+print (Number_of_dollars, 'Dollars is', (Number_of_dollars * KRONE_PER_DOLLAR))
+Total_Krone = (Number_of_euros * KRONE_PER_EURO) + (Number_of_pounds * KRONE_PER_POUND) + (Number_of_dollars * KRONE_PER_DOLLAR) 
+print ('Total Krone: ', (Total_Krone))
+
+print ('\n')
+
+#e
+
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match198-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                     'Arthur Conan Doyle', 1905, 25.00)
+                     
+print ('\n')
+
+#e.1
+
+print (('Name:'), still_another.title)
+
+print ('\n')
+
+#e.2
+print (('Price:'), another.price)
+
+print ('\n')
+
+#e.3
+print (('Price average:'), (favorite.price +
+                            another.price + still_another.price)/3)\
+</FONT>
+print ('\n')
+
+#e.4
+print (favorite.year &lt; 1900)
+
+print ('\n')
+
+#e.5
+still_another2 = Book(still_another.title,
+                      still_another.author, still_another.year, 26.00)
+print (still_another2.price)
+
+print ('\n')
+
+#e.6
+still_another2 = Book(still_another.title,
+                      still_another.author,
+                      still_another.year, 26.00 +(26.00 * .2))
+print (still_another2.price)\
+
+print ('\n')
+
+#f
+from collections import namedtuple
+Animal = namedtuple('Animal', 'name species age weight food')
+
+elephant = Animal('Jumbo', 'elephant', 50, 1000, 'peanuts')
+
+platypus = Animal('Perry', 'platypus', 7, 1.7, 'shrimp')
+
+print (elephant.weight &gt; platypus.weight)
+
+print ('\n')
+
+#g
+
+booklist = [favorite, another, still_another]
+#list already reprenseted up on e
+
+print ('\n')
+
+#g.1
+
+print (booklist[0].price &lt; booklist[1].price)
+
+print ('\n')
+
+#g.2
+print (booklist[0].year &gt; booklist[-1].year)
+
+print ('\n')
+
+#h
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#h.1
+print(RL[2].name)
+
+print ('\n')
+
+#h.2
+print(RL[0].cuisine == RL[3].cuisine)
+
+print ('\n')
+
+#h.3
+print(RL[-1].price)
+
+print ('\n')
+
+#h.4
+RL.sort()
+print(RL)
+
+print ('\n')
+
+#h.5
+RL.sort()
+print(RL[-1].dish)
+
+print ('\n')
+
+#h.6
+RL.sort()
+x = (RL[0], RL[1], RL[-1], RL[-2])
+print(x)
+
+
+'''
+
+Part I is seperated into different windows. It's seperated into three so they wont overlap each other.
+
+'''
+
+#i
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(100, 100, 300, 300, fill='orange') # Draw orange line
+my_canvas.create_line(300, 100, 100, 300, fill='blue')   # Draw blue line
+
+#1
+my_canvas.create_line(100, 100, 100, 300, fill='green')
+my_canvas.create_line(100, 100, 300, 100, fill='green')
+my_canvas.create_line(300, 100, 300, 300, fill='green')
+my_canvas.create_line(100, 300, 300, 300, fill='green')
+
+#2
+my_canvas.create_line(250, 10, 391, 152, fill='red')
+my_canvas.create_line(250, 10, 109, 152, fill='red')
+my_canvas.create_line(109, 152, 250, 294, fill='red')
+my_canvas.create_line(250, 294, 391, 152, fill='red')
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+#3
+my_canvas.create_line(300, 100, 100, 100, fill='blue')   # Draw blue line
+my_canvas.create_line(300, 100, 300, 300, fill='blue')   # Draw purple line
+my_canvas.create_line(100, 300, 100, 100, fill='blue')   # Draw yellow line
+my_canvas.create_line(100, 300, 300, 300, fill='blue')   # Draw pink line
+my_canvas.create_line(300, 100, 200, 50, fill='red')     # Draw red line
+my_canvas.create_line(100, 100, 200, 50, fill='red')     # Draw red line
+my_canvas.create_line(250, 200, 200, 200, fill='orange') # Draw orange line
+my_canvas.create_line(250, 200, 250, 250, fill='orange') # Draw orange line
+my_canvas.create_line(200, 250, 200, 200, fill='orange') # Draw orange line
+my_canvas.create_line(200, 250, 250, 250, fill='orange') # Draw orange line
+my_canvas.create_line(110, 200, 110, 300, fill='brown')  # Draw brown line
+my_canvas.create_line(180, 200, 180, 300, fill='brown')  # Draw brown line
+my_canvas.create_line(110, 200, 180, 200, fill='brown')  # Draw brown line
+
+#4
+my_canvas.create_oval(150, 80, 240, 160, fill = 'white')
+my_canvas.create_oval(170, 100, 220, 140, fill = 'blue')
+my_canvas.create_oval(180, 125, 200, 105, fill = 'black')
+
+
+#5 Face
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_oval(100, 10, 400, 310, fill = 'yellow')
+my_canvas.create_oval(150, 80, 240, 160, fill = 'white')
+my_canvas.create_oval(260, 80, 350, 160, fill = 'white')
+my_canvas.create_oval(170, 100, 220, 140, fill = 'blue')
+my_canvas.create_oval(280, 100, 330, 140, fill = 'blue')
+my_canvas.create_oval(180, 125, 200, 105, fill = 'black')
+my_canvas.create_oval(290, 125, 310, 105, fill = 'black')
+
+
+tkinter.mainloop()          # Combine all the elements and display the window
+</PRE>
+</PRE>
+</BODY>
+</HTML>

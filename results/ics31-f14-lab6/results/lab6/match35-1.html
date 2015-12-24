@@ -1,0 +1,222 @@
+<HTML>
+<HEAD>
+<TITLE>mjqueved/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+shenx3/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Xin Shen 88051381 and Matthew Quevedo 49347149. ICS 31 Lab sec 12. Lab asst 6.
+
+<A NAME="8"></A><FONT color = #00FFFF><A HREF="match35-0.html#8" TARGET="0"><IMG SRC="../../bitmaps/tm_3_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def contains(s1:str,s2:str)-&gt;bool:
+    if s1.count(s2)&gt;0:
+        return True
+    else:
+        return False
+
+assert contains('banana','ana')
+assert not contains('racecar','ck')
+</FONT>
+def sentence_stats(st:str):
+    
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match35-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    total = 0
+    char = len(st)
+
+    table = str.maketrans(',.:;!?*', '       ')
+    st = st.translate(table)
+    print(st)
+    st = st.split()
+    
+    words_count = len(st)
+    for word in st:
+        
+        total +=len(word)
+
+    average = total/len(st)
+
+    print('Characters: ' + str(char) +'\n' + 'Words: ' + str(words_count)+'\n' + 'Average Word Length: '
+          + str(average))
+        
+
+
+sentence_stats('Hello World')
+
+sentence_stats('I love UCI')
+</FONT>sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match35-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def initials(name:str)-&gt;str:
+    'Return initial of the name'
+    ini = [name[0]]
+    ini_str =''
+    for i in range(len(name)):
+       if name[i-1] ==' ':
+           ini.append(name[i])
+    for j in ini:
+        ini_str +=j
+    
+    return ini_str.upper()
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'                     
+</FONT>
+from random import randrange
+
+def random_number_less_than_11():
+    for i in range(51):
+        return randrange(11)
+
+def random_number_less_than_7():
+    for i in range(51):
+        return randrange(7)
+
+print(random_number_less_than_11())
+print(random_number_less_than_7())
+
+def roll2dice():
+    d1 = randrange(1,7)
+    d2 = randrange(1,7)
+    d_total = d1 + d2
+    return d_total
+
+for i in range(51):
+    print(roll2dice())
+
+<A NAME="6"></A><FONT color = #00FF00><A HREF="match35-0.html#6" TARGET="0"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def distribution_of_rolls(times:int):
+    dice_result = []
+    for i in range(times+1):
+        dice_result.append(roll2dice())
+
+    
+
+    for i in range(2,13):
+        print(str(i) + ': '+ ' ( ' + str(dice_result.count(i)/times) +'%)' +'  ' +'*' * dice_result.count(i) + '\n'
+           )
+    print('-----------------------------')
+    print(str(times) + ' rolls')
+
+print(distribution_of_rolls(200))
+</FONT>print(distribution_of_rolls(100))
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match35-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_16.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Ceasar_encrypt(string:str,key:int)-&gt;str:
+    string = string.lower()
+    Alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    encrypted_text = ''
+    if key &gt; 25:
+        key = key%25
+    for i in range(len(string)):
+        if string[i] in Alphabet:
+            position = Alphabet.find(string[i])
+            if position+key &gt; 26:
+                out_of_range_position = (position+key)%26
+                encrypted_text += Alphabet[out_of_range_position]
+            else:
+                encrypted_text+=Alphabet[position+key]
+                            
+        else:
+            encrypted_text +=string[i]
+    return encrypted_text
+
+
+assert Ceasar_encrypt('a',1) =='b'
+assert Ceasar_encrypt('abcd',2) =='cdef'
+assert Ceasar_encrypt('cat',29) == Ceasar_encrypt('cat',4)
+</FONT>assert Ceasar_encrypt('I love dogs',25) == 'h knud cnfr'
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match35-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Ceasar_decrypt(crypt:str,key:int)-&gt;str:
+    Alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    crypt = crypt.lower()
+    decrypted_text = ''
+    if key &gt; 25:
+        key = key%25
+    for i in range(len(crypt)):
+        if crypt[i] in Alphabet:
+            position = Alphabet.find(crypt[i])
+            decrypted_text += Alphabet[position-key]
+        else:
+            decrypted_text += crypt[i]
+    return decrypted_text
+</FONT>
+assert Ceasar_decrypt('cdef',2) == 'abcd'
+assert Ceasar_decrypt('h knud cnfr',25) == 'i love dogs'
+
+def print_line_number(list_of_sentence:list):
+<A NAME="7"></A><FONT color = #0000FF><A HREF="match35-0.html#7" TARGET="0"><IMG SRC="../../bitmaps/tm_2_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for i in range(len(list_of_sentence)):
+        print("{:2} {:} {:}".format(str(i+1),':',list_of_sentence[i]))
+
+
+s1 = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "engaged in a great civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure. ",
+       "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "engaged in a great civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure. "]
+</FONT>
+
+print_line_number(s1)
+
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match35-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats(list_of_strings:list):
+    number_of_lines = len(list_of_strings)
+    number_of_empty = 0
+    total_characters = 0
+    for string in list_of_strings:
+        if len(string) == 0:
+            number_of_empty +=1
+        
+    for string in list_of_strings:
+        total_characters += len(string)
+    average_characters = total_characters/number_of_lines
+    average_non_empty = total_characters/(number_of_lines - number_of_empty)
+
+    print('{:5s} {:} {:}'.format(str(number_of_lines), '   ' ,'lines in the list'))
+    print('{:5s} {:} {:}'.format(str(number_of_empty) ,'   ' , 'empty lines'))
+    print('{:5.1f} {:} {:}'.format(average_characters , '   ' ,'average characters per line'))
+    print('{:5.1f} {:} {:}'.format(average_non_empty , '   ' , 'average characters per non empty line'))
+</FONT>    
+
+        
+stats(s1)
+
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match35-0.html#5" TARGET="0"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def list_of_words(str_list:list)-&gt;list:
+    words_list = []
+    table = str.maketrans(',.:;!?','      ')
+    for string in str_list:
+        string = string.translate(table)
+        short_list = string.split()
+        for word in short_list:
+            words_list.append(word)
+    return words_list
+
+s2 = ['Hello! I am a test string.','I\'m the second string the the list', 'Third string']
+</FONT>print(list_of_words(s2))
+
+
+        
+    
+        
+</PRE>
+</PRE>
+</BODY>
+</HTML>

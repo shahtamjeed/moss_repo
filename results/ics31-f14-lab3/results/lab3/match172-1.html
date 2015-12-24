@@ -1,0 +1,351 @@
+<HTML>
+<HEAD>
+<TITLE>akarabak/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+mwdownin/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+#Ethan Sanchez 70748407, Matthew Downing 32969058, Lab 14, Prateek Basavapur
+#mwdownin@uci.edu
+import math
+import tkinter
+from collections import namedtuple
+
+my_window = tkinter.Tk()    # Create the graphics window
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()    # Put the canvas into the window
+
+##########
+# Part C #
+##########
+print('\n')
+print('---------Part C---------')
+
+# C.1 #
+print('\n---C.1---')
+def abbreviate(n: str) -&gt; str:
+    'Returns the first three characters of a string, if input is less than or equal to three, returns the entire string'
+    return n[0:3]
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+assert abbreviate('s') == 's'
+assert abbreviate('1234567') == '123'
+
+print('We are abbreviating the names January, April, and Prateek:')
+print(abbreviate('January'))
+print(abbreviate('April'))
+print(abbreviate('Prateek'))
+
+# C.2 #
+print('\n---C.2---')
+def find_area_square (n: float) -&gt; float:
+    'Returns the area of a square, given the side length'
+    return n*n
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+assert find_area_square(.5) == .25
+
+print('We are finding the lengths of squares with the side lengths of 1, 5, and 0.5:')
+print(find_area_square(1))
+print(find_area_square(5))
+print(find_area_square(.5))
+
+# C.3 #
+print('\n---C.3---')
+def find_area_circle (r: float) -&gt; float:
+    'Returns the area of a circle, given the side radius'
+    return math.pi * r**2 
+assert find_area_circle(1) == 3.141592653589793
+assert find_area_circle(5) == 78.53981633974483
+assert find_area_circle(.3478) == 0.3800222526866648
+
+print('We are finding the areas of circles with the radii of 1, 5, and 0.3478')
+print(find_area_circle(1))
+print(find_area_circle(5))
+print(find_area_circle(.3478))
+
+# C.4 #
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match172-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('\n---C.4---')
+def print_even_numbers (l: list):
+    'Prints only the even numbers of a provided list'
+    for i in range(len(l)):
+        if l[i] % 2 == 0:
+</FONT>            print(l[i])
+print('We are printing only even numbers:')
+print_even_numbers([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])
+print_even_numbers([33, 52, 456, 27, 8, 25])
+print_even_numbers([11, 22, 33, 44, 55, 66, 77, 88, 99, 101])
+            
+# C.5 #
+print('\n---C.5---')
+def calculate_shipping (w: float) -&gt; float:
+    'Returns the price for shipping of a package given the weight of the package'
+    if w &lt; 2:
+        return 2.00
+    elif w &lt; 10:
+        return 5.00
+    else:
+        return 5.00 + 1.5 * (w - 10)
+assert calculate_shipping(1.5) == 2
+assert calculate_shipping(7) == 5
+assert calculate_shipping(15) == 12.5
+
+print('We are printing shipping prices given the weights 1.5, 7, and 15:')
+print(calculate_shipping(1.5))
+print(calculate_shipping(7))
+print(calculate_shipping(15))
+
+# C.6 #
+print('\n---C.6---')
+def draw_square(x: int, y: int, l: float):
+    'Draws a square using the top left coordinate and side length of the square'
+    my_canvas.create_rectangle(x, y, x + l, y + l)
+    
+print('We drew a square in the tkinter window')
+draw_square(100, 100, 75)
+
+# C.7 #
+print('\n---C.7---')
+def draw_circle(x: int, y: int, d: float):
+    'Draws a circle using the top left coordinate and the diameter of the circle'
+    my_canvas.create_oval(x, y, x + d, y + d)
+print('We drew a square in the tkinter window')
+draw_circle(200, 225, 150)
+
+##########
+# Part D #
+##########
+print('\n')
+print('---------Part D---------')
+
+#General Restaraunt information
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+# D.1 #
+print('\n---D.1---')
+def restaurant_price(r: Restaurant) -&gt; float:
+    'Takes restaurant name and returns the price field of the restaurant'
+    return r.price
+assert restaurant_price(RC[0]) == 12.5
+assert restaurant_price(RC[2]) == 25.5
+assert restaurant_price(RC[6]) == 10.5
+
+def list_and_price(rl: list):
+    for i in range(len(rl)):
+        print("The restaurant", rl[i].name, "has the best dish priced at", restaurant_price(rl[i]))
+
+list_and_price(RC)
+
+# D.2 #
+print('\n---D.2---')
+RC_price_sort = RC
+RC_price_sort.sort(key=restaurant_price)
+list_and_price(RC_price_sort)
+
+# D.3 #
+print('\n---D.3---')
+def costliest(rl: list) -&gt; str:
+    'Takes a restuarant list and returns the priciest restuarant in that list'
+    return max(rl, key = restaurant_price).name
+print(costliest(RC), 'is the costliest restaurant.')
+
+# D.4 #
+print('\n---D.4---')
+def costliest2(rl: list) -&gt; str:
+    'Takes a restuarant list and returns the priciest restuarant in that list'
+    return max(rl, key = restaurant_price).name
+print(costliest2(RC), 'is the costliest restaurant.')
+
+##########
+# Part E #
+##########
+print('\n')
+print('---------Part E---------')
+
+Book = namedtuple('Book', 'author title genre year price inStock')
+BSI = [
+    Book("Krabs", "How to Make Money", "Business", 1991, 750, 1),
+    Book("Gary", "Meow", "Technology", 1996, 223, 120),
+    Book("Sandy", "Karate Tips for Dummies", "Instructional", 1994, 13.6, 5),
+    Book("Spongebob", "How to be Ready", "Instructional", 2004, 10, 900),
+    Book("Squidward", "Clarinet Seminar Eleven", "Nonfiction", 1853, 53.2, 0),
+    Book("Patrick", "Life Under a Rock", "Autobiography", 2014, 12.5, 15)]
+
+# E.1 #      
+print('\n---E.1---')
+for i in range(len(BSI)):
+    print(BSI[i].title)
+
+
+# E.2 #
+print('\n---E.2---')
+def BSI_title(bl: Book) -&gt; str:
+    'Takes the book name and returns the title of that book'
+    return bl.title
+
+BSI_title_sorted = sorted(BSI, key = BSI_title)
+for i in range(len(BSI)):
+    print(BSI_title_sorted[i].title)
+
+
+# E.3 #
+print('\n---E.3---')
+def print_BSI_price():
+    'Prints the list of prices in the Book list BSI'
+    for i in range(len(BSI)):
+        print(BSI[i].price)
+     
+for i in range(len(BSI)):
+    BSI[i] = BSI[i]._replace(price = BSI[i].price * 1.1)
+
+print_BSI_price()
+
+# E.4 #
+print('\n---E.4---')
+for i in range(len(BSI)):
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match172-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if BSI[i].genre == 'Technology':
+        print(BSI[i].title)
+
+# E.5 #
+print('\n---E.5---')
+
+before_2000 = []
+after_2000 = []
+
+for i in range(len(BSI)):
+    if BSI[i].year &lt; 2000:
+        before_2000.append(BSI[i])
+    else:
+        after_2000.append(BSI[i])
+def num_inventory(bl: 'list of books') -&gt; int:
+    'Takes a list of Books and returns the total number of books in stock of that list'
+    total  = 0
+    for i in range(len(bl)):
+        total += bl[i].inStock
+    return total
+        
+if num_inventory(before_2000) &gt; num_inventory(after_2000):
+</FONT>    print('More titles before 2000 (', num_inventory(before_2000), 'vs', num_inventory(after_2000), ')')
+elif num_inventory(before_2000) &lt; num_inventory(after_2000):
+    print('More titles after 2000 (', num_inventory(after_2000), 'vs', num_inventory(before_2000), ')')
+else:
+    print("It's a tie")
+    
+# E.6 #
+print('\n---E.6---')
+
+def inventory_value(bi: 'book in a list') -&gt; float:
+    'Takes a Book object and returns the total value of the inventory of the Book'
+    total_value = bi.inStock * bi.price
+    return total_value
+
+def top_value(bl: 'book list') -&gt; Book:
+    'Takes a book list and returns the Book object with the highest total value' 
+    Best_Book = Book('Ethan', 'Memoirs', 'Autobiographical', 0, -1, 1)
+    for i in range(len(bl)):
+        if inventory_value(Best_Book) &lt; inventory_value(bl[i]):
+            Best_Book = bl[i]
+    return Best_Book
+
+print('The highest value book is', top_value(BSI).title, 'by', top_value(BSI).author, 'at a value of $', inventory_value(top_value(BSI)), ".")
+
+##########
+# Part F #
+##########
+print('\n')
+print('---------Part F---------')
+print('\n')
+
+def draw_face(my_window1: 'Window', x: int, y: int, scale: float, hair_color: str, eye_color: str, expression: str) -&gt; None:
+    'Draws a face using the top left coordinate, hair color, eye color, and expression (smile/frown/surprised)'
+    my_window1 = tkinter.Tk()    # Create the graphics window
+    my_canvas1 = tkinter.Canvas(my_window1, width=700, height=700)  # Create a 700x700 canvas to draw on A
+    my_canvas1.pack()    # Put the canvas into the window
+    #CALL HAIR FUNCTION
+    draw_hair(my_canvas1, x, y, hair_color)
+    #CALL HEAD FUNCTION
+    draw_head(my_canvas1, x, y)
+    #CALL NOSE FUNCTION
+    draw_nose(my_canvas1, x, y)
+    #CALL EYE FUNCTION
+    draw_eye(my_canvas1, x, y, eye_color)
+    draw_eye(my_canvas1, x+50, y, eye_color)
+    #CALL EYEBROW FUNCTION
+    draw_eyebrows(my_canvas1, x, y, hair_color, expression)
+    draw_eyebrows(my_canvas1, x + 50, y, hair_color, expression)
+    #CALL MOUTH FUNCTION
+    draw_mouth(my_canvas1, x, y, expression)
+    
+def draw_hair(A: "Canvas", x: int, y: int, hair_color: str) -&gt; None:
+    #HAIR
+    A.create_line(50 + x, 50 + y, 7 + x, 22 + y, smooth = True, capstyle="projecting", width=3, fill = hair_color)
+    A.create_line(50 + x, 50 + y, 14 + x, 11 + y, smooth = True, capstyle="projecting", width=3, fill = hair_color)
+    A.create_line(50 + x, 50 + y, 25 + x, 2 + y, smooth = True, capstyle="projecting", width=3, fill = hair_color)
+    A.create_line(50 + x, 50 + y, 37 + x, -2 + y, smooth = True, capstyle="projecting", width=3, fill = hair_color)
+    A.create_line(50 + x, 50 + y, 50 + x, -3 + y, smooth = True, capstyle="projecting", width=3, fill = hair_color)
+    A.create_line(50 + x, 50 + y, 63 + x, -2 + y, smooth = True, capstyle="projecting", width=3, fill = hair_color)
+    A.create_line(50 + x, 50 + y, 74 + x, 2 + y, smooth = True, capstyle="projecting", width=3, fill = hair_color)
+    A.create_line(50 + x, 50 + y, 85 + x, 11 + y, smooth = True, capstyle="projecting", width=3, fill = hair_color)
+    A.create_line(50 + x, 50 + y, 94 + x, 22 + y, smooth = True, capstyle="projecting", width=3, fill = hair_color)
+
+def draw_head(A: "Canvas", x: int, y: int):
+    #HEAD
+    A.create_oval(0 + x, 0 + y, 100 + x, 100 + y, fill = 'Wheat') #head
+
+def draw_nose(A: "Canvas", x: int, y: int) -&gt; None:
+    #NOSE
+    A.create_line(50 + x, 33 + y, 10 + x, 70 + y, 60 + x, 66 + y, smooth = True) #nose
+    A.create_line(53 + x, 62 + y, 60 + x, 48 + y, 67 + x, 62 + y, smooth = True) #nostril
+    A.create_oval(57 + x, 60 + y, 63 + x, 66 + y, fill = 'dim grey')
+
+def draw_eye(A: "Canvas", x: int, y: int, eye_color: 'str') -&gt; None:
+    #EYEBALL
+    A.create_line(20 + x, 30 + y, 30 + x, 30 + y, fill='black', width=12, capstyle="round")
+    A.create_line(20 + x, 30 + y, 30 + x, 30 + y, fill='white', width=10, capstyle="round")
+    A.create_oval(20 + x, 25 + y, 30 + x, 35 + y, fill=eye_color)
+    A.create_oval(23 + x, 28 + y, 28 + x, 33 + y, fill='black')
+
+def draw_eyebrows(A: "Canvas", x: int, y: int, hair_color: str, expression: 'str for smile/frown/surprised') -&gt; None:
+    if expression == 'smile' or expression == 'surprised':
+        #RAISED EYEBROWS
+        A.create_line(15 + x, (23 - 3) + y, 35 + x, (23 - 3) + y, width=3, fill = hair_color)
+    elif expression == 'frown':
+        #EYEBROWS
+        A.create_line(15 + x, 23 + y, 35 + x, 23 + y, width=4, fill = hair_color)
+
+def draw_mouth(A: "Canvas", x: int, y: int, expression: 'str for smile/frown/surprised') -&gt; None:
+    if expression == 'smile':
+        #MOUTH SMILE
+        A.create_line(25 + x, 75 + y, 50 + x, 95 + y, 75 + x, 75 + y, smooth="True", width=5, capstyle="round", fill="firebrick")
+        A.create_line(25 + x, 75 + y, 50 + x, 95 + y, 75 + x, 75 + y, smooth="True", width=2, capstyle="round")
+    elif expression == 'frown':
+        #MOUTH FROWN
+        A.create_line(25 + x, 85 + y, 50 + x, 65 + y, 75 + x, 85 + y, smooth="True", width=5, capstyle="round", fill="firebrick")
+        A.create_line(25 + x, 85 + y, 50 + x, 65 + y, 75 + x, 85 + y, smooth="True", width=2, capstyle="round")
+    elif expression == 'surprised':
+        #MOUTH SURPRISE
+        A.create_oval(38 + x, 71 + y, 62 + x, 95 + y, outline="firebrick", fill="firebrick")
+        A.create_oval(40 + x, 73 + y, 60 + x, 93 + y, fill="dim grey")
+
+print('We are drawing 3 faces, with 3 different positions, hair colors, eye colors, and expressions.')
+draw_face('1', 30, 30, 1, 'saddlebrown', 'green', 'smile')
+draw_face('2', 80, 100, 1, 'goldenrod', 'blue', 'surprised')
+draw_face('3', 300, 80, 1, 'black', 'red', 'frown')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

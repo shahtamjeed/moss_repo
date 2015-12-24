@@ -1,0 +1,311 @@
+<HTML>
+<HEAD>
+<TITLE>akihiroi/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+akihiroi/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Akihiro Izumi 69616804 and David Kang 49958769.  ICS 31 Lab sec 12.  Lab asst 7.
+
+
+#
+# PART C
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c) ----------')
+print()
+
+#
+# (c.1),(c.2),(c.3)
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.1),(c.2),(c.3) ----------')
+print()
+
+from random import randrange
+
+f1 = open('surnames.txt')
+f2 = open('malenames.txt')
+f3 = open('femalenames.txt')
+
+surnames = f1.readlines()
+malenames = f2.readlines()
+femalenames = f3.readlines()
+
+f1.close()
+f2.close()
+f3.close()
+
+list_sur = []
+list_male = []
+list_female = []
+
+for i in range(len(surnames)):
+    temp_sur = surnames[i].split()
+    list_sur.append(temp_sur[0])
+
+for i in range(len(malenames)):
+    temp_male = malenames[i].split()
+    list_male.append(temp_male[0])
+
+for i in range(len(femalenames)):
+    temp_female = femalenames[i].split()
+    list_female.append(temp_female[0])
+
+def random_names(n: int) -&gt; list:
+    ''' takes an integer and returns a list of that many strings, with each string a randomly generated name '''
+    result = []
+    for i in range(n):
+        result.append(random_name())
+    return result
+
+def random_lastname() -&gt; str:
+    ''' returns a last name randomly chosen from a list of surname '''
+    n = randrange(len(list_sur))
+    return list_sur[n]
+
+def random_firstname() -&gt; str:
+    ''' returns a first name randomly chosen from a list of malename or femalename '''
+    male_or_female = randrange(1)
+    if male_or_female == 0:
+        n = randrange(len(list_male))
+        return list_male[n]
+    elif male_or_female == 1:
+        n = randrange(len(list_female))
+        return list_female[n]
+
+def random_name():
+    ''' returns a name which contains Last name and First name '''
+    last = random_lastname()
+    first = random_firstname()
+    return last.capitalize() + ', ' + first.capitalize()
+
+print('*** testing random_names(3) below ***')
+print(random_names(3))
+print('*** testing random_names(5) below ***')
+print(random_names(5))
+
+
+#
+# PART D
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (d) ----------')
+print()
+
+#
+# (d.1)
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (d.1) ----------')
+print()
+
+import re
+
+w = open('wordlist.txt')
+wordlist = w.read()
+w.close()
+
+def remove_punctuation(s: str) -&gt; str:
+    ''' takes a string and returns a string without special characters '''
+    return re.sub('[.,\-+!?;:/@$%^&*#]', '', s)
+
+alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+            'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+def Caesar_encrypt(s: str, n: int) -&gt; str:
+    ''' takes a plaintext and an int for the key, and then returns ciphertext '''
+    plaintext = s.lower()
+    ciphertext = ''
+    index_list = []
+    if n &gt; 26:
+        n = n % 26
+    for i in range(len(plaintext)):
+        if plaintext[i].isalnum():
+            index_list.append(alphabet.index(plaintext[i]))
+        else:
+            index_list.append(77)
+    for j in range(len(plaintext)):
+        if index_list[j] == 77:
+            ciphertext += plaintext[j]
+        else:
+            temp = index_list[j] + n
+            if temp &gt; 25:
+                temp -= 26
+            ciphertext += alphabet[temp]
+    return ciphertext
+
+def Caesar_decrypt(s: str, n: int) -&gt; str:
+    ''' takes a ciphertext and an int for the key, and then returns plaintext '''
+    ciphertext = s.lower()
+    plaintext = ''
+    index_list = []
+    if n &gt; 26:
+        n = n % 26
+    for i in range(len(ciphertext)):
+        if ciphertext[i].isalnum():
+            index_list.append(alphabet.index(ciphertext[i]))
+        else:
+            index_list.append(77)
+    for j in range(len(ciphertext)):
+        if index_list[j] == 77:
+                plaintext += ciphertext[j]
+        else:
+            temp = index_list[j] - n
+            if temp &lt; 0:
+                temp += 26
+            plaintext += alphabet[temp]
+    return plaintext
+
+def Caesar_break(s: str) -&gt; str:
+    ''' takes a ciphertext string (encrypted using a Caesar cipher as we did last week) and returns the plaintext for that string without having the key '''
+    temp = remove_punctuation(s)
+    list_word = temp.split()
+    list_decryption = []
+    for i in range(26):
+        counter = 0
+        result = Caesar_decrypt(s, i)
+        temp2 = remove_punctuation(result)
+        list_word_decrypt = temp2.split()
+        for word in list_word_decrypt:
+            if word in wordlist:
+                counter += 1
+        if counter == len(list_word):
+            break
+    if counter == len(list_word):
+        return result
+    else:
+        return 'The ciphertext might be wrong or cannot be recognized.'
+
+print(" *** Trying to encrypt 'Hello World!' with a key of 55' *** ")
+print(Caesar_encrypt('Hello World!', 55))
+print(" *** Trying to decrypt 'khoor zruog!' without any key *** ")
+print(Caesar_break('khoor zruog!'))
+
+
+#
+# (d.2)
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (d.2) ----------')
+print()
+
+#### Emailed each other and checked that the decryption with Caesar_break function worked correctly
+
+
+#
+# PART E
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (e) ----------')
+print()
+
+#
+# (e.1),(e.2),(e.3),(e.4)
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (e.1),(e.2),(e.3),(e.4) ----------')
+print()
+
+def file_copy():
+    """ Main program """
+    print("Welcome to the file copying program!")
+    handle_commands()
+    print("\nThank you.  Good-bye.")
+
+MENU = """
+File Copying Program --- Choose one
+ 1:  Normally copy a file
+ 2:  Copied file includes line numbers at the start of each line
+ 3:  Copy only the body of a Project Gutenberg file,
+          omitting the "housekeeping" material at the front and end
+ 4:  Copy the file and print out these statistics about the text in the file
+ q:  Quit
+"""
+
+def handle_commands():
+    """ Display menu, accept and process commands """
+    status = True
+    while status:
+        response = input(MENU)
+        if response=="q":
+            status = False
+        elif response=='1':
+            copy_file(' ')
+        elif response=='2':
+            copy_file('line numbers')
+        elif response=='3':
+            copy_file('Gutenberg trim')
+        elif response=='4':
+            copy_file('statistics')
+        else:
+            invalid_command(response)
+
+def invalid_command(response):
+    """ Print message for invalid menu command """
+    print("Sorry; '" + response + "' isn't a valid command.  Please try again.")
+
+def copy_file(s: str):
+    ''' Prompts user for name of file to copy and name of new copy and reads
+        and writes the files in certain ways, depending on the given string.
+    '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'line numbers':
+        i = 1
+        for line in infile:
+            outfile.write('{:5d}: '.format(i) + line)
+            i += 1
+    elif s == 'Gutenberg trim':
+        begin = False
+        for line in infile:
+            if '*** START' in line:
+                begin = True
+            elif '*** END' in line:
+                outfile.write(line)
+                break
+            if begin == True:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match141-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                outfile.write(line)
+    elif s == 'statistics':
+        count_line = 0
+        count_empty_line = 0
+        total_chara = 0    
+        for line in infile:
+            outfile.write(line)
+            count_line += 1
+            if line.strip() == '':
+                count_empty_line += 1
+</FONT>            total_chara += len(line)
+        print()
+        print('***** Here is stats of the file *****')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match141-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        print('{:5d}   lines in the file'.format(count_line))
+        print('{:5d}   empty lines'.format(count_empty_line))
+        print('{:7.1f} average characters per line'.format(total_chara / count_line))
+        print('{:7.1f} average characters per non-empty line'.format(total_chara / (count_line - count_empty_line)))
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+</FONT>    outfile.close()
+    print('\n*** File is made. Please check it. ***\n')
+
+
+file_copy()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

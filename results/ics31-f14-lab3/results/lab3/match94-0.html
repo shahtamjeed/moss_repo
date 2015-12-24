@@ -1,0 +1,245 @@
+<HTML>
+<HEAD>
+<TITLE>calvidn2/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+calvidn2/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Mathew Sanchez ID 68543506 and Calvin Nguyen 74051347 ICS 31 Lab sec 7.  Lab asst 3. October 20,2014 to October 24, 2014
+print()
+print('------part (c)------')
+print()
+
+# 1
+print('---C.1---')
+def abbreviate(month: str) -&gt; str:
+   " Return three letter abbreviations for any word "
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match94-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+   return month[0:3]
+assert abbreviate('February') == 'Feb'
+assert abbreviate('deciembre') == 'dec'
+
+print (abbreviate ('March'))
+
+# 2
+print('---C.2---')
+def area_squared (value: int) -&gt; int:
+    ' Returns area squared '
+    return value ** 2
+assert area_squared (1) == 1
+assert area_squared (5) == 25
+
+print (area_squared (11111))
+
+# 3
+print('---C.3---')
+def find_area_circle (radius: int) -&gt; int:
+</FONT>    ' Returns area of a circle '
+    return 3.14159 * (radius ** 2)
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match94-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+print (find_area_circle (11111))
+
+# 4
+print('---C.4---')
+def print_even_numbers (L: list) -&gt; list:
+    ' Returns even numbers from a list'
+    for x in L:
+        if x % 2 == 0:
+            print (x)
+</FONT>print_even_numbers ([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+# 5
+print('---C.5---')
+def calculate_shipping (weight: float) -&gt; float:
+    ' Returns shipping price depending on weight ' 
+    if weight &lt; 2 :
+        result = float (2.00)
+    elif weight &lt; 10 :
+        result = float (5.00)
+    elif weight &gt;= 10 :
+        result = float (5.00 + 1.50 * (weight - 10))
+    return result    
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+print (calculate_shipping (1111))
+
+# 6
+print('---C.6---')
+import tkinter
+def create_square (x: float, y: float, length: float):
+    ' Returns perfect squares '
+    my_window = tkinter.Tk()
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+    my_canvas.pack()
+    my_canvas.create_rectangle (x, y, x + length, y + length)
+    tkinter.mainloop()
+
+create_square (200, 100, 50)
+
+# 7
+print('---C.7---')
+def create_circle (x_circle: float, y_circle: float, length_circle: float):
+    ' Returns perfect circles '
+    my_window = tkinter.Tk ()
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+    my_canvas.pack()
+    my_canvas.create_oval (x_circle, y_circle, x_circle + length_circle, y_circle + length_circle)
+    tkinter.mainloop()
+
+create_circle (200, 100, 100)
+
+print ()
+print ('------ part (d)------')
+print ()
+
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+RL = [
+Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+
+# 1
+print('---D.1---')
+def restaurant_price (P: Restaurant) -&gt; float:
+    ' Returns value of the price field for restaurants '
+    return P.price
+assert restaurant_price (RL[0]) == 12.50
+assert restaurant_price (RL[3]) == 15.50
+assert restaurant_price (RL[5]) == 35.50
+print (restaurant_price (RL[4]))
+# 2
+print('---D.2---')
+RL.sort(key = restaurant_price)
+print (RL)
+# 3
+print('---D.3---')
+def costliest (rest: [Restaurant]) -&gt; str:
+    'Returns name of the restaurant with highest priced dish'
+    rest.sort(key = restaurant_price)
+    return rest[-1].name
+
+print (costliest(RL))
+print(RL)
+# 4
+print('---D.4---')
+
+def costliest2 (rest: [Restaurant]) -&gt; str:
+    'Returns name of the restaurant with highest priced dish'
+    RC = sorted(rest, key = restaurant_price)
+    return RC[-1].name
+
+print (costliest2(RL))
+print(RL)
+
+print()
+print('-----Part (E)-----')
+print()
+
+Book = namedtuple('Book', 'author title genre year price instock')
+
+BSI= [
+Book ("Dr.Seuss", "The Cat in the Hat", "Children", 1957, 5.99, 50),
+Book ("Plato", "The Republic", "Political", 380, 1.99, 75),
+Book ("Nikolai Gogol", "The Nose", "Satire", 1836, 3.00, 25),
+Book ("Philip Pullman", "Clockwork", "Children", 1996, 6.99, 30),
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match94-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+Book ("Frank Herbert", "Dune", "SiFi", 1965, 11.04, 103),
+Book ("John Hersey", "Hiroshima", "Historical", 1946, 7.95, 60)]
+# 1
+print('---E.1---')
+for x in (BSI):
+    print (x.title)
+
+print('---E.2---')
+def BSI_title (T: Book) -&gt; str:
+    'Return title of books'
+    return T.title
+BL = sorted (BSI, key = BSI_title)
+for x in (BL):
+</FONT>    print (x.title)
+
+print('---E.3---')
+for x in range(len(BSI)):
+    BSI[x] = BSI[x]._replace(price = BSI[x].price * 1.1)
+print(BSI)
+
+print('---E.4---')
+for x in BSI:
+    if x.genre == 'Technology':
+        print(x.title)
+
+print('---E.5---')
+BSI_new = []
+BSI_after = []
+for x in BSI:
+    if x.year &lt; 2000:
+        BSI_new.append(x.title)
+    elif x.year &gt; 2000:
+        BSI_after.append(x.title)
+if len(BSI_new) &lt; len(BSI_after):
+    print('More titles 2000 or later')
+else:
+    print('More titles before 2000', (len(BSI_new)), 'vs.', len(BSI_after))
+    
+print ('---E.6---')
+def inventory_value (b: Book) -&gt; int:
+   ' Returns the inventory price '
+   return b.price * b.instock
+assert inventory_value (BSI[1]) == 164.175
+assert inventory_value (BSI[2]) == 82.5
+
+invent_values = []
+def top_value (p: [BSI]) -&gt; Book:
+   ' Returns book object with highest inventory value '
+   for x in range(len(p)):
+      invent_values.append(inventory_value(p[x]))
+   return max(invent_values)
+
+print ('The highest-value book is', BSI[invent_values.index(top_value(BSI))].title, 'by', BSI[invent_values.index(top_value(BSI))].author, 'at a value of $', top_value(BSI), '.')
+
+print ('------Part (F)------')
+
+def draw_face (x_face: float, y_face: float):
+   my_window = tkinter.Tk()    
+   my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+   my_canvas.pack()
+   my_canvas.create_oval (0 + x_face, 0 + y_face, 300 + x_face, 350 + y_face, fill = 'bisque')
+   draw_eye (80 + x_face, 100 + y_face, 50, my_canvas)
+   draw_eye (160 + x_face, 100 + y_face, 50, my_canvas)
+   draw_mouth (100 + x_face, 200 + y_face, 180 + x_face, 200 + y_face, my_canvas)
+   draw_nose (140 + x_face, 150 + y_face, 155 + x_face, 170 + y_face, my_canvas)
+
+def draw_eye (x_eye: float, y_eye: float, length_eye: float, canvas):
+   canvas.create_oval (x_eye, y_eye, x_eye + length_eye, y_eye + length_eye, fill = 'white')
+   canvas.create_oval (x_eye + 18, y_eye + 18, x_eye + length_eye - 18, y_eye + length_eye - 18, fill = 'blue')
+   canvas.create_oval (x_eye + 23, y_eye + 23, x_eye + length_eye - 23, y_eye + length_eye - 23, fill = 'black')
+
+def draw_mouth (x1_mouth: float, y1_mouth: float, x2_mouth, y2_mouth, canvas):
+   canvas.create_line (x1_mouth, y1_mouth, x2_mouth, y2_mouth, smooth = 'true')
+
+def draw_nose (x1_nose: float, y1_nose: float, x2_nose: float, y2_nose: float, canvas):
+   canvas.create_line (x1_nose, y1_nose, x2_nose, y2_nose)
+   canvas.create_oval (x2_nose - 15, y2_nose, x2_nose - 12, y2_nose) 
+   canvas.create_line (x1_nose + 5, y2_nose, x2_nose, y2_nose)
+
+draw_face (10, 10)
+draw_face (100, 100)
+</PRE>
+</PRE>
+</BODY>
+</HTML>

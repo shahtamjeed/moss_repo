@@ -1,0 +1,155 @@
+<HTML>
+<HEAD>
+<TITLE>bhasting/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+bhasting/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Brandon Hastings 59907306 and Victor Phung 20063811.  ICS 31 Lab sec 9.  Lab asst 7.
+
+print()
+print()
+print('---------- Part (c) ----------')
+print()
+
+from random import randrange
+
+# globaly open files for performance
+infile      = open("surnames.txt", 'r')
+surnames    = list(infile)
+infile2     = open("malenames.txt", 'r')
+malenames   = list(infile2)
+infile3     = open("femalenames.txt", 'r')
+femalenames = list(infile3)
+
+def random_name(namelist: list) -&gt; str:
+    """ Read name list info from file; return random name
+    """
+    names = []
+    for line in namelist:
+        field_list = line.split("\t")
+        names.append(field_list[0])
+    return names[randrange(len(names))]
+
+def random_names(num: int) -&gt; list:
+    """ generates num of random names, returns list of strings
+    """
+    result = []
+    for i in range(num):
+        firstnames = [malenames, femalenames]
+        male_female = firstnames[randrange(len(firstnames))]
+        full_name = random_name(surnames).capitalize() + ", " + random_name(male_female).capitalize()
+        result.append(full_name)
+    return result
+
+assert random_names(10)
+print(random_names(10))
+print(random_names(5))
+
+infile.close()
+infile2.close()
+infile3.close()
+
+print()
+print()
+print('---------- Part (d) ----------')
+print()
+
+ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+def Caesar_encrypt(message:str, key:int) -&gt; str:
+    ''' Shift characters in message by key '''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match149-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    key = key % 26
+    shifted_alphabet = ALPHABET[key:] + ALPHABET[:key]
+    table = str.maketrans(ALPHABET, shifted_alphabet)
+    return message.translate(table)
+
+def Caesar_decrypt(message:str, key:int) -&gt; str:
+    ''' Undo shift characters in message by key '''
+    key = -key % -26
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match149-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    shifted_alphabet = ALPHABET[key:] + ALPHABET[:key]
+    table = str.maketrans(ALPHABET, shifted_alphabet)
+    return message.translate(table)
+
+def remove_punctuation(string:str) -&gt; str:
+    ''' Removes punctuation from a string. '''
+</FONT>    table1 = str.maketrans('*.,!?;:"','        ')
+    return string.translate(table1)
+
+ciphertext = Caesar_encrypt("Walk the Night Book Title. Four score and seven years ago.", 13)
+# result: Wnyx gur Nvtug Bbbx Tvgyr. Fbhe fpber naq frira lrnef ntb.
+print(ciphertext)
+
+def Caesar_break(ciphertext: str) -&gt; str:
+    ''' Find the best plaintext match with the most dictionary words '''
+    infile = open("wordlist.txt", 'r')
+    dictionary = infile.read()
+    list_of_strings = []
+    hits = []
+    for i in range(26):
+        plaintext = Caesar_decrypt(ciphertext, i)
+        words = remove_punctuation(plaintext)
+        count = 0
+        for word in words.split():
+            if word in dictionary:
+                count += 1
+        hits.append(count)
+        list_of_strings.append(plaintext)
+    infile.close()
+    return list_of_strings[hits.index(max(hits))]
+
+assert Caesar_break("Wnyx gur Nvtug Bbbx Tvgyr. Fbhe fpber naq frira lrnef ntb.") == 'Walk the Night Book Title. Four score and seven years ago.'
+print(Caesar_break("Wnyx gur Nvtug Bbbx Tvgyr. Fbhe fpber naq frira lrnef ntb."))
+        
+print()
+print()
+print('---------- Part (e) ----------')
+print()
+
+def copy_file(string: str):
+    """ Takes a parameters and does an action on a file input. Available actions: 'line numbers' 'Gutenberg trim' 'statistics'
+    """
+    if string == 'statistics':
+        infile_name = input("('statistics') Please enter the name of the file: ")
+        inputfile = open(infile_name)
+        infile = inputfile.readlines()
+    else:
+        infile_name = input("('"+string+"') Please enter the name of the file to copy: ")
+        inputfile = open(infile_name)
+        infile = inputfile.readlines()
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+    body = False
+    total = 0
+    for num, line in enumerate(infile):
+        total += len(line)
+        if string == 'line numbers':
+            outfile.write("{:&gt;5}".format(str(num+1)) + ": " + line)
+        elif string == 'Gutenberg trim':
+            if "*** END" in line:
+                body = False
+            if body:
+                outfile.write(line)
+            if "*** START OF" in line:
+                body = True
+    if string == 'statistics':
+        print("{:&gt;5}     ".format(len(infile)) + "lines in the file")
+        print("{:&gt;5}     {:}".format(len([x for x in infile if x == '\n']), 'empty lines'))
+        print("{:&gt;7.1f}   {:}".format(total/len(infile), 'average characters per line') )
+        print("{:&gt;7.1f}   {:}".format(total/(len(infile) - len([x for x in infile if x == '\n'])),'average characters per non-empty line'))
+    else:
+        outfile.close()
+    inputfile.close()
+
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+copy_file('statistics')
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

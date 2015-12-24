@@ -1,0 +1,145 @@
+<HTML>
+<HEAD>
+<TITLE>shengjix/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+truongjp/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Joanna Clark 82782442 and Jean Truong 19113020 ICS 31 Lab Sec 5. Lab Asst. 2.
+print('(c)')
+
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour?'))
+print('This many dollars per hour:  $', rate)
+print('Weekly salary:  $', hours * rate)
+
+
+
+name = str(input('Hello. What is your name?'))
+print('Hello,', name)
+print("It's nice to meet you.")
+print('How old are you?')
+age=int(input())
+print('Next year you will be', age+1, 'years old.')
+print('Good-bye!')
+
+print ('(d)')
+
+KRONE_PER_EURO= 7.46
+KRONE_PER_POUND= 8.81
+KRONE_PER_DOLLAR= 5.50
+print('Please provide this information:')
+business_name= str(input('Business name: '))
+euros = int(input('Number of euros: '))
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match163-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+pounds = int(input('Number of pounds: '))
+dollars = int(input('Number of dollars: '))
+print ('\n')
+print('Copenhagen Chamber of Commerce')
+print('Business name:', business_name)
+print(euros, 'euros is', euros * KRONE_PER_EURO, 'krone')
+print(pounds, 'pounds is', pounds * KRONE_PER_POUND, 'krone')
+print(dollars, 'dollars is', dollars * KRONE_PER_DOLLAR, 'krone')
+print('\n')
+print('Total krone: ', (euros * KRONE_PER_EURO + pounds * KRONE_PER_POUND + dollars * KRONE_PER_DOLLAR)) #Sum of the converted currency
+
+print('(e)')
+
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+</FONT>               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+print(still_another.title)
+print(another.price, 'dollars')
+print((favorite.price + another.price + still_another.price) / 3) #the average of the three books
+print (favorite.year &lt; 1900)
+still_another = still_another._replace(price = '26.00')
+#Rather than recreating the object, we just replaced the field because it
+#was a more efficient use of our time
+still_another = still_another._replace(price = 26.00 * .2 + 26.00) #Replaced on the field instead
+#of recreating the Book
+
+print('(f)')
+
+Animal= namedtuple('Animal', 'name species age weight food')
+elephant= Animal('Jumbo','elephant','50','1000','peanuts')
+platypus= Animal('Perry','platypus','7','1.7','shrimp')
+print(platypus.weight &lt; elephant.weight)
+
+print('(g)')
+
+booklist= [favorite,another,still_another]
+print('[0].price' &lt; '[1].price')
+booklist.reverse()
+print('booklist[0].year' &gt; 'booklist[-1].year')
+print('(h)')
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+print(RL[2].name)
+print(RL[0].cuisine==RL[3].cuisine)
+print(RL[-1].price)
+RL.sort()
+print(RL[0].name, RL[1].name, RL[2].name, RL[3].name, RL[4].name, RL[5].name, RL[6].name)
+RL.sort(reverse=True) #reverses the list in alphabetical order
+print(RL[-1].dish)
+RL.sort() 
+RL2 = [RL[0].name, RL[1].name]
+RL2.extend([RL[-2].name, RL[-1].name]) #Concatenates RL2 with another iterable
+print(RL2)
+
+print('(i)')
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+print('1.')
+
+my_canvas.create_line(150, 150, 150, 350, fill='orange') # Draw orange line
+my_canvas.create_line(150, 350, 350, 350, fill='blue')# Draw blue line
+my_canvas.create_line(350,350, 350,150, fill = 'purple') #Draw purple line
+my_canvas.create_line(350,150, 150,150, fill = 'red') #Draw red line
+
+
+my_canvas1 = tkinter.Canvas(my_window, width=800, height=800) #Diamond
+my_canvas1.pack()
+my_canvas1.create_line(400, 200, 600,0, fill ='green')
+my_canvas1.create_line(600, 0, 800,200, fill = 'blue')
+my_canvas1.create_line(800, 200, 600, 400, fill = 'saddle brown')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match163-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+my_canvas1.create_line(600,400, 400, 200, fill = 'dark violet')
+
+
+
+my_canvas.create_polygon(0, 100, 50, 0, 100, 100, fill = 'red') #the roof
+my_canvas.create_polygon(0, 100, 100, 100, 100, 200, 0, 200, fill = 'grey') #the wall
+</FONT>my_canvas.create_polygon(40,200, 40,170, 60, 170, 60, 200, fill = 'pink') # the door
+my_canvas.create_polygon(95, 150, 95, 125, 60, 125, 60, 150, fill = 'blue') # the window
+
+my_canvas1.create_oval(150, 100, 10, 10, outline ='black') #Eyeball
+my_canvas1.create_oval(130,80, 70, 20, fill = 'deep sky blue') #Iris
+my_canvas1.create_oval(117, 66, 88, 35, fill = 'black') #Pupil
+tkinter.mainloop()          # Combine all the elements and display the window
+</PRE>
+</PRE>
+</BODY>
+</HTML>

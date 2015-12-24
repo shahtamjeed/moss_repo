@@ -1,0 +1,225 @@
+<HTML>
+<HEAD>
+<TITLE>asontha/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ssaltzen/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab7.py
+#Kush Patel 77984167 and Siena Saltzen 51237789. ICS 31 Lab sec 12. Lab asst 7
+#
+#
+#
+##
+###PART C
+print('Part C')
+##
+#
+#
+
+import random
+
+surnamesfull = open('Surnames.txt')
+femalefull = open('femalenames.txt')
+malefull = open('malenames.txt')
+    
+def makeNameList(file: str) -&gt; list:
+    '''takes a file and returns a list of names'''
+    filelines = file.readlines()
+    nameL = []
+    for line in filelines:
+       singleLine = line.split()
+       nameL.append(singleLine[0])
+    return nameL
+
+SurnameL = makeNameList(surnamesfull)
+FnameL = makeNameList(femalefull)
+MnameL = makeNameList(malefull)
+
+
+def sentanceCase(name: str)-&gt; str:
+    '''fixes capitlization for names'''
+    return name.title()
+assert sentanceCase('STEVEN') == 'Steven'
+assert sentanceCase('john') == 'John'
+    
+
+def random_name()-&gt; str:
+    '''returns a name in Last, First format'''
+    namestr = ''
+    DoG = random.randint(0,1) # 0 = girl 1 = dude
+    if DoG == 0:
+        randomnum1 = random.randint(0,1000)
+        randomnum2 = random.randint(0,1000)
+        namestr = sentanceCase(SurnameL[randomnum1]) + ', ' + sentanceCase(FnameL[randomnum2])
+    elif DoG == 1:
+        randomnum1 = random.randint(0,1000)
+        randomnum2 = random.randint(0,1000)
+        namestr = sentanceCase(SurnameL[randomnum1]) + ', ' + sentanceCase(MnameL[randomnum2])
+    return namestr
+
+print(random_name())
+print(random_name())
+print(random_name())
+print(random_name())
+print(random_name())
+
+
+#
+#
+#
+##
+###PART D
+print('\n')
+print('Part D')
+##
+#
+#
+
+wordlist = open('wordlist.txt')
+wordlist2 = makeNameList(wordlist)
+ 
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def delete_punc(x: str)-&gt; str:
+    '''returns a string with spaces in place of punctuation'''
+    y = str.maketrans('!@#$%^&*()&lt;&gt;?,./:;"', '                   ')
+    return x.translate(y)
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match166-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert delete_punc("Arvind?s") == "Arvind s"
+
+def rotate(A: str, k:int) -&gt; str:
+    '''rotates the Alphabet for encryption and decryption'''
+    return A[k:] + A[:k]
+
+def Caesar_encrypt(m: str, key: int) -&gt; str:
+    '''Encrypts messages according to Caesar encryption'''
+    y = str.maketrans(ALPHABET, rotate(ALPHABET, (key+26)%26))
+    return m.lower().translate(y)
+assert Caesar_encrypt('a', 1) == 'b'
+assert Caesar_encrypt('b', 5) == 'g'
+
+def Caesar_decrypt(m:str, key: int) -&gt; str:
+</FONT>    '''Decrypts Caesar encrypted messages'''
+    y = str.maketrans(rotate(ALPHABET, (key+26)%26), ALPHABET)
+    return m.translate(y)
+assert Caesar_decrypt('b', 1) == 'a'
+assert Caesar_decrypt('g',5) == 'b'
+
+def Caesar_breakV2 (code: str)-&gt;str:
+    '''decodes a bit a ceasarian code'''
+    decoded = ''
+    tempstr = code
+    process1 = code.lower()
+    process2 = delete_punc(process1)
+    wordlist = process2.split()
+    countertotal = 0    
+    key = 0
+    
+    for i in range(0,27):
+        counter = 0
+        for word in wordlist:
+            wordreal = Caesar_decrypt(word, i)
+            if wordreal in wordlist2:
+                counter += 1
+                if counter &gt; countertotal:
+                    countertotal = counter
+                    key = i
+                    
+    decoded = Caesar_decrypt(code, key)
+                
+    return decoded
+assert Caesar_breakV2('kpmmam') == 'cheese'
+assert Caesar_breakV2('inkkyk') == 'cheese'
+
+crypted = Caesar_encrypt('This would be more fun with dragons and explosions, right?', 9)
+print(crypted)
+print(Caesar_breakV2(crypted))
+
+print('\n')
+print('\n')
+
+userCoded = Caesar_encrypt(str(input('Enter something to encrypt:')),int(input('Please enter a number to use as a key:')))
+print('Here is your coded message:', userCoded)
+
+userDeCrytped = Caesar_breakV2(str(input('Enter something to decrypt:')))
+print('Here is your broken code:', userDeCrytped)
+
+#
+#
+#
+##
+###PART E
+print('\n')
+print('Part E')
+##
+#
+#
+
+def stats(sLst: list):
+    '''Returns statistics about a list of strings'''
+    emptyLines = 0
+    totalChars =0
+    charsNotEmpty = 0
+    for a in range(0, len(sLst)):
+        if sLst[a].isspace() == True:
+            emptyLines += 1
+        else:
+            charsNotEmpty += len(sLst[a])
+        totalChars += len(sLst[a])
+        
+    print("{0:7d} {1:3s}".format(len(sLst), 'lines in the list'))         
+    print("{0:7d} {1:3s}".format(emptyLines, 'empty lines'))
+    print("{0:7.1f} {1:3s}".format((totalChars/len(sLst)), 'average characters per line'))
+    print("{0:7.1f} {1:3s}".format((charsNotEmpty/(len(sLst) - emptyLines)), 'average characters per non-empty line'))
+    return
+
+Listy = ['cheeese', 'pickles', 'bread', 'oinions']
+def print_line_numbers(s:list):
+    '''return line numbers for each line in the list of strings'''
+    formatlist = []
+    for n in range(0, len(s)):
+        formatlist.append(("{:5s} {}".format(str(n+1) + ':', s[n])))
+    return formatlist
+
+def copy_file() -&gt; None:
+    '''allows user to copy file'''
+    command = str(input('Would you like the file with: Statistics? (enter: statistics) \n                              With: Line Numbers? (enter: line numbers) \n                              Or nothing added? (enter: none)'))
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    inLines = infile.readlines()
+    start = 0
+    end = 0
+    
+    for i in range(len(inLines)):
+        if ('*** START' in (inLines[i])) and (start == 0):
+            start = i
+        if '*** END' in inLines[i]:
+            end = i
+            
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    
+    if command == 'line numbers':
+        for newline in print_line_numbers(inLines[start:(end+1)]):#ask whether or not to include the start line in the text.
+            outfile.write(newline)
+            
+    elif command == 'statistics':
+        stats(inLines) #include the house keeping stuff, or just for the text? 
+        for line in inLines[start:(end+1)]:
+            outfile.write(line)
+    else:
+        for line in inLines[start:(end+1)]: #ask whether or not to include the start line in the text.
+            outfile.write(line)
+            
+    infile.close()
+    outfile.close()
+    return
+
+copy_file()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,329 @@
+<HTML>
+<HEAD>
+<TITLE>akriebel/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+akriebel/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab7.py
+#  Alec Kriebel 46541467 and Mon Reginald Jose 95732864.  ICS 31 Lab sec 12.
+from random import randrange
+
+#
+# PART C
+#
+print()
+print('---------- Part (C) ----------')
+print()
+#
+# (c)
+#
+
+#Read malenames.txt
+infile = open("malenames.txt", 'r')
+data = infile.read()
+alldata = data.split('\n')
+infile.close()
+
+#Add malenames into a list
+malenames = []
+for x in range(len(alldata)):
+    L = alldata[x].split('\t')
+    malenames.append(L[0].title())
+
+malenames.remove('')
+
+
+#Read femalenames.txt
+infile = open("femalenames.txt", 'r')
+data = infile.read()
+alldata = data.split('\n')
+infile.close()
+
+#Add femalenames into a list
+femalenames = []
+for x in range(len(alldata)):
+    L = alldata[x].split('\t')
+    femalenames.append(L[0].title())
+
+femalenames.remove('')
+
+
+#Read surnames.txt
+infile = open("surnames.txt", 'r')
+data = infile.read()
+alldata = data.split('\n')
+infile.close()
+
+#Add surnames into a list
+surnames = []
+for x in range(len(alldata)):
+    L = alldata[x].split('\t')
+    surnames.append(L[0].title())
+
+surnames.remove('')
+
+#Functions to get random names
+def get_male_name(n: int) -&gt; str:
+    return malenames[n]
+
+def get_female_name(n: int) -&gt; str:
+    return femalenames[n]
+
+def get_surname(n: int) -&gt; str:
+    return surnames[n]
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match62-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def random_names(n: int) -&gt; list:
+    result = []
+    for x in range(n):
+        gender = randrange(0,1)
+        if gender == 0:
+            result.append(get_surname(randrange(0, len(surnames))) + ", " + get_male_name(randrange(0, len(malenames))))
+</FONT>        else:
+             result.append(get_surname(randrange(0, len(surnames))) + ", " + get_female_name(randrange(0, len(femalenames))))
+    return result
+
+print(random_names(5))
+
+#
+# PART D
+#
+print()
+print('---------- Part (D) ----------')
+print()
+#
+# (D)
+#
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match62-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+
+def rotate_alphabet(n: int) -&gt; str:
+    return ALPHABET[n%26:] + ALPHABET[0:n%26]
+assert rotate_alphabet(1) == "bcdefghijklmnopqrstuvwxyza"
+
+def Caesar_encrypt(s: str, n: int) -&gt; str:
+    table = str.maketrans(ALPHABET, rotate_alphabet(n))
+    return s.lower().translate(table)
+assert Caesar_encrypt("This is encryption", 24) == "rfgq gq clapwnrgml"
+</FONT>
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match62-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_decrypt(s: str, n: int) -&gt; str:
+    table = str.maketrans(ALPHABET, rotate_alphabet(-n))
+    return s.lower().translate(table)
+assert Caesar_decrypt("rfgq gq clapwnrgml", 24) == "this is encryption"
+</FONT>
+infile = open("wordlist.txt", 'r')
+data = infile.read()
+wordlist = data.split('\n')
+infile.close()
+
+def get_crypt_list(s: str) -&gt; list:
+    all_encrypt = []
+    for n in range (26):
+        all_encrypt.append(Caesar_encrypt(s, n))
+    return all_encrypt
+
+def Caesar_break(s: str) -&gt; str:
+    all_crypt = get_crypt_list(s)
+    NL = []
+    for x in range(len(all_crypt)):
+        L = all_crypt[x].split()
+        NL.append(0)
+        for y in range(len(L)):
+            for z in range(len(wordlist)):
+                if L[y] == wordlist[z]:
+                    NL[x] += 1
+    number = NL.index(max(NL))
+    return all_crypt[number]
+
+print(Caesar_break(Caesar_encrypt("Hello", 17)))
+
+#
+# PART E
+#
+print()
+print('---------- Part (E.1) ----------')
+print()
+#
+# (E)
+#
+
+'''
+def copy_file():
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+copy_file()
+'''
+print("Code commented for E.2")
+
+#
+# PART E2
+#
+print()
+print('---------- Part (E.2) ----------')
+print()
+#
+# (E2)
+#
+'''
+def copy_file(s: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    if s == 'line numbers':
+        line_count = 1
+        for line in infile:
+            outfile.write(str(line_count) + ": " + line)
+            line_count += 1
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file("line numbers")
+'''
+print("E.2 function has been commented for E.3")
+
+#
+# PART E3
+#
+print()
+print('---------- Part (E.3) ----------')
+print()
+#
+# (E3)
+#
+
+print("E.3 commented for E.4")
+
+'''
+def copy_file(s: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'line numbers':
+        line_count = 1
+        for line in infile:
+            outfile.write(str(line_count) + ": " + line)
+            line_count += 1
+            
+    elif s == "Gutenberg trim":
+        datalines = infile.read().split("\n")
+        start = 0
+        end = 0
+        for x in range(len(datalines)):
+            if "*** START" in datalines[x]:
+                start = x+1
+            elif "*** END" in datalines[x]:
+                end = x
+                break
+        for i in range(start, end):
+            outfile.write(datalines[i] + "\n")
+            
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file("Gutenberg trim")
+'''
+
+#
+# PART E4
+#
+print()
+print('---------- Part (E.4) ----------')
+print()
+#
+# (E4)
+#
+
+def find_number_of_lines(L: list) -&gt; int:
+    line_counter = 0
+    for x in range(len(L)):
+        if "\n" in L[x]:
+            line_counter += 2
+        else:
+            line_counter += 1
+    return line_counter
+assert find_number_of_lines(["", "\n", "asdfghjkl"]) == 4
+
+def find_number_of_empty_lines(L: list) -&gt; int:
+    empty_line_counter = 0
+    for x in range(len(L)):
+        if L[x] == "":
+            empty_line_counter += 1
+    return empty_line_counter
+assert find_number_of_empty_lines(["","","\n\n"," ","hjgdskfl"]) == 2
+
+def find_characters_per_line(L: list) -&gt; int:
+    characters = 0
+    for x in range(len(L)):
+        for i in range(len(L[x])):
+            characters += 1
+    return characters
+assert find_characters_per_line(["123456789"]) == 9
+
+def stats(L: list) -&gt; str: 
+    return "{:5d} {:53s}".format(find_number_of_lines(L), "lines in the file") + "\n" + "{:5d} {:53s}".format(find_number_of_empty_lines(L), "empty lines") + "\n" + "{:7.1f} {:50s} ".format(find_characters_per_line(L)/find_number_of_lines(L), "average characters per line") + "\n" + "{:7.1f} {:50s}".format(find_characters_per_line(L)/(find_number_of_lines(L)-find_number_of_empty_lines(L)), "average characters per non-empty line")
+
+def copy_file(s: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'line numbers':
+        line_count = 1
+        for line in infile:
+            outfile.write(str(line_count) + ": " + line)
+            line_count += 1
+            
+    elif s == "Gutenberg trim":
+        datalines = infile.read().split("\n")
+        start = 0
+        end = 0
+        for x in range(len(datalines)):
+            if "*** START" in datalines[x]:
+                start = x+1
+            elif "*** END" in datalines[x]:
+                end = x
+                break
+        for i in range(start, end):
+            outfile.write(datalines[i] + "\n")
+
+    elif s == 'statistics':
+        datalines = infile.read().split("\n")
+        for x in range(len(datalines)):
+            outfile.write(datalines[x] + "\n")
+        outfile.write(stats(datalines))
+        
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file("statistics")
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

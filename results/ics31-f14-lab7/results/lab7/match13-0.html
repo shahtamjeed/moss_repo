@@ -1,0 +1,273 @@
+<HTML>
+<HEAD>
+<TITLE>haoyanl2/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+haoyanl2/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab 7.py
+#&lt;Haoyang Liu 79553180&gt;: ICS 31 Lab 8
+
+
+
+c.1
+def random_names(num:int) -&gt; list:
+    file = open('surnames.txt', 'r')
+    file1 = open('femalenames'.txt', 'r')
+    file2 = open('malenames'.txt', 'r')
+        
+    s = file.readlines()
+    t = file1.readlines()
+    u = file2.readlines()
+
+    print('{:10}, {:10}'.format(s[randomrange][0:10], t[j][0:10] or u[j][0:5]))
+    print(s)
+    print()
+    print(t)
+    print()
+    print(u)
+
+
+
+
+from random import randrange
+
+
+def random_first_names(num: int) -&gt; list:
+    a = open("femalenames.txt",'r')
+    b = open("malenames.txt",'r')
+    girl_name = a.readlines()
+    male_name = b.readlines()
+    a.close()
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match13-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    b.close()
+    allNames = girl_name + male_name
+    random_index = []
+    newList = []
+    newListTwo = []
+    for n in range(num):
+        random_index.append(randrange(len(allNames)))
+    for r in random_index:
+        newList.append(allNames[r])
+    for s in newList:
+        newListTwo.append(s.split()[0])
+    return newListTwo
+#random_first_names(10)
+
+
+
+def random_surnames(num:int) -&gt;list:
+</FONT><A NAME="4"></A><FONT color = #FF00FF><A HREF="match13-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    a = open('surnames.txt','r')
+    lines = a.readlines()
+    random_index = []
+    newlist = []
+    newnewlist = []
+    for n in range(num):
+        random_index.append(randrange(len(lines)))
+    for r in random_index:
+        newlist.append(lines[r])
+    for s in newlist:
+        newnewlist.append(s.split()[0])
+    return newnewlist
+#random_surnames(10)
+
+
+def random_names(num:int)-&gt; list:
+</FONT>    emptyList = []
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match13-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    newi = []
+    news = []
+    newnewi=[]
+    newnews= []
+    i = random_first_names(num) 
+    s = random_surnames(num)
+    for x in i:
+        newi.append(x.lower())
+    for x in s:
+        news.append(x.lower())
+    for x in newi:
+        newnewi.append(x.capitalize())
+    for x in news:
+        newnews.append(x.capitalize())
+    for x in range(num):
+        emptyList.append(newnewi[x] + " " + newnews[x])
+    return emptyList
+print(random_names(10))
+
+
+print()
+print()
+</FONT>print()
+print()
+
+#d.1
+
+print('''
+-----------------------Caesar Decryptor Starts Here-----------------------
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match13-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_13.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+''')
+
+ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+
+
+def rotated(ALPHABET: str, num: int) -&gt; str:
+    '''Returns a rotated alphabet with the specified number of characters
+    taken off the front and added on the end of the string.'''
+    for c in ALPHABET:
+        ALPHABET2 = ALPHABET[num:] + ALPHABET[:num]        
+    return ALPHABET2
+assert rotated(ALPHABET, 2) == 'cdefghijklmnopqrstuvwxyzab'
+assert rotated(ALPHABET, 5) == 'fghijklmnopqrstuvwxyzabcde'
+assert rotated(ALPHABET, 1) == 'bcdefghijklmnopqrstuvwxyza'
+
+
+def Caesar_encrypt(s: str, num: int) -&gt; str:
+    '''Returns the ciphertext for decryption.'''
+    for c in s:
+        s2 = s.lower()
+    return s2.translate(s2.maketrans(ALPHABET, rotated(ALPHABET, num)))
+assert Caesar_encrypt("Hi", 2) == 'jk'
+assert Caesar_encrypt("abc", 5) == 'fgh'
+assert Caesar_encrypt('School', 1) == 'tdippm'
+##print(Caesar_encrypt("do not sleep",5))
+
+
+def convertToLowerWithoutNewline() -&gt; list:
+</FONT><A NAME="5"></A><FONT color = #FF0000><A HREF="match13-1.html#5" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    f = open('wordlist.txt', 'r')
+    wordlist = f.readlines()
+    f.close()
+    newlist = []
+    
+    for n in wordlist:
+        x = n.replace("\n", "")
+        x = x.lower()
+        newlist.append(x)
+
+
+    return newlist
+
+
+def Caesar_break(s: str) -&gt; str:
+</FONT><A NAME="2"></A><FONT color = #0000FF><A HREF="match13-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    allprob = []
+    count = 0
+    splitlist = []
+    countlist = []
+    wordlist = convertToLowerWithoutNewline()
+
+
+    for i in range(26):
+        allprob.append( s.translate(s.maketrans(rotated(ALPHABET, i), ALPHABET)).lower() )
+    #print(tablelist)
+
+
+    for x in allprob:
+        splitlist.append(x.split())
+    #print(splitlist)
+
+
+    for x in splitlist:
+        for i in x:
+            if i in wordlist:
+                count = count + 1
+        countlist.append(count)
+        count = 0
+    #print(countlist)
+
+
+    check = countlist[0]
+    for i in countlist:
+        if i &gt;=check:
+            check = i
+</FONT>
+
+    return print(allprob[countlist.index(check)])
+            
+
+
+t = input('Please input text: \n')
+print('Encrypting Message: ',t)
+a = int(input('Please Input Your Desire Cipher Key: \n'))
+print()
+print('Decrypting...')
+Caesar_break(Caesar_encrypt(t, a))
+
+
+print('''
+-----------------------Caesar Decryptor Ends Here-----------------------
+
+
+''')
+#d.2
+
+
+e
+
+def copy_file(s:str) -&gt; list:
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    
+
+    
+    linecontent = open(infile_name).readlines()
+    
+
+    
+    if s == "line numbers":
+        for x in linecontent:
+            outfile.write("{:5}: {:}".format(linecontent.index(x)+1,x))
+            
+    if s == 'Gutenburg trim':
+        for y in range(len(linecontent)):
+            if '*** END' in linecontent[y]:
+                b = y
+                break
+            
+        for x in range(len(linecontent)):
+            if '*** START' in linecontent[x]:
+                a = x
+                break
+        for x in range(a, b+1):
+            outfile.write(linecontent[x])
+            
+    if s == 'statistics':
+        linenumber = len(linecontent)
+        void = 0
+        for i in linecontent:
+            if '\n' == i:
+                void = void + 1
+        char = []
+        for h in linecontent:
+            for k in h:
+                char.append(k.split())
+
+        a = ('{0:5}  {1:}'.format(linenumber, 'lines in the list'))
+        b = ('{0:5}  {1:}'.format(void, 'empty lines'))
+        c = ('{0:5.1f}  {1:}'.format(len(char)/linenumber, 'average characters per line'))
+        d = ('{0:5.1f}  {1:}'.format(len(char)/(linenumber-void), 'average characters per non-empty line'))
+        e = a + '\n' + b + '\n' + c + '\n' + d + '\n'
+        outfile.write(e)
+        
+
+    else:
+        for x in range(len(linecontent)):
+            outfile.write(linecontent[x])
+
+    infile.close()
+    outfile.close()
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,172 @@
+<HTML>
+<HEAD>
+<TITLE>julianma/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+julianma/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Julian Andrews 94841201 and Carolyn Lai 89089268
+from random import randrange
+
+# Part C
+print('\n---- C ----\n')
+
+def read_first_names()-&gt;list:
+    ''' returns a list of all first names '''
+    femalenamesfile = open('femalenames.txt' , 'r')
+    boynamesfile = open('malenames.txt', 'r')
+    
+    femalenames = femalenamesfile.read()
+    boynames = boynamesfile.read()
+
+    femalenames = femalenames.split('\n')
+    boynames = boynames.split('\n')
+
+    result = []
+    
+    for i in femalenames:
+        index = i.find('\t')
+        name = i[0:index]
+        result.append(name)
+
+    for i in boynames:
+        index = i.find('\t')
+        name = i[0:index]
+        result.append(name)
+
+    return result
+
+def read_last_names()-&gt;list:
+    ''' returns a list of all the last names '''
+    lastnamesfile = open('surnames.txt')
+    lastnames = lastnamesfile.read()
+
+    lastnames = lastnames.split('\n')
+
+    result = []
+
+    for i in lastnames:
+        index = i.find('\t')
+        name = i[0:index]
+        result.append(name)
+        
+    return result
+
+def random_name()-&gt;str:
+    ''' return a random generated name '''
+    first_names = read_first_names()
+    last_names = read_last_names()
+    number = randrange(1,len(first_names))
+    first = first_names[number]
+    number = randrange(1,len(last_names))
+    last = last_names[number]
+    return last+', '+first
+
+def random_names(number:int)-&gt;list:
+    ''' returns a list of random names '''
+    result = []
+    for i in range(number):
+        result.append(random_name())
+    return result
+
+print(random_names(5))
+
+# Part D
+print('\n---- D ----\n')
+
+wordlistfile = open('wordlist.txt', 'r')
+wordlist = wordlistfile.read()
+
+def Caesar_decrypt(ciphertext: str, key: int)-&gt;str:
+    'Decrypts a message given to it, shifts all of the text down the alphabet\
+    depending on the int given'
+    ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+    while key &gt; 26:
+        key = key % 26
+    decrypt = str.maketrans(ALPHABET[key: 26] + ALPHABET[0: key], ALPHABET)
+    str1 = ciphertext.translate(decrypt)
+    return str1
+
+def Caesar_break(cipher_string: str)-&gt;str:
+    ''' takes a ciphertext string and returns the plaintext for that string '''
+    for x in range(26):
+        word_number = 0
+        decrypt_str = Caesar_decrypt(cipher_string, x)
+        decrypt_str = decrypt_str.lower()
+        words = decrypt_str.split()
+        for word in words:
+            if Caesar_is_word(word):
+                word_number += 1
+        if (word_number &gt;= 2):
+            return decrypt_str
+
+def Caesar_is_word(cipher_word: str)-&gt;bool:
+    list1 = wordlist.split('\n')
+    for word in list1:
+        if word.lower() == cipher_word:
+            return True
+    return False
+        
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match80-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(Caesar_break(''))
+
+#Part E
+print('\n---- E ----\n')
+
+def copy_file(parameter:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+</FONT>    text = infile.read().split('\n')
+    
+    if (parameter == 'line numbers'):
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match80-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        i = 0
+        for line in infile:
+            i += 1
+            outfile.write('{:5d}: {}'.format(i,line))
+    elif (parameter == 'Gutenberg trim'):
+        in_text = False
+</FONT>        for line in text:
+            if line.find('*** END') != -1:
+                in_text = False
+            if in_text:
+                outfile.write(line+'\n')
+            if line.find('*** START') != -1:
+                in_text = True
+    elif parameter == 'statistics':
+        count_of_empty = 0
+        character_count = 0
+        line_count = len(text)
+        for line in text:
+            character_count += len(line)
+            line = line.strip(' ')
+            if len(line) == 0:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match80-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                count_of_empty += 1
+        average_per_line = character_count / line_count
+        average_per_nline = character_count / (line_count - count_of_empty)
+        print("{:5d}   lines in the file".format(line_count))
+        print("{:5d}   empty lines".format(count_of_empty))
+        print("{:7.1f} average characters per line".format(average_per_line))
+        print("{:7.1f} average characters per non-empty line".format(average_per_nline))
+                
+    else:
+        for line in infile:
+            outfile.write(line)
+
+    infile.close()
+    outfile.close()
+</FONT>
+copy_file('statistics')
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

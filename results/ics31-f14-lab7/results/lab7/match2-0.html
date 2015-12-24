@@ -1,0 +1,189 @@
+<HTML>
+<HEAD>
+<TITLE>jing2/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jing2/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Jin Gu 62079609 and Yiteng Zhang 46961535. ICS 31 Lab sec 11.  Lab asst 7.
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match2-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_99.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+i = "n"
+while i != "y":
+    print("\nPlease remove all blank lines in the end of femalenames.txt, malenames.txt,")
+    print("surnames.txt before running this code.\n")
+    i = input("If you have done this, input 'y' to continue: ")
+
+#part c
+print('\n-------------------Part c--------------------\n')
+
+surnames = open('surnames.txt')
+female_names = open('femalenames.txt')
+male_names = open('malenames.txt')
+f = female_names.readlines()
+m = male_names.readlines()
+L = surnames.readlines()
+female_names.close()
+male_names.close()
+surnames.close()
+
+from random import randrange
+
+def random_name () -&gt; str:
+    '''generate a random name'''
+    return random_last()+', '+random_first()
+    
+def random_first() -&gt; str:
+    '''return a first name randomly based on frequency'''
+    List = []
+    List2 = []
+    Choices = [m, f]
+    List.extend(Choices[randrange(0,2)])
+    for nm in List:
+        for n in range(0, int(float(nm.split()[1]) * 1000)):
+            List2.append(nm.split()[0].capitalize())
+    return List2[randrange(0, len(List2))]
+
+def random_last () -&gt; str:
+    '''return a surname randomly based on frequency'''
+    LL = []
+    for ln in L:
+        for n in range(0, int(float(ln.split()[1]) * 1000)):
+            LL.append(ln.split()[0].capitalize())
+    return LL[randrange(0,len(LL))]
+
+def random_names(n: str) -&gt; list:
+    '''takes an integer and returns a list of that many strings,
+    with each string a randomly generated name '''
+    namelist = []
+    for i in range(n):
+        namelist.append(random_name())
+    return namelist
+
+print(random_names(10))
+
+#part d
+print('\n-------------------Part d--------------------\n')
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+wordlist = open('wordlist.txt')
+wl = wordlist.readlines()
+wordlist.close()
+
+def list_of_words (l:list) -&gt; list:
+    '''takes a list of strings as above and returns a list of individual
+words with all white space and punctuation removed'''
+    table2 = str.maketrans('.,!?:;"',
+                           '       ')
+    L = []
+    for i in l:
+        i = i.translate(table2).split()
+        for y in i:
+            L.append(y)
+    return L
+
+def Caesar_break (s:str) -&gt; 'plaintext':
+    '''returns plaintext without key'''
+    L_results = []
+    L_hittimes =[]
+    for n in range(26):
+        ROTATED_AL = ALPHABET[-n%26:] + ALPHABET[:-n%26]
+        tran = str.maketrans(ALPHABET, ROTATED_AL)
+        possible_result = (s.lower()).translate(tran)
+        L_results.append(possible_result)
+
+    for i in range(len(L_results)): 
+        l_words = list_of_words(L_results[i].split())
+        for i in l_words:
+            hit_times = 0
+            for j in wl:
+                if i in j:
+                    hit_times += 1
+        L_hittimes.append(hit_times)
+        
+    for i in range(len(L_hittimes)):
+        if max(L_hittimes) == L_hittimes[i]:
+            result = L_results[i]
+    return result
+
+
+assert Caesar_break('xpse') == 'word'
+assert Caesar_break('XPSE') == 'word'
+print(Caesar_break('xpse'))
+print(Caesar_break('yqtf'))
+print(Caesar_break('Ifmmp, uifsf!'))
+print(Caesar_break('K nqxg jcnq!'))
+print(Caesar_break('pexmdsyxkv..'))
+
+#part e
+print('\n-------------------Part e--------------------\n')
+
+def print_line_numbers (L: list):
+    '''takes a list of strings and prints each string preceded by a line number'''
+    result =''
+    for i in range(len(L)):
+       result += '{0:5}:{1:5}'.format(i+1, L[i])
+    return result
+
+def stats (l:list):
+    '''takes a list of strings and prints statistics'''
+    lines = len(l)
+    empty = l.count('\n')
+    n_of_char = 0
+    for i in range(len(l)):
+        n_of_char = n_of_char + len(l[i]) - 2
+    aver_char_per_line = n_of_char / len(l)
+    x = n_of_char / (lines - empty)
+    result = '\n'+\
+             '{0:8}   {1}'.format(lines, 'lines in the list')+'\n'+ \
+             '{0:8}   {1}'.format(empty, 'empty lines')+'\n'+\
+             '{0:10.1f} {1}'.format(aver_char_per_line, 'average characters per line')+'\n'+\
+             '{0:10.1f} {1}'.format(x, 'average characters per non-empty line')
+    return result
+
+
+def copy_file (s: str):
+    '''copy a file, if the parameter is 'line numbers', includes line numbers
+at the start of each line.'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    if s == 'line numbers':
+        L = infile.readlines()
+        new = print_line_numbers(L)
+        for line in new:
+            outfile.write(line)
+    elif s == 'Gutenberg trim':
+        L = infile.readlines()
+        for i in L:
+            if '*** START' in i:
+                L = L[L.index(i):]
+                break
+        for j in L:
+            if '*** END' in j:
+                L = L[:L.index(j)]
+                break
+        new = ''.join(L)
+        for line in new:
+            outfile.write(line)
+    elif s == 'statistics':
+        L = infile.readlines()
+        S = ''.join(L)
+        new = S + stats(L)
+        for line in new:
+            outfile.write(line)
+    else:
+        for line in infile:
+            outfile.write(line)
+
+    infile.close()
+</FONT>    outfile.close()
+    return
+</PRE>
+</PRE>
+</BODY>
+</HTML>

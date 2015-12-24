@@ -1,0 +1,187 @@
+<HTML>
+<HEAD>
+<TITLE>dgdoming/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+vadebona/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+
+#  Victoria Adebona 12582008 and Brenda La 27885244.  ICS 31 Lab sec 4.  Lab asst 7.
+
+print()
+print('-------C-------')
+print()
+
+# C.1
+from random import randrange
+def create_namelist_from_file(filename:str) -&gt; list:
+    infile = open(filename)
+    content = infile.readlines()
+    infile.close()
+    result = []
+    for i in content:
+        result.append(i.split()[0])
+    return result
+
+Surnames = create_namelist_from_file('Surnamelist.txt')
+FemaleNames = create_namelist_from_file('FemaleNamelist.txt')
+MaleNames = create_namelist_from_file('MaleNameList.txt')
+
+
+def Single_random_name(s:list, f:list, m:list) -&gt; str:
+    result = ''
+    RandomSurname = s[randrange(0, len(s))]
+    RandomMale = m[randrange(0, len(m))]
+    RandomFemale = f[randrange(0, len(f))]
+    RandomGender = randrange(0, 1)
+    if RandomGender == 0:
+        return RandomSurname  + ',' + RandomFemale
+    else:
+        return RandomSurname + ',' + RandomMale
+
+
+def random_names(x:int) -&gt; list:
+    result = []
+    for i in range(x):
+        result.append(Single_random_name(Surnames, FemaleNames, MaleNames)) 
+    return result
+    
+print(random_names(5))
+
+        
+print()
+print('-------D-------')
+print()        
+
+
+infile = open('dictionary.txt')
+content = infile.read().split()
+infile.close()
+
+#D.1
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def rotate(x:str, y:int)-&gt; str:
+    s = x[y:]
+    s += x[:y]
+    return s
+def Caesar_decrypt(x:str, y:int)-&gt; str:
+    orig = x.maketrans(rotate(ALPHABET, y), ALPHABET)
+    t = x.translate(orig)
+    return t
+Caesar_decrypt('dbu',1)
+
+def caesar_break(x:str) -&gt;str:
+    maxwordcount = 0
+    key = 0
+    for i in range(26):
+        result = Caesar_decrypt(x, i)
+        wordlist = result.split()
+        wordcount = 0
+        for word in wordlist:
+            if word in content:
+                wordcount += 1
+        if maxwordcount &lt; wordcount:
+            maxwordcount = wordcount
+            key = i
+    return Caesar_decrypt(x, key)
+            
+    
+print(caesar_break("k nqxg wek"))
+print()
+print(caesar_break('''1: Frxu vfruh dqg vhyhq bhduv djr
+'''))
+
+#D.2
+print(caesar_break('rd sfrj nx gwjsif'))
+print(caesar_break('m pszi gerhc'))
+
+
+
+print()
+print('-------E-------')
+print()    
+
+infile = open('SherlockHolmes.txt')
+content = infile.read()
+infile.close()
+#E.1
+def copy_file():
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+#copy_file()
+
+#E.2
+
+def copy_file(ln:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if ln == 'line numbers':
+        for i,line in enumerate(infile):
+            outfile.write("{:5}: {:}".format(i+1, line))                       
+    elif ln == 'Gutenberg trim':
+        lines = infile.readlines()
+        x = 0
+        y = len(lines)
+        for i,line in enumerate(lines):
+            if '*** START' in line and x == 0:
+                x = i+1
+            if '*** END' in line and y == len(lines):
+                y = i-1
+        for i in lines[x:y]:
+            outfile.write(i)
+    elif ln == 'statistics':
+       lines = infile.readlines()
+       stats(lines)
+       for y in lines:
+           outfile.write(y)
+    else:
+        for line in infile:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match112-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+    
+def average(s: list):
+    ''' Totals up values in list and divides by length of list
+    to find average '''
+    total = 0
+    if len(s) == 0:
+        return 0
+    for i in range(len(s)):
+        total += len(s[i])
+    return total/len(s)
+
+def stats(x: list):
+    ''' Prints stats of list '''
+    emptyLines = []
+    nonEmpty = []
+    for i in x:
+        if i.isspace():
+</FONT>            emptyLines.append(i)
+        else:
+            nonEmpty.append(i)
+    print('{0:5}   lines in the list\n{1:5}   empty lines\n{2:7.1f} average characters per line\n{3:7.1f} average characters per non empty line'.format(len(x),len(emptyLines),average(x),average(nonEmpty)))    
+
+#copy_file('line numbers')
+copy_file('Gutenberg trim')
+#E.3
+
+    
+     
+        
+        
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,202 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/saligaen/(c)</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/saligaen/(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab8.py
+# Samantha Alexandra Aligaen 21304905 and Nam Tran 72182314. Lab 9, Assignment 8. ICS 31.
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match22-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_33.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+' ' ' Part C ' ' '
+from collections import namedtuple
+#1
+Dish = namedtuple('Dish', 'name price calories')
+#from directory import first_file
+first_list = ' http://www.ics.uci.edu/~kay/courses/31/hw/menu1.txt'
+
+def read_menu_with_count(first_list) -&gt; list:
+    'Takes a string naminga file and reads the file and returns a list of Dish structures created from the data'
+    new_file = open(first_list)
+    new_file = new_file.readlines()
+    files = []
+    for file in new_file[1:]:
+        spl = file.split()
+        
+        # need to handle space between name.
+        new = Dish(spl[0], int(spl[1].strip().replace('$','')),  int(spl[2].strip()))
+        files.append(spl[0])
+    return files
+
+read_menu_with_count(first_list)
+menu = 'http://www.ics.uci.edu/~kay/courses/31/hw/menu2.txt'
+read_menu_with_count(menu)
+
+#2
+#from directory import menu3
+menu3 = 'http://www.ics.uci.edu/~kay/courses/31/hw/menu3.txt'
+
+def read_menu(menu) -&gt; list:
+    'Takes a string naming a file and reads the file then returns a list of Dish structures created from the data'
+    new_file = open(menu)
+    new_file = new_file.readlines()
+    files = []
+    for file in new_file:
+        spl = file.split()
+        
+        # need to handle space between name.
+        new = Dish(spl[0], int(spl[1].strip().replace('$','')),  int(spl[2].strip()))
+        files.append(spl[0])
+    return files
+
+
+#3
+def write_menu(dishes: list, filename: str) -&gt; None:
+    new_file = open(filename, 'w')
+    newnew = []
+    for dish in dishes:
+        new = '{:15} ${:4.2f} {:3}'.format(dish.name, str(dish.price), str(dish.calories))
+        newnew.append(new)
+    new_file.writelines(newnew)
+    
+
+
+' ' ' Part D ' ' '
+
+Course = namedtuple('Course', 'dept num title instr units')
+  # Each field is a string except the number of units
+ics31 = Course('ICS', '31', 'Intro to Programming', 'Kay', 4.0)
+ics32 = Course('ICS', '32', 'Programming with Libraries', 'Thornton', 4.0)
+wr39a = Course('Writing', '39A', 'Intro Composition', 'Alexander', 4.0)
+</FONT>wr39b = Course('Writing', '39B', 'Intermediate Composition', 'Gross', 4.0)
+bio97 = Course('Biology', '97', 'Genetics', 'Smith', 4.0)
+mgt1  = Course('Management', '1', 'Intro to Management', 'Jones', 2.0)
+  
+Student = namedtuple('Student', 'ID name level major studylist')
+  # All are strings except studylist, which is a list of Courses.
+sW = Student('11223344', 'Anteater, Peter', 'FR', 'PSB', [ics31, wr39a, bio97, mgt1])
+sX = Student('21223344', 'Anteater, Andrea', 'SO', 'CS', [ics31, wr39b, bio97, mgt1])
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match22-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_57.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+sY = Student('31223344', 'Programmer, Paul', 'FR', 'COG SCI', [ics32, wr39a, bio97])
+sZ = Student('41223344', 'Programmer, Patsy', 'SR', 'PSB', [ics32, mgt1])
+  
+StudentBody = [sW, sX, sY, sZ]
+
+
+#1
+def students_at_level(student, level) -&gt; list:
+    'Takes a list of students and a string and returns a list of students whose class level matches the parameter'
+    student_list = []
+    for item in student:
+        if item.level == level:
+            student_list.append(item)
+    return student_list
+
+
+#2
+def students_in_majors(students: list, majors: list) -&gt; list:
+    'takes a list of students and a list of strings (each representing a major) and returns a list of students that have majors on the specified list'
+    student_list = []
+    for item in students:
+        if item.major in majors:
+            student_list.append(item)
+    return student_list
+
+
+#3
+def students_in_class(students: list, department_name: str, course_number: str) -&gt; list:
+    'takes a list of students and two strings (a department name and a course number) and returns a list of those students who are enrolled in the specified class'
+    student_list = []
+    for item in students:
+        if item.title == course_number:
+            student_list.append(item)
+    return student_list
+
+def Course_equals(c1: Course, c2: Course) -&gt; bool:
+    'Return True if the department and number of c1 match the department and number of c2 (and False otherwise)'
+    for item in course:
+        if item.dept in c1 == item.dept in c2 and item.num in c1 == item.num in c2:
+    return true
+        if else:
+    return false
+
+def Course_on_studylist(c: Course, SL: 'list of Course') -&gt; bool:
+    'Return True if the course c equals any course on the list SL (where equality means matching department name and course number) and False otherwise.'
+    for item in c:
+        if course in SL:
+    return true
+        if else:
+     return false           
+        
+def Student_is_enrolled(S: Student, department: str, coursenum: str) -&gt; bool:
+    'Return True if the course (department and course number) is on the students studylist (and False otherwise)'
+    student_list = []
+    for item in S:
+        if item.studylist in student:
+    return true
+        if else:
+    return false
+
+
+#4
+def student_names(students: list) -&gt; str:
+    student_list = []
+    for item in students:
+        student_list.append(item.name)
+    return student_list
+
+
+#5
+#To get a list of students who are majors from the school of ICS
+majors = ['CS', 'CSE', 'BIM', 'INFX', 'CGS', 'SE', 'ICS']
+students = students_in_majors(StudentBody, majors)
+print('Students who are in the school of ICS')
+for i in students:
+    print(i)
+
+#To get a list of names of students who are majors from the school of ICS
+names = student_names(student.name, majors)
+print('Names of students who are in the school of ICS')
+for i in names:
+    print(i)
+
+#To get the number of students who are majors from the school of ICS
+number = students_in_majors(StudentBody, majors)
+print('Number of students who are majors from the school of ICS')
+for i in number:
+    print(len(i))
+
+#To get a list of names of seniors who are majors in the school of ICS
+seniors = students_level(student.level, majors)
+print('A list of names of seniors of students who are majors in the school of ICS')
+for i in seniors:
+    if student.level == SO:
+        print(i)
+
+#To get the percentage of majors from the school of ICS who are seniors
+        
+#To get the number of freshmen who are majors from the school of ICS and enrolled in ICS 31
+freshman = students_level(student.level, majors, course)
+print('Number of reshman who are majors form the school of ICS and enrolled in ICS 31')
+for i in freshman:
+    if student.level == FR in ICS 31:
+        print(len(i))
+
+#To get the average number of units that freshmen in ICS 31 are enrolled in
+average = students_level(student.level, majors, units)
+print('Average number of units freshmen in ICS 31 are enrolled in')
+for i in freshman:
+    print(units/len(i))
+</FONT>
+            
+    
+        
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

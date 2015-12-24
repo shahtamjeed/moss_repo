@@ -1,0 +1,265 @@
+<HTML>
+<HEAD>
+<TITLE>alexal9/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+alongazo/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Alexander Longazo 75852830 Anahit Sargsyan 92527976 ICS 31 Lab sec 9. Lab asst 7
+from collections import namedtuple
+from random import randrange
+import re
+print()
+print('----------c----------')
+print()
+
+def random_names(num: int) -&gt; [str]:
+    '''Takes an integer and returns a list of an amount of random names equal
+    to that integer'''
+    result = []
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match217-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    surnames = open('surnames.txt','r')
+    malenames = open('malenames.txt','r')
+    femalenames = open('femalenames.txt','r')
+    sur_list = []
+    male_list = []
+    female_list = []
+    for line in surnames:
+        sur_list.append(line.split()[0])
+    for line in malenames:
+        male_list.append(line.split()[0])
+    for line in femalenames:
+        female_list.append(line.split()[0])
+</FONT>    surnames.close()
+    malenames.close()
+    femalenames.close()
+    for i in range(num):
+        x = randrange(0,2)
+        if x == 0:
+            result.append(random_name(sur_list) + ', ' + random_name(male_list))
+        else:
+            result.append(random_name(sur_list) + ', ' + random_name(female_list))
+    return result
+
+def random_name(names: [str]) -&gt; str:
+   '''Takes in a list of names and returns a random name'''
+   return names[randrange(1,len(names))].title()
+   
+print(random_names(5))
+print(random_names(10))
+
+print()
+print('----------d----------')
+print()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def Caesar_break(cipher: str) -&gt; [str]:
+    '''Takes a ciphertext string and returns plaintext of the string without
+    a key'''
+    answerList = []
+    result = []
+    #dictList = []
+    for i in range(26):
+        table = str.maketrans(generateAlphabet(ALPHABET,i), ALPHABET)
+        answerList.append(cipher.lower().translate(table))
+    result.extend(dictionary_sentence_list_matches(answerList))
+    return answerList[indexOfHighestNumber(result)]
+    
+def dictionary_matches(word: str) -&gt; int:
+    '''takes a word and checks if it has matches in the dictionary'''
+    dictionary = open('wordlist.txt','r')
+    sent = dictionary.read()
+    sent = sent.split('\n')
+    dictionary.close()
+    num = 0
+    if word == "":
+        return 0
+    num += sent.count(word)
+    return num
+assert dictionary_matches('word') == 1
+assert dictionary_matches('xyz') == 0
+assert dictionary_matches('hello') == 1
+assert dictionary_matches('') == 0
+
+
+def dictionary_sentence_matches(sentence: str) -&gt; int:
+    '''takes a sentence and breaks it down to words and calls the word function'''
+    num = 0
+    sentenceList = []
+    '''taking out the punctuation from the sentence for the future'''
+    sentenceList += sentence.split()
+    for word in sentenceList:
+        if dictionary_matches(word):
+            num+=1
+    return num
+assert dictionary_sentence_matches('cow jumped') == 1 #cow is not a word in the dictionary 
+assert dictionary_sentence_matches('xyz cow') == 0
+assert dictionary_sentence_matches('') == 0
+
+def dictionary_sentence_list_matches(SL: [str]) -&gt; [int]:
+    '''takes a sentence list breaks it down to sentences and calls the sentence function'''
+    countList = []
+    for sentence in SL:
+        countList.append(dictionary_sentence_matches(sentence))
+    return countList
+test_list = ['everything is awesome', 'hello there']
+test_list2 = ['everything is awesome',"everything is cool when you're part of a team","everything is awesome", "when you're living our dream"]
+assert dictionary_sentence_list_matches(test_list) == [2,2]
+assert dictionary_sentence_list_matches(['cow jumped','xyz cow']) == [1,0]
+assert dictionary_sentence_list_matches(test_list2) == [2,6,2,4]
+def generateAlphabet(alpha: str, key: int) -&gt; str:
+    '''Takes in a string and rotates it by putting the first half at the end'''
+    new_str = alpha[key:] + alpha[:key]
+    return new_str
+assert generateAlphabet(ALPHABET, 13) == 'nopqrstuvwxyzabcdefghijklm'
+assert generateAlphabet(ALPHABET, 3) == 'defghijklmnopqrstuvwxyzabc'
+assert generateAlphabet(ALPHABET, 25) == 'zabcdefghijklmnopqrstuvwxy'
+assert generateAlphabet(ALPHABET, 26) == 'abcdefghijklmnopqrstuvwxyz'
+
+
+def indexOfHighestNumber(numlist: [int]) -&gt; int:
+    '''Takes in a list of int and returns the index of the highest number'''
+    max_number = 0
+    index = 0
+    for i in numlist:
+        if i &gt; max_number:
+            max_number = i
+    for i in range(len(numlist)):
+        if numlist[i] == max_number:
+            index = i
+    return index
+assert indexOfHighestNumber([0,1,2,3,4]) == 4
+assert indexOfHighestNumber([]) == 0
+assert indexOfHighestNumber([56,19,78,28,10]) == 2
+
+print('Input: hyhubwklqj lv dzhvrph\nLoading...')
+print('Output: ' + Caesar_break('hyhubwklqj lv dzhvrph'))
+print('Input: Pvs uftu xbt fbtz\nLoading...')
+print('Output: ' + Caesar_break('Pvs uftu xbt fbtz'))
+print('Input: bpm kwe rcuxml wdmz bpm uwwv\nLoading...')
+print('Output: '  + Caesar_break('bpm kwe rcuxml wdmz bpm uwwv'))
+
+print()
+print('----------e.1----------')
+print()
+
+def copy_file() -&gt; None:
+    '''Reads a file provided by user input and makes a copy of it'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+print('Original copy file:\n')
+copy_file()
+
+print()
+print('----------e.2----------')
+print()
+def copy_file(string: str) -&gt; None:
+    '''Reads a file provided by user input and makes a copy of it'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    num = 1
+    if string == 'line numbers':
+        for line in infile:
+            outfile.write('{:5d}:  {}'.format(num, line))
+            num+=1
+    infile.close()
+    outfile.close()
+print('Line numbers of copy file:\n')
+copy_file('line numbers')
+
+print()
+print('----------e.3----------')
+print()
+def copy_file(string: str) -&gt; None:
+    '''Reads a file provided by user input and makes a copy of it'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    num = 1
+    if string == 'line numbers':
+        for line in infile:
+            outfile.write('{:5d}:  {}'.format(num, line))
+            num+=1
+    if string == 'Gutenberg trim':
+       for line in infile:
+            if '*** START ' in line:
+                outfile.write(line)
+                for newline in infile:
+                    if newline.startswith('*** END'):
+                        outfile.write(newline)
+                        break
+                    outfile.write(newline)
+    infile.close()
+    outfile.close()
+print('Gutenberg trim of copy file:\n')
+copy_file('Gutenberg trim')
+
+print()
+print('----------e.4----------')
+print()
+def copy_file(string: str) -&gt; None:
+    '''Reads a file provided by user input and makes a copy of it'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'a')
+    num = 1
+    fileList = []
+    fileStats = ''
+    if string == 'line numbers':
+        for line in infile:
+            outfile.write('{:5d}:  {}'.format(num, line))
+            num+=1
+    if string == 'Gutenberg trim':
+       for line in infile:
+            if '*** START ' in line:
+                outfile.write(line)
+                for newline in infile:
+                    if newline.startswith('*** END'):
+                        outfile.write(newline)
+                        break
+                    outfile.write(newline)
+    if string == 'line statistics':
+        for line in infile:
+            fileList.append(line)
+            outfile.write(line)
+        fileStats = stats(fileList)
+        outfile.write('\nThe statistics of this file are:\n' + fileStats)
+    infile.close()
+    outfile.close()
+    
+def stats (L: [str]) -&gt; str:
+    '''Prints the stats of the list of strings including how many lines
+    in the list, how many empty lines in the list, and the average amount
+    of characters per line'''
+    count=0
+    char_sum = 0
+    non_empty_lines = 0
+    for line in L:
+        if line == '\n':
+            count+=1
+    for word in L:
+        char_sum += len(word)
+        if word != '':
+            non_empty_lines +=1
+    average = char_sum/len(L)
+    average_non_empty_lines = char_sum/non_empty_lines
+    return '{:8}     lines in the list\n{:8}     empty lines\n{:11.2f}  average characters per line\n{:11.2f}  average characters per non-empty line'.format(len(L), count, average, average_non_empty_lines)
+print('Line statistics of copy file:\n')
+copy_file('line statistics')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

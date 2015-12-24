@@ -1,0 +1,232 @@
+<HTML>
+<HEAD>
+<TITLE>bkcho/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+bkcho/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+#Bum Keun Cho 71092926 and Yuta Taguchi 52604954. ICS 31/CSE41 Lab sec 14. Lab asst 3.
+
+#1
+print('---1---')
+def abbreviate(n):
+    return n[0] + n[1] + n[2]
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+print(abbreviate('January'))
+print(abbreviate('abril'))
+
+#2
+print('---2---')
+def find_area_square(a:int):
+    return a**2
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+print(find_area_square(1))
+print(find_area_square(5))
+
+#3
+print('---3---')
+def find_area_circle(r:float):
+    return 3.14159*(r**2)
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+print(find_area_circle(1))
+print(find_area_circle(5))
+
+#4
+print('---4---')
+def print_even_numbers(e:[int]):
+    for n in e:
+        if n % 2 == 0:
+            print(n)
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+#5
+print('---5---')
+def calculate_shipping(c:float):
+    if c &lt; 2:
+        rate = 2.00
+    elif 2 &lt;= c &lt; 10:
+        rate = 5.00
+    elif c &gt;= 10:
+        rate = 5.00 + ((c-10) * 1.5)
+    return rate
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+print(calculate_shipping(1.5))
+print(calculate_shipping(7))
+print(calculate_shipping(15))
+
+#6
+print('---6---')
+import tkinter
+
+def create_square(x, y, l):
+    my_window = tkinter.Tk()    
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+    my_canvas.pack()
+    
+    my_canvas.create_rectangle(x, y, x + l, y + l)
+    tkinter.mainloop()
+    return
+create_square(200, 200, 200)
+
+#7
+print('---7---')
+import tkinter
+
+def create_circle(x, y, l):
+    my_window = tkinter.Tk()    
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+    my_canvas.pack()
+    
+    my_canvas.create_oval(x, y, x + l, y + l)
+    tkinter.mainloop()
+    return
+create_circle(200, 200, 200)
+
+#d
+print('---d---')
+#d.1
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50)]
+def restaurant_price(R:'Restaurant'):
+    return R.price
+#d.2
+RC.sort(key=restaurant_price)
+print(RC)
+#d.3
+def costliest(R:list):
+    R.sort(key=restaurant_price)
+    return R[-1].name
+#d.4
+def costliest2(R:list):
+    return sorted(R, key=restaurant_price)[-1].name 
+print(costliest2([
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50)]))
+
+#e
+print('---e---')
+from collections import namedtuple
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book("J.K. Rowling", "Harry Potter and the Deathly Hallows", "Fantasy", 2007, 7.00, 20),
+    Book("J.R.R. Tolkien", "The Hobbit", "Fantasy", 1937, 8.00, 30),
+    Book("Agatha Chrisite", "Death on the Nile", "Mystery", 1937, 10.50, 10),
+    Book("Suzanne Collins", "The Hunger Games", "Technology", 2010, 6.50, 50),
+    Book("Yann Martel", "Life of Pi", "Fiction", 2003, 10.50, 40),
+    Book("Cormac McCarthy", "The Road", "Fiction", 2007, 10.00, 40),]
+#e.1
+for a in range(len(BSI)):
+    print(BSI[a].title)
+print(' ')
+
+#e.2
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match23-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def book_titles(T:'Book'):
+    return T.title
+def title_order(T:list):
+    for g in range(len(T)):
+        print(sorted(T, key=book_titles)[g].title)
+title_order(BSI)
+</FONT>print(' ')
+
+#e.3
+for m in range(len(BSI)):
+        BSI[m] = BSI[m]._replace(price = BSI[m].price * 1.1)
+print(BSI[-1].price)
+print(' ')
+
+#e.4
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match23-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def book_genre(T:'Book'):
+    return T.genre
+def tech(T:list):
+    for k in range(len(T)):
+        if T[k].genre == "Technology":
+            print(T[k].title)
+</FONT>tech(BSI)
+print(' ')
+
+#e.5
+After = []
+Before = []
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match23-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+for f in range(len(BSI)):
+    if BSI[f].year &gt;= 2000:
+        After.append(BSI[f].title)
+    else:
+        Before.append(BSI[f].title)
+    
+if len(After) &gt; len(Before):
+    print("More titles 2000 or later", len(After), 'vs.', len(Before))
+else:
+    print("More titles before 2000", len(Before), 'vs.', len(After))
+</FONT>print(' ')
+
+#e.6
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match23-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def inventory_value(T:'Book') -&gt; float:
+    return T.instock * T.price
+def top_value(T:list) -&gt; Book:
+    return sorted(T, key=inventory_value)[-1]
+print('The highest-value book is', top_value(BSI).title, 'by', top_value(BSI).author,
+</FONT>      'at a value of', int(inventory_value(top_value(BSI))),'.')
+
+#f
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match23-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+import tkinter
+my_window = tkinter.Tk()    
+my_canvas = tkinter.Canvas(my_window, width=1000, height=1000)
+my_canvas.pack()
+
+def draw_eye():
+    my_canvas.create_oval(450, 250, 150, 350, fill = 'white')
+    my_canvas.create_oval(250, 250, 350, 350, fill = 'blue')
+    my_canvas.create_oval(287.5, 285, 312.5, 310, fill = 'black')
+    
+    my_canvas.create_oval(850, 250, 550, 350, fill = 'white')
+    my_canvas.create_oval(650, 250, 750, 350, fill = 'blue')
+    my_canvas.create_oval(687.5, 285, 712.5, 310, fill = 'black')
+
+def draw_nose():
+    my_canvas.create_line(500, 400, 540, 500, fill='black')
+</FONT>    my_canvas.create_line(540, 500, 500, 500, fill='black')
+
+def draw_mouth():
+    my_canvas.create_line(400, 600, 600, 600, fill='black')
+
+def draw_face():
+    my_canvas.create_oval(50, 50, 900 , 850, fill='yellow')
+    draw_eye()
+    draw_nose()
+    draw_mouth()
+draw_face()
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

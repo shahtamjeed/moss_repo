@@ -1,0 +1,190 @@
+<HTML>
+<HEAD>
+<TITLE>truongjp/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+truongjp/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Jean Truong 19113020 and Prad Tantiwuttipong 22665092. ICS 31 sec 5. lab asst 7
+print('----------------Part C---------------')
+infile = open('surnames.txt', 'r')
+surnames = infile.read().split()
+
+female = open('femalenames.txt', 'r')
+femalenames = female.read().split()
+
+male = open('malenames.txt', 'r')
+malenames = male.read().split()
+
+def names_list (n:list) -&gt; list:
+    '''takes all names from files'''
+    nameslist = []
+    for i in range(0, len(n),4):
+        nameslist.append(n[i]) #adds names (only) to list
+    return nameslist
+
+
+from random import randrange
+
+def one_random_name () -&gt; str:
+    '''takes one random surname from namelist'''
+    number = randrange(0,len(names_list(surnames)) + 1)
+    a = names_list(surnames)
+    return a[number].lower().capitalize() #names are lowercase then first letter captalized
+
+def choose_male_female():
+    '''adds both male and female lists and gets a random name'''
+    biglist = names_list(malenames) + names_list(femalenames)
+    number = randrange(0, len(biglist) + 1)
+    return biglist[number].lower().capitalize() #lowercase names are capitalized
+#(c.3)
+def random_name () -&gt; str:
+    '''generates single random name (random surname + random first name)'''
+    a = str(one_random_name() + ', ' + choose_male_female())
+    return a
+#(c.1)
+def random_names (n: int) -&gt; list:
+    '''generates list of random names'''
+    newlist = [random_name() for i in range(n)]
+    return newlist
+    male.close()
+    female.close()
+    surname.close()
+
+print(random_names(7))
+print(random_names(2))
+print()
+
+print ( '--------Part D----------')
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def translate (encrypt: bool, k: int):
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match201-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    '''translates alphabet'''
+    newtable = ALPHABET[k:] + ALPHABET[:k]
+    if encrypt == True:
+        return str.maketrans(ALPHABET, newtable)
+    else:
+        return str.maketrans(newtable, ALPHABET)
+
+def caesar_encrypt (string: str, k: int):
+</FONT>    '''returns encrypted text'''
+    table = translate(1, k%26)
+    return string.lower().translate(table)
+
+assert caesar_encrypt('look for the x', 1) == 'mppl gps uif y'
+assert caesar_encrypt('pizza under the table',5) == 'uneef zsijw ymj yfgqj'
+
+def caesar_decrypt (string: str, k: int):
+    '''returns decrypted text'''
+    table =  translate(0, k%26)
+    return string.lower().translate(table)
+assert caesar_decrypt('mppl gps uif y', 1) == 'look for the x'
+assert caesar_decrypt('uneef zsijw ymj yfgqj' ,5) == 'pizza under the table'
+
+infile = open('wordlist.txt', 'r')
+
+wordslist = []
+for words in infile.read().split():
+    wordslist.append(words)
+
+
+print(caesar_encrypt('everyone hello h.,ere 67868', 4))
+print(caesar_encrypt('confetti there', 50))
+
+def all_decryptions(s:str)-&gt; list:
+    '''gets all the possible decryptions of text'''
+    for key in range(0,27):
+        decrypted = [caesar_decrypt(s,i) for i in range(key)]
+    return decrypted
+
+print(all_decryptions('bobcat cool the'))
+
+def split_code (s: str)-&gt; list:
+    '''splits the text'''
+    decrypted_lst = all_decryptions(s)
+    new = []
+    for j in decrypted_lst:
+        new.append(j.split())
+    return new
+
+print(split_code('bobcat gjh ()+-'))
+
+def caesar_break(s:str)-&gt; str:
+    '''compares all the possible decryptions to wordlist'''
+    a = []
+    count = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    lst = split_code(s)
+    for j in range(len(lst)):
+        for i in lst[j]:
+            if i in wordslist:
+                count[j] += 1
+    return caesar_decrypt(s,count.index(max(count)))
+
+print(caesar_break('izivcsri lipps livi ()+_'))
+print(caesar_break(caesar_encrypt('i am very happy today !',1)))
+print()
+
+print('----------------Part E---------------')
+
+def copy_file (s: str):
+    '''Prompts the user, reads, and writes the files with line numbers,
+      omits "housekeeping" material, or gives statistics as given'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    
+    if s == 'line numbers': #(e.2), adds line numbers to each line
+        lines = infile.readlines()
+        line_numbers = ('{0:5}: {1}'.format(i + 1, line)
+        for i, line in enumerate(lines)) #enumerate is more convenient
+        outfile.write("".join(line_numbers))
+    
+    if s == 'Gutenberg trim': #(e.3)
+        strlist = infile.readlines()
+        
+        for line in strlist:
+            if '*** START OF' in line:
+                i = strlist.index(line)
+                
+            elif '*** END OF' in line:
+                b = strlist.index(line)
+        for x in range(i,b+1):
+            outfile.write(strlist[x])
+            
+
+    if s == 'statistics': #(e.4)
+        strlist = infile.readlines()
+
+        empty = 0
+        lines = len(strlist)
+        for i in strlist:
+            if i.strip() == '':
+                empty += 1
+        totalchars = len(''.join(strlist))
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match201-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        avgchars = totalchars/lines
+        avgchars_per_nonemptyline = totalchars/ (lines - empty)
+        print('{:7d}   lines in the list'.format(lines))
+        print('{:7d}   empty lines'.format(empty))
+        print('{:9.1f} average characters  per line'.format(avgchars))
+        print('{:9.1f} average characters per nonempty line'.format(avgchars_per_nonemptyline))
+</FONT>        infile.close()
+        outfile.close()
+print('Copies file with line numbers')
+copy_file('line numbers')
+print()
+print('Copies file with omission of "housekeeping" materials')
+copy_file('Gutenberg trim')
+print()
+print('Copies file with statistics')
+copy_file('statistics')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

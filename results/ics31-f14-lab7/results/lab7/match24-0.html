@@ -1,0 +1,241 @@
+<HTML>
+<HEAD>
+<TITLE>diepnn/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+diepnn/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Ngoc Nguyen ID# 72114439 and Linsey Tran ID# 31701591 Section 3 Asst 7
+
+
+
+print()
+print()
+print('------ Part (c) --------')
+print()
+print('------ Part (c.1) --------')
+
+def surname(n:str)-&gt;list:
+    ''' Takes a file and returns only the surnames in the list'''
+    infile= open(n, 'r')
+    data= infile.readlines()
+    infile.close()
+    result=[]
+    for i in data:
+        result.append(i.split())
+    last_name=[]
+    for i in result:
+        last_name.append(i[0].title())
+    return last_name
+    
+def Names(n:str, m:str)-&gt;list:
+    ''' Takes a file and returns only the female and
+    male names in the list'''
+    infile= open(n,'r')
+    infile1=open(m,'r')
+    data= infile.readlines()
+    data1= infile1.readlines()
+    infile.close()
+    infile1.close()
+    result=[]
+    for i in data:
+        result.append(i.split())
+    for i in data1:
+        result.append(i.split())
+    name=[]
+    for i in result:
+        name.append(i[0].title())
+                   
+    return name
+
+
+
+
+
+        
+from random import randrange
+
+def random_names(n:int)-&gt; [str]:
+    ''' Returns a list of n (an int) randomly generated names'''
+    surname1= surname('surnames.txt')
+    names1= Names('malenames.txt', 'femalenames.txt')
+
+    result=[]
+    for i in range(n):
+        result.append(surname1[randrange(0,len(surname1))] + ' , ' + names1[randrange(0,len(names1))])
+    return result
+    
+print(random_names(10))
+            
+    
+print()
+print()
+print('------ Part (d) --------')
+print()
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match24-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('------ Part (d.1) --------')        
+
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotated_alphabet(k:int) -&gt; str:
+    ''' Rotates the alphabet by given key (an int)'''
+    return ALPHABET[k:] + ALPHABET[:k]
+
+def dictionary_list(n:str)-&gt;list:
+</FONT>    ''' Takes a dictionary file and returns list of words'''
+    infile= open(n, 'r')
+    data= infile.readlines()
+    infile.close()
+    word_list =[]
+    for i in data:
+        word_list.append(i.split()[0])
+    word_list_lower= []
+    for i in word_list:
+        word_list_lower.append(i.lower())
+    return word_list_lower
+
+
+def Caesar_break(c: str)-&gt;str:
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match24-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    all_poss = []
+    result = []
+    for i in range(26):
+        result.append(0)
+        
+    for i in range(0, 26):
+        p = rotated_alphabet(i).split()
+        all_poss+=p
+</FONT>    decode_letters = []
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match24-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for z in all_poss:
+        decrypt = str.maketrans(z, ALPHABET)
+        decode_letters.append(c.lower().translate(decrypt))
+    for i in range(len(decode_letters)):
+        x = decode_letters[i].split()
+        for word in x:
+            if word in dictionary_list('wordlist.txt'):
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match24-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                result[i]+=1
+    max = -1
+    index = -1
+    for i in range(len(result)):
+        if result[i] &gt; max:
+            max = result[i]
+            index = i
+    decrypt = str.maketrans(rotated_alphabet(index), ALPHABET)
+    return c.lower().translate(decrypt)
+    
+        
+
+
+assert Caesar_break("mjqqt rd sfrj nx htruzyjw") == 'hello my name is computer'
+</FONT>assert Caesar_break("uryyb V jnag gb qb jryy va guvf pynff cyrnfr")== 'hello i want to do well in this class please'
+
+
+
+
+
+print()
+print()
+print('------ Part (e) --------')
+print()
+print('------ Part (e.1) --------')
+
+def copy_file(n:str):
+    '''Given input of n, copies file accordingly'''
+    
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match24-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    outfile = open(outfile_name, 'w')
+        
+
+    if n == 'line numbers':
+        data= infile.readlines()
+        for i in range(len(data)):
+            outfile.write("{:5}:  {}".format(i+1,data[i]))
+            
+        
+    
+    elif n== 'Gutenberg trim':
+        beginning=0
+        end=0
+        data=infile.readlines()
+        
+        for i in range(len(data)):
+            if "*** START" in data[i]:
+                beginning+=i
+</FONT>                continue
+            if "*** END" in data[i]:
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match24-1.html#5" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                end= end+ i
+                break
+        
+        for i in data[beginning+1: end]:
+            outfile.write(i)
+            
+                
+    elif n=='statistics':
+</FONT>        
+        empty_lines=0
+        total_characters=0
+        x=1
+        for i in infile:
+            x+=1
+            
+            if i.strip()=='':
+                empty_lines+= 1
+           
+       
+            total_characters+= len(i)
+            outfile.write(i)
+            
+        print('\n')
+        print("{:6d}{:4} lines in the file".format(x,' '))
+        print("{:6d}{:4} empty lines".format(empty_lines,' '))
+          
+        print("{:8.1f}{:2} average characters per line".format(total_characters/x, ' '))
+        print("{:8.1f}{:2} average characters per non-empty line".format(total_characters/(x - empty_lines),' '))
+        
+        for line in infile:
+            outfile.write(line)
+           
+
+    else:
+        
+        for line in infile:
+            outfile.write(line)
+    
+    
+    infile.close()
+    outfile.close()
+    
+    
+copy_file('other')
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+copy_file('statistics')
+
+
+
+
+
+            
+        
+
+        
+        
+        
+</PRE>
+</PRE>
+</BODY>
+</HTML>

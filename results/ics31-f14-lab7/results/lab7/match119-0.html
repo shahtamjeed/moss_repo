@@ -1,0 +1,207 @@
+<HTML>
+<HEAD>
+<TITLE>cqtrang/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+cqtrang/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Chanel Trang 37601348  Danielle Manalastas 48702634   ICS 31 Lab sec 2.  Lab asst 7.
+
+print('----- C -----')
+
+from random import randrange
+
+##### c.1
+print('-- c.1 --\n')
+
+surnames = open("lab7_surnames.txt", 'r')
+female_names = open("lab7_female_names.txt", 'r')
+male_names = open("lab7_male_names.txt", 'r')
+
+surnames_split = surnames.read().split('\n')
+female_split = female_names.read().split('\n')
+male_split = male_names.read().split('\n')
+
+def random_surname(s: surnames_split) -&gt; str:
+    ''' Randomly selects a name from the surnames list '''
+    x = []
+    for i in s:
+        x.append(i.split('\t'))
+    n = randrange(0, len(s))
+    r = x[n]
+    return r[0].title()
+
+def random_first_name(f: female_split, m: male_split) -&gt; str:
+    ''' Randomly selects a name from one of the lists f or m '''
+    x = []
+    for i in f:
+        x.append(i.split('\t'))
+    for c in m:
+        x.append(c.split('\t'))
+    n = randrange(0, len(f) + len(m))
+    r = x[n]
+    return r[0].title()
+
+def random_name() -&gt; str:
+    ''' Returns a random surname and first name '''
+    return (random_surname(surnames_split) + ', ' +
+           random_first_name(female_split, male_split))
+
+def random_names(n: int) -&gt; [str]:
+    ''' Returns a list of randomly generated names of length n '''
+    L = []
+    for i in range(n):
+        L.append(random_name())
+    for i in range(len(L)):
+        print(L[i])
+
+surnames.close()
+female_names.close()
+male_names.close()
+
+random_names(100)
+
+
+print('----- D -----')
+
+##### d.1
+print('-- d.1 --\n')
+
+wordlist = open("lab7_wordlist.txt", 'r')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match119-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+wordlist_split = wordlist.read().split('\n')
+
+def Caesar_encrypt(message: str, key: int) -&gt; str:
+    ''' Encrypts using Caesar cipher based on the given key '''
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    tablealpha = str.maketrans(alphabet,
+                               alphabet[key:] + alphabet[:key])
+    return message.lower().translate(tablealpha)
+
+def Caesar_decrypt(ciphertext: str, key: int) -&gt; str:
+    ''' Decrypts using Caesar cipher based on the given key '''
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    tablealpha = str.maketrans(alphabet[key:] + alphabet[:key],
+                               alphabet)
+    return ciphertext.lower().translate(tablealpha)
+</FONT>
+def Caesar_break(ciphertext: str) -&gt; str:
+    ''' Tries to decrypt a ciphertext '''
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    keys = []
+    for i in range(26):
+        keys.append(Caesar_decrypt(ciphertext.lower(), i))
+    cipher = []
+    for a in keys:
+        cipher.append(a.split(" "))
+    list_lower = []
+    for v in wordlist_split:
+        list_lower.append(v.lower())
+    cipher_count = []
+    c = 0
+    for u in cipher:
+        if u[0] in list_lower:
+            c = c + 1
+            cipher_count.append(c)
+        else:
+            cipher_count.append(0)
+    result = cipher[cipher_count.index(max(cipher_count))]
+    return ("Message: " + " ".join(result) + '\n' +
+            "Key:     " + str(cipher_count.index(max(cipher_count))))
+
+wordlist.close()
+
+print(Caesar_break(Caesar_encrypt("elephant jump over quick brown fox lazy", 10)))
+
+    
+print('----- E -----')
+
+def copy_file(s: str) -&gt; None:
+    ''' Copies a file line by line '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    i = 0
+    L = []
+    for line in infile:
+        if s == 'line numbers':
+            i += 1
+            outfile.write('{:5d}: '.format(i) + line)
+        elif s == 'Gutenberg trim':
+            file_list = infile.read().split('\n')
+            start = file_list.index('*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***')
+            end = file_list.index('*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***')
+            for o in file_list[start + 1:end]:
+                L.append(o)
+            outfile.write('\n'.join(L))
+        elif s == 'statistics':
+            R = infile.read().split('\n')
+            statistics(R)
+            outfile.write(line + '\n'.join(R))
+        else:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+##### e.1
+print('-- e.1 --\n')
+
+##### e.2
+print('-- e.2 --\n')
+
+copy_file('line numbers')
+copy_file('squiggle')
+
+##### e.3
+print('-- e.3 --\n')
+
+copy_file('Gutenberg trim')
+
+##### e.4
+print('-- e.4 --\n')
+
+def statistics(L: [str]) -&gt; None:
+    ''' Returns the statistics '''
+    a = 0
+    for i in L:
+        a = a + len(i)
+    average = a / len(L)
+    b = 0
+    E = []
+    for r in L:
+        if r != '':
+            E.append(r)
+            b = b + len(r)
+    average_non_empty = b / len(E)
+    stats = ("{:5.2f} {}".format(len(L), 'lines in the list') + '\n' +
+             "{:5.2f} {}".format(L.count(''), 'empty lines') + '\n' +
+             "{:5.2f} {}".format(average, 'average characters per line') + '\n' +
+             "{:5.2f} {}".format(average_non_empty,
+                                 'average characters per non-empty line'))
+    print(stats)
+
+copy_file('statistics')
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

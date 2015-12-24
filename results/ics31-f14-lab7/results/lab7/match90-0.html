@@ -1,0 +1,146 @@
+<HTML>
+<HEAD>
+<TITLE>namht1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+namht1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab 7.py
+# Nam  Tran 72182314. ICS 31 Lab Section 9. Lab Assignment 7.
+
+print()
+print()
+print('---------- Part (c) ----------')
+print()
+#c
+
+from random import randrange
+result1=[]
+infile= open('malenames.txt')
+content = infile.readlines()
+infile.close
+for i in content:
+    n=i.split()
+    result1.append(n[0])
+infile= open('femalenames.txt')
+content = infile.readlines()
+infile.close
+for i in content:
+    n=i.split()
+    result1.append(n[0])
+#
+#
+#
+result2 = []
+infile= open('surnames.txt')
+content = infile.readlines()
+infile.close
+for i in content:
+    n=i.split()
+    result2.append(n[0])
+#
+#
+#
+def capital(x:list)-&gt;list:
+    result = []
+    for i in x:
+        n = i.lower()
+        result.append (n.capitalize())
+    return result
+def random_names(num:int) -&gt; list:
+    '''returns a list with int amount of randomly generated names'''
+    result = []
+    x = capital(result2)
+    y = capital(result1)
+    for i in range(num):
+        result.append(x[randrange(0,1001)] + ',' + y[randrange(0,2001)])
+    return result
+
+print(random_names(10))
+
+
+print()
+print()
+print('---------- Part (d) ----------')
+print()
+#(d)
+
+infile= open("wordlist.txt", 'r')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match90-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_19.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+listline= infile.read()
+
+word= listline.split('\n')
+infile.close()
+def Caesar_decrypt(x:str, num: int) -&gt; str:
+    "Returns the plaintext"
+    x = x.lower()
+    alphabet1 = 'abcdefghijklmnopqrstuvwxyz'
+    alphabet2 = ''
+    i = (num%26)
+    alphabet2 = alphabet2.join(alphabet1[i:].split() + alphabet1[0:i].split())
+    x = x.translate(str.maketrans(alphabet2, alphabet1))
+    return x
+print(Caesar_decrypt('TEXT', 8))
+print(Caesar_decrypt('TEXT', 15))
+def Caesar_break(ciphertext:str) -&gt; str:
+    decrypted = []
+</FONT>    for word in range(0,27):
+        n = Caesar_decrypt(ciphertext, word)
+        for i in decrypted:
+            if n == i:
+                decrypted.append(n)
+    return decrypted
+print(Caesar_break('doggy'))
+infile.close()
+
+print()
+print()
+print('---------- Part (e) ----------')
+print()
+#(e)
+
+
+def copy_file(x: str) -&gt; None:
+    '''returns a copy with possible changes'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    linelist = infile.readlines()
+#e.2
+    if 'line numbers' == x:
+        for line in range(len(linelist)):
+            outfile.write('{}:{}'.format(line + 1, linelist[line]))
+#e.3
+    elif 'Gutenberg trim' == x:
+        for n in range(18,12695):
+            outfile.write(linelist[n])
+#e.4
+    elif 'statistics' == x:
+        total_lines = 0
+        empty_lines = 0
+        for line in linelist:
+            total_lines += len(line)
+            if len(line) == 0:
+                empty_line += 1
+        print("{:6d}   {}{:6d}   {}{:8.1f} {}{:8.1f} {}".format(len(linelist), 'Lines in the list \n', total_lines,
+                                        'Total empty \n', total_lines/len(linelist),
+                                        'Average characters per line \n',
+                                        total_lines/(len(linelist)-empty_lines),
+                                        'Average characters per non-empty line', sep=""))
+                                        
+                                        
+    else:   
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+copy_file('statistics')
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

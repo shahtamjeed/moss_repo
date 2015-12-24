@@ -1,0 +1,204 @@
+<HTML>
+<HEAD>
+<TITLE>liweis1/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+liweis1/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+#  Stephanie Chan 23867028 and Liwei Song 68746124.  ICS 31 Lab sec 7.  Lab Asst 2.
+
+# C
+print('\n-----part C-------')
+
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour?'))
+print('This many dollars per hour:  ', rate)
+print('Weekly salary: $', hours * rate)
+
+
+print('Hello.  What is your name?')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match141-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+name = str(input())
+print('Hello,', name)
+print("It's nice to meet you.")
+print('How old are you?')
+age = int(input())
+print('Next year you will be', age + 1,'years old.')
+print('Good-bye!')
+
+
+
+# D
+print('\n-----part D-------')
+
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND =8.81
+KRONE_PER_USD = 5.50
+
+
+print('Please provide this information:')
+print('Business name:')
+name = str(input())
+print('Number of euros:')
+euros = float(input())
+print('Number of pounds:')
+pounds = float(input())
+print('Number of dollars:')
+dollars = float(input())
+
+print('Copenhagen Chamber of Commerce')
+</FONT>print('Business name:'+ name)
+total_euros = euros * KRONE_PER_EURO
+print(euros, 'euros is' , (euros * KRONE_PER_EURO) ,'krone')
+total_pound = pounds * KRONE_PER_POUND
+print(pounds, 'pounds is', (pounds * KRONE_PER_POUND),'krone')
+total_dollars = dollars * KRONE_PER_USD
+print(dollars,'dollars is', (dollars * KRONE_PER_USD), 'krone')
+
+print('Total krone:', (total_euros + total_pound + total_dollars))
+
+
+
+# E
+print('\n-----part E-------')
+
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+print (still_another . title)
+print (another.price)
+print ((favorite. price +another . price +still_another. price)/3)
+print (favorite .year &lt;= 1900)
+print (another .year &lt;= 1900)
+print (still_another.year &lt;= 1900)
+still_another = still_another._replace(price = 26.00)
+print (still_another. price)
+still_another = still_another._replace(price = still_another. price * 1.2)
+print (still_another. price)
+
+
+# F
+print('\n-----part F-------')
+
+Animal = namedtuple('Animal','name species age weight food')
+elephant = Animal('Jumbo','elephant','50','1000','peanuts')
+platypus = Animal('Perry','platypus','7','1.7','shrimp')
+print (elephant.weight &lt; platypus.weight)
+
+# G
+print('\n-----part G-------')
+
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+booklist = [favorite, another, still_another]
+
+print (booklist [0].price &lt; booklist [1].price)
+print (booklist [0].year &gt; booklist [-1].year)
+
+# H
+print('\n-----part H-------')
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print (RL [2].name)
+print (RL [0].cuisine  == RL [3].cuisine )
+print (RL [-1].price)
+RL.sort()
+print (RL)
+print (RL [-1].dish)
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match141-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+new_list = [RL [0],RL [1],RL [-2],RL [-1]]
+print (new_list)
+
+# I
+print('\n-----part I-------')
+
+import tkinter          
+
+my_window = tkinter.Tk()   
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+</FONT>my_canvas.pack()            
+
+my_canvas.create_line(100, 100, 300, 100, fill='red') 
+my_canvas.create_line(100, 300, 300, 300, fill='red')   
+my_canvas.create_line(300, 100, 300, 300, fill='red')
+my_canvas.create_line(100, 100, 100, 300, fill='red')
+
+tkinter.mainloop()          
+        
+
+my_window = tkinter.Tk()   
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack()            
+
+my_canvas.create_line (200,50,80,210) 
+my_canvas.create_line (200,50,320,210)
+my_canvas.create_line (80,210,200,370)
+my_canvas.create_line (200,370,320,210) 
+
+tkinter.mainloop()
+
+
+my_window = tkinter.Tk()   
+
+my_canvas = tkinter.Canvas(my_window, width=1000, height=1000)  
+my_canvas.pack()            
+
+my_canvas.create_line(500, 100, 200, 300, fill='red') 
+my_canvas.create_line(500, 100, 800, 300, fill='red')   
+my_canvas.create_line(200, 300, 800, 300, fill='red')
+my_canvas.create_rectangle(280,300,720,600,fill='orange')
+my_canvas.create_rectangle(330,370,400,430,fill='red')
+my_canvas.create_rectangle(590,450,680,600,fill='red')
+my_canvas.create_oval(660,520,670,530,fill='black')
+
+tkinter.mainloop()          
+          
+
+my_window = tkinter.Tk()   
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack()            
+
+my_canvas.create_oval(200, 200, 310, 300, fill='white') 
+my_canvas.create_oval(250, 230, 270, 270, fill='light blue')
+my_canvas.create_oval(258, 242, 264, 248, fill='black' )
+my_canvas.create_line(190, 198, 270, 168, 320, 198)
+
+
+tkinter.mainloop()          
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,148 @@
+<HTML>
+<HEAD>
+<TITLE>mccabect/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+toq/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Quang To 60564034 and Minakshi Sharma 72958132. ICS 31 Lab sec 2. Lab asst 7.
+
+print()
+print('-----part c-----')
+print()
+import random
+from random import randrange                 
+
+def create_random_name():
+   '''Creates one random name'''
+   surnames = []
+   last = open("surnames.txt", 'r')
+   for i in last:
+      datalines = last.readline().split()
+      surnames.append(datalines[0])
+      x = random.randrange(0, len(surnames))
+   last.close()
+
+   first_names = []
+   first = open("firstnames.txt", 'r')          
+   for i in first:
+      datalines2 = first.readline().split()
+      first_names.append(datalines2[0])
+      y = random.randrange(0, len(first_names))
+   first.close()
+
+   print(surnames[x].capitalize()+ ", " + first_names[y].capitalize())
+
+def random_names(n: int) -&gt; str:
+   '''Takes int, returns list of that
+    many strings w/ each
+    string a randomly generated name''' 
+   for i in range(n):
+      create_random_name()
+
+random_names(10)
+
+print()
+print('-----part d-----')
+print()
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+AL = []
+TABLES = []
+def rotated_alphabet(alphabet:str,num:int) -&gt;str:
+    ''' returns the alphabet with beginning characters added to end '''
+    result = ALPHABET
+    for x in range(num):
+        result = result[1:] + ALPHABET[x]
+    return result
+   
+def generate_all_alphabets():
+   """go 1 through 26 and rotate alphabet, add new alphabet to ALPHABETS list"""
+   for i in range(26):
+      AL.append(rotated_alphabet(ALPHABET, i))
+   return AL
+
+print(generate_all_alphabets())
+
+def Caesar_encrypt(plaintext:str,key:int) -&gt; str:
+   ''' returns the encrypted plaintext with the key '''
+   table = str.maketrans(ALPHABET,rotated_alphabet(ALPHABET,key % 26))
+   new_text = plaintext.lower()
+   return new_text.translate(table)
+
+Caesar_encrypt('A good violin tone is exuberant. You can hear the richness. Your shortarm has power to milk the violin. Do it', 6)
+
+def Caesar_decrypt(message:str,key:int) -&gt; str:
+    ''' returns the decrypted message '''
+    table = str.maketrans(rotated_alphabet(ALPHABET,key % 26),ALPHABET)
+    return message.translate(table)
+
+print('------Caesar_break------')
+possible_decryptions = []
+ciphertext = 'g muuj bourot zutk oy kdahkxgtz. eua igt nkgx znk xointkyy. euax ynuxzgxs ngy vuckx zu sorq znk bourot. ju oz!'
+def Caesar_break(message:str):
+   for i in range(26):
+      possible_decryptions.append(Caesar_decrypt(ciphertext, i))
+   return possible_decryptions
+
+print(Caesar_break(ciphertext))
+
+'''
+def worldlist():
+   wordlist = []
+   last = open("wordlist.txt", 'r')
+   count = 0
+   for i in last:
+      if Caesar_break() == wordlist():
+         last.close()
+   return worldlist()
+'''
+
+print()
+print('-----part e-----')
+print()
+#e.1
+def copy_file():
+   '''takes no parameters and returns no value,
+   prompts user and reads and writes files'''
+   infile_name = input("Please enter the name of the file to copy: ")
+   infile = open(infile_name, 'r')
+   outfile_name = input("Please enter the name of the new copy:  ")
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match225-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+   outfile = open(outfile_name, 'w')
+   for line in infile:
+       outfile.write(line)
+   infile.close()
+   outfile.close()
+#e.2
+def copy_file2(n:str):
+   '''takes a str as input, if str value == 'line numbers', the copied
+</FONT>   file includes line numbers at the start of each line'''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match225-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+   infile_name = input("Please enter the name of the file to copy: ")
+   infile = open(infile_name, 'r')
+   outfile_name = input("Please enter the name of the new copy:  ")
+   outfile = open(outfile_name, 'w')
+
+   file_text = []
+   if n == 'line numbers':
+      for line in infile:
+         file_text.append(line)
+</FONT>      for i in range(len(file_text)):
+            num_line = "    {:} :  {:}".format(str(i), str(file_text[i-1])) 
+            outfile.write(num_line)
+   else:
+      for line in infile:
+       outfile.write(line)
+   infile.close()
+   outfile.close()
+
+
+#e.3 is incomplete
+#e.4 is incomplete
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,188 @@
+<HTML>
+<HEAD>
+<TITLE>andyhl3/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+andyhl3/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Andy Le 20681445 ICS 31 Lab sec. 5 Lab asst 7.
+
+#
+#
+# Part (c)
+#
+#
+
+print('\n')
+
+print('---------- Part (c) ----------')
+print()
+
+from random import randrange
+#c.1
+print('c.1')
+
+def random_surname()-&gt;str:
+    infile = open('surnames.txt', 'r') #Opens text file
+    result=[]
+    for i in infile:
+        result.append(i.split()) #First splits each word in the string into its own object and appends it into an empty list
+    infile.close()
+    return result[randrange(1001)][0].capitalize() #Picks a random list from the total list, takes the first object of that list and capitalizes the first letter and returns that object.
+def random_firstname()-&gt;str:
+    g = randrange(2) #Generates a random number from 0 to 1
+    if g == 0: #If the numbere is 0, the male names text file will be opened and a male name will be chosen similar to above.
+        infile = open('male.txt', 'r')
+        result = []
+        for i in infile:
+            result.append(i.split())
+        infile.close()
+        return result[randrange(1001)][0].capitalize()
+    else: #If the number is 1, then a female name will be generated from the female text file.
+        infile = open('female.txt', 'r')
+        result = []
+        for i in infile:
+            result.append(i.split())
+        infile.close()
+        return result[randrange(1001)][0].capitalize() #Returns the name capitalized       
+
+def random_names(n:int)-&gt;list:
+    result=[]
+    for i in range(n):
+        result.append('''{}, {}'''.format(random_surname(), random_firstname()))
+    return result
+print(random_names(3))
+
+
+#
+#
+# Part (d)
+#
+#
+
+print('\n')
+
+print('---------- Part (d) ----------')
+print()
+
+#d.1
+print('d.1')
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+def Caesar_break(x:str)-&gt;str:
+    result=[]
+    result2=0
+    infile=open('dictionary.txt','r')
+    dictionary=[]
+    string=''
+    for y in range(26):
+        change = str.maketrans(alphabet,
+                               alphabet[y:] + alphabet[:y])
+        punctuation = str.maketrans('.,?!:*',
+                                    '      ')
+        p = x.translate(punctuation).lower()
+        result.append(p.translate(change).split())
+    for i in infile:
+        dictionary+=i.lower().split()
+    for i in result:
+        for a in i:
+            if a in dictionary:
+                result2+=1
+        if result2/len(i)*100 &gt; 50:
+            b = result.index(i)
+            change2 = str.maketrans(alphabet,
+                                    alphabet[b:] + alphabet[:b])
+            change3 = str.maketrans(alphabet.upper(),
+                                    alphabet.upper()[b:] + alphabet.upper()[:b])
+            c = x.translate(change2)
+            return c.translate(change3)
+        
+print(Caesar_break('Ifmmp uifsf! J bn b gsjfoe.'))
+print(Caesar_break('Te oek mqdj je fbqo q wqcu?'))
+
+#d.2
+#No partner to send email to.
+
+#
+#
+# Part (e)
+#
+#
+
+print('\n')
+
+print('---------- Part (e) ----------')
+print()
+
+#e.1
+
+print('e.1')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match25-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def print_line_numbers(x:list)-&gt;str:
+    #Take a list of strings and print each string preceded by a line number starting at 1
+    #Use range(len()) to get the exact number of lines you'd need to display the longest line number
+    #Function from lab6. Modified for e2.
+    result=''
+    for i in range(len(x)):
+        result += ('''{:5d}:  {} '''.format(i+1, x[i])+ '\n')
+    return result
+
+def stats(x:list)-&gt;str:
+    #Prints out a list of stats about a list of strings
+    #Function from lab6. Modified for e4.
+    result = 0
+    result_empty = 0
+    result_nonempty = 0
+    result_nonempty_l = 0
+    for i in x:
+        if i.isspace() == True: #checks if a line is just empty white space, if it is add 1 to a variable that will be used to determine the number of empty lines
+            result_empty += 1
+        else: #else add 1 to a variable that will be used to determine the number of non empty lines and add the length of the string to a variable that determines the total characters in all the nonempty lines.
+            result_nonempty += 1
+            result_nonempty_l += len(i)
+    for i in x:
+        result += len(i)
+</FONT>    return """{:6d} lines in the file \n {:5d} empty lines \n {:5.2f} average characters per line \n {:5.2f} average characters per non-empty line """.format(len(x), result_empty, result/len(x), result_nonempty_l/result_nonempty)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match25-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_25.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def copy_file(x:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    infile_read = infile.read()
+    infile_split = infile_read.split('\n')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if x == 'line numbers':
+        outfile.write(print_line_numbers(infile_split))
+    elif x == 'Gutenberg trim':
+        result = []
+        result2 = 0
+        result3 = []
+        for line in infile_split:
+            if '*** START' in line:
+                result.append(infile_split.index(line))
+        for line in infile_split:
+            if '*** END' in line:
+                result2 += infile_split.index(line)
+        result3.extend(infile_split[result[0]+1:result2])
+        for line in result3:
+            outfile.write(line + '\n')
+    elif x == 'statistics':
+        for line in infile_read:
+            outfile.write(line)
+        outfile.write('\n')
+        outfile.write(stats(infile_split))
+    else:        
+        for line in infile_read:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+copy_file(' ')
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+</FONT>copy_file('statistics')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

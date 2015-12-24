@@ -1,0 +1,212 @@
+<HTML>
+<HEAD>
+<TITLE>diepnn/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+xramirez/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Done 7.py
+# Xitlali Ramirez ID:16891274 and Hongngoc Ho ID: 50903624. Sec 3. Lab asst 7.
+print("\n----C1----\n")
+from random import randrange
+
+def generateSurname(p: int)-&gt; list:
+    ''' Return a list of randomly generated surnames. '''
+    infile = open('surnames.txt', 'r')
+    data_surnames = infile.readlines()
+    random1 = []
+    list1 = []
+    new_list1 = []
+    for x in range(p):
+        random1.append(randrange(len(data_surnames)))
+    for c in random1:
+        list1.append(data_surnames[c])
+    for v in list1:
+        new_list1.append(v.title().split()[0])
+    return new_list1        
+print(generateSurname(10))
+    
+def generateNames(n: int) -&gt; list:
+    ''' Return a list of randomly generated male and female names. '''
+    infile2 = open('malenames.txt', 'r')
+    data_malenames = infile2.readlines()
+    infile3 = open('femalenames.txt', 'r')
+    data_femalenames = infile3.readlines()
+    male_and_female_names = data_malenames + data_femalenames
+    random2 = []
+    list2 = []
+    new_list2 = []
+    for x in range(n):
+        random2.append(randrange(len(male_and_female_names)))
+    for c in random2:
+        list2.append(male_and_female_names[c])
+    for v in list2:
+        new_list2.append(v.title().split()[0])
+    return new_list2
+print(generateNames(100))
+
+def random_names(p:int)-&gt;list:
+    '''return list p names randomly generated from above'''
+    final_list = []
+    new_list3 = []
+    new_list4 = []
+    new_list5 = []
+    new_list6 = []
+    a = generateNames(p)
+    b = generateSurname(p)
+    for n in a:
+        new_list3.append(n.lower())
+    for n in b:
+        new_list4.append(n.lower())
+    for n in new_list3:
+        new_list5.append(n.capitalize())
+    for n in new_list4:
+        new_list6.append(n.capitalize())
+    for n in range(p):
+        final_list.append(new_list5[n] + " " + new_list6[n])
+    return final_list
+print(random_names(10))
+
+
+print('------ Part (d) --------')
+print()
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match24-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('------ Part (d.1) --------')
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+
+def rotated_alphabet(k: int)-&gt;str:
+    '''Takes a string containing the message and an int for the key to return the ciphertext'''
+    return ALPHABET[k:] + ALPHABET[:k]
+
+
+
+def converted() -&gt; list:
+</FONT>    ''' Converts everything in wordlist file to lowercase and removes
+    newline. '''
+    infile4 = open("wordlist.txt", "r")
+    data_wordlist = infile4.readlines()
+    infile4.close()
+    list7 = []
+    for c in data_wordlist:
+        list7.append(c.lower().split()[0])
+   
+    return list7
+
+
+def Caesar_break(z: str)-&gt; str:
+    '''takes a encrypted string and returns it decrypted'''
+    count1=[]
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match24-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    list8 = []
+    list9 = []
+ 
+    
+    for i in range(26):
+        list9.append(0)
+        
+    for i in range(0, 26):
+        r = rotated_alphabet(i).split()
+        count1 += r
+</FONT><A NAME="2"></A><FONT color = #0000FF><A HREF="match24-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for i in count1:
+        table = str.maketrans(i, ALPHABET)
+        list8.append(z.lower().translate(table))
+    for i in range(len(list8)):
+        v = list8[i].split()
+        for b in v:
+            if b in converted():
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match24-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                list9[i]+=1
+    max = -1
+    index = -1
+    for i in range(len(list9)):
+        if list9[i] &gt; max:
+            max = list9[i]
+            index = i
+    final = str.maketrans(rotated_alphabet(index), ALPHABET)
+    return z.lower().translate(final)
+
+
+
+ 
+assert Caesar_break("S kw sx mvkcc bsqrd xyg gybusxq")== "i am in class right now working"
+</FONT>
+print('------ Part (e) --------')
+print()
+print('------ Part (e.1) --------')
+
+def copy_file(p:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match24-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    outfile = open(outfile_name, 'w')
+
+    if p == 'line numbers':
+        infileText = infile.readlines()
+        for i in range(len(infileText)):
+            outfile.write('{:&gt;5} : {}'.format(i+1,infileText[i]))
+
+    elif p== "Gutenberg trim":
+        G= 0
+        E=0
+        infileText = infile.readlines()
+        for i in range(len(infileText)):
+            if ("*** START") in infileText[i]:
+                G += i
+</FONT>
+            if ("*** END") in infileText[i]:
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match24-0.html#5" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                E += E+ i
+                break
+        for i in infileText[G + 1:E]:
+            outfile.write(i)
+
+    elif p== "statistics":
+</FONT>        infileText = infile.readlines()
+        for i in range(len(infileText)):
+            print("{:&gt;8} {:25}".format(len(infileText), "lines in the list"))
+            empty_line = 0
+            for c in infileText:
+                if c.strip() == "":
+                    empty_line += 1
+            print("{:&gt;8} {:25}".format(empty_line, "empty lines"))
+            total_characters = 0
+            for c in infileText:
+                total_characters += len(c)
+            print("{:&gt;8.1f} {:25}".format(total_characters/len(infileText), "average characters per line"))
+            tot_char_non_emp = 0
+            for c in infileText:
+                if c.strip() != "":
+                    tot_char_non_emp += len(c)
+                    
+            print("{:&gt;8.1f} {:25}".format(tot_char_non_emp/(len(infileText)-empty_line), "average characters per non-empty line"))
+            break
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+
+copy_file("line numbers")
+copy_file("Gutenberg trim")
+copy_file("statistics")
+copy_file("hamburger")
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,167 @@
+<HTML>
+<HEAD>
+<TITLE>bhasting/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+bhasting/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+#  Brandon Hastings 59907306 and Samantha Aligaen 21304905. ICS 31 Lab sec 9. Lab Asst 2.
+
+''' Part C '''
+
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  $', rate)
+print('Weekly salary:  $', hours * rate)
+
+print('Hello.  What is your name?')
+name = input()
+print('Hello, ', name)
+print("It's nice to meet you.")
+print('How old are you?')
+age = int(input())
+print('Next year you will be ' + str(age+1) + ' years old.')
+print('Good-bye!')
+
+''' Part D '''
+
+print('Please provide this information:')
+print('Business name:')
+business_name = input()
+print('Number of euros:')
+euros = int(input())
+print('Number of pounds:')
+pounds = int(input())
+print('Number of dollars:')
+dollars = int(input())
+
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND = 8.81
+KRONE_PER_DOLLAR = 5.50
+
+new_euros = euros * KRONE_PER_EURO
+new_pounds = pounds * KRONE_PER_POUND
+new_dollars = dollars * KRONE_PER_DOLLAR
+
+print('Copenhagen Chamber of Commerce')
+print('Business name: ', business_name)
+print(str(euros) + ' euros is ' + str(new_euros) + ' krone')
+print(str(pounds) + ' pounds is ' + str(new_pounds) + ' krone')
+print(str(dollars) + ' dollars is ' + str(new_dollars) + ' krone')
+print()
+total_krone = new_euros + new_pounds + new_dollars
+print('Total krone: ', total_krone)
+
+''' Part E '''
+
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+print(still_another.title)
+print(another.price)
+
+average_price = (favorite.price + another.price + still_another.price) / 3
+print(average_price)
+print(favorite.year == 1900)
+
+updated_still_another = Book(still_another.title, still_another.author, still_another.year, 26)
+print(updated_still_another.price)
+
+new_updated_still_another = Book(still_another.title, still_another.author, still_another.year, updated_still_another.price * 1.20)
+print(new_updated_still_another.price)
+
+''' Part F '''
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match199-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+Animal = namedtuple('Animal', 'name species age weight favorite_food')
+
+a1 = Animal('Jumbo', 'elephant', 50, 1000, 'peanuts')
+a2 = Animal('Perry', 'platypus', 7, 1.7, 'shrimp')
+
+print(a1.weight &lt; a2.weight)
+
+''' Part G '''
+
+booklist = [favorite, another, still_another]
+
+print(booklist[0].price &lt; booklist[1].price)
+print(booklist[0].year &gt; booklist[-1].year)
+
+''' Part H '''
+
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+</FONT>    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print(RL[2].name)
+print(RL[0].cuisine == RL[3].cuisine)
+print(RL[-1].price)
+RL.sort()
+print(RL)
+print(RL[-1].dish)
+new_list_1 = RL[:2]
+new_list_2 = RL[-2:]
+new_list_1.extend(new_list_2)
+new_sorted = sorted(new_list_1)
+print(new_sorted)
+
+''' Part I '''
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=700, height=600)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+#my_canvas.create_line(100, 100, 300, 300, fill='orange') # Draw orange line
+#my_canvas.create_line(300, 100, 100, 300, fill='blue')   # Draw blue line
+
+''' Draw Square '''
+my_canvas.create_line(100, 100, 300, 100, fill='orange') # Draw orange line
+my_canvas.create_line(100, 100, 100, 300, fill='orange') # Draw orange line
+my_canvas.create_line(300, 300, 300, 100, fill='orange') # Draw orange line
+my_canvas.create_line(300, 300, 100, 300, fill='orange') # Draw orange line
+
+''' Draw Diamond '''
+my_canvas.create_line(200, 100, 100, 200, fill='blue') # Draw orange line
+my_canvas.create_line(100, 200, 200, 300, fill='blue') # Draw orange line
+my_canvas.create_line(200, 300, 300, 200, fill='blue') # Draw orange line
+my_canvas.create_line(300, 200, 200, 100, fill='blue') # Draw orange line
+
+''' Draw House '''
+my_canvas.create_rectangle(400, 150, 600, 300, fill='red')
+my_canvas.create_line(400, 150, 500, 100, fill='red') # Draw orange line
+my_canvas.create_line(500, 100, 600, 150, fill='red') # Draw orange line
+my_canvas.create_rectangle(475, 225, 525, 300, fill='blue')
+my_canvas.create_rectangle(415, 165, 455, 205, fill='yellow')
+
+''' Draw Eye '''
+my_canvas.create_oval(100,550,300,400)
+my_canvas.create_oval(140,520,260,430, fill='green')
+my_canvas.create_oval(170,495,230,455, fill='black')
+
+tkinter.mainloop()          # Combine all the elements and display the window
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,245 @@
+<HTML>
+<HEAD>
+<TITLE>maurog/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+maurog/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab 3 Turn In.py
+# Mauro Serrano 42096674 and Luhanzhi Li 94523635 ICS 31 Lab section 12
+
+#c（1）
+def abbreviate(str)-&gt;str:
+    " Return the three-letter abbreviation of words"
+    return str[0:3]
+
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+
+#c.(2)
+def find_area_square(side:int)-&gt;int:
+    "Return the area of that square."
+    return side**2
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+#c.(3)
+pi = 3.14159
+def find_area_circle(radius:int)-&gt;float:
+    "Return the area of that circle"
+    return radius**2*pi
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+       
+
+#c.(4)
+L=[2,47,31,99,20,19,23,105,710,1004]
+def print_even_numbers(x:int)-&gt;list:
+    for x in L:
+       if x%2==0:
+           print(x)
+        
+print(print_even_numbers(L))
+
+        
+
+#c.5
+def calculate_shipping(weight:float)-&gt;float:
+    if weight&lt;2:
+       return 2.00
+    if 2&lt;weight&lt;10:
+       return 5.00
+    else:
+        return (weight-10)*1.50+5.00
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+
+#c.6
+import tkinter
+my_window = tkinter.Tk()
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas.pack()
+
+
+def create_square(x,r:int)-&gt;None:
+    return my_canvas.create_rectangle(x,x,x+r,x+r)
+
+
+
+#c.7
+def create_circle(x,y,r:int)-&gt;None:
+    return my_canvas.create_oval(x,x+r,y,y+r)
+
+
+tkinter.mainloop()
+
+
+
+
+#d
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#d.1
+def restaurant_price(value:list)-&gt;float:
+    return value.price
+
+assert RL[0].price == 12.50
+assert RL[1].price ==5.50
+assert RL[2].price ==25.50
+assert RL[3].price ==15.50
+
+
+
+#d.2
+from operator import attrgetter
+from collections import namedtuple
+
+# sort list by price
+print(sorted(RL, key=attrgetter('price')))
+
+def restaurant_price(r:Restaurant)-&gt;float:
+    return r.price
+
+
+#d.3
+new_RL = sorted(RL, key=attrgetter('price'))
+
+def costliest(r:list)-&gt;str:
+    return new_RL[-1].name
+
+print(costliest(new_RL))
+
+
+#d.4
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match61-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurant_price(value:list)-&gt;list:
+    return value.price
+
+L =sorted(RL, key= restaurant_price,reverse = False)
+def costlist2(x:list)-&gt;str:
+    return x[-1].name
+print(costlist2[L])
+</FONT>
+
+
+#e
+from collections import namedtuple
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book("Arthur Conan Doyle","Adventures of Sherlock Holmes","detective novel", 1892, 21,50),
+    Book("Peter Anteater", "My life in UCI", "school", 1970, 15, 50),
+    Book("Arthur Conan Doyle",'Return of Sherlock Holmes',"detective novel",1905, 25,100),
+    Book("Peter","Science of AI","Technology",1998,30,70),
+    Book("Jean","The life","Fiction",2008,25,200),
+    Book("Jorge","Akeelah and the Bee","fiction",2006,30,150)]
+
+#e.1
+for Book in BSI:
+    print(Book.title)
+
+
+#e.2
+from operator import attrgetter
+sorted_BSI = sorted(BSI, key =attrgetter('title'))
+for Book in sorted_BSI:
+    print(Book.title)
+
+#e.3
+for Book in BSI:
+    print(Book.price*1.1)
+
+  
+#e.4
+for Book in BSI:
+    if Book.genre=="Technology":
+        print(Book.title)
+
+
+#e.5
+before_2000=[]
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match61-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+for Book in BSI:
+    if Book.year &lt; 2000:
+        before_2000.append(Book.instock)
+print(before_2000)
+M = (sum(before_2000))
+print(M)
+after_2000=[]
+for Book in BSI:
+    if Book.year &gt;= 2000:
+        after_2000.append(Book.instock)
+print(after_2000)
+S = (sum(after_2000))
+</FONT>print(S)
+
+#
+#
+
+#e.6
+for Book in BSI:
+    def inventory_value(Book):
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match61-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        return (Book.price*Book.instock)
+
+def top_value(Book_list):
+    Book_list_sorted = sorted(Book_list, key = inventory_value, reverse = True)
+    return(Book_list_sorted[0])
+top_value(BSI)
+title=top_value(BSI).title
+value = inventory_value(top_value(BSI))
+author = top_value(BSI).author
+print('The highest value book is',title,'by',author,'at a value of $',value)
+</FONT>
+
+
+
+#f
+import tkinter
+
+my_window = tkinter.Tk()
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas.pack()
+
+
+
+
+#f.1
+def draw_eye(x,y,k,r,z:int)-&gt;None:
+    return my_canvas.create_oval(x,y,x+k,y+r)and my_canvas.create_oval(x+z,y,x+k-z,y+r)and my_canvas.create_oval(x+2*z,y+z,x+k-z*2,y+r-z)
+print(draw_eye(80,100,90,50,20))
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,188 @@
+<HTML>
+<HEAD>
+<TITLE>chenlo/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+vals/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+#  Sebastian Val 21288450 and Daniel Alboronz 39923079.  ICS 31 Lab sec 7.  Lab Asst 2.
+from collections import namedtuple
+import tkinter
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match239-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+from math import sqrt
+
+#problem c1
+
+hours = int(input('How many hours? '))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour? '))
+print('This many dollars per hour:  $', rate)
+print('Weekly salary:  $', hours * rate)
+
+#problem c2
+username = input("Hello.  What is your name?  ") #  Alice Anteater
+</FONT>print("Hello, ", username, "\nIt's nice to meet you.")
+userage = int(input("How old are you?  ")) #  19
+print("Next year you will be", userage + 1, "years old.\nGood-bye!")
+
+#problem d
+KRONE_PER_EURO = 7.46
+KRONE_PER_BRITISH_POUND = 8.81
+KRONE_PER_DOLLAR = 5.50
+
+print("Please provide this information:")
+business_name = input("Business name:   ")  #Tycho Brahe Enterprises
+euros = float(input("Number of euros:   "))  #100
+pounds = float(input("Number of pounds:   "))  #200
+dollars = float(input("Number of dollars:   "))  #1000
+print()
+print("Copenhagen Chamber of Commerce")
+print("Business name:",business_name)   #Tycho Brahe Enterprises
+print(euros,"euros is" ,euros * KRONE_PER_EURO,"krone")
+print(pounds,"pounds is" ,pounds * KRONE_PER_BRITISH_POUND,"krone")
+print(dollars,"dollars is" ,dollars * KRONE_PER_DOLLAR,"krone")
+print()
+total_krone = ((euros * KRONE_PER_EURO)+(pounds * KRONE_PER_BRITISH_POUND)+(dollars * KRONE_PER_DOLLAR))
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match239-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print("Total krone:",total_krone)
+
+#problem e
+
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+</FONT>                     'Arthur Conan Doyle', 1905, 25.00)
+                  
+#problem e1
+print(still_another.title)
+#problem e2
+print(another.price)
+#problem e3
+print((favorite.price + another.price + still_another.price)/3)
+#problem e4
+print(favorite.year &lt; 1900)
+#problem e5
+still_another = still_another._replace(price = 26.00)
+#problem e6
+still_another = still_another._replace(price = still_another.price * 1.2)
+
+#problem f
+Animal =  namedtuple('Animal','name species age weight food')
+elephant = Animal('Jumbo','elephant',50,1000.0,'peanuts')
+platypus = Animal('Perry','platypus',7,1.7,'shrimp')
+heavier = elephant.weight &lt; platypus.weight
+print(heavier)
+
+#problem g
+booklist = [favorite, another, still_another]
+#problem g1
+print(booklist[0].price &lt; booklist[1].price)
+#problem g2
+print(booklist[0].year &gt; booklist[-1].year)
+
+#problem h
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+#problem h1
+print(RC[2].name)
+#problem h2
+print(RC[0].cuisine == RC[3].cuisine)
+#problem h3
+print(RC[-1].price)
+#problem h4
+RC.sort()
+print(RC)
+#problem h5
+#already sorted alphabetically forward
+print(RC[-1].dish)
+#problem h6
+NEWRC = RC[0:2]
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match239-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+NEWRC.extend(RC[-2:])
+print(NEWRC)
+
+#problem i1
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(100, 100, 300, 100, fill='orange') # Draw orange line
+</FONT>my_canvas.create_line(300, 100, 300, 300, fill='blue')   # Draw blue line
+my_canvas.create_line(300, 300, 100, 300, fill='blue')
+my_canvas.create_line(100, 300, 100, 100, fill='orange')
+tkinter.mainloop()          # Combine all the elements and display the window
+#problem i2
+CONVERSION_FACTOR = sqrt(2)/2
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(200*CONVERSION_FACTOR, 000*CONVERSION_FACTOR, 400*CONVERSION_FACTOR, 200*CONVERSION_FACTOR, fill='orange') # Draw orange line
+my_canvas.create_line(400*CONVERSION_FACTOR, 200*CONVERSION_FACTOR, 200*CONVERSION_FACTOR, 400*CONVERSION_FACTOR, fill='blue')   # Draw blue line
+my_canvas.create_line(200*CONVERSION_FACTOR, 400*CONVERSION_FACTOR, 000*CONVERSION_FACTOR, 200*CONVERSION_FACTOR, fill='blue')
+my_canvas.create_line(000*CONVERSION_FACTOR, 200*CONVERSION_FACTOR, 200*CONVERSION_FACTOR, 000*CONVERSION_FACTOR, fill='orange')
+tkinter.mainloop()
+
+#problem i3
+CONVERSION_FACTOR = sqrt(2)/2
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(200, 000, 400, 200, fill='orange') # Draw orange line
+my_canvas.create_line(000, 200, 200, 000, fill='orange')
+my_canvas.create_line(000, 200, 400, 200, fill='orange') # Draw orange line
+my_canvas.create_line(400, 200, 400, 400, fill='blue')   # Draw blue line
+my_canvas.create_line(400, 400, 000, 400, fill='blue')
+my_canvas.create_line(000, 400, 000, 200, fill='orange')
+#door
+my_canvas.create_line(175, 400, 175, 295, fill='orange')
+my_canvas.create_line(225, 400, 225, 295, fill='orange')
+my_canvas.create_line(175, 295, 225, 295, fill='orange')
+my_canvas.create_oval(180, 350, 190, 360, fill='orange')
+#window
+my_canvas.create_line(75, 300, 75, 250, fill='orange')
+my_canvas.create_line(125, 300, 125, 250, fill='orange')
+my_canvas.create_line(75, 250, 125, 250, fill='orange')
+my_canvas.create_line(75, 300, 125, 300, fill='orange')
+my_canvas.create_line(100, 250, 100, 300, fill='orange')
+my_canvas.create_line(75, 275, 125, 275, fill='orange')
+tkinter.mainloop()
+
+#problem i4
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+my_canvas.create_oval(150, 325, 200, 375, fill='white')
+my_canvas.create_oval(160, 340, 190, 370, fill='blue')
+my_canvas.create_oval(170, 350, 180, 360, fill='black')
+
+tkinter.mainloop()
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

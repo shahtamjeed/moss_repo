@@ -1,0 +1,259 @@
+<HTML>
+<HEAD>
+<TITLE>alongazo/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+alongazo/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Alex Longazo 75852830 and Arielle Chongco 45137728. ICS 31 Lab sec 9
+#Problem C
+#Original code - C.1
+'''
+print('How many hours?')
+hours = int(input())
+print('This many hours', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour: ', rate)
+print('Weekly salary: ', hours * rate)
+'''
+
+#Modified code - C.1
+hours = int(input('How many hours? '))
+print('This many hours: ', hours)
+rate = int(input('How many dollars per hour? '))
+print('This many dollars per hour: $' + str(rate))
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match72-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Weekly salary: $' + str(hours * rate))
+print()
+
+#C.2
+name = str(input('Hello. What is your name? '))
+print('Hello,', name)
+print("It's nice to meet you.")
+age = int(input('How old are you? '))
+print('Next year you will be', age + 1, 'years old.')
+print('Good-bye!')
+print()
+
+#Problem D
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND = 8.81
+KRONE_PER_DOLLAR = 5.50
+
+print('Please provide the following information: ')
+business_name = str(input('Business name: '))
+</FONT>euro_number = float(input('Number of euros: '))
+pound_number = float(input('Number of pounds: '))
+dollar_number = float(input('Number of dollars: '))
+print()
+
+euro_to_krone = euro_number * KRONE_PER_EURO
+pound_to_krone = pound_number * KRONE_PER_POUND
+dollar_to_krone = dollar_number * KRONE_PER_DOLLAR
+print('Copenhagen Chamber of Commerce')
+print('Business name: ', business_name)
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match72-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(euro_number, 'euros is', euro_to_krone, 'krone')
+print(pound_number, 'pounds is', pound_to_krone, 'krone')
+print(dollar_number, 'dollars is', dollar_to_krone, 'krone')
+print()
+print('Total krone: ', euro_to_krone + pound_to_krone + dollar_to_krone)
+print()
+
+#Problem E
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes',
+</FONT>               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+print("The title of still_another is:", still_another[0]) #Prints title of book in still_another
+print('The price of the book "Memoirs of Sherlocks Holmes" is $' + str(another[3])) #Prints price of the book Memoirs of Sherlock Holmes
+avg_price = (favorite[3] + another[3] + still_another[3])/3 #Calculates average price of the three books
+print('The average price of the 3 books is $' +str(avg_price)) #Prints average price of the 3 books
+print("Is the publication year of the book favorite before 1900? - ", favorite[2]&lt;1900) #Prints true or false based on book's publication date
+
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 26.00) #Changes price to $26
+print('The price of Return of Sherlock Holmes has been changed to $' + str(still_another[3]))
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 26.00*1.2) #Increases original cost by 20%.
+print('The price of Return of Sherlock Holmes has increased by 20% ' + 
+      'to a price of $' + str(still_another[3]))
+print()
+
+#Problem F
+from collections import namedtuple
+Animal = namedtuple('Animal', 'name species age weight favorite_food')
+first_animal = Animal('Jumbo', 'elephant', 50, 1000, 'peanuts')
+second_animal = Animal('Perry', 'platypus', 7, 1.7, 'shrimp')
+
+
+print(first_animal[0], "weighs less than", second_animal[0],
+      ":",first_animal[3]&lt;second_animal[3])
+print()
+
+#Problem G
+booklist = [favorite, another, still_another]
+print("The first book in the list is cheaper than the second. -", booklist[0][3] &lt; booklist[1][3])
+print("The first book in the list is more recently published than the last book on the list. -", booklist[0][2] &gt; booklist[-1][2])
+print()
+
+#Problem H
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print("3rd Restaurant:", RL[2][0])
+print("1st and 4th restaurant serve same kind of food:", (RL[0][1]==RL[3][1]))
+print("Price of the best dish in the last restaurant: $" + str(RL[-1][-1]))
+
+RL.sort()
+
+print('---RL Sorted---')
+for temp in RL:
+    print(temp[0])
+
+print()
+print("Best Dish at last restaurant:", RL[-1][3])
+
+NRL = [RL[0], RL[1], RL[-2], RL[-1]]
+
+print()
+print("---NEW LIST---")
+for new_temp in NRL:
+    print(new_temp[0])
+
+#Problem I
+import math
+import tkinter
+my_window = tkinter.Tk()    #Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  #Create a 500x500 canvas to draw on
+my_canvas.pack()    #Put the canvas into the window
+
+my_canvas.create_line(100, 100, 300, 300, fill='orange') #Draw orange line
+my_canvas.create_line(300, 100, 100, 300, fill='blue') #Draw blue line
+
+#Draws a square
+my_canvas.create_line(100, 100, 100, 300, fill='black')
+my_canvas.create_line(100, 100, 300, 100, fill='black')
+my_canvas.create_line(100, 300, 300, 300, fill='black')
+my_canvas.create_line(300, 100, 300, 300, fill='black')
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match72-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+my_window2 = tkinter.Tk()
+my_canvas2 = tkinter.Canvas(my_window2, width=500, height=500)
+my_canvas2.pack()
+
+#Draws a diamond
+my_canvas2.create_line(200, 200 + 100*(math.sqrt(2.0)), 200 + 100 *(math.sqrt(2.0)), 200, fill='green')
+</FONT>my_canvas2.create_line(200, 200 + 100*(math.sqrt(2.0)), 200 - 100 * (math.sqrt(2.0)), 200, fill='green')
+my_canvas2.create_line(200 + 100*(math.sqrt(2.0)), 200, 200, 200 - 100*(math.sqrt(2.0)), fill='green')
+my_canvas2.create_line(200 - 100*(math.sqrt(2.0)), 200, 200, 200 - 100*(math.sqrt(2.0)), fill='green')
+
+my_window3 = tkinter.Tk()
+my_canvas3 = tkinter.Canvas(my_window3, width=500, height=500)
+my_canvas3.pack()
+
+
+#Draws a house
+my_canvas3.create_rectangle(0,0,500,500,fill='cyan') #Draws Sky
+my_canvas3.create_rectangle(100,200, 400, 400, fill = 'yellow')
+my_canvas3.create_line(100, 400, 400, 400, fill='black')
+my_canvas3.create_line(100, 200, 100, 400, fill='black')
+my_canvas3.create_line(400, 200, 400, 400, fill='black')
+my_canvas3.create_line(100, 200, 400, 200, fill='black')
+my_canvas3.create_line(250, 100, 100, 200, fill='black') #Draws roof
+my_canvas3.create_line(250, 100, 400, 200, fill='black') #Draws roof
+my_canvas3.create_polygon(250,100,100,200,400,200,fill='red')
+my_canvas3.create_rectangle(210, 400, 290, 300, fill='brown') #Draws door
+my_canvas3.create_rectangle(120, 290, 200, 220, fill='blue') #Draws window
+my_canvas3.create_rectangle(300, 290, 380, 220, fill='blue') #Draws window
+my_canvas3.create_rectangle(0, 400, 500, 500, fill = 'green') #Draws grass
+my_canvas3.create_oval(10,10,150,150,fill='yellow',outline='yellow') #Draws sun
+
+my_window4 = tkinter.Tk()
+my_canvas4 = tkinter.Canvas(my_window4, width = 600, height = 600)
+my_canvas4.pack()
+
+#Draws two eyes
+my_canvas4.create_oval(50,50,550,550, fill = 'white') #Draws outline of face
+my_canvas4.create_oval(100+50,100,200+50,300,fill='white') #Draws outer eye
+my_canvas4.create_oval(300+50,100,400+50,300,fill='white') #Draws outer eye
+my_canvas4.create_oval(130+50,200,180+50,280,fill='black') #Draws iris
+my_canvas4.create_oval(150+50,230,170+50,270,fill='white') #Draws pupil
+my_canvas4.create_oval(320+50,200,370+50,280,fill='black') #Draws iris
+my_canvas4.create_oval(330+50,230,350+50,270,fill='white') #Draws pupil
+my_canvas4.create_oval(150, 350, 450, 500, fill = 'black') #Draws mouth
+my_canvas4.create_oval(100, 300, 500, 450, fill = 'white', outline='white')
+my_canvas4.create_oval(275, 300, 330, 340, fill = 'black') #Draws nose
+
+
+my_window5 = tkinter.Tk()
+my_canvas5 = tkinter.Canvas(my_window5, width = 500, height = 500)
+my_canvas5.pack()
+
+#Draws the solar system
+    #Draws orbital paths
+my_canvas5.create_rectangle(0,0,500,500,fill='black') #Draws black background
+my_canvas5.create_oval(10,10,500,500,outline='white')
+my_canvas5.create_oval(30,30,480,480,outline='white')
+my_canvas5.create_oval(50,50,460,460,outline='white')
+my_canvas5.create_oval(70,70,440,440,outline='white')
+my_canvas5.create_oval(90,90,420,420,outline='white')
+my_canvas5.create_oval(110,110,400,400,outline='white')
+my_canvas5.create_oval(130,130,380,380,outline='white')
+my_canvas5.create_oval(150,150,360,360,outline='white')
+    #Draws planets
+my_canvas5.create_oval(180,180,330,330,fill='yellow') #Draws Sun
+my_canvas5.create_oval(350, 255, 370, 275,fill='grey') #Draws Mercury
+my_canvas5.create_oval(255,120,280,145,fill='green yellow') #Draws Venus
+my_canvas5.create_oval(195, 380, 225, 410, fill='blue') #Draws Earth
+my_canvas5.create_oval(85, 295, 110, 320, fill = 'orange') #Draws Mars
+my_canvas5.create_oval(340, 390, 375, 425, fill='brown') #Draws Jupiter
+my_canvas5.create_oval(85,110,115,140,fill='dark khaki') #Draws Saturn
+my_canvas5.create_oval(383,70,408,95,fill='sky blue') #Draws Uranus
+my_canvas5.create_oval(100,445,125,470,fill='dark turquoise') #Draws Neptune
+
+
+#Draws smartphone
+my_window6 = tkinter.Tk()
+my_canvas6 = tkinter.Canvas(my_window6, width = 500, height = 500)
+my_canvas6.pack()
+
+
+my_canvas6.create_rectangle(150,100,350,400, fill = 'black')
+my_canvas6.create_rectangle(150,100,175,125, fill = 'white', outline = 'white')
+my_canvas6.create_rectangle(150,375,175,400, fill = 'white', outline = 'white')
+my_canvas6.create_rectangle(325,100,350,125, fill = 'white', outline = 'white')
+my_canvas6.create_rectangle(325,375,350,400, fill = 'white', outline = 'white')
+my_canvas6.create_oval(150,100,200,150, fill = 'black') #Corner Details
+my_canvas6.create_oval(300,100,350,150, fill = 'black')
+my_canvas6.create_oval(150,350,200,400, fill = 'black')
+my_canvas6.create_oval(300,350,350,400, fill = 'black')
+my_canvas6.create_rectangle(160,150,340,350, fill = 'cyan') #Screen
+my_canvas6.create_oval(230, 355, 270, 395, outline = 'gray') #Button Detail
+my_canvas6.create_rectangle(242,367,258,383, outline = 'gray')
+my_canvas6.create_rectangle(230,130,270,135, fill = 'darkgray', outline = 'darkgray')
+
+tkinter.mainloop()   #Combine all the elements and the display window
+</PRE>
+</PRE>
+</BODY>
+</HTML>

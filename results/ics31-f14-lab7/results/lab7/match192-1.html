@@ -1,0 +1,154 @@
+<HTML>
+<HEAD>
+<TITLE>choe4/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+phillian/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Phillip Nguyen 15629150 & Wesley Cheung 48481383. ICS 31 Lab sec 5. Lab asst 7.
+
+print()
+print()
+print('---------- Part (C) ----------\n')
+
+from random import randrange
+
+SURNAME_FILE = 'surnames.txt'
+FEMALE_FILE = 'femalenames.txt'
+MALE_FILE = 'malenames.txt'
+
+def get_names(file: str) -&gt; list:
+    ''' Returns names from a file '''
+    infile = open(file, 'r')
+    data = infile.readlines()
+    for i in range(len(data)):
+        data[i] = data[i].split()[0].title()
+    return data
+
+def random_names(n: int) -&gt; 'list of strings':
+    ''' Returns a list of that many strings, with each string a randomly generated name '''
+    surNames = get_names(SURNAME_FILE)
+    firstNames = get_names(FEMALE_FILE) + get_names(MALE_FILE)
+    result = []
+    for i in range(n):
+        result.append('{0:}, {1:}'.format(surNames[randrange(0, len(surNames))], firstNames[randrange(0, len(firstNames))]))
+    return result
+
+print(random_names(10))
+
+print()
+print()
+print('---------- Part (D) ----------\n')
+
+WORD_FILE = 'wordlist.txt'
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate_alphabet(a: int) -&gt; list:
+    ''' Pushes the starting point of the alphabet back by "a" places'''
+    return ALPHABET[a:] + ALPHABET[:a]
+
+def Caesar_break(message: str) -&gt; str:
+    ''' Decrypt an encrypted message using brute force '''
+    word_file = open(WORD_FILE, 'r').read().split()
+
+    counts = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0,
+              10:0, 11:0, 12:0, 13:0, 14:0, 15:0, 16:0, 17:0,
+              18:0, 19:0, 20:0, 21:0, 22:0, 23:0, 24:0, 25:0}
+
+    for i in range(26):
+        table = str.maketrans(rotate_alphabet(i), ALPHABET)
+        decrypt = (message.lower()).translate(table)
+        split_message = decrypt.split()
+
+        for w1 in split_message:
+            for w2 in word_file:
+                if w1 == w2:
+                    counts[i] += 1
+
+    most_counts = 0
+    counts_index = 0
+    for i in range(26):
+        if most_counts &lt; counts[i]:
+            most_counts = counts[i]
+            counts_index = i
+
+    table = str.maketrans(rotate_alphabet(counts_index), ALPHABET)
+    decrypt = (message.lower()).translate(table)
+
+    return decrypt
+
+print(Caesar_break('Qnuux, vh wjvn rb Yqruury!'))
+assert(Caesar_break('sxpybwkdsyx kxn mywzedob cmsoxmo') == 'information and computer science')
+assert(Caesar_break('sn ad nq mns sn ad, sgzs hr sgd ptdrshnm...') == 'to be or not to be, that is the question...')
+
+print()
+print()
+print('---------- Part (E) ----------\n')
+
+# Function for E.3 - GUTENBURG TRIM
+def stats(string_list: list):
+    '''Takes a list of strings and prints its statistics'''
+    empty_lines = 0
+    nonempty_line_characters = 0
+    total_characters = 0
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match192-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for i in range(len(string_list)):
+        total_characters += len(string_list[i])
+        if (string_list[i] == '') or (string_list[i] == '\n'):
+            empty_lines += 1
+        else:
+            nonempty_line_characters += len(string_list[i])
+
+    print('{0:5}   lines in the list'.format(len(string_list)))
+    print('{0:5}   empty lines'.format(empty_lines))
+    print('{0:7.1f} average characters per line'.format(total_characters/len(string_list)))
+    print('{0:7.1f} average characters per non-empty line'.format(nonempty_line_characters/(len(string_list) - empty_lines)))
+</FONT>
+def copy_file(s: str) -&gt; 'modified file':
+    ''' Modifies file as stated in E.1 - E.4 '''
+    infile_name = input("\nPlease enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    # E.2
+    if s.strip() == "line numbers":      
+        x = infile.read().split(sep = "\n")
+        for i in range(len(x)):
+            outfile.write('{}: {}'.format(i+1, x[i] + "\n"))
+
+    # E.3
+    elif s.strip() == "Gutenburg trim":
+        y = infile.readlines()
+        for i in y:
+            if "*** START OF" in i:
+                start_index = y.index(i)
+            elif ("*** END OF") in i:
+                end_index = y.index(i)
+        for i in range(start_index, end_index + 1):
+            outfile.write(y[i])
+
+    # E.4
+    elif s.strip() == "statistics":
+        y = infile.readlines()
+        print()
+        stats(y)
+        for i in y:
+            outfile.write(i)
+
+    else:
+        for i in infile:
+            outfile.write(i)
+ 
+    infile.close()    
+    outfile.close()
+    
+copy_file(input('Enter "line numbers", "Gutenburg trim", "statistics", or leave empty:\n'))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

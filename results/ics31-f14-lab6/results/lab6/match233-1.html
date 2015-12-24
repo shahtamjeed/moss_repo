@@ -1,0 +1,250 @@
+<HTML>
+<HEAD>
+<TITLE>jkandu/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+niwang/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Nathan Wang 79834257 and Javier Fregoso 95403778. ICS 31 Lab sec 4. Lab asst 6.
+import string
+#c
+print("-----Part(C)-----")
+
+#c1
+def contains(s1:str,s2:str) -&gt; bool:
+    '''returns true if s2 in s1'''
+    return s2 in s1
+assert contains('skier','ski') == True
+assert contains('hello','hi') == False
+assert contains('welcome back', ' ') == True
+
+#c2
+def sentence_stats(s:str):
+    '''prints out len in char, len in words, and avg len of words for s'''
+    print("Characters: ", len(s))
+    s = s.translate(str.maketrans(string.punctuation,' '*len(string.punctuation))).split()
+    print("Words: ", len(s))
+    total = 0
+    for i in s:
+        total += len(i)
+    print("Average word length: ", total/len(s))
+sentence_stats('hi there')
+print()
+sentence_stats('welcome to class')
+print()
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+#c3
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match233-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def initials(s:str) -&gt; str:
+    '''returns the initials of the name in call caps'''
+    s = s.upper().split()
+    result = ''
+    for i in s:
+        result += i[0]
+    return result
+assert initials('Bill Gates') == 'BG'
+</FONT>assert initials('nathan Isaac wang') == 'NIW'
+assert initials('BOB') == 'B'
+
+#d
+print()
+print("-----Part(D)-----")
+
+#d1
+from random import randrange
+for i in range(50):
+    print(randrange(11))
+
+
+print()
+#d2
+def roll2dice() -&gt; int:
+    '''roll 2 dice randomly'''
+    return randrange(1,7) + randrange(1,7)
+
+for i in range(50):
+    print(roll2dice())
+
+
+print()
+#d3
+def distribution_of_rolls(n:int) -&gt; None:
+    '''rolls 2 dice the number of times specified and returns the results'''
+    result = [0 for x in range(12)]
+    for i in range(n):
+        roll = randrange(1,7) + randrange(1,7)
+        result[roll-2] += 1
+
+    print("Distribution of dice rolls")
+    print()
+    for x in range(2,13):
+        print("{0:2}: {1:3} ({2:4.1f}%) {3:&lt;}".format(x,result[x-2],result[x-2]/n*100,'*'*result[x-2]))
+
+    print('-'*30)
+    print("{0:7} rolls".format(n))
+    
+distribution_of_rolls(100)
+print()
+distribution_of_rolls(200)
+print()
+distribution_of_rolls(500)
+
+#e
+print()
+print("-----Part(E)-----")
+
+#e1
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match233-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def rotate(x:int) -&gt; str:
+    '''rotates the alphabet by the number given'''
+    return ALPHABET[x%26:] + ALPHABET[0:x%26]
+</FONT>assert rotate(29) == 'defghijklmnopqrstuvwxyzabc'
+assert rotate(5) == 'fghijklmnopqrstuvwxyzabcde'
+assert rotate(13) == 'nopqrstuvwxyzabcdefghijklm'
+
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match233-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_encrypt(m:str,k:int) -&gt; str:
+    '''encrypts a message by rotating the alphabet by the given number'''
+    return m.lower().translate(str.maketrans(ALPHABET,rotate(k)))
+assert Caesar_encrypt('hello there!',2) == 'jgnnq vjgtg!'
+assert Caesar_encrypt('my name is nathan',6) == 'se tgsk oy tgzngt'
+
+
+def Caesar_decrypt(m:str,k:int) -&gt; str:
+    '''decrypts a message by rotating the alphabet by the given number'''
+    return m.lower().translate(str.maketrans(rotate(k),ALPHABET))
+</FONT>assert Caesar_decrypt('fytc y lgac byw',50) == 'have a nice day'
+assert Caesar_decrypt('yfnj zk xfzex?',17) == 'hows it going?'
+
+#f
+print()
+print("-----Part(F)-----")
+
+#f1
+def print_line_numbers(s:list) -&gt; None:
+    '''prints out each string in the list and the line number'''
+    for i in range(1,len(s)+1):
+        print('{0:5}: {1:&lt;}'.format(i,s[i-1]))
+print_line_numbers([ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ])
+print()
+print_line_numbers(["Read sections 2.14 and 4.1-4.3.",
+                    "As always, do the interactive activities in the text.",
+                    "Section 2.16 covers how to produce precisely formatted output using the format() method.",
+                    "That's the method we'll be using in ICS 31,",
+                    "even though the Zyante text predominantly uses an older style involving the % operator",
+                    "(in a different meaning than we've seen as the remainder from a division).",
+                    "You're not forbidden from using the older style,",
+                    "but there may be lab or exam problems that require you to use the format() method",
+                    "so you have to be familiar with it."])
+print()
+print_line_numbers(['Once upon a time',
+                    'there were',
+                    ' ',
+                    'three little pigs.',
+                    '',
+                    'they were happy',
+                    '!!!'])
+print()
+
+#f2
+def stats(s:list) -&gt; None:
+    '''takes a list of strings and prints the lines in the list, empty lines, avg char per line, and avg char per non-empty line'''
+    lines = len(s)
+    
+    empty = 0
+    for i in s:
+        if i == '':
+            empty += 1
+            
+    total = 0
+    for i in s:
+        total += len(i)
+    avg = total/lines
+
+    non = 0
+    for i in s:
+        if i != '':
+            non += 1
+    avgnon = total/non
+
+    print('{:6}   lines in the list'.format(lines))
+    print('{:6}   empty line(s)'.format(empty))
+    print('{:8.1f} average characters per line'.format(avg))
+    print('{:8.1f} average characters per non-empty line'.format(avgnon))
+    
+stats([ "Four score and seven years ago, our fathers brought forth on",
+        '',
+        "this continent a new nation, conceived in liberty and dedicated",
+        '',
+        "to the proposition that all men are created equal.  Now we are",
+        '',
+        "   engaged in a great 		civil war, testing whether that nation, or any",
+        "nation so conceived and so dedicated, can long endure.        " ])
+print()
+stats(["Read sections 2.14 and 4.1-4.3.",
+        "As always, do the interactive activities in the text.",
+        "Section 2.16 covers how to produce precisely formatted output using the format() method.",
+        "That's the method we'll be using in ICS 31,",
+        "even though the Zyante text predominantly uses an older style involving the % operator",
+        "(in a different meaning than we've seen as the remainder from a division).",
+        "You're not forbidden from using the older style,",
+        "but there may be lab or exam problems that require you to use the format() method",
+        "so you have to be familiar with it."])
+print()
+stats(['Once upon a time',
+        'there were',
+        ' ',
+        'three little pigs.',
+        '',
+        'they were happy',
+        '!!!'])
+
+#f3
+def list_of_words(s:list) -&gt; list:
+    '''takes the list and returns a list of individual words without whitespace and punctuation'''
+    new = []
+    for i in s:
+        new.extend(i.strip(string.punctuation).split())
+    return new
+
+assert list_of_words(["Read sections 2.14 and 4.1-4.3.",
+        "As always, do the interactive activities in the text.",
+        "Section 2.16 covers how to produce precisely formatted output using the format() method.",
+        "That's the method we'll be using in ICS 31,",
+        "even though the Zyante text predominantly uses an older style involving the % operator",
+        "(in a different meaning than we've seen as the remainder from a division).",
+        "You're not forbidden from using the older style,",
+        "but there may be lab or exam problems that require you to use the format() method",
+        "so you have to be familiar with it."]) == ['Read', 'sections', '2.14', 'and', '4.1-4.3', 'As', 'always,', 'do', 'the', 'interactive', 'activities', 'in', 'the', 'text', 'Section', '2.16', 'covers', 'how', 'to', 'produce', 'precisely', 'formatted', 'output', 'using', 'the', 'format()', 'method', "That's", 'the', 'method', "we'll", 'be', 'using', 'in', 'ICS', '31', 'even', 'though', 'the', 'Zyante', 'text', 'predominantly', 'uses', 'an', 'older', 'style', 'involving', 'the', '%', 'operator', 'in', 'a', 'different', 'meaning', 'than', "we've", 'seen', 'as', 'the', 'remainder', 'from', 'a', 'division', "You're", 'not', 'forbidden', 'from', 'using', 'the', 'older', 'style', 'but', 'there', 'may', 'be', 'lab', 'or', 'exam', 'problems', 'that', 'require', 'you', 'to', 'use', 'the', 'format()', 'method', 'so', 'you', 'have', 'to', 'be', 'familiar', 'with', 'it']
+assert list_of_words([ "Four score and seven years ago, our fathers brought forth on",
+        '',
+        "this continent a new nation, conceived in liberty and dedicated",
+        '',
+        "to the proposition that all men are created equal.  Now we are",
+        '',
+        "   engaged in a great 		civil war, testing whether that nation, or any",
+        "nation so conceived and so dedicated, can long endure.        " ]) == ['Four', 'score', 'and', 'seven', 'years', 'ago,', 'our', 'fathers', 'brought', 'forth', 'on', 'this', 'continent', 'a', 'new', 'nation,', 'conceived', 'in', 'liberty', 'and', 'dedicated', 'to', 'the', 'proposition', 'that', 'all', 'men', 'are', 'created', 'equal.', 'Now', 'we', 'are', 'engaged', 'in', 'a', 'great', 'civil', 'war,', 'testing', 'whether', 'that', 'nation,', 'or', 'any', 'nation', 'so', 'conceived', 'and', 'so', 'dedicated,', 'can', 'long', 'endure.']
+
+assert list_of_words(['Once upon a time',
+        'there were',
+        ' ',
+        'three little pigs.',
+        '',
+        'they were happy',
+        '!!!']) == ['Once', 'upon', 'a', 'time', 'there', 'were', 'three', 'little', 'pigs', 'they', 'were', 'happy']
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

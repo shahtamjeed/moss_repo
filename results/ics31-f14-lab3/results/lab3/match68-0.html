@@ -1,0 +1,377 @@
+<HTML>
+<HEAD>
+<TITLE>jkandu/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jkandu/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Dennis Tian 32422520 and Jason Kandu 23434725. ICS 31 Lab sec 13. Lab asst 3
+
+print('---------- Part (1) ----------')
+print()
+
+def abbreviate( month: str) -&gt; str:
+    "Return abbreviated month to first three letters"
+    return month[0:3]
+
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (2) ----------')
+print()
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match68-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def find_area_square(length: float) -&gt; float:
+    "Return the area of the square"
+    return length **2
+
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (3) ----------')
+print()
+
+
+
+def find_area_circle(radius: float) -&gt; float:
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match68-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    "Return the area of the square"
+    return radius ** 2 * 3.14159
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (4) ----------')
+print()
+
+def print_even_numbers( integer_list: list) -&gt; list:
+</FONT>    "Print each even number on the list"
+    for i in integer_list:
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match68-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        if i % 2 == 0:
+            print (i)
+
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (5) ----------')
+</FONT>print()
+
+def calculate_shipping( weight: float) -&gt; float:
+    "Returns price for shipping"
+    if 10 &gt;= weight &gt;= 2:
+        return(5.00)
+    if weight &lt; 2:
+        return(2.00)
+    else:
+        return( 5 + (weight - 10.00) * 1.50)
+
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match68-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (6) ----------')
+print()
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas_i1 = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+</FONT>my_canvas_i1.pack()
+
+
+
+def create_square(x, y, length: float) -&gt; float:
+    "Return square"
+    return my_canvas_i1.create_rectangle(x, y, x + length, y + length)
+
+create_square(100, 100, 200)
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (7) ----------')
+print()
+
+my_window = tkinter.Tk()
+
+my_canvas_i2 = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas_i2.pack()
+
+def create_circle(x, y, diameter: int) -&gt; int:
+    "Return circle"
+    return my_canvas_i2.create_oval(x, y, x + diameter, y + diameter)
+
+create_circle(100, 100, 100)
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (7.d.1) ----------')
+print()
+
+from collections import namedtuple
+
+
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurant_price(rest : Restaurant) -&gt; float:
+    "Return price of restaurant"
+    return rest.price
+
+assert restaurant_price(RL[0]) == 12.5
+
+print (restaurant_price(RL[2]))
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match68-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+print('---------- Part (7.d.2) ----------')
+print()
+
+RL.sort(key = restaurant_price)
+
+print(RL)
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (7.d.3) ----------')
+print()
+
+
+    
+def costliest(expensive : list) -&gt; str:
+    "Returns most expensive restaurant"
+    RL.sort(key = restaurant_price)
+</FONT>    print(RL[-1][0])
+
+costliest(RL)
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (7.d.4) ----------')
+print()
+
+def costliest2(expensive : list) -&gt; str:
+    "Returns most expensive restaurant"
+    RL.sorted(key = restaurant_price)
+    print(RL[-1][0])
+
+costliest(RL)
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (7.e) ----------')
+print()
+
+from collections import namedtuple
+Book = namedtuple ('Book', 'author title genre year price instock')
+BSI = [
+    Book('Rowling, JK', 'The Sorcerer\'s Stone', 'Fantasy', 1998, 6.99, 23),
+    Book('Rowling, JK', 'Chamber of Secrets', 'Fantasy', 1999, 8.99, 45),
+    Book('Rowling, JK', 'Prisoner of Azkaban', 'Fantasy', 1999, 7.99, 14),
+    Book('Rowling, JK', 'Goblet of Fire', 'Fantasy', 2000, 9.99, 65),
+    Book('Rowling, JK', 'Order of the Phoenix' , 'Fantasy', 2003, 8.99, 17),
+    Book('Rowling, JK', 'Half-blood Prince', 'Technology', 2005, 6.99, 86)]
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (7.e.1) ----------')
+print() 
+
+def title_printer(BSI:list):
+    "Returns the title of each book in BSI"
+    for i in BSI:
+        print (i.title)
+
+title_printer(BSI)
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (7.e.2) ----------')
+print()
+
+def titler(BSI:list) -&gt; str:
+    "Returns the title of each book in BSI"
+    return BSI.title
+
+def sorter(a:list) -&gt; list:
+    "Returns the title of each book sorted in BSI"
+    list2 = sorted(a, key = titler)
+    #for book in a:
+     #   print(book.title)
+    return list2
+
+list_of_books = sorter(BSI)
+
+for book in list_of_books:
+    print(book.title)
+''' For more practice, this is another way of returning the title of each book in BSI
+print("\nAgain\n")
+
+for book in range( len(list_of_books) ):
+    print(list_of_books[book].title)
+'''    
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (7.e.3) ----------')
+print()
+
+def price_raiser(BSI: list):
+    "Raises the price of each book in BSI by 10%"
+    for i in range(len(BSI)):
+        BSI[i] = BSI[i]._replace(price=BSI[i].price*1.10)
+    return BSI
+print(price_raiser(BSI))
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (7.e.4) ----------')
+print()
+
+def title_printer_tech(BSI:list):
+    "Returns the title of each book in BSI that's genre is Technology"
+    for i in BSI:
+        if (i.genre == 'Technology'):
+            print (i.title)
+
+title_printer_tech(BSI)
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (7.e.5) ----------')
+print()
+
+def more_titles(BSI: list) -&gt; list:
+    "Prints the number of titles that were published in the year 2000 or later"
+    list2 = []
+    for i in BSI:
+        if (i.year &gt;= 2000):
+            list2.append(i)
+    return list2
+
+def less_titles(BSI: list) -&gt; list:
+    "Prints the number of titles that were published less than the year 2000"
+    list2 = []
+    for i in BSI:
+        if (i.year &lt; 2000):
+            list2.append(i)
+    return list2
+
+list_of_books2 = more_titles(BSI)
+list_of_books3 = less_titles(BSI)
+print('More titles 2000 or later (' + str(len(list_of_books2)) + ' vs. ' + str(len(list_of_books2)) + ').')
+
+'''
+FOR MORE PRACTICE: This returns the number of titles in stock 
+list_of_books2 = more_titles(BSI)
+list_of_titles = []
+for book in list_of_books2:
+    list_of_titles.append(book.instock)
+
+list_of_books3 = less_titles(BSI)
+list_of_titles2 = []
+for book in list_of_books3:
+    list_of_titles2.append(book.instock)
+print('More titles 2000 or later (' + str(sum(list_of_titles)) + ' vs. ' + str(sum(list_of_titles2)) + ').')
+'''
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (7.e.6) ----------')
+print()
+
+def inventory_value(book: Book):
+    "Returns value of the inventory of the book"
+    return book.price * book.instock
+
+assert inventory_value(BSI[0]) ==176.847
+
+
+def top_value(BSI: list) -&gt; Book: 
+    "Returns the book with the highest-value inventory"
+    
+    
+    current_highest = Book('0', '0' , '0', 0, 0, 0)
+    for i in BSI:
+        if (inventory_value(i) &gt; inventory_value(current_highest)):
+            current_highest = i
+    return current_highest
+
+print('The highest-value book is ' + top_value(BSI).title + ' by ' + top_value(BSI).author + ' at a value of $' + str(inventory_value(top_value(BSI))) + '.')
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (7.f) ----------')
+print()
+
+
+import tkinter # Load the library; do this just once per program
+
+my_window = tkinter.Tk() # Create the graphics window
+
+my_canvas_i3 = tkinter.Canvas(my_window, width=500, height=500) # Create a 500x500 canvas to draw on
+my_canvas_i3.pack() # Put the canvas into the window
+
+def drawEye(my_canvas_i3):
+    x = 70
+    my_canvas_i3.create_oval(x, x, x + 100, x + 50, outline='black')
+    my_canvas_i3.create_oval(x + 30, x + 10, x + 70, x + 50, fill='black')
+    my_canvas_i3.create_oval(x + 200, x, x + 300, x + 50, outline='black')
+    my_canvas_i3.create_oval(x + 230, x + 10, x + 270, x + 50, fill='black')
+    return my_canvas_i3
+
+def drawMouth(my_canvas_i3):
+    my_canvas_i3.create_oval(25, 150, 390, 200, fill='red')
+    my_canvas_i3.create_line(25, 175, 390, 175, fill='black')
+    return my_canvas_i3
+
+def drawNose(my_canvas_i3):
+    my_canvas_i3.create_arc(0, 120, 400, 170, fill='orange')
+
+def drawFace(my_canvas_i3):
+    my_canvas_i3.create_oval(0, 0, 450, 450, fill='papaya whip')
+    drawEye(my_canvas_i3)
+    drawMouth(my_canvas_i3)
+    drawNose(my_canvas_i3)
+
+drawFace(my_canvas_i3)
+drawFace(my_canvas_i3)
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

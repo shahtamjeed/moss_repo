@@ -1,0 +1,201 @@
+<HTML>
+<HEAD>
+<TITLE>csardell/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+eluong5/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Marlene Guerrero 84775181 and Eric Luong 15451599. ICS 31 Lab sec 12.  Lab asst 7.
+
+
+#
+#
+# Part (c)
+#
+#
+print()
+print()
+print('----- Part (c) -----')
+print()
+
+# c
+surnames = open('surnames.txt', 'r')
+sn = surnames.readlines()
+fnames = open('femalenames.txt', 'r')
+fn = fnames.readlines()
+mnames = open('malenames.txt', 'r')
+mn = mnames.readlines()
+surnames.close()
+fnames.close()
+mnames.close()
+
+from random import randrange
+
+def get_name(namelist: list) -&gt; str:
+    ''' Returns a random name chosen from a list '''
+    name = namelist[randrange(0, len(namelist))].split()
+    return name[0].lower().title()
+
+def random_name(s, f, m) -&gt; str:
+    ''' Returns a randomly chosen surname and a male or female name from their spective lists '''
+    if randrange(0, 2) == 0:
+        return get_name(s) + ', ' + get_name(f)
+    else:
+        return get_name(s) + ', ' + get_name(m)
+
+def random_names(n: int) -&gt; list:
+    ''' Returns a list of n randomly generated names '''
+    results = [ ]
+    for i in range(n):
+        results.append(random_name(sn, fn ,mn))
+    return results
+assert random_names(0) == [ ]
+for i in random_names(15):
+    print(i)
+
+
+#
+#
+# Part (d)
+#
+#
+print()
+print()
+print('----- Part (d) -----')
+print()
+
+# d
+words = open('wordlist.txt', 'r')
+dictionary = words.read().split()
+words.close()
+
+alpha = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate(n: int) -&gt; str:
+    ''' Returns the rotated alphabet of rotation amount n '''
+    return alpha[n:26] + alpha[0:n]
+assert rotate(0) == 'abcdefghijklmnopqrstuvwxyz'
+assert rotate(-1) == 'zabcdefghijklmnopqrstuvwxy'
+assert rotate(1) == 'bcdefghijklmnopqrstuvwxyza'
+
+def wordstrip(word: str) -&gt; str:
+    ''' Takes a string and removes anything but alphabets and apostrophes '''
+    result = ''
+    for char in word:
+        if not char.isalpha():
+            result += ''
+        else:
+            result += char
+    return result
+assert wordstrip('conc][eived') == 'conceived'
+assert wordstrip('h!@#$%%^)@)#)034020') == 'h'
+assert wordstrip(' ') == ''
+assert wordstrip('') == ''
+
+def translate(a: str, n: int) -&gt; str:
+    ''' Returns a translated a string using a rotated alphabet of rotation amount n '''
+    result = ''
+    table = str.maketrans(rotate(n), alpha)
+    result += a.lower().translate(table)
+    return result
+assert translate('mjqqt', 5) == 'hello'
+assert translate('sbqfmdhwcb', 14) == 'encryption'
+
+def Caesar_break(code: str) -&gt; str:
+    ''' Returns the decryption of an encrypted string '''
+    most_hits = 0
+    index = 0
+    for n in range(0, 26):
+        total_hits = 0
+        for word in code.split():
+            if translate(wordstrip(word), n) in dictionary:
+                total_hits += 1
+        if total_hits &gt; most_hits:
+            most_hits = total_hits
+            index = n
+    if most_hits == 0:
+        return "Unable to break '" + code + "'. Not a single matching word found."
+    return translate(code, index)
+assert Caesar_break('mjqqt') == 'hello'
+assert Caesar_break('sbqfmdhwcb0!') == 'encryption0!'
+
+print(Caesar_break('olssv aolyl'))
+print(Caesar_break('vckrm, dofhbsf! hvwg wg tizz ct dibqhiohwcb.'))
+print(Caesar_break('m lexi qsrhecw.'))
+print(Caesar_break('dfgiewjlre'))
+print(Caesar_break('asdsad lagjgd gs2kj32@#($ dskf!4kf'))
+
+
+#
+#
+# Part (e)
+#
+#
+print()
+print()
+print('----- Part (e) -----')
+print()
+
+# e
+def copy_file(a: str) -&gt; None:
+    ''' Writes to a file a book based on specified string '''
+    infile_name = input("Please enter the name of the file:  ")
+    infile = open(infile_name, 'r')
+    if a == 'line numbers':
+        book = infile.readlines()
+        outfile_name = input("Please enter the name of the new copy with line numbers:  ")
+        outfile = open(outfile_name, 'w')
+        for line in range(len(book)):
+            outfile.write('{:5d}: '.format(line + 1) + book[line])
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match87-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        outfile.close()
+    elif a == 'Gutenberg trim':
+        book = infile.readlines()
+        outfile_name = input("Please enter the name of the new trimmed copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in range(len(book)):
+            if '*** START' in book[line]:
+                start = line
+                break
+        for line in range(len(book)):
+            if '*** END' in book[line]:
+                end = line
+                break
+        for line in range(start + 1, end):
+            outfile.write(book[line])
+</FONT>        outfile.close()
+    elif a == 'statistics':
+        book = infile.readlines()
+        outfile_name = input("Please enter the name of the new copy with statistics:  ")
+        outfile = open(outfile_name, 'w')
+        total = 0
+        for i in book:
+            if i != '\n':
+                total += len(i)
+        outfile.write('{:7d}   lines in the file\n{:7d}   empty lines\n{:9.1f} average characters per line\n{:9.1f} average characters per non-empty line\n\n\n'.format(len(book),
+                                                                                                                                                                    book.count('\n'),
+                                                                                                                                                                    len(' '.join(book))/len(book),
+                                                                                                                                                                    total/(len(book) - book.count('\n'))))
+        for line in book:
+            outfile.write(line)
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match87-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        outfile.close()
+    else:
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        outfile.close()
+    infile.close()
+</FONT>copy_file('line numbers')
+copy_file('Gutenberg trim')
+copy_file('statistics')
+copy_file('')
+copy_file('asdsa342')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

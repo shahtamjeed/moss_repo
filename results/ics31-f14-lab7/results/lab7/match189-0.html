@@ -1,0 +1,276 @@
+<HTML>
+<HEAD>
+<TITLE>hoangkt1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+hoangkt1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab 7.py
+#  Kevin Hoang 76963024 and Raim Islam 68023307.  ICS 31 Lab section 14.  Lab assignment 7.
+
+#
+# -----C-----
+#
+
+print()
+print("-----C-----")
+print()
+
+from random import randrange
+
+def generate_list(file_name: str) -&gt; "list of str":
+    """ Extract names from a name file (surnames, female names, male names)
+        and assign them to a list
+    """
+    names = [ ]
+    file = open(file_name + ".txt", "r")
+    
+    for name in file.read().split("\n"):
+        names.append(name[0: name.find("\t")])
+    file.close()
+    
+    return names
+
+def random_name(gender: str) -&gt; str:
+    """ Generate a random name in this format: "Last name, first name"
+        1) Generate a surname
+        2) Generate a first name based on gender specification
+        3) Combine names
+    """
+    last_name  = ""
+    first_name = ""
+    
+    surnames_list = generate_list("surnames")
+    last_name = surnames_list[randrange(0, len(surnames_list))]
+    
+    if gender == "male":
+        male_names_list = generate_list("malenames")
+        first_name = male_names_list[randrange(0, len(male_names_list))]
+    if gender == "female":
+        female_names_list = generate_list("femalenames")
+        first_name = female_names_list[randrange(0, len(female_names_list))]
+        
+    return last_name + ", " + first_name
+
+def random_names(x: int) -&gt; "list of str":
+    """ Create a list containing "x" amount of random names
+        1) Loop "x" amount of times to compose a list that is size of "x"
+        2) Randomly choose a gender: 1 = male, 2 = female
+        3) Generate random name based on gender specification
+        4) Append random name to list
+        5) Return list
+    """
+    random_names = [ ]
+    
+    for i in range(x):
+        gender = randrange(1,3)
+        if gender == 1:
+            random_names.append(random_name("male"))
+        if gender == 2:
+            random_names.append(random_name("female"))
+            
+    return random_names
+
+print("100 Random names:")
+print(random_names(100))
+
+#
+# -----D-----
+#
+
+print()
+print("-----D-----")
+print()
+
+alphabet = "abcdefghijklmnopqrstuvwxyz"
+
+def rotate_alphabet(x: int) -&gt; str:
+    """ Rearrange the alphabet by shifting it "x" places
+    """
+    return alphabet[x:] + alphabet[:x]
+assert rotate_alphabet(0)  == "abcdefghijklmnopqrstuvwxyz"
+assert rotate_alphabet(5)  == "fghijklmnopqrstuvwxyzabcde"
+assert rotate_alphabet(10) == "klmnopqrstuvwxyzabcdefghij"
+assert rotate_alphabet(15) == "pqrstuvwxyzabcdefghijklmno"
+assert rotate_alphabet(26) == "abcdefghijklmnopqrstuvwxyz"
+
+def Caesar_break(encrypted: str) -&gt; str:
+    """ Decrypt an encryption w/ brute force approach
+    """ 
+    dictionary_file = open("dictionary.txt", "r")
+    dictionary_list      = dictionary_file.read().split("\n")
+
+    # Create a dictionary to keep track of each hit in each key
+    hits = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0,
+            11:0, 12:0, 13:0, 14:0, 15:0, 16:0, 17:0, 18:0, 19:0, 20:0,
+            21:0, 22:0, 23:0, 24:0, 25:0}
+
+    # Traverse through every key and tally each hit
+    for i in range(26):
+        table = str.maketrans(rotate_alphabet(i), alphabet)
+        decrypted = encrypted.translate(table)
+        decryption_split = decrypted.split()
+        
+        for word1 in decryption_split:
+            for word2 in dictionary_list:
+                if word1 == word2:
+                    hits[i] += 1
+                    
+    # Determine the "most hits"
+    most_hits = 0
+    most_hits_index = 0
+    for i in range(26):
+        if most_hits &lt; hits[i]:
+            most_hits = hits[i]
+            most_hits_index = i
+            
+    # Decrypt the encryption after determining "most hits"
+    table = str.maketrans(rotate_alphabet(most_hits_index), alphabet)
+    decrypted = encrypted.translate(table)
+    
+    return decrypted
+assert Caesar_break("pjans'x fuuqj") == "kevin's apple"
+assert Caesar_break("bksw'c zbsxdob") == "raim's printer"
+
+# Kevin's encryption: dogs jump over the fence
+print(Caesar_break("itlx ozru tajw ymj kjshj"))
+
+# Raim's encryption: raim delivers the package to kevin
+print(Caesar_break("gpxb staxktgh iwt eprzpvt id ztkxc"))
+
+
+#
+# -----E-----
+#
+
+print()
+print("-----E-----")
+print()
+
+def empty_string(s: str) -&gt; bool:
+    """ Decides whether or not the string is empty
+        1) Empty     = return True
+        2) Not empty = return False
+    """
+    empty = True
+    if s == "":
+        return True
+    else:
+        for letter in s:
+            if letter != " ":
+                empty = False
+        if empty == False:
+            return False
+        else:
+            return True
+assert empty_string("UCI")  == False
+assert empty_string(" ")    == True
+assert empty_string("")     == True
+assert empty_string("    ") == True
+
+def stats(s: "list of str") -&gt; str:
+    """ Display the stats of the list of strings:
+        lines in list, empty lines, avg characters per line, avg characters per non-empty line
+    """
+    empty                = 0
+    amount_of_characters = 0
+    avg_line             = 0
+    avg_ne_line          = 0 # Avg non-empty line
+    
+    lines = len(s)
+    for sentence in s:
+        if empty_string(sentence) == True:
+            empty += 1
+    for sentence in s:
+        for letter in sentence:
+            amount_of_characters += 1
+    avg_line    = amount_of_characters/lines
+    avg_ne_line = amount_of_characters/(lines - empty)
+    return ("""{:6}   Lines in the list\n\
+{:6}   empty lines\n\
+{:8.1f} average characters per line\n\
+{:8.1f} average characters per non-empty line""".format(lines, empty, avg_line, avg_ne_line))
+
+def copy_file(s: str):
+    """ line numbers: Create a copy of a file w/ line numbers
+        statistics: Display the statistics of a file and create a copy of a file
+        Gutenberg trim: Create a copy of a file with the
+                        *** START and *** END trimmed off
+        anything else: Create a copy of a file
+    """
+    if s == "line numbers":
+        infile_name  = input("Please enter the name of the file to copy: ")
+        infile       = open(infile_name + ".txt", 'r', errors ="ignore")
+        outfile_name = input("Please enter the name of the new copy:  ")
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match189-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        outfile      = open(outfile_name + ".txt", 'w')
+        
+        line_number = 1
+        for line in infile:
+            outfile.write("{:5}:  {}".format(line_number, line))
+            line_number += 1
+        
+        infile.close()
+        outfile.close()
+    elif s == "statistics":
+        infile_name  = input("Please enter the name of the file to copy: ")
+        infile       = open(infile_name + ".txt", 'r', errors = "ignore")
+</FONT>        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile      = open(outfile_name + ".txt", 'w')
+        infile_content = infile.read()
+        
+        statistics = stats(infile_content)
+        for s in statistics:
+            outfile.write(s)
+        outfile.write("\n\n")
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match189-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        for line in infile_content:
+            outfile.write(line)
+        
+        infile.close()
+        outfile.close()
+    elif s == "Gutenberg trim":
+        infile_name  = input("Please enter the name of the file to copy: ")
+        infile       = open(infile_name + ".txt", 'r', errors = "ignore")
+</FONT>        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile      = open(outfile_name + ".txt", 'w')
+        
+        infile_split = infile.read().split("\n")
+        beginning = 0
+        end = 0
+
+        for index in range(len(infile_split)):
+            if "*** START" in infile_split[index] and beginning == 0:
+                beginning = index
+            if "*** END" in infile_split[index] and end == 0:
+                end = index
+       
+        for i in range(beginning + 1, end):
+            outfile.write(infile_split[i] + "\n")
+           
+        infile.close()
+        outfile.close()
+    else:   
+        infile_name  = input("Please enter the name of the file to copy: ")
+        infile       = open(infile_name + ".txt", 'r', errors = "ignore")
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile      = open(outfile_name + ".txt", 'w')
+        
+        for line in infile:
+            outfile.write(line)
+        
+        infile.close()
+        outfile.close()
+
+copy_file("Gutenberg trim")
+copy_file("line numbers")
+copy_file("statistics")
+copy_file("")
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

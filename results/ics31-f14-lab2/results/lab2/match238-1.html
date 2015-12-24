@@ -1,0 +1,188 @@
+<HTML>
+<HEAD>
+<TITLE>cmar1/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+rdshield/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+#  Quinn Levine 76391611 and Ricky Shields 72069422.  ICS 31 Lab sec 7.  Lab Asst 2.
+from collections import namedtuple
+
+
+
+#Part C
+
+print('Part C:')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match238-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('-------')
+hours = int(input('How many hours? '))
+print('This many hours: $', hours)
+
+rate = int(input('How many dollars per hour? '))
+print('This many dollars per hour: $', rate)
+
+print('Weekly salary: $', hours * rate)
+
+userName = input('Hello. What is your name? ')
+</FONT>print("Hello,", userName + ". \nIt's nice to meet you.")
+userAge = int(input('How old are you? '))
+print('Next year you will be', userAge+1,'''years old.
+      Good-bye!''')
+
+#Part D
+
+print('Part D:')
+print('-------')
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND = 8.81
+KRONE_PER_DOLLAR = 5.50
+
+print('Please provide this information: ')
+bus_name = input('Business name: ')
+bus_euros = int(input('Number of euros: '))
+bus_pounds = int(input('Number of pounds: '))
+bus_dollars = int(input('Number of dollars: '))
+bus_totals = ((bus_euros * KRONE_PER_EURO) + (bus_pounds * KRONE_PER_POUND) + (bus_dollars * KRONE_PER_DOLLAR))
+
+
+print('\n Copenhagen Chamber of Commerce')
+print('Business name:  ', bus_name)
+print(bus_euros, 'euros is', (bus_euros * KRONE_PER_EURO), 'krone')
+print(bus_pounds, 'pounds is', (bus_pounds * KRONE_PER_POUND), 'krone')
+print(bus_dollars, 'dollars is', (bus_dollars * KRONE_PER_DOLLAR), 'krone')
+print('\nTotal krone: ', bus_totals)
+
+#Part E
+
+print('Part E:')
+print('-------')
+
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+print(still_another[0])
+print(another[3])
+print((favorite[3]+another[3]+still_another[3])/3)
+print(favorite[2]&lt;1900)
+
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 26.00)
+print(still_another[3])
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, (25.00 * 1.2))
+print(still_another[3])
+
+#Part F
+
+print('Part F:')
+print('-------')
+Animal = namedtuple('Animal', 'name species age weight food')
+Animal1 = Animal('Jumbo', 'Elephant', '50', '1000 kg', 'peanuts')
+Animal2 = Animal('Perry', 'Platypus', '7', '1.7 kg', 'shrimp')
+
+print(Animal1.weight &lt; Animal2.weight)
+
+#Part G
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match238-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Part G:')
+print('-------')
+
+booklist = [favorite, another, still_another]
+
+print(booklist[0][3] &lt; booklist[1][3])
+</FONT>print(booklist[0][2] &gt; booklist[1][-1])
+
+#Part H
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match238-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Part H:')
+print('-------')
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+</FONT>    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print(RL[2].name)
+print(RL[0].cuisine == RL[3].cuisine)
+print(RL[-1].price)
+RL.sort()
+print(RL)
+
+RL.sort()
+print(RL[-1].dish)
+
+RL.sort()
+print(RL[0].name)
+print(RL[1].name)
+print(RL[-1].name)
+print(RL[-2].name)
+
+RL.sort()
+RL2 = [ RL[0], RL[1], RL[-2], RL[-1]]
+print(RL2[:])
+
+
+#Quinn Levine 76391611 and Ricky Shields 72069422.  ICS 31 Lab sec 7.  Lab Asst 2.
+
+#Part I
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+
+#H1
+my_canvas.create_line(100, 100, 300, 100, fill='red') 
+my_canvas.create_line(100, 100, 100, 300, fill='blue')  
+my_canvas.create_line(300, 100, 300, 300, fill='green')
+my_canvas.create_line(100, 300, 300, 300, fill='purple')
+
+
+#H2
+my_canvas.create_line(100, 200, 200, 100, fill='black')
+my_canvas.create_line(200, 100, 300, 200, fill='orange')
+my_canvas.create_line(300, 200, 200, 300, fill='gray')
+my_canvas.create_line(200, 300, 100, 200, fill='#00ffff')
+
+my_canvas.create_line(100, 100, 200, 0, fill='black')
+my_canvas.create_line(200, 0, 300, 100, fill='black')
+my_canvas.create_line(100, 100, 300, 100, fill='red')
+my_canvas.create_line(100, 100, 100, 300, fill='red')   
+my_canvas.create_line(300, 100, 300, 300, fill='red')
+my_canvas.create_line(100, 300, 300, 300, fill='red')
+
+my_canvas.create_rectangle(175,200,225,300, fill='brown')
+my_canvas.create_oval(175, 125, 225, 175, fill='cyan')
+my_canvas.create_line(200, 125, 200, 175, fill='white')
+my_canvas.create_line(175, 150, 225, 150, fill='white')
+
+my_canvas.create_oval(100, 100, 300, 300, fill='white')
+my_canvas.create_oval(150, 150, 250, 250, fill='blue')
+my_canvas.create_oval(175, 175, 225, 225, fill='black')
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

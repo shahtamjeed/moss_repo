@@ -1,0 +1,197 @@
+<HTML>
+<HEAD>
+<TITLE>feyzif/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+feyzif/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+#Farshad Feyzi 35573143 and Alex Malhotra 25397180.  ICS 31 Lab sec 12.  Lab Asst 2.
+
+#Part C
+
+hours = int(input('How many hours?  '))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour?  $ '))
+print('This many dollars per hour: $', rate)
+print('Weekly salary: $', hours * rate)
+
+#Part c.2
+
+print('')
+name = input('Hello.  What is your name?  ')
+print('Hello,', name)
+print("It's nice to meet you.")
+age = int(input('How old are you?  '))
+print('Next year you will be', age + 1, 'years old.')
+print('Good-bye!')
+
+#Part D
+
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND = 8.81
+KRONE_PER_DOLLAR = 5.50
+
+print('')
+print('Please provide this information:')
+business = input('Business name:  ')
+euros = int(input('Number of euros:  '))
+pounds = int(input('Number of pounds:  '))
+dollars = int(input('Number of dollars:  '))
+print('')
+print('Copenhagen Chamber of Commerce')
+print('Business name:  ', business)
+print(euros, 'euros is', KRONE_PER_EURO * euros, 'krone')
+print(pounds, 'pounds is', KRONE_PER_POUND * pounds, 'krone')
+print(dollars, 'dollars is', KRONE_PER_DOLLAR * dollars, 'krone')
+print('')
+total = (KRONE_PER_EURO * euros) + (KRONE_PER_POUND * pounds) + (KRONE_PER_DOLLAR * dollars)
+print('Total krone:  ', total)
+
+#Part E
+
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+booklist = [favorite, another, still_another]
+print('')
+
+#Part e.1
+print(still_another.title)
+
+#Part e.2
+print(another.price)
+
+#Part e.3
+average = (favorite.price + another.price + still_another.price) / 3
+print(average)
+
+#Part e.4
+print(favorite.year &lt; 1900)
+
+#Part e.5
+still_another1 = still_another._replace(price = 26.00)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match180-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(still_another1.price)
+
+#Part e.6
+still_another2 = still_another._replace(price = still_another.price * 1.20)
+print(still_another2.price)
+
+#Part F
+
+print('')
+Animal = namedtuple('Animal', 'species age weight food')
+elephant = Animal('Jumbo', '50', '1000', 'peanuts')
+platypus = Animal('Perry', '7', '1.7', 'shrimp')
+print(elephant.weight &lt; platypus.weight)
+
+#Part G
+
+print('')
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match180-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(booklist[0].price &lt; booklist[1].price)
+print(booklist[0].year &gt; booklist[-1].year)
+
+#Part H
+
+print('')
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+</FONT>    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#Part h.1
+
+print(RL[2].name)
+
+#Part h.2
+
+print(RL[0].cuisine == RL[3].cuisine)
+
+#Part h.3
+
+print(RL[-1].price)
+
+#Part h.4
+
+RL.sort()
+print(RL)
+
+#Part h.5
+
+print(RL[-1].dish)
+
+#Part h.6
+
+RL_two = [RL[0], RL[1]]
+RL_three = [RL[-2], RL[-1]]
+RL_two.extend(RL_three)
+print(RL_two)
+
+#Part I
+
+import tkinter              
+
+my_window = tkinter.Tk()    
+
+my_canvas = tkinter.Canvas(my_window, width=1920, height=1080)  
+my_canvas.pack()           
+
+#Part i.1
+my_canvas.create_line(50, 50, 50, 250, fill='orange') 
+my_canvas.create_line(50, 250, 250, 250, fill='blue')
+my_canvas.create_line(250, 250, 250, 50, fill='orange') 
+my_canvas.create_line(250, 50, 50, 50, fill='blue')
+
+#Part i.2
+my_canvas.create_line(620, 250, 670, 50, fill='orange') 
+my_canvas.create_line(670, 50, 720, 250, fill='blue')
+my_canvas.create_line(720, 250, 670, 450, fill='orange') 
+my_canvas.create_line(670, 450, 620, 250, fill='blue')
+
+#Part i.3
+
+my_canvas.create_rectangle(50, 475, 450, 750, fill='white')
+my_canvas.create_rectangle(85, 525, 165, 600, fill='white')
+my_canvas.create_line(125, 525, 125, 600, fill='black') 
+my_canvas.create_line(85, 562.5, 165, 562.5, fill='black')
+my_canvas.create_rectangle(335, 525, 415, 600, fill='white')
+my_canvas.create_line(375, 525, 375, 600, fill='black') 
+my_canvas.create_line(335, 562.5, 415, 562.5, fill='black')
+my_canvas.create_rectangle(200, 600, 300, 750, fill='saddlebrown')
+my_canvas.create_oval(275, 660, 285, 670, fill='yellow')
+my_canvas.create_polygon(50, 475, 250, 300, 450, 475, fill='darkred')
+
+#Part i.4
+my_canvas.create_oval(950, 50, 1250, 250, fill='white')
+my_canvas.create_oval(1000, 50, 1200, 250, fill='blue')
+my_canvas.create_oval(1050, 100, 1150, 200, fill='black')
+
+#Part i.5
+my_canvas.create_rectangle(1025, 475, 1175, 750, fill='black')
+my_canvas.create_rectangle(1080, 485, 1120, 495, fill='white')
+my_canvas.create_oval(1060, 485, 1070, 495, fill='white')
+my_canvas.create_oval(1090, 720, 1110, 740, fill='white')
+my_canvas.create_rectangle(1035, 505, 1165, 710, fill='darkgray')
+
+tkinter.mainloop()
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

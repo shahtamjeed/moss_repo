@@ -1,0 +1,168 @@
+<HTML>
+<HEAD>
+<TITLE>lihengz2/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+marshll/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Ruizhe Chen 71186178 Laura Marsh 28787340 ICS 31 Lab sec15 Lab7
+print('LAB 7')
+print('\n\n===========\n=====C=====\n===========')
+print('\n\n-----C.1-----')
+from random import randrange
+def random_names(a:int) -&gt; list:
+    # prints a specified number of randomly generated names
+    for i in range(a):
+        b = open('SURNAMES.txt')
+        c = b.readlines()
+        x = []
+        for i in c:
+            i = i.split('\t')
+            x.append(i[0])
+        z = randrange(0,1000)
+        h = []
+        first = randrange(0,2)
+        y = []
+        j = randrange(0,1000)
+        if first == 0:
+            d = open('FEMALE.txt')
+            e = d.readlines()
+            for i in e:
+                i = i.split('\t')
+                y.append(i[0])
+        else:
+            f = open('MALE.txt')
+            g = f.readlines()
+            for i in g:
+                i = i.split('\t')
+                y.append(i[0])
+        h.append(x[z])
+        h.append(y[j])
+        print(h)
+    
+random_names(6)
+
+print('\n\n-----C.2-----')
+print('See C.1')
+print('\n\n-----C.3-----')
+print('See C.1')
+
+print('\n\n===========\n=====D=====\n===========')
+print('\n\n-----D.1-----')
+
+ascii_letters = 'abcdefghijklmnopqrstuvwxyz'
+def alphabet_shift(n:int) -&gt; str:
+    #Returns a modified string with all of the characters in the alphabetshifted by the given int.
+    return ascii_letters[n:] + ascii_letters[0:n]
+
+def Caesar_decrypt(message:str, key:int) -&gt; str:
+    #Decrypts a message using a Caesar cypher with the given key.
+    caesar_table = str.maketrans(ascii_letters, alphabet_shift(-key%26))
+    return message.lower().translate(caesar_table)
+    
+
+def Caesar_break(x:str)-&gt;str:
+    infile = open('WORDS.txt','r')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match226-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    dictionary = infile.readlines()
+    newdictionary = []
+    for d in dictionary:
+        lower = d.lower()
+        newdictionary.append(lower[:-1])
+    infile.close()
+    a = x.split()
+    result = ''
+    
+    for t in range(len(a)):
+        lowerx = a[t].lower()
+        n = 0 
+        for i in range(0,26):
+</FONT>            answer = Caesar_decrypt(lowerx,i)
+            if answer in newdictionary:
+                result += answer + ' '
+                n =+ 1
+            elif n == 1:
+                break
+    return result
+print (Caesar_break('ifmmp uifsf'))
+print(Caesar_break('tmbbk ftmzwesuhuzs'))
+
+print('\n\n-----D.2-----')
+print("Partner gave the encrypted message: 'tmbbk ftmzwesuhuzs'")
+print("Result after using Caesar_break: 'happy thanksgiving'")
+
+print('\n\n===========\n=====E=====\n===========')
+print('\n\n-----E.1-----')
+
+def copy_file(a: str):
+    # copies only the body of the file
+    if a == 'Gutenberg trim':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        b = infile.read()
+        c = b.split('***')
+        outfile.write(c[2])
+        infile.close()
+        outfile.close()
+        return ' only the novel copied. '
+    elif a == 'line numbers':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        b = 0
+        for line in infile:
+            b = b+1
+            outfile.write( str(b) + ':' + line)
+        infile.close()
+        outfile.close()
+        return ' copied with line numbers added. '
+    elif a == 'statistics':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        infile2 = open(infile_name, 'r')
+        infile3 = open(infile_name, 'r')
+        infile4 = open(infile_name, 'r')
+        infile5 = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        b = infile2.readlines()
+        w = '{0:6}'.format(len(b)), '  lines in the list'
+        outfile.write(str(w))
+        d = 0
+        c = infile3.readlines()
+        for n in c:
+            if n == '':
+                d += 1
+        x = '{0:6}'.format(d), '  empty lines'
+        outfile.write(str(x))
+        return ' copied with statistics. '
+    else:
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+        return ' copied. '
+    
+print(copy_file('just copy'))
+print(copy_file('line numbers'))
+print(copy_file('Gutenberg trim'))
+print(copy_file('statistics'))
+
+print('\n\n-----E.2 - E.4-----')
+print('see code for E.1')
+print("\n\n we're done!")
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,101 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/jjlin4/(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/moonsm/(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: BandBI.py
+# Vanessa Yu 37839130 and Seung Min Moon 64448209. ICS 31 Lab sec 12. Lab asst. 8
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match106-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_29.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+'''** This is a sample command file for the Anteater BandB, Stage I
+PL ***********************************************************
+PL Here is a list of available bedrooms (before adding any!)
+** A well-written program works gracefully with empty lists.
+BL
+PL ***********************************************************
+** Now let's add a bedroom:
+AB 101
+BL
+** And some more:
+AB 104
+** Extra blanks around the command should be ignored
+ab    102
+    AB 201
+    Ab      203
+ BL
+PL Thank you for using the Anteater BandB Reservation System!
+** That's the end of the sample data for Stage I.
+</FONT>
+From this input file, your program should produce the following output:
+
+***********************************************************
+Here is a list of available bedrooms (before adding any!)
+Number of bedrooms in service:  0
+------------------------------------
+***********************************************************
+Number of bedrooms in service:  1
+------------------------------------
+101
+Number of bedrooms in service:  5
+------------------------------------
+101
+104
+102
+201
+203
+Thank you for using the Anteater BandB Reservation System!'''
+
+#Stage 1
+
+
+List_of_bedroom = []
+def stage_one()-&gt; None:
+    infile = open('BandBI.py', 'r')
+    file = infile.readlines()
+    for i in file:
+        new = i.strip()
+        if new[0:2].upper() == ('AB'):
+            AB(new)
+        elif new[0:2].upper() == ('BL'):
+            print('Number of bedrooms in service: ', len(List_of_bedroom))
+            print('------------------------------------------')
+            print(BL())
+        elif new[0:2].upper() == ('PL'):
+            print(new[3:])
+        elif new[0:2] == ('**'):
+            continue
+
+
+def AB(x:str)-&gt;list:
+    add_bed = x[2:].strip()
+    return List_of_bedroom.append(add_bed)
+
+
+def BL()-&gt;list:
+    list = ''
+    for i in List_of_bedroom:
+        list += '\n' + i
+    return list.strip()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

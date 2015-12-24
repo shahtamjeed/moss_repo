@@ -1,0 +1,130 @@
+<HTML>
+<HEAD>
+<TITLE>lingada/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+lingada/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Alyssa Lingad 33501772 and Connie Chung 71973013. ICS 31 Lab sec 1. Assn 7.
+
+# c
+
+from random import randrange
+
+def uncapitalize (x:str) -&gt; str:
+    """Leave first letter alone and uncapitalize the rest. """
+    return x[0]+x[1:].lower()
+
+def random_names(x:int)-&gt;list:
+    """Create a list of random names that's as long as x. """
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match187-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    infile = open("surnames.txt", 'r')
+    datalines = infile.readlines()
+    last=[]
+    for line in datalines:
+        a=line.split('\t')
+        last.append(a[0])
+ 
+    
+    infile2 = open("malenames.txt", 'r')
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match187-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    datalines2 = infile2.readlines()
+    first=[]
+    for line in datalines2:
+        b=line.split('\t')
+        first.append(b[0])
+
+    infile3 = open("femalenames.txt", 'r')
+</FONT>    datalines3 = infile3.readlines()
+    for line in datalines3:
+        c=line.split('\t')
+        first.append(c[0])
+
+    result = []
+    for i in range(x):
+        lastname = randrange(0, len(last))
+        firstname = randrange (0, len(first))
+        
+        result.append('{}, {}'.format(uncapitalize(last[lastname]), uncapitalize(first[firstname])))
+    return result
+
+# d(1)
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def rotate (x:int) -&gt; str:
+    #moves the alphabet over x places.
+    return ALPHABET [x%26:] + ALPHABET[0:x%26]
+
+def Caesar_break (x:str) -&gt; str:
+    """Decrypt an encrypted string by checking validity of word in dictionary. """
+    dict = ""
+
+    infile = open("wordlist.txt", 'r')
+    datalines = infile.readline()
+    for line in datalines:
+        a=str(line)
+        dict += a
+    choices = []
+    for num in range(len(ALPHABET)):
+        table = str.maketrans('abcdefghijklmnopqrstuvwxyz',rotate( -num ))
+        sentence = x.lower().translate(table).split()
+        choices.append(sentence)
+    
+    for pick in choices:
+        for word in pick:
+            if word in dict:
+                return " ".join(pick)
+assert Caesar_break("qjy'x lt ts f unhsnh") == "let's go on a picnic"
+
+# e
+def copy_file (x:str) -&gt; None:
+    '''if x = 'line numbers', the copied file will include right-justified numbers and ': ' 
+       if x = 'statistics', the copied file will print out statistics
+       if else, the function copies the same file
+    '''
+    infile = open("gutenberg.txt", 'r')
+    datalines = infile.readlines()
+    outfile = open("gutenberg-copy.txt", 'w')
+
+    if x == 'line numbers':
+        count=1
+        for line in datalines:
+            outfile.write("{}{}:{}".format(" "*(5-len(str(count))), str(count), " "+line))
+            count+=1
+
+    elif x == 'Gutenberg trim':
+        for line in datalines:
+            start = datalines.index("*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n")
+            end = datalines.index("*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n")
+            trimmed = datalines[start : end]
+            for linetrimmed in trimmed:
+                outfile.write(linetrimmed)
+    elif x == 'statistics':
+        empty = 0
+        char = 0
+        total = 0
+        for line in datalines:
+            char += len(line)
+            if  len(line) == 0 or line == '\n':
+                empty+=1
+        print("{:5d}   {:53s}".format(len(datalines), 'lines in the list'))
+        print("{:5d}   {:53s}".format(empty, 'empty lines'))
+        print("{:7.1f} {:50s} ".format(char /float(len(datalines)), 'average characters per line'))
+        print("{:7.1f} {:50s}".format(char/float(len(datalines) - empty), 'average characters per non-empty line'))
+        for line in datalines:
+            outfile.write(line)
+    else:
+        for line in datalines:
+            outfile.write(line)
+
+    infile.close()
+    outfile.close()
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

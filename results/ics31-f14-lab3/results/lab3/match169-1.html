@@ -1,0 +1,402 @@
+<HTML>
+<HEAD>
+<TITLE>hatorres/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+laukh/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+#  Lau Ka Ho 50233729 and Nicholas Yu 89815672.  ICS 31 Lab sec 5.  Lab asst 3.
+
+#
+#
+# Part (C1)
+#
+#
+print('---------- Part (c1) ----------')
+
+def abbreviate (word :str) -&gt; str:
+    return word[0]+word[1]+word[2]
+
+assert abbreviate('January') == 'Jan'  #Test if the function is correct or not.
+assert abbreviate('abril') == 'abr'
+
+print("Output on the screen is not required, please refer to the source code.")
+
+
+#
+#
+# Part (C2)
+#
+#
+print('\n\n---------- Part (c2) ----------')
+
+def find_area_square (square :int) -&gt; int:
+    return square**2
+
+assert find_area_square(1) == 1   #Test if the function is correct or not.
+assert find_area_square(5) == 25
+
+print("Outut on the screen is not required, please refer to the source code.")
+
+
+#
+#
+# Part (C3)
+#
+#
+print('\n\n---------- Part (c3) ----------')
+
+def find_area_circle(circle :int) -&gt; float:
+    return (circle**2)*3.14159
+
+assert find_area_circle(1) == 3.14159   #Test if the function is correct or not.
+assert find_area_circle(5) == 78.53975
+
+print("Output on the screen is not required, please refer to the source code.")
+
+
+#
+#
+# Part (C4)
+#
+#
+print('\n\n---------- Part (c4) ----------')
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match169-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def  print_even_numbers(number:int):
+    for i in (range(len(number))):
+        if number[i]% 2 == 0:
+             print (number[i])
+</FONT>
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+
+#
+#
+# Part (C5)
+#
+#
+print('\n\n---------- Part (c5) ----------')
+
+def calculate_shipping(pounds:float)-&gt;float:
+    if pounds &lt; 2:
+        rate = 2.00
+        return rate
+    elif 2 &lt;= pounds &lt; 10:
+        rate = 5.00
+        return rate
+    else:
+        rate = 5.00 + 1.50*(pounds - 10)
+        return rate
+ 
+assert calculate_shipping(1.5) == 2.00   #Test if the function is correct or not.
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+print("Output on the screen is not required, please refer to the source code.")
+
+
+#
+#
+# Part (C6)
+#
+#
+print("\n\n---------- Part (c6) ----------")
+
+import tkinter 
+def create_square(x1:int, y1:int, side:int):
+    my_window= tkinter.Tk()
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+    my_canvas.pack()
+    my_canvas.create_rectangle( x1, y1 , x1+side, y1+side)
+    tkinter.mainloop()
+    return 0
+
+print("Please fill in the following information to draw a square:")
+square_x = int(input("What is the x-coordinate?"))
+square_y = int(input("What is the y-coordinate?"))
+square_side = int(input("What is the side length?"))
+
+print("Result is shown in seperate window.")
+create_square(square_x, square_y , square_side)   #You have to close the tkinter window in order to proceed to next part. 
+
+
+#
+#
+# Part (C7)
+#
+#
+print("\n\n---------- Part (c7) ----------")
+
+def create_circle(x2:int, y2:int, d:int):
+    my_window= tkinter.Tk()
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+    my_canvas.pack()
+    my_canvas.create_oval( x2, y2 , x2+d, y2+d)
+    tkinter.mainloop()
+    return 0
+
+print("Please fill in the following information to draw a circle:")
+circle_x = int(input("What is the x-coordinate?"))
+circle_y = int(input("What is the y-coordinate?"))
+diameter = int(input("What is the diameter?"))
+
+print("Result is shown in seperate window.")
+create_circle(circle_x, circle_y , diameter)   #You have to close the tkinter window in order to proceed to next part. 
+
+
+#
+#
+# Part (D.1)
+#
+#
+print("\n\n---------- Part (d1) ----------")
+
+from collections import namedtuple   
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurant_price (rt:"Restaurant")-&gt;float:
+    return rt.price
+
+assert restaurant_price(RL[0]) == 12.50   #Test if the function is correct or not.
+assert restaurant_price(RL[2]) == 25.50
+
+print("Output on the screen is not required, please refer to the source code.")
+
+
+#
+#
+# Part (D.2)
+#
+#
+print('\n\n---------- Part (d2) ----------')
+
+def restaurant_list (rc:"Restaurant"):
+    rc.sort(key=restaurant_price)
+    print(rc)
+
+print("The following is the sorted list from the least expensive to most expensive:")
+restaurant_list(RL)  #call the function to print the list 
+
+
+#
+#
+# Part (D.3)
+#
+#
+print('\n\n---------- Part (d3) ----------')
+
+def costliest (rc:"Restaurant")-&gt;str:
+    return rc[-1].name
+
+assert (costliest(RL))=="Noma"   #Test if the function is correct or not.
+
+print("The list is sorted.\nThe highest-priced restaurant on the list is,",(costliest(RL)))
+
+
+#
+#
+# Part (D.4)
+#
+#
+print('\n\n---------- Part (d4) ----------')
+
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def costliest2 (rc:"Restaurant")-&gt;str:
+    new = sorted(rc, key=restaurant_price)
+    return new[-1].name
+
+assert(costliest2(RL))=="Noma"   #Test if the function is correct or not.
+
+print("The list is sorted without side-efect. Please refer to the source code.")
+print("The highest-priced restaurant on the list is,",(costliest2(RL)))
+
+
+#
+#
+# Part (E.1)
+#
+#
+print('\n\n---------- Part (e1) ----------')
+
+Book = namedtuple('Book', 'author title genre year price instock')
+
+BSI = [    
+    Book('Mickey Mouse', 'Disney', 'Cartoon', 2010, 15.78, 123),
+    Book('Goofy', 'Science','Technology', 1999, 10.80, 49),
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match169-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Book('Arthur Conan Doyle','Adventures of Sherlock Holmes', 'Fiction',1892, 21.50, 200),
+    Book('Kitty', 'Earth','Planet', 1999, 13.10, 88),
+    Book('Donald Duck','Space','Technology', 2012, 19.80, 75)]
+
+def print_title (bk:Book)-&gt;str:
+</FONT>    for i in (range(len(BSI))):
+       print(BSI[i].title)
+
+print_title(BSI)   #call the function to print the title
+
+
+#
+#
+# Part (E.2)
+#
+#
+print('\n\n---------- Part (e2) ----------')
+
+def sort_title (bk:Book)-&gt;str:
+    return bk.title
+
+def sort_BSI (bk:Book):
+    new_BSI = sorted(bk, key=sort_title)
+    for i in (range(len(BSI))):
+        print (new_BSI[i].title)
+
+sort_BSI(BSI) #call the function to sort according to the title and print the list
+
+#
+#
+# Part (E.3)
+#
+#
+print('\n\n---------- Part (e3) ----------')
+
+def rasie_price (bk:Book):
+    for i in (range(len(BSI))):
+        cost=bk[i].price*1.1
+        bk[i]=bk[i]._replace(price=cost)
+              
+rasie_price(BSI)   #call the function to raise the price
+
+for i in (range(len(BSI))):   #print the updated price
+    print ("The price of the book", BSI[i].title,"has increased to",BSI[i].price)
+
+
+#
+#
+# Part (E.4)
+#
+#
+print('\n\n---------- Part (e4) ----------')
+
+def see_technology (bk:Book):
+    for i in (range(len(BSI))):
+        if (bk[i].genre) == "Technology":
+            print("The genre of the book", bk[i].title, "is technnology")
+
+see_technology(BSI)   #call the function to find the genre is technology and print it out
+
+#
+#
+# Part (E.5)
+#
+#
+print('\n\n---------- Part (e5) ----------')
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match169-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def book_after2000 (bk:Book)-&gt;list:   #To obtain a list of books on or after 2000
+    book_list1 = []
+    for i in (range(len(BSI))):
+        if (bk[i].year &gt;= 2000):
+           book_list1.append(bk[i])
+    return (book_list1)
+
+def book_before2000 (bk:Book)-&gt;list:   #To obtain a list of books before 2000
+    book_list2 = []
+    for i in (range(len(BSI))):
+        if (bk[i].year &lt; 2000):
+</FONT>           book_list2.append(bk[i])
+    return (book_list2)
+
+if len(book_after2000(BSI)) &gt;len(book_before2000(BSI)):
+    print ("More titles 2000 or later. (", len(book_after2000(BSI)), "vs.", len(book_before2000(BSI)),")")
+elif len(book_after2000(BSI)) &lt;len(book_before2000(BSI)):
+        print("More titles before 2000. (", len(book_before2000(BSI)), "vs.", len(book_after2000(BSI)),")")
+
+
+#
+#
+# Part (E.6)
+#
+#
+print('\n\n---------- Part (e6) ----------')
+
+def inventory_value (num:int, cost:float) -&gt; float:   #calculate the inventory value
+    return num*cost
+
+def top_value (bk:Book)-&gt;list:   #compaare the value of the books and get the highest one
+    top = bk[0]
+    for i in (range(len(BSI))):
+        if (inventory_value(top.instock, top.price)) &gt; (inventory_value(bk[i].instock, bk[i].price)):
+            top = top
+        else:
+            top=bk[i]        
+    return top    
+
+print("The highest-value book is", top_value(BSI).title, "by", top_value(BSI).author, "at a value of $", top_value(BSI).price * top_value(BSI).instock,".")
+
+
+#
+#
+# Part (F)
+#
+#
+print('\n\n---------- Part (f) ----------')
+
+import tkinter
+
+my_window= tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack()
+
+def draw_eye(x1:int, y1:int, x2:int, y2:int):
+    my_canvas.create_oval (2+x1, 2+y1, 102+x2, 62+y2, fill="white")   #This is the iris
+    my_canvas.create_oval (27+x1, 7+y1, 77+x2, 52+y2, fill="brown")   #This is the pupil 
+    my_canvas.create_oval (42+x1, 22+y1, 62+x2, 42+y2, fill="black")   #This is the pupil 
+
+def draw_nose(x1:int, y1:int, x2:int, y2:int):
+    my_canvas.create_rectangle(x1, y1, x2, y2,fill="black")
+
+def draw_mouth(x1:int, y1:int, x2:int, y2:int):
+    my_canvas.create_oval(x1, y1, x2, y2, fill="red")
+    
+    
+def draw_face (x1:int, y1:int):
+    my_canvas.create_oval (2, 2, 500, 500, fill="yellow")
+    draw_eye(100+x1,50+y1,100+x1,50+y1)
+    draw_eye(300+x1,50+y1,300+x1,50+y1)
+    draw_nose(225+x1,150+y1,270+x1,180+y1)
+    draw_mouth(200+x1, 220+y1, 300+x1, 250+y1) 
+
+draw_face(0,0)   #The first face
+
+my_window= tkinter.Tk()   #obtain a new window to have a new face
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack()
+draw_face(50,50)    #The second face
+
+print("Result is shown in seperate window.")
+</PRE>
+</PRE>
+</BODY>
+</HTML>

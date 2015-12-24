@@ -1,0 +1,273 @@
+<HTML>
+<HEAD>
+<TITLE>alongazo/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+alongazo/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+#  Niky Dang 94909076 & Alexander Longazo 75852830.  ICS 31 Lab sec 9.  Lab asst 6.
+from random import randrange
+
+
+print()
+print('----------c.1----------')
+print()
+def contains(s1: str, s2: str) -&gt; bool:
+    '''Checks if the second string occurs in the first string.
+    if it does, the function returns true and false otherwise.'''
+    return s2 in s1
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+print (contains('cards','car'))
+print (contains('12345','1230'))
+
+print()
+print('----------c.2----------')
+print()
+def punct_to_blank(s: str) -&gt; str:
+    punct = '.,/\?":;!@#$%^&*\'()_+-=[]{}&lt;&gt;'
+    result = ''
+    for char in s:
+        if char in punct[:]:
+            result += ''
+        else:
+            result += char
+    return result
+assert punct_to_blank('EVERYTHING IS AWESOME!!!') == 'EVERYTHING IS AWESOME'
+assert punct_to_blank("WHEN WE'RE LIVING OUR DREAM!!!") == "WHEN WERE LIVING OUR DREAM"
+print('Sentences without punctuation:')
+print(punct_to_blank('I love UCI!'))
+print(punct_to_blank('@!#@$#@%!@%hello!^!#%^%$&@$&@%$&%#'))
+print()
+
+def sentence_stats(s: str) -&gt; None:
+    '''Prints statistics about a given string: length in characters, words,
+    and average length of each word.'''
+    count = 0
+    char_sum = 0
+    print ('The length in characters: ',(len(s)))
+    s = punct_to_blank(s)
+    word_list = s.split()
+    for w in word_list:
+        count+=1
+    for word in word_list:
+        char_sum += len(word)
+    print('The length in words is:', count)
+    average = char_sum/count
+    print('The average word length is: ', average)
+
+print('Sentence stats for "I love UCI":')
+sentence_stats('I love UCI')
+print()
+print('Sentence stats for "***The ?! quick brown fox:  jumps over the lazy dog.":')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+print()
+print('----------c.3----------')
+print()
+
+def initials (name: str) -&gt; str:
+    '''Takes a string representing a name and returns the initials of that name'''
+    name_list = name.split()
+    initial = ''
+    for name in name_list:
+        initial += name[0]
+    return initial.upper()
+ 
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+print()
+print('----------d.1----------')
+print()
+
+print('Random numbers between 0 and 50:')
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match238-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+for n in range(50):
+    print(randrange(0,11))
+print('\nRandom numbers between 1 and 6:\n')
+for n in range(50):
+    print(randrange(1,7))
+
+print()
+print('----------d.2----------')
+print()
+
+def roll2dice() -&gt; int:
+</FONT>    '''Takes no parameters and reflects the random roll of 2 dice'''
+    dice_sum = 0
+    dice_sum += randrange(1,7)
+    dice_sum += randrange(1,7)
+    return dice_sum
+
+print('The roll of two dice 50 times:')
+for n in range(50):
+    print(roll2dice())
+
+
+print()
+print('----------d.3----------')
+print()
+
+def distribution_of_rolls(x: int) -&gt; None:
+    '''Takes the amount of times a dice is rolled and prints how often each number randomly shows up'''
+    num_list = []
+    for n in range(x):
+        num_list.append(roll2dice())
+    num_list.sort()
+    for num in range(2,13):
+        count = num_list.count(num)
+        print('{:2}:     {:2}  ({:5.2f}%) {}'.format(num, count, round((count/x)*100, 2),'*' * count))
+    print('--------------------------------\n', x, 'rolls\n')
+distribution_of_rolls(200)
+distribution_of_rolls(350)
+distribution_of_rolls(50)
+
+    
+print()
+print('----------e.1----------')
+print()
+import string
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate_alphabet(s: str, key:int) -&gt; str:
+    '''Takes in a string and rotates it by putting the first half at the end'''
+    new_str = s[key:] + s[:key]
+    return new_str
+assert rotate_alphabet(ALPHABET, 13) == 'nopqrstuvwxyzabcdefghijklm'
+assert rotate_alphabet(ALPHABET, 3) == 'defghijklmnopqrstuvwxyzabc'
+
+
+def Caesar_encrypt(message: str, key: int) -&gt; str:
+    '''Takes in a string and returns a Caesar cipher based on the integer given'''
+    cipher = str.maketrans(ALPHABET, rotate_alphabet(ALPHABET,key))
+    return message.lower().translate(cipher)
+
+assert Caesar_encrypt('The dog barked', 1) == 'uif eph cbslfe'
+assert Caesar_encrypt('EVERYTHING IS AWESOME!!!', 3) == 'hyhubwklqj lv dzhvrph!!!'
+assert Caesar_encrypt('',0) == ''
+assert Caesar_encrypt('hello',0) == 'hello'
+
+def Caesar_decrypt(message:str, key:int) -&gt; str:
+    '''Takes in a Caesar cipher and returns a decrypted string based on the integer given'''
+    cipher = str.maketrans(rotate_alphabet(ALPHABET,key), ALPHABET)
+    return message.lower().translate(cipher)
+assert Caesar_decrypt('uif eph cbslfe', 1) == 'the dog barked'
+assert Caesar_decrypt('hyhubwklqj lv dzhvrph!!!', 3) == 'everything is awesome!!!'
+assert Caesar_decrypt('',0) == ''
+assert Caesar_decrypt('hello',0) == 'hello'
+
+print()
+print('----------e.2----------')
+print()
+print("Example of Caesar decrypt: gxgtavjkpi ku eqqn yjgp aqw'tg rctv qh c vgco:")
+print(Caesar_decrypt("gxgtavjkpi ku eqqn yjgp aqw'tg rctv qh c vgco", 2))
+
+print()
+print('----------e.3----------')
+print()
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match238-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_encrypt(message: str, key: int) -&gt; str:
+    '''Takes in a string and returns a Caesar cipher based on the integer given'''
+    if key &gt; 26:
+        key = key % 26
+    cipher = str.maketrans(ALPHABET, rotate_alphabet(ALPHABET,key))
+    return message.lower().translate(cipher)
+</FONT>assert Caesar_encrypt('The dog barked', 1) == 'uif eph cbslfe'
+assert Caesar_encrypt('EVERYTHING IS AWESOME!!!', 3) == 'hyhubwklqj lv dzhvrph!!!'
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match238-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_decrypt(message:str, key:int) -&gt; str:
+    '''Takes in a Caesar cipher and returns a decrypted string based on the integer given'''
+    if key &gt; 26:
+        key = key % 26
+    cipher = str.maketrans(rotate_alphabet(ALPHABET,key), ALPHABET)
+    return message.lower().translate(cipher)
+</FONT>assert Caesar_decrypt('uif eph cbslfe', 1) == 'the dog barked'
+assert Caesar_decrypt('hyhubwklqj lv dzhvrph!!!', 3) == 'everything is awesome!!!'
+
+
+print(Caesar_encrypt("cat", 29))
+print(Caesar_encrypt("cat", 3))
+
+print()
+print('----------f.1----------')
+print()
+
+getty = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ",'abc','b','c',
+    'd','e','f', '', '', '']
+
+def print_line_numbers(L: [str]) -&gt; None:
+    '''Prints and numbers each line in the provided list of strings'''
+    x = (len(L))
+    for i in range(len(L)):
+        print('{:8}:  {}'.format(i+1, L[i]))
+print_line_numbers(getty)
+
+print()
+print('----------f.2----------')
+print()
+
+def stats (L: [str]) -&gt; None:
+    '''Prints the stats of the list of strings including how many lines
+    in the list, how many empty lines in the list, and the average amount
+    of characters per line'''
+    count=0
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match238-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    char_sum = 0
+    non_empty_lines = 0
+    for word in L:
+        if word == '':
+            count+=1
+    for word in L:
+        char_sum += len(word)
+</FONT>        if word != '':
+            non_empty_lines +=1
+    average = char_sum/len(L)
+    average_non_empty_lines = char_sum/non_empty_lines
+    
+    print('{:8}     lines in the list\n{:8}     empty lines\n{:11.2f}  average characters per line\n{:11.2f}  average characters per non-empty line'.format(len(L), count, average, average_non_empty_lines))
+stats(getty)
+
+print()
+print('----------f.3----------')
+print()
+
+def punct_to_blank2(s: str) -&gt; str:
+    punct = '.,/\?":;!@#$%^&*\()_+-=[]{}&lt;&gt;'
+    result = ''
+    for char in s:
+        if char in punct[:]:
+            result += ''
+        else:
+            result += char
+    return result
+
+def list_of_words (strings_list: [str]) -&gt; [str]:
+    '''Returns a list of individual words given a list of strings with white
+    space and punctuation removed'''
+    word_list = []
+    for string in strings_list:
+        new_str = punct_to_blank2(string)
+        new_str = new_str.split()
+        for word in new_str:
+            word_list.append(word)
+    return word_list
+print(list_of_words(getty))
+        
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,283 @@
+<HTML>
+<HEAD>
+<TITLE>jubaldo/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kvongpas/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Tammy Law 63627792 and Katie Vongpasert 87494547. ICS Lab sec 15. Lab asst 6.
+
+#
+#
+# Part (c)
+#
+#
+
+#(c.1)
+print()  
+print()
+print('---------- Part (c) ----------')
+print()
+
+def contains(s1: str, s2: str) -&gt; bool:
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match145-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    '''Checks if the second string occurs in the first string.
+       If the second string does occur, the function returns True;
+       if not, it returns False. '''
+    return s2 in s1
+assert contains('banana', 'ana')
+</FONT>assert not contains('racecar', 'ck')
+assert contains('katie', 'kat')
+assert not contains('tammy', 'mi')
+
+#(c.2)
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match145-0.html#5" TARGET="0"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def sentence_stats(s:str):
+    '''Takes in a string as a parameter and prints out these statistics
+       about the string: its length in characters, its length in words,
+</FONT>       and the average length of each word.'''
+    table = str.maketrans('.,!?:;"*', '        ')
+    s2 = s.translate(table)
+    L = s2.split()
+    sum1 = 0
+    print("Characters: ",len(s))
+    print("Words: ",len(L))
+    for i in L:
+        sum1 += len(i)
+    print("Average word length: ",sum1/len(L))
+        
+
+sentence_stats('I love UCI')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+#(c.3)
+def initials(s:str) -&gt; str:
+    '''Takes as input a string representing a full name
+       and returns the initials of the name in all capital letters '''
+    L = s.split()
+    intls = ''
+    for i in L:
+        intls += i[0]
+    return intls.upper()
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+
+#
+#
+# Part (d)
+#
+#
+
+#(d.1)
+print()  
+print()
+print('---------- Part (d) ----------')
+print()
+from random import randrange
+
+for i in range(50):
+    print(randrange(11))
+
+print()    
+
+for i in range(50):
+    print(randrange(1,7))
+print()
+
+#(d.2)
+
+def roll2dice():
+    first_roll = randrange(1,7)
+    second_roll = randrange(1,7)
+    return first_roll+second_roll
+
+for i in range(50):
+    print(roll2dice())
+print()
+
+#(d.3)
+from random import randrange
+def distribution_of_rolls(num: int) -&gt; None:
+    '''Takes one number—the number of times to roll two
+       dice—and prints the distribution of the values of those rolls.'''
+    L = []
+    print("Distribution of dice rolls")
+    for x in range(num):
+        L.append(roll2dice())
+    for i in range(2,13):
+        count = L.count(i)
+        percent = (count/num)*100
+        stars = count*'*'
+        print('{0:2d}:   {1:2d} ({2:4.1f}%) {3}'.format(i, count, percent, stars))
+    print('-----------------------------')
+    print('        '+str(num)+' rolls')
+distribution_of_rolls(200)
+      
+       
+#
+#
+# Part (e)
+#
+#
+
+#(e.1)
+print()  
+print()
+print('---------- Part (e) ----------')
+print()
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def rotate_alphabet(s:str, num:int) -&gt; str:
+    return s[num:27] + s[0:num]
+print(rotate_alphabet(ALPHABET,3))
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match145-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_encrypt(s: str, k: int) -&gt; str:
+    '''Takes two arguments: a string containing the message
+      (the plaintext for encryption) and an int for the key,
+      indicating how far down the alphabet to find each substitute letter.
+      The encryption function returns the ciphertext.'''
+</FONT>    s1 = s.lower()
+    table1 = str.maketrans(ALPHABET,rotate_alphabet(ALPHABET, k))
+    return s1.translate(table1)
+print(Caesar_encrypt('Cat in the hat', 1))
+    
+    
+
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match145-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_decrypt(s: str, k: int) -&gt; str:
+    '''Takes two arguments: a string containing the message
+      (the ciphertext for decryption) and an int for the key,
+      indicating how far down the alphabet to find each substitute letter.
+</FONT>      The decryption function returns the plaintext.'''
+    s2 = s.lower()
+    table2 = str.maketrans(rotate_alphabet(ALPHABET, k), ALPHABET)
+    return s2.translate(table2)
+print(Caesar_decrypt('dbu jo uif ibu',1))
+
+#(e.2)
+print(Caesar_encrypt('Buy me some Boba', 8))
+print(Caesar_decrypt('jcg um awum jwji', 8))
+
+#(e.3)
+def Caesar_encrypt2(s: str, k: int) -&gt; str:
+    '''Takes two arguments: a string containing the message
+      (the plaintext for encryption) and an int for the key,
+      indicating how far down the alphabet to find each substitute letter.
+      The encryption function returns the ciphertext.'''
+    s1 = s.lower()
+    k2 = k
+    if k&gt;25:
+        k2 = k%25
+    table1 = str.maketrans(ALPHABET,rotate_alphabet(ALPHABET, k2))
+    return s1.translate(table1)
+print(Caesar_encrypt2('Cat in the hat', 26))
+    
+    
+
+
+def Caesar_decrypt2(s: str, k: int) -&gt; str:
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match145-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    '''Takes two arguments: a string containing the message
+      (the ciphertext for decryption) and an int for the key,
+      indicating how far down the alphabet to find each substitute letter.
+      The decryption function returns the plaintext.'''
+</FONT>    s2 = s.lower()
+    k2 = k
+    if k&gt;25:
+        k2 = k%25
+    table2 = str.maketrans(rotate_alphabet(ALPHABET, k2), ALPHABET)
+    return s2.translate(table2)
+print(Caesar_decrypt2('dbu jo uif ibu',26))
+    
+#
+#
+# Part (f)
+#
+#
+
+#(f.1)
+print()  
+print()
+print('---------- Part (f) ----------')
+print()
+
+L1 = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ",
+       "                 ", ""]
+def print_line_numbers(L:list) -&gt; None:
+    x=0
+    for i in range(1,len(L)+1):
+        print('{0:2d}:  {1}'.format(i,L[x]))
+        x+=1
+
+print_line_numbers(L1)
+print()
+#(f.2)
+def stats(L:list)-&gt;None:
+    '''Takes a list of strings and prints statistics.'''
+    print('{0:5.1f} {1}'.format(len(L),'lines in the list'))
+    num_empty_lines = 0
+    for i in L:
+        if i == len(i)*' ':
+            num_empty_lines +=1
+    print('{0:5.1f} {1}'.format(num_empty_lines, 'empty lines'))
+    sum_of_chars = 0
+    for x in L:
+        s = x.split()
+        for n in s:
+            sum_of_chars += len(n)
+    print('{0:5.1f} {1}'.format(sum_of_chars/len(L), 'average characters per line'))
+    print('{0:5.1f} {1}'.format(sum_of_chars/(len(L)-num_empty_lines),
+                                'average characters per non-empty line'))
+    
+stats(L1)
+print()
+#(f.3)
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match145-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def list_of_words(L:list)-&gt;list:
+    '''Takes a list of strings as above and returns a list of
+      individual words with all white space and punctuation
+      removed (except for apostrophes/single quotes).'''
+    table = str.maketrans('.,!?:;"*', '        ')
+</FONT>    L2 = []
+    for i in L:
+        i2 = i.translate(table)
+        L2.extend(i2.split())
+    return L2
+print(list_of_words(L1))
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

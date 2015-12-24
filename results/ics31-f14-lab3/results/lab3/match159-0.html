@@ -1,0 +1,312 @@
+<HTML>
+<HEAD>
+<TITLE>arakij/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+arakij/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+#Jeffrey Araki 56679814 and Vincent Chang 91932026 ICS 31 Lab sec 6.
+#part c
+PI = 3.14159
+
+print('part (c)')
+#(c.1)
+print('(c.1)')
+def abbreviate(s: str) -&gt; str:
+    '''returns the first three letters of the string'''
+    return s[0:3]
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+#test values
+print('Abbreviaton of Jeffrey is', abbreviate('Jeffrey'))
+print('Abbreviation of Vincent is', abbreviate('Vincent'))
+
+#(c.2)
+print('(c.2)')
+def find_area_square(n: int) -&gt; int:
+    '''returns the square of the int'''
+    return n**2
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+#test values
+print('3 squared is', find_area_square(3))
+print('10 squared squared is', find_area_square(find_area_square(10)))
+
+#(c.3)
+print('(c.3)')
+def find_area_circle(radius: int) -&gt; int:
+    '''returns the area of a circle of radius radius'''
+    return PI*radius**2
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+#test values
+print('The area of a circle with radius 3 is', find_area_circle(3))
+print('The area of a circle with radius 10 is', find_area_circle(10))
+
+#(c.4)
+print('(c.4)')
+def print_even_numbers(l: list):
+    '''prints the even values in the list'''
+    for x in l:
+        if x%2 == 0:
+            print(x)
+#test print
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+#(c.5)
+print('(c.5)')
+def calculate_shipping(weight: float) -&gt; float:
+    '''returns the cost of shipping based on the weight input'''
+    if weight &lt; 2:
+        return 2.0
+    elif weight &gt;= 2 and weight &lt; 10:
+        return 5.0
+    else:
+        return 5.0 + 1.5*(weight - 10)
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+#test values
+print('The shipping cost of a 1 pound package is', calculate_shipping(1))
+print('The shipping cost of a 2 pound package is', calculate_shipping(2))
+print('The shipping cost of a 11 pound package is', calculate_shipping(11))
+
+#(c.6)
+import tkinter
+my_window = tkinter.Tk()
+
+def create_square(x: int, y: int, sideLength: int):
+    '''opens a tkinter window and draws a square
+    of sideLength sides with the top left corner at (x, y)'''
+
+    my_canvas = tkinter.Canvas(my_window, width = 200, height = 200)
+    my_canvas.pack()
+
+    my_canvas.create_rectangle(x, y, x + sideLength, y + sideLength)
+
+create_square(0, 0, 100)
+create_square(100, 100, 50)
+create_square(50, 100, 60)
+
+
+#(c.7)
+my_window2 = tkinter.Tk()
+def create_circle(x: int, y: int, diameter: int):
+    '''opens a tkinter window and draws a circle
+    of diameter diameter with the top left corner at (x, y)'''
+
+
+    my_canvas = tkinter.Canvas(my_window2, width = 200, height = 200)
+    my_canvas.pack()
+
+    my_canvas.create_oval(x, y, x + diameter, y + diameter)
+
+create_circle(0, 0, 100)
+create_circle(100, 100, 50)
+create_circle(50, 100, 60)
+
+
+#part (d)
+
+#(d.1)
+# from lab 2
+
+from collections import namedtuple
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+thaiDishes = Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50)
+nobu = Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50)
+nonna = Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50)
+jitlada = Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50)
+RC = [thaiDishes, nobu, nonna, jitlada]
+RC2 = [thaiDishes, nobu, nonna, jitlada]
+RC3 = [thaiDishes, nobu, nonna, jitlada]
+RC4 = [thaiDishes, nobu, nonna, jitlada]
+
+print('\npart (d)')
+def restaurant_price(r: Restaurant) -&gt; float:
+    '''returns the price of the Restaurant'''
+    return r.price
+assert restaurant_price(thaiDishes) == 12.50
+assert restaurant_price(nobu) == 5.50
+for x in RC:
+    print('The price of', x.name,'\'s',
+          'dish is {:.2f}'.format(restaurant_price(x)))
+
+# (d.2)
+print('(d.2)')
+RC2.sort(key = restaurant_price)
+for x in RC2:
+    print(x.price)
+    
+# (d.3)
+print('(d.3)')
+def costliest(l: list) -&gt; str:
+    '''returns the name of the restaurant with the most expensive dish'''
+    l.sort(key = restaurant_price)
+    return l[-1].name
+#list before
+for x in RC3:
+    print('The price of', x.name,'\'s',
+          'dish is {:.2f}'.format(restaurant_price(x)))
+print('The most expensive restaurant in RC is', costliest(RC3))
+#list after
+for x in RC3:
+    print('The price of', x.name,'\'s',
+          'dish is {:.2f}'.format(restaurant_price(x)))
+    
+# (d.4)
+print('(d.4)')
+
+def costliest2(l: list) -&gt; str:
+    '''returns the name of the restaurant with the most expensive dish'''
+    
+    sorted(l, key = restaurant_price)
+    return l[-1].name
+
+#list before
+for x in RC4:
+    print('The price of', x.name,'\'s',
+          'dish is {:.2f}'.format(restaurant_price(x)))
+print('The most expensive restaurant in RC is', costliest2(RC4))
+#list after
+for x in RC4:
+    print('The price of', x.name,'\'s',
+          'dish is {:.2f}'.format(restaurant_price(x)))
+    
+#part (e)
+print('\npart (e)')
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [Book('Smith', 'Title 6', 'Technology', 1999, 1.00, 6),
+       Book('Smath', 'Title 4', 'Horror', 2011, 2.00, 5),
+       Book('Smoth', 'Title 2', 'Romance', 1899, 4.00, 4),
+       Book('Smeth', 'Title 1', 'Technology', 2000, 3.00, 3),
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match159-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+       Book('Smuth', 'Title 5', 'Nonfiction', 2001, 2.00, 2),
+       Book('Smyth', 'Title 3', 'Technology', 2005, 5.00, 1)]
+
+# (e.1)
+print('(e.1)')
+#prints all the book titles in BSI
+for book in BSI:
+    print(book.title)
+    
+# (e.2)
+print('(e.2)')
+
+def book_title(b: Book) -&gt; str:
+    '''returns the title of the book'''
+    return b.title
+#prints the titles of the books sorted alphabetically
+for book in sorted(BSI, key = book_title):
+    print(book.title)
+    
+# (e.3)
+print('(e.3)')
+#changes the value of each book's price to 110% of its original
+for book in BSI:
+    book = Book(book.author, book.title,
+                book.genre, book.year, book.price*1.1, book.instock)
+    print('The price of', book.title, 'is now {:.2f}'.format(book.price))
+</FONT>    
+# (e.4)
+print('(e.4)')
+#prints all books in the genre Technology
+for book in BSI:
+    if book.genre == 'Technology':
+        print(book.title)
+        
+# (e.5)
+print('(e.5)')
+def before2000_or_after(l: list):
+    '''returns a string that states whether or not the number of books in stock that are published
+       before 2000 is greater than or less than the number
+       of books published after 2000'''
+    before_2000_BSI = []
+    after_2000_BSI = []
+    for book in l:
+        if book.year &lt; 2000:
+            before_2000_BSI.append(book.title)
+        else:
+            after_2000_BSI.append(book.title)
+    if len(before_2000_BSI) &gt; len(after_2000_BSI):
+        print('More titles before 2000 (', len(before_2000_BSI),
+              'vs.', len(after_2000_BSI), ')')
+    else:
+        print('More titles 2000 and after (', len(after_2000_BSI),
+              'vs.', len(before_2000_BSI), ')')
+#tests the function
+before2000_or_after(BSI)
+
+# (e.6)
+print('(e.6)')
+def inventory_value(book: Book) -&gt; float:
+    ''' returns the inventory value
+        (price * # in stock) of the given book'''
+    return book.price * book.instock
+
+def top_value(lst: list) -&gt; Book:
+    ''' sorts the given list by inventory value
+        and returns the highest valued book'''
+    lst.sort(key = inventory_value)
+    return lst[-1]
+
+print('The highest-value book is {} by {} at a value of {}'.format(
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match159-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    top_value(BSI).title, top_value(BSI).author,
+    inventory_value(top_value(BSI))))
+
+# part (f)
+print('\npart (f)')
+# tkinter already imported
+
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width = 1000, height = 1000)
+my_canvas.pack()
+
+def draw_eye(x: int, y: int):
+</FONT>    '''draws an eye of dimensions 200 x 100 with topleft corner at (x, y)'''
+    my_canvas.create_oval(x, y, x + 200, y + 100, fill = 'white')
+    my_canvas.create_oval(x + 50, y + 25, x + 150, y + 75, fill = 'light blue')
+    my_canvas.create_oval(x + 75, y + 37.5, x + 100, y + 52.5, fill = 'black')
+
+def draw_nose(slantX: int, slantY: int, windowX: int, windowY: int):
+    '''draws a nose of width 50 and height 100, starting from the
+       middle of the face'''
+    my_canvas.create_line(windowX + 250, windowY + 200,
+                          windowX + 250 - slantX,
+                          windowY + 200 + slantY)
+    my_canvas.create_line(windowX + 250 - slantX,
+                          windowY + 200 + slantY,
+                          windowX + 250, windowY + 200 + slantY)
+
+def draw_mouth(xLength: int, yLength: int, windowX: int, windowY: int):
+    '''draws a mouth of width xLength * 2 and height yLength * 2,
+       starting from (windowX + 250, windowY + 400)'''
+    my_canvas.create_oval(windowX + 250 - xLength, windowY + 400 - yLength,
+                          windowX + 250 + xLength,
+                          windowY + 400 + yLength, fill = 'black')
+def draw_face(windowX: int, windowY: int):
+    '''draws a face with top-left corner starting from (windowX, windowY)'''
+    my_canvas.create_oval(windowX, windowY, windowX + 500, windowY + 500, fill = 'yellow')
+    draw_eye(windowX + 50, windowY + 100)
+    draw_eye(windowX + 250, windowY + 100)
+    draw_nose(50, 100, windowX, windowY)
+    draw_mouth(100, 50, windowX, windowY)
+    
+draw_face(0, 0)
+draw_face(500, 0)
+draw_face(500, 500)
+draw_face(0, 500)
+
+tkinter.mainloop()
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

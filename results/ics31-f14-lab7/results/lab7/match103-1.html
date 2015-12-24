@@ -1,0 +1,154 @@
+<HTML>
+<HEAD>
+<TITLE>davidoh/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+luos5/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Lee Cunningham 26815508 and Sheng Luo 10772379. ICS 31 Lab sec 4. Lab asst 7.
+
+#
+#
+# Part c
+#
+#
+
+print("\n---Part C---\n")
+
+from random import randrange
+
+def random_single_name(namelist: "file containing the list of names") -&gt; str:
+    '''Take one of the name list files, then return a random name from that list.'''
+    result = namelist.readlines()[randrange(1000)]
+    return result[0:result.find("\t")].lower().capitalize()
+
+def random_full_name()-&gt; str:
+    '''Return a random full name.'''
+    if randrange(1) == 0: #This random number decides if the program uses a female or male name
+        firstlist = open("malenames.txt", 'r')
+    else:
+        firstlist = open("femalenames.txt", 'r')
+    result = random_single_name(open("surnames.txt", 'r')) + ', ' + random_single_name(firstlist)
+    return result
+
+def random_names(number_of_names: int) -&gt; [str]:
+    '''Return a list of names, with a number of names equal to the parameter.'''
+    result = []
+    for x in range(number_of_names):
+        result.append(random_full_name())
+    return result
+
+print(random_names(10))
+
+#
+#
+# Part d
+#
+#
+
+print("\n---Part d---\n")
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match103-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_17.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_cypher_create(key: int) -&gt; "translation table":
+    '''Used to create the table needed for the translate method in both Caesar cypher programs.'''
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    cypher_list = []
+    for x in range(26):
+        selection = x + key
+        while selection &gt; 25:
+            selection = selection - 26
+        while selection &lt; 0:
+            selection = selection + 26
+        cypher_list.append(alphabet[selection])
+    cypher = "".join(cypher_list)
+    return str.maketrans(alphabet, cypher)
+
+def Caesar_encrypt(text: str, key: int) -&gt; str:
+    '''Encrypt text using a Caesar cypher with the specified key.'''
+    return text.lower().translate(Caesar_cypher_create(key))
+</FONT>
+def Caesar_decrypt(text: str, key: int) -&gt; str:
+    '''Take a string encrypted by Caesar_encrypt and the key used by that encryption and return the decrypted message'''
+    return text.lower().translate(Caesar_cypher_create(-key))
+
+
+def Words_in_dictionary(sentence: str) -&gt; int:
+    result = 0
+    wordlist = open("wordlist.txt", "r").readlines()
+    for word in sentence.split():
+        if (word+"\n") in wordlist:
+            result += 1
+    return result
+
+def Caesar_break(encrypted_text: str) -&gt; str:
+    best_translation = ""
+    accuracy = 0
+    for i in range(26):
+        if Words_in_dictionary(Caesar_decrypt(encrypted_text, i)) &gt; accuracy:
+            best_translation = Caesar_decrypt(encrypted_text, i)
+            accuracy = Words_in_dictionary(Caesar_decrypt(encrypted_text, i))
+    return best_translation
+
+#
+#
+# Part e
+#
+#
+
+print("\n---Part e---\n")
+ALPHABET2 = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ~`!@#$%^&*()_-+=|\}]{{:;"&gt;.?/&lt;,\n\t'
+def characters_count(n:list)-&gt;int:
+    result = ''
+    for i in n:
+        for c in i:
+            if c in ALPHABET2:
+                result = result + c
+    return len(result)
+
+def copy_file(n:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if n == 'line numbers':
+        line_number = 1
+        for line in infile:
+            outfile.write('{:5}:{}'.format(line_number,line))
+            line_number += 1
+            
+    elif n == 'Gutenberg trim':
+        start_line = 0
+        end_line = 0
+        line_list = infile.readlines()
+        for line_number in range(len(line_list)):
+            if "*** START" in line_list[line_number]:
+                start_line = line_number
+            if "*** END" in line_list[line_number]:
+                end_line = line_number
+                
+                for line in line_list[start_line + 1: end_line]:
+                    outfile.write(line)
+
+           
+    else:
+        if n == 'statistics':
+            line_list = infile.readlines()
+            print('\n{:8.1f} {}\n{:8.1f} {}\n{:8.1f} {}\n{:8.1f} {}\n'.format(len(line_list),'lines in the list',line_list.count('\n'),'empty lines',characters_count(line_list)/len(line_list),'average characters per line',characters_count(line_list)/(len(line_list) - line_list.count('\n')),'average characters per non-empty line'))
+            infile.seek(0)
+            
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+
+
+    
+    
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,222 @@
+<HTML>
+<HEAD>
+<TITLE>cwpham/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+wyassine/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Wajih Yassine 42139560 and Ghiyath Alazzah 83048718. ICS 31 Lab sec 16. Lab asst 6.
+
+#
+#
+# Part C
+#
+#
+print('\n Part C \n')
+
+#part c.1
+print('---c.1---')
+
+def contains(x: str, y: str) -&gt; bool:
+    return y in x
+
+assert contains('banana', 'ana') == True
+assert not contains('racecar', 'ck') == True
+assert contains('running' , 'un') == True
+assert contains('system' , 'run') == False
+
+
+#part c.2
+print('---c.2---')
+
+def clear_punctuation(x: str) -&gt; str:
+    empty = ''
+    for p in x:
+        if p in 'abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ':
+            empty += p 
+    return empty
+
+def sentence_starts(x: str) -&gt; int:
+    Character = len(x)
+    Word = len(x.split())
+    Average = float(len(clear_punctuation(x))/Word)
+    print('Characters:', Character)
+    print('Words:', Word)
+    print('Average:', Average)
+    
+sentence_starts('I love UCI')
+
+
+
+#part c.3
+print('---c.3---')
+def initials(x: str) -&gt; str:
+    empty = x.split()
+    Var = ''
+    for x in empty:
+        Var  = Var + x[0].upper()
+    return Var
+        
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+  
+
+
+# d.1
+print('---d.1---')
+from random import randrange;
+for x in range(51):
+    print(str(randrange(11)));
+
+
+for x in range(51):
+    print(randrange(7));
+
+# d.2
+print('---d.2---')
+def roll2dice() -&gt; int:
+    
+    return "Total of the two rolled di: " + str(randrange(7) + randrange(7));
+
+print(roll2dice());
+
+# d.3
+print('---d.3---')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match178-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_21.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+from collections import namedtuple;
+from math import trunc;
+
+def distribution_of_rolls(firstvar: int) -&gt; str:
+    number = namedtuple('number', 'value rolled');
+    tempList = [];
+    star = "*";
+    for z in range(11):
+        tempList.append(number(z + 2, 0));
+    for x in range(firstvar):
+        tempNum = (randrange(1,7)) + (randrange(1,7));
+        for y in range(len(tempList)):
+            if tempList[y].value == tempNum:
+                      tempList[y] = tempList[y]._replace(rolled = tempList[y].rolled + 1);
+    print(tempList);
+    sum = 0;
+    for b in tempList:
+        sum += b.rolled;
+        print(sum);
+    for a in tempList:
+        print(str(a.value) + ": " + str(a.rolled) + " ("+str(trunc((a.rolled/sum * 10000))/100)+"%)", star * a.rolled);
+</FONT>    print('Total:', firstvar)
+distribution_of_rolls(200);
+
+
+#
+#
+#part e
+#
+#
+
+#e.1
+print('---e.1---')
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate(n: int) -&gt; str:
+    return ALPHABET[n:] + ALPHABET[:n]
+    
+def Caesar_encrypt(plaintext: str, n: int) -&gt; str:
+    encrypt = str.maketrans(ALPHABET, rotate(n))
+    return plaintext.lower().translate(encrypt)
+
+def Caesar_decrypt(ciphertext: str, n: int) -&gt; str:
+    decrypt = str.maketrans(ALPHABET, rotate(n))
+    return ciphertext.lower().translate(decrypt)
+    
+assert Caesar_encrypt("hi there", 3) == 'kl wkhuh'
+assert Caesar_decrypt('kl wkhuh', -3) == 'hi there'
+    
+
+#Part F:
+
+print('----- Part F -----')
+
+linestoprint = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ",
+          "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ",
+         "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a greatcivil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ",
+          "     "]
+
+#f1:
+print('---f.1---')
+
+def print_line_numbers(L: list) -&gt; None:
+    for x in range(len(L)):
+        print('{0:5d}'.format(x+1) , ': ', L[x])
+
+print_line_numbers(linestoprint)
+
+
+#f2:
+print('---f.2---')
+
+def stats(L:list) -&gt; None:
+    emptyvar1 = 0
+    emptyvar2 = 0
+    emptyvar3 = 0
+    for i in range(len(L)):
+        if len(L[i].strip()) == 0:
+            emptyvar1 = emptyvar1 + 1
+        for x in L[i]:
+            emptyvar2 = emptyvar2 + 1
+            if len(L[i].strip()) == 0:
+                emptyvar3 = emptyvar3 + 1
+    av_char = emptyvar2 / len(L)
+    av_char_non_empty = (emptyvar2 - emptyvar3) / (len(L) - emptyvar1)
+    print('{0:5d}'.format(len(L)), '\tlines in the list')
+    print('{0:5d}'.format(emptyvar1), '\tempty lines')
+    print('{:7.1f}'.format(av_char), 'average characters per line')
+    print('{:7.1f}'.format(av_char_non_empty), 'average characters per non-empty line')
+
+stats(linestoprint)
+
+
+#f3:
+print('---f.3---')
+
+morelines = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated"]
+
+def list_of_words(L:list) -&gt; list:
+    EL = []
+    var = ''
+    for i in L:
+        for x in i:
+            if x not in ['\n', '\r\n', ' ', '']:
+                var = var + x
+            elif var != '':
+                EL.append(var)
+                var = ''
+    return EL
+
+print(list_of_words(morelines))
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

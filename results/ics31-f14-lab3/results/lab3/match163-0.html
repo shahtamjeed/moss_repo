@@ -1,0 +1,239 @@
+<HTML>
+<HEAD>
+<TITLE>abisbee/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+abisbee/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Yeiji Song 89238665 and Ashleigh Bisbee 47909497. ICS 31 Lab sec 1. Lab asst 3.
+
+#
+#
+# Part (c)
+#
+#
+print('---------Part (c)-----------')
+
+print('(--------------1-------------)')
+# The function abbreviate takes the name of a month as input and returns its three-letter abbreviation.
+def abbreviate(month):
+    return month[0:3]
+print (abbreviate('January'))
+print (abbreviate('abril'))
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+
+print('(-------------2---------------)')
+# The function find_area_square takes a number as input representing the length of one side of a square and returns the area of that square.
+def find_area_square(length_square):
+    return (length_square)**2
+print(find_area_square(int(5)))
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+print('(-------------3-----------------)')
+# The function find_area_circle returns the area of a circle.
+PI=3.14159
+def find_area_circle(radius):
+      return(PI*((radius)**2))
+print(find_area_circle(1))
+print(find_area_circle(2))
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match163-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+print('(------------------4--------------)')
+# print_even_function returns each even number on the list.
+def print_even_numbers(list_of_integers):
+
+
+    for i in range(len(list_of_integers)):
+        if list_of_integers[i]%2==0:
+            #new_list.append(list_of_integers[i])
+           print (list_of_integers[i])
+(print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004]))
+
+
+print ('(---------------5-------------------)')
+#calculate_shipping returns the price for shipping the package
+def calculate_shipping(weight):
+  
+    if(weight&lt;2):
+</FONT>        price=float(2.00)
+        return(price)
+    elif(weight&lt;10):
+        price=float(5.00)
+        return(price)
+    elif(weight&gt;10):
+        price=float(5.00+1.50*(weight-10))
+        return(price)
+print(calculate_shipping(1.5))
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+print ('(---------------------6-------------------)')
+#create_square draws a square in the tkinter window
+def create_square(x_coordinate, y_coordinate, length):
+    import tkinter
+    my_window = tkinter.Tk()
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+    my_canvas.pack()
+    return my_canvas.create_rectangle(x_coordinate, y_coordinate, length+x_coordinate, length+y_coordinate)
+create_square(100, 100, 100)
+create_square(200, 200, 200)
+
+print('(--------------------7--------------------)')
+#create_circle draws a circle.
+def create_circle(x_coordinate, y_coordinate, diameter):
+    import tkinter
+    my_window = tkinter.Tk()
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+    my_canvas.pack()
+    return my_canvas.create_oval(x_coordinate, y_coordinate, x_coordinate+diameter, y_coordinate+diameter)
+create_circle(100, 100, 50)
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match163-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+create_circle(200, 200, 150)
+
+#
+#
+# Part(d)
+#
+#
+print('---------Part (d)-----------')
+
+print('(---------------d.1-----------------)')
+from collections import namedtuple
+#restaurant_price returns the value of the price field of a Restaurant
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+    # Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+        Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+        Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+</FONT>        Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+        Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+        Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+        Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+        Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50)]
+def restaurant_price(Restaurant)-&gt; float:
+   
+    return Restaurant.price
+assert restaurant_price(RL[1])
+print(restaurant_price(RL[0]))
+
+print('(---------------------d.2----------------)')
+#least expensive to most expensive
+
+RL.sort(key=restaurant_price)
+print (RL)
+
+print('(--------------------d.3------------------)')
+#costliest returns the name of the hightest_priced restaurant
+def costliest(RL:list)-&gt;str:
+    RL.sort(key=restaurant_price)
+    return RL[-1].name
+print(costliest(RL))
+
+print('(---------------------d.4------------------)')
+#costliest without side effect
+def costliest2(RL:list)-&gt;str:
+    sorted (RL, key=restaurant_price)
+    return RL[-1].name
+print(costliest2(RL))
+
+#
+#
+# Part(d)
+#
+#
+print('---------Part (e)-----------')
+print('(---------------------e.1--------------------)')
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [Book("Jon Krakauer","Into the Wild", "non-fiction", 1996, 10.00, 30),
+       Book("Jack London", "The Call of the Wild", "fiction", 2003, 11.00, 45),
+       Book("Henry David Thoreau", "Walden", "fiction",1854, 12.00, 40),
+       Book("David Roberts", "White Fang", "Technology", 2001, 13.00, 30),
+       Book("Leo Tolstoy", "Family Happiness", "fiction", 2004, 14.00, 24),
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match163-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+       Book("Bill Bryson", "A walk in the Woods", "fiction", 2011, 15.00, 60)]
+for i in range(len(BSI)):
+    print(BSI[i].title)
+
+print('(----------------------e.2------------------)')
+def book_title(Book):
+    return Book.title
+</FONT>sorted_list=sorted(BSI, key=book_title)
+for i in range (len(sorted_list)):
+    print(sorted_list[i].title)
+
+
+print('(--------------------e.3----------------------)')
+def raise_price(BSI):
+    for i in range (len(BSI)):
+        BSI[i]=BSI[i]._replace(price=(BSI[i].price*.1)+BSI[i].price)
+        print(BSI[i].price)
+raise_price(BSI)
+
+print('(--------------------e.4---------------------)')
+def print_technology(BSI):
+    for i in range (len(BSI)):
+        if (BSI[i].genre=="Technology"):
+            print(BSI[i].title)
+print_technology(BSI)
+
+print('(-------------------e.5----------------------)')
+list1=[]
+list2=[]
+for i in range(len(BSI)):
+    if (BSI[i].year&lt;2000):
+        list1.append(BSI[i].title)
+    else:
+        list2.append(BSI[i].title)
+print(list1)
+print(list2)
+
+if len(list1)&gt;len(list2):
+   print("more titles before 2000", '(', len(list1), 'vs.', len(list2), ')')
+else:
+   print("more title 2000 or later", '(', len(list1), 'vs.', len(list2), ')')
+
+
+print('(---------------------e.6----------------------)')
+def inventory_value(Book):
+    return Book.price*Book.instock
+def top_value(BSI):
+    max_value=0
+    for i in range (len(BSI)):
+        if inventory_value(BSI[i])&gt;max_value:
+            max_value=inventory_value(BSI[i])
+    return max_value
+print(top_value(BSI))
+
+print('----------------------f--------------------------)')
+
+import tkinter
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack()
+
+my_canvas.create_oval(100, 100, 400, 400)
+my_canvas.create_line( 200, 300, 300, 300)
+
+def create_eyes(x_coordinate, y_coordinate, xf_coordinate, yf_coordinate):
+    my_canvas.create_oval(x_coordinate, y_coordinate, xf_coordinate, yf_coordinate)
+    my_canvas.create_oval((x_coordinate+10), y_coordinate+10, xf_coordinate-10, yf_coordinate -10, fill = 'blue')
+    my_canvas.create_oval(x_coordinate + 20, y_coordinate + 20, xf_coordinate - 20, yf_coordinate - 20, fill = 'black')
+    
+    
+create_eyes(170, 150, 230, 210)
+create_eyes(260, 150, 320, 210)
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

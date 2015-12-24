@@ -1,0 +1,272 @@
+<HTML>
+<HEAD>
+<TITLE>marshll/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+marshll/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6 (1).py
+#Nikki Gupta 11391554 and Laura Marsh 28787340. ICS 31 Lab sec 15. Lab asst 6.
+
+#
+#
+# Part(c)
+#
+#
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match18-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_39.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+print()
+print('---------- Part (c) ----------')
+print()
+#(c.1)
+print()
+print('-----(c.1)-----')
+print()
+def contains(x: str, y:str) -&gt; bool:
+    "  returns true if the 2nd string is contained within the 1st "
+    return y in x
+assert contains('banana', 'ana') == True
+assert not contains('racecar', 'ck') == True
+print(contains('banana', 'ana'))
+print(contains('racecar', 'ck'))
+
+#(c.2)
+print()
+print('-----(c.2)-----')
+print()
+def punctuation_blank(a: str) -&gt; str:
+    " returns str w/o punctuation "
+    result = ''
+    for b in a:
+        if b in 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz 1234567890':
+            result += b
+    return result
+def count_words(c: str) -&gt; int:
+    " counts the # of words within a string "
+    e = 1
+    for d in c:
+        if d==' ':
+            e = e + 1
+    return e
+assert count_words('Can you help me?') == 4
+print(count_words('Hello, how are you today?'))
+def sentence_stats(z: str) -&gt; str:
+    " returns a specified set of sentence stats "
+    print('Characters:', len(punctuation_blank(z)))
+    print('Words:', count_words(z))
+    print('Average word length:', len(punctuation_blank(z))/count_words(z))
+sentence_stats('I like going to UC Irvine!')
+
+#(c.3)
+print()
+print('-----(c.3)-----')
+print()
+
+def initials(l:str) -&gt; str:
+    " returns the initials of the specified name "
+    result = ''
+    x = l.split()
+    for i in x:
+        result += i[0]
+    return result.upper()
+print(initials('nikki Gupta'))
+print(initials('laura marsh'))
+
+#
+#
+# Part(d)
+#
+#
+print()
+print()
+print('---------- Part (d) ----------')
+print()
+#(d.1)
+print()
+print('-----(d.1)-----')
+print()
+from random import randrange
+for i in range(50):
+    print(randrange(0,11))
+for i in range(50):
+    print(randrange(1,7))
+    
+#(d.2)
+print()
+print('-----(d.2)-----')
+print()
+def roll2dice() -&gt; int:
+    " returns a # that reflects 2 dice rolls "
+    return randrange(1,7)+randrange(1,7)
+for i in range(50):
+    print(roll2dice())
+
+#(d.3)
+print()
+print('-----(d.3)-----')
+print()
+def distribution_of_rolls(a: int): 
+    "Return the distribution in the specified format"
+    total = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 
+    for y in range(a): 
+        x = roll2dice()    
+        if x == 2: 
+            total[2]+=1 
+        if x == 3: 
+            total[3]+=1 
+        if x == 4: 
+</FONT>            total[4]+=1 
+        if x == 5: 
+            total[5]+=1 
+        if x == 6: 
+            total[6]+=1 
+        if x == 7: 
+            total[7]+=1 
+        if x == 8: 
+            total[8]+=1 
+        if x == 9: 
+            total[9]+=1 
+        if x == 10: 
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match18-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_26.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            total[10]+=1 
+        if x == 11: 
+            total[11]+=1 
+        if x == 12: 
+            total[12]+=1 
+    print('Distribution of dice rolls ', '\n') 
+    for n in range(2,13): 
+        print("{:2d}:{:6d} ({:4.1f}%)  {}".format(n, total[n], (total[n]/a)*100, ('*'*total[n]))) 
+    print('-----------------------------') 
+    print('      ', a, ' rolls              ') 
+distribution_of_rolls(200)
+
+#
+#
+# Part(e)
+#
+#
+print()
+print()
+print('---------- Part (e) ----------')
+print()
+print()
+print('-----(e.1)-----')
+print()
+def Caesar_encrypt(j:str, k: int) -&gt; str:
+    "Returns the ciphertext"
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    alphabet2 = ''
+    x = (k%26)
+    alphabet2 = alphabet2.join(alphabet[x:].split() + alphabet[0:x].split())
+    j = j.translate(str.maketrans(alphabet, alphabet2))
+    return j
+print(Caesar_encrypt('please work', 1))
+print(Caesar_encrypt('please work', 29))
+
+def Caesar_decrypt(m:str, n: int) -&gt; str:
+    "Returns the plaintext"
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    alphabet2 = ''
+    x = (n%26)
+    alphabet2 = alphabet2.join(alphabet[x:].split() + alphabet[0:x].split())
+    m = m.translate(str.maketrans(alphabet2, alphabet))
+    return m
+print(Caesar_decrypt('qmfbtf xpsl', 1))
+print(Caesar_decrypt('qmfbtf xpsl', 27))
+
+print()
+print('-----(e.2)-----')
+print()
+print(Caesar_encrypt("i didn't do the math homework", 7))
+print(Caesar_decrypt("yk zmyq uez'f xmgdm", 12))
+</FONT>#Partner wrote print(Caesar_encrypt("My name isn't Laura", 12))
+#Partner did print(Caesar_decrypt("p kpku'a kv aol thao ovtldvyr", 7))
+print()
+print('-----(e.3)-----')
+print()
+print("see the code for e.1")
+
+#
+#
+# Part(f)
+#
+#
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match18-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_21.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+print()
+print('---------- Part (f) ----------')
+print()
+s = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+print()
+print('-----(f.1)-----')
+print()
+def print_line_numbers(p: list) -&gt; str:
+    " prints line # before the line "
+    for x in range(len(p)):
+        print('{0:5}'.format(x+1),":", p[x])
+
+print_line_numbers(s)
+
+print()
+print('-----(f.2)-----')
+print()
+def stats(a: list) -&gt; str:
+    " lists the stats of a list of strings "
+    print('{0:6}'.format(len(a)), '  lines in the list')
+    d = 0
+    for b in a:
+        if b == '':
+            d += 1
+    print('{0:6}'.format(d), '  empty lines')
+    for b in a:
+        ave = 0
+        ave += len(b)
+    print('{0:8}'.format((ave/len(a))), 'average characters per line')
+    print('{0:8}'.format((ave/(len(a)-d))), 'average characters per non-empty line')
+stats(s)
+
+print()
+print('-----(f.3)-----')
+print()
+def punctuation_blank2(a: str) -&gt; str:
+    " returns str w/o punctuation "
+    result = ''
+    for b in a:
+        if b in "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz '1234567890":
+            result += b
+    return result
+def list_of_words(a: list) -&gt; list:
+    " returns list of words w/o spaces & punctuation "
+    result = []
+    for i in a:
+        result += (punctuation_blank2(i)).split()
+    return result
+print(list_of_words(s))
+</FONT>
+#
+#
+# Part(g)
+#
+#
+print()
+print()
+print('---------- Part (g) ----------')
+print()
+print("see 'restaurantsg.py'.")
+print("\n\n","That's it!")
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,216 @@
+<HTML>
+<HEAD>
+<TITLE>ademerat/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ademerat/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Arthur Demerath 55367697 and Alvin Nguyen 56511577 and Edgardo Rodriguez, Jr. 48906492, ICS 31 Lab section. 6 Lab asssignment 7 
+
+
+#
+#
+# Part (c)
+#
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c) ----------')
+print()
+
+from random import randrange
+
+surnames = open('surnames.txt','r') # Opens each file.
+women_firsts = open('women.txt','r')
+men_firsts = open('men.txt','r')
+
+'''
+def random_names (num:int)-&gt;list:
+    "Takes a positive integer and returns that number of random names." Version 1 could be broken down into simpler functions as.
+    surlines = surnames.readlines()
+    womenlines = women_firsts.readlines()
+    menlines = men_firsts.readlines()
+    results = []
+    resultw = []
+    resultm = []
+    final_result = []
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match218-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for i in surlines:
+        temp_list = i.split("\t")
+        results.append(temp_list[0].lower().title())
+    for m in womenlines:
+        temp_list1 = m.split("\t")
+        resultw.append(temp_list1[0].lower().title())
+    for s in menlines:
+        temp_list2 = s.split("\t")
+        resultm.append(temp_list2[0].lower().title())
+</FONT>    if randrange(1,11) &gt;= 6:
+        gender = resultw
+    else:
+        gender = resultm
+    for q in range(num):
+        return_string = " {:5s}, {:5s}".format(results[randrange(0,len(results))],gender[randrange(0,len(gender))])
+        final_result.append(return_string)
+    return final_result
+
+print(random_names(100))
+'''
+
+surlines = surnames.readlines() # Creates lists of each file, split by lines.
+womenlines = women_firsts.readlines()
+menlines = men_firsts.readlines()
+results = [] # Creates empty result lists for surname, women, and men.
+resultw = []
+resultm = []
+
+for i in surlines: # Adds only the name parts of the files to the result lists.
+    temp_list = i.split("\t")
+    results.append(temp_list[0].lower().title())
+for m in womenlines:
+    temp_list1 = m.split("\t")
+    resultw.append(temp_list1[0].lower().title())
+for s in menlines:
+    temp_list2 = s.split("\t")
+    resultm.append(temp_list2[0].lower().title())
+
+
+def single_name(l:list)-&gt;str:
+    "Takes a list and returns a random item on the list."
+    return l[randrange(0,len(l))]
+
+def create_one_name():
+    "Creates one random name."
+    surname = single_name(results)
+    if randrange(1,11) &gt;= 6: # Gives a random chance for the name to be picked from the male or female list.
+        gender = resultw
+    else:
+        gender = resultm
+    first_name = single_name(gender)
+    return "{:s}, {:s}".format(surname,first_name)
+
+def random_names(num:int)-&gt;[str]: # Version 2, calls other functions.
+    "Generates a list of random names."
+    result = []
+    for i in range(num):
+        result.append(create_one_name())
+    return result
+
+      
+surnames.close() # Closes the files.
+women_firsts.close()
+men_firsts.close()
+
+print(random_names(10))
+
+#
+#
+# Part (d)
+#
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (d) ----------')
+print()
+
+dictionary = open('dictionary.txt','r') # Opens the dictionary file.
+temp = dictionary.read()
+otemp_list = temp.split('\n') # Splits the dictionary into a list by newline character.
+dict_list = []
+for strings in otemp_list:
+    dict_list.append(strings.lower()) # Adds each word lower cased to new dictionary list.
+print(dict_list[0:10])
+
+dictionary.close() # Closes dictionary.
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def Caesar_break(string:str)-&gt;str:
+    '''Takes a string and finds the decoded version using
+    a caesar decrypter.'''
+    count_list = [] # Creates a list for the 26 different translations.
+    for i in range(26):
+        word_count = 0
+        conversion_table = str.maketrans(ALPHABET,ALPHABET[i:]+ALPHABET[:i]) # Creates conversion table.
+        counter = string.lower().translate(conversion_table).split() # Translates the string into number i conversion.
+        for word in counter:
+            if word in dict_list: # Searches for word in dictionary, if so adds 1 to word_count. 
+                word_count += 1
+        count_list.append(word_count) # Appends the count to count_list with index i.
+    highest_value = max(count_list)
+    index_num = count_list.index(highest_value) # Finds the index of highest value in count_list.
+    new_table = str.maketrans(ALPHABET+ALPHABET.upper(), ALPHABET[index_num:]+ALPHABET[:index_num]+
+                              ALPHABET.upper()[index_num:]+ALPHABET.upper()[:index_num]) # Uses highest value to create a tranlation table. Also preserves the capital letters.
+    return string.translate(new_table)
+
+assert Caesar_break('Z nrek yvcg, slk kyviv zj efev. Yfn jru.') == 'I want help, but there is none. How sad.'
+print("jxu gysa rhemd ven zkcfi eluh jxu bqpo tew. decoded is: ",Caesar_break('jxu gKysa rhEmd ven zkCfi eLuh jXu bqpo tew.'))
+
+print(Caesar_break('Dbuz Jt Cspxo'))
+        
+#
+#
+# Part (e)
+#
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (e) ----------')
+print()
+
+def copy_file(string:str):
+    "Copies file and adds line numbers or trims or prints statistics based on argument."
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if string == 'line numbers': # Adds line numbers to a new file of the original copy.
+        line_list = infile.readlines()
+        for num in range(len((line_list))):
+            outfile.write('{:5d}:  {}'.format(num+1,line_list[num]))
+            
+    elif string == 'Gutenberg trim': # Removes housekeeping material at front and end of Gutenberg files.
+        text = infile.read()
+        start_index = text.find('***\n')
+        end_index = text.find('*** END')
+        result = text[start_index+4:end_index]
+        outfile.write(result)
+        
+    elif string == 'statistics': # Copies file and prints out file statistics.
+        line_list = infile.readlines()
+        characters = 0
+        empty_lines = 0
+        for line in line_list:
+            if line == '\n':
+                empty_lines += 1 # Adds a line if the only thing present on that line is a newline character.
+            characters += len(line)
+            outfile.write(line)
+        print('''{:5d}   lines in the file\n{:5d}   empty lines\n{:7.1f} average characters per line\n{:7.1f} average\
+ characters per non-empty line'''.format(len(line_list),empty_lines, characters/len(line_list),characters/(len(line_list) - empty_lines))) # Formatted to print as specified.
+        
+    else: # Copies file to new user-specified file.
+        line_list = infile.readlines()
+        for line in line_list:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+# Test calls for copy_file().
+
+print('e.1')
+copy_file('other')
+print("e.2")
+copy_file('line numbers')
+print("e.3")
+copy_file('Gutenberg trim')
+print("e.4")
+copy_file('statistics')
+
+
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

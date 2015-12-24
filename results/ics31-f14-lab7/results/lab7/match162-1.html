@@ -1,0 +1,252 @@
+<HTML>
+<HEAD>
+<TITLE>chenlo/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kaitlynf/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: kayens lab 7.py
+# Kaitlyn Kayen Fong 52701974 James Nguyen 36686189 ICS 31 Lab sec 11. Lab asst 7.
+
+#
+# Part C
+#
+#
+
+print('Part C')
+print('\n')
+
+opensurname = open('surnames.txt', 'r')
+surname = opensurname.read()
+opensurname.close()
+surnamestr = ''
+surnamelist = []
+for a in surname:
+    if a.isalpha():
+        surnamestr += a
+    else:
+        surnamestr += ' '
+surnamelist = surnamestr.split() 
+
+
+openfemale = open('femalenames.txt', 'r')
+female = openfemale.read()
+openfemale.close()
+femalestr = ''
+femalelist = []
+for a in female:
+    if a.isalpha():
+        femalestr += a
+    else:
+        femalestr += ' '
+femalelist = femalestr.split()
+        
+openmale = open('malenames.txt', 'r')
+male = openmale.read()
+openmale.close()
+malestr = ''
+malelist = []
+for a in male:
+    if a.isalpha():
+        malestr += a
+    else:
+        malestr += ' '
+malelist = malestr.split()
+
+
+from random import randrange
+
+def single_name () -&gt; str:
+    a = randrange(1,3)
+    if a == 1:
+        b = malelist[randrange(0,len(malelist))]
+    else:
+        b = femalelist[randrange(0,len(femalelist))]
+    return surnamelist[randrange(0,len(surnamelist))] + ',' + b
+
+def random_names (aint: int) -&gt; list:
+    randomnamelist = []
+    while (len(randomnamelist) &lt; aint):
+        randomnamelist.append(single_name())
+    return randomnamelist
+
+print(random_names(4))
+
+
+#
+#
+# Part D
+#
+#
+
+#D1/D2
+print()
+print("Part D")
+print()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate(num):
+    newstring = ''
+    front = ALPHABET[0:num]
+    end = ALPHABET[num:]
+    newstring = end + front  
+    return newstring
+
+    
+def Caesar_decrypt(str2, key:int)-&gt;str:
+    '''Takes in 2 parameters and returns the plaintext'''
+
+    new = rotate(key)
+    table = str2.maketrans(new, ALPHABET)
+    str2.lower()
+    return str2.translate(table)
+    
+ 
+def Caeser_break(ciptext:str):
+    ''' Takes in a string and returns plain text'''
+   
+    inputfile = open('wordlist.txt')
+    wordlist = inputfile.read()
+    a = wordlist.split()
+    inputfile.close()
+  
+    newcount = 0
+    trackn = 0
+    
+    for i in range(26):
+        new = Caesar_decrypt(ciptext,i)
+        new = new.split()
+        hits = 0
+        for b in a:
+            for d in new:
+                if d == b:
+                    hits +=1          
+        if newcount &lt; hits:
+            newcount = hits
+            trackn = i
+
+    print(Caesar_decrypt(ciptext,trackn))            
+               
+       
+Caeser_break('mx asvow')
+Caeser_break('ifmq nf')
+
+
+#
+#
+# Part E
+#
+#
+print("Part E")
+print()
+
+
+# e3
+
+
+def stats (L: list):
+    """Takes a list of strings and prints statistics."""
+    line = 0
+    e_lines = 0
+    chars = 0
+    for lines in L:
+        line += 1
+        if lines == '' or "":
+            e_lines += 1
+        for char in lines:
+            chars += 1
+    return( ('{:5d}   lines in the list'.format(line)+ '\n {:5d}   empty lines'.format(e_lines)) + '\n {:7.1f} average characters per line'.format(chars/line) + '\n {:7.1f} average characters per non-empty line'.format(chars/(line - e_lines)))
+
+    
+def copy_files(str1:str):
+    '''Takes in a string and copies a file'''
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match162-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    c = infile.read()
+  
+
+    if str1 == 'line numbers':
+        c = 1
+        for line in infile:
+            outfile.write("{0:5.0f}: {1:1}".format(c,line)) 
+</FONT>            c+=1
+ 
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match162-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if str1 == 'Gutenberg trim':
+       a = False
+       for line in infile:
+           if '*** START ' in line:
+               a = True
+           if a:
+                outfile.write(line)    
+           if '*** END' in line:
+</FONT>                break
+    newlist = []
+    newlist = c.split('\n') 
+    
+    if str1 == 'statistics':
+        return outfile.write(c + stats(newlist))
+   
+    else:
+        outfile.write(c)
+    infile.close()
+    outfile.close()
+
+#copy_files('line numbers')
+#copy_files('Gutenberg trim')
+copy_files('asdf')
+copy_files('statistics')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

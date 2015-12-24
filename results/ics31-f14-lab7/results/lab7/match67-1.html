@@ -1,0 +1,231 @@
+<HTML>
+<HEAD>
+<TITLE>douy1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+xiaosonw/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+
+# Xiaosong Weng 85341914 Liwei Song  68746124 ICS 31 Lab sec 7.  Lab asst 7.
+#
+#
+# Part C
+#
+#
+
+print('--------------------------c1-------------------------------')
+from random import randrange
+def random_names(n:int)-&gt;[str]:
+    '''take a number then return a random name list'''
+    namelist = []
+    for i in range(n):
+        Newname = random_surnames(n)[i] +' '+ random_female(n)[i] + ' ' + random_male(n)[i]
+        namelist.append(Newname)
+    return namelist
+        
+    
+    
+print('--------------------------c2-------------------------------')
+infile = open('C:\\Users\\apple\\Desktop\\lab\\femalenames.txt')
+femalenames = infile.readlines()
+infile.close()
+infile = open('C:\\Users\\apple\\Desktop\\lab\\malenames.txt')
+malenames = infile.readlines()
+infile.close()
+infile = open('C:\\Users\\apple\\Desktop\\lab\\surnames.txt')
+surnames = infile.readlines()
+infile.close()
+
+
+print('--------------------------c3-------------------------------')
+def random_female(n:int)-&gt;[str]:
+    '''return a random femalename list'''
+    FN = []
+    for i in range(n):
+        i = randrange(1000)
+        Newname = femalenames[i].split()[0][0]+femalenames[i].split()[0][1:].lower()
+        FN.append(Newname)
+    return FN
+def random_male(n:int)-&gt;[str]:
+    '''resturn a random malename list'''
+    MN = []
+    for i in range(n):
+        i = randrange(1000)
+        Newname = malenames[i].split()[0][0]+malenames[i].split()[0][1:].lower()
+        MN.append(Newname)
+    return MN
+def random_surnames(n:int)-&gt;[str]:
+    '''return a random surname list'''
+    SN = []
+    for i in range(n):
+        i = randrange(1000)
+        Newname = surnames[i].split()[0][0]+surnames[i].split()[0][1:].lower()
+        SN.append(Newname)
+    return SN
+
+
+
+#Part D
+
+
+alphabet='abcdefghijklmnopqrstuvwxyz'
+ALPHABET=alphabet.upper()
+infile = open('C:\\Users\\apple\\Desktop\\lab\\Dictionary.txt')
+Dictionary = infile.read()
+infile.close()
+def encrypt(s:str, n:int):
+    '''return a new alphabet'''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match67-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if n &gt; len(s):
+        newstr = s[n%len(s):] + s[:n%len(s)]
+    else:
+        newstr = s[n:]+ s[:n]
+    return newstr
+def Caesar_encrypt(s:str,n:int)-&gt;str:
+</FONT>    '''encryprt a string by a key'''
+    table = str.maketrans(ALPHABET+alphabet,encrypt(ALPHABET,n)+encrypt(alphabet,n))
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match67-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    s = s.translate(table)
+    return s
+def Caesar_decrypt(s:str,n:int)-&gt;str:
+    '''decrypt a strings, return a string without changing the capital'''
+    table = str.maketrans(encrypt(ALPHABET,n)+encrypt(alphabet,n),ALPHABET+alphabet)
+</FONT>    s = s.translate(table)
+    return s
+def all_result(s:str)-&gt;[str]:
+    '''return all possible result in a list'''
+    result = []
+    for i in range(0,26):
+        result.append(Caesar_decrypt(s,i))
+    return result
+def count_hit(s:str)-&gt;int:
+    '''count right words'''
+    hits = 0
+    for i in s.split():
+        for k in Dictionary.split():
+            if i.lower() == k.lower():
+                hits+=1
+    return hits
+def Caesar_break(s:str)-&gt;str:
+    ''' force brute an encryption'''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match67-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    result = all_result(s)
+    for i in range(len(result)):
+        if count_hit(result[i-1])&lt;count_hit(result[i])&gt;count_hit(result[i+1]):
+            return(result[i])
+</FONT>assert Caesar_break("TLVBB TMItlxl Ttvaxg'l") == "ASCII ATPases Aachen's"
+assert Caesar_break('Fr ykbxgw bl yhhe') == 'My friend is fool'
+        
+
+##Part E
+
+
+'''file is a sequence'''
+print('--------------------------e1-------------------------------')          
+def copy_file()-&gt;None:
+    '''copy a file'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+print('--------------------------e2-------------------------------')   
+def copy_file2(s:str)-&gt;None:
+    '''copy a file and if the input is line number, return line number'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'line numbers':
+        lineList = infile.readlines()
+        for i in range(len(lineList)):
+            outfile.write(str(i+1)+': '+lineList[i])
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+print('--------------------------e3-------------------------------')       
+def copy_file3(s:str)-&gt;None:
+    '''return a file which is cut some information'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'Gutenberg trim':
+        linelist = infile.readlines()
+        start = 0
+        end = 0
+        for i in linelist:
+            if '*** START' in i:
+                break
+            start += 1
+        for a in linelist:
+            if '*** END' in a:
+                break
+            end += 1
+        outfile.write(' '.join(linelist[start+1:end]))
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+print('--------------------------e4-------------------------------')      
+def cal_empty_line(SL:[str])-&gt;int:
+    '''count empty line'''
+    empty_line = SL.count('\n')
+    return empty_line
+def cal_n(SL:[str])-&gt;int:
+    '''count \n '''
+    empty_n = 0
+    for i in SL:
+        empty_n += i.count('\n')
+    return empty_n
+def stats(SL:[str])-&gt;str:
+    '''return a statistics'''
+    lines_number = len(SL)
+    sum_characters = len(''.join(SL))-cal_n(SL)
+    n = 0
+    averge_per_line = sum_characters/lines_number
+    averge_none_line = sum_characters/(lines_number - cal_empty_line(SL))
+    print('{:5}   lines in the file'.format(lines_number))
+    print('{:5}   empty lines'.format(cal_empty_line(SL)))
+    print('{:7.1f}  averge characters per line'.format(averge_per_line))
+    print('{:7.1f}  averge characters per non_empty line'.format(averge_none_line))
+def copy_file4(s:str)-&gt;str:
+    '''return a file copy and return the statistics of the file'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'statistics':
+        lineList = infile.readlines()
+        outfile.write(''.join(lineList))
+        return stats(lineList)
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+    
+'''
+def openf(filename):
+    infile = open('C:\\Users\\apple\\Desktop\\lab\\e.txt')
+    linelist = infile.readlines()
+    infile.close()
+    print(linelist)
+    return len(linelist)
+'''
+       
+        
+</PRE>
+</PRE>
+</BODY>
+</HTML>

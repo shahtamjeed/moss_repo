@@ -1,0 +1,319 @@
+<HTML>
+<HEAD>
+<TITLE>cqtrang/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+orozcojd/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+#Jonathan Orozco 66888405   Joseph Basilio 21505078    ICS31 LAB SEC 2 ASST 3.
+
+#
+#
+# Part (C)
+#
+#
+print()  
+print()
+print('---------- Part (c) ----------')
+print()
+import math
+#1
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match34-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def abreviate(n:str)-&gt;str:
+    "return first 3 letters"
+    return n[0:3]
+assert abreviate("January")=="Jan"
+assert abreviate("April")=="Apr"
+</FONT>
+#2
+def find_area_square(n:int)-&gt;int:
+    "Find area of square"
+    return n*n
+assert find_area_square(5)==25
+assert find_area_square(10)==100
+
+#3
+def find_area_circle(r:int)-&gt;int:
+    "find area of circle"
+    return (3.14159*(r**2))
+assert find_area_circle(1)==3.14159
+assert find_area_circle(5)==78.53975
+
+#4
+
+def print_even_numbers(l:list)-&gt; None:
+    "print even numbers from a list"
+    for x in l:
+        if x %2 == 0:
+            print(x)
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+#5
+def calculate_shipping(n:float)-&gt;float:
+    "Calculate shipping cost"
+    if n &lt; 2:
+        return 2.00 
+    elif 2&lt;=n&lt;10:
+        return 5.00 
+    elif n&gt;=10:
+        return (5.00 + 1.5*(n-10))
+assert calculate_shipping(1.5)== 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+
+#6
+import tkinter
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match34-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+my_canvas.pack()            # Put the canvas into the window
+
+def create_square(x:int, y:int, l:int) -&gt; None:
+    "draw square"
+    return my_canvas.create_rectangle(x, y, x+l, y+l)
+</FONT>
+create_square (24, 55, 80)
+create_square (10, 80, 100)
+
+#7
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match34-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def create_circle(x:int, y:int, d:int) -&gt; None:
+    return my_canvas.create_oval(x,y, x+d, y+d, fill ='black')
+</FONT>
+create_circle (50, 50, 100)
+create_circle (300, 300, 50)
+
+
+tkinter.mainloop ()
+
+#
+#
+# Part (d)
+#
+#
+print()  
+print()
+print('---------- Part (d) ----------')
+print()
+#d1
+
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+
+def restaurant_price(l:list) -&gt; None:
+    return l.price
+print (restaurant_price (RC[0]))
+print (restaurant_price (RC[1]))
+print (restaurant_price (RC[4]))
+print (restaurant_price (RC[-2]))
+
+print (RC)
+
+#d2
+RC.sort(key = restaurant_price)
+print (RC)
+
+#d3
+def costliest(n:list) -&gt; None:
+    n.sort(key = restaurant_price)
+    return n[-1].name
+
+print (costliest(RC))
+
+#d4
+def costliest(L:list) -&gt; None:
+    sorted(L)
+    return L[-1].name
+
+print (costliest(RC))
+
+#
+#
+##part (e)
+#
+#
+print()  
+print()
+print('---------- Part (e) ----------')
+print()
+#e1
+from collections import namedtuple
+
+Book = namedtuple('Book', 'author title genre year price instock')
+
+BSI= [
+    Book('Arthur Conan Doyle', 'Adventure of Sherlock Holmes', 'Fiction', 1982, 20.25, 10),
+    Book('J.K. Rowling', "Harry Potter and the Sorcerer's Stone", 'Fiction', 1997, 6.92, 40),
+    Book('J.K. Rowling', "Harry Potter and the Chamber of Secrets", 'Fiction', 1998, 14.40, 20),
+    Book('J.K. Rowling', "Harry Potter and the Prisoner of Azkaban", 'Technology', 1999, 7.85, 30),
+    Book('J.K. Rowling', "Harry Potter and the Goblet of Fire", 'Fiction', 2000, 21.65, 25),
+    Book('J.K. Rowling', "Harry Potter and the Order of the Phoenix", 'Technology', 2003, 18.10, 15)
+    ]
+
+for x in BSI:
+    print (x.title)
+print ()
+
+#e2
+
+for x in sorted(BSI):
+    print (x.title)
+print()
+
+#e3
+
+for p in BSI:
+    BSI2 = p._replace(price = p.price * 1.1)
+    print (BSI2)
+print()
+
+#e4
+
+for t in BSI:
+    if t.genre == 'Technology':
+        print (t.title)
+print ()
+
+#e 5
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match34-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+BSI_bef = [ ]
+BSI_aft = [ ]
+
+
+for b in BSI:
+    if b.year &lt; 2000:
+        BSI_bef.append(b)
+        
+for a in BSI:
+    if a.year &gt;= 2000:
+        BSI_aft.append(a)
+</FONT>
+if len(BSI_bef) &gt; len(BSI_aft):
+    print("More titles before 2000",'(', len(BSI_bef), 'vs.', len(BSI_aft),')')
+else:
+    print("More titles 2000 or later",'(', len(BSI_aft), 'vs.', len(BSI_bef),')')
+
+#e6
+
+def inventory_value(v:list) -&gt; float:
+    "calculate the inventory value"
+    return v.price * v.instock
+    
+assert (inventory_value(BSI[0])) == 202.5
+assert (inventory_value(BSI[3])) == 235.5
+
+highest_value = sorted(BSI, key = inventory_value)
+
+def top_value(t:list) -&gt; str:
+    '''highest inventory value from list'''
+    return highest_value[-1]
+
+print ('The highest-value book is ', t.title, 'by', t.author, ",",
+           "at a value of $", t.price,'.')
+
+
+
+#
+#
+##f
+#
+#
+print()  
+print()
+print('---------- Part (f) ----------')
+print()
+import tkinter
+my_window = tkinter.Tk()    # Create the graphics window
+
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match34-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+
+
+def draw_face(eyex1:int, eyey1:int, eyex2:int, eyey2:int, eye2x1:int, eye2y1:int,
+</FONT>              eye2x2:int, eye2y2:int,eye3x1:int, eye3y1:int, eye3x2:int, eye3y2:int,
+              eye4x1:int, eye4y1:int, eye4x2:int, eye4y2:int,nosex1:int, nosey1:int, nosex2:int, 
+              nosey2:int,mouthx1:int,mouthy1:int, mouthx2:int, mouthy2:int,
+              headx1:int, heady1:int,headx2:int,heady2:int, bodx1:int, body1:int,
+              bodx2:int, body2:int, bod2x1:int, bod2y1:int, bod2x2:int, bod2y2:int,
+              bod3x1:int,bod3y1:int,bod3x2:int,bod3y2:int,bod4x1:int,bod4y1:int,bod4x2:int,
+              bod4y2:int,bod5x1:int,bod5y1:int,bod5x2:int,bod5y2:int)-&gt;None:
+    "draw Entire face"
+    draw_eye (eyex1, eyey1, eyex2, eyey2)
+    draw_eye (eye2x1, eye2y1, eye2x2, eye2y2)
+    draw_pupil (eye3x1, eye3y1, eye3x2, eye3y2)
+    draw_pupil (eye4x1, eye4y1, eye4x2, eye4y2)
+    draw_mouth(mouthx1,mouthy1, mouthx2, mouthy2)
+    draw_nose(nosex1, nosey1, nosex2, nosey2)
+    draw_head(headx1, heady1, headx2, heady2)
+    draw_body(bodx1, body1, bodx2, body2)
+    draw_body(bod2x1, bod2y1, bod2x2, bod2y2)
+    draw_body(bod3x1, bod3y1, bod3x2, bod3y2)
+    draw_body(bod4x1, bod4y1, bod4x2, bod4y2)
+    draw_body(bod5x1, bod5y1, bod5x2, bod5y2)
+
+<A NAME="6"></A><FONT color = #00FF00><A HREF="match34-0.html#6" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def draw_pupil(x:int, y:int, z:int, a:int) -&gt; None:
+    "Draw pupil"
+    return my_canvas.create_oval(x, y, z, a, fill="black")
+</FONT><A NAME="5"></A><FONT color = #FF0000><A HREF="match34-0.html#5" TARGET="0"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    
+def draw_eye(x:int, y:int, z:int, a:int) -&gt; None:
+    "draw circle"
+    return my_canvas.create_oval(x, y, z, a)
+</FONT>
+def draw_mouth(x:int, y:int, z:int, a:int)-&gt;None:
+    "draw mouth"
+
+    return my_canvas.create_rectangle(x, y, z, a)
+
+def draw_nose(x:int, y:int, z:int, a:int)-&gt;None:
+    "draw nose"
+    return my_canvas.create_arc(x, y, z, a)
+def draw_head(x:int, y:int, z:int, a:int)-&gt;None:
+    "draw head"
+    return my_canvas.create_rectangle(x, y, z, a)
+def draw_body(x:int, y:int, z:int, a:int)-&gt;None:
+    "draw body"
+    return my_canvas.create_line(x, y, z, a)
+
+if __name__ == "__main__":
+    
+    draw_face(100, 120, 175, 200,\
+              260, 120, 335, 200,
+              120,150, 155, 180, 
+              275, 150, 310, 180,
+              160,180, 250, 250,
+              100, 250, 350, 400,\
+              50, 100, 400, 425,
+              228, 425, 228, 475,
+              230,450,420,300,
+              230,450,180,456,
+              228,475,200,500,
+              228,475,260,500)
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

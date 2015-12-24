@@ -1,0 +1,349 @@
+<HTML>
+<HEAD>
+<TITLE>cqtrang/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+cqtrang/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3 (2).py
+# Chanel Trang 37601348 Adam Cook 80291221   ICS 31 Lab sec. 2 Lab asst. 3
+
+print('----------- Part (c) -----------')
+
+print('# 1')
+
+def abbreviate(s: str) -&gt; str:
+    ''' Return the first three characters of a string '''
+    return s[0:3]
+assert abbreviate("January") == "Jan"
+assert abbreviate("abril") == "abr"
+
+print(abbreviate('October'))
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match154-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(abbreviate('November'))
+
+print()
+
+
+
+print('# 2')
+
+def find_area_square(n: float) -&gt; float:
+    ''' Return the square of the input '''
+    return (n ** 2)
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+</FONT>
+print(find_area_square(5))
+print(find_area_square(3))
+
+print()
+
+
+
+print('# 3')
+
+def find_area_circle(n: float) -&gt; float:
+    ''' Return the square of the input multipled by pi '''
+    return (n ** 2) * 3.14159
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+print(find_area_circle(46.7))
+print(find_area_circle(0.00012))
+
+print()
+
+
+
+print('# 4')
+
+def print_even_numbers(l: list) -&gt; None:
+    ''' Return all even numbers in in the list '''
+    for n in l:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match154-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        if n % 2 == 0:
+            print(n)
+        
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+print()
+
+
+
+print('# 5')
+
+def calculate_shipping(n: float) -&gt; float:
+    ''' Return price for shipping of the input n '''
+    if n &lt; 2:
+        return 2
+</FONT>    elif 2 &lt;= n &lt;= 10:
+        return 5
+    elif n &gt; 10:
+        return ((n - 10) * 1.5) + 5
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+print(calculate_shipping(5))
+print(calculate_shipping(10))
+print(calculate_shipping(75))
+
+print()
+
+
+
+# 6
+
+import tkinter
+
+my_window = tkinter.Tk()
+
+my_canvas = tkinter.Canvas(my_window, width = 500, height = 500)
+my_canvas.pack()
+
+def create_square(x: float, y: float, l: float) -&gt; None:
+    return my_canvas.create_rectangle(x, y, x + l, y + l)
+
+create_square(100, 100, 200)
+
+
+tkinter.mainloop()
+
+
+
+# 7
+
+my_window = tkinter.Tk()
+
+my_canvas = tkinter.Canvas(my_window, width = 500, height = 500)
+my_canvas.pack()
+
+def create_circle(x: float, y: float, d: float) -&gt; None:
+    return my_canvas.create_oval(x, y, x + d, y + d)
+
+create_circle(100, 100, 200)
+
+
+tkinter.mainloop()
+
+print()
+print('----------- Part (d) -----------')
+
+print('d.1')
+
+from collections import namedtuple 
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print(RC[0].price)
+
+def restaurant_price(n: list) -&gt; float:
+    ''' Returns the price of the dish of that restaurant '''
+    return n.price
+print(restaurant_price(RC[0]))
+
+print()
+print('d.2')
+
+RC.sort(key= restaurant_price)
+print(RC[0].price, RC[1].price, RC[2].price, RC[3].price, RC[4].price, RC[5].price, RC[6].price)
+
+print()
+print('d.3')
+
+RC.sort(key= restaurant_price, reverse=True)
+
+def costliest(n: list) -&gt; str:
+    ''' Returns the name of the highest-priced restaurant '''
+    print(RC[0].name)
+
+costliest(Restaurant)
+
+print()
+print('d.4')
+
+RC_reverse = sorted(RC, key= restaurant_price, reverse= True)
+
+def costliest2(n: list) -&gt; str:
+    ''' Returns the name of the highest-priced restaurant '''
+    print(RC_reverse[0].name)
+
+costliest2(Restaurant)
+
+print()
+print('----------- Part (e) -----------')
+
+from collections import namedtuple
+Book = namedtuple('Book', 'author title genre year price instock')
+# Book, author, title, category of book, publication year, price, copies available
+BSI = [
+    Book("Adam Cook", "Scooby Doo Adventures", "Mystery", 1926, 5, 100),
+    Book("David Kay", "Clifford the Big Red Dog", "Children", 2022, 10, 200),
+    Book("Swag Gee Man", "The Legend of Swagman", "Nonfiction", 1800, 30, 400),
+    Book("Libby Rarian", "How to be a Book", "Autobiography", 210, 20, 350),
+    Book("Brandon Leon", "How to Skyrim", "Technology", 2014, 1, 10),
+    Book("Glenn", "Why to Computer 101", "Technology", 1961, 100, 1000)]
+
+
+
+print('e.1')
+
+for x in BSI:
+    print(x.title)
+
+print()
+print('e.2')
+
+def title(n: list) -&gt; str:
+    ''' Returns the title of the book '''
+    return n.title
+
+BSI_title = sorted(BSI, key= title)
+
+for y in BSI_title:
+    print(y.title)
+
+print()
+print('e.3')
+
+for z in BSI:
+    print(z.price * 1.1)
+
+print()
+print('e.4')
+
+for a in BSI:
+    if a.genre is 'Technology':
+        print(a.title)
+
+print()
+print('e.5')
+
+BSI_1999 = []
+BSI_2000 = []
+
+for b in BSI:
+    if b.year &lt; 2000:
+        BSI_1999.append(b)
+
+for b in BSI:
+    if b.year &gt;= 2000:
+        BSI_2000.append(b)
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match154-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('More titles before 2000 (', len(BSI_1999), ' vs. ', len(BSI_2000), ')', sep='')
+
+print()
+print('e.6')
+
+def inventory_value(n: Book) -&gt; float:
+    '''Returns the value of the inventory of that book'''
+    return(n.price * n.instock)
+
+highest_value = sorted(BSI, key= inventory_value, reverse= True)
+</FONT>
+def top_value(n: list) -&gt; float:
+    '''Returns the Book with the highest inventory value'''
+    return highest_value[0]
+
+print('The highest-value book is', top_value(BSI).title, 'by' , top_value(BSI).author, 'at a value of $', top_value(BSI).price * top_value(BSI).instock)  
+
+print()
+print('----------- Part (f) -----------')
+
+import tkinter              
+
+my_window = tkinter.Tk()    
+
+my_canvas = tkinter.Canvas(my_window, width=700, height=700)  
+my_canvas.pack()
+
+def create_face(x: float, y: float, d: float) -&gt; None:
+    ''' Create a face '''
+    create_head(x, y, d + 375)
+    create_mouth(x + 150, y + 220, d + 50)
+    create_nose(x + 150, y + 150, d + 75)
+    create_eye(x + 50, y + 50, d + 75)
+    create_eye(x + 73, y + 73, d + 25)
+    create_eye(x + 85, y + 85, d)
+    create_eye(x + 250, y + 50, d + 75) 
+    create_eye(x + 273, y + 73, d + 25)
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match154-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    create_eye(x + 285, y + 85, d)
+
+    
+def create_eye(x: float, y:float, d: float) -&gt; None:
+    ''' Creates an eye '''
+    return my_canvas.create_oval(x , y , x + d, y + d, fill = "white")
+</FONT>def create_nose(x: float, y: float, d: float) -&gt; None:
+    ''' Create a nose '''
+    return my_canvas.create_arc(x , y , x + d, y + d, fill = "white")
+def create_mouth(x: float, y: float, d: float) -&gt; None:
+    ''' Draws a mouth '''
+    return my_canvas.create_rectangle(x, y , x + d, y + d, fill = "white")
+def create_head(x: float, y: float, d: float) -&gt; None:
+    ''' Draws a head '''
+    return my_canvas.create_oval(x, y, x + d, y + d, fill = "white")
+
+create_face(100, 100, 25)
+
+tkinter.mainloop()
+
+# Face 2
+
+my_window = tkinter.Tk()    
+
+my_canvas = tkinter.Canvas(my_window, width=700, height=700)  
+my_canvas.pack()
+
+def create_hat(x: float, y: float, a: float, b: float, d: float) -&gt; None:
+    ''' Draws a hat '''
+    create_face(x + 50, y + 150, 25)
+    create_crown(x + 80, y - 90, a + 140, b + 200)
+    create_ribbon(x + 80, y + 60, a + 140, b + 20)
+    create_rim(x, y + 110, a + 300, b + 20)
+
+def create_rim(x: float, y: float, a: float, b: float) -&gt; None:
+    ''' Draws the rim of a hat '''
+    return my_canvas.create_rectangle(x, y, x + a, y + b, fill = "#232323")
+def create_crown(x: float, y: float, a: float, b: float) -&gt; None:
+    ''' Draws the top part of the hat, apparently it's called a crown '''
+    return my_canvas.create_rectangle(x, y, x + a, y + b, fill = "#232323")
+def create_ribbon(x: float, y: float, a: float, b: float) -&gt; None:
+    ''' Draws the sash on a hat '''
+    return my_canvas.create_rectangle(x, y, x + a, y + b, fill = "#bd3737")
+
+def rainbow(x: float, y: float, a: float, b: float) -&gt; None:
+    ''' Draws a rainbow background '''
+    return (
+     my_canvas.create_rectangle(x, y, a, b + 600, fill = "#ff85b2"),
+     my_canvas.create_rectangle(x, y, a, b + 500, fill = "#a970bc"),
+     my_canvas.create_rectangle(x, y, a, b + 400, fill = "#5c6cff"),
+     my_canvas.create_rectangle(x, y, a, b + 300, fill = "#73bc46"),
+     my_canvas.create_rectangle(x, y, a, b + 200, fill = "#f0ff43"),
+     my_canvas.create_rectangle(x, y, a, b + 100, fill = "#ff9237"),
+     my_canvas.create_rectangle(x, y, a, b, fill = "#df3131")
+     )
+    
+                               
+rainbow(0, 0, 700, 100)
+create_hat(100, 100, 200, 50, 25)
+
+tkinter.mainloop()
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

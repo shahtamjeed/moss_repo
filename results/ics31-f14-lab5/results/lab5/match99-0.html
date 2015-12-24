@@ -1,0 +1,301 @@
+<HTML>
+<HEAD>
+<TITLE>aliciax/(c,e,g,h)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+aliciax/(c,e,g,h)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab5.py
+#Alicia Xu 86486004 and Whitney Tran 77187709. ICS31 Lab Sec16. Lab asst 5.
+
+#
+#Part C
+#
+print('-------Part C-------\n')
+
+from collections import namedtuple
+Dish = namedtuple('Dish','name price calories')
+
+print('\n-----part c.1-----\n')
+d1 = Dish('French Toast',5.00 , 210)
+d2 = Dish('Bacon', 4.50, 150)
+d3 = Dish('Mac n Cheese' ,7.00, 250)
+
+print('\n-----part c.2-----\n')
+def Dish_str(d:Dish)-&gt;str:
+    '''Takes a Dish and returns a string with it's name, price and calories'''
+    result = ''
+    result += d.name + ' ($' + str(d.price)+  '): ' +str(d.calories) + ' cal'
+    return result
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match99-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert Dish_str(d1) == 'French Toast ($5.0): 210 cal'
+assert Dish_str(d2) == 'Bacon ($4.5): 150 cal'
+
+print('\n-----part c.3-----\n')
+def Dish_same(d1:Dish, d2:Dish)-&gt;bool:
+    '''Checkes if two dishes are the same in Name and Price'''
+    if(d1.name == d2.name and d1.price == d2.price):
+</FONT>        return True
+    else:
+        return False
+assert not Dish_same(d1,d2) 
+assert Dish_same(d1,d1)
+
+print('\n-----part c.4-----\n')
+def Dish_change_price(d:Dish,p:float)-&gt;Dish:
+    '''Takes a Dish and changes the price by p%'''
+    new_Dish = d._replace(price = (1 + p/100) * d.price)
+    return new_Dish
+assert(Dish_change_price(d1, 75)) == Dish('French Toast',8.75 , 210)
+assert(Dish_change_price(d1, -10)) == Dish('French Toast',4.50 , 210)
+
+print('\n-----part c.5-----\n')
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match99-1.html#5" TARGET="1"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Dish_is_cheap(a: Dish, n: float) -&gt; bool:
+    '''checks if dish is cheaper than given price'''
+    if a.price &lt; n:
+        return True
+    else:
+        return False
+assert Dish_is_cheap(d1, 6.00) 
+assert Dish_is_cheap(d2, 6.00)
+</FONT>assert not Dish_is_cheap(d3, 6.00)
+
+print('\n-----part c.6-----\n')
+DL = [
+    Dish('French Toast',5.00 , 210),
+    Dish('Bacon', 4.50, 150),
+    Dish('Mac n Cheese' ,7.00, 250),
+    Dish('Burger',10.00 , 410),
+    Dish('Fries', 12.00, 1000)
+    ]
+'''
+print(len(DL))
+DL.sort()
+print(DL)
+DL.append(Dish('Burrito', 8.00, 1500))
+print(DL)
+'''   
+
+DL2 = [
+    Dish('Bacon', 4.50, 150),
+    Dish('Mac n Cheese' ,7.00, 250),
+    Dish('Burger',10.00 , 410),
+    Dish('Fries', 12.00, 1000)
+    ]
+'''
+DL2.extend(DL)
+print(DL2)
+'''
+
+def Dishlist_display(l:list)-&gt; str:
+    '''takes a list of dishes and returns a string of all dishes'''
+    result = ''
+    for c in l:
+        result += Dish_str(c) +"\n"
+    return result
+print(Dishlist_display(DL2))
+
+print('\n-----part c.7-----\n')
+def Dishlist_all_cheap(l: list, n: float) -&gt; bool:
+    '''Takes a list of dishes and a price and return a bool if all dishes are under that price '''
+    for c in l:
+        if not Dish_is_cheap(c, n):
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match99-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            return False
+    return True
+assert Dishlist_all_cheap(DL2, 12.50)
+assert not Dishlist_all_cheap(DL,8.00)
+
+print('\n-----part c.8-----\n')
+def Dishlist_change_price(l: list, n: float) -&gt; list:
+    '''takes a list of dishes and a percent and increases each dish by that percent'''
+    result = []
+    for c in l:
+</FONT>        result.append(Dish_change_price(c, n))
+    return result
+print(Dishlist_change_price(DL2, 50))
+
+print('\n-----part c.9-----\n')
+def Dishlist_prices(l:list)-&gt;list:
+    '''Takes a list of dishes and returns a list of prices'''
+    result = []
+    for c in l:
+        result.append(c.price)
+    return result
+assert Dishlist_prices(DL) == [5.0, 4.5, 7.0, 10.0, 12.0]
+
+print('\n-----part c.10-----\n')
+def Dishlist_average(l:list)-&gt;float:
+    '''Takes a list of dishes and find the average price'''
+    prices = Dishlist_prices(l)
+    result = 0
+    for c in prices:
+        result += c
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match99-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return result/len(l)
+assert Dishlist_average(DL)== 7.7
+
+print('\n-----part c.11-----\n')
+def Dishlist_keep_cheap(l:list, n:float)-&gt;list:
+    '''Takes a list of dishes and a price and returns a list of dishes that are less than the price'''
+    result = []
+    for c in l:
+</FONT>        if Dish_is_cheap(c, n):
+            result.append(c)
+    return result
+
+print(Dishlist_keep_cheap(DL, 8.00))
+
+print('\n-----part c.12-----\n')
+DL3 = [
+    Dish('French Toast',5.00 , 210),
+    Dish('Bacon', 4.50, 150),
+    Dish('Mac n Cheese' ,7.00, 250),
+    Dish('Burger',10.00 , 410),
+    Dish('Fries', 12.00, 1000),
+
+    Dish('Toast',3.00 , 110),
+    Dish('Bacon Pancakes', 6.50, 550),
+    Dish('Cheese Sandwich' ,7.00, 450),
+    Dish('Cheese Burger',11.50 , 710),
+    Dish('Chili Cheese Fries', 15.00, 1500),
+
+    Dish('Taco',5.00 , 510),
+    Dish('BBQ Ribs', 15.50, 1523),
+    Dish('Pizza' ,7.00, 1500),
+    Dish('Noodles',10.00 , 610),
+    Dish('Sushi', 12.00, 800),
+
+    Dish('Fried Rice',9.50 , 980),
+    Dish('Smoothie', 6.50, 860),
+    Dish('Coffee' ,5.00, 250),
+    Dish('Cookie',5.00 , 1000),
+    Dish('Chocolate', 12.00, 1500),
+
+    Dish('Chicken Soup',7.30 , 650),
+    Dish('Salad', 10.50, 1050),
+    Dish('Spaghetti' ,13.00, 1250),
+    Dish('Pho',10.00 , 810),
+    Dish('Hot Chocolate', 3.00, 200)
+    ]
+
+def before_and_after():
+    '''Prints before and after percentage change'''
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match99-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    n = float(input("Percentage Change: "))
+    print(Dishlist_display(DL3))
+    DL4 = Dishlist_change_price(DL3,n)
+    print(Dishlist_display(DL4))
+before_and_after()
+
+#
+#Part E
+#
+
+print('\n-------Part E-------\n')
+Restaurant = namedtuple('Restaurant', 'name cuisine phone menu')
+r1 = Restaurant('Thai Dishes', 'Thai', '334-4433', [Dish('Mee Krob', 12.50, 500),
+                                                    Dish('Larb Gai', 11.00, 450)])
+</FONT>r2 = Restaurant('Taillevent', 'French', '01-44-95-15-01', 
+				[Dish('Homard Bleu', 45.00, 750),
+				 Dish('Tournedos Rossini', 65.00, 950),
+				 Dish("Selle d'Agneau", 60.00, 850)])
+
+print('\n-----part e.1-----\n')
+r3 = Restaurant('Pascal', 'French', '940-752-0107', 
+				[Dish('Escargot', 12.95, 250),
+				 Dish('Poached Salmon', 18.50, 550),
+				 Dish("Rack of Lamb", 24.00, 850),
+                                 Dish('Marjolaine Cake', 8.50, 950)])
+
+print('\n-----part e.2-----\n')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match99-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Restaurant_first_dish(r: Restaurant) -&gt; str:
+    '''Returns first dish from menu'''
+    return r.menu[0].name
+
+assert Restaurant_first_dish(r3) == 'Escargot'
+assert Restaurant_first_dish(r2) == 'Homard Bleu'
+
+print('\n-----part e.3-----\n')
+def Restaurant_is_cheap(r: Restaurant, n:int) -&gt; bool:
+    '''Returns if average of menu is less than or equal to n'''
+    return Dishlist_average(r.menu) &lt;= n
+</FONT>
+assert not Restaurant_is_cheap(r3, 11)
+assert Restaurant_is_cheap(r2, 100)
+
+print('\n-----part e.4-----\n')
+C = [r1, r2, r3]
+
+def Dish_raise_price(d: Dish, n: float) -&gt; Dish:
+    '''Takes a Dish and raises prices by n and returns changed Dish'''
+    ND = d._replace(price = d.price+n)
+    return ND
+
+def Menu_raise_price(m: list, n: float) -&gt; list:
+    '''Takes a list and raises prices by n and returns changed list'''
+    result = []
+    for d in m:
+        result.append(Dish_raise_price(d, n))
+    return result
+
+def Restaurant_raise_price(r:Restaurant, n:float)-&gt;list:
+    '''Takes a Restaurant and price and changes menu'''
+    return Menu_raise_price(r.menu,n)
+
+def Collection_raise_prices(c: list, n: float) -&gt; list:
+    '''Takes a list and raises prices by n and returns changed list'''
+    result = []
+    for m in c:
+        result.append(Restaurant_raise_price(m, n))
+    return result
+
+print(Collection_raise_prices(C, 2.50))
+
+print('\n-----part e.5-----\n')
+def Collection_select_cheap(c: list, n:float) -&gt; list:
+    '''Takes a list and returns average of list under n'''
+    result = []
+    for m in c:
+        if Restaurant_is_cheap(m, n):
+            result.append(m)
+    return result
+
+print(Collection_select_cheap(C, 50.0))
+
+#
+#Part G
+#
+Count = namedtuple('Count', 'message result')
+def character_count(a: str, b: str) -&gt; namedtuple:
+    '''returns a namedtuple with the origianl str and the amount of times the second string appears'''
+    result = 0
+    for c in a:
+        if c == b:
+            result+=1
+    return Count(a,result)
+
+def letter_count(a: str, b: str) -&gt; list:
+    '''returns a list of the amount of times each character in the second string appears in the first'''
+    b.split()
+    result = []
+    for c in b:
+        r = character_count(a,c)
+        result.append(r.result)
+    return result
+
+print(letter_count('ajd;fj a', ' a;'))
+        
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,248 @@
+<HTML>
+<HEAD>
+<TITLE>giragosi/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+giragosi/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Arameh Giragosian 16195776 and Nallely de la Pena 67901157. ICS 31 Lab sec 3. Lab asst 6.
+
+print ('---------- (c.1) ----------\n')
+
+def contains(s1: str, s2: str) -&gt; bool:
+    '''Takes two strings as parameters and if the second strings does occur in the first string,
+       the function returns True. Otherwise, False'''
+    if s2 in s1:
+        return True
+    return False
+
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+print ('\n---------- (c.2) ----------\n')
+
+def sentence_stats(s: str) -&gt; None:
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match205-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    '''Takes in a string as a parameter and prints out these statistics about
+       the string: its length in characters,its length in words,
+       and the average length of each word.'''
+    table = str.maketrans('.,?!*";:', '        ')
+</FONT>    lst = s.translate(table).split()
+    len_ch = len(s)
+    len_w = len(lst)
+    add = 0
+    for i in lst:
+        add += len(i)
+    avg_len = add / len(lst)
+    
+    print('Characters: ', len_ch, '\nWords: ', len_w, 
+      '\nAverage word length: ', avg_len, sep= '')
+
+sentence_stats('I love UCI')
+
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+print ('\n---------- (c.3) ----------\n')
+        
+def initials(s: str) -&gt; str:
+    '''takes as input a string representing a full name (e.g., Robert B. Qwerty) and
+       returns the initials of the name in all capital letters '''
+    result = ''
+    for i in s.split():
+        result += i[0].upper()
+
+    return result
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+print ('\n---------- (d.1) ----------\n')
+
+from random import randrange
+
+for i in range(50):
+    print('#' , i+1 , ': ',randrange(11))
+
+print()
+
+for i in range(50):
+    print('#' , i+1 , ': ',randrange(1,7))
+
+print ('\n---------- (d.2) ----------\n')
+
+def roll2dice() -&gt; int:
+    '''takes no parameters and returns a number that reflects the random roll of two dice.'''
+    return randrange(1,7) + randrange(1,7)
+
+for i in range(50):
+    print('#', i+1, ': ', roll2dice())
+
+
+print ('\n---------- (d.3) ----------\n')
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match205-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def distribution_of_rolls(n: int) -&gt; None:
+    '''takes one number—the number of times to roll two dice—and prints the distribution
+</FONT>       of the values of those rolls in the form shown below. '''
+    
+    lst = []
+    result = "Distribution of dice rolls\n"
+
+    for i in range(n):
+        lst += [roll2dice()]
+
+    for i in range(11):
+        count = 0
+        for j in lst:
+            if (i+2) == j:
+                count += 1
+        result += (('{0:&gt;2}:{1:&gt;6} ({2:&gt;4.1f}%)  {3:&lt;}\n'.format(i+2, count, count*100/len(lst),count*'*' )))
+        
+    result += 29*'-' + '\n{:9} rolls\n'.format(n) 
+    print (result)
+
+distribution_of_rolls(200)
+distribution_of_rolls(100)
+
+print ('\n---------- (e.1,2,&3) ----------\n')
+
+def the_key(char: chr, n:int) -&gt; str:
+    '''Takes a integer representing the key, and returns the key letter correspoonding
+       to the letter.'''
+
+    char = char.lower()
+    ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.lower()
+    index = 0
+
+    for i in range(len(ALPHABET)):
+        if char == ALPHABET[i]:
+            index = i
+
+    if not (char in ALPHABET):
+        return char
+    elif (n+index) &lt; 25:
+        return ALPHABET[n+index]
+    else:
+        return ALPHABET[(n+index)-26]
+
+assert the_key('a',1) == 'b'
+assert the_key('B',1) == 'c'
+assert the_key('z',3) == 'c'
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match205-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_encrypt (s: str, num: int) -&gt; str:
+    ''' Takes two arguments: a string containing the message (the plaintext for
+        encryption) and an int for the key, indicating how far down the alphabet to
+        find each substitute letter, and returns the ciphertext.'''
+</FONT>
+    result = ''
+    num = num%26    
+
+    for i in s:
+        result += the_key(i, num)
+
+    return result
+
+assert Caesar_encrypt('ABC:', 29) == 'def:'
+assert Caesar_encrypt('XYZ', 3) == 'abc'
+assert Caesar_encrypt('Arameh & Nallely', 46) =='ulugyb & huffyfs'
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match205-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_decrypt (s: str, num: int) -&gt; str:
+    '''Takes two arguments: a string containing the message (the plaintext for
+        encryption) and an int for the key, indicating how far down the alphabet to
+        find each substitute letter, and returns the plaintext.'''
+</FONT>    
+    result = ''
+    num = num%26 
+
+    for i in s:
+        result += the_key(i, -num)
+
+    return result
+
+assert (Caesar_decrypt('ulugyb & huffyfs',20)) == 'arameh & nallely'
+assert Caesar_decrypt(Caesar_encrypt('GIRAGOSIAN, ARAMEH, STD# 16195776', 104),104) == 'giragosian, arameh, std# 16195776'
+assert Caesar_decrypt(Caesar_encrypt('DE LA PENA, NALLELY, STD# 67901158', 104),104) == 'de la pena, nallely, std# 67901158'
+
+print ('\n---------- (f.1) ----------\n')
+    
+list_string = [ "Four score and seven years ago, our fathers brought forth on",
+                "this continent a new nation, conceived in liberty and dedicated",
+                "to the proposition that all men are created equal. Now we are",
+                " engaged in a great civil war, testing whether that nation, or any",
+                "",
+                "nation so conceived and so dedicated, can long endure. " ]
+
+def print_line_numbers(lst: 'list of strings') -&gt; None:
+    ''' Takes a list of strings and prints each string preceded by a line number. '''
+    
+    for i in range(len(lst)):
+        print (str(i+1)+': '+lst[i])
+
+print_line_numbers(list_string)
+
+print ('\n---------- (f.2) ----------\n')
+
+def stats (lst: 'list if strings') -&gt; None:
+    ''' Takes a list of strings and prints statistics. '''
+    count = 0
+    print ('{:5}   {}'.format( len(lst) , 'lines in the list'))
+    for i in lst:
+        if i == '':
+            count += 1
+    print ('{:5}   {}'.format( count , 'empty lines'))
+    total = 0
+    for i in lst:
+        total += len(i)
+    print ('{:7.1f} average characters per line'.format(total/len(lst)))
+    print ('{:7.1f} average characters per non-empty line'.format((total/(len(lst))-count)))
+
+stats(list_string)
+
+print ('\n---------- (f.3) ----------\n')
+
+def list_of_words (s: 'list if strings') -&gt; 'List of words':
+    '''takes a list of strings and returns a
+list of individual words
+       with all white space and punctuation removed'''
+    table = str.maketrans('.,?!*;:', '       ')
+    lst = []
+    for i in s:
+        lst += i.translate(table).split()
+    return lst
+print (list_of_words(list_string))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

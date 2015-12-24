@@ -1,0 +1,264 @@
+<HTML>
+<HEAD>
+<TITLE>biscochn/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+biscochn/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+
+#Noel Biscocho 10062289 and Miten Patel 49761291. ICS 31 Lab sec 4. Lab asst 6.
+
+#
+#
+# Part C
+#
+#
+
+print()
+print('----------Part C1----------')
+print()
+
+def contains(s1:str, s2:str):
+    #Returns True if the second string is in the first string
+    if s2 in s1:
+        return True
+    else:
+        return False
+print('ana in Banana:',contains('banana', 'ana'))
+print('ck not in racecar:', (not contains('racecar', 'ck')))
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+print()
+print('----------Part C2----------')
+print()
+
+def remove_punct(s:str):
+    #Translates all punctuation into spaces, removes punctuation
+    table = str.maketrans(',./&lt;&gt;?;\'[]{}~!@#$%^&*()_+-=:' , '                            ')
+    return s.translate(table)
+
+def remove_spaces(s:str):
+    #Removes unnecessary spaces. Keeps spaces between words at one space
+    wordlist = s.split()
+    return ' '.join(wordlist)
+
+
+def sentence_stats(s: str):
+    #Prints statistics about the inputted string
+    print('Characters: '+str(len(s)))
+    s = remove_punct(s)
+    s = remove_spaces(s)
+    wResult=1
+    for i in s:
+        if i == ' ':
+            wResult += 1
+    print('Words: '+str(wResult))
+    sResult=0
+    for i in s:
+        if i != ' ':
+            sResult += 1
+    print('Average word length: '+str(sResult/wResult))
+    
+sentence_stats('I love UCI')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+print()
+print('----------Part C3----------')
+print()
+
+def initials(s:str):
+    #Returns the initials of the name within the parameter
+    namelist = s.split()
+    initialStr = ''
+    for i in namelist:
+        initialStr = initialStr+(i[0].upper())
+    return initialStr
+
+print('Bill Cosby:', initials('Bill Cosby'))
+print('Guido van Rossum:', initials('Guido van Rossum'))
+print('alan turing:', initials('alan turing'))
+        
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+#
+#
+# Part D
+#
+#
+
+print()
+print('----------Part D1----------')
+print()
+
+from random import randrange
+print('-----Print 50 numbers from 0-10 inclusive-----')
+for i in range(50):         #Prints 50 random numbers between 0 and 10 inclusive
+    print(randrange(11))
+
+print()
+print('-----Print 50 numbers from 1-6 inclusive-----')
+
+for i in range(50):
+    print(randrange(1,7))
+
+print()
+print('----------Part D2----------')
+print('-----Rolls two dice 50 times-----')
+
+def roll2dice():
+    #Rolls two dice and returns the result of the sum
+    return randrange(1,7) + randrange(1,7)
+
+for i in range(50):
+    print(roll2dice())
+
+print()
+print('----------Part D3----------')
+print('Result  Amount Percent')
+print('------  ------ -------')
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match207-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def distribution_of_rolls(n:int):
+    #Prints the amount of times a result has occurred, percentage occurred, and asteriks representing amount of times occurred
+    L = [0,0,0,0,0,0,0,0,0,0,0]
+    for x in range(n):
+        i = roll2dice()
+        L[i-2] += 1
+</FONT>    for i in range(2,13):
+        print("{:3d}:     {:3d}   ({:4.1f}%)    ".format(i, (L[i-2]), (L[i-2]/n*100))+('*'*L[i-2]))
+
+distribution_of_rolls(200)
+
+#
+#
+# Part E
+#
+#
+
+print()
+print('----------Part E1----------')
+print()
+
+def Caesar_encrypt(s:str, n=int):
+    #Encrypts a string by moving each letter n letters forward
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match207-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    s = s.lower()
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    new = ''
+    for i in s:
+        if i in alphabet:
+            new = new+alphabet[(alphabet.find(i)+n)%26]
+        else:
+            new = new+i
+    return new
+
+print(Caesar_encrypt('I love UCI', 1))
+
+def Caesar_decrypt(s:str, n:int):
+</FONT>    #Decrypts string by moving n each letter n letters backward
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match207-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    s = s.lower()
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    new = ''
+    for i in s:
+        if i in alphabet:
+            new = new+alphabet[(alphabet.find(i)-n)%26]
+        else:
+            new = new+i
+    return new
+
+a = Caesar_encrypt('zzz', 4)
+</FONT>print(a)
+print(Caesar_decrypt(a,4))
+
+print()
+print('----------Part E2----------')
+print('Both of us took some time to try and decode the messages that were given to us. The encrypted and decrypted messages are below.')
+print('Partner 1 Decrypted Message: I like pie \tPartner 1 Encrypted Message: n qnpj unj')
+print('Partner 2 Decrypted Message: Pikachu\tPartner 2 Encrypted Message: rkmcejw')
+
+print()
+print('----------Part E3----------')
+print("Modified the Caesar_encrypt and Caesar_decrypt to 'wrap around' the alphabet by using the modulus function")
+
+#
+#
+# Part F
+#
+#
+
+print()
+print('----------Part F1----------')
+print()
+
+English_text = ["Four score and seven years ago, our fathers brought forth on",
+                "this continent a new nation, conceived in liberty and dedicated",
+                "to the proposition that all men are created equal.  Now we are",
+                "   engaged in a great 		civil war, testing whether that nation, or any",
+                "nation so conceived and so dedicated, can long endure.        ",'' ,'', '', '', '']
+
+def print_line_numbers (x:list):
+    '''Takes a list of strings and prints each string proceded by a line number'''
+    strList = []
+    for i in range(len(x)):
+        if x[i] != '':
+            strList.append(x[i])
+    for k in range(len(strList)):
+        print(str(k+1)+':',  strList[k])
+
+print_line_numbers(English_text)
+
+print()
+print('----------Part F2----------')
+print()
+
+def stats (x:list):
+    '''takes a list of strings and prints statistics'''
+    print("{:5d}   ".format((len(x)))+'lines in the list')
+    empty_lines = 0
+    number_of_characters = 0
+    for i in x:
+        if i == '':
+            empty_lines += 1
+        for k in i:
+            number_of_characters += 1
+    AverageCharPerLine = number_of_characters/len(x)
+    AverageCharNonEmpty = number_of_characters/(len(x)-empty_lines)
+    print("{:5d}   ".format((empty_lines))+'empty line')
+    print("{:7.1f} ".format((AverageCharPerLine))+'average characters per line')
+    print("{:7.1f} ".format((AverageCharNonEmpty))+'average character per non-empty line')
+    
+stats(English_text)
+
+print()
+print('----------Part F3----------')
+print()
+
+def list_of_words (x:list) -&gt;list:
+    '''takes a list of strings as above and returns a list of individual words with all white space and punctuation removed '''
+    final_list = []
+    for i in x:
+        a = remove_punct(i)
+        word_list = a.split()
+        final_list.extend(word_list)
+    return final_list
+
+print(list_of_words(English_text))
+        
+
+
+    
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

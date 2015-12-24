@@ -1,0 +1,294 @@
+<HTML>
+<HEAD>
+<TITLE>blink/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+blink/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+#Brendan Link 10144699 and Harold Ung 46762239, ICS 31 Lab 5, (Week 10/13 - 10/17)
+
+#Part C
+print('\n ---PART C---')
+
+
+print ('How many hours?')
+hours = int (input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int (input())
+print('This many dollars per hour: ', rate)
+print('Weekly salary: ', hours * rate)
+
+#Part C.1
+print('\n ---PART C.1---')
+
+print('We have modified the code to print the dollar sign before the amount:')
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour?'))
+print('This many dollars per hour: $', rate)
+print('Weekly salary: $', hours * rate)
+'''
+(i) We don't really see a difference between how the program behaves other than
+allow the user to type in the variables closer to the statement and not below it.
+(ii) There is a difference in how we write the code, by replacing our input to
+what we want the program to do (the questions and responses)
+'''
+
+#Part C.2
+print('\n ---PART C.2---')
+
+print('Hello. What is your name?')
+name = str(input())
+print('Hello', name)
+print('''It's nice to meet you.''')
+print('How old are you?')
+age = int(input())
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match31-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Next year you will be', age+1,'.')
+print('Good-bye!')
+
+#Part D
+print('\n ---Part D---')
+
+business_name = str(input('Business name:'))
+number_of_euros = int(input('Number of euros:'))
+number_of_pounds = int(input('Number of pounds:'))
+number_of_dollars = int(input('Number of dollars:'))
+</FONT>
+print('COPENHAGEN CHAMBER OF COMMERCE')
+print('Business name:', business_name)
+print(number_of_euros, 'euros is', number_of_euros * 7.46, 'krone')
+print(number_of_pounds, 'pounds is', number_of_pounds * 8.81, 'krone')
+print(number_of_dollars, 'dollars is', number_of_dollars * 5.50, 'krone')
+print('Total krone:', (number_of_euros * 7.46) + (number_of_pounds * 8.81) + (number_of_dollars * 5.50), 'krone')
+
+#Part E
+print('\n ---Part E---')
+
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes', 'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes', 'Arthur Conan Doyle', 1905, 25.00)
+
+print('TITLE OF STILL_ANOTHER:')
+print(still_another[0])
+print('\n')
+print('PRICE OF MEMOIRS OF SHERLOCK HOLMES:')
+print('$', another[3])
+print('\n')
+print('AVERAGE PRICE OF ALL THREE BOOKS:')
+print('$',(favorite[3] + another[3] + still_another[3]) / 3)
+print('\n')
+print('''WAS "FAVORITE" PUBLISHED BEFORE 1900?''')
+print(favorite[2] &lt; 1900)
+print('\n')
+print('''NEW PRICE OF "RETURN OF SHERLOCK HOLMES''')
+still_another = Book('Return of Sherlock Holmes', 'Arthur Conan Doyle', 1905, 26)
+print('$',still_another[3])
+print('\n')
+print('''"RETURN OF SHERLOCK HOLMES" PRICE INCREASE BY 20%''')
+still_another = Book('Return of Sherlock Holmes', 'Arthur Conan Doyle', 1905, (26 * .20) + 26 )
+print('$', still_another[3])
+
+#Part F
+print('\n ---Part F---')
+
+from collections import namedtuple
+Animal = namedtuple('Animal', 'name species age weight food')
+i = Animal('Jumbo', 'elephant', 50, 1000, 'peanuts')
+ii = Animal('Perry', 'platypus', 7, 1.7, 'shrimp')
+'''Now we swap.'''
+i = Animal('Perry', 'platypus', 7, 1.7, 'shrimp')
+ii = Animal('Jumbo', 'elephant', 50, 1000, 'peanuts')
+'''Now the first variable's weight will be less than the second variable.'''
+print('''VARIABLE i WEIGHT LESS THAN ii?''')
+print(i[3] &lt; ii[3])
+
+#PART G
+print('\n ---Part G---')
+
+booklist = [favorite, another, still_another]
+
+print('''"FAVORITE" BOOK CHEAPER THAN "ANOTHER"?''')
+print((booklist[0])[3] &lt; (booklist[1])[3])
+print('\n')
+print('''"ANOTHER" BOOK CHEAPER THAN "FAVORITE"?''')
+print((booklist[1])[3] &lt; (booklist[0])[3])
+print('\n')
+print('''"FAVORITE" PUBLISHED BEFORE "STILL_ANOTHER?"''')
+print((booklist[0])[2] &lt;  (max(booklist))[2])
+
+#PART H
+print('\n ---Part H---')
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish,
+# , price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50)
+    ]
+
+print('THE NAME OF THE THIRD RESTAURANT ON THE LIST')
+print((RL[2])[0])
+print('\n')
+print('DO THE FIRST AND FOURTH RESTAURANTS SERVE THE SAME KIND OF FOOD?')
+print((RL[0])[1] == (RL[3])[1])
+print('\n')
+print('THE PRICE OF THE BEST DISH AT THE LAST RESTAURANT')
+print('$',(min(RL))[4])
+print('\n')
+print('LIST OF RESTAURANTS IN ALPHABETICAL ORDER')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match31-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+RSN = [(RL[0])[0], (RL[1])[0], (RL[2])[0], (RL[3])[0], (RL[4])[0], (RL[5])[0], (RL[6])[0] ]
+RSN.sort()
+</FONT>print(RSN)
+print('\n')
+print('THE BEST DISH FROM THE LAST, ALPHABETICALLY-ORDERED RESTAURANT')
+RSNN = [RL[0], RL[1], RL[2], RL[3], RL[4], RL[5], RL[6]]
+print((max(RSNN))[3])
+print('\n')
+print('THE NEW LIST OF FOUR RESTAURANTS')
+#Removing the last 5 elements from RL:
+RSN.pop()
+RSN.pop()
+RSN.pop()
+RSN.pop()
+RSN.pop()
+#Removing the first 5 elements from RL:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match31-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+RSNN = [(RL[0])[0], (RL[1])[0], (RL[2])[0], (RL[3])[0], (RL[4])[0], (RL[5])[0], (RL[6])[0] ]
+RSNN.sort()
+</FONT>RSNN.reverse()
+RSNN.pop()
+RSNN.pop()
+RSNN.pop()
+RSNN.pop()
+RSNN.pop()
+RSNN.reverse()
+print(RSN + RSNN)
+
+#PART I
+print('\n ---Part I---')
+#REMOVE QUOTATIONS TO VIEW ALL IMAGES IN THE WINDOW, AS NOT ALL OF THEM FIT AT ONCE
+print('''REMOVE QUOTATIONS TO VIEW ALL IMAGES IN THE WINDOW, AS NOT ALL OF THEM FIT
+AT ONCE.''')
+
+
+import tkinter# 
+my_window = tkinter.Tk()    
+
+
+'''
+#1
+my_canvas1 = tkinter.Canvas(my_window, width=300, height=250) 
+my_canvas1.pack()
+
+my_canvas1.create_line(50, 250, 250, 250, fill='red') 
+my_canvas1.create_line(250, 250, 250, 50, fill='red')
+my_canvas1.create_line(50, 50, 250, 50, fill='red')
+my_canvas1.create_line(50, 250, 50, 50, fill='red')
+
+#2
+my_canvas2 = tkinter.Canvas(my_window, width=300, height=200) 
+my_canvas2.pack()
+
+my_canvas2.create_line(100, 0, 200, 100, fill='green') 
+my_canvas2.create_line(200, 100, 100, 200, fill='green')
+my_canvas2.create_line(100, 200, 0, 100, fill='green')
+my_canvas2.create_line(0, 100, 100, 0, fill='green')
+
+#3
+my_canvas3 = tkinter.Canvas(my_window, width=300, height=300) 
+my_canvas3.pack()
+
+### ROOF OF HOUSE
+my_canvas3.create_line(40, 40, 70, 10, 100, 40, fill='blue') 
+
+### WALLS OF HOUSE
+my_canvas3.create_line(40, 90, 40, 40, 100, 40, 100, 90, 40, 90, fill='blue') 
+
+
+### WINDOWS OF HOUSE
+my_canvas3.create_line(50, 50, 70, 50, 70, 70, 50, 70, 50, 50, fill='blue') 
+
+my_canvas3.create_line(60, 50, 60, 70, fill='blue') 
+my_canvas3.create_line(50, 60, 70, 60, fill='blue')
+
+### DOOR OF HOUSE
+my_canvas3.create_line(80, 90, 80, 70, 90, 70, 90, 90, fill='blue') 
+'''
+
+#4
+my_canvas4 = tkinter.Canvas(my_window, width=200, height=200) 
+my_canvas4.pack()
+my_canvas4.create_text(80,25,fill="darkblue",font="Times 12 italic bold",text="Blue Eye")
+
+my_canvas4.create_oval(30, 40, 130, 100, fill='white')
+my_canvas4.create_oval(55, 45, 105, 95, fill='lightseagreen')
+my_canvas4.create_oval(70, 60, 90, 80, fill='black')
+
+
+#OPTIONAL:
+### SOLAR SYSTEM
+my_canvas5 = tkinter.Canvas(my_window, width=500, height=200) 
+my_canvas5.pack()
+
+my_canvas5.create_text(190, 50, fill='darkblue', font="Times 12 italic bold", text="Solar System")
+my_canvas5.create_oval(10, 10, 130, 130, fill='DarkOrange')
+my_canvas5.create_oval(140, 80, 150, 90, fill='maroon')
+my_canvas5.create_oval(160, 70, 180, 90, fill='orangered')
+my_canvas5.create_oval(190, 70, 210, 90, fill='steelblue')
+my_canvas5.create_oval(220, 80, 230, 90, fill='peru')
+my_canvas5.create_oval(250, 40, 300, 90, fill='goldenrod')
+my_canvas5.create_oval(315, 45, 355, 85, fill='khaki')
+my_canvas5.create_oval(370, 50, 400, 80, fill='lightsteelblue')
+my_canvas5.create_oval(420, 50, 450, 80, fill='cadetblue')
+
+### FACE
+my_canvas6 = tkinter.Canvas(my_window, width=230, height=200) 
+my_canvas6.pack()
+
+my_canvas6.create_text(55, 100, fill='darkblue', font="Times 12 italic bold", text="Face")
+my_canvas6.create_oval(20, 10, 100, 90, fill='NavajoWhite')
+my_canvas6.create_oval(40, 30, 50, 40, fill='black')
+my_canvas6.create_oval(70, 30, 80, 40, fill='black')
+my_canvas6.create_line(40, 60, 80, 60, fill='black')
+
+### SMART PHONE
+my_canvas6.create_text(90, 180, fill='darkblue', font="Times 12 italic bold", text="iPhone")
+my_canvas6.create_polygon(140, 20, 210, 20, 218, 23, 220, 30, 220, 190, 218, 197, 210, 200, 140, 200, 132, 197, 130, 190, 130, 30, 132, 23, 140, 20, fill='white', outline='black') 
+my_canvas6.create_rectangle(137, 50, 213, 170, fill='black')
+my_canvas6.create_oval(165, 175, 185, 195, fill='white', outline='black')
+my_canvas6.create_rectangle(172, 182, 178, 188, fill='white', outline='black')
+my_canvas6.create_oval(152, 32, 158, 38, fill='black')
+my_canvas6.create_rectangle(165, 32, 180, 35, fill='white', outline='black')
+
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

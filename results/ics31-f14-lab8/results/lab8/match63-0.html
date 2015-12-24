@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/asheffle/(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/asheffle/(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: BandBI.py
+#Alyssa Sheffler 59321028 Jason Padilla 20502573
+infile = open ('Sample.txt', 'r')
+data = infile.readlines()
+infile.close()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match63-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_60.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+'''
+***********************************************************
+Here is a list of available bedrooms (before adding any!)
+Number of bedrooms in service:  0
+------------------------------------
+***********************************************************
+Number of bedrooms in service:  1
+------------------------------------
+101
+Number of bedrooms in service:  5
+------------------------------------
+101
+104
+102
+201
+203
+Thank you for using the Anteater BandB Reservation System!
+</FONT>'''
+bedlist=[]
+
+def handle_commands(L:list)-&gt;None:
+    for i in L:
+        c = i.upper()
+        c=c.strip()
+        if c.startswith('AB'):#add bed
+            AB_command(c)
+        elif c.startswith('BL'): #bed list
+            BL_command(c)
+        elif c.startswith('PL'):#print line
+            PL_command(i)
+            
+def AB_command(s:str):
+    s = s.replace('AB','')
+    s = s.replace('\n','')
+    s = s.strip()
+    bedlist.append(s)
+
+def BL_command(s:str):
+    print('Number of bedrooms in service: {:2d} \n------------------------------------'.format(len(bedlist)))
+    for bed in bedlist:
+        print (bed)
+def PL_command(s:str):
+    s = s.strip()
+    s = s.replace('PL ','')
+    s = s.replace('\n','')
+    print(s)
+    
+handle_commands(data)
+</PRE>
+</PRE>
+</BODY>
+</HTML>

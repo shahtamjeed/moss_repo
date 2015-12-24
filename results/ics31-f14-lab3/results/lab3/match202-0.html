@@ -1,0 +1,263 @@
+<HTML>
+<HEAD>
+<TITLE>anhnt1/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+anhnt1/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Anh Truong 50408725 and Phuc Nguyen 21582212. ICS 31 Lab sec 14. Lab asst 3.
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match202-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('---------- Part (c) ----------')
+print()
+
+# Part C1
+def abbreviate(m: str) -&gt; str:
+    '''Give the first 3 letters of the month'''
+    return m[0:3]
+assert abbreviate('August') == 'Aug'
+assert abbreviate('September') == 'Sep'
+assert abbreviate('October') == 'Oct'
+print()
+</FONT>
+# Part C2
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match202-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def find_area_square(s: int) -&gt; int:
+    '''Calculate the area of a square given the length'''
+    return s ** 2
+assert find_area_square(2) == 4
+assert find_area_square(4) == 16
+assert find_area_square(5) == 25
+</FONT>print()
+
+# Part C3
+import math
+def find_area_circle(r: float) -&gt; float:
+    '''Calculate the area of a circle given the radius'''
+    return math.pi * (r ** 2)
+assert find_area_circle(1) == math.pi * 1 
+assert find_area_circle(5) == math.pi * 25
+assert find_area_circle(2) == math.pi * 4 
+print()
+
+# Part C4
+def print_even_numbers(n: list):
+    '''Print only the even numbers of a list'''
+    for i in range(len(n)):
+        if n[i]%2 == 0:
+            print (n[i])
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004]) # Testing the function
+print()
+
+# Part C5
+def calculate_shipping(w: int):
+    '''Calculate the cost of shipping based on weight'''
+    if w &lt; 2:
+        return  2.00
+    elif 2 &lt;= w &lt; 10:
+        return 5.00
+    else:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match202-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        return 5.00 + (1.50 * (w - 10))
+assert calculate_shipping(1) == 2.00
+assert calculate_shipping(2) == 5.00
+assert calculate_shipping(10) == 5.00
+assert calculate_shipping(15) == 12.50
+</FONT><A NAME="3"></A><FONT color = #00FFFF><A HREF="match202-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+
+# Part C6
+import tkinter
+
+def create_square(x: int, y: int, s: int):
+    '''Draw a square'''
+    my_window = tkinter.Tk()
+    my_square = tkinter.Canvas(my_window, width=500, height=500)
+</FONT>    my_square.pack()
+    my_square.create_rectangle(x, y, x + s, y + s)
+create_square(100, 100, 200) # Testing the function
+
+def create_circle(x: int, y: int, r: int):
+    '''Draw a circle'''
+    my_window = tkinter.Tk()
+    my_circle = tkinter.Canvas(my_window, width=500, height=500)
+    my_circle.pack()
+    my_circle.create_oval(x, y, x + r, y + r)
+create_circle(100, 100, 200) # Testing the function
+
+print()    
+print('---------- Part (d) ----------')
+print()
+
+# Part D
+from collections import namedtuple
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+# Part D1
+def restaurant_price(name):
+    '''Return the price of the best dish of a restaurant'''
+    return name.price
+assert restaurant_price(RC[0]) == 12.50
+assert restaurant_price(RC[1]) == 5.50
+assert restaurant_price(RC[2]) == 25.50
+assert restaurant_price(RC[-1]) == 10.50
+print()
+
+#Commented out to avoid side effects
+'''
+# Part D2 (Commented out to avoid side effects)
+RC.sort(key=restaurant_price)
+print(RC)
+print()
+
+# Part D3 (Commented out to prevent side effects)
+def costliest(restaurant: list):
+    #Return the most expensive dish
+    RC.sort(key=restaurant_price)
+    return restaurant[-1].name # Return the costliest dish from the adjusted list
+assert costliest(RC) == 'Noma'
+print(costliest(RC)) # Testing the function
+print()
+'''
+# Part D4
+def costliest2(restaurant:list):
+    '''Return the most expensive dish without having side effects'''
+    rlist = sorted(restaurant, key=restaurant_price) # Set sorted() as a variable in order to avoid side effects
+    return rlist[-1].name # Return the costliest dish from the adjusted list
+print(RC) # Seeing if the list is unchanged
+print(costliest2(RC)) # Testing the function
+
+print()    
+print('---------- Part (e) ----------')
+print()
+
+# Part E
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book("Peter Brown", "Programming with Python", "Technology", 1996, 50.00, 70),
+    Book("Alice Parker", "Fairy Tails", "Fantasy", 1979, 15.00, 35),
+    Book("Bruce Wayne", "Batman", "Comic", 1954, 10.00, 10),
+    Book("Albert Lee", "Who Did It?", "Mystery", 2005, 7.00, 5),
+    Book("Derek Fin", "Haikus", "Poetry", 1968, 5.00, 15),
+    Book("John Green", "Jokes for Kids", "Humor", 2011, 3.00, 20) ]
+
+# Part E1
+for Book in BSI:
+    print(Book.title)
+print()
+
+# Part E2
+def alpha(a):
+    '''Return the title of a book'''
+    return a.title
+def name(book: list):
+    '''Print the titles of BSI in alphabetical order without side effects'''
+    a = sorted(BSI, key=alpha)
+    for i in range(len(BSI)):
+        print(a[i].title)
+name(BSI)
+print()
+
+# Part E3
+for Book in range(len(BSI)):
+    BSI[Book] = BSI[Book]._replace(price = BSI[Book].price * 1.10)
+print(BSI) # Seeing if the prices are increased by 10%
+print()
+
+# Part E4
+for Book in range(len(BSI)):
+    if BSI[Book].genre == "Technology":
+        print(BSI[Book].title)
+print()
+
+# Part E5
+before2000 = []
+after2000 = []
+
+for Book in range(len(BSI)):
+    if BSI[Book].year &lt; 2000:
+        before2000.append(BSI[Book])
+print(before2000) # Seeing if the list is correct
+print()
+
+for Book in range(len(BSI)):
+    if BSI[Book].year &gt;= 2000:
+        after2000.append(BSI[Book])
+print(after2000) # Seeing if the list is correct
+print()
+
+if len(before2000) &gt; len(after2000):
+    print('More titles before 2000', '(', len(before2000), 'vs', len(after2000), ')')
+else:
+    print('More titles 2000 or later', '(', len(after2000), 'vs', len(before2000), ')')
+print()
+
+# Part E6
+def inventory_value(Book: str) -&gt; int:
+    '''Return the value of a book based on how much is in stock'''
+    return Book.price * Book.instock
+print(inventory_value(BSI[0])) # Testing the function
+print()
+
+def top_value(BSI: list) -&gt; str:
+    '''Return the most expensive book'''
+    b = sorted(BSI, key = inventory_value)
+    return b[-1]
+print(top_value(BSI)) #Testing the function
+print('The highest-value book is', top_value(BSI).title, 'by', top_value(BSI).author, 'at a value of $', inventory_value(top_value(BSI)))
+print()
+
+print()    
+print('---------- Part (f) ----------')
+print()
+
+def draw_eye(x:int, y:int, r:int, z:str, my_window, my_face):
+    '''Draw an eye'''
+    my_face.create_oval(x,y,x+r,y+r, fill='white')
+    my_face.create_oval(x+25,y+25,x+75,y+75, fill=z)
+
+def draw_nose(x:int, y:int, r:int, z:str, my_window, my_face):
+    '''Draw a nose'''
+    my_face.create_oval(x,y,x+r,y+r, fill=z)
+
+def draw_mouth(x:int, y:int, r:int, z:str, my_window, my_face):
+    '''Draw a mouth'''
+    my_face.create_oval(x,y,x+300,y+r, fill=z)
+
+def draw_outline(x:int, y:int, r:int, z:str, my_window, my_face):
+    '''Draw an ouline of a face'''
+    my_face.create_oval(x,y,x+r,y+r, fill=z)
+    
+def draw_face(j:str, k:str, l:str, m:str):
+    '''Draw face with different colors'''
+    my_window = tkinter.Tk()
+    my_face = tkinter.Canvas(my_window, width=500, height=500)
+    my_face.pack()
+    draw_outline(25,25,425, j, my_window, my_face)
+    draw_eye(100,100,75, k, my_window, my_face)
+    draw_eye(300,100,75, k, my_window, my_face)
+    draw_nose(225,200,50, l, my_window, my_face)
+    draw_mouth(100,300,50, m, my_window, my_face)
+
+draw_face('pink','yellow','red','blue')
+draw_face('red','blue','green','black')
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

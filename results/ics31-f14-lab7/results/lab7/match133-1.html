@@ -1,0 +1,215 @@
+<HTML>
+<HEAD>
+<TITLE>niharikg/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+orozcojd/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7 .py
+
+#Jonathan Orozco 66888405    Kimberly Nguy 86242309           ICS 31 Lab sec 2 Lab asst 7
+
+#
+#
+#------Part (C)------
+#
+#
+
+#C1
+infile=open("malenames.txt", 'r')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match133-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+datalines1=infile.read().split("\n")
+male_name=[]
+
+for i in datalines1:
+    data=i.split("\t")
+    male_name.append(str.capitalize(data[0]))
+</FONT>#print(male_name)
+
+infile=open("femalenames.txt", 'r')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match133-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+datalines3=infile.read().split("\n")
+female_names=[ ]
+for i in datalines3:
+    data=i.split("\t")
+    female_names.append(str.capitalize(data[0]))
+</FONT>#print(female_names)
+
+
+infile=open("surnames.txt",'r')
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match133-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+datalines2=infile.read().split("\n")
+
+surnames=[]
+for i in datalines2:
+    data=i.split("\t")
+    surnames.append(str.capitalize(data[0]))
+</FONT>#print(surnames)
+male_name.extend(female_names)
+
+#C2
+import random
+from random import randrange
+def random_name(surnames:list, male_name:list)-&gt;str:
+    '''Generates a single random surname and female
+    or male name from the list of names'''
+    a= (random.choice(surnames))
+    b= (random.choice(male_name))
+    return str(b) + " " + str(a)
+
+#C3
+def random_names(n:int)-&gt;list:
+    '''Takes an integer and returns a list of that
+    many strings, with each string randomly generated
+    '''
+    name_list=[]
+    for i in range(n):
+        name_list.append(random_name(surnames, male_name))
+    return name_list
+print(random_names(10))
+print()
+#
+#
+#------Part (D)------
+#
+#
+
+#D1
+infile=open("wordlist.txt", 'r')
+datalines4=infile.read().split("\n")
+
+dictionary_words=[]
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate(alphabet:str, n:int):
+    """Produces a "rotated" alphabet with the specified number of characters taken off the front and added on to the end of the string."""
+    return alphabet[n:len(alphabet) + 1] + alphabet[:n]
+
+def Caesar_encrypt(msg:str, key:int) -&gt; str:
+    "Encrypts a message. Returns a ciphertext."
+    table = str.maketrans(ALPHABET, rotate(ALPHABET, key % len(ALPHABET)))
+    new_msg = msg.lower()
+    return new_msg.translate(table)
+assert Caesar_encrypt("abc", 1) == "bcd"
+assert Caesar_encrypt("ICS Computer Science", 2) == "keu eqorwvgt uekgpeg"
+assert Caesar_encrypt("Itzhak Perlman", 30) == "mxdleo tivpqer"
+assert Caesar_encrypt("The secret Stradivarius is under the violinist's bed", 40) == "hvs gsqfsh ghforwjofwig wg ibrsf hvs jwczwbwgh'g psr"
+                           
+
+#Testing caesar_encrypt function == print(Caesar_encrypt("Braunschweigers", 20))
+def Caesar_decrypt(msg:str, key:int)-&gt; str:
+    "Decrypts a message. Returns plaintext."
+    table = str.maketrans(rotate(ALPHABET, key % len(ALPHABET)), ALPHABET)
+    return msg.translate(table)
+assert Caesar_decrypt("keu eqorwvgt uekgpeg", 2) == "ics computer science"
+assert Caesar_decrypt("bcd", 1) == "abc"
+assert Caesar_decrypt("hvs gsqfsh ghforwjofwig wg ibrsf hvs jwczwbwgh'g psr", 40) == "the secret stradivarius is under the violinist's bed"
+assert Caesar_decrypt("mxdleo tivpqer", 30) == "itzhak perlman"
+
+"""
+def Caesar_break(cipher:str):
+    '''Takes a ciphertext and string and returns the plaintext for that
+    string, without having the key
+    '''
+    count=0
+    Encrypted_list=[]
+    for key in range(1, len(ALPHABET)+1):
+        List= Caesar_decrypt(cipher, key)
+        splitlist=List.split()
+        Encrypted_list.append(splitlist)
+        for word in Encrypted_list:
+            if word in datalines4:
+                count+=1
+                if count==len(cipher.split()):
+                    return Caesar_decrypt(cipher, key)
+"""
+def Caesar_break(cipher:str):
+    '''Takes a ciphertext and string and returns the plaintext for that
+    string, without having the key
+    '''
+    count_list = []
+    Encrypted_list = []
+    list = []
+    for key in range(1, len(ALPHABET) + 1):
+        result = Caesar_decrypt(cipher,key)
+        Encrypted_list.append(result)
+    for string in Encrypted_list:
+        split_list = string.split()
+        list.append(split_list)
+    for element in list:
+        for word in element:
+            count=0
+            if word in datalines4:
+                return word
+assert Caesar_break("vuvs") == "baby"
+assert Caesar_break("dswo") == "time"
+assert Caesar_break("tjuujoh") == "sitting"
+
+print()
+infile.close()
+
+#
+#
+#------Part (E)------
+#
+#
+
+#e1
+def copy_file(string:str ):
+    "Copies a file, line by line."
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    i = 1
+    new_list= []
+    final_list = []
+    if string == "line numbers":
+        for line in infile:
+            result = "{:5d}: {:s}".format(i, line)
+            i += 1
+    elif string == 'gutenberg trim':
+        new_list.extend(infile.readlines())
+        print(new_list[0:10])
+        for line in range(len(new_list)):
+            if "*** START" in new_list[line]:
+                startindex = line
+            if "*** END" in new_list[line]:
+                finalindex = line
+                break
+        final_list.extend(new_list[startindex:finalindex])
+        for line in final_list:
+            result = line
+            outfile.write(result)
+    elif string == "statistics":
+        new_list.extend(infile.readlines())      
+        for line in new_list:
+            result = line
+            outfile.write(result)
+        non_empty_sum = 0
+        empty_lines = 0
+        total_sum = 0
+        for line in new_list:
+            if not line.strip() == '':
+                non_empty_sum += len(line)
+                empty_lines += 1
+            total_sum += len(line)
+        outfile.write("\n")
+        outfile.write("{:6d} {:}".format(total_sum, "lines in the file") + "\n")
+        outfile.write("{:6d} {:}".format(empty_lines, "empty lines") + "\n")
+        outfile.write("{:7.1f} {:}".format(total_sum/len(line), "average characters per line") + "\n")
+        outfile.write("{:7.1f} {:}".format(non_empty_sum/len(line), "average characters per non-empty line") + "\n")        
+    else:
+        for line in infile:
+            result = line
+        outfile.write(result)
+    infile.close()
+    outfile.close()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

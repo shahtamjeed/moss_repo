@@ -1,0 +1,306 @@
+<HTML>
+<HEAD>
+<TITLE>anase/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+anase/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Arash Nase 62688355 AND Paulo Herce 52199956  ICS 31 Lab sec 10 - Lab#3
+
+import tkinter
+from collections import namedtuple  
+
+#
+# Part (c)
+#
+#
+print('---------- Part (c) ----------')
+
+#1
+def abbreviate(myString : str) -&gt; str:
+    return (myString[0] + myString[1] + myString[2])
+
+assert abbreviate("April") == "Apr"
+assert abbreviate("October") == "Oct"
+
+#2
+def find_area_square(squareLength : int) -&gt; int:
+    area = squareLength ** 2
+    return area 
+
+assert find_area_square(6) == 36
+assert find_area_square(3) == 9
+
+#3
+def find_area_circle(radius : float) -&gt; float:
+    pi = 3.14
+    return (pi * radius ** 2)
+
+assert find_area_circle(1) == 3.14
+assert find_area_circle(5) == 78.5
+
+#4
+def print_even_numbers(numberList : list) :
+    for x in range(len(numberList)):
+        if(numberList[x]%2 == 0):
+            print(numberList[x])
+print_even_numbers([1,3,10,0,7,2366])
+#newList.append(numberList[x])
+
+#5
+def calculate_shipping(weight : float) -&gt; float :
+    if ( weight &lt; 2.0 ):
+        return 2.00
+    elif ( weight &gt;= 2.0 and weight &lt; 10.0 ):
+        return 5.00
+    elif (weight &gt;= 10):
+        return (5 + (weight - 10)*1.50)
+
+assert calculate_shipping(1.5) == 2.00
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match211-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+#6
+def create_square(x:int,y:int,side:int):
+            
+    my_window = tkinter.Tk()    # Create the graphics window
+
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+    my_canvas.pack()            # Put the canvas into the window
+
+    my_canvas.create_rectangle(x, y, x+side, y+side)
+
+    tkinter.mainloop()          # Combine all the elements and display the window
+
+create_square(100,100,140)
+create_square(105,39,200)
+
+#7
+def create_circle(x: int, y: int, r: int):
+
+    my_window = tkinter.Tk()    # Create the graphics window
+
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+</FONT>    my_canvas.pack()            # Put the canvas into the window
+
+    my_canvas.create_oval(x, y, x+r, y+r)
+
+    tkinter.mainloop()          
+
+create_circle( 100,150, 250)
+
+#
+# Part (d)
+#
+#
+print('---------- Part (d) ----------')
+
+#1
+  
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurant_price( Restaurant: namedtuple ) -&gt; float:
+
+    return Restaurant.price
+
+price = restaurant_price( RC[1] )
+print(price)
+
+
+#2
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match211-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+RC.sort(key=restaurant_price)
+print (RC)
+
+#3
+def costliest( Restaurant: list ) -&gt; str:
+    Restaurant.sort(key=restaurant_price)
+
+    return Restaurant[-1].name
+</FONT>
+name_of_costliest = costliest(RC)
+print("\n",name_of_costliest)
+
+
+#4
+RC2 = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def costliest2 (Restaurant: list ) -&gt; str:
+
+     after_change = sorted(Restaurant, key=restaurant_price)
+
+     return after_change[-1].name
+
+name_of_costliest = costliest2(RC2)
+print("\n",name_of_costliest)
+print("Our origial List: ")
+print(RC2)
+
+print("")
+
+
+#
+# Part (e)
+#
+#
+print('---------- Part (e) ----------')
+
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book("J.K. Rowling", "Sorcerer's Stone",
+             "Fiction", 1998, 15.00, 6),
+    Book('Arash Nase', 'The Next Big Thing',
+             "Technology", 1892, 21.50, 5),
+    Book('Matthew Lysiak', 'Newtown: An American Tragedy',
+             "Tragedy", 2013, 12.99, 10),
+    Book('Arthur Conan Doyle', 'Return of Sherlock Holmes',
+             "Mystery", 1905, 25.00, 20),
+    Book("Richard Farr", "The Fire Seekers",
+             "Fiction", 1999, 16.00, 3),
+    Book("Jim Carrey", "Today's Cook", "Cook Book", 2014,
+             40.00, 7) ]
+
+#1
+# List indices here are Books, not integers 1,2,3...
+for x in BSI:
+    print ( x.title )
+print("")
+
+#2
+def book_title ( Book : namedtuple ) -&gt; str:
+    return Book.title
+
+list_title_sorted = sorted(BSI, key = book_title)
+print("SORTED TITLES: ")
+
+for x in list_title_sorted:
+    print (x.title)
+print("")
+
+#3
+#we used the function _replace to solve this one(easier)
+#_replace: Return a new instance of the named tuple replacing specified fields with new values
+for x in range(len(BSI)):
+    book_price = BSI[x].price * 1.1
+    book_price = round(book_price, 2)
+    BSI[x] = BSI[x]._replace(price=book_price)
+    print (BSI[x])
+
+#4
+for x in BSI:
+    if(x.genre == 'Technology'):
+        print(" ",x.title)
+print("")
+
+#5
+after2000 = []
+before2000 = []
+for x in BSI:
+    if(x.year &gt;= 2000):
+        after2000.append(x)
+    else:
+        before2000.append(x)
+print(after2000)
+print("_________________")
+print(before2000)
+if(len(before2000) &gt; len(after2000)):
+    print("There are more titles before 2000 than after 2000 (", len(before2000), "vs",len(after2000),")")
+elif(len(before2000) &lt; len(after2000)):
+    print("There are more titles after 2000 than before 2000 (", len(after2000), "vs", len(before2000),")")
+else:
+     Print("Equal Number of books before and after 2000 in store.( " ,len(after2000),")")
+
+#6
+#inventory value function:
+def inventory_value (z: Book) -&gt; float:
+    return (z.price * z.instock)
+
+q = inventory_value (BSI[0])
+print (q)
+
+#top-value function:
+Sorted_inventory_value = []
+def top_value (n:list) -&gt; int:
+    for x in range(len(n)):
+        (inventory_value(n[x]))
+        Sorted_inventory_value.append(inventory_value(n[x]))
+        Sorted_inventory_value.sort(key=float, reverse=True)
+    print("The highest-value book is ",n[x].title," by ",
+          n[x].author," at a value of $",Sorted_inventory_value[0],sep='')
+
+top_value(BSI)
+
+
+
+
+
+#
+# Part (f)
+#
+#
+print('---------- Part (f) ----------')
+
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+shape = tkinter.Canvas(my_window, width=1000, height=700)  # Create a 500x500 canvas to draw on
+shape.pack()            # Put the canvas into the window
+
+
+def create_eye(x:int, y:int):
+    shape.create_oval(x,y, x+120, y-80, fill='white' , outline='black')
+    shape.create_oval(x+100,y, x+20, y-80, fill='blue')
+    shape.create_oval(x+80,y-20,x+40,y-60, fill="black")
+
+def create_mouth(x:int, y:int):
+    shape.create_rectangle(x,y,x+120,y+40, fill = "red")
+    shape.create_line(x,y+20,x+120,y+20)
+
+def create_nose(x:int, y:int):
+    shape.create_polygon(x,y,x-25,y+70,x+25,y+70, fill = "brown")
+
+def create_face(x:int, y:int):
+    shape.create_oval(x,y,x+400,y+500, outline="brown", width = 3 )
+    create_nose(x+200,y+230)
+    create_mouth(x+140,y+350)
+    create_eye(x+60,y+200)
+    create_eye(x+220,y+200)
+
+create_face(5,5)
+create_face(500,200)
+
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+
+
+ 
+
+
+
+            
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

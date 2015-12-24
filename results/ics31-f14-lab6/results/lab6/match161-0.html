@@ -1,0 +1,265 @@
+<HTML>
+<HEAD>
+<TITLE>bfallan/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+bfallan/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6 (1).py
+# Max Fallan 71647794 and Aishwarya Bhasin 57802539 ICS 31 Lab 6. Asst. 6
+
+
+#C.1
+print("C.1")
+print()
+def contains(word:str, word2:str)-&gt;bool:
+    '''Returns true if second string occurs in the first string'''
+    return word2 in word
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+print(contains('hello', 'el'))
+print()
+print('--------------------')
+
+
+
+
+#C.2
+print("C.2")
+print()
+   
+def sentence_stats(sentence:str)-&gt;float:
+    '''Takes a string and prints the length of the chars, length of the words, and the av
+       average length of each word'''
+    count=0
+    print("Characters: ", len(sentence))
+    result=sentence.split()
+    print("Words: ", len(result))
+    for i in result:
+        count=count+len(i)
+    print("Average word length: ", count/len(result))    
+sentence_stats("I Love puppies")
+print()
+print('-----------------')
+
+#C.3
+print('C.3')
+print()
+def initials(full_name:str)-&gt;str:
+    '''Takes the string and returns the initials of the full name'''        
+    new=''
+    Capital_letters= full_name.upper()
+    result=Capital_letters.split()
+    for i in result:
+        new+=i[0]
+    return new
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+print(initials('Robert Cruz'))
+print()
+print('---------------')
+
+###D.1
+from random import randrange
+##print('D.1')
+##print()
+##for i in range(50):
+##    print(randrange(11))
+##for j in range(50):
+##    print(randrange(1,7))
+##print('----------------------')
+##print()
+
+#D.2
+print('D.2')
+print()
+
+def roll2dice()-&gt;int:
+    '''Returns a number that reflects the random roll of two dice'''
+    
+    dice1=randrange(1,7)
+    
+    dice2=randrange(1,7)
+       
+    return (dice1+dice2)
+
+for i in range(50):
+    print(roll2dice())
+
+            
+roll2dice()
+print('-------------------')
+print()
+
+#D.3
+print('D.3')
+print()
+
+def distribution_of_rolls(num:int)-&gt;str:
+    '''formats the distribution of values in a specific way'''
+    new=[]
+    for i in range(num):
+        x=roll2dice()
+        new.append(x)
+    result=[]
+    for y in range(2,13):
+        result.append(new.count(y))
+    for j in range(len(result)):
+            print("{:2}:{:6} ({:5.2f}) {}\n".format(j+2,result[j],(result[j]/num)*100,result[j]*'*'))
+        
+        
+            
+distribution_of_rolls(200)
+print('-----------------')
+print()
+          
+        
+# E.1
+print('E.1')
+print()
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match161-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def rotate_alphabet(x:int)-&gt;str:
+    '''sets starting point of alphabet and then goes all the way around back to that letter'''
+    A='abcdefghijklmnopqrstuvwxyz'
+    if x&gt;25:
+        x=x%26
+    result=A[x:]+A[:x]
+    return result
+          
+def Caesar_encrypt(word:str, num:int)-&gt;str:
+    '''returns the cyphertext'''
+    NL=rotate_alphabet(num)
+    A=str.maketrans('abcdefghijklmnopqrstuvwxyz',NL)
+    word=word.lower()
+    word=word.translate(A)
+    return word
+</FONT>print(Caesar_encrypt('Hi, I am a fool',7))
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match161-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_decrypt(word:str,num:int)-&gt;str:
+    '''decrypts the message'''
+    NL=rotate_alphabet(-num)
+    A=str.maketrans('abcdefghijklmnopqrstuvwxyz', NL)
+    word=word.lower()
+    word=word.translate(A)
+    return word
+</FONT>print(Caesar_decrypt('op, p ht h mvvs', 7))
+print('------------------')
+print()
+
+#E.2
+print('E.2')
+print()
+print(Caesar_decrypt("""bmfy fs jchjqqjsy kfymjw dtz mfaj, lnwqx,'' xfni xmj, bmjs ymj ittw bfx xmzy. ``n it sty pstb mtb dtz bnqq jajw rfpj mnr frjsix ktw mnx pnsisjxx; tw rj jnymjw, ktw ymfy rfyyjw.""", 5))
+print('------------------')
+print()
+
+
+#F.1
+print('F.1')
+print()
+
+L=['Hi how are you','how do you do']
+def print_line_numbers(x:'list of str')-&gt;str:
+    '''print each string preceeded by a line number'''
+    num=1
+    for i in x:
+        print( "{}: {:5} \n".format(num,i))
+        num+=1
+    if num&gt;=10:
+        print(" {}: {:5} \n".format(num,i))
+    
+print_line_numbers(L)
+print('------------------')
+print()
+
+#F.2
+print('F.2')
+print()
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match161-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats(x:'list of str')-&gt;str:
+    '''displays the list of strings in a certain format'''
+    result=""
+    lines_in_list=0
+    empty_lines=0
+    chars_per_line=0
+    chars_per_empty_line=0
+    for i in x:
+        lines_in_list+=1
+        for j in i:
+            chars_per_line+=1
+    for i in x:
+        if i==result[:len(i)]:
+            empty_lines+=1
+            chars_per_empty_line+=len(i)
+    print(" {}  {}\n".format(lines_in_list,"lines in the list"),
+</FONT>          "{}  {}\n".format(empty_lines,"empty lines"),
+          "{}  {}\n".format((chars_per_line/lines_in_list),"average characters per line"))
+
+stats(L)
+print('------------------')
+print()
+
+
+#F.3
+print('F.3')
+print()
+
+L1= [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+  
+
+def list_of_words(x:'list of str')-&gt;list:
+    '''returns a list of words with all white space and punctuation removed'''
+    result1=''
+    result2=[]
+    for line in x:
+        table=str.maketrans(' .,!?:" ','        ')
+        result1=line.translate(table)
+        y=result1.split()
+        result2.extend(y)
+    return result2                            
+print(list_of_words(L1))
+print('--------------')
+print()
+
+#G.1
+print('G.1')
+print()
+
+
+            
+
+
+
+
+
+    
+    
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

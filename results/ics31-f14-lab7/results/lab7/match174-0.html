@@ -1,0 +1,220 @@
+<HTML>
+<HEAD>
+<TITLE>blink/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+blink/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Brendan Link 10144699 and Kangho Eom 56991515, ICS 31 Lab 5, Assignment 7
+
+
+from random import randrange
+
+print('***Part c***\n')
+
+def male_names()-&gt;list:
+    result=[]
+    READ='r'
+    file=open('malenames.txt',mode=READ)
+    male=file.read().split()
+    for i in male:
+        if i[0] in 'abcdefghijklmnopqrstuvwxyz'.upper():
+            result.append(i)
+    return result
+def female_names()-&gt;list:
+    result=[]
+    READ='r'
+    file=open('femalenames.txt',mode=READ)
+    female=file.read().split()
+    for i in female:
+        if i[0] in 'abcdefghijklmnopqrstuvwxyz'.upper():
+            result.append(i)
+    return result
+
+def surnames()-&gt;list:
+    result=[]
+    READ='r'
+    file=open('surnames.txt',mode=READ)
+    surname=file.read().split()
+    for i in surname:
+        if i[0] in 'abcdefghijklmnopqrstuvwxyz'.upper():
+            result.append(i)
+    return result
+
+#Part c.3
+
+def random_name():
+    malenames=male_names()
+    femalenames=female_names()
+    gender=randrange(1,2)
+    if gender==1:
+        firstname=(malenames[randrange(1,len(malenames))])
+    else:
+        firstname=(femalenames[randrange(1,len(femalenames))])
+    surname=surnames()
+    lastname=(surname[randrange(1,len(surname))])
+    return '{}, {}'.format(lastname,firstname)
+print(random_name())
+print()
+print()
+
+print('***Part d***\n')
+
+READ='r'
+file=open("dictionarylist.txt", mode=READ)
+DICTIONARYLIST=file.read()
+file.close()
+ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+
+def rotate_alphabet():
+    ''' Moves over the letters of the alphabet by a number'''
+    global ALPHABET
+    result=[]
+    for i in range(len(ALPHABET)):
+        result.append(ALPHABET[i:] + ALPHABET[:i])
+    return result
+
+def translate_message (n:list, d:str):
+    global ALPHABET
+    result=[]
+    for x in n:
+        result.append(d.translate(str.maketrans(ALPHABET, x)))
+    return result
+
+def dictionary_hits(a:list):
+    global ALPHABET
+    result=[]
+    for x in a:
+        C=0
+        for t in x.split():
+            if t in DICTIONARYLIST:
+                C += 1
+            result.append(C)
+    return result
+P=input("What word/phrase would you like to translate to ciphertext?:\n")
+T=((dictionary_hits(translate_message(rotate_alphabet(),P))).index(max((dictionary_hits(translate_message(rotate_alphabet(),P))))))
+
+def Caesar_break(ciphertext: str):
+    global ALPHABET
+    result=''
+    t=dictionary_hits(translate_message(rotate_alphabet(), ciphertext))
+    for b in range(len(t)):
+        if (dictionary_hits(translate_message(rotate_alphabet(), ciphertext)))[b] == max(dictionary_hits(translate_message(rotate_alphabet(), ciphertext))):
+            result += (translate_message(rotate_alphabet(),ciphertext))[b]
+    return result
+print('Suggested translated text with most dictionary hits: ',translate_message(rotate_alphabet(),P)[T])
+print()
+print()
+
+
+
+
+
+print('***Part e***\n')
+
+def copy_file (n:str):
+    if n=='line numbers':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match174-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        z=infile.read().split(sep='\n')
+        for x in range(len(z)):
+            outfile.write('{}: {}'.format(x+1, z[x]))
+</FONT>            outfile.write('\n')
+        infile.close()
+        outfile.close()
+    elif n=='Gutenburg trim':
+        infile_name= input("Please enter the name of the file to copy (assuming 'gutenburg.txt'): ")
+        infile = open(infile_name,'r')
+        outfile_name = input("Please ener the name of the new copy: ")
+        outfile = open(outfile_name, 'w')
+        z=infile.read().split(sep='\n')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match174-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        for i in z:
+            if ('*** START OF') in i:
+                startindex=z.index(i)
+            elif ('*** END OF') in i:
+                endindex = z.index(i)
+        for i in range(startindex,endindex+1):
+            
+            outfile.write(z[i]+'\n')
+</FONT>        infile.close()
+        outfile.close()
+    else: 
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+        
+        infile.close()
+        outfile.close()
+        
+copy_file(input("To label lines of the new text file, type in 'line numbers'\notherwise don't indicate. To omit housekeeping material, type 'Gutenburg trim'.\n"))
+print()
+print('***e.3***')
+print('STATISTICS')
+
+infile_name = input("Please enter the name of the file to initiate statistics: ")
+infile = open(infile_name, 'r')
+outfile_name=input('Please enter the name of the new copy: ')
+outfile = open(outfile_name, 'w')
+
+t=infile.readlines()
+
+for line in t:
+    outfile.write(line)
+infile.close()
+outfile.close()
+
+def empty_lines(z:list):
+    emptylist = []
+    for i in z:
+        if i == "" or i =='\n':
+            emptylist.append(i)
+        o = len(emptylist)
+    return o
+
+
+def avg_character_per_line(z:list):
+    result = []
+    for i in z:
+        for t in i:
+            result.append(len(t))
+    p = sum(result)/len(z)
+    return p
+
+def avg_character_per_nonempty(z:list):
+    o = empty_lines(z)
+    result = []
+    for i in z:
+        for t in i:
+            result.append(len(t))
+    p = sum(result)/(len(z)-(empty_lines(z)))
+    return p
+
+def stats(z:list):
+    q = len(z)
+    a=('{:7d}'.format(q)+'   lines in the list')
+    print(a)
+    b=('{:7d}'.format(empty_lines(z))+'   empty lines')
+    print(b)
+    c=('{:9.1f}'.format((avg_character_per_line(z)))+' average characters per line')
+    print(c)
+    d=('{:9.1f}'.format((avg_character_per_nonempty(z)))+' average characters per non-empty line')
+    
+    print(d)
+stats(t)
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

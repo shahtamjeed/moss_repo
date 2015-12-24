@@ -1,0 +1,417 @@
+<HTML>
+<HEAD>
+<TITLE>akriebel/(c)-(g)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+neyu1/(c)-(g)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab 4.py
+#  Nicholas Yu 89815672 and  Nicholas Nchamukong 52921913.  ICS 31 Lab sec 5.  Lab asst 4.
+
+
+#
+#
+# Part (c)
+#
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c1) ----------')
+print()
+
+def test_number(number:int, case:str):
+    if case == 'even':
+       return(number%2 == 0)
+    if case == 'odd':
+        return(number%2 &gt; 0)
+    if case== 'positive':
+        return(number &gt; 0)
+    if case == 'negative':
+        return(number &lt; 0)
+
+assert test_number(14, 'even') == True
+assert not test_number(100, 'odd') == True
+assert test_number(33, 'positive') == True
+assert not test_number(100, 'negative') == True
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c2) ----------')
+print()
+
+def display():
+    word = input("Enter a word: ")
+    for i in range(len(word)):
+        print(word[i])
+
+display()
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match160-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('---------- Part (c3) ----------')
+print()
+
+def square_list(square:list):
+    for i in range(len(square)):
+        print (square[i]** 2)
+
+square_list([2, 3, 4, 10])
+</FONT>
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match160-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('---------- Part (c4) ----------')
+print()
+
+def match_first_letter(a: str, movies: list):
+    for i in range(len(movies)):
+        if movies[i][0] == a:
+            print(movies[i])
+
+match_first_letter('I', ["Iron Man", "Iron Man 2", "The Avengers", "Superman", "I am Legend"])        
+</FONT>
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c5) ----------')
+print()
+
+def match_area_code(area_code:list, phone:list):
+    for i in phone:
+        if i[1:4] in area_code:
+            print(i)
+
+match_area_code(['949', '714'], ['(714)824-1234', '(419)312-8732', '(949)555-1234'])
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c6) ----------')
+print()
+def match_area_codes(area_code:list, phone:list):
+    listofnumbers = []
+    for i in phone:
+        if i[1:4] in area_code:
+            listofnumbers.append(i)
+    return(listofnumbers)
+
+assert match_area_codes(['949', '714'], ['(714)824-1234', '(419)312-8732', '(949)555-1234']) == ['(714)824-1234', '(949)555-1234']
+assert match_area_codes(['456', '789'], ['(456)789-1234', '(852)845-1245', '(789)552-9546']) == ['(456)789-1234', '(789)552-9546']
+#
+#
+# Part (d)
+#
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (d1) ----------')
+print()
+
+def is_vowel(v: str):
+    vowels = 'aeiouAEIOU'
+    return v in vowels
+
+assert is_vowel('a') == True
+assert is_vowel('e') == True
+assert is_vowel('E') == True
+assert not is_vowel('d') == True
+assert not is_vowel('X') == True
+assert not is_vowel('?') == True
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (d2) ----------')
+print()
+
+def print_nonvowels(c: str):
+    for i in c:
+        if is_vowel(i) == False: 
+            print(i)
+
+print_nonvowels('Cool123456789')
+print_nonvowels('ICS 31')
+print_nonvowels('Computer Science8978')
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (d3) ----------')
+print()
+
+def nonvowels(w1: str)-&gt;str:
+    result = ''
+    for c in w1:
+        if is_vowel(c) == False:
+            result += (c)
+    return result
+
+assert nonvowels('Computer Science 8987') == 'Cmptr Scnc 8987'
+assert nonvowels('ICS 31?') == 'CS 31?'
+
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (d4) ----------')
+print()
+
+def consonants(cons: str)-&gt;str:
+    newcon=''
+    for i in cons:
+        if is_vowel(i)== False:
+            newcon += i.lstrip('0123456789`~!@#$%^&*()-_=+{}[]|\:;&lt;,&gt;.?/"''')
+    return newcon
+
+assert(consonants('asdf?qweruipo789456}{\|')) == 'sdfqwrp'
+assert(consonants('789456123789aeiyouskwl 789sdf')) == 'yskwl sdf'
+
+    
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (d5) ----------')
+print()
+
+def select_letters(first:str, second:str)-&gt;str:
+    result = ''
+    if first == 'v':
+       for c in second:
+           if is_vowel(c) == True:
+               result += c.lstrip('0123456789`~!@#$%^&*()-_=+{}[]|\:;&lt;,&gt;.?/"''')
+       return first, result
+    if first == 'c':
+        for c in second:
+            if is_vowel(c) == False:
+               result += c.lstrip('0123456789`~!@#$%^&*()-_=+{}[]|\:;&lt;,&gt;.?/"''')
+        return first, result
+    else:
+        return ''
+        
+assert(select_letters('c', 'asdfqwerui879514@#$opoooolsaaaa')) == ('c', 'sdfqwrpls')
+assert(select_letters('v', 'qoskdjfizuwoekf')) == ('v', 'oiuoe')
+assert(select_letters('c', 'qowidj48795:[]')) == ('c', 'qwdj')
+assert(select_letters('v', 'asdfq128*/-+werv')) == ('v', 'ae')
+assert(select_letters('o', 'nopenopenope')) == ('')
+
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (d6) ----------')
+print()
+
+def hide_vowels(string:str)-&gt;str:
+    hyphen=''
+    for x in string:
+        if is_vowel(x) == True:
+            hyphen=string.replace(x,'-') #data needs somewhere to be 
+    return hyphen                       #allocated so you allocate an empty string
+
+assert(hide_vowels('adadadadad')) == '-d-d-d-d-d'
+assert(hide_vowels('asfdowieurizmcnvqopsock')) == 'asfd-wieurizmcnvq-ps-ck'
+
+from collections import namedtuple
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number,
+#	best dish, price of that dish
+
+R1 = Restaurant("Taillevent", "French", "343-3434", "Escargots", 24.50)
+R2 = Restaurant("La Tour D'Argent", "French", "343-3344", "Ris de Veau", 48.50)
+R3 = Restaurant("Pascal", "French", "333-4444", "Bouillabaisse", 32.00)
+R4 = Restaurant("Thai Touch", "Thai", "444-3333", "Mee Krob", 10.95)
+R5 = Restaurant("Thai Dishes", "Thai", "333-4433", "Paht Woon Sen",  8.50)
+R6 = Restaurant("Thai Spoon", "Thai", "334-3344", "Mussamun", 9.00)
+R7 = Restaurant("McDonald's", "Burgers", "333-4443", "Big Mac", 3.95)
+R8 = Restaurant("Burger King", "Burgers", "444-3344", "Whopper", 3.75)
+R9 = Restaurant("Wahoo's", "Fish Tacos", "443-4443", "Mahi Mahi Burrito", 7.50)
+R10 = Restaurant("In-N-Out Burger", "Burgers", "434-3344", "Cheeseburger", 2.50)
+R11 = Restaurant("The Shack", "Burgers", "333-3334", "Hot Link Burger", 4.50)
+R12 = Restaurant("Gina's", "Pizza", "334-4433", "Combo Pizza", 12.95)
+R13 = Restaurant("Peacock, Room", "Indian", "333-4443", "Rogan Josh", 12.50)
+R14 = Restaurant("Gaylord", "Indian", "333-3433", "Tandoori Chicken", 13.50)
+R15 = Restaurant("Mr. Chow", "Chinese", "222-3333", "Peking Duck", 24.50)
+R16 = Restaurant("Chez Panisse", "California", "222-3322", "Grilled Duck Breast", 25.00)
+R17 = Restaurant("Spago", "California", "333-2222", "Striped Bass", 24.50)
+R18 = Restaurant("Sriped Bass", "Seafood", "333-2233", "Cedar Plank Salmon", 21.50)
+R19 = Restaurant("Golden Pagoda", "Chinese", "232-3232", "Egg Foo Young", 8.50)
+R20 = Restaurant("Langer's", "Delicatessen", "333-2223", "Pastrami Sandwich", 11.50)
+R21 = Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50)
+R22 = Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50)
+R23 = Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50)
+R24 = Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50)
+R25 = Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50)
+R26 = Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) 
+
+
+RL = [R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16,
+	R17, R18, R19, R20, R21, R22, R23, R24, R25, R26]
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (e) ----------')
+print()
+def Restaurant_change_price(first: Restaurant, change:float)-&gt;Restaurant:
+        cost = (first.price + change)
+        first=first._replace(price=cost)
+        return first
+
+assert(Restaurant_change_price(R25, 5)) == Restaurant(name='Noma', cuisine='Modern Danish', phone='337-4433', dish='Birch Sap', price=40.5)
+assert(Restaurant_change_price(R24, 45.60)) == Restaurant(name='Nola', cuisine='New Orleans', phone='336-4433', dish='Jambalaya', price=51.1)
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (f1) ----------')
+print()
+
+def alphabetical(name:list)-&gt; list:
+    return sorted(name)
+
+assert(alphabetical(RL)) == [Restaurant(name='Addis Ababa', cuisine='Ethiopian', phone='337-4453', dish='Yesiga Tibs', price=10.5), Restaurant(name='Burger King', cuisine='Burgers', phone='444-3344', dish='Whopper', price=3.75), Restaurant(name='Chez Panisse', cuisine='California', phone='222-3322', dish='Grilled Duck Breast', price=25.0), Restaurant(name='Gaylord', cuisine='Indian', phone='333-3433', dish='Tandoori Chicken', price=13.5), Restaurant(name="Gina's", cuisine='Pizza', phone='334-4433', dish='Combo Pizza', price=12.95), Restaurant(name='Golden Pagoda', cuisine='Chinese', phone='232-3232', dish='Egg Foo Young', price=8.5), Restaurant(name='In-N-Out Burger', cuisine='Burgers', phone='434-3344', dish='Cheeseburger', price=2.5), Restaurant(name='Jitlada', cuisine='Thai', phone='324-4433', dish='Paht Woon Sen', price=15.5), Restaurant(name="La Tour D'Argent", cuisine='French', phone='343-3344', dish='Ris de Veau', price=48.5), Restaurant(name="Langer's", cuisine='Delicatessen', phone='333-2223', dish='Pastrami Sandwich', price=11.5), Restaurant(name="McDonald's", cuisine='Burgers', phone='333-4443', dish='Big Mac', price=3.95), Restaurant(name='Mr. Chow', cuisine='Chinese', phone='222-3333', dish='Peking Duck', price=24.5), Restaurant(name='Nobu', cuisine='Japanese', phone='335-4433', dish='Natto Temaki', price=5.5), Restaurant(name='Nola', cuisine='New Orleans', phone='336-4433', dish='Jambalaya', price=5.5), Restaurant(name='Noma', cuisine='Modern Danish', phone='337-4433', dish='Birch Sap', price=35.5), Restaurant(name='Nonna', cuisine='Italian', phone='355-4433', dish='Stracotto', price=25.5), Restaurant(name='Pascal', cuisine='French', phone='333-4444', dish='Bouillabaisse', price=32.0), Restaurant(name='Peacock, Room', cuisine='Indian', phone='333-4443', dish='Rogan Josh', price=12.5), Restaurant(name='Spago', cuisine='California', phone='333-2222', dish='Striped Bass', price=24.5), Restaurant(name='Sriped Bass', cuisine='Seafood', phone='333-2233', dish='Cedar Plank Salmon', price=21.5), Restaurant(name='Taillevent', cuisine='French', phone='343-3434', dish='Escargots', price=24.5), Restaurant(name='Thai Dishes', cuisine='Thai', phone='333-4433', dish='Paht Woon Sen', price=8.5), Restaurant(name='Thai Spoon', cuisine='Thai', phone='334-3344', dish='Mussamun', price=9.0), Restaurant(name='Thai Touch', cuisine='Thai', phone='444-3333', dish='Mee Krob', price=10.95), Restaurant(name='The Shack', cuisine='Burgers', phone='333-3334', dish='Hot Link Burger', price=4.5), Restaurant(name="Wahoo's", cuisine='Fish Tacos', phone='443-4443', dish='Mahi Mahi Burrito', price=7.5)]
+
+
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match160-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+print('---------- Part (f2) ----------')
+print()
+
+
+def alphabetical_names(alpha:list) -&gt; list:
+    newlist=[]
+    sorted_alpha = sorted(alpha)
+    for x in range(len(sorted_alpha)):
+        newlist.append(sorted_alpha[x].name)
+    return newlist
+    
+assert(alphabetical_names(RL)) == ['Addis Ababa', 'Burger King', 'Chez Panisse', 'Gaylord', "Gina's", 'Golden Pagoda', 'In-N-Out Burger', 'Jitlada', "La Tour D'Argent", "Langer's", "McDonald's", 'Mr. Chow', 'Nobu', 'Nola', 'Noma', 'Nonna', 'Pascal', 'Peacock, Room', 'Spago', 'Sriped Bass', 'Taillevent', 'Thai Dishes', 'Thai Spoon', 'Thai Touch', 'The Shack', "Wahoo's"]
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines
+</FONT>print()
+print('---------- Part (f3) ----------')
+print()
+
+def all_Thai(thai: list)-&gt;list:
+    newlist=[]
+    for x in range(len(thai)):
+        if 'Thai' in thai[x].cuisine:
+            newlist.append(thai[x].name)
+    return newlist
+
+assert(all_Thai(RL)) == ['Thai Touch', 'Thai Dishes', 'Thai Spoon', 'Jitlada']
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match160-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+print('---------- Part (f4) ----------')
+print()
+
+def select_cuisine(first:list, second:str)-&gt;list:
+    newlist=[]
+    for x in range(len(first)):
+</FONT>        if second in first[x].cuisine:
+            newlist.append(first[x])
+    return newlist
+
+assert(select_cuisine(RL, 'Indian')) == [Restaurant(name='Peacock, Room', cuisine='Indian', phone='333-4443', dish='Rogan Josh', price=12.5), Restaurant(name='Gaylord', cuisine='Indian', phone='333-3433', dish='Tandoori Chicken', price=13.5)]
+assert(select_cuisine(RL, 'Italian')) == [Restaurant(name='Nonna', cuisine='Italian', phone='355-4433', dish='Stracotto', price=25.5)]
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match160-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+print('---------- Part (f5) ----------')
+print()
+
+def select_cheaper(food:list, cost:float) -&gt; list:
+    newlist=[]
+    for x in range(len(food)):
+</FONT>        if cost &gt; food[x].price:
+            newlist.append(food[x].name)
+    return newlist
+
+assert(select_cheaper(RL, 12.50))==['Thai Touch', 'Thai Dishes', 'Thai Spoon', "McDonald's", 'Burger King', "Wahoo's", 'In-N-Out Burger', 'The Shack', 'Golden Pagoda', "Langer's", 'Nobu', 'Nola', 'Addis Ababa']
+assert(select_cheaper(RL, 30.00)) == ['Taillevent', 'Thai Touch', 'Thai Dishes', 'Thai Spoon', "McDonald's", 'Burger King', "Wahoo's", 'In-N-Out Burger', 'The Shack', "Gina's", 'Peacock, Room', 'Gaylord', 'Mr. Chow', 'Chez Panisse', 'Spago', 'Sriped Bass', 'Golden Pagoda', "Langer's", 'Nobu', 'Nonna', 'Jitlada', 'Nola', 'Addis Ababa']
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines
+print()
+print('---------- Part (f6) ----------')
+print()
+
+def average_price(food:list)-&gt;float:
+    overall_price = 0
+    for x in range(len(food)):
+        overall_price += food[x].price
+        average_price = overall_price/len(food)
+    return average_price
+
+assert(average_price(RL)) == 15.696153846153845
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines
+print()
+print('---------- Part (f7) ----------')
+print()
+
+def average_indian():
+    print(average_price(select_cuisine(RL,'Indian')))
+
+average_indian()
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines
+print()
+print('---------- Part (f8) ----------')
+print()
+
+def average_ChineseThai():
+    x =(average_price(select_cuisine(RL,'Chinese')))+(average_price(select_cuisine(RL,'Thai')))
+    print(x/2)
+
+average_ChineseThai()
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines
+print()
+print('---------- Part (f9) ----------')
+print()
+
+def middle_tier():
+    print(alphabetical(select_cheaper(RL, 15.00)))
+
+middle_tier()
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines
+print()
+print('---------- Part (g) ----------')
+print()
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500
+
+my_canvas.pack()            # Put the canvas into the window
+
+def create_rectangle_from_center(x:int, y:int, h:int, w:int):
+    my_canvas.create_rectangle(x-(w/2), y-(w/2), x + (w/2), y + (h/2))
+    print("Drawing opened in seperate window")
+create_rectangle_from_center(200, 200, 100, 200)    
+
+tkinter.mainloop()    
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

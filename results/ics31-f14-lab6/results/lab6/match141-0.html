@@ -1,0 +1,198 @@
+<HTML>
+<HEAD>
+<TITLE>alvinvn/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+alvinvn/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+#Alvin Nguyen 56511577 and Shah Masood 16608754. ICS 31 Lab sec 6.
+
+print("----------Section C-----------")
+print()
+print('Section C.1')
+def contains(a:str, b:str) -&gt; bool:
+    '''Checks if second string occurs in the first string'''
+    return b in a
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+assert contains('Alvin', 'Al')
+assert not contains('Gorilla', 'ze')
+print()
+print('Section C.2')
+print()
+def sentence_stats(a:str) -&gt; float:
+    '''Prints out statistics about the string'''
+    print('Characters:', len(a))
+    print('Words:', len(a.split()))
+    print('Average word length:', sum(map(len, a.split()))/len(a.split()))
+
+sentence_stats('Hello Alvin')
+sentence_stats('Hi Hello Bye Goodbye')
+print()
+print('Section C.3')
+print()
+def initials(a:str) -&gt; str:
+    '''Returns the initials of the name in all capital letters'''
+    a = a.lower()
+    a = a.title()
+    b = ''
+    for i in a.split():
+        b += i[0]
+    return b
+        #.title() for capitalization
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+print()
+print('---------Section D--------')
+print()
+print('Section D.1')
+from random import randrange
+for i in range(50):
+   print(randrange(11))
+print('2nd part of D.1')
+for i in range(50):
+    print(randrange(1, 7))
+print()
+print('Section D.2')
+print()
+def roll2dice():
+    '''Adds two dice together'''
+    for i in range(50):
+        print(randrange(1, 7) + randrange(1,7))
+
+roll2dice()
+print()
+print('Section D.3')
+
+def distribution_of_rolls(a:int):
+    '''takes an integer and prints the distribution of how many times we rolled the dice based on integer'''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match141-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_16.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    dice_num=[]
+    dice_times=[]
+    dice_list=[]
+    stars = []
+    percent = []
+    for i in range(a):
+        dice_list.append(randrange(1,7)+randrange(1,7))
+    for i in range(2,13):
+        dice_times.append(dice_list.count(i))
+        dice_num.append(i)
+    for i in range(len(dice_list)):
+        stars.append('*' * dice_list[i])
+    for i in range(11):
+        percent.append(dice_list[i]*100/a)
+    for i in range(11):
+        print("{:2}: {:5} ({:6.2f}%) {:1}".format(dice_num[i], dice_times[i], percent[i], stars[i]))
+</FONT>    print('----------------')
+    print()
+    print(a, 'rolls')          
+distribution_of_rolls(200)
+distribution_of_rolls(100)
+        
+print()
+print('--------Section E----------')
+print()
+print('Section E.1')
+print()
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def rotation(n: int)-&gt; str:
+    '''rotates the alphabet'''
+    newstring = ALPHABET
+    i = 0
+    for i in range(n):
+        newstring += newstring[i]
+    return newstring[n:]
+print(rotation(3))
+
+def Caesar_encrypt(a:str, b:int):
+    '''encrypts an inputed string using a displacement integer'''
+    if b &gt;=25:
+        b = (b%25) - 1
+    a = a.lower()
+    transtab = a.maketrans(ALPHABET, rotation(b))
+    return a.translate(transtab)
+print(Caesar_encrypt('abc',29))
+def Caesar_decrypt(a:str, b:int):
+    ''' decrypts an inputed string '''
+    a = a.lower() 
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match141-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if b &gt;=25:
+        b = (b%25) - 1
+    reverse = a.maketrans(rotation(b),ALPHABET)
+    return a.translate(reverse)
+print (Caesar_decrypt('def', 29))
+</FONT>print('Section E.2')
+print()
+print('Already done in email')
+print()
+print('Section E.3')
+print()
+print('Implemented in E.1 / already done in E.1')
+print()
+print('----------Section F-----')
+print()
+print('Section F.1')
+print()
+a = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ,
+      "",
+       ""]
+def print_line_numbers(strings: list):
+    '''prints strings with a line number'''
+    for i in range(len(strings)):
+        print(i+1 , ":" , strings[i])
+print_line_numbers(a)
+print()
+print('Section F.2')
+print()
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match141-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats(strings: list):
+    counter = 0
+    for b in strings:
+        if b == '':
+            counter += 1
+    print("{:6}    lines in the list".format(len(strings)))
+    print("{:6}    empty lines in the list".format(counter))
+    print("{:9.2f} average characters per line".format(sum(map(len, strings))/len(strings)))
+    print("{:9.2f} average characters per non-empty line".format(sum(map(len, strings))/(len(strings)-counter)))
+</FONT>
+print(stats(a))
+print()
+print('Section F.3')
+print()
+
+def remove_punctuation(s: str) -&gt; str:
+    '''removes punctuation'''
+    punctuation = ',./;"`!@#$%^&*():?&gt;&lt;{}-_=+'
+    for i in punctuation:
+        if i in s:
+            s = s.replace(i,'')
+    return s
+print(remove_punctuation("endure."))
+def list_of_words(a: list) -&gt; list:
+    '''returns list of words in a list of lines'''
+    oldlist = []
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match141-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    newlist = []
+    for i in a:
+        oldlist += i.split()
+    for i in oldlist:
+        newlist.append(remove_punctuation(i))
+    return newlist
+</FONT>print(list_of_words(a))
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

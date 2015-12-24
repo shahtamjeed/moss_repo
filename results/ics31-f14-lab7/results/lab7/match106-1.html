@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+<TITLE>gschahal/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+psriseng/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Tod Srisengfa 74605689 and Jiayue Hua 33055076 (ICS 31 Lab 7 Assn. 7)
+
+#PART C
+import random
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match106-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_25.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def random_name() -&gt; str:
+    '''takes an int and returns a list'''
+    
+    m = open("malenames.rtf", 'r')
+    n = open("femalenames.rtf", 'r')
+    o = open("surnames.rtf", 'r')
+
+    ab = m.readlines()
+    bc = n.readlines()
+    cd = o.readlines()
+    xd = (ab+cd)
+    print('{0}, {1}'.format(str.title(str.split(cd[random.randrange(1,999)])[0]),str.title(str.split(xd[random.randrange(1,1999)])[0])))
+    m.close()
+    n.close()
+    o.close()
+</FONT>    
+
+    
+def random_names(v: int) -&gt; list:
+    '''takes an int and returns a list of the strings in the form of
+the first and last names randomly chosen from the text files containing names'''
+    result=[]
+    for i in range(v):
+        result.append(random_name())
+    return result
+
+
+#PART D
+file= open('wordlist.txt', 'r')
+datalines = file.read().split('\n')
+
+ALPHABET ='abcdefghijklmnopqrstuvwxyz'
+def encrypt(y: int) -&gt; str:
+    if y &gt; 25:
+        y = y%26
+    result = ALPHABET[y:]+ALPHABET[:y]
+    return result
+
+def Caesar_encrypt(s:str,n:int)-&gt;str:
+    table = str.maketrans(ALPHABET,encrypt(n))
+    s = s.translate(table)
+    return s
+def Caesar_decrypt(s:str,n:int)-&gt;str:
+    table = str.maketrans(encrypt(n),ALPHABET)
+    s = s.translate(table)
+    return s
+
+def Caesar_break(b: str) -&gt; str:
+    count = 0
+    cb = []
+    testcount = 0
+    testcb = []
+    for i in range(26):
+        cb.append(Caesar_decrypt(b,i))
+    for i in range(len(cb)):
+        testcb.append(0)
+        for word in cb[i].split():
+            if word in datalines:
+                testcb[i] += 1
+    print(datalines[0])
+    return cb[testcb.index(max(testcb))]
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

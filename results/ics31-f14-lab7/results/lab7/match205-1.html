@@ -1,0 +1,168 @@
+<HTML>
+<HEAD>
+<TITLE>jessih8/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+yiqiaoz1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Yiqiao Zhao 38332452 Chase LaChimia 70223338 ICS 31 Lab7 LabSec15
+
+print('=============C=================')
+from random import randrange
+def random_lastname () -&gt; str:
+    # return a random lastname
+    infile = open('surname.txt', 'r')
+    linelist = infile.readlines()
+    n = randrange(1,1000)
+    surname_list = linelist[n].split()
+    return surname_list[0]
+    infile.close()
+
+
+def random_female_firstname () -&gt; str:
+    # return a random female firstname
+    infile = open('femalename.txt', 'r')
+    linelist = infile.readlines()
+    n = randrange(1,1000)
+    surname_list = linelist[n].split()
+    return surname_list[0]
+    infile.close()
+
+
+def random_male_firstname () -&gt; str:
+    # return a random male firstname
+    infile = open('malename.txt', 'r')
+    linelist = infile.readlines()
+    infile.close()
+    n = randrange(1,1000)
+    surname_list = linelist[n].split()
+    return surname_list[0]
+    
+    
+
+def random_names(a:int)-&gt; 'list of names':
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match205-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    result = []
+    for i in range(a):
+        g = randrange(0,2)
+        if g == 0:
+            last = str(random_lastname())
+            first = str(random_female_firstname())
+            name = last[0]+last[1:].lower()+', '+first[0]+first[1:].lower()
+</FONT>        elif g == 1:
+            last = str(random_lastname())
+            first = str(random_male_firstname())
+            name = last[0]+last[1:].lower()+', '+first[0]+first[1:].lower()
+        result.append (name)
+    return result
+
+print(random_names(10))
+
+print('=============D=================')
+
+def Caesar_decrypt_all(m:str) -&gt; list:
+    m = m.lower()
+    result = []
+    ALPHABET = ('abcdefghijklmnopqrstuvwxyz')
+    for k in range(1,27): 
+        k = 26 - k
+        table = str.maketrans(ALPHABET[:],ALPHABET[k:]+ALPHABET[:k])
+        result.append(m.translate(table))
+    return result
+
+print(Caesar_decrypt_all('qjeranoepu kb ywhebknjew, enreja'))
+
+def Caesar_break (m:str) -&gt; str:
+    L = Caesar_decrypt_all(m)
+    infile = open('wordlist.txt','r')
+    str_wordlist = infile.read().lower()
+    wordlist = str_wordlist.split('\n')
+    infile.close()
+    count_list = []
+    for i in L:
+        sentence = i.split()
+        count = 0
+        for word in sentence: 
+            if word in wordlist:
+                count += 1
+        count_list.append(count)
+    number = count_list.index(max(count_list))
+    return L[number]
+
+assert Caesar_break('pidqzmndot ja xvgdajmidv, dmqdiz') == Caesar_break('kdyluhiyjo ev sqbyvehdyq, yhlydu')
+
+print(Caesar_break('qjeranoepu kb ywhebknjew, enreja'))
+print(Caesar_break('Lm xlivi'))
+
+
+print('=============E=================')
+def find_index (n:str, L:list) -&gt; int:
+    # find the index of the line include the parameter
+    num = 0
+    for i in L:
+        if n in i:
+            num += L.index(i)
+            break
+    return num
+
+infile = open('the adventures of sherlock holmes.txt', 'r', errors='ignore')
+text = infile.readlines()
+infile.close()
+assert find_index("START", text) == 18
+assert find_index("END", text) == 12693
+
+def stats(l: 'list of strings') -&gt; 'statistics':
+    format_str = '''{0:5}      lines in the list
+{1:5}      empty lines
+{2:7.3}    average characters per line
+{3:7.3}    average characters per non-empty line'''
+    number_of_lines = len(l)
+    number_of_empty_lines = l.count('\n')
+    avg_char_per_line = len(''.join(l)) / number_of_lines
+    avg_char_per_non_empty_line = len(''.join(l)) / (number_of_lines - number_of_empty_lines)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match205-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return(format_str.format(number_of_lines,number_of_empty_lines,avg_char_per_line,avg_char_per_non_empty_line))
+
+
+
+
+def copy_file (n: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    text = infile.readlines()
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if n == "line numbers":
+</FONT>        print("command: line numbers")
+        line_num = 1
+        for line in text:
+            outfile.write('{:5}: {:}'.format(line_num, line))
+            line_num += 1
+    if n.lower() == "gutenberg trim":
+        print("command: gutenberg trim")
+        start = find_index("START", text)
+        end = find_index("END", text)
+        outfile.write('\n'.join(text[start+1:end]))
+    if n.lower() == "statistics":
+        print("command: statistics")
+        outfile.write('\n'.join(text))
+        outfile.write('\n'+stats(text))
+    else:
+        print("command: none")
+        outfile.write('\n'.join(text))
+    infile.close()
+    outfile.close()
+
+
+copy_file("gutenberg trim")
+copy_file('statistics')
+
+                
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

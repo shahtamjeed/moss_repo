@@ -1,0 +1,164 @@
+<HTML>
+<HEAD>
+<TITLE>chenlo/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+chenlo/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Lawrence Chen 45945125 Ronny Duong 72954720 Lab Sec. 15
+
+print("======PART C======")
+from random import randrange
+
+#C.2
+surnames = open("surnames.txt", 'r')
+femalenames = open("femalenames.txt", 'r')
+malenames = open("malenames.txt", 'r')
+
+last_names = surnames.readlines()
+fem_names = femalenames.readlines()
+male_names = malenames.readlines()
+
+surnames.close()
+femalenames.close()
+malenames.close()
+
+#C.1
+def random_names(name_count:int) -&gt; 'list of names':
+    '''Returns a list of name_count length, containing randomly-generated names.'''
+    result = []
+    for i in range(name_count):
+        last_name = random_name(last_names) #get our last name first...
+        first_name = ''
+        if randrange(0, 1):
+            first_name = random_name(fem_names)
+        else:
+            first_name = random_name(male_names)
+
+        result.append("{}, {}".format(last_name, first_name))
+    return result
+    
+#C.3
+def random_name(name_list:'list of names'):
+    '''Returns a name chosen at random from that list.'''
+    return name_list[randrange(0, len(name_list))].split('\t')[0]
+
+print(random_names(15))
+
+print("=======PART D=======")
+
+def caesar_break(in_string:str) -&gt; str:
+    '''brute-force breaking a  Caesar cypher - by trying all possible keys and looking for the most matches.'''
+
+    dictfile = open("wordlist.txt", 'r')
+    dict_list = dictfile.read().split("\n")
+    dictfile.close()
+    
+    key_list = [None for _ in range(26)]
+
+    for key in range(26):
+        matches = 0
+        tmp_string = Caesar_decrypt(punctuation_translate(in_string), key)
+        tmp_string_list = tmp_string.split()
+        for string in tmp_string_list:
+            if string in dict_list:
+                matches += 1
+        key_list[key] = matches
+
+    truekey = key_list.index(max(key_list))
+
+    return Caesar_decrypt(in_string, truekey)  
+            
+
+ascii_letters = 'abcdefghijklmnopqrstuvwxyz'
+def Caesar_decrypt(message:str, key:int) -&gt; str:
+    '''Decrypts a message using a Caesar cypher with the given key.'''
+    caesar_table = str.maketrans(ascii_letters, alphabet_shift(-key%26))
+    return message.lower().translate(caesar_table)
+    
+def alphabet_shift(i:int) -&gt; str:
+    '''Returns a modified string with all of the characters in the alphabet
+    shifted by the given int.'''
+    return ascii_letters[i:] + ascii_letters[0:i]
+
+def punctuation_translate(x:str) -&gt; str:
+    '''return a string with all of the punctuation marks replace by spaces'''
+    trans_table = str.maketrans('\'\"[]{}!?:.*&','            ')
+    return x.translate(trans_table)
+
+assert caesar_break("ebiil qebob. qefp fp x qbpq") == "hello there. this is a test"
+print (caesar_break("Rs vkbbi qy drbyeqr dro nsmd vscd"))
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match200-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('=======PART E=======')
+
+def copy_file(in_string:str):
+    ''' Copies a file and performs various operations on the copied file.'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'a')
+</FONT>    infile_txt = infile.readlines()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match200-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if in_string == 'line numbers':
+        index = 1
+        for line in infile:
+            outfile.write('{:0}: '.format(index) + line)
+            index+=1
+    elif in_string == 'Gutenberg trim':
+        writing = False
+        for line in infile:
+            if '*** END ' in line:
+</FONT>                writing = False
+            if writing:
+                outfile.write(line)
+            if '*** START ' in line:
+                writing = True
+    elif in_string == 'statistics':
+        statistics = stats(infile_txt)
+        for line in statistics:
+            outfile.write(line + "\n")
+            print(line)
+        for line in infile_txt:
+            outfile.write(line)
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+def stats(strings:'list of str') -&gt; str:
+    '''returns stats about the list of strings'''
+    result = ''
+    lines = len(strings)
+    empty_lines = 0
+
+    for string in strings:
+        if string == '\n':
+            empty_lines += 1
+
+    total_characters = 0
+
+    for string in strings:
+        total_characters += len(string)
+
+    avg_per_line = total_characters / lines
+    avg_per_nonempty_line = total_characters / (lines - empty_lines)
+
+    result = ['{:7} lines in the list'.format(lines),
+              '{:7} empty lines'.format(empty_lines),
+              '{:7.1f} average characters per line'.format(avg_per_line),
+              '{:7.1f} average characters per non-empty line'.format(avg_per_nonempty_line)]
+
+    return result
+
+copy_file('statistics')
+print('=======PART E.1=======')
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

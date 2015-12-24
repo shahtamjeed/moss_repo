@@ -1,0 +1,167 @@
+<HTML>
+<HEAD>
+<TITLE>mesaj/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+mesaj/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Jarrett Mesa 56825917 and Chad Lei 70953265 ICS 31 Lab 11
+
+# Part c
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  $', rate)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match85-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Weekly salary:  $', hours * rate)
+
+print('Hello. What is your name?')
+name = input()
+print('Hello,', name)
+print('It\'s nice to meet you.')
+print('How old are you?')
+age = int(input())
+print('Next year you will be', age + 1, 'years old.')
+print('Good-bye!')
+
+# Part d
+print('\nPlease provide this information:')
+print('Business name:')
+busiName = input()
+print('Number of euros:')
+euros = int(input())
+print('Number of pounds:')
+pounds = int(input())
+print('Number of dollars:')
+dollars = int(input())
+</FONT>
+print('\nCopenhagen Chamber of Commerce')
+print(euros, 'euroes is', euros * 7.46, 'krone')
+print(pounds, 'pounds is', pounds * 8.81, 'krone')
+print(dollars, 'dollars is', dollars * 5.5, 'krone')
+print('\nTotal krone: ', euros * 7.46 + pounds * 8.81 + dollars * 5.5)
+
+# Part e
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+print(still_another[0])
+print(another[3])
+print((favorite[3] + another[3] + still_another[3]) / 3)
+print(favorite[2] &lt; 1900)
+
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, (26.00 * .2) + 26.00)
+
+# Part g
+booklist = [favorite, another, still_another]
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match85-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(booklist[0][3] &lt; booklist[1][3])
+print(booklist[0][2] &gt; booklist[-1][2])
+
+# Part f
+Animal = namedtuple('Animal', 'name species age weight favoriteFood')
+</FONT>elephant = Animal('Jumbo','Elephant', 50, 1000, 'peanuts')
+platypus = Animal('Perry', 'Platypus', 7, 1.7, 'shrimp')
+
+print(elephant[3] &lt; platypus[3])
+
+#Part h
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print(RC[2][0])
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match85-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(RC[0][1] == RC[3][1])
+print(RC[-1][4])
+RC.sort()
+print(RC)
+print(RC[-1][3])
+</FONT>
+RL = [RC[0], RC[1], RC[-2], RC[-1]]
+print(RL)
+
+
+# Part i
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+my_window1 = tkinter.Tk()
+
+# Square
+my_canvas = tkinter.Canvas(my_window, width=300, height=300)  # Create a 300x300 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(100, 100, 100, 300, fill='black')
+my_canvas.create_line(300, 100, 300, 300, fill='black')
+my_canvas.create_line(300, 300, 100, 300, fill='black')
+my_canvas.create_line(300, 100, 100, 100, fill='black')
+
+# Diamond
+my_canvas1 = tkinter.Canvas(my_window, width=450, height=450)
+my_canvas1.pack()
+
+my_canvas1.create_line(200, 50, 400, 250, fill='black')
+my_canvas1.create_line(0, 250, 200, 450, fill='black')
+my_canvas1.create_line(200, 50, 0, 250, fill='black')
+my_canvas1.create_line(400, 250, 200, 450, fill='black')
+
+# House
+my_canvas2 = tkinter.Canvas(my_window1, width=300, height=300)
+my_canvas2.pack()
+
+# Walls
+my_canvas2.create_line(100, 100, 100, 300, fill='black')
+my_canvas2.create_line(300, 100, 300, 300, fill='black')
+my_canvas2.create_line(300, 300, 100, 300, fill='black')
+my_canvas2.create_line(300, 100, 100, 100, fill='black')
+
+# Roof
+my_canvas2.create_line(300, 100, 200, 50, fill='black')
+my_canvas2.create_line(200, 50, 100, 100, fill='black')
+
+# Door
+my_canvas2.create_line(175, 300, 175, 225, fill='black')
+my_canvas2.create_line(225, 300, 225, 225, fill='black')
+my_canvas2.create_line(225, 225, 175, 225, fill='black')
+
+# Window
+my_canvas2.create_line(125, 200, 125, 250, fill='black')
+my_canvas2.create_line(125, 250, 150, 250, fill='black')
+my_canvas2.create_line(150, 250, 150, 200, fill='black')
+my_canvas2.create_line(150, 200, 125, 200, fill='black')
+
+# Eye
+my_canvas3 = tkinter.Canvas(my_window1, width=400, height=400)
+my_canvas3.pack()
+
+my_canvas3.create_oval(150, 150, 350, 250, fill='white')
+my_canvas3.create_oval(200, 150, 300, 250, fill='brown')
+my_canvas3.create_oval(225, 175, 275, 225, fill='black')
+
+tkinter.mainloop()          # Combine all the elements and display the window
+</PRE>
+</PRE>
+</BODY>
+</HTML>

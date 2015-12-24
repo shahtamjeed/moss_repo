@@ -1,0 +1,285 @@
+<HTML>
+<HEAD>
+<TITLE>ekhou/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kdlennon/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Kenneth Lennon 26294406 and Alfredo Pineda 73764855.
+# ICS Lab sec 5. Lab Assignment 2.
+
+# Lab Work (c)
+# Code Copied from the Assignment page.
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  ', rate)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match227-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Weekly salary:  ', hours * rate)
+print('\n')
+
+# Lab Work (c.1)
+# Modified code with alternate input() function and dollar signs.
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour?'))
+print('This many dollars per hour: $', rate)
+print('Weekly salary: $', hours * rate)
+print('\n')
+
+# Lab Work (c.2)
+name = input('Hello. What is your name? ')
+print('Hello,', name)
+print('It\'s nice to meet you.')
+age = int(input('How old are you? '))
+print('Next year you will be', age + 1, 'years old.')
+print('Good-bye!')
+print('\n')
+
+# Lab Work (d)
+# Exchange rate constants
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND = 8.81
+</FONT>KRONE_PER_US = 5.50
+
+print('Please provide this information:')
+business_name = input('Business name: ')
+euros = float(input('Number of euros: '))
+pounds = float(input('Number of pounds: '))
+dollars = float(input('Number of dollars: '))
+
+#Convert currency
+converted_euros = euros * KRONE_PER_EURO
+converted_pounds = pounds * KRONE_PER_POUND
+converted_dollars = dollars * KRONE_PER_US
+total_krone = converted_euros + converted_pounds + converted_dollars
+
+#Print new values
+print('\nCopenhagen Chamber of Commerce')
+print('Business name: ', business_name)
+print(euros, "euros is", converted_euros, 'krone')
+print(pounds, "pounds is", converted_pounds, 'krone')
+print(dollars, "dollars is", converted_dollars, 'krone')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match227-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('\nTotal krone: ', total_krone)
+print('\n')
+
+# Lab Work (e)
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+</FONT>               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+# Lab Work (e.1)
+print('Title of still_another:')
+print(still_another.title,'\n')
+
+# Lab Work (e.2)
+print('Price of Memoirs of Sherlock Holmes:')
+print(another.price,'\n')
+
+# Lab Work (e.3)
+print('Average price of all three books:')
+print((favorite.price + another.price + still_another.price) / 3,'\n')
+
+# Lab Work (e.4)
+print('Was Adventures of Sherlock Holmes published before 1900?')
+print(favorite.year &lt; 1900,'\n')
+# Lab Work (e.5)
+
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 26.00)
+print('Return of Sherlock Holmes New Price:')
+print(still_another.price,'\n')
+# Lab Work (e.6)
+
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, (26.00*1.2))
+print('Return of Sherlock Holmes Price increased by %20:')
+print(still_another.price,'\n')
+
+
+# Lab Work (f)
+Animal = namedtuple('animal', 'name species age weight food')
+elephant = Animal('Jumbo', 'Elephant', 50, 1000.0, 'peanuts')
+platypus = Animal('Perry', 'Platypus', 7, 1.7, 'shrimp')
+print('Elephant weight less than platypus weight?')
+print(elephant.weight &lt; platypus.weight,'\n')
+
+# Lab Work (g)
+booklist = [favorite, another, still_another]
+
+# Lab Work (g.1)
+print('favorite is cheaper than another?')
+print(booklist[0].price &lt; booklist[1].price,'\n')
+
+# Lab Work (g.2)
+print('favorite is more recently published than the last book?')
+print(booklist[0].year &gt; booklist[-1].year,'\n')
+
+# Lab Work (h)
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+# Lab Work (h.1)
+print('The name of the third resturaunt is:')
+print(RL[2].name)
+# Lab Work (h.2)
+print('Do the first and fourth resturaunts serve the same kind of food?')
+print(RL[0].dish == RL[3].dish,'\n')
+# Lab Work (h.3)
+print('The price of the best dish at the last resturaunt on the list is:')
+print(RL[-1].price,'\n')
+# Lab Work (h.4)
+RL.sort()
+print('The list of restaurants alphabetized is:')
+print(RL,'\n')
+# Lab Work (h.5)
+print('The best dish at the restaurant whose name is alphabetically last is:')
+print(RL[-1].dish,'\n')
+# Lab Work (h.6)
+four_restaurants = [RL[0], RL[1], RL[-2], RL[-1]]
+print(four_restaurants,'\n')
+
+# Lab Work (i)
+# Code copied from Assignment 2:
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(100, 100, 300, 300, fill='orange') # Draw orange line
+my_canvas.create_line(300, 100, 100, 300, fill='blue')   # Draw blue line
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+# Lab Work (i.1)
+# Print a blue square with sides 200 pixels long
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(100, 100, 100, 300, fill='blue') # Draw left side
+my_canvas.create_line(100, 300, 300, 300, fill='blue')   # Draw bottom side
+my_canvas.create_line(300, 300, 300, 100, fill='blue')   # Draw right side
+my_canvas.create_line(300, 100, 100, 100, fill='blue')   # Draw top side
+
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+# Lab Work (i.2)
+# Print a blue diamond with sides 200 pixels long
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(100, 200, 250, 350, fill='blue') # Draw bottom left side
+my_canvas.create_line(250, 350, 400, 200, fill='blue') # Draw bottom right side
+my_canvas.create_line(400, 200, 250, 50, fill='blue') # Draw top right side
+my_canvas.create_line(250, 50, 100, 200, fill='blue') # Draw top left side
+
+
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+# Lab Work (i.3)
+# Print a front view of a house
+# Print the outline of the house
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(100, 100, 100, 300, fill='blue') # Draw left side
+my_canvas.create_line(100, 300, 300, 300, fill='blue')   # Draw bottom side
+my_canvas.create_line(300, 300, 300, 100, fill='blue')   # Draw right side
+my_canvas.create_line(300, 100, 100, 100, fill='blue')   # Draw top side
+
+# Print the roof of the house
+my_canvas.create_line(70, 100, 200, 10, fill='blue') # Draw left side of roof
+my_canvas.create_line(200, 10, 330, 100, fill='blue') # Draw right side of roof
+my_canvas.create_line(330, 100, 70, 100, fill='blue') # Draw bottom side of roof
+
+# Print the door of the house
+my_canvas.create_line(175, 300, 175, 200, fill='blue') # Draw left side of the door
+my_canvas.create_line(175, 200, 225, 200, fill='blue') # Draw top of the door
+my_canvas.create_line(225, 200, 225, 300, fill='blue') # Draw right side of the door
+
+# Print the windows on the house
+# Print the Left Window
+my_canvas.create_line(125, 125, 125, 175, fill='blue') # Draw left side of the left window
+my_canvas.create_line(125, 175, 175, 175, fill='blue') # Draw bottom side of the left window
+my_canvas.create_line(175, 175, 175, 125, fill='blue') # Draw right side of the left window
+my_canvas.create_line(175, 125, 125, 125, fill='blue') # Draw top side of the left window
+# Print the Right Window
+my_canvas.create_line(225, 125, 225, 175, fill='blue') # Draw left side of the left window
+my_canvas.create_line(225, 175, 275, 175, fill='blue') # Draw bottom side of the left window
+my_canvas.create_line(275, 175, 275, 125, fill='blue') # Draw right side of the left window
+my_canvas.create_line(275, 125, 225, 125, fill='blue') # Draw top side of the left window
+
+# Law Work (i.4)
+# Print out a picture and an eye
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_oval(100, 200, 400, 400, fill = 'white')
+my_canvas.create_oval(150, 210, 350, 390, fill = 'blue')
+my_canvas.create_oval(185, 245, 315, 355, fill = 'black')
+
+# Lab Work (i.5)
+# Print out Solar System
+my_window = tkinter.Tk()    # Create the graphics window
+my_canvas = tkinter.Canvas(my_window, width=1500, height=1000)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+# Print out Space and the sun
+my_canvas.create_rectangle(0, 0, 1500, 1000, fill = 'black')
+my_canvas.create_oval(-500, 0, 150, 1000, fill = 'yellow')
+
+# Print out the planets
+# Print out Mercury
+my_canvas.create_oval(220, 495, 230, 505, fill = 'red')
+# Print out Venus
+my_canvas.create_oval(260, 485, 290, 515, fill = 'gold')
+# Print out Earth
+my_canvas.create_oval(330, 485, 360, 515, fill = 'light sea green')
+# Print out Mars
+my_canvas.create_oval(400, 495, 410, 505, fill = 'firebrick')
+# Print out Jupiter
+my_canvas.create_oval(460, 400, 660, 600, fill = 'sienna')
+# Print out Saturn
+my_canvas.create_oval(700, 415, 870, 585, fill = 'burlywood')
+# Print out Uranus
+my_canvas.create_oval(930, 450, 1030, 550, fill = 'sky blue')
+# Print out Neptune
+my_canvas.create_oval(1110, 450, 1210, 550, fill = 'navy')
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

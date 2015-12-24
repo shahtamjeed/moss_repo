@@ -1,0 +1,189 @@
+<HTML>
+<HEAD>
+<TITLE>biscochn/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ktyeung/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab 6.py
+# Kazuki Nakazato 68153989 and Kevin Yeung 82048082 ICS 31 Lab sec 4. Lab asst 6.
+
+#(c)
+print('part(c)')
+#(c.1)
+print('\n' + 'part(c.1)' + '\n')
+def contains(x:str, y:str) -&gt; bool:
+    '''Return True if y in x.'''
+    return y in x
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+#(c.2)
+print('\n' + 'part(c.2)' + '\n')
+def sentence_stats(x:str):
+    '''Return the number of characters and words, and the average word length.'''
+    table = str.maketrans('!@#$%^&*?&gt;&lt;:;."', '               ')
+    y = x.translate(table)
+    words = y.split()
+    average = sum((len(z)) for z in words)/len(words)
+    return print('Characters: ' + str(len(x)) + '\n' +
+                 'Words: ' + str(len(words)) + '\n' +
+                 'Average word length: ' + str(average))
+    
+#(c.3)
+print('\n' + 'part(c.3)' + '\n')
+def initials(x: str) -&gt; str:
+    '''Returns the initials of the name in all capital letters.'''
+    result = ''
+    y = x.split()
+    for i in y:
+        result += (i[0].upper())
+    return result
+
+#(d)
+print('part(d)')
+#(d.1)
+print('\n' + 'part(d.1)' + '\n')
+from random import randrange
+print('\n' + '50 Random Numbers Between 1 and 10' + '\n' + '-------------------------')
+for i in range(50):
+    print(randrange(11))
+
+print('\n' + '50 Random Dice Rolls' + '\n' + '-------------------------')
+for i in range(50):
+    print((randrange(6) + 1))
+
+#(d.2)
+print('\n' + 'part(d.2)' + '\n')
+def roll2dice():
+    '''Returns the a number that reflects the sum of two randomly rolled dice.'''
+    return (randrange(6) + 1) + (randrange(6) + 1)
+
+#(d.3)
+print('\n' + 'part(d.3)' + '\n')
+def distribution_of_rolls(x:int):
+    '''Returns the distribution of the number of rolls.'''
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match207-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    D1 = []
+    D2 = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    for i in range(x):
+        D1.append(roll2dice())
+</FONT>    for j in range(len(D2)):
+        quantity = D1.count(D2[j])
+        percentage = ((quantity/x) * 100)
+        dotGraph = quantity * '*'
+        print('{:3d} {:5d} ({:4.1f}%) {:}'.format(D2[j], quantity, percentage, dotGraph))
+    print('\n' + '-------------------------' + '\n' + '       ' + str(x) + ' rolls')
+
+distribution_of_rolls(200)
+                 
+#(e)
+print('part(e)')
+#(e.1)
+print('\n' + 'part(e.1)' + '\n')
+def Caesar_encrypt(x: str, y: int):
+    '''Return the string with each character shifted y forward.'''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match207-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    x = x.lower()
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    encrypted = ''
+    for i in x:
+        if i in alphabet:
+            encrypted = encrypted + alphabet[(alphabet.find(i) + y)%26]
+        else:
+            encrypted = encrypted + i
+    return encrypted
+
+print(Caesar_encrypt('Hello World!', 1))
+
+def Caesar_decrypt(x: str, y: int):
+</FONT>    '''Return the string with each character shifted y backward.'''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match207-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    x = x.lower()
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    encrypted = ''
+    for i in x:
+        if i in alphabet:
+            encrypted = encrypted + alphabet[(alphabet.find(i) - y)%26]
+        else:
+            encrypted = encrypted + i
+    return encrypted
+
+encryption = Caesar_encrypt('Hello World!', 1)
+</FONT>print(Caesar_decrypt(encryption, 1))
+
+#(e.2)
+print('\n' + 'part(e.2)' + '\n')
+
+#(e.3)
+print('\n' + 'part(e.3)' + '\n')
+print('The key has been set the correct range and now keys greater than 25 will wrap around.')
+
+
+#(f)
+print('part(f)')
+#(f.1)
+print('\n' + 'part(f.1)' + '\n')
+def print_line_numbers(x: [str]):
+    '''Returns each string of the list preceded by a line number.'''
+    for i in range(len(x)):
+        print(str(i + 1) + ': \t' + x[i])
+    
+Lincoln = ['Four score and seven years ago, our fathers brought forth on',
+           'this continent a new nation, conceived in liberty and dedicated',
+           'to the proposition that all men are created equal.  Now we are',
+           '   engaged in a great 		civil war, testing whether that nation, or any',
+           'nation so conceived and so dedicated, can long endure.']
+
+print_line_numbers(Lincoln)
+
+#(f.2)
+print('\n' + 'part(f.2)' + '\n')
+def stats(x: [list]):
+    '''Returns the stats for a given list of strings.'''
+    lineTotal = 0
+    nonemptyTotal = 0
+    for i in x:
+        i.split()
+        for j in i:
+            lineTotal = lineTotal + len(j)
+    average1 = lineTotal/len(x)
+    nonemptyCount = 0
+    for i in x:
+        i.split()
+        if i != " ":
+            nonemptyCount = nonemptyCount =+ 1
+            for j in i:
+                nonemptyTotal = nonemptyTotal + len(j)
+    average2 = nonemptyTotal/nonemptyCount
+    blankCount = x.count(" ")
+    lineCount = len(x)
+    return print('{:7.2f} lines in the list \n{:7.2f} empty lines \n{:7.2f} average characters per line \n{:7.2f} average characters per non-empty line \n'
+                 .format(lineCount, blankCount, average1, average2))
+
+stats(Lincoln)
+
+#(f.3)
+print('\n' + 'part(f.3)' + '\n')
+def list_of_words(x: [str]):
+    '''Return a list of indivisual words with all white spaces and punctuations removed.'''
+    L1 = []
+    L2 = []
+    table = str.maketrans('!@#$%^&*?&gt;&lt;:;,."', '                ')
+    for i in x:
+        y = i.translate(table)
+        L1.append(y)
+    for j in L1:
+        k = j.split()
+        L2.append(k)
+    return L2
+
+print(list_of_words(Lincoln))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

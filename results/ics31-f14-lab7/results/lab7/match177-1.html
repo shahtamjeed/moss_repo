@@ -1,0 +1,251 @@
+<HTML>
+<HEAD>
+<TITLE>melodc2/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+stevemt1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Steven Tran 83611188 and Joseph Basilio 2150578. ICS 31 Lab sec 2. Lab assn 7.
+
+print('-----Part C')
+print('Part 1')
+
+from random import choice
+from random import randrange
+
+infile1 = open('surnames.txt', 'r')
+infile2 = open('femalenames.txt', 'r')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match177-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+infile3 = open('malenames.txt', 'r')
+
+data1 = infile1.readlines()
+data2 = infile2.readlines()
+data3 = infile3.readlines()
+
+def list_translation(data:str) -&gt; list:
+    '''Returns a list of read file'''
+    result = [ ]
+    for i in data:
+        x = i.split('\t')
+</FONT>        result.append(x[0])
+    return result
+    
+def single_random_name() -&gt; str:
+    '''Returns a name randomly generated from txt files; (surname, firstname)'''
+    randomgender = [random_male(), random_female()]
+    return choice(randomgender), random_surname()
+
+def random_male() -&gt; str:
+    '''Returns a random male name from malenames.txt'''
+    maledata = list_translation(data3)
+    return maledata[randrange(0, len(maledata))].title()
+    
+def random_female() -&gt; str:
+    '''Returns a random female name from femalenames.txt'''
+    femaledata = list_translation(data2)
+    return femaledata[randrange(0, len(femaledata))].title()
+    
+def random_surname() -&gt; str:
+    '''Returns a random surname from surnames.txt'''
+    surnamedata = list_translation(data1)
+    return surnamedata[randrange(0, len(surnamedata))].title()
+
+def random_names(x: int) -&gt; list:
+    '''Returns a list of x amount str, randomly generated for each'''
+    result = [ ]
+    for i in range(x):
+        result.append(single_random_name())
+    return result
+
+infile1.close()
+infile2.close()
+infile3.close()
+
+print()
+print('-----Part D')
+print('Part 1')
+
+alpha1 = 'abcdefghijklmnopqrstuvwxyz'
+def alpha_rotation(alpha1: str)-&gt; str:
+    '''Rotates the alphabet 26 times'''
+    listofalpha = [ ]
+    for i in range(0, 26):
+        cipher = alpha1[i:len(alpha1)] + alpha1[0:i]
+        listofalpha.append(cipher)
+    return listofalpha
+
+alpha = alpha_rotation(alpha1)
+
+infile4 = open('wordlist.txt', 'r')
+wordlist = infile4.read().split('\n')
+
+
+def Caesar_break(s:str) -&gt; str:
+    '''Returns str if in wordlist once translated'''
+    newmess = []
+    newstr = ''
+    splits = s.split()
+    if len(splits) &gt; 1:
+        for t in splits:
+            for i in alpha:
+                table = t.maketrans(i, alpha1)
+                transmess = t.translate(table)
+                newmess.append(transmess)
+        for x in newmess:
+            if x in wordlist:
+                newstr += x + ' '
+    else:
+        for i in alpha:
+            table = s.maketrans(i, alpha1)
+            transmess = s.translate(table)
+            newmess.append(transmess)
+        for x in newmess:
+            if x in wordlist:
+                newstr += x
+    return newstr
+
+assert Caesar_break('tufwfo') == 'steven'
+assert Caesar_break('ernyybpngvba') == 'reallocation'
+
+print()
+print('Part 2')
+
+stevenmess = 'ernyybpngvba bssrafr'
+print(Caesar_break(stevenmess))
+
+josephmess = 'fmfqibou fbut tufwfo'
+print(Caesar_break(josephmess))
+
+infile4.close()
+
+print()
+print('-----Part E')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match177-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Part 1')
+
+def copy_file() -&gt; None:
+    '''Copies the file'''
+    infile_name = input("Please enter the name of file to copy:  ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+</FONT>        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+print()
+print('Part 2')
+
+def copy_file2(string: str) -&gt; None:
+    '''if string == 'line numbers', adds line numbers to file, otherwise copies the file'''
+    if string == 'line numbers':
+        infile_name = input("Please enter the name of the file to add line numbers: ")
+        infile = open(infile_name, 'r', errors = 'ignore')
+        newfile = infile.readlines()
+        newlist = [ ]
+        formatstr = '{0:5} {1:} {2:}'
+        for i in range(len(newfile)):
+                new = formatstr.format(i + 1, ':', newfile[i], '\n')
+                newlist.append(new)
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for x in newlist:
+            outfile.write(x)
+        infile.close()
+        outfile.close()
+    else:
+        infile_name = input("Please enter the name of file to copy:  ")
+        infile = open(infile_name, 'r', errors = 'ignore')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+
+
+print()
+print('Part 3')
+
+def copy_file3(string: str) -&gt; None:
+    '''If string == 'Gutenburg trim', takes out unnecessary text, otherwise makes a copy of the file'''
+    if string == 'Gutenburg trim':
+        infile = open('pg1661.txt', 'r', errors = 'ignore')
+        newfile = infile.readlines()
+        newlist = [ ]
+        dividing_line = False
+        for line in newfile:
+            if dividing_line:
+                newlist.append(line)
+            if line == '*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n':
+                dividing_line = True
+            if line == '*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n':
+                dividing_line = False
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for y in newlist:
+            outfile.write(y)
+        infile.close()
+        outfile.close()
+    else:
+        infile_name = input("Please enter the name of file to copy:  ")
+        infile = open(infile_name, 'r', errors = 'ignore')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+
+print()
+print('Part 4')
+
+def stats(n:list) -&gt; None:
+    '''Prints lines in the list, empty lines, average character per line,
+    and average characters per non-empty line'''
+    formatstr = '{:5}    {:} {:4}    {:} {:7.2f} {:} {:7.2f} {:}'
+    total_lines = 0
+    total_lines += len(n)
+    empty_lines = 0
+    for i in n:
+        if i == '\n':
+            empty_lines += 1
+    avg_char_line = 0
+    for i in n:
+        avg_char_line += len(i)/len(n)
+    avg_char_non_empty_line = 0
+    for i in n:
+            avg_char_non_empty_line += len(i)/(len(n) - empty_lines)
+    print(formatstr.format(total_lines, 'lines in the list\n',
+          empty_lines, 'empty lines\n',
+          avg_char_line, 'average character per line\n',
+          avg_char_non_empty_line, 'average character per non-empty line'))
+
+def copy_file4(string: str) -&gt; None:
+    '''If string == 'statistics', prints out number of lines, empty lines, average characters, average or non-empty lines, 
+       otherwise copies a text file'''
+    if string == 'statistics':
+        infile_name = input("Please enter the name of file to get stats:  ")
+        infile = open(infile_name, 'r', errors = 'ignore')
+        newfile = infile.readlines()
+        stats(newfile)
+        infile.close()
+    else:
+        infile_name = input("Please enter the name of file to copy:  ")
+        infile = open(infile_name, 'r', errors = 'ignore')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

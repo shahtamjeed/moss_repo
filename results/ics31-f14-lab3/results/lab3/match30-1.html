@@ -1,0 +1,369 @@
+<HTML>
+<HEAD>
+<TITLE>akriebel/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+sbrames/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab3.py
+# Sean Brames 50064897 & Yizhou Jin 65573304. ICS 31 Lab sec 2.
+
+#
+#
+print('---------- Part (c-1) ----------')
+print()
+#
+#
+
+
+def abbreviate(s: str) -&gt; str:
+    return s[0]+s[1]+s[2] 
+
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+print(abbreviate('March')) # Test Statement
+print()
+
+#
+#
+print('---------- Part (c-2) ----------')
+print()
+#
+#
+
+def find_area_square(n: int) -&gt; int:
+    return n ** 2
+
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+print(find_area_square(12))
+print()
+
+#
+#
+print('---------- Part (c-3) ----------')
+print()
+#
+#
+
+def find_area_circle(n: int) -&gt; float:
+    return (n ** 2) * 3.14159
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+print(find_area_circle(7))
+print()
+
+#
+#
+print('---------- Part (c-4) ----------')
+print()
+#
+#
+
+def print_even_numbers(l: list) -&gt; int:
+    for i in l:
+        if i%2 == 0:
+            print(i)
+        else:
+            pass
+
+test_list = [2, 47, 31, 99, 20, 19, 23, 105, 710, 1004] # Test List
+print_even_numbers(test_list) # Test Function
+print()
+
+#
+#
+print('---------- Part (c-5) ----------')
+print()
+#
+#
+
+def calculate_shipping(i: int) -&gt; str:
+    if i &lt; 2:
+        return 2
+    elif 10 &gt; i &gt;= 2:
+        return 5
+    else:
+        return 5+(i-10)*1.5
+
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+print(calculate_shipping(1)) # Test Statement
+print(calculate_shipping(8)) # Test Statement
+print(calculate_shipping(17)) # Test Statement
+print()
+
+#
+#
+print('---------- Part (c-6) ----------')
+print('Tkinter problems.')
+print()
+#
+#
+
+import tkinter 
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas.pack()
+
+def create_square(x: int, y: int, length: int):
+    my_canvas.create_rectangle(x, y, x+length, y+length, fill='orange')
+    
+create_square(50, 50, 300) # We tested this with different values.
+tkinter.mainloop()
+
+#
+#
+# c-7
+#
+#
+
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas.pack()
+
+def create_circle(x: int, y: int, diameter: int):
+    my_canvas.create_oval(x, y, x+diameter, y+diameter, fill='blue')
+    
+create_circle(100, 100, 200) # We tested this with different values.
+tkinter.mainloop()
+
+
+#
+#
+# Restaurant List
+#
+#
+
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Name of restaurant, type of food it serves, phone number, best dish, price of said dish. 
+
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#
+#
+print('---------- Part (d-1) ----------')
+print()
+#
+#
+
+def restaurant_price(n: Restaurant) -&gt; float:
+    return n.price
+
+assert restaurant_price(RL[0]) == 12.50 
+assert restaurant_price(RL[-1]) == 10.50
+assert restaurant_price(RL[2]) == 25.50
+
+print(restaurant_price(RL[3]))
+print(restaurant_price(RL[4]))
+print(restaurant_price(RL[5]))
+print()
+
+#
+#
+print('---------- Part (d-2) ----------')
+print()
+#
+#
+
+RL.sort(key=restaurant_price)
+print(RL)
+print()
+
+#
+#
+print('---------- Part (d-3) ----------')
+print()
+#
+#
+
+def costliest(n: Restaurant):
+    n.sort(key=restaurant_price)
+    return n[-1].name
+
+print(costliest(RL))   
+print()
+    
+#
+#
+print('---------- Part (d-4) ----------')
+print()
+#
+#   
+
+def costliest2(n: Restaurant):
+    sorted(n)
+    return n[-1].name
+
+print(costliest2(RL))   
+print()
+
+#
+#
+print('---------- Part (e-1) ----------')
+print()
+#
+#   
+
+Book = namedtuple('Book', 'author title genre year price instock')
+
+BSI = [
+    Book("Tim A.", "The Adventures of the Cat", "Fiction", 1920, 3.50, 6),
+    Book("Arthur B.", "Comoputer: How To", "Technology", 2010, 13.00, 9),
+    Book("Andrew C.", "Pyro", "Science Fiction", 1999, 8.50, 2),
+    Book("Carl D.", "The House", "Non-Fiction", 1940, 4.50, 27),
+    Book("Frank E.", "Dogs", "Documentary", 1993, 2.50, 20),
+    Book("Amanda F.", "City Lights", "Technology", 2001, 9.75, 4)]
+    
+for Book in BSI:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match30-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_13.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print(Book.title)
+print()
+
+#
+#
+print('---------- Part (e-2) ----------')
+print()
+#
+#   
+
+BSI2 = [ ]
+for x in range(len(BSI)):
+    BSI2.append(BSI[x].title)
+    BSI2.sort()
+for y in range(len(BSI2)):
+    print(BSI2[y])
+print()
+
+#
+#
+print('---------- Part (e-3) ----------')
+print()
+#
+#  
+
+for x in range(len(BSI)):
+    new_price = BSI[x].price * 1.1
+    BSI[x] = BSI[x]._replace(price=new_price) 
+print(BSI)
+print()
+
+#
+#
+print('---------- Part (e-4) ----------')
+print()
+#
+#
+
+for x in range(len(BSI)):
+    if BSI[x].genre == 'Technology':
+        print(BSI[x].title)
+print()
+
+#
+#
+print('---------- Part (e-5) ----------')
+print()
+#
+#
+
+pre_2000_list = [ ]
+post_2000_list = [ ]
+
+def add_books_in_list(book_list: list) -&gt; int:
+    total = 0
+    for x in range(len(book_list)):
+        total = total + book_list[x]
+    return total
+assert add_books_in_list([2, 6, 4]) == 12
+</FONT>assert add_books_in_list([2, 1, 2]) == 5
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match30-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+
+for x in range(len(BSI)):
+    if BSI[x].year &lt; 2000:
+        pre_2000_list.append(BSI[x].instock)
+    elif BSI[x].year &gt;= 2000:
+        post_2000_list.append(BSI[x].instock)
+
+print('More titles before 2000 (',
+</FONT>      add_books_in_list(pre_2000_list), 'vs.',
+      add_books_in_list(post_2000_list), ').')
+print()
+
+#
+#
+print('---------- Part (e-6) ----------')
+print()
+#
+#
+
+def inventory_value(n: Book) -&gt; float:
+    return n.price * n.instock
+
+print(inventory_value(BSI[1])) # Note that this is taking prices from the
+print()                        # list of books with prices raised 10%.
+
+def top_value(n: list) -&gt; str:
+    top_value_list = [ ]
+    for x in range(len(BSI)):
+        top_value_list.append(BSI[x])
+    top_value_list.sort(key=inventory_value)
+    return top_value_list[-1]
+
+print(top_value(BSI))
+print()
+
+print('The highest-value book is', top_value(BSI).title,
+      'by', top_value(BSI).author, 'at a value of $',
+      inventory_value(BSI[3]), '.')
+print()
+
+#
+#
+print('---------- Part (f) ----------')
+print('Tkinter problems.')
+#
+# 
+
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas.pack()
+
+def create_face(x: int, y: int, diameter: int):
+    my_canvas.create_oval(x, y, x+diameter, y+diameter, fill='yellow')
+def create_eye(x: int, y: int, diameter: int):
+    my_canvas.create_oval(x, y, x+diameter, y+diameter, fill='white')
+    my_canvas.create_oval(x+30, y+30, x+diameter-25, y+diameter-25, fill='blue')
+    my_canvas.create_oval(x+20, y+20, x+diameter-15, y+diameter-15, fill='black')
+def create_mouth(x: int, y: int, x2: int, y2: int):
+    my_canvas.create_oval(x, y, x2, y2, fill='black')   
+
+create_face(100, 100, 300)
+create_eye(170, 180, 40)
+create_eye(290, 180, 40)
+create_mouth(200, 315, 300, 315)
+
+tkinter.mainloop()
+
+
+    
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,242 @@
+<HTML>
+<HEAD>
+<TITLE>alvinvn/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+heina/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+#HEIN AUNG 94085225 and Ramazan Mahmut Gunduz 49595373, ICS Lab 13 ,Assignment 6
+#1
+print('______________________________________________')
+print('[#C.1]')
+def contains(a:str,b:str)-&gt;bool:
+        '''Checks if second string occurs in the first string'''
+        return b in a
+        
+assert contains('banana', 'ana')==True  
+assert contains('racecar', 'ck')==False
+
+#2
+print('______________________________________________')
+print('[#C.2]')
+def sentence_stats(a:str)-&gt;str:
+        '''Prints out statistics about the string'''
+        print('Characters: ',character_count(a),'\n'+
+          'Words: ',words_count(a),'\n'+
+          'Average word lengths: ',average_word_length(a))
+
+def character_count(a:str)-&gt;int:
+    return len(a)
+
+def count_without_space(a:str)-&gt;int:
+    space=' '
+    no_space=''
+    for i in a:
+        if i not in space:
+           no_space=no_space+i
+    return len(no_space)
+    
+def non_punctuation(a:str)-&gt;str:
+    punctuations = '''!()-[]{};:'"\,&lt;&gt;./?@#$%^&*_~'''
+    non_punc=''
+    for i in a:
+
+        if i not in punctuations:
+            non_punc=non_punc+i
+    return non_punc
+
+def words_count(a:tuple)-&gt;int:
+    return len(non_punctuation(a).split())
+    
+def average_word_length(a:str)-&gt;int:
+    return count_without_space(non_punctuation(a))/(words_count(a))
+
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+print()
+
+sentence_stats('I love UCI')
+
+#3
+print('______________________________________________')
+print('[#C.3]')
+def initials(a:str)-&gt;str:
+        word_list=a.split()
+        word_str=''
+        for i in word_list:
+              word_str+=i[0].capitalize()
+        return word_str
+                
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+print(initials('Bill Cosby blah blahh'))
+
+#d1
+print('______________________________________________')
+print('[#D.1]')
+from random import randrange
+list=[]#I made it a list because printing out 50 numbers each line looks messy.
+for i in range(50):
+        list.append(randrange(0,11))                                     
+print(list)
+
+list2=[]
+for i in range(50):
+        list2.append(randrange(1,7))
+print(list2)
+
+#d2
+print('______________________________________________')
+print('[#D.2]')
+def roll2dice()-&gt;list:
+        return(randrange(1,7)+(randrange(1,7)))
+        #the question only asks a number to be returned
+print(roll2dice())
+
+#TEST by calling it 50 times
+list=[]
+for i in range(50):
+        list.append(randrange(1,7)+(randrange(1,7)))
+print(list)
+
+
+
+#d3
+print('______________________________________________')
+print('[#D.3]')
+def distribution_of_rolls(n:int)-&gt;str:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match141-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_13.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        dice_num=[]
+        freq_list=[]
+        num_list=[]
+        star_list=[]
+        percent_list=[]
+        for i in range(n):
+                num_list.append(randrange(1,7)+(randrange(1,7)))
+        for i in range(2,13):
+                freq_list.append(num_list.count(i))
+                dice_num.append(i)
+        for i in range(len(freq_list)):
+                star_list.append('*'*freq_list[i])
+        for i in range(11):
+                percent_list.append((freq_list[i]*100)/n)
+                
+        for i in range(11):
+                print("{:2}: {:5} ({:6.2f}%) {:1}".format(dice_num[i],freq_list[i],percent_list[i],star_list[i]))
+</FONT>        print('-------------------------------')
+        print('  ',n,' rolls')
+
+distribution_of_rolls(200)
+distribution_of_rolls(100)
+
+#e1
+print('______________________________________________')
+print('[#E.1]')
+alphabets='abcdefghijklmnopqrstuvwxyz'
+def rotation(n:int)-&gt;str:
+        '''rotate the alphabet'''
+        newstring=alphabets
+        for i in range(n):
+                newstring+=newstring[i]
+        return newstring[n:]
+
+
+def Caesar_encrypt(s:str,n:int)-&gt;str:
+        '''Encrypt s'''
+        s=s.lower()
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match141-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        if n&gt;25:
+                n=(n%25)-1
+        trantab=s.maketrans(alphabets,rotation(n))
+        return s.translate(trantab)
+        
+print(Caesar_encrypt('hello',2))
+</FONT>print(Caesar_encrypt("ILOVEYOU",2))
+print(Caesar_encrypt('hello',28)) # returns the same result as when n=2
+
+def Caesar_decrypt(s:str,n:int)-&gt;str:
+        s=s.lower()
+        if n&gt;25:
+                n=(n%25)-1
+        reverse=s.maketrans(rotation(n),alphabets)
+        return s.translate(reverse)
+
+print(Caesar_decrypt('jgnnq',2))
+print(Caesar_decrypt('knqxgaqw',2))
+print(Caesar_decrypt('jgnnq',28)) # returns the same result as when n=2
+
+#e2
+print('______________________________________________')
+print('[#E.2]')
+print('We tried encrypting and decrypting by sending the "key" through email and it worked')               
+      
+#e3
+print('______________________________________________')
+print('[#E.3]')
+print('Checked it in e.1')
+
+#f.1
+print('______________________________________________')
+print('[#F.1]')
+a=[ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+def print_line_numbers(s:list)-&gt;str:
+        for a in range(len(s)):
+                        print("{:2}: {:}".format(a+1,s[a]))
+print_line_numbers(a)
+
+#f.2
+print('______________________________________________')
+print('[#F.2]')
+
+a2=[ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ,
+     "",""]
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match141-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats(s:list)-&gt;str:
+        count=0
+        for i in s:
+                if i=='':
+                        count+=1
+        print("{:6} lines in the list".format(len(s)))
+        print("{:6} empty lines".format(count))
+        print("{:6.2f} average characters per line".format(sum(map(len,s))/len(s)))
+        print("{:6.2f} average characters per non-empty line".format(sum(map(len,s))/len(s)))
+</FONT>
+stats(a2)
+#f.3
+print('______________________________________________')
+print('[#F.3]')
+def remove_punctuations(s: str)-&gt;str:
+        punctuations=',./:;"`!@#$%^&*(){}|\''
+        for i in punctuations:
+                if i in s:
+                        s=s.replace(i,'')
+        return s
+
+def list_of_words(s:list):
+        list1=[]
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match141-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        list2=[]
+        for i in s:
+                list1+=(i.split())
+        for i in list1:
+                list2.append(remove_punctuations(i))
+        return list2        
+</FONT>print(list_of_words(a))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

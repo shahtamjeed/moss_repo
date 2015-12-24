@@ -1,0 +1,205 @@
+<HTML>
+<HEAD>
+<TITLE>scbabu/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+swwillia/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+#Shawn Williams 79146390 Quang To 60564034 ICS 31 Lab 2
+
+#Part C
+
+hours = int(input('How many hours? '))
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print("This many dollars per hour: ", "$", rate)
+print("Weekly salary: $", hours * rate)
+print('')
+
+
+name = input("Hello. What is your name?: ")
+print('Hello ' + name)
+print("It's nice to meet you.")
+age = input("How old are you? ")
+print("Next year you will be " + str(int(age) + 1) + " years old.")
+print('')
+
+#Part D
+
+print('Please provide this information: ')
+business_name = input('Business name: ')
+euros = float(input("Number of euros: ")) 
+pounds = float(input("Number of pounds: "))
+dollars = float(input(("Number of dollars: ")))
+euros_krone = euros * 7.46
+pounds_krone = pounds * 8.81
+dollars_krone = dollars * 5.50
+print('')
+print("Copenhagen Cambert of Commerce")
+print("Business name: " + business_name)
+print('€' + str(euros) + ' is ' + str(euros_krone) + ' krone')
+print('£' + str(pounds) + ' is ' + str(pounds_krone) + ' krone')
+print('$' + str(dollars) + ' is ' + str(dollars_krone) + ' krone')
+print('')
+print('Total krone: ' + str(euros_krone + pounds_krone + dollars_krone))
+
+#Part E
+
+from collections import namedtuple
+
+Book = namedtuple('Book', 'title author year price')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match70-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+favorite = Book('Adventures of Sherlock Homles', 'Arthur Conan Dyole', 1892, 21.50)
+another = Book('Memoirs of sherlock Homles', 'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes', 'Arthur Conan Dyole', 1905, 25.00)
+
+print("The title of the book in the variable still_another is:")
+print(still_another.title)
+print('')
+print("The price of the book Memoirs of Sherlock Holmes is:")
+</FONT>print(still_another.price)
+print('')
+print("The average price of all three books is:")
+print((favorite.price + another.price + still_another.price) / 3)
+print('')
+print("The publication year of the book in the variable favorite is before 1900")
+print(favorite.year &lt; 1900)
+print('')
+
+still_another = Book('Return of Sherlock Holmes', 'Arthur Conan Dyole', 1905, 26.00)
+print("The price of the book Return of Sherlock Holmes is now: $" + str(still_another.price))
+still_another = Book('Return of Sherlock Holmes', 'Arthur Cona Dyole', 1905, (26.00 * 0.3) + 26.00)
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match70-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print("The price of the book Return of Sherlock Holmes has changed again to: $" + str(still_another.price))
+print('')
+
+# Part G
+booklist = [favorite, another, still_another]
+print("The first book on the list is cheaper than the second book on the list")
+print(booklist[1].price &lt; booklist[2].price)
+</FONT>print('')
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match70-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print("The first book on the list is more recently published than the last book on the list")
+print(booklist[1].year &gt; booklist[-1].year)
+print('')
+
+#Part F
+
+Animal = namedtuple('Animal', 'age species weight food')
+i = Animal(50, 'elephant', 1000, 'peanuts')
+</FONT>ii = Animal(7, 'platypuss', 1.7, 'shrimp')
+print("The weight of the animal represented by the first variable is less than the weight of the animal represented by the second variable")
+print(i.weight &lt; ii.weight)
+
+#Part H
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match70-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print("Name of the third restaurant on the list")
+print(RL[2].name)
+print("")
+print("The first and fourth restraunts serve the same kind of food")
+</FONT>print(RL[1].dish == RL[4].dish)
+print("")
+print("The price of the best dish at the last restaurant on the list")
+print("$" + str(RL[-1].price) + " at " + RL[-1].name)
+print("")
+RL.sort()
+print("The list of restaurants, arranged alphabetically by restaurant name")
+print(RL[0].name + " " + RL[1].name + " " + RL[2].name + " " + RL[4].name + " " + RL[5].name + " " + RL[6].name)
+for r in RL[0:3]:
+    print(r.name)
+
+print("The best dish at the restaurant whose name is alphabetically last")
+print(RL[-1].dish + " at " + RL[-1].name)
+print("")
+print("A list containing the first two restaurants alphabetically and the last two restaurants alphabetically")
+RL2 = [RL[0].name, RL[1].name, RL[-2].name, RL[-1].name]
+print(RL2)
+
+#Part I
+
+import tkinter             
+
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas.pack()
+
+my_canvas.create_line(100, 100, 300, 100, fill='pink')
+my_canvas.create_line(100, 100, 100, 300, fill='pink')
+my_canvas.create_line(300, 100, 300, 300, fill='pink')
+my_canvas.create_line(300, 300, 100, 300, fill='pink')
+
+
+my_window1 = tkinter.Tk()
+my_canvas1 = tkinter.Canvas(my_window1, width=500, height=500)
+my_canvas1.pack()
+
+my_canvas1.create_line(300, 100, 500, 300, fill='purple') 
+my_canvas1.create_line(300, 100, 100, 300, fill='purple')   
+my_canvas1.create_line(100, 300, 300, 500, fill='purple')   
+my_canvas1.create_line(500, 300, 300, 500, fill='purple')
+
+my_canvas2 = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas2.pack()
+
+
+my_canvas2.create_line(250, 50, 100, 150, fill='pink')
+my_canvas2.create_line(250, 50, 400, 150, fill='pink')
+my_canvas2.create_line(100, 150, 400, 150, fill='pink')
+my_canvas2.create_line(100, 400, 100, 150, fill='pink')
+my_canvas2.create_line(400, 400, 400, 150, fill='pink')
+my_canvas2.create_line(100, 400, 400, 400, fill='pink')
+
+my_canvas2.create_line(150, 250, 150, 400, fill='pink')
+my_canvas2.create_line(250, 250, 250, 400, fill='pink')
+my_canvas2.create_line(150, 250, 250, 250, fill='pink')
+my_canvas2.create_oval(175, 325, 180, 330, fill='pink')
+
+my_canvas2.create_line(300, 250, 375, 250, fill='pink')
+my_canvas2.create_line(300, 250, 300, 350, fill='pink')
+my_canvas2.create_line(375, 250, 375, 350, fill='pink')
+my_canvas2.create_line(300, 350, 375, 350, fill='pink')
+my_canvas2.create_line(300, 300, 375, 300, fill='pink')
+my_canvas2.create_line(340, 350, 340, 250, fill='pink')
+
+my_window2 = tkinter.Tk()
+my_canvas3 = tkinter.Canvas(my_window2, width=500, height=500)
+my_canvas3.pack()
+
+my_canvas3.create_oval(100, 100, 400, 200, fill='white')
+my_canvas3.create_oval(200, 100, 300, 200, fill='blue')
+my_canvas3.create_oval(240, 140, 260, 160, fill='black')
+
+my_window3 = tkinter.Tk()
+my_canvas4 = tkinter.Canvas(my_window3, width=500, height=500)
+my_canvas4.pack()
+my_canvas4.create_rectangle(100, 100, 250, 400, fill='white')
+my_canvas4.create_rectangle(105, 150, 245, 350, fill='black')
+my_canvas4.create_oval(154, 354, 196, 396)
+my_canvas4.create_rectangle(125, 125, 225, 125)
+
+tkinter.mainloop()
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

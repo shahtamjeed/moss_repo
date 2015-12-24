@@ -1,0 +1,194 @@
+<HTML>
+<HEAD>
+<TITLE>melodc2/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+pktrieu/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Preston Trieu 54157991 and Andrew Govea 34956736 Lab 7 Section 10
+
+#
+#
+# Part (c)
+#
+#
+'''
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c) ----------')
+print()
+'''
+#c1
+from random import randrange
+
+infile = open("malenames.txt", 'r')
+malenames = infile.read()
+infile.close
+
+infile = open("femalenames.txt", 'r')
+femalenames = infile.read()
+infile.close
+
+infile = open("surnames.txt", 'r')
+surnames = infile.read()
+infile.close
+
+table = str.maketrans("0987654321.,", "            ")
+malenames = malenames.translate(table)
+femalenames = femalenames.translate(table)
+surnames = surnames.translate(table)
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match202-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+malenames_list = malenames.split()
+femalenames_list = femalenames.split()
+surnames_list = surnames.split()
+
+
+def caps(L: list) -&gt; list:
+    '''Takes list of strings and returns with list of strings with first letter in uppercase'''
+    result = []
+    for x in L:
+        result.append(x.capitalize())
+</FONT>    return result
+
+malenames_list = caps(malenames_list)
+femalenames_list = caps(femalenames_list)
+surnames_list = caps(surnames_list)
+
+def random_name() -&gt; str:
+    '''Generates a random name using the lists of male and female names with the list of surnames'''
+    choice = randrange(0,2)
+    if choice == 0:
+        firstname_list = malenames_list
+    else:
+        firstname_list = femalenames_list
+    firstname = firstname_list[randrange(0, len(firstname_list))]
+    surname = surnames_list[randrange(0, len(surnames_list))]
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match202-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return (firstname + ' ' + surname)
+
+def random_names(N: int) -&gt; list:
+    '''Generates specified number of random names'''
+    result = []
+    for x in range(N):
+        result.append(random_name())
+</FONT>    return result
+
+#
+#
+# Part (d)
+#
+#
+'''
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (d) ----------')
+print()
+'''
+#d1
+
+infile = open("wordlist.txt", 'r')
+wordlist = infile.read()
+infile.close
+
+wordlist = wordlist.split()
+
+ALPHABET  = "abcdefghijklmnopqrstuvwxyz"
+
+def Caesar_decrypt(encryption: str, key: int) -&gt; str:
+    '''Given encrypted string, decrypts using key'''
+    table = str.maketrans(ALPHABET[key:]+ALPHABET[:key], ALPHABET)
+    stringy = encryption.translate(table)
+    return stringy
+
+def Caesar_break(S: str) -&gt;str:
+    '''Runs encrypted string through 26 keys to decrypt it'''
+    for x in range(27):
+       decrypt = Caesar_decrypt(S, x)
+       for y in decrypt.split():
+            if y in wordlist:
+                return decrypt
+assert Caesar_break("mfboob mjlft up esjol dibnpnjmf ufb") == "leanna likes to drink chamomile tea"
+print(Caesar_break("bmjwj itjx ymnx ittw lt?"))
+#
+#
+# Part (e)
+#
+#
+'''
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (e) ----------')
+print()
+'''
+
+
+#e1
+def copy_file(s:str):
+    '''Copies file and depending on input(str) writes line numbers, trims "housekeeping", or statistics with new file'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    line_number =0
+#e2
+    if s == 'line numbers':
+        for line in infile:
+                line_number +=1
+                outfile.write("{0:5}:    {1:}".format(line_number, line))
+#e3
+    elif s == 'Gutenberg trim':
+        found = False
+        for line in infile:
+            if "*** END" in line:
+                break
+            if found:
+                outfile.write(line)
+            if "*** START" in line:
+                found = True
+#e4
+    elif s == "statistics":
+        string_list = []
+        for line in infile:
+            string_list.append(line)
+            outfile.write(line)
+        lines = len(string_list)
+        characters = 0
+        non_empty_characters = 0
+        empty_lines = 0
+        non_empty= 0
+        for x in string_list:
+             characters += len(x)
+             if x.isspace() == False:
+                 non_empty_characters += len(x)
+             if x.isspace():
+                 empty_lines += 1
+             else:
+                 non_empty += 1
+        avg_characters =  characters/lines
+        avg_non_empty = non_empty_characters/non_empty
+        outfile.write("\n{0:5}  lines in the list\n".format(lines))
+        outfile.write("{0:5.1f}  empty lines\n".format(empty_lines))
+        outfile.write("{0:5.1f}  average characters per line\n".format(avg_characters))
+        outfile.write("{0:5.1f}  average characters per non-empty line\n".format(avg_non_empty))
+
+                
+    else:
+        for line in infile:
+            outfile.write(line)                
+    infile.close()
+    outfile.close()
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+copy_file("statistics")
+
+    
+    
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

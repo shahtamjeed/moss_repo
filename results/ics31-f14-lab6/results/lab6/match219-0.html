@@ -1,0 +1,189 @@
+<HTML>
+<HEAD>
+<TITLE>akazim/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+akazim/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+#Gustavo Lopez 88346812 and Andrew Kazim 94932747.  ICS 31 Lab sec 11.  Lab asst 6.
+
+#PART C
+print('----------C----------')
+#(c.1)
+print('-----c.1-----')
+def contains(first, second: str) -&gt; bool:
+    '''returns True if the second is found in the first'''
+    return second in first
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+print("'ana' in 'banana':", contains('banana', 'ana'))
+print("'ck' in 'racecar':", contains('racecar', 'ck'))
+
+#(c.2)
+print('-----c.2-----')
+def sentence_stats(string: str):
+    '''prints info about the string: char length, word length, avg length of each word'''
+    print('Characters: ', len(string))
+    table = str.maketrans('*?!:.;,', '       ')
+    string = string.translate(table)
+    new_list = string.split()
+    print('Words: ', len(new_list))
+    total = 0
+    for w in new_list:
+        total += len(w)
+    print('Average word length: ', total / len(new_list))
+    return
+print("I like sentence stats.")
+sentence_stats("I like sentence stats.")
+
+#(c.3)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match219-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('-----c.3-----')
+def initials(name: str) -&gt; str:
+    '''returns initials of the name in all caps'''
+    name = name.upper()
+    name_in_list = name.split()
+    initial_string = ''
+    for w in name_in_list:
+        initial_string += w[0]
+</FONT>    return initial_string
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+print('Gustavo Lopez initials:', initials('Gustavo Lopez'))
+print('Andrew Kazim initials:', initials('Andrew Kazim'))
+
+#PART D
+print('----------D----------')
+from random import randrange
+
+#(d.1)
+print('-----d.1-----\nFifty Random Numbers from 0 to 10:')
+for i in range(50):
+    print(randrange(11))
+print()
+
+print('Fifty Random Numbers from 1 to 6:')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match219-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+for i in range(50):
+    print(randrange(1, 7))
+print()
+
+#(d.2)
+print('-----d.2-----\nFifty rolls of 2 Dice:')
+def roll2dice() -&gt; int:
+    '''rolls 2 dice and returns the sum'''
+    return randrange(1, 7) + randrange(1, 7)
+
+for i in range(50):
+    print(roll2dice())
+</FONT>
+#(d.3)
+print('-----d.3-----')
+def distribution_of_rolls(number: int):
+    '''prints stats about the number of rolls'''
+    roll_list = []
+    for i in range(number):
+        roll_list.append(roll2dice())
+
+    for t in range(2, 13):
+        count = roll_list.count(t)
+        print('{0:2d}: {1:5d} ({2:4.1f}%) {3:15s}'.format(t, count, (count / len(roll_list)) * 100, count * '*'))
+    print('-----------------------------\n', '\t', number, 'rolls')
+    return
+distribution_of_rolls(200)
+
+#PART E
+#(e.1)
+print('----------E----------')
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+print('-----e.1-----')
+def rotate_alphabet(number: int) -&gt; str:
+    '''returns a rotated alphabet based on the key given'''
+    if number &gt; 26:
+        number = number % 26 #(e.3) in this if statement
+    return ALPHABET[number:] + ALPHABET[:number]
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match219-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_encrypt(message: str, key: int) -&gt; str:
+    '''returns ciphertext out of the message using the key'''
+    message = message.lower()
+    key_table = str.maketrans(ALPHABET, rotate_alphabet(key))
+    return message.translate(key_table)
+assert Caesar_encrypt('testing', 1) == 'uftujoh'
+assert Caesar_encrypt('more assert', 0) == 'more assert'
+</FONT>    
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match219-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_decrypt(message: str, key: int) -&gt; str:
+    '''returns plaintext (OG message) using the key'''
+    message = message.lower()
+    key_table = str.maketrans(rotate_alphabet(key), ALPHABET)
+    return message.translate(key_table)
+assert Caesar_decrypt('uftujoh', 1) == 'testing'
+assert Caesar_decrypt('more assert', 0) == 'more assert'
+</FONT>
+print("'Hello World!' encrypted with key = 7 is", Caesar_encrypt('Hello World!', 7))
+print("'olssv dvysk!' decrypted with key = 7 is", Caesar_decrypt('olssv dvysk!', 7))
+
+#(e.2)
+print('-----e.2-----')
+print("Gustavo's message encrypted: ", Caesar_encrypt('We are good programmers', 3))
+print("Gustavo's message decrypted: ", Caesar_decrypt('zh duh jrrg surjudpphuv', 3))
+print("Andrew's message encrypted: ", Caesar_encrypt('I like turtles', 21))
+print("Andrew's message decrypted: ", Caesar_decrypt('d gdfz opmogzn', 21))
+
+#PART F
+print('----------F----------')
+list_of_strings = [ "Four score and seven years ago, our fathers brought forth on",
+                    "this continent a new nation, conceived in liberty and dedicated",
+                    "to the proposition that all men are created equal.  Now we are",
+                    "   engaged in a great 		civil war, testing whether that nation, or any",
+                    "nation so conceived and so dedicated, can long endure.        " ]
+
+#(f.1)
+print('-----f.1-----')
+def print_line_numbers(string_list: list):
+    '''prints a number before each string in the list'''
+    for i in range(len(string_list)):
+        print("{:2d}: {}".format((i + 1), string_list[i]))
+print_line_numbers(list_of_strings)
+
+#(f.2)
+print('-----f.2-----')
+def stats(str_list: list):
+    '''prints stats of the string'''
+    print("{:2d} {}".format(len(str_list), 'lines in the list'))
+    print("{:2d} {}".format(str_list.count(''), 'empty lines'))
+    total = 0
+    for i in str_list:
+        total += len(i)
+    print("{:2.0f} {}".format(total / len(str_list), 'average characters per line'))
+    new_length = 0
+    for i in str_list:
+        if i != '':
+            new_length += 1
+    print("{:2.0f} {}".format(total / new_length, 'average characters per non-empty line'))       
+    return
+stats(list_of_strings)
+
+#(f.3)
+print('-----f.3-----')
+def list_of_words(str_list: list) -&gt; list:
+    '''returns a list of individual words with whitespace and punctuation removed (except ' &lt;- that)'''
+    table = str.maketrans('*?!:.;,',
+                          '       ')
+    word_list = []
+    for i in str_list:
+        word_list.extend(i.translate(table).split())
+    return word_list
+print(list_of_words(list_of_strings))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,220 @@
+<HTML>
+<HEAD>
+<TITLE>nadelros/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+phillian/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Phillip Nguyen 15629150 & Collin Pham 77702561. ICS 31 Lab sec 5. Lab Asst 2.
+
+# C
+print('Part C')
+
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  $', rate)
+print('Weekly salary:  $', hours * rate)
+
+# C.1
+print('\nPart C.1')
+
+hours = int(input('How many hours? '))
+print('This many hours: ', hours)
+rate = int(input('How many dollars per hour?'))
+print('This many dollars per hour:  $', rate)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match233-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Weekly salary:  $', hours * rate)
+
+# C.2
+print('\nPart C.2')
+
+print('Hello. What is your name?')
+name = str(input())
+print('Hello, ', name)
+print("It's nice to meet you.")
+print('How old are you?')
+age = int(input())
+print('Next year you will be', age + 1,'years old.')
+print('Good-bye!')
+
+# D
+print('\nPart D')
+
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND = 8.81
+KRONE_PER_DOLLAR = 5.5
+</FONT>
+print('Please provide this information:')
+name = str(input('Business name:  '))
+euros = float(input('Number of euros:  '))
+pounds = float(input('Number of pounds:  '))
+dollars = float(input('Number of dollars:  '))
+
+print('\nCopenhagen Chamber of Commerce')
+print('Business name:  ', name)
+print(euros, 'euros is', KRONE_PER_EURO * euros, 'krone')
+print(pounds, 'pounds is', KRONE_PER_POUND * pounds, 'krone')
+print(dollars, 'dollars is', KRONE_PER_DOLLAR * dollars, 'krone')
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match233-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('\nTotal krone:  ', (KRONE_PER_EURO * euros)
+    + (KRONE_PER_POUND * pounds)
+    + (KRONE_PER_DOLLAR * dollars))
+
+# E
+print('\nPart E')
+
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+</FONT>               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+booklist = [favorite, another, still_another]
+
+print(still_another.title)
+print(another.price)
+print((favorite.price + another.price + still_another.price) / 3)
+print(favorite.year &lt; 1900)
+print(another.year &lt; 1900)
+print(still_another.year &lt; 1900)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 26.00)
+print(still_another.price)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, (26.00 * .2) + 26.00)
+print(still_another.price)
+
+# F
+print('\nPart F')
+
+Animal = namedtuple('Animal', 'name species age weight food')
+elephant = Animal('Jumbo', 'elephant', 50, 1000, 'peanuts')
+platypus = Animal('Perry', 'platypus', 7, 1.7, 'shrimp')
+
+print(elephant.weight &lt; platypus.weight)
+
+# G
+print('\nPart G')
+
+print(booklist[0].price &lt; booklist[1].price)
+print(booklist[0].year &gt; booklist[-1].year)
+
+# H
+
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print('\nPart H.1')
+print(RL[2].name)
+
+print('\nPart H.2')
+print(RL[0].cuisine == RL[3].cuisine)
+
+print('\nPart H.3')
+print(RL[-1].price)
+
+print('\nPart H.4')
+RL.sort()
+print(RL)
+
+print('\nPart H.5')
+print(RL[-1].dish)
+
+print('\nPart H.6')
+list = (RL[0], RL[1], RL[-2], RL[-1])
+print(list)
+
+# I
+print('\nPart I - Split into 5 individual windows')
+
+import tkinter              # Load the library; do this just once per program
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+# I.1 - SQUARE
+my_canvas.create_line(100, 100, 100, 300, fill='orange')
+my_canvas.create_line(300, 100, 300, 300, fill='blue')
+my_canvas.create_line(100, 100, 300, 100, fill='red')
+my_canvas.create_line(100, 300, 300, 300, fill='green')
+
+# I.2 - DIAMOND
+my_window = tkinter.Tk()
+my_canvas2 = tkinter.Canvas(my_window, width=500, height=500) 
+my_canvas2.pack()
+
+my_canvas2.create_line(200, 100, 100, 300, fill='orange')
+my_canvas2.create_line(200, 100, 300, 300, fill='blue')
+my_canvas2.create_line(100, 300, 200, 500, fill='red')
+my_canvas2.create_line(300, 300, 200, 500, fill='green')
+
+# I.3 - HOUSE
+my_window = tkinter.Tk()
+my_canvas3 = tkinter.Canvas(my_window, width=500, height=500) 
+my_canvas3.pack()
+
+    # square section of house
+my_canvas3.create_line(100, 100, 100, 300, fill='orange')
+my_canvas3.create_line(300, 100, 300, 300, fill='blue')
+my_canvas3.create_line(100, 100, 300, 100, fill='red')
+my_canvas3.create_line(100, 300, 300, 300, fill='green')
+
+    # roof of house
+my_canvas3.create_line(100, 100, 200, 1, fill='red')
+my_canvas3.create_line(300, 100, 200, 1, fill='red')
+
+    # door & doorknob of house
+my_canvas3.create_rectangle(160, 200, 240, 300, fill='black')
+my_canvas3.create_oval(225, 250, 235, 260, fill='white')
+
+    # window of house
+my_canvas3.create_rectangle(160, 125, 240, 175, fill='black')
+my_canvas3.create_line(200, 125, 200, 175, fill='white')
+my_canvas3.create_line(160, 150, 240, 150, fill='white')
+
+# I.4 - EYE
+my_window = tkinter.Tk()
+my_canvas4 = tkinter.Canvas(my_window, width=500, height=500) 
+my_canvas4.pack()
+
+my_canvas4.create_oval(200, 200, 400, 300, fill='black')
+my_canvas4.create_oval(250, 200, 350, 300, fill='white')
+my_canvas4.create_oval(275, 220, 325, 280, fill='blue')
+
+# I.5 - iPhone
+my_window = tkinter.Tk()
+my_canvas5 = tkinter.Canvas(my_window, width=500, height=500) 
+my_canvas5.pack()
+
+my_canvas5.create_rectangle(25, 25, 225, 350, fill="black")
+my_canvas5.create_rectangle(35, 65, 215, 310, fill="light slate gray")
+my_canvas5.create_oval(110, 315, 140, 345, fill='white')
+my_canvas5.create_rectangle(120, 325, 130, 335, fill="black")
+my_canvas5.create_rectangle(105, 50, 145, 55, fill="white")
+my_canvas5.create_oval(120, 35, 130, 45, fill='white')
+
+
+tkinter.mainloop()  # Combine all the elements and display the window
+</PRE>
+</PRE>
+</BODY>
+</HTML>

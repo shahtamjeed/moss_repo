@@ -1,0 +1,205 @@
+<HTML>
+<HEAD>
+<TITLE>crabadan/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+crabadan/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab2.py
+#Christian Rabadan 95045211 & Niky Dang 94909076. ICS 31 Lab sec 9. Lab Asst 2.
+
+## C 
+
+'''
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  ', rate)
+print('Weekly salary:  ', hours * rate)
+
+## C1
+#####################modified
+
+hours = int(input('How many hours?'))
+print ('This many hours: ', hours)
+rate = int(input('How many dollars per hour?'))
+print ('This many dollars per hour: $', rate)
+print ('Weekly salary: $', hours*rate)
+
+##C2
+##################### Alice Anteater
+
+name = str(input('Hello. What is your name?'))
+print ('Hello,', name)
+print ('It\'s nice to meet you.')
+age = int(input('How old are you?'))
+print ('Next year you will be', (age+1), 'years old.')
+print ('Good-bye!')
+
+##D
+##################### Businesses' Currency
+
+ 1 Euro = 7.46 Krone, 1 B.Pound = 8.81 Krone, $1 = 5.50 Krone
+
+Krone_P_Euro = 7.46
+Krone_P_Pound = 8.81
+Krone_P_Dollar = 5.50
+
+print ('Please provide this information:')
+print ('What is your business name?')
+business = str(input())
+print ('How many Euros does your company hold?')
+euro = float(input())
+print ('How many British Pounds does your company hold?')
+pound = float(input())
+print ('How many U.S. dollars does your company hold?')
+dollar = float(input())
+total = ((euro*Krone_P_Euro)+(pound*Krone_P_Pound)+(dollar*Krone_P_Dollar))
+
+print ('Copenhagen Chamber of Commerce')
+print ('Business name:', business)
+print ( euro, 'euros is', euro*Krone_P_Euro, 'krone.')
+print ( pound,'pounds is', pound*Krone_P_Pound, 'krone.')
+print ( dollar, 'dollars is', dollar*Krone_P_Dollar, 'krone.')
+print ('Total krone:', total)
+'''
+
+from collections import namedtuple
+
+##E(1-6)
+##################### Sherlock Holmes
+
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match103-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+print(still_another[0])
+print (another[-1])
+print (((still_another[-1])+(another[-1])+(favorite[-1]))/3)
+</FONT>print (favorite.title, 'was printed before 1900,',favorite[-2] &lt; 1900)
+
+
+##G(1-2)
+
+booklist = [favorite, another, still_another] 
+print ('Book 1 is less than Book 2,', booklist[0][-1] &lt; booklist[1][-1])
+
+
+Book = namedtuple('Book', 'title author year price')
+still_another1 = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 26.00)
+print(still_another[-1])
+
+Book = namedtuple('Book', 'title author year price')
+still_another2 = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 26.00*0.2+26.00)
+print(still_another[-1])
+
+
+## F
+##################### Animals
+
+Animal = namedtuple('Animal', 'name species age weight favfood')
+elephant = Animal('Jumbo', 'elephant', 50, 1000, 'peanuts')
+platypus = Animal('Perry', 'platypus', 7, 1.7, 'shrimp')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match103-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print (elephant.name, 'weighs less than', platypus.name,',', elephant[-2] &lt; platypus[-2])
+
+## H(1-6)
+###################### Restaurants
+
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+</FONT>    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print('The name of the thirs restaurant on the list is:', RL[2][0])
+print('The first and the fourth restaurants serve the same kind of food:',RL[0][1] == RL[3][1])
+print('The price of (the best dish at) the last restaurant on the list:',RL[6][-1])
+RL.sort()
+print(RL[0].name,',',RL[1].name,',',RL[2].name,',',RL[3].name,',',RL[4].name,',',RL[5].name,',',RL[6].name)
+print('The best dish at the restaurant whose name is alphabetically last:',RL[-1].name,',',RL[-1][-2])
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match103-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+NRL = [RL[0].name,RL[1].name,RL[-2].name,RL[-1].name]
+NRL.sort()
+print(NRL)
+
+
+
+## I(1-5)
+###################### tkinter Shapes
+import tkinter            
+my_window = tkinter.Tk()
+
+
+my_canvas = tkinter.Canvas(my_window, width=1000, height=1000)
+my_canvas.pack()
+</FONT>
+
+#### square
+
+my_canvas.create_line(25, 25, 225, 25, fill='orange')
+my_canvas.create_line(225, 25, 225, 225, fill='orange')
+my_canvas.create_line(225, 225, 25, 225, fill='orange')
+my_canvas.create_line(225, 25, 225, 225, fill='orange')
+my_canvas.create_line(25, 225, 25, 25, fill='orange')
+
+#### diamond
+
+my_canvas.create_line(450, 25, 591, 166, fill='orange')
+my_canvas.create_line(450, 25, 309, 166, fill='orange')
+my_canvas.create_line(309, 166, 450, 307, fill='orange')
+my_canvas.create_line(450, 307, 591, 166, fill='orange')
+
+#### house
+
+my_canvas.create_polygon(225, 325, 25, 400, 425, 400, fill='red')
+my_canvas.create_rectangle(25, 400, 425, 600, fill='tan')
+my_canvas.create_rectangle(50, 450, 150, 600, fill='brown')
+my_canvas.create_rectangle(225, 450, 350, 550, fill='sky blue')
+my_canvas.create_oval(125, 540, 135, 530, fill='gold')
+
+### eye
+
+my_canvas.create_oval(500, 450, 650, 525, fill='white')
+my_canvas.create_oval(540, 450, 610, 525, fill='brown')
+my_canvas.create_oval(555, 470, 595, 510, fill='black')
+my_canvas.create_oval(535, 490, 575, 450, fill='white')
+my_canvas.create_oval(585, 500, 600, 515, fill='orange')
+
+### Smartphone
+
+my_canvas.create_rectangle(750, 25, 975, 400, fill='white')
+my_canvas.create_rectangle(760, 55, 965, 350, fill='black')
+my_canvas.create_oval(885, 380, 835, 360, fill='white')
+my_canvas.create_rectangle(840, 30, 895, 35, fill='grey')
+my_canvas.create_oval(905, 30, 900, 35, fill='blue')
+my_canvas.create_oval(915, 30, 910, 35, fill='black')
+my_canvas.create_oval(930, 30, 940, 40, fill='black')
+my_canvas.create_text(868, 45, text='SAMSUNG', fill='grey', font='impact')
+
+tkinter.mainloop()
+
+
+      
+</PRE>
+</PRE>
+</BODY>
+</HTML>

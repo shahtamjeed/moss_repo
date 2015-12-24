@@ -1,0 +1,196 @@
+<HTML>
+<HEAD>
+<TITLE>mitchc1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+mitchc1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Mitchell Chan 63266718 and Serjohn Pascual 49634953.  ICS 31 Lab 10, Asst. 7
+
+print()
+print('---------- Part (c) ----------')
+print()
+
+print('---c.1---')
+print()
+from random import randrange
+
+def first_list() -&gt; list:
+    'Returns lists of names'
+    male = open('malenames.txt', 'r')
+    female = open('femalenames.txt', 'r')
+    final = male.read() + female.read()
+    male.close()
+    female.close()
+    return final
+def last_list() -&gt; list:
+    'Returns lists of names'
+    last = open('surnames.txt', 'r')
+    final2 = last.read()
+    return final2
+def random_names(number: int) -&gt; list:
+    'Returns a list of names equal to the input'
+    abc = 'abcdefghijklmnopqrstuvwxyz'
+    ABC = abc.upper()
+    abcABC = ABC + abc
+    new_last = []
+    new_first = []
+    stemp  = ''
+    firsts = first_list() + '.'
+    lasts = last_list() + '.'
+    randoms = []
+    for x in range(len(firsts)):
+        if firsts[x] in abcABC:
+            stemp += firsts[x]
+        if firsts[x] not in abcABC and stemp != '':
+            new_first.append(stemp)
+            stemp = ''
+    for x in range(len(lasts)):
+        if lasts[x] in abcABC:
+            stemp += lasts[x]
+        if lasts[x] not in abcABC and stemp != '':
+            new_last.append(stemp)
+            stemp = ''
+    for i in range(number):
+        randoms.append(new_last[randrange(1, len(new_last) + 1)] + ', ' + new_first[randrange(1, len(new_first) + 1)])
+    return randoms
+
+print(random_names(1))
+print(random_names(2))
+print(random_names(5))
+
+print()
+print('---------- Part (d) ----------')
+print()
+
+print('---d.1---')
+print()
+
+def rotate (key: int) -&gt; str:
+    'Rotates the alphabet forward by key'
+    abc = 'abcdefghijklmnopqrstuvwxyz'
+    result = ''
+    key %= 26
+    for x in range(len(abc)):
+        if x + key &gt; 25:
+            result += abc[x-26+key]
+        else:
+            result += abc[key + x]
+    return result
+
+def Caesar_encrypt(plaintext: str, key: int) -&gt; str:
+    'Returns the ciphertext'
+    abc = 'abcdefghijklmnopqrstuvwxyz'
+    newabc = rotate(key)
+    x = str.maketrans(abc, newabc)
+    return plaintext.translate(x)
+
+diction = open("wordlist.txt", 'r')
+dictionary = diction.read().lower().split()
+
+def Caesar_break(cypher:str) -&gt;str:
+    "Returns the plaintext of the given cyphertext without the need of a key"
+    abc = 'abcdefghijklmnopqrstuvwxyz'
+    new_cypher = cypher.split()
+    possible = []
+    final = []
+    plaintext = ''
+    for key in range(len(abc)):
+        newabc = rotate(key)
+        x = str.maketrans(abc, newabc)
+        for y in range(len(new_cypher)):
+            possible.append(new_cypher[y].translate(x))
+    for z in possible:
+        if z.lower() in dictionary:
+            final.append(z)
+    for u in final:
+        plaintext += u + ' '
+    return(plaintext)
+
+v = Caesar_encrypt("Irvine California State Anteater School", randrange(1,27))
+b = Caesar_encrypt("The United States of America", randrange(1, 27))
+print(v)
+print(b)
+
+print(Caesar_break(v))
+print(Caesar_break(b))
+
+print()
+print('---------- Part (e) ----------')
+print()
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match53-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_18.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def empty_lines(a: [str]) -&gt; int:
+    '''returns the number of empty lines in the list of strings'''
+    count = 0
+    for i in a:
+        if i.isspace() == True or i == '':
+            count +=1
+    return count
+
+def characters(a: [str]) -&gt; float:
+    '''returns the average characters per line of a list of strings'''
+    total_characters = 0
+    for x in a:
+        total_characters += len(x)
+    return total_characters / len(a)
+    
+
+def characters_empty(a: [str]) -&gt;float:
+    '''returns the average characters per non-empty line'''
+    new_list = []
+    for i in a:
+        if i != '':
+            if i.isspace() == False:
+                new_list.append(i)
+    total_characters = 0 
+    for x in new_list:
+        total_characters += len(x)
+    return total_characters / len(new_list)
+
+def stats(a: [str]):
+    ''' Prints stats of the specified list of strings'''
+    print('{0:7}   lines in the list \n{1:7}   empty lines \n {2:8.1f} average characters per line \n {3:8.1f} average characters per non_empty line'.format(len(a), empty_lines(a), characters(a), characters_empty(a)))
+
+def copy_file(command: str):
+</FONT>    "Copies the input; if form is 'line numbers', copied input's format is changed "
+    
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if command == 'line numbers':
+        lines = infile.readlines()
+        for a in range(len(lines)):
+            numbers = '{:5}: {}'.format(a, lines[a])
+            outfile.write(numbers)
+    elif command == 'Gutenberg trim':
+        lines = infile.readlines()
+        for x in range(len(lines)):
+            if '*** START ' in lines[x]:
+                begin = x + 1
+        for y in range(len(lines)):
+            if '*** END ' in lines[y]:
+                end = y-1
+        trimmed = ''
+        for t in range(begin, end):
+            trimmed += lines[t]
+        outfile.write(trimmed)
+    elif command == 'statistics':
+        lines = infile.readlines()
+        for line in infile:
+            outfile.write(lines)
+        stats(lines)
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+    
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

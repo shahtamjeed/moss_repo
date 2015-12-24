@@ -1,0 +1,183 @@
+<HTML>
+<HEAD>
+<TITLE>hongkunc/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kdahlin/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7copy.py
+#Kyle Dahlin 49586260 and Adiel Flores 75947180. ICS 31 Lab sec 7.  Lab asst 7.
+from random import randrange
+
+print('\n')
+print('------------Part C------------\n')
+
+#
+#
+#Part C
+#
+#
+
+def random_name(filename: str)-&gt; str:
+    '''returns a random name from a file given in the parameter'''
+    file = open(filename, 'r')
+    names = []
+    for line in file:
+        split_line = line.split()
+        names.append(split_line[0])
+    return names[randrange(len(names))]
+
+print(random_name('malenames.txt'))
+        
+def random_names(num: int)-&gt; [str]:
+    '''Return a list of random names with a size given by the parameter'''
+    result = []
+    for x in range(num):
+        if randrange(2) == 0:
+            filename = 'malenames.txt'
+        else:
+            filename = 'femalenames.txt'
+        name = random_name('surnames.txt') + ", " + random_name(filename)
+        result.append(name)
+    return result
+
+print('List of 50 random names')
+print(random_names(50))
+
+print('\n')
+print('------------Part D------------\n')
+
+#
+#
+#Part D
+#
+#
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate_alphabet(key: int)-&gt;str:
+    '''"Rotates" an alplahbet by a given number(key)'''
+    if key &gt;= 26:
+        key = key % 26
+    new_start = alphabet[key:]
+    new_end = alphabet[:key]
+    return new_start + new_end
+
+def Caesar_encrypt(message: str, key: int)-&gt;str:
+    '''Encrpyt the alphabet into ciphertext by a given key'''
+    new_alpha = rotate_alphabet(key)
+    return message.lower().translate(str.maketrans(alphabet, new_alpha))
+
+def Caesar_decrypt(message: str, key: int)-&gt;str:
+    '''Decrypt a message into plaintext by a given key'''
+    new_alpha = rotate_alphabet(key)
+    return message.lower().translate(str.maketrans(new_alpha, alphabet))
+
+def Caesar_break(text: str)-&gt;str:
+    '''Breaks a caesar cipher by checking all possible keys'''
+    wordfile = open('wordlist.txt', 'r')
+    english_words = wordfile.readlines()
+    for x in range(len(english_words)):
+        english_words[x] = english_words[x].strip() 
+    highest_count = 0
+    result = ''
+    for x in range(26):
+        new_text = Caesar_decrypt(text, x)
+        words = new_text.split()
+        english_count = 0
+        for word in words:
+            if word in english_words:
+                english_count += 1
+        if english_count &gt; highest_count:
+            result = new_text
+            highest_count = english_count
+    wordfile.close()
+    return result
+
+print(Caesar_break(Caesar_encrypt('This is the message', 4)))
+
+
+print('\n')
+print('------------Part E------------\n')
+
+#
+#
+#Part E
+#
+#
+
+def stats(s: list)-&gt;str:
+    '''returns a list of words of all words in a string of lists'''
+    result = ''
+    result += str(len(s)).ljust(8) + 'lines in the list\n'
+    empty_lines = 0
+    for x in s:
+        if x == '':
+            empty_lines += 1
+    result += str(empty_lines).center(8) + 'empty lines\n'
+    total = 0
+    for line in s:
+        total += len(line)
+    average = total/len(s)
+    result += "%7.1f average characters per line\n" %(average)
+    total = 0
+    for line in s:
+        if line != '':
+            total += len(line)
+    average = total/len(s)
+    result += "%7.1f average characters per non empty line\n"%(average)
+    return result
+
+def copy_file(option: str):
+    '''Takes a file and returns a copy of that file with an optional parameter'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if(option == 'line numbers'):
+        line_number = 0
+        for line in infile:
+            outfile.write("%5d: "%(line_number) + line)
+            line_number += 1
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match156-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    elif(option == 'Gutenberg trim'):
+        start_point = 0
+        end_point = 0
+        lines = infile.readlines()
+        for x in range(len(lines)):
+            if('*** START' in lines[x]):
+                start_point = x
+            elif('*** END' in lines[x]):
+                end_point = x
+                break
+</FONT>        for y in range(start_point + 1, end_point):
+            outfile.write(lines[y])
+    elif(option == 'statistics'):
+        lines = infile.readlines()
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match156-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        outfile.write(stats(lines))
+        for line in lines:
+            outfile.write(line)
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+</FONT>    outfile.close()
+
+print('This is the test for the line number option')
+copy_file('line numbers')
+print('This is the test for the gutenberg trim option')
+copy_file('Gutenberg_trim')
+print('This is the test for the stats option')
+copy_file('statistics')
+
+
+
+
+        
+</PRE>
+</PRE>
+</BODY>
+</HTML>

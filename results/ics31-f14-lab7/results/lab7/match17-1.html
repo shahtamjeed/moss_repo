@@ -1,0 +1,231 @@
+<HTML>
+<HEAD>
+<TITLE>dchung5/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+nichodn2/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab7.py
+# Nicholas Nguyen 30204317 and Cong Wu 68989333. Lab sec 16. asst 7.
+
+#
+#
+# Part C
+#
+#
+
+print()
+print()
+print('---------- Part (C) ----------')
+print()
+
+print()
+print('----- TESTING FILES -----')
+print()
+
+print()
+print('--- Surnames ---')
+print()
+
+infile = open("/Users/Nick/Desktop/Lab7/Surnames.txt", 'r')
+Surnames_data = infile.readlines()
+print(Surnames_data[1:10])
+infile.close()
+
+print()
+print('--- Females ---')
+print()
+
+infile = open("/Users/Nick/Desktop/Lab7/Females.txt", 'r')
+Females_data = infile.readlines()
+print(Females_data[1:10])
+infile.close()
+
+print()
+print('--- Males ---')
+print()
+
+infile = open("/Users/Nick/Desktop/Lab7/Males.txt", 'r')
+Males_data = infile.readlines()
+print(Males_data[1:10])
+infile.close()
+
+print()
+print('----- file_splitter -----')
+print()
+
+def file_splitter(file: list) -&gt; list:
+    result = []
+    for n in file:
+        string = n.split('\t')
+        result.append(string[0])
+    return result
+print(file_splitter(Surnames_data[1:35]))
+
+print()
+print('*****----- Section (C1, C2, C3) -----*****')
+print()
+
+print()
+print('---------- *** random_names *** ----------')
+print()
+
+
+from random import randrange
+def random_names(num: int) -&gt; list:
+    result = []
+    for n in range(num):
+        i = randrange(1,1001)
+        last_name = file_splitter(Surnames_data)[i]
+        if randrange(0,2) == 0:
+            j = randrange(1,1001)
+            first_name = file_splitter(Females_data)[j]
+        else:
+            j = randrange(1,1001)
+            first_name = file_splitter(Males_data)[j]
+        full_name = ''
+        full_name = last_name + ', ' + first_name
+        result.append(full_name)
+    return result
+print(random_names(3))
+print()
+print(random_names(5))
+print()
+print(random_names(10))
+print()
+
+#
+#
+# Part D
+#
+#
+
+print()
+print()
+print('---------- Part (D) ----------')
+print()
+
+print()
+print('----- TESTING ENCRYPT -----')
+print()
+
+def rotated_alphabet(shift:int) -&gt; str:
+    result_lower = 'abcdefghijklmnopqrstuvwxyz'
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match17-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    result_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    result_lower += result_lower[:shift]
+    result_lower = result_lower[shift:len(result_lower)]
+    result_upper += result_upper[:shift]
+    result_upper = result_upper[shift:len(result_upper)]
+    return result_lower + result_upper
+
+def Caesar_encrypt(message:str, shift:int) -&gt; str:
+</FONT><A NAME="2"></A><FONT color = #0000FF><A HREF="match17-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    table = str.maketrans('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', rotated_alphabet(shift % 26))
+    return message.translate(table)
+
+print(Caesar_encrypt('Dogs make best friends.', 9))
+
+def Caesar_decrypt(message: str, shift: int) -&gt; str:
+</FONT>    table = str.maketrans(rotated_alphabet(shift % 26),'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    return message.translate(table)
+
+infile = open("/Users/Nick/Desktop/Lab7/Dictionary.txt", 'r')
+wordlist = infile.read()
+infile.close()
+
+print()
+print('*****----- Section (D1, D2) -----*****')
+print()
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match17-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_44.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_break(ciphertext:str) -&gt; str:
+    wordcount = 0
+    maxcount = 0
+    for n in range(26):
+        temp = 0
+        for i in range(len(Caesar_decrypt(ciphertext, n).split())):
+            if Caesar_decrypt(ciphertext, n).split()[i] in wordlist:
+               temp += 1
+        if temp &gt; wordcount:
+            wordcount = temp
+            maxcount = n
+    return Caesar_decrypt(ciphertext, maxcount)
+print(Caesar_break('Mxpb vjtn knbc oarnwmb.'))
+assert Caesar_break('Mxpb vjtn knbc oarnwmb.') == 'Dogs make best friends.'
+
+
+#
+#
+# Part E
+#
+#
+
+print()
+print()
+print('---------- Part (E) ----------')
+print()
+
+print()
+print('*****----- Section (E1) -----*****')
+print()
+
+def copy_file(s:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    file_list = infile.readlines()
+    if s=="line numbers":
+        for i in range(len(file_list)):
+            outfile.write('{:5d}:'.format(i) + (file_list[i]))
+    infile.close()
+    outfile.close()
+
+print()
+print('*****----- Section (E2, E3, E4) -----*****')
+print()
+
+def copy_file(string: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    line_list = infile.readlines()
+    if string == "line numbers":
+        for i in range(len(line_list)):
+            outfile.write('{:5d}:'.format(i) + (line_list[i]))
+    elif string == 'Gutenberg trim':
+        start = 0
+        end = 0
+        for i in range(len(line_list)):
+            if '*** START' in line_list[i]:
+                start = i
+                break
+        for i in range(len(line_list)):
+            if '*** END' in line_list[i]:
+                end = i
+                break
+        for i in range(start + 1, end):
+            outfile.write(line_list[i])
+    elif string == 'statistics':
+        characters = 0
+        for line in line_list:
+            characters += len(line)
+        print('{:5d}   lines in the file'.format(len(line_list)) + '\n'
+              '{:5d}   empty lines'.format(line_list.count('')) + '\n'
+              '{:7.1f} average characters per line'.format(characters / len(line_list)) + '\n'
+              '{:7.1f} average characters per non-empty line'.format(characters / (len(line_list) - line_list.count(''))))
+    else:
+        for line in infile:     
+                outfile.write(line)
+    infile.close()
+    outfile.close()
+</FONT>copy_file('statistics')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

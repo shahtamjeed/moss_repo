@@ -1,0 +1,154 @@
+<HTML>
+<HEAD>
+<TITLE>cjmendes/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+cjmendes/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Christopher Mendes 29382524. Ramazan Gunduz 49595373. ICS 31 Lab sec 13. Lab asst 7.
+
+#
+#
+# Part (c)
+#
+#
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match15-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_64.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()  
+print()
+print('---------- Part (c) ----------')
+print()
+
+from random import randrange
+
+def random_names(num: int) -&gt; [str]:
+    list_names = []
+    f_open = open("surnames.txt", 'r')
+    surname = f_open.readlines()
+    f_open.close()
+    f_open = open("femalenames.txt", 'r')
+    female_names = f_open.readlines()
+    f_open.close()
+    f_open = open("malenames.txt", 'r')
+    male_names = f_open.readlines()
+    f_open.close()
+    for x in range(num):
+        full_name = ""
+        rand = randrange(1, (len(surname)+1))
+        one_surname = surname[rand].split()
+        if randrange(1,3) == 1:
+            rand_fem = randrange(1, (len(female_names)+1))
+            one_femname = female_names[rand_fem].split()
+            full_name = one_surname[0].capitalize() + ', ' + one_femname[0].capitalize()
+        else:
+            rand_male = randrange(1, (len(male_names)+1))
+            one_malename = male_names[rand_male].split()
+            full_name = one_surname[0].capitalize() + ', ' + one_malename[0].capitalize()
+        list_names.append(full_name)   
+    return list_names
+
+print(random_names(10))
+
+
+#
+#
+# Part (d)
+#
+#
+
+print()  
+print()
+print('---------- Part (d) ----------')
+print()
+
+def rotated(a: int) -&gt; str:
+    ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+    if a &gt;= 26:
+        a = a % 26
+    result = ALPHABET[a: 26] + ALPHABET[:a]
+    return result
+
+def Caesar_decrypt(s: str, x: int) -&gt; str:
+    decrypt = str.maketrans(rotated(x), rotated(0))
+    result = s.lower().translate(decrypt)
+    return result
+
+def Caesar_break(text: str) -&gt; str:
+    wordlist = []
+    f_open = open("wordlist.txt", 'r')
+    wordlist = f_open.read().splitlines()
+    f_open.close()
+    key_phrase = ''
+    for x in range(0,26):
+        count = 0
+        cipher = Caesar_decrypt(text, x).split()
+        for y in range(0, len(cipher)):
+            if cipher[y] in wordlist:
+                count += 1
+        if count &gt; 0:
+            key_phrase = Caesar_decrypt(text, x)
+    return key_phrase
+
+
+#
+#
+# Part (e)
+#
+#
+
+print()  
+print()
+print('---------- Part (e) ----------')
+print()    
+
+def copy_file(option: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+</FONT>    outfile = open(outfile_name, 'w')
+    if option == 'line numbers':
+        line_num = 1
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match15-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        for line in infile:
+            outfile.write("{:5d}. {:}".format(line_num, line))
+            line_num += 1
+    elif option == 'Guttenberg trim':
+        story = []
+        for line in infile:
+</FONT>            if line.startswith('*** END'):
+                break
+            story.append(line)
+        for i in range(0, len(story)):
+            if story[i].startswith('*** START'):
+                for x in range(i+1 , len(story)):
+                    outfile.write(story[x])
+    elif option == 'statistics':
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match15-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_17.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        a = 0
+        b = 0
+        c = 0
+        for line in infile:
+            outfile.write(line)
+            a += 1
+            i = line.strip()
+            if len(i) == 0:
+                b += 1
+            else:
+                c += len(i)
+        outfile.write('\n\n{:6}   lines in the file'.format(a))
+        outfile.write('\n{:6}   empty lines'.format(b))
+        outfile.write('\n{:8.1f} average characters per line'.format(c / a))
+        outfile.write('\n{:8.1f} average characters per non-empty line'.format(c / (a - b)))
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+</FONT></PRE>
+</PRE>
+</BODY>
+</HTML>

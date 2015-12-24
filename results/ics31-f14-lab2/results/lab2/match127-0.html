@@ -1,0 +1,217 @@
+<HTML>
+<HEAD>
+<TITLE>cramire5/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+cramire5/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+#       Christian Ramirez 77826425 and Juan Manuel Barba 71449970. ICS 31 Lab sec 14. Lab Asst 2.
+
+# Part c of Lab
+
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:   ', rate)
+print('Weekly salary:  ', hours * rate)
+
+
+# Part c.1 of Lab
+
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = float(input('How many dollars per hour?'))
+print('This many dollars per hour:   ', '$', rate)
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match127-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Weekly salary:  ','$', hours * rate)
+
+
+# Part c.2 of Lab
+
+name = (input('Hello. What is your name?'))
+print('Hello,', name)
+print("Its's nice to meet you.")
+age = int(input('How old are you?'))
+print("Next year you will be",age+1,"years old.")
+print("Goodbye")
+
+
+# Part d of Lab
+
+euroToKrone = 7.46
+</FONT>poundToKrone = 8.81
+dollarToKrone = 5.50
+
+print('Please provide this information:')
+companyName = input('Business name: ')
+euroAmount = float(input('Number of euros: '))
+poundAmount = float(input('Number of pounds: '))
+dollarAmount = float(input('Number of dollars: '))
+print()
+print('Copenhagen Chamber of Commerce')
+print('Business name:   ', companyName)
+
+euroKrone = euroAmount * euroToKrone
+poundKrone = poundAmount * poundToKrone
+dollarKrone = dollarAmount * dollarToKrone
+
+print(euroAmount, 'euros is',  euroKrone, 'krone')
+print(poundAmount, 'pounds is', poundKrone, 'krone')
+print(dollarAmount, 'dollars is', dollarKrone, 'krone')
+print()
+print('Total Krone:     ', euroKrone + poundKrone + dollarKrone)
+
+
+# Part e of Lab
+
+from collections import namedtuple
+
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes',
+               'Arthur ConanDoyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+print(still_another.title)
+print(another.price)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match127-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print((favorite.price+another.price+still_another.price)/3)
+print(favorite.year&lt;1900)
+
+still_another = Book(still_another.title, still_another.author,
+                     still_another.year, 26.00)
+
+still_another = Book(still_another.title, still_another.author,
+                     still_another.year, still_another.price*1.2)
+
+
+# Part f of Lab
+
+Animal = namedtuple('Animal', 'name species age weight food')
+
+animal1 = Animal('Jumbo', 'Elephant', 50, 1000, 'peanuts')
+animal2 = Animal('Perry', 'Platypus', 7, 1.7, 'shrimp')
+
+print(animal1.weight &lt; animal2.weight)
+
+
+# Part g of Lab
+
+booklist = [favorite, another, still_another]
+</FONT>print(booklist[0].price &lt; booklist[1].price)
+print(booklist[0].year &gt; booklist[-1].year)
+
+
+# Part h of Lab
+
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print(RL[2].name)
+print(RL[0].cuisine==RL[3].cuisine)
+print(RL[-1].price)
+RL.sort()
+print(RL)
+print(RL[-1].price)
+print(RL[0], RL[1], RL[-2], RL[-1])
+
+
+#Part i of Lab
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=1000, height=1000)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+# Square
+my_canvas.create_line(100, 100, 300, 100, fill='blue')
+my_canvas.create_line(300, 100, 300, 300, fill='blue')
+my_canvas.create_line(100, 100, 100, 300, fill='blue')
+my_canvas.create_line(100, 300, 300, 300, fill='blue')
+
+# Diamond
+my_canvas.create_line(700, 80, 800, 200, fill='orange')
+my_canvas.create_line(700, 80, 600, 200, fill='orange')
+my_canvas.create_line(800, 200, 700, 320, fill='orange')
+my_canvas.create_line(600, 200, 700, 320, fill='orange')
+
+# House
+my_canvas.create_rectangle(100, 500, 300, 700)
+
+# Door
+my_canvas.create_rectangle(170, 700, 220, 600)
+
+# Doorknob
+my_canvas.create_oval(175, 650, 185, 660)
+
+# Window
+my_canvas.create_rectangle(170, 525, 220, 575)
+
+# Window Frames
+my_canvas.create_line(195, 525, 195, 575)
+my_canvas.create_line(170, 550, 220, 550)
+
+# Roof
+my_canvas.create_line(80, 500, 320, 500)
+my_canvas.create_line(80, 500, 200, 400)
+my_canvas.create_line(320, 500, 200, 400)
+
+# Eye
+my_canvas.create_oval(665, 390, 735, 460)
+my_canvas.create_oval(680, 405, 720, 445, fill = 'blue')
+my_canvas.create_oval(690, 415, 710, 435, fill = 'black')
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

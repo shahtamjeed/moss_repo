@@ -1,0 +1,291 @@
+<HTML>
+<HEAD>
+<TITLE>pbgalici/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+sgavin/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab 6.py
+#Shawn Gavin 31646543 Yoon Ho Cha 32075491 ICS 31 Lab sec 7.  Lab asst 5
+
+#Exercise C.1
+print("Exercise C.1")
+def contains(s1: str, s2: str) -&gt; bool:
+    ''' The function will take in two strings and check if the second string
+    is within the first then return a boolean statement'''
+    if(s2 in s1):
+        return True
+    else:
+        return False
+
+assert contains('banana', 'ana')
+assert not contains('racecar','ck')
+
+def sentence_stats(s: str) -&gt; None:
+    '''Function takes in a string and prints out total characters, words
+    and average word length'''
+    print('Characters:',len(s))
+    Words = punctuation_removal(s)
+    Words_length = Words.count(" ") + 1
+    print('Words:', Words_length)
+    print('Average word length:', average_word_length(Words, Words_length))
+
+def punctuation_removal(s: str) -&gt; str:
+    ''' function removes all punctuation within a string'''
+    s = s.replace('!','')
+    s = s.replace('?','')
+    s = s.replace('.','')
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match106-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    s = s.replace(':','')
+    s = s.replace(',','')
+    s = s.replace('*','')
+    s = s.replace('  ',' ') #Removes extra space added when punctuation took up its own space
+    return s
+
+def average_word_length(s:str, num: int) -&gt; float:
+    '''function takes in a string and the total amount of words in the string
+</FONT>    and returns the average word length of the string'''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match106-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    word_list = []
+    start_position = 0
+    end_position = 0
+    length = 0
+   
+    while (end_position != -1):
+         end_position = s.find(' ',start_position + 1)
+         if(end_position == -1):
+             word_list.append(s[start_position:].strip())
+         else:
+             word_list.append(s[start_position:end_position].strip())
+        
+         start_position = end_position
+        
+    for x in range(num):
+        length += len(word_list[x])
+
+    result = length/num
+    return result
+</FONT>    
+    
+
+sentence_stats('I love UCI')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+#Exercise C.3
+
+def initials(s: str) -&gt; str:
+    '''function takes in a string and returns the first character of every
+    word within the string capitalized'''
+    start_position = 0
+    end_position = 0
+    result = s[0].upper()
+   
+    while (end_position != -1):
+         end_position = s.find(' ',start_position + 1)
+         if(end_position == -1):
+             return result
+         result += s[end_position +1].upper()
+         
+         start_position = end_position
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+#Exercise D
+
+from random import randrange
+
+#Exercise D.1
+print()
+print("Exercise D.1")
+
+for x in range(50):
+    print(randrange(11), end = ' ')
+    
+print()
+
+for x in range(50):
+    print(randrange(1,7), end = ' ')
+print()
+
+# Exercise D.2
+
+print()
+print("Exercise D.2")
+
+def roll2dice() -&gt; int:
+    '''function will randomly generate two numbers within range and return
+    the sum of two numbers'''
+    dice1 = randrange(1,7)
+    dice2 = randrange(1,7)
+    return (dice1 + dice2)
+
+for x in range(50):
+    print(roll2dice(), end = ' ')
+print()
+
+# Exercise D.3
+from decimal import *
+
+print()
+print("Exercise D.3")
+
+def distribution_of_rolls(num: int) -&gt; None:
+    '''Function will take in an integer for total amount of dice rolls and will
+    print out a list for the sum of rolls that displays amount of sum and the
+    percentage of rolls compared to total rolls'''
+    outcome = []
+    for x in range(num):
+        outcome.append(roll2dice())
+
+    print("Distribution of dice rolls")
+    print()
+    for s in range(2,13):
+        print('{:3}: {:3} ({:4}%) {:}'.format(s,outcome.count(s), round((outcome.count(s)/num) * 100,1), '*'*outcome.count(s)))
+distribution_of_rolls(200)
+
+#Exercise E.1
+
+Alphabet = 'abcdefghijklmnopqrstuvwxyz '
+
+def Caesar_encrypt(s:str, Num:int) -&gt; str:
+    '''function will take in a string and an integer indicating how much the
+    the characters within the string will be changed by. The function will
+    then encrypt the string and return the encrypted version of the string'''
+    s = s.lower()
+    result = ''
+    for x in s:
+        position = (Alphabet.find(x)+ Num)%27
+        if(position == 26):
+            result += ' '
+        else:
+            result += Alphabet[position]
+    return result
+
+def Caesar_decrypt(s:str, Num:int) -&gt; str:
+    '''function takes in a string that has been encrypted along with the integer
+    key that was used to encrypt the message. The function will then return
+    the original message'''
+    s = s.lower()
+    result = ''
+    for x in s:
+        position = (Alphabet.find(x)- Num)%27
+        if(position == 26):
+            result += ' '
+        else:
+            result += Alphabet[position]
+    return result
+
+assert Caesar_encrypt('hi',4) == 'lm'
+assert Caesar_decrypt('lm',4) == 'hi'
+
+#Exercise E.2
+print()
+print("Exercise E.2")
+
+
+code = Caesar_encrypt('good afternoon',35)
+print(Caesar_decrypt(code,35))
+
+#Exercise E.3
+
+assert Caesar_encrypt("cat",3) == Caesar_encrypt("cat",30)
+#The second key is 30 because function counts space as the 27th character
+
+#Exercise F
+
+SL = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+
+
+#Exercise F.1
+print()
+print("Exercise F.1")
+def print_line_numbers(L:list) -&gt; None:
+    ''' takes in a list of strings and prints out the list in lines along with
+    a number associated with the line number on the side'''
+    for x in range(len(L)):
+        print('{0:3}: {1:60}'.format(x + 1, SL[x]))
+
+
+print_line_numbers(SL)
+
+#Exercise F.2
+print()
+print("Exercise F.2")
+
+def stats(L:list) -&gt; None:
+    '''Function takes in a list of strings and prints out the number of lines,
+    empty lines, average characters per line and average characters per non-empty
+    lines'''
+    line_count = len(L)
+    empty_line = 0
+    str_combined = ''
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match106-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    str_list = just_characters(L)
+    
+    for x in range(len(L)):
+        if L[x].isspace():
+            empty_line += 1
+        str_combined += str_list[x]
+        
+    print('{0:5} lines in the list'.format(line_count))
+    print('{0:5} empty lines'.format(empty_line))
+    print('{0:5} average characters per line'.format(len(str_combined)/line_count + empty_line))
+    print('{0:5} average characters per non-empty line'.format(len(str_combined)/line_count))
+</FONT>
+def just_characters(L: list) -&gt; list:
+    '''Function takes in a list of strings and will return the list with
+    no punctuation or space in the strings'''
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match106-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    str_list = []
+    for x in range(len(L)):
+        str_list.append(L[x].replace(' ',''))
+        str_list[x] = L[x].replace('\t','')
+</FONT>        str_list[x] = punctuation_removal(str_list[x].strip())
+    return str_list
+    
+stats(SL)
+
+#Exercise F.3
+print()
+print("Exercise F.3")
+
+def list_of_words(L: list) -&gt; list:
+    '''Function takes in a list of strings and will return a list of strings
+    that are the individual words in the original strings'''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match106-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    str_list = just_characters(L)
+    word_list = []
+
+    for s in str_list:
+        start_position = 0
+        end_position = 0
+    
+        for x in range(len(L)):
+            while (end_position != -1):
+                end_position = s.find(' ',start_position + 1)
+                if(end_position == -1):
+                    word_list.append(s[start_position:].strip())
+                else:
+                    word_list.append(s[start_position:end_position].strip())
+        
+                start_position = end_position
+    return word_list
+
+print(list_of_words(SL))
+</FONT>
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,257 @@
+<HTML>
+<HEAD>
+<TITLE>aacarlos/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+brandor1/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+#  Timothy Harvey 47543037 and Brandon Ramirez 55961911.  ICS 31 Lab sec 11.  Lab asst 3.
+from collections import namedtuple
+
+import tkinter
+my_window = tkinter.Tk()    
+my_canvas = tkinter.Canvas(my_window, width=1000, height=1000) 
+my_canvas.pack()            
+
+print()
+print()
+print('--------Part (c) --------')
+print()
+
+#c.1
+def abbreviate(s: str) -&gt; str:
+    "Returns the first three letters of any string."
+    return s[0:3]
+
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+
+#c.2
+def area(n: int) -&gt; int:
+    "Returns area of a square"
+    return n ** 2
+
+assert area(1) == 1
+assert area(5) == 25
+
+#c.3
+def area_of_circle(x: int) -&gt; int:
+    "Returns the are of a circle."
+    return (3.14159 * x ** 2)
+
+assert area_of_circle(1) == 3.14159
+assert area_of_circle(5) == 78.53975
+
+#c.4
+def print_even_numbers(g: list):
+    "Returns even numbers of a list"
+    for q in range(len(g)):
+        if g[q] % 2 == 0:
+            print(g[q])
+
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+#c.5
+def calculate_shipping(n: float) -&gt; float:
+    "Returns the price for shipping"
+    if n &lt; 2:
+        return 2.00
+    if 2 &lt;= n &lt; 10:
+        return 5.00
+    if n &gt;= 10:
+        return 5.00 + (1.50 * (n-10))
+        
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+#c.6
+
+def draw_rectangle(x, y, s: int):
+    "Takes in X and Y coordinates and one side to create a square"
+    return my_canvas.create_rectangle(x, y, (x + s), (y - s), fill = 'orange')
+
+print(draw_rectangle(750, 303, 200))
+
+#c.7
+def draw_circle(x, y, d: int):
+    "Takes in X and Y coordinates and diameter to create a circle"
+    return my_canvas.create_oval(x, y, (x + d), (y - d))
+
+print(draw_circle(500, 303, 200))
+
+print()
+print()
+print('--------Part (d) --------')
+print()
+
+#d.1
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+
+def restaurant_price(res):
+    "Takes resturant names and returns their prices."
+    return res.price
+
+assert restaurant_price(RC[0]) == 12.50
+print(restaurant_price(RC[3]))
+
+#d.2
+RC.sort(key=restaurant_price)
+print(RC)
+
+#d.3
+def costliest(Restaurant):
+    "Takes in list of restaurants and prints out the name of the costliest"
+    order = RC.sort(key=restaurant_price)
+    return RC[-1].name
+assert costliest(RC) == "Noma"
+print(costliest(RC))
+
+#d.4
+def costliest2(cost: int):
+    "Organzies by expensive"
+    rest = sorted(RC, key=restaurant_price)
+    return rest[cost]
+assert costliest2(0)
+
+print(costliest2(0))
+print(RC)
+
+print()
+print()
+print('--------Part (e) --------')
+print()
+
+
+#e
+Book = namedtuple('Book', 'author title genre year price instock')
+
+BSI =[
+    Book('Eric Nylund', 'Halo: Ghosts of Onyx', 'sci-fi', 2006, 10.00, 100),
+    Book('Homer', 'The Iliad', 'classic', 2008, 18.50, 75),
+    Book('Arthur Grover', 'Benjamin Franklin','biography', 2000, 15.00, 200),
+    Book('Daft Punk', 'Something about us', 'technology', 2000, 3.50, 50),
+    Book('Greg Bear', 'Ringworld', 'fantasy', 1998, 7.50, 350),
+    Book('Kanye West', 'Kanye', 'auto-biography', 2014, 20.00, 500)]
+
+for book in BSI:
+    print(book[1])
+#e.2
+def booktitle(L: int):
+    x= L.title
+    return x
+assert booktitle(BSI[0]) == 'Halo: Ghosts of Onyx'
+
+x = sorted(BSI, key=booktitle)
+for title in x:
+    print(title[1])
+#e.3
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match37-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+BSI_prices = [BSI[0].price, BSI[1].price, BSI[2].price, BSI[3].price, BSI[4].price, BSI[5].price]
+i = 0  
+for i in range(len(BSI_prices)):
+   BSI[i] = BSI[i]._replace(price = BSI_prices[i] * 1.10)
+
+print(BSI[4].price)
+</FONT>
+#e.4
+for book in BSI:
+    if book[2] == 'technology':
+        print(book[1])
+#e.5
+empty = [ ]
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match37-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+for book in BSI:
+    if book[3] &lt; 2000:
+        empty.append(book[1])
+        print(empty)
+empty2 = [ ]
+for book in BSI:
+    if book[3] &gt;= 2000:
+        empty2.append(book[1])
+
+print(empty2)
+
+empty4 = []
+for book in BSI:
+    if book[3] &lt; 2000:
+        empty4.append(book[5])
+naw = sum(empty4)
+print(naw)
+
+empty3 = []
+for book in BSI:
+    if book[3] &gt;= 2000:
+        empty3.append(book[5])
+
+weesh = sum(empty3)
+print(weesh)
+
+if naw &gt; weesh:
+    print('More titles before 2000')
+    print(naw, 'vs', weesh)
+
+else:
+    print('More titles after 2000')
+    print(weesh, 'vs', naw)
+</FONT>#e.6
+def inventory_value(book: list) -&gt; int:
+    "Determines value of inventory"
+    IV = book[4] * book[5]
+    return IV
+
+def top_value(book: list):
+   "Determines most expensive inventory"
+   EV = sorted(BSI, key=inventory_value)
+   return EV[-1]
+print(top_value(BSI))
+
+print("The highest-value book is", top_value(BSI).title ,"by", top_value(BSI).author ,"at a value of $", top_value(BSI).price * top_value(BSI).instock)
+
+print()
+print()
+print('--------Part (f) --------')
+print()
+
+#F
+def draw_eye(d2, f2, g2: int):
+    "Take three values and returns an eye"
+    eyeball = draw_circle(d2, f2, g2)
+    pupil = draw_circle((d2 + 25), (f2 - 25), (g2 - 50))
+    return eyeball, pupil
+
+
+def draw_nose(t2, y2, u2:int):
+    "Draws a nose"
+    return draw_circle(t2, y2, u2)
+
+
+def draw_mouth(r2, t3, u3, v4: int):
+    "draws a mouth"
+    mouth = my_canvas.create_line(r2, t3, u3, v4, fill = 'black')
+    return mouth
+
+def draw_face(x,y: int):
+    "Draw a face on tkinter"
+    return print(draw_eye(100 + x ,100 + y, 100), draw_eye(300 + x, 100 + y, 100), draw_nose(225 + x, 200 +y, 50), draw_mouth(50 + x, 300 + y, 500 + x, 300 +y))
+
+print(draw_face(0,0))
+print(draw_face(0,350))
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

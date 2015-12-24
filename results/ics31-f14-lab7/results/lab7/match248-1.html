@@ -1,0 +1,172 @@
+<HTML>
+<HEAD>
+<TITLE>binhnn1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+monicadc/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Monica Cruz 81435512 and Madison Thompson 18355644 ICS 31 Lab sec 14. Lab asst 7.
+from random import randrange
+
+print('---------Part C-----------')
+print()
+print()
+
+f = open('surnames.txt')
+surnames = f.readlines()
+f.close()
+
+g = open('femalenames.txt')
+female_names = g.readlines()
+g.close()
+
+h = open('malenames.txt')
+male_names = h.readlines()
+h.close()
+
+def random_names(a: int) -&gt; list:
+    '''Returns a list of randomly generated names'''
+    names = []
+    first_name = []
+    num = randrange(0,2)
+    for x in range(a):
+        if num == 0:
+            first_name = female_names
+        else:
+            first_name = male_names
+        names.append(random_name(first_name) + " " + random_name(surnames))
+    return names
+
+    
+def random_name(b: list) -&gt; str:
+    '''Returns a random name, male or female'''
+    num = randrange(len(b))
+    name_info = b[num].split()
+    return name_info[0].capitalize()
+
+print(random_names(2))
+
+#d
+
+print('-------Part D--------')
+print()
+print()
+
+dictionary= open('wordlist.txt')
+dictionary= dictionary.read()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotated_alphabet(a: int):
+    '''Takes an int and returns the alphabet translated by the given int'''
+    return ALPHABET[a%26:] + ALPHABET[:a%26]
+
+def word_count(d:str)-&gt;int:
+    '''Counts the number of times a word appears in the dictionary'''
+    total=0
+    f1= d.split()
+    for y in f1:
+        if y in dictionary:
+            total += 1
+    return total
+
+assert word_count("ASAP AWACS Aachen") == 3
+
+def Caesar_break(a:str)-&gt;str:
+    '''Returns the plaintext of an encrypted message'''
+    r = 0
+    s = ''
+    for x in range(26):
+        f= a.translate(str.maketrans(rotated_alphabet(x), ALPHABET))
+        if word_count(f) &gt;= r:
+            r = word_count(f)
+            s = f
+    return s
+
+assert Caesar_break("upebz j xfou up uif tupsf boe cpvhiu b mpu pg gppe csfbe dfsfbm cbhfmt jdf dsfbn cbobob bqqmf") == "today i went to the store and bought a lot of food bread cereal bagels ice cream banana apple"   
+
+#d2
+print(Caesar_break("m eq csyv pef tevrxiv jsv ewwmkrqirx wizir")) #Decrypted message: i am your lab partner for assignment seven
+
+print(Caesar_break("p ohcl h sva vm ovtldvyr aopz dllr")) #Decrypted message: i have a lot of homework this week
+
+print('-------Part E--------')
+print()
+print()
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match248-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def empty_lines(a: list) -&gt; int:
+    '''Returns a number of empty lines in a list of str'''
+    sum = 0
+    for x in a:
+            if x.isspace():
+                sum += 1
+    return sum
+
+def count_characters(a: list) -&gt; int:
+    '''Counts the number of characters in a list of str'''
+    total = 0
+    for x in a:
+        total += len(x)
+    return total
+
+def count_characters2(a: list) -&gt; int:
+</FONT>    '''Counts the number of characters per non-empty line'''
+    total = 0
+    for x in a:
+        if not x.isspace():
+            total += len(x)
+    return total
+
+def stats(a: list):
+    '''Prints statistics of a list of str'''
+    print("{:5}".format(len(a)), '  lines in the list')
+    print("{:5}".format(empty_lines(a)), '  empty lines')
+    print("{:7.1f}".format(count_characters(a)/len(a)), 'average characters per line')
+    print("{:7.1f}".format(count_characters2(a)/(len(a)-empty_lines(a))),'average characters per non-empty line')
+
+
+def copy_file(a: str):
+    '''Copies a text file depending on the command'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    y = infile.readlines()
+    if(a == 'line numbers'):
+        for x in range(len(y)):
+            outfile.write("{:5}: {}".format(x+1,y[x]) + y[x])
+        infile.close()
+        outfile.close()
+    elif(a == 'Gutenberg trim'):
+        start= 0
+        end = 0
+        for l in range(len(y)):
+            if '*** START OF THIS PROJECT' in y[l]:
+                start = l
+            if '*** END OF THIS PROJECT' in y[l]:
+                end = l
+        trim = y[start+1: end]
+        for line in trim:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+    elif(a == 'statistics'):
+        stats(y)
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+    else:
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+
+copy_file('statistics')    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

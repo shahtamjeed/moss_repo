@@ -1,0 +1,380 @@
+<HTML>
+<HEAD>
+<TITLE>lgangara/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+lgangara/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Adam Kin Luong 41679984, Lakshita Gangaramani 34446275 ICS31 Lab6
+
+
+#
+#
+# Part (c)
+#
+#
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match120-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print ("------ Part (c) ------")
+
+#c.1 - Function 'abbreviate' takes the name of a month and returns its abbreviation
+
+def abbreviate(month: str) -&gt; str:
+    "Return first three letters of the month "
+    return month[0:3]
+
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+
+
+
+#c.2 - Function 'find_area_square' that takes the saide of a square and returns its area
+
+def find_area_square(value: int) -&gt; int:
+</FONT>    "Return the parameter value squared"
+    return value ** 2
+
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+
+
+#c.3 - Function 'find_area_circle' takes the radius of a circle and returns the area
+
+pi = 3.14159 #assigning value of constant pi
+
+def find_area_circle(value: int) -&gt; float:
+    "Return the parameter value squared times pi"
+    return (value ** 2) * 3.14159
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+
+
+#c.4 - Function 'print_even_numbers' takes a list of integers and prints the even numbers
+
+L = [2, 47, 31, 99, 20, 19, 23, 105, 710, 1004]
+
+def print_even_numbers(numbers_list: list):
+    "Print all even integers in the parameter"
+    for num in numbers_list:
+        result = num % 2  
+        if result == 0:
+            print(num)
+            
+print_even_numbers(L) #function call
+print()
+
+#Confimring/Checking results of the function call with list L
+for num in L:
+    if num in [2, 20, 710, 1004]:
+        print(num)
+
+print()
+
+#c.5 - Function 'calculate_shipping' takes weight of package, returns price of shipping
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match120-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def calculate_shipping(weight: float) -&gt; float:
+    "Calculate shipping cost based on weight of package"
+    if weight &lt; 2:
+        rate = 2.00
+    elif 2 &lt;= weight &lt; 10:
+        rate = 5.00
+</FONT>    elif weight &gt;= 10:
+        rate = 5.00 + (weight - 10) * 1.50 
+    return rate
+
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+
+
+#c.6 - Draw a square with Tkinter
+
+import tkinter              # Load the library; do this just once per program
+
+def create_square(x: int, y: int, s: int):
+    "Creates a square with x & y coodinates of upper-left corner, and lenght of a side"
+    
+    my_window1 = tkinter.Tk()    # Create the graphics window
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match120-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    my_canvas1 = tkinter.Canvas(my_window1, width=500, height=500)  # Create a 500x500 canvas to draw on
+    my_canvas1.pack()  # Put the canvas into the window
+
+    my_canvas1.create_rectangle(x, y, x + s, y + s)
+    
+  
+create_square(100, 100, 50) #creates a square with length of side = 50
+
+
+
+#c.7 - Draw a circle with Tkinter
+
+def create_circle(x: int, y: int, d: int):
+</FONT>    "Ceates a circle with x and y coordinates andd diameter"
+    
+    my_window2 = tkinter.Tk()    # Create the graphics window
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match120-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    my_canvas2 = tkinter.Canvas(my_window2, width=500, height=500)  # Create a 500x500 canvas to draw on
+    my_canvas2.pack()  # Put the canvas into the window
+
+    my_canvas2.create_oval(x, y, x + d, y + d)
+
+create_circle(10, 10, 50) #creates a circle with diameter 50
+
+
+#
+#
+# Part (d)
+#
+#
+print ("------ Part (d) ------")
+
+from collections import namedtuple
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+
+RC= [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+</FONT>    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50)]
+
+#d.1 - Function 'restaurant_price' takes a Restaurant, and returns the value of its price field
+
+def restaurant_price(r: Restaurant) -&gt; float:
+    "Returns value of price field of a restaurant"
+    return r.price
+
+Rprice = restaurant_price(Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50))
+print("Restaurant price = ", Rprice)
+
+print()
+
+
+
+#Trial - d.4 - Print unsorted contents of Restaurant List
+print (RC)
+
+
+
+#d.2 - Prints list of restaurants in order from least to most expensive
+
+RC.sort(key = restaurant_price, reverse = False)
+print ("List of restaurants ordered from most to least expensive:")
+print (RC)
+
+print()
+
+#d.3 - Function 'costliest' takes a list of restaurants and returns the name of the highest priced restaurant
+
+def costliest(Restaurant_list: list) -&gt; str:
+    "Returns the name of the most expensive restaurant"
+    Restaurant_list.sort(key = restaurant_price, reverse = False)
+    return Restaurant_list[-1].name
+
+print ("Highest priced restaurant = ", costliest(RC))
+
+print()
+
+
+#d.4 - Function 'costliest2' takes a list of restaurants, returns the most expensive, BUT without re-arranging the original list
+
+def costliest2(Restaurant_list: list) -&gt; list:
+    "Returns a version of the list sorted by increasing prices (not the original list)"
+    Sorted_Restaurant_List = sorted(Restaurant_list, key = restaurant_price, reverse = False)
+    return Sorted_Restaurant_List[-1].name
+
+print ("Highest priced restaurant = ", costliest2(RC))
+print()
+print (RC) #Checking - Original list left un-touched
+
+print()
+
+#
+#
+#e
+#
+#
+print ("------ Part(e) ------")
+
+from collections import namedtuple
+Book = namedtuple('Book', 'author title genre year price instock')
+
+BSI = [
+    Book("Eoin Colfer", "Artemis Fowl", "Technology", 2001, 13.49, 300),
+    Book("J. K. Rowling", "Harry Potter and the Philosopher's Stone", "Fantasy", 1998, 14.99, 1000),
+    Book("Dan Brown", "The Lost Symbol", "Fiction", 2011, 20.99, 400),
+    Book("Suzanne Collins", "The Hunger Games", "Dystopian Fiction", 2005, 13.99, 700),
+    Book("John Green", "Paper Towns", "Young Adult Fiction", 2010, 15.49, 500),
+    Book("J. R. R. Tolkien", "The Hobbit", "Fantasy", 1954, 31.99, 800)]
+
+
+#e.1 - Print the titles of books in the Book-list BSI
+
+print("Book titles:")
+for novel in BSI:
+    print (novel.title)
+    
+print()
+
+#e.2 - Print the titles of books in the Book-list BSI, in alphabetical order, without re-arranging original list
+
+def book_title(b: Book) -&gt; str:
+    "Returns title of a book, from a Book"
+    return b.title
+
+    
+Sorted_BSI = sorted(BSI, key = book_title, reverse = False) #Stores ordered version of list, w/o altering the original list
+
+print ("Book titles in alphabetical order:")                   
+for novel in Sorted_BSI:
+    print (novel.title)
+    
+print()
+
+
+#e.3 - Raise the price of each book in a Book-list by 10%
+
+def price_increment(bs: list) -&gt; list:
+    "Increases the price of each Book in a list by 10%"
+    
+    bs = [
+        Book(bs[0].author, bs[0].title, bs[0].genre, bs[0].year, (bs[0].price * 1.1), bs[0].instock),
+        Book(bs[1].author, bs[1].title, bs[1].genre, bs[1].year, (bs[1].price * 1.1), bs[1].instock),
+        Book(bs[2].author, bs[2].title, bs[2].genre, bs[2].year, (bs[2].price * 1.1), bs[2].instock),
+        Book(bs[3].author, bs[3].title, bs[3].genre, bs[3].year, (bs[3].price * 1.1), bs[3].instock),
+        Book(bs[4].author, bs[4].title, bs[4].genre, bs[4].year, (bs[4].price * 1.1), bs[4].instock),            
+        Book(bs[5].author, bs[5].title, bs[5].genre, bs[5].year, (bs[5].price * 1.1), bs[5].instock)]
+           
+    return bs 
+    
+
+BSI = price_increment(BSI)   #function call
+print("Book-list with increased prices:")
+print (BSI)
+
+print()
+
+#e.4 - Print title of every book in the list, whose genre is "Technology"
+
+for b in BSI:
+    if b.genre == "Technology":
+        print (b.title)
+
+print()
+
+#e.5 - Create 2 new lists of books printed before and after the year 2000, and print which one contains more titles
+
+books_before_2000 = [] #creating empty list
+books_after_2000 = []  #creating empty list
+
+for b in BSI:
+    if b.year &lt; 2000:
+        books_before_2000 = books_before_2000 + [ Book(b.author, b.title, b.genre, b.year, b.price, b.instock)]
+    elif b.year &gt;= 2000:
+        books_after_2000 = books_after_2000 + [ Book(b.author, b.title, b.genre, b.year, b.price, b.instock)]
+
+
+print (books_before_2000) #Checking contents of list containing books published before 2000
+print (books_after_2000)  #Checking contents of list containing books published after 2000
+
+
+titles_before_2000 = len(books_before_2000) #counting number of books in list
+titles_after_2000 = len(books_after_2000)   #counting number of books in list
+
+if titles_before_2000 &gt; titles_after_2000:
+    print ("More titles before 2000", "(" , titles_before_2000 , "vs." , titles_after_2000 , ")")
+elif titles_after_2000 &gt; titles_before_2000:
+    print ("More titles 2000 or later" , "(" , titles_after_2000 , "vs." , titles_before_2000 , ")")
+
+print()
+
+
+#e.6 - Function 'inventory_value' takes a Book, and returns the value of its inventory.
+#      Function top_value takes a list of Books, returns the Book object with highest invntory value
+
+def inventory_value (b: Book) -&gt; float:
+    "Takes a book, and returns the value of its inventory (price x number in stock)"
+    return b.price * b.instock
+
+print ("Inventory value of book = ", inventory_value(Book("Gregory Maguire", "Wicked", "Fantasy", 1996, 14.89, 1000))) #Checking - function call   
+
+
+def top_value (book_list: list) -&gt; Book:
+    "Takes a list of books, and returns the Book with highest inventory value"
+
+    Sorted_list = sorted(book_list, key = inventory_value, reverse = False)
+
+    for b in Sorted_list:
+        highest_value_inventory  = b
+    
+    return highest_value_inventory
+
+
+top = top_value (BSI)
+
+print ("The highest-value book is", top.title, "by", top.author, "at a value  $", inventory_value(top))
+
+print()
+
+#
+#
+# f
+#
+#
+print ("------ Part(f) ------", "\n", "(in Tkinter windows)")
+
+my_window3 = tkinter.Tk()    #Create the graphics window
+
+my_canvas3= tkinter.Canvas(my_window3, width=1000, height=1000)  #Create a 1000x1000 canvas to draw on
+my_canvas3.pack()            #Put the canvas into the window
+
+def draw_eye(x: int):
+    "Draws an eye"
+    my_canvas3.create_oval(150+x, 160, 280+x, 290, fill='white') #sclera
+    my_canvas3.create_oval(265+x, 180, 165+x, 280, fill='purple') #iris
+    my_canvas3.create_oval(225+x, 220, 205+x, 240, fill='black') #pupil
+
+
+def draw_nose():
+    "Draws a nose"
+    my_canvas3.create_polygon(400, 250, 350, 400, 450, 400, fill='black') #nose (triangle)
+
+
+def draw_mouth():
+    "Draws a mouth"
+    my_canvas3.create_oval(250, 470, 550, 525, fill='black') #mouth (oval)
+
+
+def draw_face():
+    "Draws a face with two eyes, a mouth, and a nose."
+    my_canvas3.create_oval(90, 10, 730, 650, fill ='orange')
+    draw_eye(0) 
+    draw_eye(400)
+    draw_mouth()
+    draw_nose()
+    
+draw_face() #function call - draws a face
+draw_face()
+
+
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

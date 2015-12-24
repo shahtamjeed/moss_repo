@@ -1,0 +1,276 @@
+<HTML>
+<HEAD>
+<TITLE>akluong/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+akluong/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Adam Kin Luong 41679984 and Vincent Chang 91932026 Section 6 Assignment 7
+
+#
+#
+# Part (c)
+#
+#
+
+print('\n\n---------- Part (c.1) ----------\n\n')
+import random
+
+def random_names(number: int) -&gt; 'list of strings':
+    """Return random names based on number"""
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match3-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    surname_list = read_text('surnames.txt')
+    female_list = read_text('femalenames.txt')
+    male_list = read_text('malenames.txt')
+    genders = ['male', 'female']
+    name_list = []
+    for i in range(number):
+        surname = random.choice(surname_list)
+        first_name = ''
+        if random.choice(genders) == 'male':
+            first_name = random.choice(male_list)
+        elif random.choice(genders) == 'female':
+            first_name = random.choice(female_list)
+        name_list.append('{}, {}'.format(surname.capitalize(), first_name.capitalize()))
+    return name_list
+
+    
+
+def read_text(filename: str) -&gt; 'list of strings':
+</FONT>    """Read the texts"""
+<A NAME="6"></A><FONT color = #00FF00><A HREF="match3-1.html#6" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    returnList = []
+    file = open(filename, 'r')
+    fileRaw = file.readlines()
+    for line in fileRaw:
+        tabIndex = line.index('\t')
+        returnList.append(line[0:tabIndex])
+    return returnList
+
+print(random_names(20))
+
+#
+#
+# Part (d)
+#
+#
+
+print('\n\n---------- Part (d) ----------\n\n')
+def caesar_break(ciphertext: str) -&gt; str:
+</FONT>    """Test which guess is the most accurate"""
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match3-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    dictionary = read_text2('wordlist.txt')
+    cipher_guesses = []
+    for i in range(26):
+        guess = Caesar_decrypt(ciphertext, i)
+        cipher_guesses.append(guess)
+    most_dict_words = 0
+    most_index = 0
+    for guess in cipher_guesses:
+        dict_words = 0
+        guess_words = guess.split()
+        for word in guess_words:
+            if word in dictionary:
+                dict_words +=1
+        if dict_words &gt; most_dict_words:
+            most_dict_words = dict_words
+            most_index = cipher_guesses.index(guess)
+    return cipher_guesses[most_index]
+                    
+
+def read_text2(filename: str) -&gt; 'list of strings':
+</FONT>    """Read the text"""
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match3-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_16.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    returnList = []
+    file = open(filename, 'r')
+    fileRaw = file.readlines()
+    for line in fileRaw:
+        new_line_index = line.index('\n')
+        returnList.append(line[0:new_line_index])
+    return returnList
+            
+
+Alphabet = 'abcdefghijklmnopqrstuvwxyz'
+def rotate_alphabet(number: int) -&gt; str:
+    """Rotates the alphabet according to number"""
+    new_alphabet = ''
+    for i in range(len(Alphabet)):
+        if i + number &gt;= 26:
+            n = (i + number) - 26
+            new_alphabet = new_alphabet + (Alphabet[n])
+        else:
+            n = i
+            new_alphabet = new_alphabet + (Alphabet[n + number])
+    return new_alphabet
+
+def Caesar_decrypt (message: str, number: int) -&gt; str:
+    """Decrypts message using Caesar cipher"""
+    table = str.maketrans(rotate_alphabet(number), Alphabet)
+    s = message.translate(table)
+    return s
+    
+print(caesar_break('znoy oy g zkyz'))
+print(caesar_break('sa wna ykhhaca bnaodiwj'))
+print(caesar_break('iqbbo iubbi iuqixubbi ro jxu iuqixehu'))
+
+#
+#
+# Part (e)
+#
+#
+
+print('\n\n---------- Part (e.1) ----------\n\n')
+</FONT>
+def copy_file():
+    """Copy the page of text"""
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+<A NAME="7"></A><FONT color = #0000FF><A HREF="match3-1.html#7" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+#
+#
+# Part (e)
+#
+#
+
+print('\n\n---------- Part (e.2) ----------\n\n')
+def copy_file(parameter: str):
+</FONT>    """Copy the file with line numbers"""
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match3-1.html#5" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    outfile = open(outfile_name, 'w')
+    if parameter == 'line numbers':
+        n = 0
+        for line in infile:
+            n += 1
+            num_line = '{:5}: {}'.format(n , line)
+            outfile.write(num_line)
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+
+#
+#
+# Part (e)
+#
+#
+
+print('\n\n---------- Part (e.3) ----------\n\n')
+def copy_file(parameter: str):
+</FONT>    """Copy the file with only the body of the text"""
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match3-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    outfile = open(outfile_name, 'w')
+    if parameter == 'line numbers':
+        n = 0
+        for line in infile:
+            n += 1
+            num_line = '{:5}: {}'.format(n , line)
+            outfile.write(num_line)
+    elif parameter == 'Gutenberg trim':
+        switch = False
+        for line in infile:
+            if '*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***' in line:
+                switch = True 
+            elif '*** END' in line:
+                switch = False
+            if switch == True and '*** START' not in line:
+                outfile.write(line)
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+#
+#
+# Part (e)
+#
+#
+
+print('\n\n---------- Part (e.4) ----------\n\n')
+def copy_file(parameter: str):
+</FONT>    """Copy the text along with the statistics"""
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match3-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_23.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    outfile = open(outfile_name, 'w')
+    if parameter == 'line numbers':
+        n = 0
+        for line in infile:
+            n += 1
+            num_line = '{:5}: {}'.format(n , line)
+            outfile.write(num_line)
+    elif parameter == 'Gutenberg trim':
+        switch = False
+        for line in infile:
+            if '*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***' in line:
+                switch = True 
+            elif '*** END' in line:
+                switch = False
+            if switch == True and '*** START' not in line:
+                outfile.write(line)
+    elif parameter == 'statistics':
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        infile = open(infile_name, 'r', errors='ignore')
+        sherlock = infile.readlines()
+        stats(sherlock)        
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+def stats(l: list):
+    "Shows stats of the list of strings"""
+    n = 0
+    e = 0
+    SUM = 0
+    for i in l:
+        table = str.maketrans('"!@#$%^&*?&lt;&gt;:.', '              ')
+        s = i.translate(table)
+        n += 1
+        if i == '\n':
+            e += 1
+        SUM += len("".join(i.split())) 
+    print(n, 'lines in the list')
+    print(e, 'empty lines')
+    print(SUM / n, 'average characters per lines for all lines')
+    print(SUM / (n - e), 'average charachers per non-empty line') 
+</FONT>
+copy_file('statistics')
+
+
+    
+
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,201 @@
+<HTML>
+<HEAD>
+<TITLE>aliciax/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+aliciax/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Alicia Xu 86486004 and Abigail Fabella 32634620 Lab Section 16 Ass 7
+from random import randrange
+#C1 below C3
+#C2
+print()
+print('C2')
+print()
+def capitalization (s:str)-&gt;str:
+    
+    table = str.maketrans('ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                          'abcdefghijklmnopqrstuvwxyz')
+    return s.translate(table)
+assert (capitalization('LLALALA'))== 'llalala'
+assert (capitalization('Chocolate'))== 'chocolate'
+
+def random_readin(i:int)-&gt;str:
+    '''reads files and returns a randomly generated surname and female or male name'''
+    if i == 0:
+        infile = open("femalenames.txt",'r')
+    elif i == 1:
+        infile = open("malenames.txt",'r')
+    else:
+        infile = open("surnames.txt", 'r')
+    names = infile.readlines() #reads in as a list of strings
+    j = randrange(len(names)) #randomly choses number for output
+    generalName = names[j] #takes that string
+    nameStr = generalName.split() #seperates name from numbers
+    name = nameStr[0]
+    result = capitalization(name[1:])
+    result = name[0] + result
+    infile.close()
+    return result
+print (random_readin(1))
+print (random_readin(10))
+ 
+#C3
+print()
+print('C3')
+print()
+def random_name()-&gt; str:
+    '''random generates a name'''
+    i = randrange(0,1)
+    firstName = random_readin(i)
+    i = 2
+    lastName = random_readin(i)
+    return lastName + ',' + firstName
+print (random_name())
+print (random_name())
+
+#C1
+print()
+print('C1')
+print()
+def random_names(n:int)-&gt;[str]:
+    '''takes a number and returns that many names'''
+    result = []
+    for i in range(n):
+        r = random_name()
+        result.append(r)
+    return result
+print (random_names(5))
+print (random_names(10))
+
+#D1
+print()
+print('D1')
+print()
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def rotated_Alph(n:int)-&gt;str:
+    '''takes the alphabet and shifts it n spaces'''
+    result = ''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match95-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for i in range(26):
+        if i+n &lt; 26:
+            result += ALPHABET[i+n]
+        else:
+            result += ALPHABET[i+n-26]
+</FONT>    return result
+assert(rotated_Alph(5)) == 'fghijklmnopqrstuvwxyzabcde'
+assert(rotated_Alph(3)) == 'defghijklmnopqrstuvwxyzabc'
+
+def Caesar_decrypt(s:str,k:int)-&gt;str:
+    '''takes an encrypted string and decrypts it'''
+    table = str.maketrans(rotated_Alph(k),
+                       ALPHABET)
+    return s.translate(table)
+assert(Caesar_decrypt("kl wkhuh",3)) == "hi there"
+
+def simplify(s:str) -&gt;str:
+    '''translates and takes out puncuation'''
+    table = str.maketrans('.,!?;:"*/\@#$%&',
+                          '               ')
+    return s.translate(table)
+
+def simplifyList(l:list)-&gt;list:
+    '''returns a similified list of strings'''
+    result = []
+    for i in l:
+        result.append(simplify(i))
+    return result
+#print (simplifyList(['BLAH', '1234*&  ']))
+
+def get_decryption(a:str)-&gt;list:
+    '''returns the list of decryptions'''
+    result = []
+    for s in range(1,27):
+        r = capitalization(a)
+        result.append(Caesar_decrypt(r,s))
+    return result
+#print(get_decryption('hey bye'))
+
+
+def get_counts(l:str)-&gt;int:
+    '''returns the number of matches in a string from file(second str)'''
+    counts = 0
+    using = l.split()
+    infile = open("wordlist.txt",'r')
+    for i in using:
+        for line in infile:
+            c = capitalization(line)
+            if i in c:
+                counts+=1
+    return counts
+#print(get_counts('awol what up')
+
+def Caesar_break(a:str) -&gt; str:
+    '''returns decrypted string'''
+    result = ''
+    count = 0
+    listDecrypt = get_decryption(a)
+    copyList = simplifyList(listDecrypt)
+    for i in range(len(listDecrypt)):
+        counts = get_counts(copyList[i])
+        if counts &gt; count:
+            result = listDecrypt[i]
+            count = counts
+    return result
+print(Caesar_break('yumj'))
+
+#E1/E2/E3/E4
+def copy_file(s:str):
+    '''copies file'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    n = 1
+    if s == "line numbers":
+        for line in infile:
+            y = "{:5d}: {}".format(n,line)
+            n+=1
+            outfile.write(y)
+    if s == "Gutenberg trim":
+        l = infile.readlines()
+        start = 0
+        end = 0
+        for i in range(len(l)):
+            if "*** START" in l[i]:
+                start = i
+            if "*** END" in l[i]:
+                end = i
+        for x in range(end):
+            if x &gt; start:
+                outfile.write(l[x])
+    if s == 'statistics':
+        empty = 0
+        sumAll = 0
+        l = infile.readlines()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match95-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        for i in l:
+            sumAll += len(i)
+            if i == '':
+               empty+=1
+        outfile.write("{:5d}   lines in the file ".format(len(l)) + "\n")
+        outfile.write("{:5d}   empty lines ".format(empty)+ "\n")
+        outfile.write("{:7.1f} average characters per line ".format(sumAll/len(l))+ "\n")
+        outfile.write("{:7.1f} average characters per non-empty line ".format(sumAll/(len(l)-empty))+ "\n")
+</FONT>        
+    infile.close()
+    outfile.close()
+    
+copy_file("la")
+copy_file("line numbers")
+copy_file("Gutenberg trim")
+copy_file("statistics")
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

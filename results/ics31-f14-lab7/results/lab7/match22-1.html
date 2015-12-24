@@ -1,0 +1,161 @@
+<HTML>
+<HEAD>
+<TITLE>bbpadill/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+dhallanp/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Dhallana Perez 77077000 ICS Lab sec 2. Lab asst 7.
+print('---------Part C ----------')
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match22-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+infile = open("surnames.txt",'r')
+i = infile.read()
+surnames = i.split()
+infile.close()
+
+
+infile = open("malenames.txt",'r')
+i = infile.read()
+malenames = i.split()
+infile.close()
+
+infile = open("femalenames.txt",'r')
+i = infile.read()
+femalenames = i.split()
+infile.close()
+
+#Formats names to come out with the first letter capitalized and the rest lower-cased
+def fixnames(L:list)-&gt; list:
+</FONT><A NAME="4"></A><FONT color = #FF00FF><A HREF="match22-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    names = []
+    for i in L[0::4]:
+        temp = i.lower()
+        names.append(temp.capitalize())
+    return names
+
+import random
+#returns random names 
+def random_names(x:int)-&gt;str:
+</FONT>    randomnames= [] 
+    for n in range(x):
+        randomnames.append("{}, {}".format(random.choice(fixnames(surnames)),random.choice(fixnames(femalenames)+fixnames(malenames))))
+    return randomnames
+print(random_names(5))
+print()
+print()
+print('---------Part D ----------')
+print("Part d.1")
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def Str_converter(x: int) -&gt; str:
+    ''' Takes an integer and returns the alphabet list move over by x. '''
+    result = ''
+    result = ALPHABET[x:] + ALPHABET[:x]
+    return result
+#function used to read wordlist 
+infile = open('wordlist.txt','r')
+#when function runs input the file name to retreave info
+data = infile.read()
+wordlist = data.split()
+infile.close()
+
+
+
+
+#Code to decrypt from last week used to decrypt message before using caeser_break
+def Caesar_decrypt(code: str, x: int) -&gt; str:
+    ''' Takes a coded text and converts it to plaintext. '''
+    deciper = ''
+    deciper = Str_converter(x)
+    table = str.maketrans(deciper,
+                          ALPHABET)
+    return code.translate(table)
+#used to lower case the letters in wordlist since all are capitalized 
+def wordlist_lower(x:list)-&gt; list:
+    wlist = []
+    for w in x:
+        wlist.append(w.lower())
+    return wlist
+
+#code used to break a cypher text without utilizing a specified key 
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match22-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_break(x:str)-&gt;str:
+    '''Takes a string returns a string without a key '''
+    code =  []
+    string = ''
+    for i in range(25):
+        code.append(Caesar_decrypt(x,i))
+    for c in code:
+        for w in c.split():
+            if w in wordlist_lower(wordlist):
+                string += (w + ' ')
+    return string 
+print(Caesar_break('qewlih tsxexsiw'))
+</FONT>print()
+print()
+print('D.2')
+#Explained to instructor motive for not being able to have a partner this week
+print("instructor granted consent to work alone for this week")
+print()
+print()
+
+print('----------Part E----------')
+print()
+print('Part e.2')
+#e.2
+
+def text(text: list):
+    ''' Prints each string preceded by a line number. '''
+    texts = ' '
+    for n in range(len(text)):
+        line += (('{:5d}: {}{}'.format(n + 1,text[n], '\n')))
+    return texts
+
+
+print()
+print()
+print('e.3')
+#funtion defined to modify pg661.txt
+def Gutenburg_trim(G:list) -&gt; str:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match22-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    t = []
+    start = []
+    end = 0
+    for gutenburgtext in G:
+        if "***Start" in gutenburgtext:
+            start.append(G.index(gutenburgtext))
+        if gutenburgtext in G:
+            if "***End" in i:
+                end += G.index(gutenburgtext)
+    t.extend(G[start[0]+1:end])
+    return t 
+
+def copy_file(G:str):
+</FONT>    infile_name = input("Please enter the name of the file to copy: ")
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match22-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    infile = open(infile_name, 'r', errors ='ignore')
+    text = infile.read()
+    textlines = text.split('\n')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if G == 'line numbers':
+        outfile.write(texts(textlines))
+    elif G == 'Gutenberg Trim':
+         for texts in Gutenburg_trim(texts):
+            outfile.write(texts + '\n')
+</FONT>    else:
+        outfile.write(line)
+        
+    infile.close()
+    outfile.close()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

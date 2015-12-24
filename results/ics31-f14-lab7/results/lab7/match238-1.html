@@ -1,0 +1,248 @@
+<HTML>
+<HEAD>
+<TITLE>kvongpas/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+scbabu/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab7.py
+# Fabian Regin 73272620       Sharon Babu 55052264    Lab Assignment 7
+
+from random import randrange
+
+
+
+print()
+print()
+print("------------- Part (c) ---------------")
+print()
+print()
+
+def random_surname() -&gt; str:
+    '''returns one random last name'''
+    
+    sur_file = open('surnames.txt', 'r')
+
+    last_names = []
+
+    str_last_names = sur_file.read()
+    lines = str_last_names.split(sep = "\n")
+    
+    for l in range(len(lines)-1):
+        words = lines[l].split()
+        last_names.append(words[0])
+
+    i = randrange(0,len(last_names))
+    return last_names[i]
+
+def random_female() -&gt; str:
+    '''returns one random female first name'''
+
+    female_file = open('femalenames.txt', 'r')
+
+    female_names = []
+    
+    str_female_names = female_file.read()
+    flines = str_female_names.split(sep = "\n")
+    
+    for fl in range(len(flines)-1):
+        fwords = flines[fl].split()
+        female_names.append(fwords[0])
+
+    i = randrange(0, len(female_names))
+    return female_names[i]
+
+def random_male() -&gt; str:
+    '''returns one random male first name'''
+
+    male_file = open('malenames.txt', 'r')
+
+    male_names = []
+
+    str_male_names = male_file.read()
+    mlines = str_male_names.split(sep = "\n")
+
+    for ml in range(len(mlines)-1):
+        mwords = mlines[ml].split()
+        male_names.append(mwords[0])
+
+    i = randrange(0, len(male_names))
+    return male_names[i]
+
+def random_name() -&gt; str:
+    '''returns one random name; "last, first"; could be male or female'''
+    gender = randrange(1,3)    # male: 1    female: 2
+    surname = random_surname()
+    first_name = ""
+
+    if gender == 1:
+        first_name = random_male()
+    elif gender == 2:
+        first_name = random_female()
+
+    return surname + ", " + first_name
+
+def random_names(number: int) -&gt; list:
+    '''returns a list of randomly generated names using the txt files
+        for last names, female first names, and male first names; list length
+        is number'''
+    random_names = []
+    for i in range(number):
+        random_names.append(random_name())
+
+    return random_names
+
+names = random_names(200)
+
+for i in names:
+    print(i)
+
+print()
+print()
+print("------------- Part (d) -------------")
+print()
+print()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def shift_characters(key: int) -&gt; str:
+    '''moves the letters in the end to the front of the string depending
+        on what the key is'''
+    if key&gt;=26:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match238-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        key = key%26
+    return ALPHABET[key:] + ALPHABET[0:key]
+
+def Caesar_encrypt(message: str, key: int) -&gt; str:
+    '''encrypts the message using key as the number to shift the character
+</FONT>        by; returns the encrypted message'''
+    l_message = message.lower()
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match238-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    table = str.maketrans(ALPHABET, shift_characters(key))
+    return l_message.translate(table)
+
+def Caesar_decrypt(message: str, key: int) -&gt; str:
+    '''takes an encrypted message and uses the key as the number the character
+</FONT>        was shifted by, and finds the original message; returns the original
+        message'''
+    l_message = message.lower()
+    table = str.maketrans(shift_characters(key), ALPHABET)
+    return l_message.translate(table)
+
+def decrypt_possibilities(cipher: str) -&gt; 'list of possibilities':
+    '''returns a list of strings that could be the possible plaintexts'''
+    possibilities = []
+    for p in range(26):
+        possible = Caesar_decrypt(cipher, p)
+        possibilities.append(possible)
+    return possibilities
+
+def check_possibility(message: str) -&gt; int:
+    '''returns the number of real words from the dictionary that
+        exist in the possible plaintext'''
+    total = 0
+    dictionary = open('wordlist.txt', 'r')
+    str_dictionary_words = dictionary.read()
+    dictionary_words = str_dictionary_words.split("\n")
+    words = message.split()
+    for w in words:
+        if w in dictionary_words:
+            total+=1
+    return total
+
+def Caesar_break(cipher: str) -&gt; str:
+    '''decrypts an encrypted message without having the key'''
+    possibilities = decrypt_possibilities(cipher)
+    plaintext = cipher
+    for p in possibilities:
+        if check_possibility(p) &gt; check_possibility(plaintext):
+            plaintext = p
+    return plaintext
+
+cipher = Caesar_encrypt("The cat chased the dog down the street", 3)
+print(cipher)
+print(Caesar_break(cipher))
+print(Caesar_break("wkh olrq kdv d orxg urdu"))
+
+
+
+print()
+print()
+print("------------- Part (e) ---------------")
+print()
+print()
+
+def stats(strings: 'list of str') -&gt; str:
+    '''takes a list of strings and returns a string containing the number of lines, number of
+        empty lines, average characters per line, and average characters per
+        non-empty line'''
+    
+    stats_string = ""
+    stats_string = (" \n{:5}   {:17}".format(len(strings), "lines in the list") + "\n")
+    empty = 0
+    for l in range(len(strings)):
+        if strings[l] == "":
+            empty+=1
+    stats_string = stats_string + ("{:5}   {:11}".format(empty, "empty lines") + "\n")
+
+    characters = 0
+    for i in range(len(strings)):
+        for j in range(len(strings[i])):
+                characters+=1
+    stats_string = stats_string+("{:7.1f} {:}".format(characters/len(strings), "average characters per line") + "\n")
+    non_empty = len(strings) - empty
+    stats_string = stats_string+("{:7.1f} {:}".format(characters/non_empty, "average characters per non-empty line") + "\n")
+    return stats_string
+    
+def copy_file(command: str) -&gt; None:
+    '''copies a file into a new file, and modifies it dependin on what the
+        command is'''
+    
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    str_infile = infile.read()
+
+    if command == "line numbers":
+        lines = str_infile.split(sep = "\n")
+        for l in range(len(lines)):
+            outfile.write("{:5}:  {:} \n".format(l+1, lines[l]))
+
+    elif command == "Gutenberg trim":
+        starting_line = 0
+        lines = str_infile.split(sep = "\n")
+        for l in range(len(lines)):
+            if lines[l][0:35] == "*** START OF THIS PROJECT GUTENBERG":
+                starting_line = l+1
+                break
+            
+        final_file = lines[starting_line:]
+        
+        for i in range(len(final_file)):
+                if final_file[i][0:7] != "*** END":
+                    outfile.write(final_file[i] + "\n")
+                else:
+                    break
+
+    elif command == "statistics":
+        lines = str_infile.split(sep = "\n")
+        outfile.write(str_infile)
+        outfile.write(stats(lines))
+    
+    else:
+        outfile.write(str_infile)
+            
+    infile.close()
+    outfile.close()
+
+copy_file("")
+copy_file("line numbers")
+copy_file("Gutenberg trim")
+copy_file("statistics")
+</PRE>
+</PRE>
+</BODY>
+</HTML>

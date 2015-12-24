@@ -1,0 +1,208 @@
+<HTML>
+<HEAD>
+<TITLE>dmanalas/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+mtjoa/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+#  Michelle Tjoa 16659144 and Danielle Manalastas 48702634.  ICS 31 Lab sec 2.  Lab asst 6.
+
+# Part c1
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match37-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def contains(n,m:str) -&gt; bool:
+    ''' Returns True if the second string occurs in the first string
+    '''
+    return m in n
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+
+# Part c2
+def sentence_stats(n:str) -&gt; None:
+    '''prints the number of characters and words and the average word length'''
+</FONT><A NAME="8"></A><FONT color = #00FFFF><A HREF="match37-0.html#8" TARGET="0"><IMG SRC="../../bitmaps/tm_3_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print('Characters:', len(n))
+    print('Words:', len(n.split()))
+    print('Average word length:', (len(n)-n.count(' '))/len(n.split()))
+
+sentence_stats('I love UCI')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+
+# Part c3
+def initials(s:str) -&gt; str:
+</FONT>    ''' Returns initials of the name in all capital letters '''
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match37-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return ''.join(s[0] for s in s.split()).upper()
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+
+# Part d1
+from random import randrange
+for i in range(50):
+    print(randrange(11))
+
+# Part d2
+def roll2dice() -&gt; float:
+    return randrange(2, 13)
+
+for i in range(50):
+    print (roll2dice())
+
+
+# Part d3
+def distribution_of_rolls(n:float) -&gt; None:
+    ''' Prints distribution of values of rolls '''
+    formatofDice = "{}:\t{}({:.2f}%){}"
+</FONT>    a = 0
+    totals = [0,0,0,0,0,0,0,0,0,0,0]
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match37-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for i in range(n):
+        a = roll2dice()
+        if a == 2:
+            totals[0]+=1
+        elif a ==3:
+            totals[1]+=1
+        elif a ==4:
+</FONT>            totals[2]+=1
+        elif a ==5:
+            totals[3]+=1
+        elif a ==6:
+            totals[4]+=1
+        elif a==7:
+            totals[5]+=1
+        elif a ==8:
+            totals[6]+=1
+        elif a ==9:
+            totals[7]+=1
+        elif a ==10:
+<A NAME="7"></A><FONT color = #0000FF><A HREF="match37-0.html#7" TARGET="0"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            totals[8]+=1
+        elif a ==11:
+            totals[9]+=1
+        elif a ==12:
+            totals[10]+=1
+    print('Distribution of dice rolls')
+    for i in range(len(totals)):
+</FONT>        print(formatofDice.format(i+2,totals[i], 100*(totals[i]/n), totals[i]*"*"))
+    print('------------------------------\nTotal Dice Rolls: ', n) 
+        
+# Part e1
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match37-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+
+def Caesar_encrypt(s:str, n:int) -&gt; str:
+    ''' Return encrypted string '''
+    a = alphabet[n:]+alphabet[0:n]
+    table = s.maketrans(alphabet, a)
+    return s.translate(table)
+
+assert Caesar_encrypt('hello', 5) == 'mjqqt'
+
+    
+
+def Caesar_decrypt(s:str, n:int) -&gt; str:
+    ''' Decrypts the string '''
+    a = alphabet[n:]+alphabet[0:n]
+    table = s.maketrans(a, alphabet)
+    return s.translate(table)
+</FONT>
+assert Caesar_decrypt('mjqqt', 5) == 'hello'
+
+
+# Part e3
+
+
+def Caesar_encrypts(s:str, n:int) -&gt; str:
+    ''' Return encrypted string checks to see if the n is too big'''
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match37-0.html#5" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if not(n&lt;=25 and n&gt;=0):
+        n = n%25
+    a = alphabet[n:]+alphabet[0:n]
+    table = s.maketrans(alphabet, a)
+    return s.translate(table)
+</FONT>
+assert Caesar_encrypt('hello', 5) == 'mjqqt'
+
+    
+
+def Caesar_decrypts(s:str, n:int) -&gt; str:
+    ''' Decrypts the string checks to see if the n is too big'''
+<A NAME="6"></A><FONT color = #00FF00><A HREF="match37-0.html#6" TARGET="0"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if not(n&lt;=25 and n&gt;=0):
+        n = n%25
+    a = alphabet[n:]+alphabet[0:n]
+    table = s.maketrans(a, alphabet)
+    return s.translate(table)
+</FONT>
+
+# Part f1
+def print_line_numbers(L:list) -&gt; None:
+<A NAME="9"></A><FONT color = #FF00FF><A HREF="match37-0.html#9" TARGET="0"><IMG SRC="../../bitmaps/tm_4_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    ''' Prints each string preceded by a line number '''
+    for i in range(len(L)):
+        print(i+1,":", L[i])
+        
+
+# Part f2
+def stats(L:list) -&gt; None:
+</FONT>    ''' Prints statistics of list'''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match37-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    count = 0
+    lines = 0
+    characters = 0
+    for i in L:
+        lines+=1
+        characters+=(len(i)-i.count(' '))
+        if i =='\n':
+            count +=1
+        
+    print(lines, 'lines in the list')
+    print(count, 'empty lines')
+    print(characters/lines, 'average characters per line')
+    print(characters/(lines-count), 'average characters per non-empty line')
+
+
+lister = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ","\n" ]
+
+# Part f3
+punctuation = '()?:;,.!/"'
+def replace_punctuation(L:str)-&gt;list:
+    ''' Changes punctuation in list to white space '''
+</FONT>    table = L.maketrans(punctuation, '          ')
+    L = L.translate(table)
+    return L.split()
+    
+
+def list_of_words(L:list) -&gt; list:
+    ''' Returns list of words with white space and punctuation (except
+    apostrophes) removed '''
+    result = []
+    for i in range(len(L)):
+        result.append(replace_punctuation(L[i]))
+    return result
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

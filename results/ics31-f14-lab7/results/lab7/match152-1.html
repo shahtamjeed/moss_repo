@@ -1,0 +1,254 @@
+<HTML>
+<HEAD>
+<TITLE>gschahal/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jubaldo/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab 7.py
+#Julian Ubaldo ID 57615347 and Leslie Chan ID 78666288. ICS 31 Lab sec 6. Lab Asst.7
+print()
+print()
+print(4*'-'+'c'+4*'-')
+print()
+print()
+#
+#
+#c
+#c1
+from random import randrange
+def file_list(a:'file of names')-&gt;list:
+    """takes a file as a parameter and converts it into a list( just for the purpose
+    to help in creating a list of names with the text files we were provided)"""
+    empty=[]
+    infile=open(a,'r')
+    data=infile.read()
+    stuff=data.split()
+    for i in range(0,len(stuff),4):
+        empty.append(stuff[i].capitalize())
+    return empty
+def single_random_name(name:list)-&gt;str:
+    '''takes a list and returns a generated name'''
+    for i in range(len(name)):
+        num=randrange(len(name))
+    return name[num]
+def female_male()-&gt;list:
+    '''takes no parameters and returns a list, male or female'''
+    if randrange(3)==2:
+        return file_list('femalenames.txt')
+    return file_list('malenames.txt')
+def random_names(n:int)-&gt;list:
+    '''takes an integer and returns a list of that many strings,
+    with each string a randomly generated name as "Lastname, Firstname"'''
+    name_list=[]
+    firstname=female_male()
+    surnames=file_list('surnames.txt')
+    for i in range(n):
+        name_list.append(single_random_name(surnames)+','+' '+single_random_name(firstname))
+    return name_list
+print(random_names(20))
+print()
+print()
+print(4*'-'+'d'+4*'-')
+print()
+print()
+#
+#
+#d
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def translate_punctuation(sentc: str) -&gt; str:
+    '''replaces punctuations with blanks'''
+    table = str.maketrans("""!?.:;*@#$%^&"()-_=+][{}\/&gt;,&lt;`~|""", "                               ")
+    return sentc.translate(table)
+def rotate_alphabet(num: int)-&gt; str:
+    rotated=''
+    rotated+=ALPHABET[num:]+ALPHABET[:num]
+    return rotated
+
+def Caesar_encrypt(message: str, key: int) -&gt;str:
+    '''takes two arguments: a string containing the message the plaintext for encryption
+    and an int for the key, indicating how far down the alphabet to find each substitute letter.
+    The encryption function returns the ciphertext'''
+    encrypted = ''
+    message = message.lower()
+    table = str.maketrans(ALPHABET, rotate_alphabet(key))
+    encrypted = message.translate(table)
+    return encrypted
+assert Caesar_encrypt('cat',3)== 'fdw'
+assert Caesar_encrypt('cat',29)=='cat'
+
+    
+
+def Caesar_break(message: str) -&gt; str:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match152-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    '''takes takes a ciphertext string (encrypted using a Caesar cipher as we did last week)
+    and returns the plaintext for that string, without having the key.'''
+    decrypted = message
+</FONT>    highesthit = 0
+    infile=open('wordlist.txt','r')
+    data=infile.read().lower()
+    data=data.split()
+    for i in range(26):
+        table= str.maketrans(rotate_alphabet(i), ALPHABET)
+        word= message.translate(table)
+        trans_word=translate_punctuation(word)
+        stuff=trans_word.split()
+        for k in range(len(stuff)):
+            hit=0
+            if stuff[k] in data:
+                    hit+=1
+                    if hit&gt;highesthit:
+                        highesthit=hit
+                        decrypted=word
+    return decrypted
+
+print(Caesar_encrypt('ICS is such a rad class I mean how could you not live without it !',20))
+print(Caesar_encrypt('Lovely weather we are having?',10))
+print(Caesar_break('cwm cm mowb u lux wfumm c gyuh biq wiofx sio hin fcpy qcnbion cn !'))
+print(Caesar_break('vyfovi gokdrob go kbo rkfsxq?'))
+print()
+print()
+print(4*'-'+'e'+4*'-')
+print()
+print()
+#
+#
+#e1
+"""
+def copy_file():
+    '''takes no parameters and returns no value(because it does all its work by prompting
+    the user and reading and writing files).'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+"""
+#e2
+"""
+
+def copy_file2(s:str):
+    ''' takes a string and returns no value(because it does all its work by the user
+    and reading and writing files).'''
+    infile_name=input("Please enter the name of the file to copy: ")
+    infile=open(infile_name,'r')
+    outfile_name=input("Please enter the name of the new copy: ")
+    outfile= open(outfile_name,'w')
+    num=1
+    s=s.lower()
+    if s=='line numbers':
+        for line in infile:
+            outfile.write('{0:5}: {1:1}'.format(num,line))
+            num+=1
+        infile.close()
+        outfile.close()
+    else:
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+"""
+
+
+#copy_file2('line numbers')
+
+#e3
+#e4
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match152-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats(L: list):
+    '''takes a list of strings and prints statistics as follows:
+    16824   lines in the list
+    483   empty lines
+    53.7 average characters per line
+    65.9 average characters per non-empty line'''
+    total_characters=0
+    empty_count = 0
+</FONT>
+    print('{0:4}  '.format(len(L)), 'lines in the list')
+    
+
+    for i in L:
+        if i.strip() == '':
+            empty_count += 1
+            
+    print('{0:4}  '.format(empty_count), 'empty lines')
+    for i in L:
+        total_characters+=len(i)
+
+    
+    print('{0:6.1f}'.format((total_characters)/(len(L))), 'average characters per line')
+
+    non_empty_lines = len(L) - empty_count
+    print('{0:6.1f}'.format(total_characters/non_empty_lines), 'average characters per non-empty line')
+
+
+    
+def copy_file(s:str):
+    ''' takes a string take one parameter, a string.
+    If the parameter is 'line numbers',the copied file includes line numbers at the start of each line
+    If its parameter is 'Gutenberg trim' it will copy only the body of a Project Gutenberg file, omitting the "housekeeping" material at the front and end
+    If its parameter is 'statistics' it will copy the file as before but also print out these statistics (which should be familiar) about the text in the file'''
+    infile_name=input("Please enter the name of the file to copy: ")
+    infile=open(infile_name,'r')
+    outfile_name=input("Please enter the name of the new copy: ")
+    outfile= open(outfile_name,'w')
+    num=1
+    s=s.lower()
+    begin=0
+    end=0
+    start=False
+    if s=='line numbers':
+        for line in infile:
+            outfile.write('{0:5}: {1:1}'.format(num,line))
+            num+=1
+        infile.close()
+        outfile.close()
+    elif s=='gutenberg trim':
+            infile_list=infile.readlines()
+            for i in range(len(infile_list)):
+                if infile_list[i].strip()=='*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***':
+                    begin=i
+                    start= True 
+                elif infile_list[i].strip()=='*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***':
+                    end=i
+                    start=False 
+                else:
+                    if start==True:
+                      outfile.write(infile_list[i])
+##            for j in infile_list[begin:end+1]:
+##                outfile.write('{0:5}: {1:1}'.format(num,j))
+##                num+=1
+            infile.close()
+            outfile.close()
+    elif s=='statistics':
+        infile_list=infile.readlines()
+        for line in infile_list:
+            outfile.write(line)
+        stats(infile_list)
+        infile.close()
+        outfile.close()
+
+    else:
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+
+print(4*'-'+'e2'+4*'-')
+copy_file('line numbers')
+print(4*'-'+'e3'+4*'-')
+copy_file('gutenberg trim')
+print(4*'-'+'e4'+4*'-')
+copy_file('statistics')
+
+    
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

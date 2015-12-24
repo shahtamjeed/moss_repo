@@ -1,0 +1,355 @@
+<HTML>
+<HEAD>
+<TITLE>bcateil/(c)-(g)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+yizhouj1/(c)-(g)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab 4.py
+# xiaoyu wen 47054047 and  Yizhou Jin 65573304.  ICS 31 Lab sec 2.  Lab asst 4.
+
+
+#1
+def test_number(n: int, s: str):
+
+    if n%2==0 and s=='even':
+        return True
+    elif n%2==1 and s=='odd':
+        
+        return True
+    elif n&gt;0 and s=='positive':
+        return True
+    elif n&lt;0 and s=='negative':
+        return True
+    else:
+        return False
+assert test_number(14, 'even')
+assert not test_number(100, 'odd')
+assert test_number(33, 'positive')
+assert not test_number(100, 'negative')
+print (test_number(14, 'even'))
+print (test_number(100, 'odd'))
+print (test_number(33, 'positive'))
+print (test_number(100, 'negative'))
+
+print('------------------')
+
+#2
+def display():
+    print ('Enter a word')
+    x= str(input())
+    for x in x :
+        print(x)
+display()
+
+print('------------------')        
+
+
+#3
+def square_list(y:list):
+    for number in y:
+        print (number**2)
+
+square_list([1,2,3,4,4,5,5])
+
+print('------------------')  
+
+#4
+def match_first_letter(c: str, l: list) -&gt; None:
+    for n in l:
+        if n[0] in c:
+            print (n)
+match_first_letter('I', ['Iron Man', 'Iron Man 2', 'The Avengers', 'Superman', 'I am Legend'])
+
+
+
+print('------------------')  
+
+
+
+#5
+def match_area_code(s: list, l: list) -&gt; None:
+    for n in l:
+        if s[0] in n:
+            print(n)
+        elif s[1] in n:
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match180-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                print(n)
+match_area_code(['949', '714'], ['(714)824-1234', '(419)312-8732', '(949)555-1234'])
+
+print('------------------')
+
+#6
+def matching_area_codes(s: list, l: list) -&gt; None:
+    nu=[]
+    for n in l:
+</FONT>        if s[0] in n:
+            nu.append(n)
+        
+        if s[1] in n:
+            nu.append(n)
+    return nu
+print (matching_area_codes(['949', '714'], ['(714)824-1234', '(419)312-8732', '(949)555-1234']))
+
+print('------------------')  
+
+#d.1
+
+def is_vowel(x:str)-&gt;  bool :
+    if x in'aeiouAEIOU':
+        return True
+    else:
+        return False
+    
+assert is_vowel('a')
+assert is_vowel('a') 
+assert not is_vowel('X')
+print('------------------') 
+#d.2
+def print_nonvowels(y:str)-&gt; None:
+    l=''
+    for x in y:
+        if is_vowel(x)== False:
+            l=l+x
+    print (l)
+
+print_nonvowels('chinese')
+print_nonvowels('good job')
+print_nonvowels('good')
+print_nonvowels('lucky')
+print('------------------')
+
+#d.3
+def nonvowels(y:str)-&gt; str:
+    result=''
+    for x in y :
+        if is_vowel(x)==False:
+            result = result + x
+    return result
+        
+assert nonvowels('good')=='gd'
+assert nonvowels('123445!!!')=='123445!!!'
+assert nonvowels('345')=='345'
+print (nonvowels('good'))
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match180-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print (nonvowels('123445!!!'))
+print ( nonvowels('345'))
+
+
+print('------------------')  
+
+
+#d.4
+def consonants(y:str)-&gt;str:
+    result=''
+    for x in y:
+        if x not in 'aeiouAEIOU':
+</FONT>            if x not in  '0123456789+-*/.`!@#$%^&*()_+-=[]\;'':':
+                result= result + x
+   
+    return result
+    
+
+assert consonants('12345678p')== 'p'
+assert consonants('aeiourfv/*-')=='rfv'
+print (consonants('12345678p'))
+print (consonants('aeiourfv/*-'))
+
+print('------------------')       
+        
+  
+#d.5
+
+def select_letters(x:str,y:str)-&gt;str:
+    result=''
+    if x =='v':
+        for k in y:
+            if is_vowel(k)==True:
+                    result = result + k
+    elif x == 'c':
+            for w in y:
+                if  is_vowel(w)==False:
+                    result= result+ w
+
+    return result
+
+assert select_letters('v','chinese')=='iee'
+assert select_letters('c','chinese')=='chns'
+print (select_letters('v','chinese'))
+print (select_letters('c','chinese'))
+
+print('------------------')
+
+#d.6
+
+def hide_vowels(y:str)-&gt;str:
+    c = "-"
+    for x in y:
+        if is_vowel(x)== True:
+            y = y.replace(x,c)
+    return y
+assert hide_vowels('good job')=='g--d j-b'
+assert hide_vowels('chinese') =='ch-n-s-'
+print (hide_vowels('good job'))
+print (hide_vowels('chinese')) 
+
+print('------------------')
+
+#e
+import collections
+Restaurant = collections.namedtuple('Restaurant', 'name cuisine phone dish price')
+
+RL = [Restaurant("Taillevent", "French", "343-3434", "Escargots", 24.50),
+Restaurant("La Tour D'Argent", "French", "343-3344", "Ris de Veau", 48.50),
+Restaurant("Pascal", "French", "333-4444", "Bouillabaisse", 32.00),
+Restaurant("Thai Touch", "Thai", "444-3333", "Mee Krob", 10.95),
+Restaurant("Thai Dishes", "Thai", "333-4433", "Paht Woon Sen",  8.50),
+Restaurant("Thai Spoon", "Thai", "334-3344", "Mussamun", 9.00),
+Restaurant("McDonald's", "Burgers", "333-4443", "Big Mac", 3.95),
+Restaurant("Burger King", "Burgers", "444-3344", "Whopper", 3.75),
+Restaurant("Wahoo's", "Fish Tacos", "443-4443", "Mahi Mahi Burrito", 7.50),
+Restaurant("In-N-Out Burger", "Burgers", "434-3344", "Cheeseburger", 2.50),
+Restaurant("The Shack", "Burgers", "333-3334", "Hot Link Burger", 4.50),
+Restaurant("Gina's", "Pizza", "334-4433", "Combo Pizza", 12.95),
+Restaurant("Peacock, Room", "Indian", "333-4443", "Rogan Josh", 12.50),
+Restaurant("Gaylord", "Indian", "333-3433", "Tandoori Chicken", 13.50),
+Restaurant("Mr. Chow", "Chinese", "222-3333", "Peking Duck", 24.50),
+Restaurant("Chez Panisse", "California", "222-3322", "Grilled Duck Breast", 25.00),
+Restaurant("Spago", "California", "333-2222", "Striped Bass", 24.50),
+Restaurant("Sriped Bass", "Seafood", "333-2233", "Cedar Plank Salmon", 21.50),
+Restaurant("Golden Pagoda", "Chinese", "232-3232", "Egg Foo Young", 8.50),
+Restaurant("Langer's", "Delicatessen", "333-2223", "Pastrami Sandwich", 11.50),
+Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50)]
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match180-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Restaurant_change_price(r:Restaurant , n: int) -&gt; list:
+        return Restaurant(r.name, r.cuisine, r.phone, r.dish , r.price + n)
+</FONT>for i in range(len(RL)):
+    print (Restaurant_change_price(RL[i], 35))
+assert Restaurant_change_price(RL[i], 35)
+
+print('------------------')
+
+#f.1
+
+
+def alphabetical(n: Restaurant) -&gt; list:
+        return n.name
+RL.sort()
+print (RL)
+print('------------------')
+
+#f.2
+
+def alphabetical_names(n: list) -&gt; list:
+        list = []
+        for m in n:
+                list.append(m.name)
+        return list
+print (alphabetical_names(RL))
+RL.sort()
+print('------------------')
+#f.3
+def all_Thai(n: list) -&gt; list:
+        list = []
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match180-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        for x in n:
+                if x.cuisine == 'Thai':
+                        list.append(x.name)
+        return list
+print(all_Thai(RL))
+print('------------------')
+
+#f.4
+def select_cuisine(n: list,m:str) -&gt; list:
+        list = []
+        for x in n:
+</FONT><A NAME="0"></A><FONT color = #FF0000><A HREF="match180-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                if x.cuisine == m:
+                        list.append(x)
+        return list
+print(select_cuisine(RL, 'French'))
+print('------------------')
+#f.5
+
+def select_cheaper(n:list, m:float) -&gt; list:
+        list = []
+        for x in n:
+                if x.price &lt; m:
+                        list.append(x.name + " $" + str(x.price))
+</FONT>        return list
+print(select_cheaper(RL, 12))
+print('------------------')
+
+#f.6
+
+def average_price(n:list) -&gt; float:
+        total=0
+        for m in n:
+                total = m.price + total
+        return total/len(n)
+print(average_price(RL))
+print('------------------')
+
+#f.7
+
+
+print(average_price(select_cuisine(RL, "Indian")))
+print('------------------')
+
+
+#f.8
+
+print(average_price(select_cuisine(RL, "Chinese" and "Thai")))
+print('------------------')
+
+#f.9
+
+print(select_cheaper(RL, 15))
+
+
+                                   
+#g
+
+def create_rectangle_from_center(x:int,y:int,h:int,w:int):
+    my_canvas.create_rectangle(x-0.5*w,y-0.5*h,x+0.5*w,y+0.5*h)
+
+import tkinter
+my_window = tkinter.Tk()
+my_canvas=tkinter.Canvas(my_window,width=500,height=500)
+my_canvas.pack()
+create_rectangle_from_center(250,250,150,200)
+create_rectangle_from_center(100,200,100,25)
+create_rectangle_from_center(400,100,75,25)
+tkinter.mainloop()
+
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+              
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

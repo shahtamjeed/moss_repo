@@ -1,0 +1,284 @@
+<HTML>
+<HEAD>
+<TITLE>congconj/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+lcunnin2/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Andrew Lee 16436720 and Lee Cunningham 26815508. ICS 31 Lab sec 4. Lab asst 3.
+
+
+#
+#
+# Part (c)
+#
+#
+
+
+print("\n\n---------- Part (c) ----------\n")
+
+def abbreviate(n: str) -&gt; str:
+    "Return the first three characters of the string."
+    return n[0]+n[1]+n[2]
+assert abbreviate("January") == "Jan"
+assert abbreviate("June") == "Jun"
+print("Three letter abbreviations of all 12 months:", abbreviate("January"), abbreviate("February"),
+      abbreviate("March"), abbreviate("April"), abbreviate("May"), abbreviate("June"), abbreviate("July"),
+      abbreviate("August"), abbreviate("September"), abbreviate("October"), abbreviate("November"), abbreviate("December"))
+print("\n")
+
+def find_area_square(n: int) -&gt; int:
+    "Return the square of the input."
+    return n**2
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+print("Areas of squares with side lengths of 2, 4, and 6:", find_area_square(2), ",", find_area_square(4),",",find_area_square(6))
+print("\n")
+
+def find_area_circle(n: int) -&gt; float:
+    "Return the area of a circle with a radius equal to the input."
+    return 3.14159 * (n ** 2)
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+print("Areas of circles with radiuses of 1, 3, and 5:", find_area_circle(1), ",", find_area_circle(3),",",find_area_circle(5))
+print("\n")
+
+def print_even_numbers(n: list):
+    "Print all even numbers in the supplied list."
+    for x in n:
+        if x % 2 == 0:
+            print(x)
+    return
+print("All even numbers between 0 and 18:")
+print_even_numbers(range(20))
+print("\n")
+
+def calculate_shipping(n: float) -&gt; float:
+    "Return the shipping cost of a package with a weight equal to the input."
+    if n &lt; 2:
+        return 2
+    elif n &lt; 10:
+        return 5
+    else:
+        return 5 + ((n-10) * 1.5)
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(2) == 5.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(10) == 5.00
+assert calculate_shipping(15) == 12.50
+print("Shipping price of a package weighing 1.5 pounds:", calculate_shipping(1.5),
+      "\nShipping price of a package weighing 7 poinds:", calculate_shipping(7),
+      "\nShipping price of a package weighing 15 pounds:", calculate_shipping(15))
+print("\n")
+
+def create_square(x: int, y:int, side_length: int):
+    import tkinter
+    my_window = tkinter.Tk()
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+    my_canvas.pack()
+    my_canvas.create_rectangle(x,y,x+side_length,y+side_length)
+    tkinter.mainloop()
+    
+def create_circle(x: int, y: int, diameter: int):
+    import tkinter
+    my_window = tkinter.Tk()
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+    my_canvas.pack()
+    my_canvas.create_oval(x,y,x+diameter,y+diameter)
+    tkinter.mainloop()
+print("There should be a tkinter window containing a square on your screen. Close it to continue.")
+create_square(50,50,100)
+print("There should be a tkinter window containing a circle on your screen. Close it to continue.")
+create_circle(50,50,100)
+
+#
+#
+# Part (d)
+#
+#
+print("\n\n---------- Part (d) ----------\n")
+
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+print("For this section the functions will use the following list of Restaurants:\n", RC)
+
+def restaurant_price(n: Restaurant) -&gt; float:
+    return n.price
+assert restaurant_price(RC[0]) == 12.50
+assert restaurant_price(RC[2]) == 25.50
+assert restaurant_price(RC[5]) == 35.50
+
+def print_by_price(n: list):
+    n.sort(key=restaurant_price)
+    print(n)
+    return
+print("The restaurant list, in order of price:")
+print_by_price(RC)
+print("\n")
+
+def costliest(n: list) -&gt; str:
+    n.sort(key=restaurant_price)
+    return n[-1].name
+print("The restraunt whose best dish costs the most is:", costliest(RC))
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match18-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print("\n")
+
+def costliest2(n: list) -&gt; str:
+    return sorted(n, key=restaurant_price)[-1].name
+assert costliest2(RC) == "Noma"
+assert costliest2([Restaurant("Test A", "x", "x", "x", 15.00),
+</FONT>    Restaurant("Test B", "y", "y", "y", 200),
+    Restaurant("Test C", "z", "z", "z", -3)]) == "Test B"
+print("The restaurant whose best dish costs the most (as found without sorting the list) is:", costliest2(RC))
+
+
+#
+#
+# Part (e)
+#
+#
+print("\n\n---------- Part (e) ----------\n")
+
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book('Andy','Computer Science', 'technology', 2015, 10.00, 20),
+    Book('Bob', 'Draw something', 'art', 2014, 11.25, 15),
+    Book('Cathy', 'Basketball', 'sports', 1967, 12.00, 13),
+    Book('Danny', 'Swimming', 'sports', 2012, 9.99, 20),
+    Book('Eddy', 'Beautiful clothes', 'clothes', 2009, 8.50, 25),
+    Book('Frank', 'Drive carefully', 'cars', 1999, 12.25, 15)]
+print("For this section the functions will use the following list of books:\n", BSI)
+
+
+def print_book_titles(n: "list of Books"):
+    '''Print the titles of all the books in the given list.'''
+    for x in n:
+        print(x.title)
+    return
+print("The titles of all books in the list:")
+print_book_titles(BSI)
+print("\n")
+
+
+def book_title(n: Book) -&gt; str:
+    '''Return the title of a given book object.'''
+    return n.title
+assert book_title(BSI[0]) == "Computer Science"
+assert book_title(BSI[2]) == "Basketball"
+
+def print_book_titles_ordered(n: "list of Books"):
+    '''Print the titles of all the books in the given list with alphabetical order.'''
+    for x in sorted(n, key=book_title):
+        print(x.title)
+    return
+print("The titles for all the books in the list in order are:")
+print_book_titles_ordered(BSI)
+print("\n")
+
+def raise_prices_ten_percent(n: "list of Books"):
+    '''Increases the price of all books in the supplied list by 10 percent.'''
+    x = 0
+    while x &lt; len(n):
+        n[x] = Book(n[x].author, n[x].title, n[x].genre, n[x].year, n[x].price*1.1, n[x].instock)
+        x = x + 1
+    return
+print("This next function will raise the prices of all books by 10 percent.")
+raise_prices_ten_percent(BSI)
+print("The edited list is as follows:\n", BSI)
+print("\n")
+    
+def print_tech_title(n: "list of Books"):
+    '''Print the title of the book which genre is technology.'''
+    for x in n:
+        if x.genre== 'technology':
+            print(x.title)
+    return
+print("The following books are of the technology genre:")
+print_tech_title(BSI)
+print("\n")
+
+BSInew = list()
+for x in BSI:
+    if x.year &gt;= 2000:
+        BSInew.append(x)
+
+BSIold = list()
+for x in BSI:
+    if x.year &lt; 2000:
+        BSIold.append(x)
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match18-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def count_old_vs_new():
+    if len(BSInew) &gt; len(BSIold):
+        print("More titles 2000 or later (", len(BSInew), " vs. ", len(BSIold), ").", sep = "")
+    elif len(BSInew) &lt; len(BSIold):
+        print("More titles before 2000 (", len(BSInew), " vs. ", len(BSIold), ").", sep = "")
+    else:
+        print("There are the same number of titles from before and after 2000 (" + len(BSInew) + ").", sep = "")
+    return
+count_old_vs_new()
+</FONT>
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match18-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def inventory_value(n: Book) -&gt; float:
+    return n.price * n.instock
+
+def top_value(n:list) -&gt; Book:
+    return sorted(n, key = inventory_value)[-1]
+
+print("The highest value book is", top_value(BSI).title, "by", top_value(BSI).author, "at a value of", inventory_value(top_value(BSI)))
+
+#
+#
+# Part (f)
+#
+#
+print("\n\n---------- Part (f) ----------\n")
+import tkinter
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match18-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def draw_face(canvas: "tkinter.Canvas", x: int, y: int):
+    canvas.create_oval(x, y, 250+x, 275+y, fill='orange')
+    draw_eye(canvas, x+25, y+50)
+    draw_eye(canvas, x+140, y+50)
+    draw_nose(canvas, x+85, y+105)
+    draw_mouth(canvas, x+85, y+195)
+</FONT>    return
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match18-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def draw_eye(canvas: "tkinter.Canvas", x: int, y: int):
+    canvas.create_oval(x, y, x+75, y+50, fill='white')
+    canvas.create_oval(x+12, y+3, x+57, y+47, fill='black')
+    return
+
+def draw_nose(canvas: "tkinter.Canvas", x: int, y: int):
+    canvas.create_polygon(x+40, y, x, y+70, x+80, y+70, fill='green')
+    return
+
+def draw_mouth(canvas: "tkinter.Canvas", x: int, y: int):
+    canvas.create_oval(x, y, x+80, y+25, fill='red')
+    return
+</FONT>
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas.pack()
+
+print("A tkinter window with a face on it should display now. Close it to move on (the program is finished).")
+draw_face(my_canvas, 100, 100)
+tkinter.mainloop()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,191 @@
+<HTML>
+<HEAD>
+<TITLE>ajmui/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ajmui/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Alvin Yuanyi Liang 70314204 and Alexander Mui 90915867.
+
+#c.1
+def random_names(user_choice: int) -&gt; list:
+    '''
+    Takes in an integer and returns a list of that many strings, with each string a randomly generated name
+    '''
+    new_list = []
+    firstname = []
+    surnames = []
+    new_str = ''
+    infile = open("femalenames.txt", 'r')
+    for i in infile:
+        firstname.append(i.split()[0].title())
+    infile.close()
+    infile2 = open("malenames.txt", 'r')
+    for i in infile2:
+        firstname.append(i.split()[0].title())
+    infile.close()
+    #print(firstname)
+    infile3 = open("surnames.txt", 'r')
+    for i in infile3:
+        surnames.append(i.split()[0].title())
+    infile.close()
+    #print(surnames)
+    a = 0
+    while a &lt; user_choice:
+        from random import randrange
+        new_list.append(surnames[randrange(1,len(surnames)+1)] + ", " + firstname[randrange(1,len(firstname)+1)])
+        a += 1
+    return new_list
+print(random_names(4))
+print('\n\n\n\n')
+
+#reference code from last lab
+"""
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match61-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_15.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def Encrypt_alphabet(num: int, encrypt: bool) -&gt; str:
+    '''Encrypts or decrypts based on a bool value'''
+    if encrypt:
+        return ALPHABET[num:] + ALPHABET[0:num]
+    else:
+        return ALPHABET[26-num:] + ALPHABET[:26-num]
+
+
+def Caesar_encrypt(string: str, num: int) -&gt; str:
+    '''Performs a cesar encrypt shift of num'''
+    table = str.maketrans(ALPHABET, Encrypt_alphabet(num, True))
+    return string.lower().translate(table)
+
+def Caesar_dencrypt(string: str, num: int) -&gt; str:
+    '''Performs a cesar decrypt based on key num'''
+    table = str.maketrans(ALPHABET, Encrypt_alphabet(num, False))
+    return string.lower().translate(table)
+</FONT>
+print(Caesar_encrypt("How are you doing z", 20))
+print()
+print(Caesar_dencrypt("biq uly sio xicha t", 20))
+"""
+
+#d
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def decrypt(num: int) -&gt; str:
+    """Creates a decrypted alphabet"""
+    return ALPHABET[26-num:] + ALPHABET[:26-num]
+
+
+def Ceasar_break(user_string: str) -&gt; str:
+    """
+    Ceasar_break function takes a brute force approach to decyphering an encrypted phrase.
+    """
+    new_str = ''
+    new_list = []
+    dic_str = ''
+    count = 0
+    infile = open("wordlist.txt", 'r')
+    for i in infile:
+        dic_str += i.lower()
+    infile.close()
+
+    while count &lt; 26:
+        table = str.maketrans(ALPHABET, decrypt(count))
+        new_list = user_string.lower().translate(table).split()
+        #print(new_list)
+
+        for i in new_list:
+            if i in dic_str:
+                new_str += i + ' '
+            else:
+                new_str = ''
+                break
+        if new_str != '':
+            return new_str
+
+        count += 1
+        
+assert(Ceasar_break("Lipps asvph"))
+
+
+#e.2
+def copy_file(phrase: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match61-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    count1 = 1
+
+#Takes a parameter and if parameter is 'line numbers' the copied file includes line numbers at the start of each line
+    if phrase == 'line numbers':
+        for line in infile:       
+            outfile.write("{:&gt;5}: {:}".format(count1, line))
+            count1 += 1
+#e.3    
+#if 'Gutenburg trim' removes house keeping information at the beginning and the end
+    elif phrase == 'Gutenburg trim':
+        new_list = []
+</FONT>        count = -1
+        for line in infile:
+            new_list.append(line)
+            count += 1
+            if '*** START OF' in line:
+                start = count
+            elif '*** END' in line:
+                end = count
+        for i in range(len(new_list)):
+            if i &gt;= start and i &lt;= end:
+                outfile.write(new_list[i])            
+#e.4
+#if 'statistics' copy file and print out statistics
+    elif phrase == 'statistics':
+        count = 1
+        total_char = 0
+        empty_lines = 0
+        for line in infile:
+            outfile.write(line)
+            count += 1
+            total_char += len(line)
+            if line == '\n':
+                empty_lines += 1
+        avg_char_in_line = total_char/count
+        avg_char_non_emptyline = total_char/(count-empty_lines)
+        print('\n\n\n\n')
+        print("{:&lt;7} {}".format(count, 'lines in the file '))
+        print("{:^7} {}".format(empty_lines, 'empty lines in the file '))
+        print("{:7.1f} {}".format(avg_char_in_line, 'average characters per line '))
+        print("{:7.1f} {}".format(avg_char_non_emptyline, 'average characters per non-empty line'))
+########                                 
+    else:
+        for line in infile:
+            outfile.write(line) 
+    infile.close()
+    outfile.close()
+#Function call
+#copy_file('statistics')
+#copy_file('Gutenburg trim')
+copy_file('line numbers')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

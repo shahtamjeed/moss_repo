@@ -1,0 +1,292 @@
+<HTML>
+<HEAD>
+<TITLE>robertww/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+robertww/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab 7.py
+# Robert Wong 75389310 and Grace Chang 29811264. lAB SECTION 12. LAB ASST 7.
+from random import randrange
+
+#part C1 
+def rand_name (amount_str : int) -&gt; [str]:
+    result = []
+    while len(result) &lt;amount_str:
+        if randrange(0,2) == 0:
+            result.append('{0} {1} {2}'.format(FM[randrange(0,len(MN))],
+                                               SN[randrange(0,len(SN))], "F"))
+        elif randrange(0,2) ==1:
+            result.append('{0} {1} {2}'.format(MN[randrange(0,len(MN))],
+                                               SN[randrange(0,len(SN))], 'M'))
+                                
+    return result
+
+#how does open(fn) work? Make sure you place the text file inside WHATEVER FOLDER
+#This lab file is located at. For conviences sake. 
+
+femalefile = open('femalenames.txt','r')
+malefile = open ('malenames.txt','r')
+surnamefile = open ('surnames.txt.','r')
+
+#I have assigned these variable to contain the list of strings within the file,
+#said strings are separated by the signifier at the end of their line
+#note: readlines() != readline()
+female = femalefile.readlines()
+male = malefile.readlines()
+surnames = surnamefile.readlines()
+
+#def name_getter(list_of_file Names: list) -&gt;str:
+ 
+def name_getter (file: list )-&gt;[str]:
+    
+    GenderStr =[]
+    for things in file:
+            GenderStr.append(things.split())
+
+    Names = []
+    for things in GenderStr:
+        Names.append(things[0])
+    return Names   
+MN = name_getter(male)
+FM = name_getter(female)
+SN = name_getter(surnames)
+
+#This was the thing that got things to work
+   
+###femf = femalefile.readlines()      note this will no longer work due to duplicate variable 'female'
+##FemaleStr =[]
+##
+##
+##for things in female:
+##	FemaleStr.append(things.split())
+##
+##for things in FemaleStr:
+##        pass
+##       # print(things[0])
+##
+##FemaleNames = []
+##for things in FemaleStr:
+##    FemaleNames.append(things[0])
+##    
+##print(FemaleNames[randrange(0,len(FemaleNames))])
+
+print(rand_name(5),'\n',rand_name(6), '\n',rand_name(22))
+
+
+print()
+print('hi \n')
+
+#d some cipher thing
+lower = str('abcdefghijklmnopqrstuvwxyz')
+upper = str('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match40-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+alphabet = lower + upper
+
+def Caesar_encrypt (plaintext: str, key: int) -&gt; str:
+    cyphertext =''
+    table = str.maketrans(lower,lower[key%26:] + lower[:key%26]) 
+    cyphertext = plaintext.translate(table)
+    return cyphertext
+
+def Caesar_decrypt (plaintext: str, key: int) :
+    cyphertext =''
+    table = str.maketrans(lower,lower[-key%26:] + lower[:-key%26]) 
+    cyphertext = plaintext.translate(table)
+</FONT>    return cyphertext
+#return a count of how many things that are similiar.
+#Real stuff to do
+
+''' WHAT TO DO
+1. Do what I do down there. make a list from the file dictionary
+2. Take in a cipher text and decrypt it! Use the above function
+    2.a ummm, ran the decrypt 26 times: use for loop AND range function something something
+    2.b DONT FORGET TO HAVE SOMETHING THAT COUNTS THE CHR IN YOUR STRINGS.
+    
+3. Take those list of str or just a string and make a function that looks for
+that strings in the dictionary.
+'''
+
+dicti = open('wordlist.txt','r')
+lists = dicti.readlines()
+
+wordlist = name_getter(lists)
+l = wordlist
+string = str('Hasn wqaocw qwdas')
+
+
+def possible_words(ciphertext: str):
+    ''' return a list of all potential text of the str'''
+    result = []
+    
+    for i in range (26):
+        result.append(Caesar_decrypt(ciphertext, i))
+        
+    return result
+
+def index_V (bank: list, possible_list: list):
+    '''return index value at the first occurance of the first word of the bank
+    in our possible word list'''
+    for i in possible_list:
+        if bank[0] in i:
+            return possible_list.index(i)
+        else:
+            pass
+def word_split(i : list):
+    '''split the str to isolate each word. Handy'''
+    result =[]
+    for things in i:
+        result.append(things.split())
+    return result
+
+
+
+def bank (more : list):
+    ''' this will return a list of word from the possible
+    word list. Indicates that the word is english'''
+    bank =[]
+    for stuff in more:
+        for each_word in stuff:
+            if each_word in wordlist:
+                bank.append(each_word)
+    return bank
+
+def Caesar_break ( ciphertext: str) -&gt; str:
+    '''Takes in any cipher text, runs through all potential combination of the text,
+    search each word in the list of string that matches in the dictionary,
+    search for index value for the first occurance of that word in possible word list,
+    return fully decrypted message. :D '''
+    
+    possible_word_list = possible_words(ciphertext) #list all possible 26 spellings of the text
+    each_word = word_split(possible_word_list) #Turn each word of the str into a list of individual strings
+    word_bank = bank(each_word)   #this is known words from cipher to the dictionary
+    word_position = index_V( word_bank, possible_word_list)
+    return possible_word_list[word_position]
+
+z = Caesar_encrypt(" I don't know how to feel about turning this in late ...* have mercy on us *", 212)
+c = possible_words(z)
+v = word_split(c)
+q = bank(v)
+
+
+word = Caesar_encrypt('I am a black Scotish cyclop who likes Irish coffee, oh jolly cooperation! Praise the sun! ', 12)
+possible = possible_words(word)
+result = []
+
+for i in possible:
+    result.append(i.split())
+
+print('This is going to take a while')
+
+
+for words in result:
+    for things in words:
+        if things in wordlist:
+            print(things)
+
+##l=['get','away','from']
+##for strings in possible:
+##    if l[1] in strings:
+##        possible.index(strings)           
+##    else:
+##        pass
+
+
+print(z)      
+print(
+Caesar_break(z))
+
+print()			
+#part E. Copying and writing files
+
+#E.2 Copying files and adding a line
+#E.3 MORE CHOICE IN CHOOSING WRODS
+#E.4 PUT EVERYTHING IN DA BOX stats
+def copy_file(words:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r',errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    wordlines = infile.readlines()
+    
+    if words == 'line numbers':#works great
+        for i in range(len(wordlines)):
+            outfile.write("{:5}: {}".format(i+1, wordlines[i]))
+    elif words == 'Gutenberg trim': #works fine
+        AT_DA_FRONT = WORD_SEARCH("*** START", wordlines)
+        BT_DA_END =  WORD_SEARCH("*** END", wordlines)
+
+        total_lines = BT_DA_END - AT_DA_FRONT
+        for i in range(total_lines - 1): #to compensate for total line between the headers
+            outfile.write(wordlines[i+AT_DA_FRONT+1])
+
+    elif words == 'statistics': #not working for some reason
+        for line in infile:
+            outfile.write(line)
+        stats_list(wordlines)
+        
+    else: #also not running
+        for line in infile:
+            outfile.write(line)
+
+    
+    infile.close()
+    outfile.close()
+
+x = ['WHAT DO YOU WANT FROM ME.',
+     'Where do you want to go?',
+     'What will you want to do?',
+     'WHAT DO YOU WANT FROM ME?'
+     ]
+
+sher = open('Sherlock.txt', 'r')
+datext = sher.readlines()
+
+#HEY USE THIS ONE FOR FIGURING OUT PART E.3
+def WORD_SEARCH(words:str, stuff: list):
+    for thisTHING in stuff :
+            if words in thisTHING:
+                	return stuff.index(thisTHING)
+
+#part e4 stuff
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match40-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats_list ( strings: list) -&gt; str:
+    chr_all_lines =[]
+    emptyL= []
+    chr_NEL =[]
+    stripped = []
+    WPL =0
+    WPNEL=0
+    
+    for stuff in strings:
+        stripped.append(stuff.strip())
+
+    for things in strings:
+        chr_all_lines.append(things)
+        
+    for things in strings:
+        if things in '\n':    # '' is defined as an empty line.
+</FONT><A NAME="2"></A><FONT color = #0000FF><A HREF="match40-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            emptyL.append(things)
+            
+    for things in stripped: # Add to a list of characters who do not contain an empty line
+        if things !='\n':
+            chr_NEL.append (things)
+
+    for stuff in chr_all_lines:
+        WPL += len(stuff)
+    for stuff in chr_NEL:
+        WPNEL += len(stuff)
+        
+    print ('{0:5}  {1:1}'.format(len(chr_all_lines), 'Lines in the list\n'),
+</FONT>           '{0:4}  {1:1}{2}'.format(len(emptyL), 'Empty lines','\n'),
+           '{0:4.1f}  {1:1}'.format(WPL/len(chr_all_lines), 'Average character per Line \n'),
+           '{0:4.1f}  {1:1}'.format(WPNEL/len(chr_NEL), 'Average character per none empty line \n'))
+     
+</PRE>
+</PRE>
+</BODY>
+</HTML>

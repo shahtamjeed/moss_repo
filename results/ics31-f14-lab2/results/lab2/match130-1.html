@@ -1,0 +1,237 @@
+<HTML>
+<HEAD>
+<TITLE>calvinlw/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jerridd/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+#Ha Young Moon 26323653 Jerrid James Domingo 90107901
+#October 17, 2014
+#Lab Sect. 7
+#Lab Asst. 2
+
+
+#Excersise c
+
+hours = int(input('How many hours? '))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour? '))
+print('This many dollars per hour:  $', rate)
+print('Weekly salary:  $', hours * rate)
+''' OUTPUT
+How many hours? 35
+This many hours: 35
+How many dollars per hour? 10
+This many dollars per hour:  $ 10
+Weekly salary:  $ 350
+'''
+
+#Excersise c.2
+
+name = input("Hello. What is your name? ")
+print("Hello,", name)
+print("It's nice to meet you.")
+age = int(input("How old are you? "))
+print("Next year you will be", age + 1, "years old.")
+print("Good-bye!")
+''' OUTPUT
+Hello. What is your name? Alice Anteater
+Hello, Alice Antear
+It's nice to meet you.
+How old are you? 19
+Next year you will be 20 years old.
+Good-bye!
+'''
+
+#Excersise d
+KRONE_PER_EUROS = 7.46
+KRONE_PER_POUNDS = 8.81
+KRONE_PER_DOLLARS = 5.50
+
+print("Please provide this information:")
+business_name = input("Business name: ")
+num_euros = int(input("Number of euros: "))
+num_pounds = int(input("Number of pounds: "))
+num_dollars = int(input("Numer of dollars: "))
+print()
+print("Copenhagen Chamber of Commerce")
+print("Business name: ", business_name)
+print(num_euros, "euros is", num_euros * KRONE_PER_EUROS, "krone")
+print(num_pounds, "pounds is", num_pounds * KRONE_PER_POUNDS, "krone")
+print(num_dollars, "dollars is", num_dollars * KRONE_PER_DOLLARS, "krone")
+print()
+print("Total krone: ", num_euros * KRONE_PER_EUROS + num_pounds * KRONE_PER_POUNDS\
+      + num_dollars * KRONE_PER_DOLLARS)
+'''OUTPUT
+Please provide this information:
+Business name: Tycho Brahe Enterprises
+Number of euros: 100
+Number of pounds: 200
+Numer of dollars: 1000
+
+Copenhagen Chamber of Commerce
+Business name:  Tycho Brahe Enterprises
+100 euros is 746.0 krone
+200 pounds is 1762.0 krone
+1000 dollars is 5500.0 krone
+
+Total krone:  8008.0
+'''
+
+# Excersise e
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+print(still_another.title)
+print(another.price)
+print((favorite.price + another.price + still_another.price) / 3)
+print(favorite.year &lt; 1900)
+
+favorite = favorite._replace(price = 26.00)
+print(favorite)
+favorite = favorite._replace(price = favorite.price * 1.20)
+print(favorite)
+'''OUTPUT
+Return of Sherlock Holmes
+23.5
+23.333333333333332
+True
+Book(title='Adventures of Sherlock Holmes', author='Arthur Conan Doyle', year=1892, price=26.0)
+Book(title='Adventures of Sherlock Holmes', author='Arthur Conan Doyle', year=1892, price=31.2)
+'''
+
+# Excersise f
+Animal =namedtuple('Animal', 'name species age weight favorite_food')
+
+anim1 = Animal('Jumbo', 'Elephant', 50, 1000, 'peanuts')
+                   
+anim2 = Animal('Perry', "Palatypus", 7, 1.7, 'shrimp')
+
+print(anim1.weight &lt; anim2.weight)
+'''OUTPUT
+False
+'''
+
+#Excersise g
+booklist = [favorite, another, still_another]
+
+print(booklist[0].price &lt; booklist[1].price)
+print(booklist[0].year &gt; booklist[-1].year)
+'''
+False
+False
+'''
+
+#Excersise h
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print(RC[2].name)
+print(RC[0].cuisine == RC[3].cuisine)
+print(RC[-1].price)
+RC.sort()
+print(RC)
+print(RC[-1].dish)
+
+RC_return_of_the_mech = RC[:2]
+RC_return_of_the_mech = RC_return_of_the_mech + RC[len(RC) - 2 :]
+
+print(RC_return_of_the_mech)
+''' OUTPUT
+Nonna
+True
+10.5
+[Restaurant(name='Addis Ababa', cuisine='Ethiopian', phone='337-4453', dish='Yesiga Tibs', price=10.5), 
+Restaurant(name='Jitlada', cuisine='Thai', phone='324-4433', dish='Paht Woon Sen', price=15.5), 
+Restaurant(name='Nobu', cuisine='Japanese', phone='335-4433', dish='Natto Temaki', price=5.5), 
+Restaurant(name='Nola', cuisine='New Orleans', phone='336-4433', dish='Jambalaya', price=5.5), 
+Restaurant(name='Noma', cuisine='Modern Danish', phone='337-4433', dish='Birch Sap', price=35.5), 
+Restaurant(name='Nonna', cuisine='Italian', phone='355-4433', dish='Stracotto', price=25.5), 
+Restaurant(name='Thai Dishes', cuisine='Thai', phone='334-4433', dish='Mee Krob', price=12.5)]
+Mee Krob
+[Restaurant(name='Addis Ababa', cuisine='Ethiopian', phone='337-4453', dish='Yesiga Tibs', price=10.5), 
+Restaurant(name='Jitlada', cuisine='Thai', phone='324-4433', dish='Paht Woon Sen', price=15.5), 
+Restaurant(name='Nonna', cuisine='Italian', phone='355-4433', dish='Stracotto', price=25.5), 
+Restaurant(name='Thai Dishes', cuisine='Thai', phone='334-4433', dish='Mee Krob', price=12.5)]
+'''
+
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+my_window1 = tkinter.Tk()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match130-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+my_window2 = tkinter.Tk()
+my_window3 = tkinter.Tk()
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas1 = tkinter.Canvas(my_window1, width=500, height=500)
+my_canvas2 = tkinter.Canvas(my_window2, width=500, height=500)
+my_canvas3 = tkinter.Canvas(my_window3, width=500, height=500)
+
+my_canvas.pack()
+my_canvas1.pack()            # Put the canvas into the window
+my_canvas2.pack()  
+my_canvas3.pack()  
+
+
+#Excersise i
+
+#i1
+my_canvas.create_line(100, 100, 300, 100, fill='blue') 
+my_canvas.create_line(300, 100, 300, 300, fill='green')
+my_canvas.create_line(300, 300, 100, 300, fill='orange') 
+</FONT>my_canvas.create_line(100, 300, 100, 100, fill='black')
+
+#i2
+
+my_canvas1.create_line(100, 200, 200, 100, fill='blue') 
+my_canvas1.create_line(200, 100, 300, 200, fill='green')
+my_canvas1.create_line(300, 200, 200, 300, fill='orange') 
+my_canvas1.create_line(200, 300, 100, 200, fill='black')
+
+
+#i3
+
+
+my_canvas2.create_line(100, 200, 300, 200, fill='blue') 
+my_canvas2.create_line(300, 200, 300, 400, fill='green')
+my_canvas2.create_line(300, 400, 100, 400, fill='orange') 
+my_canvas2.create_line(100, 400, 100, 200, fill='black')
+my_canvas2.create_line(100, 200, 200, 0, fill='blue') 
+my_canvas2.create_line(200, 0, 300, 200, fill='green')
+my_canvas2.create_line(175, 400, 175, 300, fill='black')
+my_canvas2.create_line(225, 400, 225, 300, fill='black')
+my_canvas2.create_line(175, 300, 225, 300, fill='black')
+my_canvas2.create_rectangle(175, 200, 225, 250, fill = 'yellow')
+my_canvas2.create_line(200, 200, 200, 250, fill='black')
+my_canvas2.create_line(175, 225, 225, 225, fill='black')
+
+#i4
+
+my_canvas3.create_oval(100,200,300,300)
+my_canvas3.create_oval(150,200,250,300, fill = 'red')
+my_canvas3.create_oval(175,225,225,275, fill = 'black')
+
+
+
+tkinter.mainloop()          # Combine all the elements and display the window
+</PRE>
+</PRE>
+</BODY>
+</HTML>

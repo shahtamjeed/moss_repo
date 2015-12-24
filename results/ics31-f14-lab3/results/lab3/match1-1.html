@@ -1,0 +1,427 @@
+<HTML>
+<HEAD>
+<TITLE>wleonard/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+xuanf1/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab3.py
+# Xuan(Tina) Feng 57156464 and William Leonard 26127264. ICS 31 Lab sec 16. Lab asst 3.
+
+#1
+ # Implement the function abbreviate that returns its three-letter abbreviation. 
+ #  abbreviate  words: word of input --&gt; str
+
+def abbreviate (words:str) -&gt;str:
+        "Take the string and returns the first 3 letter of it"
+        return(words[0:3])
+
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match1-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert abbreviate('Anteater') == 'Ant'
+assert abbreviate('Hello') == 'Hel'
+
+print('\n')
+
+#2
+  # Implement the function find_area_square that returns the area of that square.
+  # find_area_square: s:one side of square -&gt;float
+
+def find_area_square (s:float) -&gt;float:
+    "Take the side length of a square and square it"
+    return(s**2)
+
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+assert find_area_square(10) == 100
+
+print('\n')
+
+#3
+ # Implement the function find_area_circle that returns the area of that circle.
+ # find_area_circle: r:radius of circle  --&gt; float
+
+def find_area_circle (r:float) -&gt;float:
+    "Take the radius of a circle and calculate its area using the area formula."
+    return(3.14159 *r**2)
+
+assert find_area_circle(1) == 3.14159
+</FONT><A NAME="5"></A><FONT color = #FF0000><A HREF="match1-0.html#5" TARGET="0"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert find_area_circle(5) == 78.53975
+
+print('\n')
+
+#4
+  # Implement the function print_even_numbers that produce this output "2,20,710,1004"
+  # print_even_numbers:  lst:list of numbers  --&gt;int
+
+def print_even_numbers (lst:list) -&gt;int:
+     "Take the list and print the even number in the list."
+     for i in lst:
+          if i%2 ==0:
+</FONT>               print(i)
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match1-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_17.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+print('\n')
+
+#5
+  #Implement a function called calculate_shipping that returns the price for shipping the package.
+  # calculate_shipping:  w:float --&gt; float
+
+def calculate_shipping (w:float) -&gt;float:
+     "Take the weight of an object and calculate its shipping price."
+     if w&lt; 2:
+          return(2.00)
+     if 2&lt;= w &lt; 10:
+          return(5.00)
+     if w&gt;= 10:
+          return(5.00+(w-10)*1.50)
+
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+#6
+'''
+Implement a function called create_square that takes 3 arguments-
+(x,y)of upper left,
+length of a side
+'''
+#create_square: x:x-coordin y:ycoordin l:side length
+
+import tkinter 
+my_window = tkinter.Tk() 
+
+my_canvas = tkinter.Canvas(my_window, width=1000, height=1000)
+my_canvas.pack()
+
+def create_square (x,y,l):
+     my_canvas.create_rectangle(x,y,x+l,y+l)
+
+print(create_square(100,100,500))
+print(create_square(400,300,300))
+print(create_square(250,240,532))
+     
+#7      
+'''
+Implement a function called create_circle that takes 3 arguments-
+(x,y)of upper left,
+Radius
+'''
+#h:x-coordin k:ycoordin r:radius
+
+def create_circle(h,k,r):
+     my_canvas.create_oval(h,k,h+r,k+r)
+
+print(create_circle(100,100,500))
+print(create_circle(100,200,100))
+print(create_circle(600,600,370))
+
+print('\n')
+#
+#
+#Part d
+#
+#
+
+#d.1
+#Define a function called restaurant_prices that returns the value of the price field of that Restaurant.
+#restaurant_price  rp:Restaurant -&gt;float
+
+from collections import namedtuple
+
+Restaurant=namedtuple('Restaurant',"Name Style Phone Dish Price")
+
+RC=[
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+</FONT>    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match1-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50)]
+
+def restaurant_price(rp:Restaurant) -&gt;float:
+     "Take the namedtuple of a restaurant and return its price"
+     return(rp.Price)
+
+print(restaurant_price(RC[0]))
+print(restaurant_price(RC[4]))
+print(restaurant_price(RC[1]))
+
+print('\n')
+
+#d.2
+#Write a sequence of statements that prints out RC from least expensive to most.
+
+RC.sort(key=restaurant_price,reverse=False)
+print(RC)
+
+print('\n')
+
+#d.3
+# Write a function called costliest that returns the name of the highest-priced restaurant.
+# costliest:  hp:Restaurant -&gt;str
+
+
+
+def costliest(hp:RC)-&gt;str:
+    "Take the list RC and return the name of highest price "
+    RC.sort(key=restaurant_price,reverse=False)
+    print(RC)
+    print('')
+    return(hp.Name)
+
+print(costliest(RC[-1]))
+
+
+print('\n')
+
+#d.4
+# Rewrite costliest function without any side effect.
+#costliest: hp2:Restaurant -&gt;str
+
+
+def costliest2(hp2:RC)-&gt;str:
+     "Take the list RC and return the name of highest price without side effect."
+     sorted(RC,key=restaurant_price,reverse=False)
+     return(hp2.Name)
+
+print(costliest2(RC[-1]))
+
+print('\n')
+
+
+#
+#part.e
+#
+#
+#
+
+from collections import namedtuple
+
+Book=namedtuple('Book',"author title genre year price instock")
+
+BSI=[
+     Book("Peter Anteater", "My life in UCI", "School", 1970, 15.50, 50),
+     Book("Tina Feng", "I love ICS 31", "Technology", 2014, 7.80, 18),
+     Book("Amy Anna", "Mystery in Aldrich Park", "Mystery", 1974, 21.50, 120),
+</FONT>     Book("Elizabeth Kool", "How to make Sushi", "Cookbook", 2001, 18.80, 77),
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match1-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_46.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+     Book("Hellen Kay", "Who Killed that Cat", "Mystery", 2005, 10.50, 98),
+     Book("Caleb Lizz", "Stay in Shape", "Health", 2011, 13.50, 56)]
+
+
+
+#e.1
+# Write a sequence of statements that prints the title of each book in BSI,one per line.
+
+
+
+for Book in BSI:
+    print(Book.title)
+
+print('\n')
+
+#e.2 
+# Write a sequence of statements that prints the title of each book in BSI in alphabetical order;
+#do this without changing the original order of BSI.
+
+#bt:Book --&gt; str
+
+def book_title(bt:Book) -&gt;str:
+     "Take the list BSI and return the title of each book it list BSI. "
+     return(bt.title)
+
+
+for Book in sorted(BSI,key=book_title,reverse=False):
+   print(Book.title)
+
+print('\n')
+
+
+#e.3
+# Write a sequence that raises the price of each book in BSI by 10% without changing the value of BSI.
+
+for Book in BSI:
+     print(Book.price *1.10)
+
+print('\n')
+#e.4
+# Write a sequence of statements that prints the title of each book in BSI
+#whose genre is Technology.
+
+# bg:BSI --&gt;str 
+
+def book_genre(bg:BSI)-&gt;str:
+     "Take the list BSI and return the title who has genre of  'Technology'."   
+     if bg.genre == 'Technology':
+          return(bg.title)
+
+for Book in BSI:
+     print(book_genre(Book))
+
+
+print('\n')
+#e.5
+'''
+Write a sequence of statements that creates a new list containing the Books ("titles") in BSI that were published before 2000 and a second new list of Books published in 2000 or later.
+Then write a sequence of statements that prints one of these phrases: More titles before 2000 or More titles 2000 or later.
+Finally, add to whichever message you print the number of titles in each category, in a form like this:
+More titles 2000 or later (345 vs. 189). [Hint: To create a new list in this way, start with an empty list.
+Then, each time you find a new Book that belongs on the list, add that Book to the list. When you've gone through the original list, your new list will have the Books you want.
+'''
+
+#l:list -&gt; str
+def pre_2000(l:list) -&gt; str:
+    "Take the list of book and print the new list sorted by year."
+    new_list = []
+    for book in l:
+       if book.year &lt; 2000:
+            new_list.append(book.title)
+    print(new_list)
+
+#l:list -&gt; str
+def after_2000(l:list) -&gt; str:
+    "Take the list of book and print the new list sorted by year."
+    new_list = []
+    for book in l:
+       if book.year &gt;= 2000:
+            new_list.append(book.title)
+
+    print(new_list)
+
+after_2000(BSI)
+
+print('\n')
+
+pre_2000(BSI)
+
+#l:list -&gt; str
+def compare_book(l:list)-&gt;str:
+     "Take the list of books and print the right choice when comparing books."
+     new_list = []
+     new_list2 = []
+     for book in l:
+          if book.year &gt;= 2000:
+               new_list.append(book.title)
+     for book in l:
+          if book.year &lt; 2000:
+               new_list2.append(book.title)
+
+     if len(new_list) &gt; len(new_list2):
+          print('More titles 2000 or later (' ,len(new_list),'vs',len(new_list2),')' )
+
+     else:
+          print('More titles before 2000(' ,len(new_list2),'vs',len(new_list), ')')
+
+compare_book(BSI)
+
+print('\n')
+
+#e.6
+'''
+ Write a function called inventory_value that takes a Book as its argument and returns the value of our inventory of that book.
+ Then write a function called top_value that takes a list of Books as its argument and returns the Book object (from the list) that has the highest-value inventory.
+ Finally, write a sequence of statements that prints a line in this form: The highest-value book is War and Peace by Tolstoy, Leo at a value of $ 595.00.
+ '''
+# iv:Book -&gt; float
+def inventory_value(iv:Book)-&gt;float:
+     "Take the Book and returns its value."
+     return(iv.instock * iv.price)
+     
+# tp:BSI-&gt; str
+def top_value(tp:BSI)-&gt;Book:
+     "Take the list BSI and create a new list that prints the book that has the highest value."
+     new_booklist=sorted(tp,key=inventory_value)
+     return(min(new_booklist))
+
+print(top_value(BSI))
+     
+print('\n')
+
+
+#ll: last list :BSI -&gt; str
+
+def last_list(ll:Book)-&gt;str:
+    "Pull out the top_value Book object and returns the highest valued book name,author and value."
+    last_list1=(top_value(BSI))
+    print("The highest-value book is","'",last_list1.title,"'","by",last_list1.author,"at a value of $",(inventory_value(last_list1)),'.')
+
+(last_list(BSI))
+
+#6
+
+#f
+#draw a face without duplicating codes.
+
+import tkinter 
+my_window = tkinter.Tk() 
+
+my_canvas = tkinter.Canvas(my_window, width=2000, height=1500)
+my_canvas.pack()
+
+
+def draw_face(h,k):
+       my_canvas.create_oval(h,k,h+1300,k+1200,fill='tan')
+
+print(draw_face(0,0))
+
+
+
+def draw_eyes(a,b):
+     my_canvas.create_oval(a,b,a+400,b+200,fill='white')
+     my_canvas.create_oval(a+100,b,a+300,b+200,fill='blue')
+</FONT><A NAME="3"></A><FONT color = #00FFFF><A HREF="match1-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+     my_canvas.create_oval(a+170,b+70,a+230,b+130,fill='black')
+     my_canvas.create_oval(a+200,b+90,a+220,b+110,fill='white')
+
+print(draw_eyes(100,400))
+print(draw_eyes(800,400))
+
+def draw_nose(c,d):
+    my_canvas.create_oval(c,d,c+200,d+200,fill='red')
+
+print(draw_nose(600,600))
+
+
+def draw_mouth(e,f):
+    my_canvas.create_polygon(e,f,e+600,f+100,e+300,f+250,fill='brown')
+
+print(draw_mouth(400,800))
+
+
+def draw_eyebrow(x,y):
+    my_canvas.create_polygon(x,y,x+600,y-100,x+300,y-150,fill='black')
+
+print(draw_eyebrow(50,400))
+print(draw_eyebrow(700,300))
+</FONT>
+    
+
+
+tkinter.mainloop()
+
+
+
+
+ 
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

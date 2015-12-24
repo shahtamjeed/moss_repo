@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/chanmj2/(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/chanmj2/(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: BandBI.py
+#  Matthew Chan 82541550 and Justin Dong 23367438.  ICS 31 Lab sec 1.  Lab asst 8.
+
+def run_program(fname: 'name of file'):
+    '''runs the B and B program identifying commands in a file'''
+    file = open(fname)
+    flist = file.readlines()
+    Bedrooms = []
+    for line in flist:
+        split = line.split()
+        for i in range(len(split)):
+            if split[i].upper() == 'PL':
+                print(' '.join(split[i+1:]))
+            elif split[i].upper() == 'AB':
+                Bedrooms.append(split[i+1])
+            elif split[i].upper() == 'BL':
+                print('Number of bedrooms in service:  ' + str(len(Bedrooms)) + '\n' +
+                      '------------------------------------')
+                for room in Bedrooms:
+                    print(room)
+    
+            
+run_program('BandBinput.txt')
+
+
+
+### shell output        
+'''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match71-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_65.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+***********************************************************
+Here is a list of available bedrooms (before adding any!)
+Number of bedrooms in service:  0
+------------------------------------
+***********************************************************
+Number of bedrooms in service:  1
+------------------------------------
+101
+Number of bedrooms in service:  5
+------------------------------------
+101
+104
+102
+201
+203
+Thank you for using the Anteater BandB Reservation System!
+</FONT>'''
+</PRE>
+</PRE>
+</BODY>
+</HTML>

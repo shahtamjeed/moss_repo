@@ -1,0 +1,311 @@
+<HTML>
+<HEAD>
+<TITLE>gschahal/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jubaldo/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Lakshita Gangaramani 34446275, and Julian Ubaldo 57651347. ICS 31 Lab 6, assignment 6
+
+
+#c
+
+#c1
+
+def contains (str1: str, str2: str) -&gt; bool:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match203-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+     '''takes as input two strings. The function checks if the second string occurs in the first string.
+     If the second string does occur, the function returns True; if not, it returns False.'''
+</FONT>     return str2 in str1 
+assert contains('banana', 'ana') == True
+assert not contains('racecar', 'ck') == True
+assert contains('hotdog', 'dog') == True
+assert contains('churro', 'uno') == False
+assert not contains('churro', 'uno') == True
+
+
+#c2
+
+def translate_punctuation(sentc: str) -&gt; str:
+    '''replaces punctuations with blanks'''
+    table = str.maketrans("""!?'.:;*@#$%^&"()-_=+][{}\/&gt;,&lt;`~|""", "                                ")
+    return sentc.translate(table)
+
+def sentence_stats(sentence: str):
+    '''takes in a string as a parameter and prints out these statistics about the string:
+    its length in characters, its length in words, and the average length of each word.'''
+    print('Characters: ', len(sentence))
+    trans_sentence = translate_punctuation(sentence)
+    word_list = trans_sentence.split()
+    print('Words: ', len(word_list))
+
+    count = 0
+    for w in word_list:
+        count += len(w)
+        
+    print('Average word length: ', count/len(word_list))
+
+
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+print()
+sentence_stats('I love UCI')
+print()
+
+
+#c3
+
+def initials(full_name: str) -&gt; str:
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match203-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    '''takes as input a string representing a full name (e.g., Robert B. Qwerty)
+    and returns the initials of the name in all capital letters (e.g., RBQ).'''
+</FONT>    sep_name = full_name.split()
+    initial = ""
+    for n in sep_name:
+        initial += n[0].upper()
+    return initial
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+print(initials("Peter the Anteater"))
+print()
+print()
+print('------------------d------------------')
+print()
+print()
+#
+#
+#d
+
+#d1
+from random import randrange
+
+
+i = 1
+while i &lt;= 50:
+    print(randrange(11))
+    i += 1
+
+
+for a in range(50):
+    print(randrange(11))
+
+print()
+
+
+#d2
+
+
+def roll2dice() -&gt; int:
+    '''takes no parameters
+    and returns a number that reflects the random roll of two dice.'''
+    return (randrange(1,7) + randrange(1,7))
+
+
+for i in range(50):
+    print(roll2dice())
+
+print()
+
+def distribution_of_rolls(n:int):
+    '''takes one number—the number of times to roll two dice—and
+    prints the distribution of the values of those rolls in the form shown below.'''
+    sum = []
+    for i in range(n):
+        sum.append(roll2dice())
+    
+    print("Distibrution of dice rolls: ")
+    for d in range(2,13):
+        counter = sum.count(d)
+        print('{0:4} {1:5} {2:7.2f}% {3:}'. format(str(d), str(counter), (counter/n)*100 , counter * '*'))
+        
+    print("-" * 60)
+    print("            ", n, "rolls")
+    
+        
+
+distribution_of_rolls(200)
+print()
+
+
+
+#e
+
+#e1
+
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+
+
+def rotate_alphabet(num: int)-&gt; str:
+    rotated=''
+    rotated+=ALPHABET[num:]+ALPHABET[:num]
+    return rotated
+
+def Caesar_encrypt(message: str, key: int) -&gt;str:
+    '''takes two arguments: a string containing the message the plaintext for encryption
+    and an int for the key, indicating how far down the alphabet to find each substitute letter.
+    The encryption function returns the ciphertext'''
+    encrypted = ''
+    message = message.lower()
+    table = str.maketrans(ALPHABET, rotate_alphabet(key))
+    encrypted = message.translate(table)
+    return encrypted
+assert Caesar_encrypt('cat',3)== 'fdw'
+assert Caesar_encrypt('cat',29)=='cat'
+
+def Caesar_decrypt(message: str, key: int) -&gt; str:
+    '''takes two arguments: a string containing the message the the ciphertext for decryption
+    and an int for the key, indicating how far down the alphabet to find each substitute letter.
+    the decryption function returns the plaintext.'''
+    decrypted = ''
+    message = message.lower()
+    table = str.maketrans(rotate_alphabet(key), ALPHABET)
+    decrypted = message.translate(table)
+    return decrypted
+assert Caesar_decrypt('fdw',3)=='cat'
+
+
+print(Caesar_encrypt("hi there", 3))
+print(Caesar_decrypt("kl wkhuh", 3))
+print()
+
+print(Caesar_encrypt("Potatoes are good for you!", -789))
+print(Caesar_decrypt("wvahavlz hyl nvvk mvy fvb!", -789))
+print()
+
+print(Caesar_encrypt("cat", 29))
+print(Caesar_encrypt("cat", 3))
+
+     
+#e2
+
+#e3
+def rotate_alphabet2(num: int)-&gt; str:
+    rotated=''
+    rotated+=ALPHABET[num:]+ALPHABET[:num]
+    return rotated
+
+def Caesar_encrypt2(message: str, key: int) -&gt;str:
+    '''takes two arguments: a string containing the message the plaintext for encryption
+    and an int for the key, indicating how far down the alphabet to find each substitute letter.
+    The encryption function returns the ciphertext'''
+    encrypted = ''
+    key=key%26
+    message = message.lower()
+    table = str.maketrans(ALPHABET, rotate_alphabet(key))
+    encrypted = message.translate(table)
+    return encrypted
+assert Caesar_encrypt2('cat',3)== 'fdw'
+assert Caesar_encrypt2('cat',29)== 'fdw'
+
+def Caesar_decrypt2(message: str, key: int) -&gt; str:
+    '''takes two arguments: a string containing the message the the ciphertext for decryption
+    and an int for the key, indicating how far down the alphabet to find each substitute letter.
+    the decryption function returns the plaintext.'''
+    decrypted = ''
+    key=key%26
+    message = message.lower()
+    table = str.maketrans(rotate_alphabet(key), ALPHABET)
+    decrypted = message.translate(table)
+    return decrypted
+assert Caesar_decrypt2('fdw',3)== 'cat'
+assert Caesar_decrypt2('fdw',29)== 'cat'
+print()
+print()
+print('-----------------f------------------')
+print()
+print()
+#
+#
+#f
+
+#f1
+
+def print_line_numbers(L: list):
+    ''' takes a list of strings and prints each string preceded by a line number:'''
+    if len(L) &gt; 0:
+        for n in range(len(L)):
+            print('{0:5}:'.format(n+1), L[n])
+
+                
+
+
+words = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+
+print_line_numbers(words)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match203-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+
+
+#f2
+    
+
+def stats(L: list):
+    '''takes a list of strings and prints statistics as follows:
+    16824   lines in the list
+    483   empty lines
+    53.7 average characters per line
+    65.9 average characters per non-empty line'''
+</FONT>
+    print('{0:4}  '.format(len(L)), 'lines in the list')
+    
+
+    for i in L:
+        empty_count = 0
+        if i == '':
+            empty_count += 1
+            
+    print('{0:4}  '.format(empty_count), 'empty lines')
+    for i in L:
+        total_characters=0
+        total_characters+=len(i)
+
+    
+    print('{0:6.1f}'.format((total_characters)/(len(L))), 'average characters per line')
+
+    non_empty_lines = len(L) - empty_count
+    print('{0:6.1f}'.format(total_characters/non_empty_lines), 'average characters per non-empty line')
+
+
+
+stats(words)
+
+
+
+#f3
+
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match203-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def list_of_words(L: list) -&gt; list:
+    '''takes a list of strings as above and returns a list of individual words with all white space
+    and punctuation removed (except for apostrophes/single quotes).'''
+</FONT>    table = str.maketrans("!?.:;*@#$%^&()-_=+][{}\/&gt;,&lt;`~|", "                              ")
+    word_list = []
+    for i in L:
+        trans_sentence = i.translate(table)
+        word_list += trans_sentence.split()
+    return word_list
+        
+
+print(list_of_words(words))
+
+print()
+print()
+print('------------g----------------')
+print()
+print()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

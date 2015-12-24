@@ -1,0 +1,218 @@
+<HTML>
+<HEAD>
+<TITLE>mlgill/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+tjkobaya/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab7.py
+#Tetsu Kobayashi 89172212 and Kenny Matsudo 28917382.  ICS 31 Lab sec 13.  Lab asst 7.
+
+#PART c
+print('part c')
+from random import randrange
+
+def random_name():
+    '''returns a random name created from a list of surnames and first names'''
+    infile = open("surnames.txt", 'r')
+    list_of_names = infile.readlines()
+    infile.close()
+    random_num = randrange(0, 1000)
+    
+    for x in range(len(list_of_names)):
+       if str(random_num) in list_of_names[x]:
+           result = ''
+           for a in range(len(list_of_names[x])):
+               if list_of_names[x][a].isalpha():
+                   result += list_of_names[x][a]
+    p = randrange(0,2)
+    result2 = ''
+    if p == 0:
+        infile = open("malenames.txt", 'r')
+        list_of_malenames = infile.readlines()
+        infile.close()
+        for x in range(len(list_of_malenames[random_num])):
+            if list_of_malenames[random_num][x].isalpha():
+                result2 += list_of_malenames[random_num][x]
+    if p == 1:
+        infile = open("femalenames.txt", 'r')
+        list_of_femalenames = infile.readlines()
+        infile.close()
+        for x in range(len(list_of_femalenames[random_num])):
+            if list_of_femalenames[random_num][x].isalpha():
+                result2 += list_of_femalenames[random_num][x]
+    print(result, ',', result2)
+
+def random_names(times: int) -&gt; list:
+    '''creates a list of randomly selected names in the form surname, firstname'''
+    for x in range(times):
+        random_name()
+    return
+
+random_names(10)
+
+print('\n\n part d')
+#PART d
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def Caesar_decrypt(message: str, key: int) -&gt; str:
+      '''returns the plaintext based on key'''
+      x = message.lower()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match114-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+      if key &gt; 25:
+          new_key = key%26
+          shift = ALPHABET[new_key:] + ALPHABET[:new_key]
+          table = str.maketrans(shift,
+                                ALPHABET)
+          return x.translate(table)
+</FONT>      elif key &lt;= 25:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match114-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+          shift = ALPHABET[key:] + ALPHABET[:key]
+          table = str.maketrans(shift,
+                                ALPHABET)
+          return x.translate(table)
+        
+def Caesar_break(cipher_text: str) -&gt; str:
+</FONT>    '''returns the plaintext from the ciphered text'''
+    infile = open("wordlist.txt", 'r')
+    dictionary = infile.read()
+    infile.close()
+    list_of_decrypt = []
+    for num in range(27):
+        list_of_decrypt.append(Caesar_decrypt(cipher_text, num))
+    word_count = 0
+    result = ''
+    for each_word in list_of_decrypt:
+        words = each_word.split(' ')
+        list_of_words = []
+        for one_word in words:
+            if one_word in dictionary:
+                list_of_words.append(one_word)
+            if len(list_of_words) &gt; word_count:
+                word_count = len(list_of_words)
+                result = each_word
+    return result
+
+#Encrypted by Tetsu Kobayashi
+print(Caesar_break('fmu ypc wms bmgle rmbyw?'))
+
+#Encrypted by Kenny Matsudo
+print(Caesar_break('ltti, mtb fgtzy dtz?'))
+
+
+print('\n\n part e')
+#PART e
+
+def stats(y:list) -&gt; str:
+    '''Prints statistics of the strings'''
+    numbers = []
+    numbers2 = []
+    actual_stats = ''
+    First_line = '{:0.0f}     {}'.format(len(y),'lines in the list \n')
+    Second_line = '{:2.0f}     {}'.format(y.count(''),'empty lines \n')
+    for i in range(len(y)):
+        numbers.append(len(y[i]))
+        if (y[i] != ''):
+            numbers2.append(len(y[i]))
+
+    average = sum(numbers)/len(numbers)
+    average_second = sum(numbers2)/len(numbers2)
+    Third_line = '{:5.1f} {}'.format(average,'average characters per line \n')
+    Fourth_line = '{:5.1f} {}'.format(average_second,'average characters per non-empty line \n')
+    actual_stats += First_line
+    actual_stats += Second_line
+    actual_stats += Third_line
+    actual_stats += Fourth_line
+    return actual_stats
+
+def copy_file(n: str):
+    #PART e2
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match114-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if n == "line numbers":
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile =  open(infile_name, 'r', errors='ignore')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        i=1
+        for line in infile:
+</FONT>            outfile.write(str(i)+": " +line)
+            i+=1
+        infile.close()
+        outfile.close
+
+
+    #PART e3
+    elif n == "Gutenberg trim":
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile =  open(infile_name, 'r', errors='ignore')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        content = infile.read()
+        content_split = content.split('\n')
+        line_start = 0
+        line_end = 0
+
+        #Finds first line where '*** START' in textfile
+        for x in range(len(content_split)):
+            if content_split[x].find('*** START') == -1:
+                line_start = line_start + 2
+            else:
+                break
+
+        #Finds first line where '*** END' in textfile
+        for x in range(len(content_split)):
+            if content_split[x].find('*** END') == -1:
+                line_end = line_end + 1
+            else:
+                break
+        #Makes content_split into string with just lines from the book
+        just_content = '\n'.join(content_split[line_start:line_end])
+        outfile.write(just_content)
+        infile.close()
+        outfile.close()
+
+        
+    #PART e4
+    elif n == "statistics":
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile =  open(infile_name, 'r', errors='ignore')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        outfile.write(infile.read())
+        infile.close()
+        infile2 = open(infile_name, 'r', errors='ignore')
+        actual_content = infile2.read()
+        content = actual_content.split('\n')
+        outfile.write(stats(content))
+        infile2.close()
+        outfile.close()
+        
+        
+    #JUST RETURNS COPY
+    else:
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile =  open(infile_name, 'r', errors='ignore')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        outfile.write(infile.read())
+        infile.close()
+        outfile.close()
+
+print('\n\n part e2')
+copy_file('line numbers')
+copy_file('should print copy of itself')
+
+print('\n\n part e3')
+copy_file('Gutenberg trim')
+
+print('\n\n part e4')
+copy_file('statistics')
+    
+    
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

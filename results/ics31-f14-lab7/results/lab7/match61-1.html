@@ -1,0 +1,246 @@
+<HTML>
+<HEAD>
+<TITLE>ajmui/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jerridd/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Jerrid Domingo 90107901
+#ICS 31 Lab Sec 7 8:00pm - 9:50pm
+#Lab asst 7
+
+f_female_names = open("femalenames.txt")
+f_male_names = open("malenames.txt")
+f_sur_names = open("surnames.txt")
+
+#Excersise C
+print('Excersise C\n\n')
+
+from random import randrange
+
+female_names = f_female_names.readlines()
+male_names = f_male_names.readlines()
+sur_names = f_sur_names.readlines()
+
+
+
+f_female_names.close()
+f_male_names.close()
+f_sur_names.close()
+
+
+def list_of_names(L: [str]) -&gt; [str]:
+    '''Prepares the list of names without numbers'''
+    temp = L[:]
+    for i in range(len(temp)):
+        temp[i] = temp[i][:temp[i].index('\t')]
+    return temp
+
+
+
+def random_names(num: int)-&gt; [str]:
+    '''generates a list of "num" random names'''
+    result = []
+    
+    first_name = list_of_names(female_names) + list_of_names(male_names)
+    last_name = list_of_names(sur_names)
+    
+    for i in range(num):
+        result.append(last_name[randrange(len(last_name))] +
+                      ', ' + first_name[randrange(len(first_name))])
+
+    return result
+    
+temp = random_names(30)
+for i in temp:
+    print(i)
+    
+'''OUTPUT
+BRADSHAW, YVONNE
+DAY, GENA
+LUNA, ULYSSES
+MERRILL, JEROLD
+BUCHANAN, ALEJANDRA
+LARSEN, ANDREW
+ARNOLD, JERI
+BLAIR, MELVA
+WHITLEY, BRUNO
+REYNOLDS, LOGAN
+LE, EZRA
+BATTLE, DYLAN
+BENDER, SHERRIE
+ESPINOZA, DONA
+COTTON, VICTOR
+COLON, DUNCAN
+CARNEY, GARRY
+ODOM, RODRIGO
+GATES, ANDRES
+FERGUSON, ARLENE
+REEVES, CHARLIE
+PATE, JACQUELINE
+KENT, ROMAN
+GARRETT, LOUISE
+REILLY, NED
+HUNT, SCOTTY
+LINDSAY, SUSAN
+WILLIAMSON, ROSARIO
+HODGES, MITCH
+REILLY, PATTI
+'''
+print('\n\n')
+
+
+#Excersise D
+print("Excersise D\n\n")
+
+f_dictionary = open("wordlist.txt")
+dictionary = f_dictionary.readlines()
+f_dictionary.close
+
+for i in range(len(dictionary)):
+    dictionary[i] = dictionary[i].rstrip().lower()
+
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match61-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_13.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def Encrypt_alphabet(num: int, encrypt: bool) -&gt; str:
+    '''Encrypts or decrypts based on a bool value'''
+    if encrypt:
+        return ALPHABET[num:] + ALPHABET[0:num]
+    else:
+        return ALPHABET[26-num:] + ALPHABET[:26-num]
+
+
+def Caesar_encrypt(string: str, num: int) -&gt; str:
+    '''Performs a cesar encrypt shift of num'''
+    table = str.maketrans(ALPHABET, Encrypt_alphabet(num, True))
+    return string.lower().translate(table)
+
+def Caesar_dencrypt(string: str, num: int) -&gt; str:
+    '''Performs a cesar decrypt based on key num'''
+    table = str.maketrans(ALPHABET, Encrypt_alphabet(num, False))
+    return string.lower().translate(table)
+</FONT>
+
+def string_with_real_words(L: [str]) -&gt; int:
+    '''Returns the index of string with words'''
+
+    result = []
+
+    for i in L:
+        accum = 0
+        temp = i.split()
+        for j in temp:
+            if j in dictionary:
+                accum += 1
+        result.append(accum)
+    return result.index(max(result))
+
+def Caesar_break(cipher_text: str)-&gt; str:
+    '''Decrypts a cipher text with brute force'''
+    
+    decrypt_alpha = []
+    
+    for i in range(26):
+        decrypt_alpha.append(str.maketrans(ALPHABET, Encrypt_alphabet(i, False)))
+        
+    temp_cipher = cipher_text[:]
+    table = str.maketrans(".,!?;:*",
+                          "       ")
+    
+    temp_cipher = temp_cipher.lower().translate(table)
+    
+    num_word_match = 0
+
+    temp_list = []
+    for i in decrypt_alpha:
+        temp_list.append(temp_cipher.translate(i))
+
+    return cipher_text.translate(decrypt_alpha[string_with_real_words(temp_list)])
+    
+
+
+print(Caesar_break(Caesar_encrypt("Hello how are you today?", 5)))
+
+'''OUTPUT
+hello how are you today?
+'''
+
+
+print('\n\n')
+
+#Excersise E
+print("Excersise E\n\n")
+
+#E.1, E.2, E3 and E.4
+def copy_file(string: str) -&gt; None:
+    '''This function coppies a file based on its input condition'''
+           
+    
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match61-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    line_num = 1
+    
+    if string == "line numbers":
+        for line in infile:
+            outfile.write("{:&gt;5}: {}".format(line_num, line))
+            line_num += 1
+    elif string == "statistics":
+        
+        count_line = 0
+</FONT>        count = 0
+        count_empty_lines = 0
+        count_notempty =0
+        
+        for i in infile:
+            if i.isspace():
+                count_empty_lines += 1
+            else:
+                count_notempty += len(i)
+            count += len(i)
+            count_line += 1
+            
+        print("{:&gt;7}   {:}".format(count_line, 'lines in the list'))
+        print("{:&gt;7}   {:}".format(count_empty_lines, 'empty lines'))
+        print("{:&gt;9.1f} {:}".format(count/count_line, 'average characters per line'))
+        print("{:&gt;9.1f} {:}".format(count_notempty/(count_line-count_empty_lines), 'average characters per line'))
+
+    elif string == "Gutenberg trim":
+        temp_str = infile.readline()
+        while("** START" not in temp_str):
+            temp_str = infile.readline()
+
+        temp_str = infile.readline()
+        
+        while("*** END" not in temp_str):
+            outfile.write(temp_str)
+            temp_str = infile.readline()
+            
+    else:
+        for line in infile:
+            outfile.write(line)
+            
+    infile.close()
+    outfile.close()
+
+    
+copy_file("Gutenberg trim")
+
+
+
+
+
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

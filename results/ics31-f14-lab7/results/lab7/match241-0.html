@@ -1,0 +1,125 @@
+<HTML>
+<HEAD>
+<TITLE>glambsar/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+glambsar/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Gurjot Lambsar 74282470 and Andrew Lee 16436720. ICS 31 Lab sec 4. Lab asst 7.
+
+#--------(Part C)--------
+
+from random import randrange
+def random_names(x: int) -&gt; list:
+    infile = open('surnames.txt', 'r')
+    surnamestxt = infile.read()
+    infile.close()
+    infile = open('femalenames.txt', 'r')
+    femalenamestxt = infile.read()
+    infile.close()
+    infile = open('malenames.txt', 'r')
+    malenamestxt = infile.read()
+    infile.close()
+    surnamestxt1 = surnamestxt.lower()
+    femalenamestxt1 = femalenamestxt.lower()
+    malenamestxt1 = malenamestxt.lower()
+    surnames = surnamestxt1.split('\n')
+    femalenames = femalenamestxt1.split('\n')
+    malenames = malenamestxt1.split('\n')
+    surnameslist = []
+    for i in surnames: 
+        surnameslist.append(i.split('\t')[0])
+    femalenameslist = []
+    for i in femalenames:
+        femalenameslist.append(i.split('\t')[0])
+    malenameslist = []
+    for i in malenames:
+        malenameslist.append(i.split('\t')[0])
+    firstnameslist = femalenameslist + malenameslist
+    nameslist = []
+    for i in range(x):
+        r1 = randrange(len(surnameslist))
+        r2 = randrange(len(firstnameslist))
+        nameslist.append(surnameslist[r1].capitalize() + ', ' + firstnameslist[r2].capitalize())
+    return nameslist
+
+assert(random_names(5))
+assert(random_names(24))
+
+#--------(Part D)--------
+
+def Caesar_break(x: str) -&gt; str:
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    keys = []
+    infile = open('wordlist.txt', 'r')
+    wordlisttxt = infile.read()
+    infile.close()
+    wordlist = wordlisttxt.split('\n')
+    word1 = ''
+    for i in range(26):
+        keys.append(alphabet[i:26] + alphabet[0:i])
+    for i in keys:
+        table = str.maketrans(i, alphabet)
+        word = (x.lower()).translate(table)
+        for j in range(len(wordlist)):
+            if word == (wordlist[j].lower()):
+                if word.capitalize() == wordlist[j]:
+                    word1 = word.capitalize()
+                elif word.upper() == wordlist[j]:
+                    word1 = word.upper()
+                else:
+                    word1 = word
+    return word1
+
+assert(Caesar_break("xyybsfiifxk'p")) == "Abbevillian's"
+assert(Caesar_break("qisyy")) == "ASCII"
+assert(Caesar_break("xpwaxpwkzmibqvm'a")) == "phosphocreatine's"
+
+#--------(Part E)--------
+
+def copy_file(x: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    print(infile)
+    outfile_name = input("Please enter the name of the new copy: ")
+    outfile = open(outfile_name, 'w')
+    if x == 'line numbers':
+        linenumber = 1
+        for line in infile:
+                outfile.write('{:5} {} {}'.format(linenumber,':', line))
+                linenumber += 1
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match241-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    elif x == 'Gutenberg trim':
+        toprint = False
+        for line in infile:
+            if '*** END' in line:
+                toprint = False
+            if toprint == True:
+                outfile.write(line)
+            if '*** START' in line:
+                toprint = True
+    elif x == 'statistics':
+        linenumber = 0
+        emptyline = 0
+        characters = 0
+        for line in infile:
+            outfile.write(line)
+</FONT>            if ' ' == line:
+                emptyline += 1
+            for i in line:
+                characters += 1
+            linenumber += 1
+        avg = characters/linenumber
+        avgnoempty = characters/(linenumber - emptyline)
+        outfile.write(str('{0:7.1f} {1}'.format(linenumber, 'lines in the list')) + '\n' + str('{0:7.1f} {1}'.format(emptyline, 'empty lines')) + '\n' + str('{0:7.1f} {1}'.format(avg, 'average characters per line')) + '\n' + str('{0:7.1f} {1}'.format(avgnoempty, 'average characters per non-empty line')))
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

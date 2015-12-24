@@ -1,0 +1,283 @@
+<HTML>
+<HEAD>
+<TITLE>jesteban/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ranl7/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# RAN LI 42282457 & DANIEL XU 15887350.  ICS 31 Lab sec 4.  Lab asst 7.
+
+
+#-----------------------import part & predifine part----------------------
+#-----------------------import part & predifine part----------------------
+#-----------------------import part & predifine part----------------------
+#-----------------------import part & predifine part----------------------
+
+from random import randrange
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+num = '0123456789'
+
+##statistics##
+def print_line_numbers(plnl:list):
+    '''print a list of string'''
+    a = 1
+    for i in plnl:
+        print('{:5}:  {}\n'.format(a,i))
+        a += 1
+
+alphabetss = 'abcdefghijklmnopqrstuvwxyz'
+
+def count_list_words(clw:list) -&gt;int:
+    '''for the below function'''
+    clwn = 0
+    for i in clw:
+        for j in i:
+            if j.lower() in alphabetss:
+                clwn += 1                               
+    return clwn
+  
+def stats(sl:list):
+    '''print statistics'''
+    
+
+    return '\n{:6.1f} {}\n{:6.1f} {}\n{:6.1f} {}\n{:6.1f} {}\n'.format(len(sl),'lines in the list',sl.count('\n'),'empty lines',
+                                                                   count_list_words(sl)/len(sl),'average characters per line',
+                                                                   count_list_words(sl)/(len(sl)-sl.count('')),'average characters per non-empty line')
+                                                                   
+
+##statistics##
+
+
+#-----------------------import part & predifine part----------------------
+#-----------------------import part & predifine part----------------------
+#-----------------------import part & predifine part----------------------
+#-----------------------import part & predifine part----------------------
+
+
+
+
+print()
+print('---------- Part (c) ----------')
+print()
+
+def generate_a_surnames() -&gt;str:
+    '''generate a list of surnames'''
+    a = open('surnames.txt','r')    
+    b = a.read()
+    c = b.split()
+    d = []
+    for i in c:
+        if i[0].lower() in alphabet:
+            i = i.capitalize()
+            d.append(i)
+    
+    return d[randrange(999)]
+
+def generate_a_malenames() -&gt;str:
+    '''generate a list of malenames'''
+    a = open('malenames.txt','r')    
+    b = a.read()
+    c = b.split()
+    d = []
+    for i in c:
+        if i[0].lower() in alphabet:
+            i = i.capitalize()
+            d.append(i)
+    return d[randrange(999)]
+
+def generate_a_femalenames() -&gt;str:
+    '''generate a list of femalenames'''
+    a = open('femalenames.txt','r')    
+    b = a.read()
+    c = b.split()
+    d = []
+    for i in c:
+        if i[0].lower() in alphabet:
+            i = i.capitalize()
+            d.append(i)
+    return d[randrange(999)]
+
+def generate_a_sex() -&gt;int:
+    '''generate a sex'''
+    return randrange(1)
+
+def random_names(rni:int) -&gt;list:
+    '''take a int and return a list'''
+    a = 0
+    b = []
+    c = ''
+    while a != rni:
+        if generate_a_sex() == 0:
+            c = generate_a_femalenames() +' '+ generate_a_surnames()
+            b.append(c)
+            a += 1
+        elif generate_a_sex() == 1:
+            c = generate_a_malenames() + generate_a_surnames()
+            b.append(c)
+            a += 1
+
+    return b
+
+a = int(input('input a number: '))
+print(random_names(a))
+print(' ')
+for i in random_names(a):
+    print(i)
+            
+print()
+print('---------- Part (d) ----------')
+print()            
+            
+def key_generator(kgi:int) -&gt;str:
+    '''generate keys'''    
+    return alphabet[kgi:] + alphabet[:kgi]
+def dict_generator() -&gt; str:
+    a = open('wordlist.txt','r')
+    b = a.read()
+    return b
+   
+def Caesar_break(cbs:str) -&gt;str:
+    '''brute force'''
+    print('Please wait until you see done;'+'\n')
+    a = 0
+    b = []
+    c = ''
+    e = []
+    f = ''
+    while a &lt; 26:
+        table = str.maketrans(key_generator(a),alphabet)
+        c = cbs.translate(table)
+        b.append(c)
+        a += 1
+    for i in b:
+        i = i.split()
+        d = 0
+        for j in i:            
+            if j in dict_generator():
+                d += 1                
+        e.append(d)
+    for i in e:
+        f = f + str(i)
+        
+    print('DONE'+'\n')
+        
+    return b[f.find(str(max(e)))]
+#assert (Caesar_break('i am a man') == 'i am a man')
+#assert (Caesar_break("dtz rnlmy gj xzwuwnxji yt pstb ymfy ymj hfjxfw hnumjw bj'aj gjjs btwpnsl bnym")) == "you might be surprised to know that the caesar cipher we've been working with"
+
+
+print(Caesar_break("dqg srvvleob fkdqjh wkh zdb brx orrn dw wkh zruog "))
+#"dqg srvvleob fkdqjh wkh zdb brx orrn dw wkh zruog" is a sentence that encrypted by using last asst.      
+
+print()
+print('---------- Part (e) ----------')
+print()
+
+
+def copy_file(cfs: str):
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match93-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    '''copy file to another one in certain str'''
+
+    if cfs == "Gutenberg trim":
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        ooutfile = infile.readlines()
+</FONT>        aaa = False
+        for l in ooutfile:
+            if aaa == False:
+                if '*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***' in l:
+                    aaa = True
+                
+            elif aaa:
+                if '*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***' in l:
+                    aaa = False
+                else:
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match93-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                    outfile.write(l)
+                
+                
+        infile.close()
+        outfile.close()
+        
+    elif cfs == "line numbers":
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+</FONT>        ooutfile = infile.readlines()
+        ac = 0
+        for line in ooutfile:
+            lines = '{:&gt;5}: {}'.format(ac+1,line)
+            outfile.write(lines)
+            ac += 1
+        infile.close()
+        outfile.close()
+        
+    elif cfs == "statistics":
+        al = []
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        ooutfile = infile.readlines()
+        for line in ooutfile:
+            al.append(line)
+        infile.close()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match93-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        print(stats(al))
+        
+
+
+    
+#########################    
+    else:
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        ooutfile = infile.readlines()
+        for line in ooutfile:
+            outfile.write(lines)
+        infile.close()
+        outfile.close()
+########################
+    
+        
+
+ad = input('something: ')
+</FONT>copy_file(ad)
+
+    
+                
+    
+    
+    
+        
+        
+        
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,312 @@
+<HTML>
+<HEAD>
+<TITLE>jwardlaw/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kenqn/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3last.py
+#Ken Nguyen 14832232 and Richmond Liu 32851015 ICS 31 Lab sec 15
+
+#c
+def abbreviate (n:str) -&gt; str:
+    '''Abbreviates a string to the first three letters of it'''
+    return n[0:3]
+
+assert abbreviate('cake') == 'cak'
+assert abbreviate('February') == 'Feb'
+
+print(abbreviate('January'))
+
+print()
+
+#
+#c2
+#
+
+
+def find_area_square(n: int) -&gt; int:
+    '''finds the area of a square using n^2'''
+    return n**2
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+print(find_area_square(2500))
+
+print()
+
+#
+#
+#c3
+#
+#
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match197-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def find_area_circle(r: int)-&gt; float:
+    '''Finds the area of the circle using pi*r^2'''
+    return ((3.14159*r**2))
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+#
+#c4
+#
+
+listOfIntegers = ([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+</FONT>
+def print_even_numbers(listOfIntegers: list) -&gt; int:
+ '''Takes a list of integers as input and prints each even number'''
+ for i in (listOfIntegers):
+     if i%2 == 0:
+       print(i)
+   
+print_even_numbers(listOfIntegers)
+
+#c5
+
+def calculate_shipping(pounds:float)-&gt; float:
+    '''Calculates shipping by determining the weight of pounds then
+    calculating according to the shipping rate of each category of pounds'''
+    if pounds &lt; 2.0:
+        return 2.00
+    elif pounds &gt;= 2 and pounds &lt; 10:
+        return 5.00
+    elif pounds &gt;= 10:
+        return (5 + (1.5*(pounds - 10)))
+
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+#c6
+
+import tkinter
+def create_square(x:int, y: int, length: int):
+    '''Creates a square by taking inputted x-y coordinates then taking the length of the side'''
+    my_window = tkinter.Tk()
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match197-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    my_canvas.pack()
+
+    my_canvas.create_rectangle(x, y, x+length, y+length)
+
+create_square(250, 250, 250)
+
+#c7
+
+def create_circle(x: int, y: int, diameter:int)-&gt; int:
+</FONT>    '''Creates a circle by taking the x-y coordinates then taking the diameter of the circle'''
+    my_window = tkinter.Tk()
+    my_circle = tkinter.Canvas(my_window, width=500, height=500)
+    my_circle.pack()
+
+    my_circle.create_oval(x, y, x+diameter, y+diameter)
+
+create_circle(250, 250, 250)
+
+#end of problem c)
+
+#Start of problem d)
+
+
+#d1
+#Creating a sort key
+
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurant_price(Restaurant: Restaurant)-&gt; int:
+    '''Tells you the price of the best dish of a restaraunt in the list'''
+    return Restaurant.price
+
+assert restaurant_price(RL[0]) == 12.50
+
+
+#d2 Sorting a list according to a key
+RL.sort(key = restaurant_price)
+print(RL)
+
+#d3
+
+def costliest(Restaurant: list)-&gt; str:
+    '''Figures out the restaurant with the costliest dish in the list'''
+    Restaurant.sort(key = restaurant_price)
+    return Restaurant[-1].name
+assert costliest(RL) == "Noma"
+
+print(costliest(RL))
+
+
+#d4
+
+
+
+def costliest2 (Restaurant: list) -&gt; str:
+    '''Figures out the restaurant with the costliest dish in the list;
+    however does not change the list itself''' 
+    RL2 = sorted(Restaurant, key = restaurant_price)
+    return RL2[-1].name
+assert costliest2(RL) == "Noma"
+
+#end of D
+
+#start of E
+
+#e
+
+from collections import namedtuple
+
+Book = namedtuple('Book', 'author title genre year price instock')
+
+BSI = [
+    Book('Something or what', 'Twilight', 'fantasy', 2000, 3.50, 12),
+    Book('J.K. Rowling', 'Harry Potter', 'fantasy', 2000, 7.50, 4),
+    Book('Artour Babaev', 'We Lost', 'The One Truth', 2014, 99.00, 1),
+    Book('Albert Camus', 'The Stranger', 'realistic fiction', 1900, 5.00, 3),
+    Book('Gabe Newell', 'Half-Life 3 Confirmed', 'fiction', 2500, 2.50, 14),
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match197-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Book('Lan M', 'Chronicles of Yester-year', 'non-fiction', 2013, 5.00, 1)
+    ]
+
+#e1
+for i in range(len(BSI)):
+    print(BSI[i].title)
+
+#e2
+
+def book_title (n : Book) -&gt; str:
+    '''Function that returns the title of a Book on the list'''
+    return n.title
+</FONT>
+for i in sorted(BSI, key = book_title):
+    print(i.title)
+
+
+#e3
+
+for i in range(len(BSI)):
+    BSI[i] = BSI[i]._replace(price = BSI[i].price*1.1)
+
+
+for i in range(len(BSI)):
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match197-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print(BSI[i].price)
+
+#e4
+for i in range(len(BSI)):
+    if BSI[i].genre == 'Technology':
+        print(BSI[i].title)
+</FONT>
+#e5
+#creating lists if books after or before 2000
+BooksBefore2000 = []
+BooksAfter2000 = []
+
+for i in range(len(BSI)):
+    if BSI[i].year &lt; 2000:
+        BooksBefore2000.append(BSI[i])
+    else:
+        BooksAfter2000.append(BSI[i])
+
+if BooksBefore2000 &gt; BooksAfter2000:
+    print("More titles before 2000" + "(" +
+          str(len(BooksBefore2000)),
+          "vs",
+          str(len(BooksAfter2000)) +
+          ')')
+else:
+    print("More titles after 2000" +
+          "(" +
+          str(len(BooksBefore2000)),
+          "vs",
+          str(len(BooksAfter2000)) + ')')
+    
+#e6
+#value of inventory = bookPrice * number of copies in stock
+
+def inventory_value (n: Book) -&gt; float:
+    '''function that returns inventory of book, which is its price multiplied
+    by its stock'''
+    return n.price * n.instock
+assert inventory_value(BSI[0]) == 3.8500000000000005 * 12
+#using new value of books from e3
+
+#Take a list of Books as argument and return highest value inventory
+
+#BSI.sort(key = inventory_value)
+
+
+def top_value (n: list) -&gt; Book:
+    '''Finds out the book with the highest inventory value'''
+    n = sorted(n, key = inventory_value)
+    return n[-1]
+
+print("The highest value book is " + top_value(BSI).title + " by " + top_value(BSI).author + " at a value of $" + str(inventory_value(top_value(BSI))))
+
+#end of e
+
+#start f
+
+#f
+
+
+#Functions for drawing on tkinter
+def draw_eye(x: int, y: int, distanceBetweenEyes: int, diameter: int):
+    '''Asks for x-y coordinates, the distance between its eyes and the diameter/how big the eyes are supposed to be. Also draws pupils according to the eye'''
+    my_canvas.create_oval(x, y, x+diameter, y+diameter)
+    my_canvas.create_oval(x+distanceBetweenEyes, y, x + distanceBetweenEyes + diameter, y+diameter)
+    my_canvas.create_oval(x+35, y+35, x + (diameter/1.25), y + (diameter/1.25), fill = 'black')
+    my_canvas.create_oval(x + distanceBetweenEyes + 35, y + 35, x + distanceBetweenEyes + (diameter/1.25), y + (diameter/1.25), fill = 'black')
+    return
+def draw_mouth(x: int, y: int, width: int, length: int, concavity: int):
+    '''Draws a mouth using an arc'''
+    my_canvas.create_arc(x, y, x+width, y+ length, style = "arc", extent = concavity)
+    return
+def draw_nose(x: int, y: int, length: int):
+    '''Draws a nose using lines'''
+    my_canvas.create_line(x, y, x - length, y + length)
+    my_canvas.create_line(x - length, y + length, x, y + length)
+    return
+def draw_moustache(x: int, y: int, length: int,width: int ):
+    '''Creates a moustache according to x, y, length, width'''
+    my_canvas.create_rectangle(x, y, x + width, y -length , fill = 'black')
+    return
+def draw_eyebrows(x: int, y: int, length:int, elevation: int):
+    my_canvas.create_line(x, y, x + length, y - elevation)
+
+
+#DRAWING ON TKINTER
+def draw_face(x: int, y:int, concavityOfMouth: int, lengthOfMoustache: int, widthOfMoustache: int, sizeOfNose: int):
+    ''' x-y coordinates are be according to where the eyes should be e.g. draw_face(300,300,0,0,0) will start drawing from the eyes. Changing numbers changes position
+    key: draw_face(position-x, position-y, concavityOfMouth, lengthOfMoustache, widthOfMoustache, sizeOfNose)'''
+    draw_eye(x, y, 150, 100)
+    draw_nose(x+ 115, y+ 115, sizeOfNose)
+    draw_mouth(x+ 25, y+ 250, 150, 50, concavityOfMouth) 
+    draw_moustache(x+ 50, y+ 250, lengthOfMoustache , widthOfMoustache)
+    draw_eyebrows(x + 150, y, 80, 30)
+    draw_eyebrows(x + 100, y, -80, 30)
+    return
+import tkinter
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width = 1000, height = 1000)
+my_canvas.pack()
+draw_face(300, 300, -180, 25, 100, 75)
+tkinter.mainloop()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

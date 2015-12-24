@@ -1,0 +1,141 @@
+<HTML>
+<HEAD>
+<TITLE>jwagas/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+parka5/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Kiet Nguyen 19764004 and Andrew Park 85518342. ICS 31 Lab sec 2. Lab asst 7.
+
+from random import randrange
+print('''----------- lab C -----------
+
+
+                                      ''')
+def random_name()-&gt;str:
+    ''' takes in a integer and returns a list of names'''
+    surnamefile=open("surnames.txt","r")
+    num_lines_sur = sum(1 for line in open("surnames.txt"))
+    num_lines_first = 0
+    if(randrange(2) == 0):
+        firstnamefile=open("malenames.txt",'r')
+        num_lines_first = sum(1 for line in open("malenames.txt"))
+    else:
+        firstnamefile=open("femalenames.txt",'r')
+        num_lines_first = sum(1 for line in open("femalenames.txt"))
+    firstnamedata = firstnamefile.readlines(randrange(num_lines_first))[-1]
+    surnamedata = surnamefile.readlines(randrange(num_lines_sur))[-1]
+    surnamefile.close()
+    firstnamefile.close()
+    return(firstnamedata.split()[0].lower().title() +' '+ surnamedata.split()[0].lower().title())
+
+def random_names(number:int)-&gt;list:
+    name_list = []
+    for x in range(number):
+        name_list.append(random_name())
+    return name_list
+
+print(random_names(8))
+print()
+print(random_names(16))
+
+print('''----------- lab D -----------
+
+
+                                      ''')
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match169-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def rotate(i:int) -&gt; str:
+    '''Rotates the letters of the alphabet by an integer, negatives
+    push the last letter up while positives push first letter down'''
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    return alphabet[i:] + alphabet [:i]
+</FONT>print(rotate(-1))
+print(rotate(1))
+
+infile = open('wordlist.txt', 'r')
+wordlist = infile.read().lower()
+infile.close()
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match169-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_decrypt(a:str, c:int) -&gt; str:
+    '''Decrypts a str using a key specified by the int'''
+    key = rotate(c)
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    final = a.lower().maketrans(key, alphabet)
+</FONT>    print(a.lower().translate(final))
+
+
+Caesar_decrypt('ifmmp', 1)
+print("hello this is a test".split())
+def Caesar_break(s: str) -&gt; str:
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    words = 0
+    cipher = 0
+    for i in range(26):
+        temp = 0
+        key = rotate(i)
+        final = s.lower().maketrans(key, alphabet)
+        for j in range(len(s.split())):
+            if s.lower().translate(final).split()[j] in wordlist:
+                temp += 1
+                if words &lt; temp:
+                    words = temp
+                    cipher = i
+    return Caesar_decrypt(s, cipher)
+Caesar_break('uijt jt b uftu. jg zpv dbo sfbe uijt, uif dpef xpslfe')
+
+print('''----------- lab E -----------
+
+
+                                      ''')
+def copy_file(definition:str):
+    ''' copy's file depending on the definition '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    linenumber = 1
+    if(definition == 'line numbers'):
+        for line in infile:
+            outfile.write("{:&gt;5}: {}".format(linenumber,line))
+            linenumber += 1
+    elif(definition == "Gutenberg trim"):        
+        guten_list = infile.readlines()
+        beginning = 0
+        end = 0
+        for x in range(len(guten_list)):
+            if('*** START' in guten_list[x]):
+                beginning = x
+                break
+        for x in range(len(guten_list)):
+            if('*** END' in guten_list[x]):
+                end = x
+                break
+        print(beginning,end)
+        new_guten_list = guten_list[beginning+1:end]
+        for line in new_guten_list:
+            outfile.write(line)
+    if definition=='statistics':
+        guten_list = infile.readlines()
+        total_chars = 0
+        for x in range(len(guten_list)):
+            total_chars += len(guten_list[x])
+        print('{:5d}   lines in the file'.format(len(guten_list)) + '\n'
+              '{:5d}   empty lines'.format(guten_list.count('\n')) + '\n'
+              '{0:7.1f} average characters per line'.format(total_chars / len(guten_list)) + '\n'
+              '{0:7.1f} average characters per non-empty line'.format(total_chars / (len(guten_list) - guten_list.count('\n'))))
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file("statistics")
+</PRE>
+</PRE>
+</BODY>
+</HTML>

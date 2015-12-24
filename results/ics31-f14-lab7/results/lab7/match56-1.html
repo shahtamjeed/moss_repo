@@ -1,0 +1,247 @@
+<HTML>
+<HEAD>
+<TITLE>codyh1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+dasolis/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Daniel A. Solis 33176737
+
+print("\n")
+print("----Part C----")
+print("\n")
+
+# C.1
+from random import randrange
+
+def random_names(number: int) -&gt; list:
+    '''Takes a number and returns that number of
+       random names in a list. '''
+    names = [ ]
+    for x in range(number):
+        names.append(random_name())
+    return names
+
+# C.2
+
+surnames = open('surnames.txt', 'r')
+female_names = open('femalenames.txt', 'r')
+male_names = open('malenames.txt', 'r')
+
+surnames_read = surnames.read() # Makes the file into a string
+female_names_read = female_names.read()
+male_names_read = male_names.read()
+
+female_list = female_names_read.split() # Split names and statistics into a list
+male_list = male_names_read.split()
+surname_list = surnames_read.split()
+
+def remove_non_letters(line: str) -&gt; str:
+    '''Removes punctuation from given string '''
+    word = []
+    for c in line:
+        if c.isalpha() == True:
+            word.append(c) 
+    return word
+assert remove_non_letters('da545f4dsa5f') == ['d', 'a', 'f', 'd', 's', 'a', 'f']
+assert remove_non_letters('5416612**-*') == []
+
+def change_casing(line: str) -&gt; str:
+    '''Takes a string and returns it with the first character
+       capitalized and the rest lower case. '''
+    line = line.lower()
+    line = line.capitalize()
+    return line
+assert change_casing('HELLO') == 'Hello'
+assert change_casing('PoOP') == 'Poop'
+
+only_surnames = remove_non_letters(surname_list)  # removes the statistics from names
+only_female_names = remove_non_letters(female_list)
+only_male_names = remove_non_letters(male_list)
+
+# C.3
+
+def random_name() -&gt; str:
+    ''' Returns a random name '''
+    first_name = ''
+    x = 0
+    m_or_f = randrange(1, 3) # Randomly chooses male or female
+    if m_or_f == 1:
+        x += randrange(1, len(only_male_names))
+        first_name += change_casing(only_male_names[x])
+    elif m_or_f == 2:
+        x += randrange(1, len(only_female_names))
+        first_name += change_casing(only_male_names[x])
+    y = randrange(1, len(only_surnames)) # Randomly chooses a surname
+    surname = change_casing(only_surnames[y])
+    return first_name + ' ' + surname
+    
+surnames.close()
+female_names.close() 
+male_names.close() 
+
+
+print('\n')
+print('----Part D----')
+print('\n')
+
+# D. 1
+
+
+def makekey(ALPHA, n: int) -&gt; 'BETA': # BETA is the new alphabet
+    '''Takes the alphabet and n and moves each letter in the
+    alphabet over n times
+    '''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match56-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    key = ALPHA[n:] + ALPHA[:n]
+    return key
+
+def Caesar_encrypt(message: str, n: int) -&gt; str:
+    """Takes message and key and encrypts message by changing each
+    character according to key
+</FONT>    """
+    while n &gt; 25: # wraps n around 25 until n is lower than 25
+        n = n % 25
+    message = message.lower()
+    ALPHA = 'abcdefghijklmnopqrstuvwxyz'
+    BETA = makekey(ALPHA, n) # BETA will be the translation
+    table = str.maketrans(ALPHA, BETA)
+    message = message.translate(table) # the actual encrypting
+    return message
+assert Caesar_encrypt('poop', 2) == 'rqqr'
+assert Caesar_encrypt('poop', 27) == 'rqqr'
+
+def Caesar_decrypt(message: str, n: int) -&gt; str:
+    ''' Decrypts the message with a key '''
+    return Caesar_encrypt(message, -n)
+assert Caesar_decrypt('rqqr', 2) == 'poop'
+
+
+infile = open('wordlist.txt','r')
+dictionary = infile.read()
+
+def Caesar_break(text: str) -&gt; str:
+    ''' Takes a ciphertext string and returns the plaintext
+        for that string, without having a key.'''
+    message = []
+    most_common = 0 # Sets base for most "hits" of words in dictionary 
+    table = str.maketrans('".!?(),/','        ')
+    for x in range(26): # Goes through each key and decrypts based off that key 
+        decrypt = (Caesar_decrypt(text, x)).translate(table)
+        decrypt = decrypt.split() 
+        count = 0
+        for n in decrypt: # Checks if a word is in the dictionary 
+            if n in dictionary:
+                count += 1
+        if count &gt; most_common: # Checks if that key has more hits
+            most_common = count # Than the latest key.
+            message = decrypt
+    return ' '.join(message)
+    
+infile.close()
+    
+
+print('\n')
+print('----Part E----')
+print('\n')
+
+# E. 1
+
+def copy_file(task: str):
+    ''' Prompts user to enter a file name and opens
+        the file. Reads or write. '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    book_in_list = infile.readlines()
+    if task.lower() == 'line numbers':
+        book_with_numbers = print_line_numbers(book_in_list)
+        for line in book_with_numbers:
+            outfile.write(line + '\n')
+    elif task == 'Gutenburg trim':
+        start = book_in_list.index('*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n')
+        end = book_in_list.index('*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n')
+        for x in range(start+1, end):
+            outfile.write(book_in_list[x])
+    elif task == 'statistics':
+        for line in infile:
+            outfile.write(line)
+        print(stats(book_in_list))
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+### E. 2
+
+def print_line_numbers(stringlist: list):
+    '''
+    takes a list of strings and prints each string preceded by a line number:
+    '''
+    # Make the digit spaces only as small as amount of digits needed
+    digits = len(str(len(stringlist)))
+    formatstring = '{:' + str(digits) + '}: '
+    empty = [ ]
+    for i in range(len(stringlist)):
+        empty.append(formatstring.format(i+1) + stringlist[i])
+    return empty
+
+def str_into_list(text: str) -&gt; list:
+    ''' Takes in a string and returns a list
+        with sep = '\n' '''
+    message_list = text.split(sep = '\n')
+    return message_list
+    
+    
+
+### E. 3
+''' Modified E1'''
+
+### E. 4
+
+def stats(stringlist: list):
+    """
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match56-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    takes a list of strings and prints formatted statistics
+    """
+    # lines in the list
+    LINECOUNT = len(stringlist)
+    # empty lines
+    nonEmptyList = []
+    EmptyList = []  
+    for line in stringlist:
+        if line == '\n':
+            EmptyList.append(line)
+        else:
+            nonEmptyList.append(line)
+    EMPTYLINES = len(EmptyList)
+    # average characters per line
+    avg_CHAR = len(''.join(stringlist))/len(stringlist)
+    # average characters per non-empty line
+    avg_CHAR_NONEMPTY = len(''.join(stringlist))/len(nonEmptyList)
+
+    variableList = [LINECOUNT, EMPTYLINES, avg_CHAR, avg_CHAR_NONEMPTY]
+    descList = ['lines in the file',
+                'empty lines',
+                'average characters per line',
+                'average characters per non-empty line']
+    # display
+    for v, d in zip(variableList, descList): 
+        if type(v) == float:
+            print('{:6.1f} '.format(v), d)
+        else: # an int
+</FONT>            print('{:4} '.format(v), ' ', d)
+
+
+    
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

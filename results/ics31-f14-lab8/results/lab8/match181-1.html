@@ -1,0 +1,355 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/cabrerv1/(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/sargsyav/(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: ICStunes.py
+#  Qiuyi Chen Programmer 29074375 and Vard Sargsyan 48282805. ICS 31 Lab sec 14.  Lab asst 8.
+
+from collections import namedtuple
+Album = namedtuple('Album', 'id artist title year songs')
+Song = namedtuple('Song', 'track title length play_count')
+
+MUSIC = [
+    Album(1, "Peter Gabriel", "Up", 2002,
+        [Song(1, "Darkness", 411, 5),
+         Song(2, "Growing Up", 453, 5),
+         Song(3, "Sky Blue", 397, 2),
+         Song(4, "No Way Out", 473, 2),
+         Song(5, "I Grieve", 444, 2),
+         Song(6, "The Barry Williams Show", 735, 1),
+         Song(7, "My Head Sounds Like That", 389, 1),
+         Song(8, "More Than This", 362, 1),
+         Song(9, "Signal to Noise", 456, 2),
+         Song(10, "The Drop", 179, 1)]),
+    Album(2, "Simple Minds", "Once Upon a Time", 1985,
+        [Song(1, "Once Upon a Time", 345, 9),
+         Song(2, "All the Things She Said", 256, 10),
+         Song(3, "Ghost Dancing", 285, 7),
+         Song(4, "Alive and Kicking", 326, 26),
+         Song(5, "Oh Jungleland", 314, 13),
+         Song(6, "I Wish You Were Here", 282, 12),
+         Song(7, "Sanctify Yourself", 297, 7),
+         Song(8, "Come a Long Way", 307, 5)]),
+    Album(3, "The Postal Service", "Give Up", 2003,
+        [Song(1, "The District Sleeps Alone", 284, 13),
+         Song(2, "Such Great Heights", 266, 13),
+         Song(3, "Sleeping In", 261, 12),
+         Song(4, "Nothing Better", 226, 18),
+         Song(5, "Recycled Air", 269, 13),
+         Song(6, "Clark Gable", 294, 12),
+         Song(7, "We Will Become Silhouettes", 300, 11),
+         Song(8, "This Place is a Prison", 234, 9),
+         Song(9, "Brand New Colony", 252, 9),
+         Song(10, "Natural Anthem", 307, 7)]),
+    Album(4, "Midnight Oil", "Blue Sky Mining", 1989,
+        [Song(1, "Blue Sky Mine", 258, 12),
+         Song(2, "Stars of Warburton", 294, 11),
+         Song(3, "Bedlam Bridge", 266, 11),
+         Song(4, "Forgotten Years", 266, 8),
+         Song(5, "Mountains of Burma", 296, 9),
+         Song(6, "King of the Mountain", 231, 8),
+         Song(7, "River Runs Red", 322, 9),
+         Song(8, "Shakers and Movers", 268, 9),
+         Song(9, "One Country", 353, 7),
+         Song(10, "Antarctica", 258, 6)]),
+    Album(5, "The Rolling Stones", "Let It Bleed", 1969,
+        [Song(1, "Gimme Shelter", 272, 3),
+         Song(2, "Love In Vain", 259, 2),
+         Song(3, "Country Honk", 187, 0),
+         Song(4, "Live With Me", 213, 2),
+         Song(5, "Let It Bleed", 327, 2),
+         Song(6, "Midnight Rambler", 412, 1),
+         Song(7, "You Got the Silver", 170, 0),
+         Song(8, "Monkey Man", 251, 13),
+         Song(9, "You Can't Always Get What You Want", 448, 10)])
+]
+
+def Album_length(a: Album) -&gt; int:
+    ''' Return the total length of all the songs in the album
+    '''
+    total_length = 0
+    for s in a.songs:
+        total_length += s.length
+    return total_length
+
+Songdisplay = namedtuple('Songdisplay', 'artist a_title year track s_title length play_count')
+
+def all_Songdisplays(MC: 'list of Album') -&gt; 'list of Songdisplay':
+    ''' Return a list of all the songs in the collection MC, in Songdisplay form
+    '''
+    result = [ ]
+    for a in MC:
+        result.extend(Album_to_Songdisplays(a))
+    return result
+
+def Album_to_Songdisplays(a: Album) -&gt; 'list of Songdisplay':
+    ''' Return a list of Songdisplays, one for each song in the album
+    '''
+    result = [ ]
+    for s in a.songs:
+        result.append(Songdisplay(a.artist, a.title, a.year,
+            s.track, s.title, s.length, s.play_count))
+    return result
+
+def play_count_from_songdisplay(sd: Songdisplay) -&gt; int:
+    ''' Return the play_count from a Songdisplay
+    '''
+    return sd.play_count
+
+
+
+
+
+
+print() 
+print('---------- Part (e) ----------')
+print()
+
+#e1
+
+def Song_str (s:'song'):
+    '''Prints song readably'''
+    print(' ', s.track, s.title, s.length, s.play_count, sep='---')
+assert(Song(1, "The District Sleeps Alone", 284, 13)) == Song(track=1, title='The District Sleeps Alone', length=284, play_count=13)    
+
+
+def Album_str (a:'album'):
+    '''Takes album and returns readable info'''
+    print(a.id, a.artist, a.title, a.year, sep=' / ')
+    for s in a.songs:
+        Song_str(s)
+    return
+# print(Album_str(MUSIC[0]))
+
+    
+def Songdisplay_str (c:'list of albums'):
+    '''Takes songdisplay and returns info'''
+    for a in c:
+        Album_str(a)
+        print()
+    return
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match181-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert(MUSIC[0]) == Album(id=1, artist='Peter Gabriel', title='Up', year=2002,
+                          songs=[Song(track=1, title='Darkness', length=411,
+                                      play_count=5), Song(track=2, title='Growing Up',
+</FONT>                                                          length=453, play_count=5),
+                                 Song(track=3, title='Sky Blue', length=397, play_count=2),
+                                 Song(track=4, title='No Way Out', length=473, play_count=2),
+                                 Song(track=5, title='I Grieve', length=444, play_count=2),
+                                 Song(track=6, title='The Barry Williams Show', length=735, play_count=1),
+                                 Song(track=7, title='My Head Sounds Like That', length=389, play_count=1),
+                                 Song(track=8, title='More Than This', length=362, play_count=1), Song(track=9, title='Signal to Noise', length=456, play_count=2),
+                                 Song(track=10, title='The Drop', length=179, play_count=1)])
+
+#e2
+
+def Collection_print(C: 'list of Album') -&gt; None:
+    ''' Print a whole collection readably'''
+    for a in C:
+        Album_str(a)
+        print()
+    return
+
+def Number_of_tracks(a:'album') -&gt; str:
+    '''Takes album and sorts it based on # of tracks'''
+    return len(a.songs)
+MUSIC.sort(key = Number_of_tracks)
+#Collection_print(MUSIC)
+
+#e3
+def unplayed_songs(c:'list of albums') -&gt; list:
+    '''Takes a list of albums and returns tracks that have not been played'''
+    result = []
+    for a in c:
+        for s in a.songs:
+            if s.play_count == 0:
+                result.append(s)
+    return result
+#print(unplayed_songs(MUSIC))
+
+#e4
+
+def length_from_songdisplay(s:'song') -&gt; int:
+    '''Takes a song and returns the length of the song'''
+    return s.length
+assert(length_from_songdisplay(Song(1, "The District Sleeps Alone", 284, 13))) == 284
+
+
+#e5
+
+def Album_listening_time(a:'album') -&gt; int:
+    '''returns the total listening time of an album'''
+    total = 0
+    for s in a.songs:
+        total += s.length * s.play_count
+    return total
+assert(Album_listening_time(MUSIC[0]) == 27216)
+assert(Album_listening_time(MUSIC[1]) == 10569)
+
+
+def collection_sort(c: 'list of Album', keyfunction: 'Function on Albums') -&gt; list:
+    '''sorts a list of albums given a key'''
+    c.sort(key = keyfunction)
+    return c
+collection_sort(MUSIC, Album_listening_time)
+
+
+def favorite_album(c: 'list of Album') -&gt; str:
+    '''takes a list of albums and returns favorite album'''
+    temp_list = collection_sort(c, Album_listening_time)
+    return temp_list[-1]
+#print(favorite_album(MUSIC))
+
+
+#e6
+
+def top_n(MC: 'list of Album', n: int, keyfunction: 'Function on Albums', a: bool) -&gt; 'list of Songdisplay':
+    ''' Return the top n most frequently played songs in MC
+    '''
+    list_of_Songdisplays = all_Songdisplays(MC)
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match181-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    list_of_Songdisplays.sort(key= keyfunction, reverse = a)
+    return list_of_Songdisplays[:n]
+
+assert(top_n(MUSIC, 3, play_count_from_songdisplay, True)) == [Songdisplay(artist='Simple Minds',
+                                                                           a_title='Once Upon a Time',
+</FONT>                                                                           year=1985, track=4,
+                                                                           s_title='Alive and Kicking',
+                                                                           length=326, play_count=26),
+                                                               Songdisplay(artist='The Postal Service',
+                                                                           a_title='Give Up',
+                                                                           year=2003, track=4,
+                                                                           s_title='Nothing Better',
+                                                                           length=226, play_count=18),
+                                                               Songdisplay(artist='The Rolling Stones',
+                                                                           a_title='Let It Bleed',
+                                                                           year=1969, track=8,
+                                                                           s_title='Monkey Man',
+                                                                           length=251, play_count=13)]
+assert(top_n(MUSIC, 10, length_from_songdisplay, False)) == [Songdisplay(artist='The Rolling Stones',
+                                                                        a_title='Let It Bleed',
+                                                                        year=1969, track=7,
+                                                                        s_title='You Got the Silver',
+                                                                        length=170, play_count=0),
+                                                            Songdisplay(artist='Peter Gabriel',
+                                                                        a_title='Up', year=2002,
+                                                                        track=10, s_title='The Drop',
+                                                                        length=179, play_count=1),
+                                                            Songdisplay(artist='The Rolling Stones',
+                                                                        a_title='Let It Bleed',
+                                                                        year=1969, track=3,
+                                                                        s_title='Country Honk',
+                                                                        length=187, play_count=0),
+                                                            Songdisplay(artist='The Rolling Stones',
+                                                                        a_title='Let It Bleed',
+                                                                        year=1969, track=4,
+                                                                        s_title='Live With Me',
+                                                                        length=213, play_count=2),
+                                                            Songdisplay(artist='The Postal Service',
+                                                                        a_title='Give Up', year=2003,
+                                                                        track=4, s_title='Nothing Better',
+                                                                        length=226, play_count=18),
+                                                            Songdisplay(artist='Midnight Oil', a_title='Blue Sky Mining',
+                                                                        year=1989, track=6,
+                                                                        s_title='King of the Mountain',
+                                                                        length=231, play_count=8),
+                                                            Songdisplay(artist='The Postal Service',
+                                                                        a_title='Give Up',
+                                                                        year=2003, track=8,
+                                                                        s_title='This Place is a Prison',
+                                                                        length=234, play_count=9),
+                                                            Songdisplay(artist='The Rolling Stones',
+                                                                        a_title='Let It Bleed',
+                                                                        year=1969, track=8,
+                                                                        s_title='Monkey Man',
+                                                                        length=251, play_count=13),
+                                                            Songdisplay(artist='The Postal Service',
+                                                                        a_title='Give Up',
+                                                                        year=2003, track=9,
+                                                                        s_title='Brand New Colony',
+                                                                        length=252, play_count=9),
+                                                            Songdisplay(artist='Simple Minds',
+                                                                        a_title='Once Upon a Time',
+                                                                        year=1985, track=2,
+                                                                        s_title='All the Things She Said',
+                                                                        length=256, play_count=10)]
+
+
+#e7
+
+def favorite_album2(c: 'list of Album', keyfunction: 'Function on Albums') -&gt; str:
+    '''takes a list of albums and returns favorite album'''
+    temp_list = collection_sort(c, keyfunction)
+    return temp_list[-1]
+
+assert(favorite_album2(MUSIC, Album_listening_time)) == Album(id=3, artist='The Postal Service',
+                                                              title='Give Up', year=2003,
+                                                              songs=[Song(track=1, title='The District Sleeps Alone',
+                                                                          length=284, play_count=13),
+                                                                     Song(track=2, title='Such Great Heights',
+                                                                          length=266, play_count=13),
+                                                                     Song(track=3, title='Sleeping In',
+                                                                          length=261, play_count=12),
+                                                                     Song(track=4, title='Nothing Better',
+                                                                          length=226, play_count=18),
+                                                                     Song(track=5, title='Recycled Air',
+                                                                          length=269, play_count=13),
+                                                                     Song(track=6, title='Clark Gable',
+                                                                          length=294, play_count=12),
+                                                                     Song(track=7, title='We Will Become Silhouettes',
+                                                                          length=300, play_count=11),
+                                                                     Song(track=8, title='This Place is a Prison',
+                                                                          length=234, play_count=9),
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match181-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                                                                     Song(track=9, title='Brand New Colony',
+                                                                          length=252, play_count=9),
+                                                                     Song(track=10, title='Natural Anthem',
+                                                                          length=307, play_count=7)])
+assert(favorite_album2(MUSIC, Album_length)) == Album(id=1, artist='Peter Gabriel', title='Up', year=2002,
+                                                     songs=[Song(track=1, title='Darkness',
+                                                                 length=411, play_count=5),
+</FONT>                                                            Song(track=2, title='Growing Up',
+                                                                 length=453, play_count=5),
+                                                            Song(track=3, title='Sky Blue',
+                                                                 length=397, play_count=2),
+                                                            Song(track=4, title='No Way Out',
+                                                                 length=473, play_count=2),
+                                                            Song(track=5, title='I Grieve',
+                                                                 length=444, play_count=2),
+                                                            Song(track=6, title='The Barry Williams Show',
+                                                                 length=735, play_count=1),
+                                                            Song(track=7, title='My Head Sounds Like That',
+                                                                 length=389, play_count=1),
+                                                            Song(track=8, title='More Than This',
+                                                                 length=362, play_count=1),
+                                                            Song(track=9, title='Signal to Noise',
+                                                                 length=456, play_count=2),
+                                                            Song(track=10, title='The Drop',
+                                                                 length=179, play_count=1)])
+
+#e8
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match181-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def collection_search (c:'list of album', search_for: str) -&gt; list:
+    '''Return a list of songdisplays that include (in the album title, artist, or song title) the specified string'''
+    SDL = all_Songdisplays(c)
+    result = []
+    for sd in SDL:
+        if (search_for in sd.a_title or
+</FONT>            search_for in sd.artist or
+            search_for in sd.s_title):
+            result.append(sd)
+    return result
+
+assert(collection_search(MUSIC, "Darkness")) == [Songdisplay(artist='Peter Gabriel', a_title='Up', year=2002, track=1, s_title='Darkness', length=411, play_count=5)]
+</PRE>
+</PRE>
+</BODY>
+</HTML>

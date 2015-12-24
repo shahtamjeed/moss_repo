@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/deholmes/(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/deholmes/(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: BandBI.py
+# Wesley Cheung 48481383 and Daniel Holmes 90532165.  ICS 31 Lab sec 5.  Lab asst 8.
+
+INFILE = "input_file.txt"
+
+#**************************
+#Commands
+#**************************
+
+#AB -- add bedroom
+def AB(rooms:list, parameter:int):
+    """Adds a bedroom to the BandB"""
+    rooms.append(parameter)
+#BL -- bedroom list
+def BL(rooms:list):
+    """Prints a list of currently available bedrooms"""
+    result = "Number of bedrooms in service:{:3d}\n------------------------------------\n".format(len(rooms))
+    for room in rooms:
+        result += str(room) + "\n"
+    
+    print(result[:-1])
+#PL -- print line
+def PL(parameter:str):
+    """Prints the text given as the parameter"""
+    print(parameter)
+#** -- comment, no function necessary
+
+#**************************
+#Processing/Display functions
+#**************************
+
+#commandHandler -- chooses correct command
+def commandHandler(rooms:list, line:str):
+    """Chooses and executes the correct command"""
+    if line == "":
+        return
+    commandLine = line.split()
+    command = commandLine[0].upper()
+    parameter = " ".join(commandLine[1:])
+    if command == "**":
+        return
+    elif command == "AB":
+        AB(rooms, int(parameter))
+    elif command == "BL":
+        BL(rooms)
+    elif command == "PL":
+        PL(parameter)
+    else:
+        print("ERROR: Unrecognized command in input file")
+    
+#**************************
+#Main program
+#**************************
+
+print("Output of program with given input file:\n")
+rooms = []
+commands = open(INFILE, "r")
+for line in commands:
+    commandHandler(rooms, line)
+commands.close()
+print("\nExpected output of program with given input file:\n")
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match62-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_55.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print("""***********************************************************
+Here is a list of available bedrooms (before adding any!)
+Number of bedrooms in service:  0
+------------------------------------
+***********************************************************
+Number of bedrooms in service:  1
+------------------------------------
+101
+Number of bedrooms in service:  5
+------------------------------------
+101
+104
+102
+201
+203
+Thank you for using the Anteater BandB Reservation System!""")
+</FONT></PRE>
+</PRE>
+</BODY>
+</HTML>

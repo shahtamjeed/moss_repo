@@ -1,0 +1,238 @@
+<HTML>
+<HEAD>
+<TITLE>andyhl3/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+rjgonza1/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+## Ryan Gonzales 57555019. ICS 31 Lab sec 5. Lab asst 6.
+
+#
+#
+# Part (c)
+#
+#
+print( '----- Part (c) -----' )
+def space() -&gt; str:
+    print( '\n' )
+space()
+
+# c1
+print( 'c1' )
+space()
+
+def contains( s1: str, s2: str ) -&gt; bool:
+    '''Returns True if s2 exists in s1'''
+    return s2 in s1
+
+assert contains( 'banana', 'ana' )
+assert not contains( 'racecar', 'ck' )
+
+# c2
+print( 'c2' )
+space()
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match123-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def punctuation( s: str ) -&gt; str:
+    punc = str.maketrans( '!.,?*:;',
+                          '       ' )
+    return s.translate( punc )
+
+def sentence_stats( s: str ) -&gt; str:
+</FONT>    pfix = punctuation( s )
+    count = len( s )
+    y = pfix.split()
+    words = len( y )
+    total = 0
+    for x in y:
+        total += len( x )
+    return 'Characters: ' + str( count ) + '\n' +  'Words: ' + str( words ) + '\n' + 'Average word length: ' + str( total/words )
+
+print( sentence_stats( 'I love UCI' ) )
+space()
+print( sentence_stats( '***The ?! quick brown fox:  jumps over the lazy dog.' ) )
+space()
+
+# c3
+print( 'c3' )
+space()
+
+def initials( s: str ) -&gt; str:
+    '''Takes the string and returns the initials in uppercase form'''
+    y = s.split()
+    init = ''
+    for x in y:
+        init += x[0].upper() 
+    return init
+
+assert initials( 'Bill Cosby' ) == 'BC'
+assert initials( 'Guido van Rossum' ) == 'GVR'
+assert initials( 'alan turing' ) == 'AT'
+
+#
+#
+# Part (d)
+#
+#
+print( '----- Part (d) -----' )
+space()
+
+#d1
+print( 'd1' )
+space()
+from random import randrange
+
+for x in range( 50 ):
+    print( randrange( 0, 11 ) )
+    
+space()
+
+for x in range( 50 ):
+    print( randrange( 1, 7 ) )
+
+space()
+
+#d2
+print( 'd2' )
+space()
+
+def roll2dice() -&gt; int:
+    '''rolls 2 dice and returns their sum'''
+    dice1 = randrange( 1, 7 )
+    dice2 = randrange( 1, 7 )
+    return dice1 + dice2
+
+for x in range( 50 ):
+    print( roll2dice() )
+space()
+
+#d3
+print( 'd3' )
+space()
+
+def distribution_of_rolls( x: int ) -&gt; str:
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match123-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    rolllist = []
+    for i in range( x ):
+        rolllist.append( roll2dice() )
+    for i in range( 2, 13 ):
+        print( '''{}:     {}({:2.4}%)'''.format( i, rolllist.count( i ), str( rolllist.count( i )/ x*100 )), rolllist.count( i ) * '*' ) 
+    print( '-----------------------------' )
+    print( '     ', x, ' rolls' )
+
+distribution_of_rolls( 200 )
+</FONT>space()
+
+#
+#
+# Part (e)
+#
+#
+print( '----- Part (e) -----' )
+space()
+
+#e1-e3
+print( 'e1' )
+space()
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match123-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def Caesar_encrypt( message: str, k: int ) -&gt; str:
+    if k &gt; 25:
+        k = k%26
+    change = str.maketrans( alphabet,
+                            alphabet[k:] + alphabet[:k] )
+</FONT>    return message.lower().translate( change )
+
+
+def Caesar_decrypt( message: str, k: int ) -&gt; str:
+    if k &gt; 25:
+        k = k%26
+    change = str.maketrans( alphabet,
+                            alphabet[-k:] + alphabet[:-k] )
+    return message.lower().translate( change )
+
+print( Caesar_encrypt( 'Cat is out of the bag', 3 ) )
+print( Caesar_decrypt( 'fdw lv rxw ri wkh edj', 3 ) )
+space()
+print( Caesar_encrypt( 'The ball is in the garage', 20 ) )
+print( Caesar_decrypt( 'nby vuff cm ch nby auluay', 20 ) )
+space()
+print( Caesar_encrypt( 'Jack in the box rocks', 29 ) )
+print( Caesar_decrypt( 'mdfn lq wkh era urfnv', 29 ) )
+    
+#
+#
+# Part (f)
+#
+#
+print( '----- Part (f) -----' )
+space()
+
+#f1
+print( 'f1' )
+space()
+wordlist = [ "Four score and seven years ago, our fathers brought forth on", ' ', 
+  "this continent a new nation, conceived in liberty and dedicated",
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match123-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_26.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+  "to the proposition that all men are created equal.  Now we are", ' ',
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ", ' ' ]
+
+def print_line_numbers( s: list ) -&gt; str:
+    for x in range( len( s ) ):
+        print( '''{}:   {}'''.format( x+1, s[x] ) )
+
+
+print_line_numbers( wordlist )
+space()
+
+#f2
+print( 'f2' )
+space()
+
+def stats( s: list ) -&gt; str:
+    empty = 0
+    total = 0
+    fulllength = 0
+    full = 0
+    for x in s:
+        if x.isspace() == True:
+            empty += 1
+        else:
+            full += 1
+            fulllength += len( x )
+    for a in s:
+        total += len( a )
+    print( len( s ), 'lines in the list' )
+    print( empty, 'empty lines' )
+    print( total/len( s ), 'average character per line' )
+    print( fulllength/full, 'average characters per non-empty line' )
+
+stats( wordlist )
+space()
+
+#f3
+print( 'f3' )
+space()
+
+def list_of_words( s: list ) -&gt; list:
+    newlist = []
+    for x in s:
+        newlist += str.split( punctuation( x ) )
+    return newlist
+
+print( list_of_words( wordlist ) ) 
+</FONT>            
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

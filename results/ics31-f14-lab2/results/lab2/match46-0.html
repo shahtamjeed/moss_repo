@@ -1,0 +1,156 @@
+<HTML>
+<HEAD>
+<TITLE>akriebel/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+akriebel/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Alec Kriebel 46541467 and HASSAAN NAMANKANI 74111341 ICS 31 Lab sec 12
+from collections import namedtuple
+import tkinter
+
+#c.1
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match46-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour?'))
+print('This many dollars per hour: $', rate)
+print('Weekly salary: $', hours * rate)
+print()
+print ('PART C.2') #c.2
+
+name = input('Hello. What is your name?')
+print('Hello,', name)
+print('It\'s nice to meet you.')
+age = int(input('How old are you?'))
+print('Next year you will be', age + 1, 'years old.')
+print('Good-bye!')
+print()
+print('PART D') #d
+
+EURO_PER_KRONE = 7.46
+POUND_PER_KRONE = 8.81
+DOLLAR_PER_KRONE = 5.50
+</FONT>name = input('Business Name: ')
+euros = float(input('Number of euros: '))
+pounds = float(input('Number of pounds: '))
+dollars = float(input('Number of dollars: '))
+print() #Added to skip a line for organization
+print('Copenhagen Chamber of Commerce')
+print('Business name:', name)
+print(euros, 'euros is', euros * EURO_PER_KRONE, 'krone')
+print(pounds, 'pounds is', pounds * POUND_PER_KRONE, 'krone')
+print(dollars, 'dollars is', dollars * DOLLAR_PER_KRONE, 'krone')
+print() #Added to skip a line for organization
+print('Total krone: ', euros * EURO_PER_KRONE + pounds * POUND_PER_KRONE + dollars * DOLLAR_PER_KRONE)
+print()
+print('PART E') #e
+
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+print(still_another.title) #e.1
+print(another.price) #e.2
+print((favorite.price + another.price + still_another.price)/3) #e.3
+print('Was Adventures of Sherlock Holmes published before 1900?', favorite.year &lt; 1900) #e.4
+#Two Assignments
+learn = Book('Learning Python', 'Mark Lutz', 1999, 27.49)
+print(learn)
+python = Book('Python Programming: An Introduction to Computer Science', 'John M. Zelle', 2004, 18.50)
+print(python)
+still_another = still_another._replace(price = 26.00) #e.5
+print(still_another.price) 
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match46-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+still_another = still_another._replace(price = still_another.price * 1.2) #e.6
+print(still_another.price)
+print()
+print('PART F') #f
+
+Animal = namedtuple('Animal', 'name species age weight food')
+elephant = Animal('Jumbo', 'Elephant', 50, 1000, 'peanuts')
+platypus = Animal('Perry', 'Platypus', 7, 1.7, 'shrimp')
+print('Does animal 1 weigh less than animal 2?', elephant.weight &lt; platypus.weight)
+</FONT>print()
+print('PART G') #g
+
+booklist = [favorite, another, still_another]
+print('Is first book cheaper than book 2?', booklist[0].price &lt; booklist[1].price) #g.1
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match46-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Has the first book been published sooner than the last book?', booklist[0].year &gt; booklist[-1].year) #g.2
+print()
+print('PART H')
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+</FONT>    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print('The third restauraunt on the list is:', RL[2].name) #h.1
+print('Do the first and fourth restauraunts give us the same type of food?', RL[0].cuisine == RL[3].cuisine) #h.2
+print('What is the price of the last restuarant on the list?', RL[-1].price) #h.3
+RL.sort()
+print('Alphabetical Restuarants:', RL) #h.4
+print()
+print(RL[-1].dish) #h.5
+l = [RL[0], RL[1], RL[-2], RL[-1]] #The tutor said this could be done h.6
+print(l)
+print()
+print('PART I')
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+#1 - Square
+my_canvas.create_line(100, 100, 300, 100, fill='black')
+my_canvas.create_line(100, 100, 100, 300, fill='black')
+my_canvas.create_line(300, 100, 300, 300, fill='black')
+my_canvas.create_line(100, 300, 300, 300, fill='black')
+
+#2 - Diamond
+my_canvas.create_polygon(100,200,200,300,300,200,200,100)
+
+#3 - House
+my_canvas.create_rectangle(125,125,425,425)
+my_canvas.create_rectangle(175,175,225,225)
+my_canvas.create_rectangle(320,175,370,225)
+my_canvas.create_rectangle(265,350,300,425)
+my_canvas.create_polygon(100,125,265,50,450,125) 
+
+#4 - Eye
+my_canvas.create_oval(100,100,400,400)
+my_canvas.create_oval(135,135,370,370, fill='green')
+my_canvas.create_oval(200,200,300,300, fill='black')
+
+#5
+my_canvas.create_rectangle(50,50,300,500)
+my_canvas.create_rectangle(57,90,293,460)
+my_canvas.create_oval(170,58,180,68)
+my_canvas.create_oval(150,72,200,77)
+my_canvas.create_oval(138,72,143,77)
+my_canvas.create_oval(165,465,195,495)
+my_canvas.create_oval(167,467,193,493)
+
+tkinter.mainloop() 
+         # Combine all the elements and display the window
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

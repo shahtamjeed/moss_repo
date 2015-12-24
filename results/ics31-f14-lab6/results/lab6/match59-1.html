@@ -1,0 +1,215 @@
+<HTML>
+<HEAD>
+<TITLE>douglah1/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kkanwar/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+#  Daniel Ibarra 36702561 and Karan Kanwar 68073357.  ICS 31 Lab sec 7.  Lab asst 6.
+
+print()
+print('---------- Part 1c ----------')
+print()
+
+def contains(x:str, y:str)-&gt;bool:
+    ''' checks if y exists in x and returns true if true'''
+    if(x.find(y))!=-1:
+        return True
+    else:
+        return False
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+print()
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match59-0.html#5" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('---------- Part 2 ----------')
+print()
+
+def sentence_stats(char: str) -&gt; str:
+    '''takes sentence and returns statistics about sentence '''
+    words = []
+    the_words = char.split()
+    for i in range(len(the_words)):
+        words.append(len(the_words[i]))
+</FONT>    avg = (sum(words)/len(words))
+    print("Characters:",len(char))
+    print("Words:",len(char.split()))
+    print("Average word length:",avg)
+
+sentence_stats("I love UCI")
+
+print()
+print('---------- Part 3 ----------')
+print()
+
+def initials(name: str) -&gt; str:
+        ''' takes name and returns first character of each, initials '''
+    initials = []
+    for i in range(len(name.split())):
+        initials.append(name.split()[i][0])
+    return ''.join(initials).upper()
+print(initials('Robert Chan Ling'))
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match59-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(initials('Robert van Ling'))
+
+print()
+print('---------- Part d1 ----------')
+print()
+
+from random import randrange
+for i in range(50):
+    print(randrange(0,11))
+for i in range(50):
+    print(randrange(0,7))
+    
+print()
+print('---------- Part d2 ----------')
+print()
+
+def roll2dice()-&gt; int:
+    ''' simulates the rolling of two dice '''
+   return randrange(1,7) + randrange(1,7)
+</FONT><A NAME="2"></A><FONT color = #0000FF><A HREF="match59-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(roll2dice())
+
+print()
+print('---------- Part d3 ----------')
+print()
+
+def distribution_of_rolls(x:int)-&gt;str:
+    '''takes number of rolls, x, and creates a probability distribution'''
+    print("Distribution of dice rolls")
+    rolls = []
+    for i in range(x):
+        rolls.append(roll2dice())
+    for i in range (2,13):
+        print("{:2.0f}:  {:2.0f} ({:4.1f}%)  {}".format(i,rolls.count(i),round(rolls.count(i)/len(rolls)*100,3),rolls.count(i)*"*"))
+</FONT><A NAME="0"></A><FONT color = #FF0000><A HREF="match59-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_23.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print("--------------------------------")
+    print(x,"rolls")
+
+
+
+distribution_of_rolls(200)
+
+print()
+print('---------- Part e1 ----------')
+print()
+def Caesar_encrypt(x:str,y:int)-&gt;str:
+    '''encrypts x with cipher substitute y away from x of alphabet'''
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    alphabet2 = []
+    for i in range(len(alphabet)):
+        alphabet2.append(alphabet[(i+y)%26])
+    alphabet2 = ''.join(alphabet2)
+    table = str.maketrans(alphabet, alphabet2)
+    return x.lower().translate(table)
+
+print(Caesar_encrypt('cats',0))
+print(Caesar_encrypt('cats',1))
+
+
+
+def Caesar_decrypt(x:str,y:int)-&gt;str:
+    ''' decrypts x with cipher key y '''
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    alphabet2 = []
+    for i in range(len(alphabet)):
+        alphabet2.append(alphabet[(i-y)%26])
+    alphabet2 = ''.join(alphabet2)
+    table = str.maketrans(alphabet, alphabet2)
+    return x.lower().translate(table)
+
+print(Caesar_decrypt('cats',0))
+print(Caesar_decrypt('dbut',1))
+
+print()
+print('---------- Part e2 ----------')
+print()
+#done!
+print("done!")
+</FONT>
+print()
+print('---------- Part e3 ----------')
+print()
+#done in e1!
+print("done in e1!")
+
+print()
+print('---------- Part f ----------')
+print()
+
+stuff = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match59-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+  "nation so conceived and so dedicated, can long endure.        ",
+          ""]
+
+print()
+print('---------- Part f1 ----------')
+print()
+
+def print_line_numbers (x:list)-&gt;str:
+    '''takes list of strings and puts each string in the list on a new numbered line'''
+    for i in range(len(x)):
+        print("{:5.0f} : {}".format(i+1,x[i]))
+
+print_line_numbers(stuff)
+
+print()
+print('---------- Part f2 ----------')
+print()
+
+def stats(x:list)-&gt;str:
+    '''takes list of strings and returns stats about them'''
+    numbs = []
+    numbs2 = []
+
+    print("{:0.0f}     {}".format(len(x),"lines in the list"))
+</FONT>    print("{:2.0f}    {}".format(x.count(''),"empty lines"))
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match59-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for i in range(len(x)):
+        numbs.append(len(x[i]))
+        if(x[i] != ''):
+            numbs2.append(len(x[i]))
+        
+    avg1 = sum(numbs)/len(numbs)
+    avg2 = sum(numbs2)/len(numbs2)
+    print("{:5.1f} {}".format(avg1,"average characters per line"))
+</FONT>    print("{:5.1f} {}".format(avg2,"average characters per non-empty line"))
+stats(stuff)
+
+print()
+print('---------- Part f3 ----------')
+print()
+
+def list_of_words(x:list)-&gt;str:
+    ''' takes list of words, removes punctuation and puts it together'''
+    wordlist = []
+    punc = ',./\][}{+=-_()*&^%$#@!&lt;&gt;?"'
+<A NAME="6"></A><FONT color = #00FF00><A HREF="match59-0.html#6" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for i in range(len(x)):
+        wordlist.extend(x[i].split())
+    for i in range(len(wordlist)):
+        table = str.maketrans(punc, ' '*len(punc))     
+</FONT>        wordlist[i] = wordlist[i].translate(table)
+    return ' '.join(list(wordlist))
+print(list_of_words(stuff))
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

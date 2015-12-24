@@ -1,0 +1,211 @@
+<HTML>
+<HEAD>
+<TITLE>kluu5/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kluu5/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Kevin Luu 48783106 No partner Lab 2 Lab Assistant 2
+
+from random import randrange
+
+infile = open('surnames.txt')
+sur = infile.read()
+sur = sur.split()
+sur = sur[::4]
+infile.close()
+
+infile = open('femalenames.txt')
+fn = infile.read()
+fn = fn.split()
+fn = fn[::4]
+infile.close()
+
+infile = open('malenames.txt')
+mn = infile.read()
+mn = mn.split()
+mn = mn[::4]
+infile.close()
+
+all_names = fn + mn
+
+#C.1
+def random_names(num:int) -&gt; list:
+    """ takes int returns list from files of names"""
+    final_name = []
+    for i in range(num):
+        ran_last = sur[randrange(len(sur))]
+        ran_first = all_names[randrange(len(all_names))]
+        final_name.append(str(ran_last).title()+ ', ' + str(ran_first).title())
+    return final_name
+    
+print (random_names(10))
+
+#C.3
+def random_name() -&gt; list:
+    """returns a random name"""
+    ran_last = sur[randrange(len(sur))]
+    ran_first = all_names[randrange(len(all_names))]
+    return ((ran_last).title()+ ', ' + (ran_first).title())
+print (random_name())
+    
+#D.1
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match83-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def rotate_alphabet(string: str, key: int) -&gt; str:
+    ''' Rotate the alphabet with a given key '''
+    return string[key:] + string[:key]
+
+def Caesar_encrypt(plaintext: str, key: int) -&gt; str:
+    ''' Encrypt a plaintext with a given key using a Caeser cipher. Return ciphertext. '''
+    ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+    NEW_ALPHABET = rotate_alphabet(ALPHABET, key)
+</FONT>    return (plaintext.lower()).translate(plaintext.maketrans(ALPHABET, NEW_ALPHABET))
+                                         
+def Caesar_decrypt(cipher: str, key: int) -&gt; str:
+    ''' Decrypt a plaintext with a given key using a Caeser cipher. Return plaintext. '''
+    ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+    NEW_ALPHABET = rotate_alphabet(ALPHABET, key)
+    return (cipher.lower()).translate(cipher.maketrans(NEW_ALPHABET, ALPHABET))
+
+def Caesar_break(code:str) -&gt;str:
+    """takes in a caesar string and returns a forced break """
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    infile = open('wordlist.txt', 'r')
+    words = infile.read()
+    words = words.split()
+    final_key = 0
+    result = []
+    count = 0
+    highest = 0
+    for i in range(27):
+        result.append(Caesar_decrypt(code, i))
+    for a in range(len(result)):
+        for word in result[a].split():
+            if word in words:
+                count += 1
+            if count &gt; highest:
+                highest = count
+                final_key = a
+            count = 0
+    return Caesar_decrypt(code, final_key)
+        
+print (Caesar_break('u pup zaf qmf fapmk'))
+
+#D.2
+print (Caesar_break('o ju tuz ngbk g vgxztkx jak zu ujj tashkx ul vkuvrk ot znoy rgh'))
+
+#E1
+
+def copy_file():
+    """copies a file with the given name"""
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors= 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+copy_file()
+
+#E2
+def print_line_numbers(string: str, count:int) -&gt; str:
+    '''takes a list of strings and prints each string preceded by a line number'''
+    return ('{0:5}:  {1:}'.format(count, string))
+
+def copy_file_2(thingie1:str):
+    """ copy files but adds a line number infront of every line"""
+    count = 1
+    if thingie1 == 'line numbers':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r', errors='ignore')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(print_line_numbers(line, count))
+            count += 1
+copy_file_2('line numbers')
+
+#E3
+def copy_file_3(thingie2:str):
+    """copies files, but removes parts that have *** start or end"""
+    if thingie2 == 'Gutenberg trim':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r', errors='ignore')
+        split = infile.read().split('\n')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for i in range(len(split)):
+            if '*** START ' in  split[i]:
+                start_num = i
+            if '*** END ' in split[i]:
+                stop_num = i
+        outfile.write('\n'.join(split[start_num: stop_num]))
+copy_file_3('Gutenberg trim')
+#E4
+def copy_file_4(thingie3:str):
+    """again, copies a file, but prints statistics afterwards"""
+    if thingie3 == 'statistics':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r', errors='ignore')
+        other = infile.read().split('\n')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match83-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        count = 0
+        result = []
+        for i in other:
+            if i == '':
+                count += 1
+            else:
+                result.append(i)
+        avg_char = len(''.join(other)) / len(other)
+        avg_non_empty = len(''.join(result)) / len(other)
+        print ('{0:6d}   lines in the list'.format(len(other)) + '\n' +
+               '{0:6d}   empty lines'.format(count) + '\n' +
+               '{0:8.1f} average characters per line'.format(avg_char) + '\n' +
+               '{0:8.1f} average characters per non empty line'.format(avg_non_empty))
+</FONT>
+        for line in other:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+copy_file_4('statistics')
+
+
+
+
+
+
+            
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+            
+            
+    
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

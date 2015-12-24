@@ -1,0 +1,230 @@
+<HTML>
+<HEAD>
+<TITLE>douglah1/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+douglah1/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab 6.py
+#Douglas Huynh 30883808 and Kenny Matsudo 28917382. ICS Lab sect 13. Lab asst 6.
+
+print()
+print('---------- Part (c.1) ----------')
+print()
+
+def contains(a:str, b:str) -&gt; bool:
+    '''Checks if second string occurs in the first'''
+    return b in a
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+
+print()
+print('---------- Part (c.2) ----------')
+print()
+def punctuation_deleter(s:str) -&gt; str:
+    '''Deletes any punctuation marks'''
+    table = str.maketrans('.,!?*:"',
+                          '       ')
+    return s.translate(table)
+
+def sentence_stats(x:str):
+    '''Prints out the statistics of each string'''
+    print('Characters:', len(x))
+    final_sentence = punctuation_deleter(x)
+    num_of_words = []
+    num_of_words = final_sentence.split()
+    print('Words:', len(num_of_words))
+    total_words = 0
+    for x in num_of_words:
+        total_words += len(x)
+    print('Average word length:', total_words/len(num_of_words))
+
+sentence_stats('I love UCI')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+print()
+print('---------- Part (c.3) ----------')
+print()
+
+def initials(x:str) -&gt; str:
+    '''Returns the initials of a name'''
+    initlist = []
+    y = x.split()
+    for i in range(len(y)):
+        initlist.append(y[i][0].upper())
+    return ''.join(initlist)
+    
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+
+print()
+print('---------- Part (d.1) ----------')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match227-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+
+from random import randrange
+
+for i in range(50):
+    print(randrange(0,11))
+
+for i in range(50):
+    print(randrange(1,7))
+
+
+
+print()
+print('---------- Part (d.2) ----------')
+print()
+
+def roll2dice() -&gt; int:
+    '''Returns random roll of two dice'''
+    return (randrange(1,7) + randrange(1,7))
+
+for i in range(50):
+    print(roll2dice())
+
+
+print()
+print('---------- Part (d.3) ----------')
+print()
+
+def distribution_of_rolls(n:int)-&gt; str:
+</FONT>    '''Prints distribution of values of rolls'''
+    print('Distribution of dice rolls')
+    rolls_list = []
+    for i in range(n):
+        rolls_list.append(roll2dice())
+    for i in range(2,13):
+        print("{:2.0f}:  {:2.0f} ({:4.1f}%)  {}".format(i, rolls_list.count(i), round(rolls_list.count(i)/len(rolls_list) * 100), rolls_list.count(i) * '*'))
+    print("--------------------------------")
+    print(n,'rolls')
+
+distribution_of_rolls(200)
+
+
+
+print()
+print('---------- Part (e.1) ----------')
+print()
+
+def Caesar_encrpyt(s:str,y:int) -&gt; str:
+    '''Takes a string and an integer and returns a ciphertext'''
+    letters = "abcdefghijklmnopqrstuvwxyz"
+    letters2 = []
+    for i in range(len(letters)):
+        letters2.append(letters[(i+y)%26])
+    letters2 = ''.join(letters2)
+
+    table = str.maketrans(letters, letters2)
+    return s.lower().translate(table)
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match227-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(Caesar_encrpyt('something', 5))
+print(Caesar_encrpyt('programming', 24))
+
+
+def Caesar_decrpyt(s:str,y:int) -&gt; str:
+    '''Takes a string and an integer and returns the plaintext'''
+    letters = "abcdefghijklmnopqrstuvwxyz"
+    letters2 = []
+</FONT>    for i in range(len(letters)):
+        letters2.append(letters[(i-y)%26])
+    letters2 = ''.join(letters2)
+
+    table = str.maketrans(letters, letters2)
+    return s.lower().translate(table)
+
+print(Caesar_decrpyt('business', 5))
+print(Caesar_decrpyt('programming', 25))
+
+print()
+print('---------- Part (e.2) ----------')
+print()
+
+#Done with partner, exchanged codes with emails
+
+
+print()
+print('---------- Part (e.3) ----------')
+print()
+
+print(Caesar_encrpyt('cat', 3))
+print(Caesar_encrpyt('cat', 29))
+print()
+print(Caesar_encrpyt('batman', 3))
+print(Caesar_encrpyt('batman', 29))
+
+
+print()
+print('---------- Part (f) ----------')
+print()
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match227-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+speech =[ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+    
+print()
+print('---------- Part (f.1) ----------')
+print()
+
+def print_line_numbers(x:list)-&gt;str:
+    '''Takes a list of strings and prints each string preceded with a line number'''
+    for i in range(len(x)):
+        print("{:5.0f} : {}".format(i+1,x[i]))
+</FONT>
+print_line_numbers(speech)
+
+print()
+print('---------- Part (f.2) ----------')
+print()
+
+def stats(y:list) -&gt; str:
+    '''Prints statistics of the strings'''
+    numbers = []
+    numbers2 = []
+
+    print('{:0.0f}     {}'.format(len(y),'lines in the list'))
+    print('{:2.0f}    {}'.format(y.count(''),'empty lines'))
+    for i in range(len(y)):
+        numbers.append(len(y[i]))
+        if (y[i] != ''):
+            numbers2.append(len(y[i]))
+
+    average = sum(numbers)/len(numbers)
+    average_second = sum(numbers2)/len(numbers2)
+    print('{:5.1f} {}'.format(average,'average characters per line'))
+    print('{:5.1f} {}'.format(average_second,'average characters per non-empty line'))
+
+stats(speech)
+
+
+print()
+print('---------- Part (f.3) ----------')
+print()
+
+def list_of_words(n:list) -&gt; str:
+    '''Returns list of individual words with whitespace and punctuation removed'''
+    words = []
+    punctuation = '.,+=()%#*@&^!?"&gt;\&lt;/$[]{}-_'
+    for i in range(len(n)):
+        words.extend(n[i].split())
+    for i in range(len(words)):
+        table = str.maketrans(punctuation, '                          ')
+        words[i] = words[i].translate(table)
+    return ' '.join(list(words))
+print(list_of_words(speech))
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

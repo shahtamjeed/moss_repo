@@ -1,0 +1,218 @@
+<HTML>
+<HEAD>
+<TITLE>ddieu/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jesteban/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Jacob Esteban 72411013 and Joaquin Cardenas 11516968.  ICS 31 Lab sec 8.  Lab asst 7.
+
+# part c.1, c.2, c.3
+print("--------------------C1, C2, & C3--------------------")
+print()
+
+from random import randrange
+import random
+
+def random_names(n:int)-&gt;list:
+
+    infile = open('Surnames.txt','r')
+    infile2 = open('MaleFirstNames.txt', 'r')
+    infile3 = open('FemaleFirstNames.txt', 'r')
+
+    data = infile.read()
+    data2 = infile2.read()
+    data3 = infile3.read()
+
+    Surname = data.split()[::4]
+    Malefirstname = data2.split()[::4]
+    Femalefirstname = data3.split()[::4]
+
+    infile.close()
+    infile2.close()
+    infile3.close()
+
+
+    result_list = []
+    for i in range(n):
+        surname = random.choice(Surname)
+        x = randrange(0, 2)
+        if x == 0:
+            firstname = random.choice(Malefirstname)
+
+        else:
+            firstname = random.choice(Femalefirstname)
+
+        name_string = surname+','+firstname
+
+        result_list.append(name_string)
+
+    return result_list
+ 
+print(random_names(50))
+print()
+
+# part d.1
+print("--------------------D1--------------------")
+print()
+
+def move_letter(k:str, key:int)-&gt; None:
+    '''Moves index of alphabet based on number entered'''
+    return k[key:] + k[:key]
+
+def Caesar_decrypt(message:str, key:int)-&gt; str:
+    '''Returns message with letters changed back to original index'''
+    table = str.maketrans('abcdefghijklmnopqrstuvwxyz',
+                            move_letter('abcdefghijklmnopqrstuvwxyz', -key))
+    return message.lower().translate(table)
+
+def Caesar_break(ciphertext: str)-&gt; str:
+    '''Takes encrypted text and loops 26 times to find a match within dictionary'''
+    openfile = open('Wordlist.txt', 'r')
+    wordlist = []
+    for line in openfile:
+        wordlist.append(line.strip())
+        
+    openfile.close()
+
+    new_message = []
+    maximum = 'No match'
+    for index in range(26):
+        new_message.append(Caesar_decrypt(ciphertext, index))
+    for phrase in new_message:
+        HitCount = 0
+        MaxCount = 0
+        s = phrase.lower().split()
+        for i in s:
+            if i in wordlist:
+                HitCount += 1
+        if MaxCount &lt; HitCount:
+            MaxCount = HitCount
+            maximum = phrase
+    return maximum
+
+assert Caesar_break('dpnqvufs tdjfodf') == 'computer science'
+assert Caesar_break('gdkkn') == 'hello'
+
+print('Assert statements in code')
+print()
+
+
+# part d.2
+print("--------------------D2--------------------")
+print()
+
+print('Encrypted Message 1: Uijt jt b nfttbhf')
+print('Decrypted Message 1:' + Caesar_break('Uijt jt b nfttbhf'))
+
+print()
+
+print('Encrypted Message: nhx nx ymj gjxy')
+print('Decrypted Message 2:' + Caesar_break('nhx nx ymj gjxy'))
+
+print()
+
+print("--------------------E1--------------------")
+def copy_file():
+    """ Copies the specified file into a new designated file. Different inserted parameters implement
+    different effects upon the copy process of the specified file. The different parameters are as follows:
+    1.) Inputting "line numbers" will copy the file and place line numbers at the start of each line
+    2.) Inputting "Gutenberg trim" will copy the file while cutting out the housekeeping text at the start and end of specified file.
+    3.) Inputting "Statistics" will copy the file while also giving with in the new created file(at the end), statistics of the file.
+    4.) Anything else inputted will just result in copy of the original file! """
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match245-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    x=input("Enter 'line numbers', 'Gutenberg trim', or 'Statistics':")
+    if x == 'line numbers':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy: ")
+        outfile = open(outfile_name, 'w')
+        numberlines = 1 
+</FONT>        for line in infile:
+            outfile.write("{:5d} {} ".format(numberlines, line))
+            numberlines += 1 
+        outfile.close()
+        infile.close()
+    elif x == 'Gutenberg trim':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy: ")
+        outfile = open(outfile_name, 'w') 
+        result = []
+        for line in infile:
+            if line.startswith("*** START"):
+                result = []
+            if line.startswith("*** END"):
+                result.append(line)
+                break
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match245-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            result.append(line)
+        for i in result:
+             outfile.write(i)
+        outfile.close()
+        infile.close()
+    elif x == 'Statistics':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy: ")
+        outfile = open(outfile_name, 'w')
+</FONT>        data = infile.readlines()
+        wordlist = []
+        for i in data:
+            outfile.write(i)
+        for i in data:
+            wordlist.extend(i.split())
+        #data2 = infile.read()
+        # words = len(data2.split()) #put print(data) after this
+        number_of_lines = len(data)
+        characters = 0
+        word2things = 0
+        number_of_empty_lines = 0
+        for i in data:
+            if i == '\n':
+                number_of_empty_lines += 1
+            for n in i:
+                characters += 1
+        AWL =  characters/len(wordlist)
+        Reallines  = number_of_lines - number_of_empty_lines
+        for i in range(Reallines):
+            word2things += 1
+        ACPNEL = word2things/len(wordlist)
+        outfile.write("{:5d} lines in the file".format(number_of_lines)+'\n')
+        outfile.write("{:5d} empyty lines".format(number_of_empty_lines)+'\n')
+        outfile.write("{:5.2f} average characters per line".format(AWL)+'\n')
+        outfile.write("{:5.2f} average characters per non-empty line".format(ACPNEL))
+        infile.close()
+        outfile.close()
+        
+    else:
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy: ")
+        outfile = open(outfile_name, 'w')
+        data = infile.readlines()
+        for i in data:
+            outfile.write(i)
+        infile.close()
+        outfile.close()
+copy_file()
+
+print("------------------E2-------------------------")
+print(" E2 is a modification of E1! Look at E1!")
+print()
+print("------------------E3----------------------")
+print("E3 is a modification of E1! Look at E1!")
+print()
+print("------------------E4-------------------")
+print("E4 is a modification of E1! Look at E1")
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

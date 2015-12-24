@@ -1,0 +1,185 @@
+<HTML>
+<HEAD>
+<TITLE>nsukhov/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+wuc5/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab6.py
+#Cissy Lu 33527532 and Heriberto Alonso Jr. 58307991. Ics 31 Lab sec 12. Lab asst 6.
+
+#C.1
+print()
+print('----- C 1-----')
+print()
+def contains(s1:str, s2:str)-&gt;bool:
+    return s2 in s1
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+#C.2
+print()
+print('----- C 2-----')
+print()
+
+def list_of_words(lst:[str])-&gt;[str]:
+    '''Returns a list of individual words with
+    all white space and punctuation removed'''
+    new_lst = []
+    for i in lst:
+        string = ''
+        for a in i:
+            if a in"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'1234567890 ":
+                string += a
+            else:
+                string += ' '
+        new_lst.extend(string.strip().split())
+    return new_lst
+
+def sentence_stats(stats:str):
+    "prints out these statistics about the string"
+    new = list_of_words([stats])
+    a = 0
+    for i in new:
+        a = a + len(i)
+    average = a/len(new)
+    characters = len(stats)
+    words = len(new)
+    print(' Characters: ', characters, '\n', 'words: ', words, '\n', 'Average word length: ', average)
+
+#c.3
+print()
+print('----- C 3-----')
+print()
+def initials(represent:str)-&gt;str:
+    "returns the initials of the name in all capital letters"
+    n = list_of_words([represent])
+    ini = ''
+    for i in n:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match202-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        ini = ini + i[0]
+    return ini.upper()
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+#d
+print()
+print('-----d 1-----')
+print()
+from random import randrange
+for i in range(50):
+</FONT>    print(randrange(11))
+for i in range(50):
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match202-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print(randrange(1,7))
+    
+print()
+print('----d 2------')
+print()
+def roll2dice()-&gt;int:
+    'Returns a number that reflects the random roll of two dice.'
+    return (randrange(1,7))+(randrange(1,7))
+for i in range(50):
+</FONT>    print(roll2dice())
+
+print()
+print('-----d 3-----')
+print()
+def distribution_of_rolls(n: int):
+    'Takes a number of times to roll two dice and prints distribution of the value of those rolls'
+    lst = [0,0,0,0,0,0,0,0,0,0,0]
+    for i in range(n):
+        sum_of_dice = roll2dice()
+        for a in range(2,13):
+            if sum_of_dice == a:
+                lst[a-2] += 1
+    for i in range(2,13):
+        percentage = (lst[i-2]/n)*100
+        star = '*'*lst[i-2]
+        print('{:2}:{:7}({:4.1f}%)  {:35}'.format(i,lst[i-2],percentage,star))
+    print('-----------------------------'+'\n'+'      {:3} rolls'.format(n))
+distribution_of_rolls(200)
+
+#e.1 to 3
+print()
+print('------e.1 to e.3------')
+print()
+ALPHABET='abcdefghijklmnopqrstuvwxyz'
+def rotated_alphabet(key:int)-&gt;str:
+    '''Return a "rotated" alphabet with the specified number of
+    characters taken off the front and added on to the end of the string.'''
+    key = key%26
+    return ALPHABET[key:]+ALPHABET[:key]
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match202-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_encrypt(message:str, key:int)-&gt;str:
+    'Return the ciphertext.'
+    table = str.maketrans(ALPHABET,rotated_alphabet(key))
+    return (message.lower()).translate(table)
+def Caesar_decrypt(message:str, key:int)-&gt;str:
+    'Return the plaintext.'
+    table = str.maketrans(ALPHABET,rotated_alphabet(26-key))
+</FONT>    return (message.lower()).translate(table)
+assert Caesar_encrypt('abc', 3)=='def'
+assert Caesar_decrypt('def',3)=='abc'
+assert Caesar_encrypt("cat", 29) == Caesar_encrypt("cat", 3)
+
+#f
+print()
+print('------- f.1------')
+print()
+message = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+def print_line_numbers(lst:[str])-&gt;None:
+    'Prints each string preceded by a line number.'
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match202-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for i in range(len(lst)):
+        print('{:5}:  {}'.format(i+1,lst[i]))
+print_line_numbers(message)
+
+print()
+print('---------- f.2 ----------')
+print()
+
+def stats(lst:[str])-&gt;None:
+</FONT>    'Takes a list of strings and prints statistics'
+    empty_lines = 0
+    char = 0
+    for i in range(len(lst)):
+        char += len(lst[i])
+        if lst[i] == '':
+            empty_lines+=1
+    print('{:6}   lines in the list\n'.format(len(lst))
+          +'{:6}   empty lines\n'.format(empty_lines)
+          +'{:8.1f} average characters per line\n'.format(char/len(lst))
+          +'{:8.1f} average characters per non-empty line'.format(char/((len(lst)-empty_lines)))
+        )
+stats(message)
+print()
+print('---------- f.3 ----------')
+print()
+def list_of_words(lst:[str])-&gt;[str]:
+    '''Returns a list of individual words with
+    all white space and punctuation removed'''
+    new_lst = []
+    for i in lst:
+        string = ''
+        for a in i:
+            if a in"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'1234567890 ":
+                string += a
+            else:
+                string += ' '
+        new_lst.extend(string.strip().split())
+    return new_lst
+assert list_of_words(["I don't have an apple!","My phone number is: 888-888~"]) == ['I',"don't",'have','an','apple','My','phone','number','is','888','888']
+</PRE>
+</PRE>
+</BODY>
+</HTML>

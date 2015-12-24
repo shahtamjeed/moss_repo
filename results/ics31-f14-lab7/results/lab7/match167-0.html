@@ -1,0 +1,193 @@
+<HTML>
+<HEAD>
+<TITLE>anmalhot/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+anmalhot/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Arvind Sontha 47619664 and Alex Malhotra 25397180. ICS 31 Lab sec 12. Lab asst 7.
+def section(x: str):
+    print("------------ " + x + " ------------")
+#
+#Part C
+#
+section("~~~C~~~")
+#
+#c.1
+section("c.1")
+from random import randrange
+
+def data_processing() -&gt; list:
+    '''Takes in files, and returns the list of surnames and male and female first names'''
+    #Processing of surnames
+    surname_file = input("Please enter the file name containing included surnames: ")
+    surname_infile = open(surname_file, "r")
+    surname_data = surname_infile.read().split("\n")
+    surname_infile.close()
+    surname_result = []
+    for x in surname_data:
+        temp = x.split("\t")
+        if not(temp[0] == '') and not(temp[0] == ' '):
+            surname_result.append(temp[0])
+    #Processing of male firstnames
+    maleFirstName_file = input("Please enter the file name containing included male first names: ")
+    maleFirstName_infile = open(maleFirstName_file, "r")
+    maleFirstName_data = maleFirstName_infile.read().split("\n")
+    maleFirstName_infile.close()
+    maleFirstName_result = []
+    for x in maleFirstName_data:
+        temp = x.split("\t")
+        if not(temp[0] == '') and not(temp[0] == ' '):
+            maleFirstName_result.append(temp[0])
+    #Processing of female firstnames
+    femaleFirstName_file = input("Please enter the file name containing included female first names: ")
+    femaleFirstName_infile = open(femaleFirstName_file, "r")
+    femaleFirstName_data = femaleFirstName_infile.read().split("\n")
+    femaleFirstName_infile.close()
+    femaleFirstName_result = []
+    for x in femaleFirstName_data:
+        temp = x.split("\t")
+        if not(temp[0] == '') and not(temp[0] == ' '):
+            femaleFirstName_result.append(temp[0])
+    return surname_result, maleFirstName_result, femaleFirstName_result
+    
+    
+def random_names(x: int) -&gt; list:
+    '''returns a list of inputed size of randomly generated names'''
+    result = []
+    surnames, malenames, femalenames = data_processing()
+    for y in range(0, x):
+        lastname = surnames[randrange(0,len(surnames))]
+        i = randrange(0,2)
+        if i == 0:
+            firstname = malenames[randrange(0,len(malenames))]
+        elif i == 1:
+            firstname = femalenames[randrange(0, len(femalenames))]
+        j = lastname + "," + firstname
+        result.append(j)
+    return result
+    
+#
+#Part D
+#
+section("~~~D~~~")
+#
+#d.1
+section("d.1")
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match167-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate(A: str, k:int) -&gt; str:
+    '''rotates the Alphabet for encryption and decryption'''
+    return A[k:] + A[:k]
+
+def Caesar_encrypt(m: str, key: int) -&gt; str:
+    '''Encrypts messages according to Caesar encryption'''
+    y = str.maketrans(ALPHABET, rotate(ALPHABET, (key+26)%26))
+    return m.lower().translate(y)
+assert Caesar_encrypt('a', 1) == 'b'
+assert Caesar_encrypt('b', 5) == 'g'
+
+
+def Caesar_break(Ucypher: str) -&gt; str:
+</FONT>    '''Brute forces a Caesar cypher to return the original message'''
+    cypher = Ucypher.lower()
+    possible_decryptions = []
+
+    for x in range(0,26):
+        y = str.maketrans(rotate(ALPHABET,x), ALPHABET)
+        possible_decryptions.append(cypher.translate(y))
+        
+    correct_index = 0
+    max_count = 0
+    
+    for x in range(0, len(possible_decryptions)):
+        splited_strings = possible_decryptions[x].split()
+        dictionary_infile = open("wordlist.txt", "r")
+        dictionary_data = dictionary_infile.read()
+        dictionary_infile.close()
+        for y in splited_strings:
+            count = 0
+            dict_list = dictionary_data.lower().split("\n")
+            for z in dict_list:
+                if y == z:
+                    count += 1
+                    if count &gt; max_count:
+                        max_count = count
+                        correct_index = x
+                    
+    return possible_decryptions[correct_index]
+#
+#Part E
+#
+section("~~~E~~~")
+#
+#e.1
+section("e.1")
+#
+#e.2
+section("e.2")
+#
+#e.3
+section("e.3")
+#
+#e.4
+section("e.4")
+def stats(Lines: list):
+    '''Prints the stats of a list of strings'''
+    emptyLines = 0
+    totalChar = 0
+    for x in Lines:
+        totalChar+=len(x)
+        if(x == ''):
+            emptyLines+=1
+    return len(Lines), emptyLines, (totalChar/len(Lines)),totalChar/(len(Lines)-emptyLines)
+    
+def copy_file(command: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if command == "line numbers":
+        file_by_line = infile.read().split("\n")
+        for x in range(0, len(file_by_line)):
+            outfile.write("{:5d}".format(x+1)+ ": " + file_by_line[x]+ "\n")
+    elif command == "Gutenburg trim":
+        file_by_line = infile.read().split("\n")
+        for x in range(0, len(file_by_line)):
+            if "*** START " in file_by_line[x]:
+                start = x+1
+            if "*** END" in file_by_line[x]:
+                end = x
+        for y in range(start, end):
+            outfile.write(file_by_line[y] + "\n")
+    elif command == "statistics":
+        file_by_line = infile.read().split("\n")
+        for x in file_by_line:
+            outfile.write(x + "\n")
+        lines, emptylines, avg_char_empty, avg_char = stats(file_by_line)
+        print('{:5d}   lines in the list'.format(lines))
+        print('{:5d}   empty lines'.format(emptylines))
+        print('{:7.1f} average characters per line'.format(avg_char_empty))
+        print('{:7.1f} average characters per non-empty line'.format(avg_char))
+        
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+                    
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

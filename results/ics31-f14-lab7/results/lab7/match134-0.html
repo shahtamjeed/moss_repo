@@ -1,0 +1,223 @@
+<HTML>
+<HEAD>
+<TITLE>mcatangh/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+mcatangh/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Cindy Ung 26886562 and Margarette Catanghal 90338978 . ICS 31 Lab sec 6. Lab asst 7.
+
+# PART C
+
+print('---part c---')
+print()
+
+surnames = open("surnames.txt", 'r')
+female_names = open("femalenames.txt", 'r')
+male_names = open("malenames.txt", 'r')
+
+#c.1, c.2, c.3
+from random import randrange
+
+def decapitalize(s: str):
+    '''Fixes capitalized letters into lowercase letters'''
+    table = s.maketrans('ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                        'abcdefghijklmnopqrstuvwxyz')
+    return s.translate(table)
+
+def extract_names(n):
+    '''Takes a file and extracts the names from the file into a list'''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match134-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    result = []
+    for line in n:
+        line_list = line.split()
+        result.append(line_list[0])
+    newlist = []
+    for i in result:
+</FONT>        m = decapitalize(i[1:])
+        newlist.append(i[0] + m)
+    return newlist
+
+a = extract_names(surnames)  #List of surnames under a
+b = extract_names(female_names)  #List of female names under b
+c = extract_names(male_names)  #List of male names under c
+
+def random_names(n: int) -&gt; list:
+    '''Takes an integer and returns a random list of n names
+    by surname and first name'''
+    result = []
+    for r in range(n):
+        string = ''
+        string += random(a)
+        string += ', '
+        m = randrange(1,3)  #choice of female or male name
+        if m == 1:
+            string += random(b)  #female name
+        elif m == 2:
+            string += random(c)  #male name
+        result.append(string)
+    return result
+
+def random(n):
+    '''Takes a list of extracted names from a file and returns a random name''' 
+    i = randrange(1, (len(n)+1))
+    r = n[i]
+    return r
+
+print(random_names(10))
+print()
+
+#PART D
+
+print('---part d---')
+print()
+
+#d.1
+
+from collections import namedtuple
+Message = namedtuple('Message','key decryptedMessage count')
+
+dictionary = open('wordlist.txt', 'r')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match134-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+
+def rotate_alphabet(s: str, key: int)-&gt; str:
+    '''rotates an alphabet using given key for a Caesar cipher'''
+    key = key%26 #part e3
+    table = s.maketrans(ALPHABET,ALPHABET[key:]+ALPHABET[:key])
+    return s.translate(table)
+
+def Caesar_decrypt(ciphertext: str, key: int)-&gt;'plaintext':
+</FONT>    '''decrypts a specified message using a specified key for a
+    Caesar cipher'''
+    return rotate_alphabet(ciphertext.lower(),26-key)
+
+def Caesar_break(cipher: str):
+    '''Takes a ciphertext string and returns the plaintext
+    for that string without having the key'''
+    count = 0
+    decryptedMessages = []
+    for i in range(1, 27):  #for a number in the range between 1 and 27
+        decryptedString = Caesar_decrypt(cipher, i) #decrypts ciphertext
+        decryptedMessages.append(decryptedString)  #appends the decrypted string to a list
+
+    result = []
+    for line in dictionary:
+        line_list = line.split()
+        result.append(line_list[0])  #Extracts items from separate lists into one big list
+
+    datalines = []
+    for i in result:
+        m = decapitalize(i)  #Decapitalizes all the letters in the words
+        datalines.append(m)
+
+    messageList = []
+    for r in datalines:
+        for s in decryptedMessages:
+            if (r == s):
+                count += 1
+            m = Message(i, s, count)
+            messageList.append(m)  #list of namedtuples
+
+    countList = []
+    for p in messageList:
+        countList.append(p.count)  #Adds counts from namedtuples to one separate list
+
+    maxCount = max(countList)  #finds the maximum value from list of counts
+
+    for p in messageList:
+        if (p.count == maxCount):
+            return p.decryptedMessage  #returns the decrypted message for which the count is highest
+
+print(Caesar_break('cctqpkecn'))
+print()
+
+
+#PART E
+
+print('---part e---')
+print()
+
+#e.1, e.2, e.3, e.4
+def copy_file(s: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')     
+
+    count = 0
+    
+    if s == 'line numbers':
+        for line in infile:
+            count += 1
+            a = ("{:5.0f}: {:2s}".format(count, line))
+        outfile.write(a)
+    elif s == 'statistics':
+        result = []
+        for line in infile:
+            outfile.write(line)
+            line_list = line.split()
+            result.append(line_list)
+
+        final_string = stats(result)
+        outfile.write(final_string)
+    elif s == 'Gutenberg trim':
+        trim(infile_name, outfile_name)
+            
+    infile.close()
+    outfile.close()
+
+def trim(infile_name: 'file name', outfile_name: 'file name'):
+    '''trims text file'''
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile = open(outfile_name, 'w')
+
+    check = False
+
+    string = '*** START'
+    string2 = '*** END'
+    
+    for line in infile:
+        if string in line:
+            check = True
+            line = infile.readline()
+            while string2 not in line and line :
+                outfile.write(line)
+                line = infile.readline()
+            if check == True:
+                break;
+                
+
+def stats (L:list):
+    '''prints statistics of a list of strings'''
+    linesCount = len(L)
+    empty = 0
+    sum_characters = 0
+    for i in L:
+        if i == "":
+            empty+=1
+        sum_characters+=len(i)
+    str1 = "{:5d}   {:1s}".format(linesCount,"lines in the list")
+    str2 = "{:5d}   {:1s}".format(empty,"empty lines")
+    str3 = "{:7.1f} {:1s}".format(sum_characters/len(L),
+                                 "average characters per line")
+    str4 = "{:7.1f} {:1s}".format((sum_characters/(len(L)-empty)),
+                                 "average characters per non-empty line")
+
+    final_string = str1 + "\n" + str2 + "\n" + str3 + "\n" + str4
+
+    return final_string
+
+
+copy_file('Gutenberg trim')
+copy_file('line numbers')
+copy_file('statistics')
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

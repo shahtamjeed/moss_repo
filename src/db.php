@@ -108,9 +108,44 @@ class Database
 				return (gettype($result) == "boolean") ? $result : $result->fetch_all();
 			case "assoc":
 				return (gettype($result) == "boolean") ? $result : $result->fetch_assoc();
+			case "json":
+				return (gettype($result) == "boolean") ? $result : json_encode($this->json($result));
 			default:
 				return $result;
 		}
+	}
+
+
+	public function select($table, $values=array(), $cols="*", $type="and", $format="json")
+	{
+		if (!isset($table))
+			throw new Exception("Database->select: select require a value for table");
+
+		$cols = (gettype($cols) == "array") ? implode(",", $cols) : $cols;
+		$q = "select $cols from $table";
+
+		if (count($values) > 0)
+		{
+			$vals = array();
+			foreach ($values as $k => $v)
+				array_push($vals, "$k='$v'");
+
+			$vals = implode(" $type ", $vals);
+			$q .= " where $vals";
+		}
+
+		return $this->query($q, $format);
+	}
+
+
+	private function json($data)
+	{
+		$result = array();
+
+		while (($row = $data->fetch_assoc()) !== NULL)
+			array_push($result, $row);
+
+		return $result;
 	}
 
 
@@ -140,6 +175,16 @@ class Database
 		$this->db_name = $db_name;
 		return $this->db_name;
 	}
+
+
+	public function query_prep($values)
+	{
+		$cols = implode(",", array_keys($values));
+		$vals = "'" . implode("','", $values) . "'";
+
+		return array($cols, $vals);
+	}
 }
+
 
 ?>

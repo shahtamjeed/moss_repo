@@ -1,0 +1,196 @@
+<HTML>
+<HEAD>
+<TITLE>hvtodd/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+hvtodd/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Hayden Todd 43055523 and Henry Kossow 72897832. ICS 31 Lab sec 1.
+
+print('Part C')
+
+from random import randrange
+
+def get_names(text:'.txt file name') -&gt; 'list of names':
+    '''Function takes a text file and returns the names in a list'''
+    file = open(text)
+    content_list = file.readlines()
+    file.close()
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match100-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    result = [ ]
+    for i in content_list:
+        x = i.split()
+        result.append(x[0])
+    return result
+
+def choose_name(text: '.txt file name') -&gt; 'names':
+</FONT>    '''Function returns a random name from given text file'''
+    all_names = get_names(text)
+    return all_names[randrange(len(all_names))].title()
+
+def random_names(num: int) -&gt; "list of names":
+    '''Function that takes an integer and returns a list
+    of that many random names in the format Surname, First name
+    '''
+    result = [ ]
+    for i in range(num):
+        name = ''
+        name += choose_name('surnames.txt') + ','
+        if randrange(2) == 0:
+            name += ' ' + choose_name('malenames.txt')
+        else:
+            name += ' ' + choose_name('femalenames.txt')
+        result.append(name)
+    return result
+            
+print(random_names(10))
+
+print('\nPart D')
+
+#Copied from lab 6 part e
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def remove_punctuation(x: str) -&gt; str:
+    '''function removes all punction from the string'''
+    result = ''
+    reference = ALPHABET + ALPHABET.upper() + "'"
+    for i in x:
+        if i in reference:
+            result += i
+    return result
+
+def alphabet_shift(key: int) -&gt; str:
+    ''' Returns the alphabet shifted by the key '''
+    return ALPHABET[key:] + ALPHABET[:key]
+assert alphabet_shift(2) == 'cdefghijklmnopqrstuvwxyzab'
+assert alphabet_shift(28 % 26) == 'cdefghijklmnopqrstuvwxyzab'
+assert alphabet_shift(-1) == 'zabcdefghijklmnopqrstuvwxy'
+
+def caesar_encrypt(plaintext: str, key: int) -&gt; str:
+    ''' Each letter in the original message is changed to a different letter.
+        It is shifted by the key. '''
+    table = str.maketrans(ALPHABET, alphabet_shift(key % 26))
+    return plaintext.lower().translate(table)
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match100-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert caesar_encrypt('hello', 28) == 'jgnnq'
+assert caesar_encrypt('My name is applesauce.', 5) == 'rd sfrj nx fuuqjxfzhj.'
+
+def caesar_decrypt(ciphertext: str, key: int) -&gt; str:
+    ''' Reverts the ciphertext to plain text, shifting the letters by -key '''
+    table = str.maketrans(alphabet_shift(key % 26), ALPHABET)
+</FONT>    return ciphertext.lower().translate(table)
+assert caesar_decrypt(caesar_encrypt('applez. b', 5), 5) == 'applez. b'
+assert caesar_decrypt(caesar_encrypt('Cryptography! Is! the science of writing.', 256), 256)
+
+#part d.1
+
+def dictionary(x: 'text file') -&gt; list:
+    '''Returns a list of words'''
+    file = open(x)
+    content_list = file.read().splitlines()
+    file.close()
+    return content_list 
+
+def Caesar_break(s1: str) -&gt; str:
+    '''Takes ciphertext and returns plaintext without the key'''
+    wordlist = dictionary('wordlist.txt')
+    possible = []
+    for i in range(26):
+        possible.append(caesar_decrypt(s1, i))
+    numwords = []
+    for i in possible:
+        temp = i.split()
+        nums = 0
+        for n in temp:
+            if n in wordlist:
+                nums += 1
+        numwords.append(nums)
+    newnumwords = numwords[:]
+    newnumwords.sort()
+    numbest = newnumwords[-1]
+    index = numwords.index(numbest)
+    return possible[index]   
+
+print(Caesar_break('whammies'))
+
+print('\n Part e')
+
+def copy_file(s1: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s1 == 'line numbers':
+        n = 1
+        for line in infile:
+            outfile.write('{:5}:  '.format(n) + line)
+            n += 1
+        infile.close()
+    if s1 == 'Gutenburg trim':
+        for line in infile:
+            if '*** START' in line:
+                break
+        for line in infile:
+            if '*** END' in line:
+                break
+            outfile.write(line)
+        infile.close()
+    else:
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        if s1 == 'statistics':
+            infile2 = open(infile_name, 'r', errors='ignore')
+            data = infile2.read()
+            datalines = data.split('\n')
+            stats(datalines)
+            infile2.close()
+    outfile.close()
+
+#copied from lab 6
+
+def stats(string_list: list) -&gt; None:
+    ''' Prints the statistics of a list of strings, including lines, empty lines,
+        avg characters per line, and average characters per non-emptyline'''
+    print('{:9.1f} lines in the list'.format(len(string_list)))
+    print('{:9.1f} empty lines'.format(count_empty_lines(string_list)))
+    print('{:9.1f} average characters per line'.format(average_chars(string_list)))
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match100-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print('{:9.1f} average characters per non-empty line'.format(average_chars2(string_list)))
+
+def count_empty_lines(string_list: list) -&gt; int:
+    ''' Counts the empty strings in the list '''
+    result = 0
+    for line in string_list:
+        if len(line) == 0:
+            result += 1
+    return result
+
+def average_chars(string_list: list) -&gt; float:
+</FONT>    ''' Calculates and returns the average number of characters per line '''
+    avg = 0
+    if len(string_list) != 0:
+        avg = sum(len(line) for line in string_list)/len(string_list)
+    return avg
+
+def average_chars2(string_list: list) -&gt; float:
+    ''' Calculates and returns the average number of characters per non-empty line '''
+    avg = 0
+    if len(string_list) == count_empty_lines(string_list):
+        return avg
+    total = 0
+    for line in string_list:
+        total += len(line)
+    avg = total/(len(string_list) - count_empty_lines(string_list))
+    return avg
+
+copy_file('statistics')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

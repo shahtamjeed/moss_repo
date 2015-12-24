@@ -1,0 +1,327 @@
+<HTML>
+<HEAD>
+<TITLE>jaybl/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+justonl/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Juston Lin 23248090 and Shawn Williams 79146390.  ICS 31 Lab sec 2.  Lab asst 7.
+
+print('--------Part C')
+from random import randrange
+
+#C
+def random_names(x: int) -&gt; list:
+    '''Generates a list with the specificed number of random names'''
+    names = []
+    while len(names) &lt; x:
+        names.append(random_name_generator('surname') + ", " + random_name_generator('firstname') + '\n')
+    return ''.join(names)
+
+def random_name_generator(x: str) -&gt; str:
+    '''Grabs a line from the specified name file and returns the name formatted'''
+    name = []
+    n = randrange(0, 1001)
+    if x == 'surname':
+        namefile = open("surnames.txt", "r")
+    else:
+        a = randrange(0, 1)
+        if a == 0:
+            namefile = open("malenames.txt", "r")
+        else:
+            namefile = open("femalenames.txt", "r")
+    for i in namefile.readlines():
+        lower_case = i.split('\t')[0].lower().capitalize()
+        name.append(lower_case)
+    namefile.close()
+    return name[n]
+
+
+print(random_names(40))
+##
+##
+##c1
+##
+##
+##from random import randrange
+##def random_name(number: int)-&gt;list:
+##    surname = random_surname(number)
+##    firstname = random_firstname(number)
+##    listies =[]
+##    for i in range(surname):
+##        listies.append(surname[i] + ',' + firstname[i])
+##        print listies[i]
+##    
+##
+##
+##
+##c2
+##
+##
+##def random_surname(x: int): -&gt; list:
+##    infile = open("surnames.txt", "r")
+##    name = []
+##    for i in infile.readlines():
+##        new_list = i.split('\t')[0].lower().capitalize()
+##        name.append(new_list)
+##    infile.close()
+##    return name[x]
+##
+##def random_firstname(x: int): -&gt; list:
+##    a = randrange(0, 1)
+##    firstname = []
+##    if a == 0:
+##        namefile = open("malenames.txt", "r")
+##    elif a == 1:
+##        namefile = open("femalenames.txt", "r")
+##    for i in namefile.readlines():
+##        new_list = i.split('\t')[0].lower().capitalize()
+##        firstname.append(new_list)
+##    namefile.close()
+##    return firstname[x]
+##
+##
+##
+##
+##c3
+##
+##
+##def random_name_generator(number: int)-&gt;list:
+##    names = []
+##    while len(names) &lt; x:
+##        names.append(data(randrange(0,1001))
+##    return names
+##                  
+##
+
+##    listies = []
+##    random_name_list = []
+##    for x in range(0, number):
+##        listies.append(randrange(0,1001))
+##    for generated_number in listies
+'''
+What we need to do:
+1. Write a function that takes number, returns that number of lists.
+2. Write function that extracts the names.
+3. Write function that generates the names randomly.
+
+What we want to happen:
+Random_name_generator takes in a number to randomize that many times
+This will then use the data_extractors to generate random names
+then random_name will print it in the format that we want it to be.
+'''
+print('--------Part D')
+#
+#
+#d1
+#
+#
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match206-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotated(key : int)-&gt;str:
+    '''rotates alphabet by given key'''
+    newalpha = (alphabet[0: key])
+    neweralf = (alphabet[key: ])
+    stuff = neweralf + (newalpha)
+    return stuff
+def rotated_alphabet(code:str, key:int) -&gt; str:
+</FONT>    '''Rotates alphabet by given key'''
+    if key &gt;25:
+        return (code[key%26:len(code)] +code[0:key%26])
+    else:
+        return (code[key:len(code)] +code[0:key])
+
+def Caesar_break (ciphertext: str)-&gt; str:
+    '''We will have the 26 possible keys
+    and will choose the one with the most# of correct words'''
+    each_string = []
+    new_message = ciphertext.lower()
+    for each_number in range(0,27):
+        table = str.maketrans(rotated_alphabet(alphabet,each_number),alphabet)
+        each_string.append(new_message.translate(table))
+    hit_list = actual_word_counter(each_string)
+    a = 0
+    for each_word_counter in hit_list:
+        if each_word_counter &gt; a:
+            a = each_word_counter
+    position = hit_list.index(a)
+    return(each_string[position])      
+        
+def actual_word_counter(message_list: list) -&gt; str:
+    '''Counts the number of legit words in each string and
+    prints the one that is the most correct one'''
+    hit_list = []
+    Fuck = open("wordlist.txt", 'r')
+    crud = Fuck.read().split("\n")
+    Fuck.close()
+    for each_message in message_list:
+        result = 0
+        for each_word in each_message.split():
+            if each_word in crud:
+                result += 1
+        hit_list.append(result)
+    return hit_list
+       
+#
+#
+#d2
+#
+#
+assert (Caesar_break('kl...... wkhuh'))  == 'hi...... there'  
+assert (Caesar_break('Kl wkhuh'))== 'hi there' 
+
+
+
+print('--------Part E')
+
+#
+#
+#e1
+#
+#
+
+def copy_file() -&gt; None:
+    '''Copies the file of the first input into the file of the 2nd input,
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match206-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    which will make a new file if that file did not exist before'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+</FONT>        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+#
+#
+#e2
+#
+#
+
+def copy_file_with_linenumbers(big_str:str) -&gt; None:
+    '''Takes in a str. If it is 'line numbers', the outfile will
+    include line numbers at the start of each line, else it will do
+    what copy_file does.'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    result = 0
+    if big_str == 'line numbers':
+        for line in infile:
+            result += 1
+            outfile.write('{:6}: {:}'.format(result,line))
+    else:
+        for line in infile:
+            outfile.write(line)  
+    infile.close()
+    outfile.close()
+
+#
+#
+#e3
+#
+#
+
+def copy_file_with_linenumbers_Gutenberg(big_str:str) -&gt; None:
+    '''Takes in a str. If it is 'Gutenberg trim', the outfile will
+    copy only the body of a Project Gutenberg file,
+    omitting the "housekeeping" material at the front and end.
+    Else it will do what copy_file_with_linenumbers does.'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    result = ''
+    if big_str == 'line numbers':
+        for line in infile:
+            result += 1
+            outfile.write('{:6}: {:}'.format(result,line))
+    elif big_str == 'Gutenberg trim':
+        for line in infile:
+            result += line
+        START = result.find('*** START')
+        END = result.find('*** END')
+        for line in result[START:END+result.find('\n')]:
+            outfile.write(line)
+    else:
+        for line in infile:
+            outfile.write(line)  
+    infile.close()
+    outfile.close()
+
+#
+#
+#e4
+#
+#
+def stats(strings: list) -&gt; None:
+    '''takes a list of strings and prints statistics of each line'''
+    empty = []
+    numsum = []
+    non_empty_numsum = []
+    
+    for i in range(0, len(strings)):
+##        if strings[i] == '\n':
+        if strings[i].strip()=='':
+            empty.append(i)
+        else:
+            non_empty_numsum.append(len(strings[i]))
+        numsum.append(len(strings[i]))
+    average = sum(numsum)/(i+1)
+    empaverage = (sum(non_empty_numsum))/ (len(strings) - len(empty))
+    return ("{:6}   lines in the list \n{:6}   empty Lines \n   {:5.1f} average characters per line \n   {:5.1f} average characters per non-empty line \n".format(
+        len(strings), len(empty), average, empaverage))
+
+
+def copy_file_with_linenumbers_Gutenberg_Stats(big_str:str) -&gt; None:
+    '''Takes in a str. If it is 'statistics', the outfile will
+    will copy the file as before but also print out statistics.
+    Else it will do what copy_file_with_linenumbers_Gutenberg does.'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    result = ''
+    if big_str == 'line numbers':
+        result = 0
+        for line in infile:
+            result += 1
+            outfile.write('{:6}: {:}'.format(result,line))
+    elif big_str == 'Gutenberg trim':
+        for line in infile:
+            result += line
+        START = result.find('*** START')
+        END = result.find('*** END')
+        for line in result[START:END+result.find('\n')]:
+            outfile.write(line)
+    elif big_str == 'statistics':
+        content = infile.read()
+        wordList = content.split('\n')
+        print (stats(wordList))
+        for line in wordList:
+            outfile.write(line+ '\n')
+    else:
+        for line in infile:
+            outfile.write(line)  
+    infile.close()
+    outfile.close()
+
+
+
+
+
+
+
+
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

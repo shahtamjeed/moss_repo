@@ -1,0 +1,195 @@
+<HTML>
+<HEAD>
+<TITLE>shengjix/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+xjin4/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Zhiyuan Du 40519398 and xin jin 90797760.  ICS 31 Lab sec 7.  Lab asst 7.
+
+#
+#
+# Part (c)
+#
+#
+print()  
+print()
+print('---------- Part (c) ----------')
+print()
+
+
+def get_name(s:str)-&gt;str:
+    name=''
+    for a in range(0,len(s)):
+        if s[a]!='\t':
+            name=name+s[a]
+        else:
+            break
+    return name
+surnames_file=open("surnames.txt",'r')
+surnames = surnames_file.readlines()
+
+for a in range(0,len(surnames)):
+    surnames[a]=get_name(surnames[a])
+
+malenames_file=open("malenames.txt",'r')
+malenames = malenames_file.readlines()
+
+for a in range(0,len(malenames)):
+    malenames[a]=get_name(malenames[a])
+
+femalenames_file=open("femalenames.txt",'r')
+femalenames = femalenames_file.readlines()
+
+for a in range(0,len(femalenames)):
+    femalenames[a]=get_name(femalenames[a])
+
+from random import randrange
+
+def random_surnames()-&gt;str:
+    sname=randrange(0,len(surnames)+1) 
+    return surnames[sname]
+
+def random_first_names()-&gt;str:
+    female_or_male=randrange(1,3)
+    if female_or_male==1:
+        name=randrange(0,len(malenames)+1)
+        return malenames[name]
+    else:
+        name=randrange(0,len(femalenames)+1)
+        return femalenames[name]
+
+def random_name(n:int)-&gt;list:
+    s=''
+    names=[]
+    for a in range(0,n):
+        s=random_first_names()+' '+random_surnames()
+        names.append(s)
+    return names
+
+
+#
+#
+# Part (d)
+#
+#
+print()  
+print()
+print('---------- Part (d) ----------')
+print()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match130-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def rotate_alphabet(alp: str, key: int) -&gt; str:
+    '''return a "rotated" alphabet with the specified number of characters taken off the front and added on to the end of the string '''
+    if key &gt; 25:
+        key = key % 26
+    return alp[key:] + alp[:key]
+assert rotate_alphabet('ab.c', 1) == 'b.ca'
+
+def Caesar_encrypt(m: str, key: int) -&gt; str:
+    '''returns the ciphertext'''
+    lowered_m = m.lower()
+</FONT>    table = str.maketrans(ALPHABET, rotate_alphabet(ALPHABET, key))
+    return lowered_m.translate(table)    
+assert Caesar_encrypt('Abc,..', 1) == 'bcd,..'
+assert Caesar_encrypt('hi there', 2) == 'jk vjgtg'
+
+
+def Caesar_decrypt(m: str, key: int) -&gt; str:
+    ''' return the decrypted text '''
+    table = str.maketrans(rotate_alphabet(ALPHABET, key), ALPHABET)
+    return m.translate(table)
+assert Caesar_decrypt('bcd,..', 1) == 'abc,..'
+assert Caesar_decrypt('jk vjgtg', 2) == 'hi there'
+
+file=open("wordlist.txt",'r')
+wordlist_data = file.read()
+
+def Caesar_break(ciphertext:str) -&gt; str:
+    result=[]
+    
+    for a in range(0, 25):
+        text_result = Caesar_decrypt(ciphertext, a)
+        if text_result in wordlist_data:
+            result.append(text_result)
+    return 'Hits: ' + str(result)
+
+
+print(Caesar_break('Xxknmhsd'))
+print(Caesar_decrypt('Xxknmhsd', 1))
+print('Xylonite' in wordlist_data)
+
+
+
+
+#e
+print('----------e-----------')
+#this "copy_file" function includes e-1,2,3 three questions.
+
+
+def copy_file(inputstring:str):
+      """return a copy of the chosen file """
+      infile_name = input("Please enter the name of the file to copy: ")
+      infile = open(infile_name, 'r',errors='ignore')
+      outfile_name = input("Please enter the name of the new copy:  ")
+      outfile = open(outfile_name, 'w')
+      if inputstring == 'line numbers':
+            content = infile.readlines()
+            length = len(str(len(content)))
+            foutfile = '{:{}}:  {}\n'
+            for i in range(len(content)):
+                  outfile.write(foutfile.format(i+1,length,content[i]))
+      elif inputstring == 'Gutenberg trim':
+            begin_to_copy = False
+            content = infile.readlines()
+            for line in content:
+                  if "*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***" in line:
+                        begin_to_copy = True
+                        continue
+                  if "*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***" in line:
+                        begin_to_copy = False
+                  if begin_to_copy == True:
+                        outfile.write(line)
+      elif inputstring == 'statistics':
+            content = infile.readlines()
+            lines = len(content)
+            result = []
+            for i in range(len(content)):
+                  if content[i].isspace() == True or content[i] == '':
+                        result.append(content[i])
+            empty_lines = len(result)
+            characters = 0
+            for i in range(len(content)):
+                  characters += len(content[i])
+            average_characters = characters / lines
+            average_no_empty_characters = characters / (lines-empty_lines)
+            length = len(str(lines))
+            fcontent = '{0:{8}}   {1}\n{2:{8}}   {3}\n{4:{9}.1f} {5}\n{6:{9}.1f} {7}'
+            data = fcontent.format(lines,'lines in the list',
+                               empty_lines,'empty lines',
+                               average_characters,'average characters per line',
+                               average_no_empty_characters,
+                               'average characters per non-empty line',length,length+2)
+            for i in range(len(content)):
+                  outfile.write(content[i])
+
+            outfile.write(data)
+
+      else:
+            for line in infile:
+                  outfile.write(line)
+                
+      infile.close()
+      outfile.close()
+            
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,199 @@
+<HTML>
+<HEAD>
+<TITLE>neyu1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+rooconno/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Jorge Carlos 71374616 and Ryan O'Connor 89421112 Lab 5. asst 7.
+
+# C.1
+print('---------------------- part(c.1) ----------------------')
+
+
+def find_name(names: list) -&gt; list:
+    ''' Takes a list of names and numbers and returns a list of only the names '''
+    result = []
+    for i in names:
+        if i[0] in "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz":
+            result.append(i)
+    return result
+
+surnames = open('surnames.txt')     # open all three name.txt files
+malenames = open('malenames.txt')
+femalenames = open('femalenames.txt')
+surname_list = find_name(surnames.read().split())    # assign all three name.txt files
+malename_list = find_name(malenames.read().split())
+femalename_list = find_name(femalenames.read().split())
+
+from random import randrange    # import randrange()
+
+
+def random_name(names: list) -&gt; str:
+    ''' Takes a list of names and returns one single random name with capitalization fixed '''
+    name = names[randrange(len(names))]
+    result = name[0] + name[1:].lower()
+    return result
+
+
+def random_gender(male: list, female: list) -&gt; str:
+    ''' Takes two name lists and randomly returns one name from either of the name lists '''
+    if randrange(0, 2) == 0:
+        return random_name(male)
+    else:
+        return random_name(female)
+
+
+def random_names(num: int) -&gt; list:
+    ''' Takes a number and returns that many random generated names '''
+    result = []
+    for i in range(num):
+        name = str(random_name(surname_list)) + ', ' + str(random_gender(malename_list, femalename_list))
+        result.append(name)
+    return result
+
+print(random_names(1))
+print()
+print(random_names(5))
+print()
+print(random_names(10))
+
+# part(d)
+print('\n\n---------------------- part(d.1) ----------------------')
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match69-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+import string
+alphabet_stock = 'abcdefghijklmnopqrstuvwxyz'     # imports stock alphabet
+
+
+def rotation(num: int) -&gt; str:
+    '''Rotates the alphabet, starting it at given number index'''
+    alphabet_new = alphabet_stock[num:] + alphabet_stock[0:num]
+    return alphabet_new
+
+
+def rotate_alphabets() -&gt; list:
+</FONT>    ''' Returns a list of 26 rotated alphabets '''
+    alpha_list = []
+    for i in range(26):
+        alpha_list.append(rotation(i))
+    return alpha_list
+
+alphabets_list = rotate_alphabets()     # creates a list of 26 rotated alphabets
+d = open('wordlist.txt')    # opens dictionary.txt file
+dictionary = d.read().split()
+
+
+def caesar_break(message: str) -&gt; str:
+    ''' Takes a ciphertext string and returns the
+    plaintext for that string, without having the key '''
+    messages = []
+    count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    for i in range(26):
+        v = str.maketrans(alphabets_list[i], alphabet_stock)
+        messages.append(message.translate(v))
+    for i in range(len(messages)):
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match69-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        for x in messages[i].split():
+            if x in dictionary:
+                count[i] = count[i] + 1
+</FONT>    return messages[count.index(max(count))]
+
+
+def caesar_encrypt(message: str, num: int) -&gt; str:
+    ''' Takes a string and encrypts it by a number shift in the alphabet '''
+    x = str.maketrans(alphabet_stock, rotation(num))
+    return message.lower().translate(x)
+
+print('encrypted message: ' + caesar_encrypt('what did you eat for dinner?', 10))
+print('decrypted message: ' + caesar_break('grkd nsn iye okd pyb nsxxob?'))
+
+# part(e.2)
+print('\n\n---------------------- part(e.2/3/4) ----------------------')
+
+def print_line_numbers(lines: list) -&gt; str:
+    ''' takes a list of strings and prints each
+    string preceded by a line number '''
+    for i in range(len(lines)):
+        print("{:5}: {:}".format(i+1, lines[i]))
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match69-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats(L: list) -&gt; str:  # from last week's lab
+    w = lines_in_list(L)
+    x = empty_lines(L)
+    y = ave_characters_per_line(L)
+    z = ave_characters_empty_line(L)
+    print("\n{:5}   {:}\n{:5}   {:}\n{:7.1f} {:}\n{:7.1f} {:}".format(w, 'lines in the list',
+</FONT>    x, 'empty lines', y, 'average characters per line', z, 'average characters per non-empty line'))
+
+def lines_in_list(lines: list)-&gt;int:    # from last week's lab
+    ''' Takes a list of lines and returns the number of total lines '''
+    x = len(lines)
+    return x
+
+def empty_lines(lines: list) -&gt; int:    # from last week's lab
+    ''' Takes a list of lines and returns the number of empty lines '''
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match69-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    count = 0
+    for i in lines:
+        if i == '':
+            count += 1
+    return count
+
+def ave_characters_per_line(lines: list) -&gt; int:    # from last week's lab
+</FONT>    ''' Takes a list of lines and returns average characters per line, not including empty lines '''
+    total_characters = 0
+    non_empty_lines = lines_in_list(lines) - empty_lines(lines)
+    for i in range(len(lines)):
+        total_characters += len(lines[i])
+    return total_characters / non_empty_lines
+
+def ave_characters_empty_line(lines: list) -&gt; int:  # from last week's lab
+    ''' Takes a list of lines and returns average characters per line, including empty lines '''
+    total_characters = 0
+    for i in range(len(lines)):
+        total_characters += len(lines[i])
+    return total_characters / lines_in_list(lines)
+
+def copy_file(x: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    infile_new = infile.read().split("\n")
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if x == 'line numbers':      # part (e.2) code
+        for i in range(len(infile_new)):
+            formatted_line = "{:5}: {:}".format(i+1, infile_new[i])
+            outfile.write(formatted_line + '\n')
+    if x == 'Gutenberg trim':   # part (e.3) code
+        start_index = infile_new.index('*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***')
+        end_index = infile_new.index('*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***')
+        for i in range(start_index + 1,end_index):
+            trimmed_line = '{:}'.format(infile_new[i])
+            outfile.write(trimmed_line + '\n')
+    if x == 'statistics':   # part (e.4) code
+        for i in range(len(infile_new)):
+            copy_file = '{:}'.format(infile_new[i])
+            outfile.write(copy_file + '\n')
+        stats(infile_new)
+    infile.close()
+    outfile.close()
+
+print("Runs copy_file('line numbers'):")    
+copy_file('line numbers')
+
+print("\nRuns copy_file('Gutenberg Trim'):")
+copy_file('Gutenberg trim')
+
+print("\nRuns copy_file('statistics'):")
+copy_file('statistics')
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

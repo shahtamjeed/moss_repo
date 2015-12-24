@@ -1,0 +1,284 @@
+<HTML>
+<HEAD>
+<TITLE>hakobyag/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+hakobyag/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab3.py
+#  Hudson Hughes 12712020 and Gagik Hakobyan 46809943.  ICS 31 Lab sec 7.  Lab asst 3.
+
+'''
+print()
+print()
+print('---------- Part (c) ----------')
+print()
+
+#c.1
+
+def abbreviate(input: str) -&gt; str:
+    " Return the first three letters of as string "
+    return input[0]+input[1]+input[2]
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+print(abbreviate('milkshake'))
+
+#c.2
+
+def find_area_square(length: int) -&gt; int:
+    "Return the area of a square with length input"
+    return length ** 2
+
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+#c.3
+
+def find_area_circle(radius: int) -&gt; float:
+    "Return the area of a circle with radius"
+    return radius ** 2 * 3.14159
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+#c.4
+
+def print_even_numbers(array: []) -&gt; float:
+    "Print the even numbers of the input array"
+    for numbers in array:
+        if numbers % 2 == 0:
+            print (numbers)
+print('the return value of print_even_numbers when the input is [2, 47, 31, 99, 20, 19, 23, 105, 710, 1004]')
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+#c.5
+
+def calculate_shipping(weight: float) -&gt; float:
+    "Returns the shipping price of an object with weight"
+    if weight &lt; 2:
+        return 2.00
+    if 2 &lt;= weight &lt;= 10:
+        return 5.00
+    if weight &gt; 10:
+        return 5.00 + (1.5*(weight-10))
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+#c.6
+
+master = Tk()
+w = Canvas(master, width=500, height=500)
+w.pack()
+
+
+def create_square(x: int, y: int, length: int):
+    w.create_rectangle(x, y, x + length, y + length, fill="blue")
+
+#c.7
+    
+def create_circle(x: int, y: int, radius: int):
+    w.create_oval(x, y, x + radius, y + radius, fill="blue")
+
+create_square(4, 50, 80)
+create_circle(40, 40, 80)
+
+mainloop()
+
+print()
+print()
+print('---------- Part (d) ----------')
+print()
+
+#d.1
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#d.2
+
+def restaurant_price(food_place: Restaurant) -&gt; float:
+    "Returns the price of a restaurant"
+    return food_place.price
+
+print('The price at Thai Dishes is')
+print(restaurant_price(RC[0]))
+print('The price at Nobu is')
+print(restaurant_price(RC[1]))
+
+#d.3
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match66-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def expensive (Restaurant):
+    RC.sort(key=restaurant_price)
+    expensive= Restaurant[-1]
+    return(expensive.name)
+
+print(expensive(RC))
+print(RC)
+
+#d.4
+def costliest (costliest):
+    new_RC = sorted(RC, key=restaurant_price, reverse = True)
+    expensive = new_RC[0]
+    return(expensive.name)
+
+print(costliest(RC))
+print(RC)
+
+
+print()
+print()
+print('---------- Part (e) ----------')
+print()
+</FONT>
+#e.1
+
+from collections import namedtuple
+book = namedtuple('book', 'author title genre year price instock')
+
+BSI = [
+    book('Colin Wilson', 'Brandy of the Damned', 'Drama', 2000, 18.99 , 5),
+    book('William Faulkner', 'As I Lay Dying', 'Crime', 1996, 12.99, 3),
+    book('Iain Crichton Smith', 'Consider the Lilies', 'Action', 2010, 4.99, 12),
+    book('John Steinbeck', 'East of Eden', 'Fantasy',1974, 23.99, 3),
+    book('Iain M. Banks', 'Consider Phlebas', 'Adventure', 2009, 4.99, 20),
+    book('James Ellroy', 'Bloods a Rover', 'Action', 1999, 9.99, 14) ]
+
+#e.2
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match66-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def book_title (b):
+    return b.title
+
+BSI_2 = sorted(BSI, key = book_title)
+
+for book in BSI_2:
+    print(book.title)
+
+
+#e.3
+
+BSI_price = [
+    BSI[0].price,
+    BSI[1].price,
+    BSI[2].price,
+    BSI[3].price,
+    BSI[4].price,
+    BSI[5].price]
+
+x = 0
+while x&lt;6:
+    BSI_price[x] = (BSI_price[x] * 1.1)
+    print(BSI_price[x])
+    x = x + 1
+</FONT>
+
+#e.4    
+x=0
+while x&lt;6:
+    if BSI[x].genre=='Technology':
+        print(BSI[x].title)
+    x=x+1
+
+    
+#e.5
+
+BSI_old=[
+    BSI[0].title,
+    BSI[2].title,
+    BSI[4].title]
+BSI_new=[
+    BSI[1].title,
+    BSI[3].title,
+    BSI[5].title]
+
+BSI_old_count=((BSI[0].instock)+
+    (BSI[2].instock)+
+    (BSI[4].instock))
+
+BSI_new_count=((BSI[1].instock)+(BSI[3].instock)+(BSI[5].instock))
+
+
+if len(BSI_old)&lt;len(BSI_new):
+    print('More titles 2000 or later (',BSI_new_count, ' vs ', BSI_old_count, ')')
+else:
+    print('More titles before 2000 (',BSI_old_count, ' vs ', BSI_new_count, ')')
+
+#e.6
+
+def inventory_value (g:book) -&gt; float:
+    return g.price * g.instock
+
+def top_value (g:list) -&gt; book:
+    new_list = [inventory_value(g[0]),
+                inventory_value(g[1]),
+                inventory_value(g[2]),
+                inventory_value(g[3]),
+                inventory_value(g[4]),
+                inventory_value(g[5])]
+    new_list.sort()
+
+    x=0
+    while x&lt;6:
+        if ((g[x].price * g[x].instock)) == new_list[-1]:
+            return(g[x])
+        x = x + 1
+
+top_book = top_value(BSI)
+print(top_book)
+
+#The highest-value book is War
+#and Peace by Tolstoy, Leo at a value of $ 595.00.
+
+print('The highest-value book is', top_book.title,' by',
+      top_book.author,' at a value of $', inventory_value(top_book))
+'''
+print()
+print()
+print('---------- Part (f) ----------')
+print()
+
+from tkinter import *
+
+face_master = Tk()
+face_canvas = Canvas(face_master, width=500, height=500)
+face_canvas.pack()
+
+
+def draw_nose(canvas, x: int, y:int):
+    canvas.create_line(x-25, y+25, x+25, y+25)
+    canvas.create_line(x+25, y+25, x-25, y-50)
+
+
+def draw_smile(canvas, x: int, y:int):
+    canvas.create_line(x-150, y-25, x, y+25, x+150, y-25, fill="white", smooth="true")
+
+def draw_eye(c:Canvas, x:int, y:int):
+    c.create_oval(x-75, y-25, x+75, y+25)
+    create_circle(c, x, y, 20)
+
+
+def draw_face():
+    create_circle(face_canvas, 5, 5, 490)
+    draw_nose(face_canvas, 265, 250)
+    draw_smile(face_canvas, 250, 400)
+    draw_eye(face_canvas, 150, 150)
+    draw_eye(face_canvas, 350, 150)
+
+draw_face()
+mainloop()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,218 @@
+<HTML>
+<HEAD>
+<TITLE>dslozano/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+dslozano/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6 (1)1.py
+#  Brandon Hastings 59907306 and Daniel Lozano 35907629.  ICS 31 Lab sec 9.  Lab asst 6.
+#accidentally uploaded the wrong file so I re-submmitted the right one 
+print()
+print()
+print('---------- Part (c.1) ----------')
+print()
+#c.1
+
+def contains(string1:str, string2:str) -&gt; bool:
+    ''' Takes two strings. Returns True if second string
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match245-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+         occurs in first string. '''
+    return string2 in string1
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+
+print()
+print()
+print('---------- Part (c.2) ----------')
+print()
+#c.2
+
+def remove_punctuation(string:str) -&gt; str:
+    ''' Removes punctuation from a string. '''
+    table1 = str.maketrans('*.,!?;:"','        ')
+</FONT>    return string.translate(table1)
+
+def sentence_stats(string:str):
+    ''' Takes a string. Returns stats about its length in characters,
+         its length in words, and the average length of each word '''
+    words = len(remove_punctuation(string).split())
+    characters = len(string)
+    letters = len(remove_punctuation(string).replace(" ", ""))
+    print("Characters:", characters)
+    print("Words:", words)
+    print("Average word length:", letters / words)
+
+sentence_stats('I love UCI')
+print()
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+print()
+print()
+print('---------- Part (c.3) ----------')
+print()
+#c.3
+
+def initials(string:str) -&gt; str:
+    ''' Return first character of each work in string '''
+    result = ''
+    for i in string.split():
+        result += i[0].upper()
+    return result
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match245-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+print()
+print()
+print('---------- Part (d.1) ----------')
+print()
+#d.1
+
+from random import randrange
+for i in range(50):
+    print(randrange(0,11))
+    
+for i in range(50):
+    print(randrange(1,7))
+
+print()
+print()
+print('---------- Part (d.2) ----------')
+print()
+#d.2
+
+def roll2dice() -&gt; int:
+    ''' return the total of two random numbers from 1 to 6 inclusive '''
+    die1 = randrange(1,7)
+    die2 = randrange(1,7)
+    return die1 + die2
+
+for i in range(50):
+    print(roll2dice())
+
+print()
+print()
+print('---------- Part (d.3) ----------')
+print()
+#d.3
+
+def distribution_of_rolls(num:int):
+</FONT>    ''' Show stats of rolling two dice. '''
+    numbers = [2,3,4,5,6,7,8,9,10,11,12]
+    rolls = []
+    print('Distribution of dice rolls\n')
+    for i in range(num):
+        rolls.append(roll2dice())
+    for i in numbers:
+        print(str(i) + ':\t' + str(rolls.count(i)) + '\t('+ "%.1f" % (rolls.count(i) / num * 100) +'%)\t', '*' * rolls.count(i))
+    print('-----------------------------\n      '+str(num)+' rolls')
+
+distribution_of_rolls(200)
+
+print()
+print()
+print('---------- Part (e) ----------')
+print()
+
+
+#e
+
+ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+def Caesar_encrypt(message:str, key:int) -&gt; str:
+    ''' Shift characters in message by key '''
+    key = key % 26
+    shifted_alphabet = ALPHABET[key:] + ALPHABET[:key]
+    table = str.maketrans(ALPHABET, shifted_alphabet)
+    return message.translate(table)
+
+def Caesar_decrypt(message:str, key:int) -&gt; str:
+    ''' Undo shift characters in message by key '''
+    key = -key % -26
+    shifted_alphabet = ALPHABET[key:] + ALPHABET[:key]
+    table = str.maketrans(ALPHABET, shifted_alphabet)
+    return message.translate(table)
+
+print(Caesar_decrypt("dbu", 1))
+print(Caesar_encrypt("cat", 29))
+print(Caesar_encrypt("cat", 3))
+print(Caesar_decrypt(Caesar_encrypt("cat", 3),3))
+
+assert Caesar_decrypt("dbu", 1)  == 'cat'
+assert Caesar_encrypt("cat", 29) == 'fdw'
+assert Caesar_encrypt("cat", 3)  == 'fdw'
+assert Caesar_decrypt(Caesar_encrypt("cat", 3),3) == 'cat'
+
+print('---------- Part (F) ----------')
+
+xr=[ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ","Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any","",
+  "nation so conceived and so dedicated, can long endure"]
+
+
+
+def list_of_words (words:list)-&gt;str:
+    
+   for i in range(len(words)):
+    print(i+1,':',(words[i])) 
+
+list_of_words(xr)
+
+#F.2
+print ('\n')
+def stats (r:list)-&gt;str:
+    lines_in_list=len(r)
+    empty_lines = 0
+    for i in r:
+        if i == '':
+            empty_lines =+ 1
+    avg_num_char=0
+    for w in r:
+        avg_num_char =len(w)+ avg_num_char
+    total_number_char = avg_num_char / lines_in_list
+    avg_char_non = avg_num_char/ (lines_in_list-empty_lines)
+    print (lines_in_list,   'lines in list', '\n',  empty_lines, 'empty lines', '\n',
+           total_number_char, ' average characters per line', '\n', avg_char_non,
+           'average characters per non-empty line')
+
+
+
+stats(xr) 
+                
+
+#F.3         
+
+def list_of_words(r:list)-&gt;list:
+    '''inputs a list of strings and returns individual words without spacing and punctuation'''
+    result=[] 
+    for i in r:
+        i2=remove_punctuation(i) 
+        result.extend(i2.split())
+    return result
+
+print(list_of_words(xr)) 
+
+
+        
+            
+    
+
+    
+                
+                
+</PRE>
+</PRE>
+</BODY>
+</HTML>

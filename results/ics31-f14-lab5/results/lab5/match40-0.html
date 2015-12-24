@@ -1,0 +1,141 @@
+<HTML>
+<HEAD>
+<TITLE>diepnn/(d)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+diepnn/(d)/<p><PRE>
+&gt;&gt;&gt;&gt; file: restaurantsd.py
+# Ngoc Nguyen ID# 72114439 and Sue Lynn Pak ID#  Section 3 Asst 5.
+
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match40-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_44.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def restaurants():
+    '''Main program'''
+    print('Welcome to the restaurants program!')
+    our_restaurants= Collection_new()
+    our_restaurants= handle_commands(our_restaurants)
+    print('\nThank you. Good-bye')
+
+
+MENU="""
+Restaurant Collection Program--- Choose one:
+
+n: Add a new restaurant to the collection
+e: Remove (erase) all restaurant from the collection
+s: Search the collection for selected restaurants
+p: Print all the restaurants
+c: Change prices for the dishes served
+q: Quit
+"""
+
+def handle_commands(Collection_of_Restaurant: list)-&gt; list:
+    ''' Display menu, accept and process commands'''
+    while True:
+        response = input(MENU)
+        if response == 'q':
+            return Collection_of_Restaurant
+        elif response == 'n':
+            
+            r= Restaurant_get_info()
+            Collection_of_Restaurant= Collection_add(Collection_of_Restaurant,r)
+            
+        elif response=='e':
+            
+            Collection_of_Restaurant = Collection_remove_all()
+            
+        elif response== 'p':
+            
+            print(Collection_str(Collection_of_Restaurant))
+        elif response =='s':
+            
+            n= input('Please enter the name of the restaurant to search for')
+            for r in Collection_search_by_name(Collection_of_Restaurant,n):
+                print(Restaurant_str(r))
+        elif response == 'c':
+            
+            amount= float(input('Please enter the percentage that you want to change for the price'))
+            print(Collection_str(Collection_change_price(Collection_of_Restaurant, amount)))
+        else:
+            print("Sorry; '" + response + "' isn't a valid command. Please try again.")
+
+
+# Restaurant
+
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+
+def Restaurant_str(self: Restaurant)-&gt; str:
+    return (
+</FONT>        " Name:     " + self.name +'\n'+
+        " Cuisine:  " + self.cuisine + '\n'+
+        " Phone:    " + self.phone + '\n' +
+        " Dish:     " + self.dish + '\n' +
+        " Price:    ${:2.2f}".format(self.price) + '\n\n')
+
+def Restaurant_get_info()-&gt; Restaurant:
+    ''' Prompt user for fields of Restaurant; create and return.'''
+    return Restaurant(
+        input("Please enter the restaurant's name: "),
+        input("Please enter the kind of food served: "),
+        input("Please enter the phone number: "),
+        input("Please enter the name of the best dish: "),
+        float(input("Please enter the price of that dish: ")))
+
+
+# Collection
+
+def Collection_new()-&gt; list:
+    ''' Return a new, empty collection'''
+    return [ ]
+
+def Collection_str(Collection_of_Restaurant:list)-&gt; str:
+    ''' Return a string representing the collection'''
+    s=''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match40-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_18.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for restaurant in Collection_of_Restaurant:
+        s= s+ Restaurant_str(restaurant)
+    return s
+
+def Collection_search_by_name(Collection_of_Restaurant:list, name:str)-&gt;list:
+    ''' Return list of Restaurants in input list whose name matches input string'''
+    result=[]
+    for restaurant in Collection_of_Restaurant:
+        if restaurant.name==name:
+            result.append(restaurant)
+    return result
+
+def Collection_add(Collection_of_Restaurant:list, R: Restaurant)-&gt;list:
+    ''' Return list of Restaurant with nput Restaurant added at the end.'''
+    Collection_of_Restaurant.append(R)
+    return Collection_of_Restaurant
+
+def Restaurant_change_price(r:Restaurant, n:int)-&gt; Restaurant:
+    ''' Return the restaurant whose price is increase by the second parameter'''
+    r=r._replace(price= r.price*(1+(n/100)))
+</FONT>    return r
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match40-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Collection_change_price(Collection_of_Restaurant:list, number:int)-&gt; list:
+    '''Return the restaurant with the changed price'''
+    for i in range(len(Collection_of_Restaurant)):
+        Collection_of_Restaurant[i]= Restaurant_change_price(Collection_of_Restaurant[i],number)
+    return Collection_of_Restaurant
+
+def Collection_remove_all()-&gt;list:
+    '''Remove all the Restaurant in the collection'''
+    result= [ ]
+</FONT>    return result
+
+    
+
+   
+restaurants()
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

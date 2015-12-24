@@ -1,0 +1,163 @@
+<HTML>
+<HEAD>
+<TITLE>jiahuiz3/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jiahuiz3/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Jiahui Zhu 56754925 and Hein Aung 94085225. ICS 31 Lab sec 13. Lab Asst 7.
+
+# Part c
+print ('\n')
+print ('---------------------Part (c)---------------------')
+
+infile1 = open("surnames.txt",'r')
+infile2 = open("femalenames.txt",'r')
+infile3 = open("malenames.txt",'r')
+data1 = infile1.readlines()
+data2 = infile2.readlines()
+data3 = infile3.readlines()
+infile1.close()
+infile2.close()
+infile3.close()
+
+from random import randrange
+
+def choose_name (a: list) -&gt; str:
+    name = []
+    for i in a:
+        b = i.split()
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match49-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        for j in range(int(float(b[1])*1000)):
+            name.append(b[0])
+    c = randrange(0, len(name))
+    return name[c]
+
+def choose_gender():
+</FONT>    gender = ["female","male"]
+    a = randrange(0,2)
+    return gender[a]
+
+def random_names (a:int)-&gt;list:
+    result = []
+    for i in range(a):
+        if choose_gender == 'female':
+            b = data2
+        else:
+            b = data3
+        c = '{0}, {1}'.format(choose_name(data1).capitalize(),choose_name(b).capitalize())
+        result.append(c)
+    return result
+
+print (random_names(50))
+
+# Part d
+print ('\n')
+print ('---------------------Part (d)---------------------')
+
+word = open("wordlist.txt",'r')
+words = word.readlines()
+wordlist = []
+for i in words:
+    wordlist.extend(i.lower().split())
+word.close()
+
+#d.1
+print ('\n')
+print ('&gt;&gt;&gt;&gt;&gt;&gt;d.1&lt;&lt;&lt;&lt;&lt;&lt;')
+print ()
+
+def delete_punctuation (a:str)-&gt; str:
+    table = str.maketrans('!@#$%^&*()_+=-[]{}|\:"?&gt;&lt;;/.,',
+                          '                             ')
+    b = a.translate(table)
+    return b
+
+def rotated_alphabet(a:int)-&gt;str:
+    ALPHABET = 'abcdefghijklmnopqrstuvwxyz'       
+    New_One = ALPHABET[a:]+ALPHABET[:a]
+    return New_One
+
+def Caesar_break (a:str)-&gt;str:
+    for i in range(26):
+        table = str.maketrans(rotated_alphabet(i),rotated_alphabet(0))
+        b = a.lower().translate(table)
+        c = delete_punctuation(b).split()
+        d = 0
+        e = []
+        for j in c:
+            if j in wordlist:
+                d+=1
+                e.append ([d,b])
+                f = sorted(e)
+                return f[-1][1]
+print(Caesar_break('j* mjwf* jo* jswjof*, db*.'))
+
+#d.2
+print ('\n')
+print ('&gt;&gt;&gt;&gt;&gt;&gt;d.2&lt;&lt;&lt;&lt;&lt;&lt;')
+print ()
+print(Caesar_break('toik zu skkz eua'))
+print(Caesar_break('v rng na nccyr.'))
+
+# Part e
+print ('\n')
+print ('---------------------Part (e)---------------------')
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match49-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_21.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def copy_file (a:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    data = infile.readlines()
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if a == 'line numbers':
+        format_str = '{0:5}: {1}'
+        for i in range(len(data)):
+            outfile.write(format_str.format(i+1, data[i]))
+    elif a == 'Gutenberg trim':
+        for i in range(len(data)):
+            if '*** START OF THIS PROJECT' in data[i]:
+                b = i
+            if '*** END OF THIS PROJECT' in data[i]:
+                c = i
+        outfile.write(''.join(data[b : c+1]))
+    elif a == 'statistics':
+           b = len(data)
+           c = 0
+           d = 0
+           for i in data:
+</FONT>               if len(i.strip())==0:
+                   c+=1
+           for i in data:
+               d += len(i)
+               e = d/b
+               f = d/(b-c)
+           g=('{:5}   lines in the list'.format(b)+'\n'+
+              '{:5}   empty lines'.format(c)+'\n'+
+              '{:7.1f} average characters per line'.format(e)+'\n'+
+              '{:7.1f} average characters per non-empty line'.format(f))
+           result = ''.join(data) + '\n\n' + str(g) + '\n'
+           outfile.write(result)
+    else:
+        outfile.write(''.join(data))
+        
+    infile.close()
+    outfile.close()
+    
+copy_file ('line numbers')
+copy_file ('Gutenberg trim')
+copy_file ('statistics')
+copy_file ('123')
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

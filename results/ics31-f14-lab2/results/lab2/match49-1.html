@@ -1,0 +1,236 @@
+<HTML>
+<HEAD>
+<TITLE>basilioj/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+cnavasca/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Christian Navasca 55335424 and Jason Chen 38173068. ICS 31 Lab sec 7. Lab Asst 2.
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match49-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+'''
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  ', rate)
+print('Weekly salary:  ', hours * rate)
+'''
+
+'''
+hours = int(input('How many hours?') )
+print('This many hours:', hours)
+rate = int(input('How many dollars?') )
+print('This many dollars: $', rate)
+print('Weekly salary: $', hours * rate)
+'''
+
+# use input( 'prompt' ) instead of print() and input()
+
+'''
+name = input( 'Hello. What is your name?')
+print('Hello, ', name)
+print("It's nice to meet you.")
+age = int( input('How old are you?') )
+print('Next year you will be', (age + 1), 'years old.')
+print('Good-bye')
+'''
+
+
+
+'''
+ one euro = 7.46 kr
+</FONT> one pound = 8.81 kr
+ one dollar = 5.50 kr
+'''
+
+'''
+print("Please provide this information:")
+business_name = input('Business name: ')
+num_euros = float( input('Number of Euros: ') )
+num_pounds = float( input('Number of Pounds: ') )
+num_dollars = float( input('Number of Dollars: ') )
+
+euros_in_kr = (num_euros * 7.46)
+pounds_in_kr = (num_pounds * 8.81)
+dollars_in_kr = (num_dollars * 5.50)
+
+print("Copenhagen Chamber of Commerce")
+print("Business Name: " , business_name)
+print(num_euros, "euros is", euros_in_kr )
+print(num_pounds, "pounds is", pounds_in_kr )
+print(num_dollars, "dollars is", dollars_in_kr )
+print("Total krone: ", (euros_in_kr + pounds_in_kr + dollars_in_kr) ) 
+
+'''
+
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+'''
+print(still_another.title)
+print(another.price)
+
+avg = ( (favorite.price + another.price + still_another.price) / 3  )
+
+print(avg)
+
+print( favorite.year &lt; 1900 ) 
+
+
+still_another = still_another._replace(price = 26.00)
+
+# print( still_another.price )
+
+# replace the field price with newPrice, where newPrice is + 20%
+newPrice = still_another.price * 1.2
+still_another = still_another._replace(price = newPrice)
+
+print(still_another.price)
+'''
+
+# consider commenting out old tuples later
+
+'''
+Animal = namedtuple('Animal', 'name species age weight fave_food')
+
+Jumbo = Animal('Jumbo', 'Elephant', 50, 1000, 'Peanuts')
+Perry = Animal('Perry', 'Platypus', 7, 1.7, 'Shrimp')
+
+# print statements to check validity
+
+print(Jumbo.fave_food)
+print(Perry.name)
+
+# continue assignment
+
+print( Jumbo.weight &lt; Perry.weight )
+'''
+
+'''
+booklist = [favorite, another, still_another]
+
+print( booklist[0].price &lt; booklist[1].price )
+
+print( booklist[0].year &gt; booklist[-1].year )
+'''
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+'''
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print(RC[2].name)
+print( RC[0].cuisine == RC[3].cuisine )
+print( RC[-1].price )
+
+RC.sort()
+
+# print(RC), comment out don't want to spam
+
+print( RC[-1].dish)
+
+'''
+
+'''
+final_RC_list = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50), ]
+
+second_RC_list = [
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50), ]
+
+final_RC_list.sort()
+second_RC_list.sort()
+
+final_RC_list.extend(second_RC_list)
+print(final_RC_list)
+
+'''
+# start new file for exercise i
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match49-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+my_canvas.pack()            # Put the canvas into the window
+'''
+my_canvas.create_line(100, 100, 300, 300, fill='orange') # Draw orange line
+my_canvas.create_line(300, 100, 100, 300, fill='blue')   # Draw blue line
+'''
+# Combine all the elements and display the window
+'''
+my_canvas.create_line(50, 50, 50, 250, fill= 'blue')
+my_canvas.create_line(50, 250, 250, 250, fill = 'green')
+my_canvas.create_line(250, 250, 250, 50, fill ='red')
+</FONT>my_canvas.create_line(250, 50, 50, 50, fill='blue')
+
+tkinter.mainloop()
+'''
+
+# Moving on to exercise 2
+'''
+my_canvas.create_line(200, 50, 50, 150, fill= 'blue')
+my_canvas.create_line(50, 150, 200, 250, fill= 'blue')
+my_canvas.create_line(200, 250, 350, 150, fill= 'blue')
+my_canvas.create_line(350, 150, 200, 50, fill= 'blue')
+
+tkinter.mainloop()
+'''
+
+#Moving on to exercise 3
+
+'''
+my_canvas.create_line(150, 150, 150, 350, fill= 'blue')
+my_canvas.create_line(150, 350, 350, 350, fill = 'blue')
+my_canvas.create_line(350, 350, 350, 150, fill ='blue')
+my_canvas.create_line(350, 150, 150, 150, fill='blue')
+my_canvas.create_line(350, 150, 150, 150, fill='blue')
+my_canvas.create_line(150, 150, 250, 100, fill='blue')
+my_canvas.create_line(250, 100, 350, 150, fill='blue')
+my_canvas.create_line(200, 350, 200, 275, fill='green')
+my_canvas.create_line(200, 275, 250, 275, fill='green')
+my_canvas.create_line(250, 275, 250, 350, fill='green')
+my_canvas.create_line(275, 200, 275, 250, fill='red')
+my_canvas.create_line(275, 250, 325, 250, fill='red')
+my_canvas.create_line(325, 250, 325, 200, fill='red')
+my_canvas.create_line(325, 200, 275, 200, fill='red')
+my_canvas.create_line(300, 200, 300, 250, fill='red')
+my_canvas.create_line(275, 225, 325, 225, fill='red')
+
+tkinter.mainloop()
+'''
+
+#starting exercise 4
+
+my_canvas.create_oval(100, 200, 300, 250)
+my_canvas.create_oval(175, 200, 225, 250)
+my_canvas.create_oval(180, 210, 220, 240)
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

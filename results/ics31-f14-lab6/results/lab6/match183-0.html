@@ -1,0 +1,219 @@
+<HTML>
+<HEAD>
+<TITLE>andyhl3/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+andyhl3/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+#  Christian Bager 63967921 and Andy Le 20681445.  ICS 31 Lab sec 5.  Lab asst 6.
+#
+#
+# Part c
+#
+#
+print('---------- Part (c) ----------')
+#c.1
+print('c.1')
+def contains (koala: str, jelly: str) -&gt; bool:
+    #Return true if string2 is in string1
+    return jelly in koala
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+assert contains('coca cola', 'cola')
+assert not contains('girrafe', 'pie')
+#c.2
+print('\n')
+print('c.2')
+def blanks(sent:str) -&gt; str:
+    #Function turns a string with all whitespaces removed.
+    result=('')
+    for i in sent:
+        if i == (' '):
+            result+=('')
+        else:
+            result+=i
+    return result
+def punctuation(sent:str) -&gt; str:
+    #Function translates all punctuation marks into white spaces
+    p = str.maketrans('.,?!:*',
+                      '      ')
+    return sent.translate(p)
+def sentence_stats (sent:str) -&gt; str:
+    print ('Characters:', len(sent)) #Returns total amount of characters in string, spaces and punctuation included.
+    print ('Words:', len(str.split(punctuation(sent)))) #Returns amount of words in string by removing the punctuation and then splitting the string and counting each object
+    print ('Average word length:', len(blanks(punctuation(sent)))/len(str.split(punctuation(sent)))) #Returns avg word length by getting the total amount of letters by removing all punctuation and white spaces and dividing that by the word amount.
+sentence_stats('I love UCI')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+#c.3
+print('\n')
+print('c.3')
+def initials(name:str) -&gt; str:
+    #Returns the first letter of each word capitalized all in one string
+    n = name.upper() #Makes the entire string capitalized
+    result=('')
+    x = str.split(n) #Splits the string into separate objects
+    for i in x:
+        result+=i[0] #Adds the first letter of each object to a blank string and returns it
+    return result
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+#
+#
+# Part d
+#
+#
+print('---------- Part (d) ----------')
+#d.1 
+from random import randrange
+for i in range(50):
+    #Print out 50 random numbers between 0-10 and then another 50 between 0-6
+    print (randrange(11))
+    print (randrange(7))
+#d.2
+print('\n')
+print('d.2')
+def roll2dice () -&gt; int:
+    #Return a number that reflects the roll of 2 random 6-sided dice
+     return randrange(1,7) + randrange(1,7)
+for i in range(50):
+    print(roll2dice())
+#d.3
+print('\n')
+print('d.3')
+def distribution_of_rolls(num:int)-&gt;str:
+    #Print out a string that shows the distrubution of 2 dice rolls
+    print('Distribution of dice rolls', '\n')
+    result=[]
+    for i in range(num):
+        result.append(roll2dice()) #Reusing above function to roll 2 dice
+    for i in range(2,13): #Setting range starting at 2 to 12
+        print('''{}:     {}({:2.4}%)'''.format(i, result.count(i), str(result.count(i)/num*100)), result.count(i) * '*') #use format to not have to print out 10 different statements
+    print('-----------------------------')
+    print('      ',num,'rolls')
+    
+
+
+distribution_of_rolls(200)
+#
+#
+# Part e
+#
+#
+print('\n')
+print('---------- Part (e) ----------')
+#e.1
+print('e.1')
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def Caesar_encrypt (x:str, y:int)-&gt;str:
+    #Encrypts a string using y as a code for a Caesar cipher
+    #This makes it so that if y is greater than 25 it will loop back around
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match183-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if y &gt; 25:
+        y = y%26 #You use mod to get the remainder of y/26 because if you're moving 26 spaces you end back at the spot it originally was
+    #Changes all the letters in string ALPHABET above to an ALPHABET string that starts at y and ends at y
+    change = str.maketrans(ALPHABET,
+                           ALPHABET[y:] + ALPHABET[:y])
+    #Changes the capital letters in the string by using the .upper function applied to the ALPHABET string
+    change2 = str.maketrans(ALPHABET.upper(),
+                            ALPHABET.upper()[y:] + ALPHABET.upper()[:y])
+    c = x.translate(change)
+    #After encrypting the lower case letters, this will encrypt the upper case letters and return the entire string
+    return c.translate(change2)
+print(Caesar_encrypt('Hi Andy Z. Le',1))
+def Caesar_decrypt(x:str, y:int)-&gt;str:
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match183-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if y &gt; 25:
+        y = y%26
+    #Reverse of the above function to decrypt the message
+    change = str.maketrans(ALPHABET[y:] + ALPHABET[:y],
+                           ALPHABET)
+    change2 = str.maketrans(ALPHABET.upper()[y:] + ALPHABET.upper()[:y],
+                            ALPHABET.upper())
+    c = x.translate(change)
+    return c.translate(change2)
+print(Caesar_decrypt('Ij Boez A. Mf', 1))
+
+#e.2
+print('\n')
+</FONT>print('e.2')
+#Send your partner an encrypted message over email with the key included so they can decrypt the message
+#The message I sent was 'Lm Glvmw' with a key of 4 and it decrpyts out to 'Hi Chris'
+
+#e.3
+print('\n')
+print('e.3')
+#Edit caesar_encrypt so that if you use a variable greater than 25, it will wrap back around to give you the same string if you had used something less than 25
+print(Caesar_encrypt("cat", 3))
+print(Caesar_encrypt("cat", 29))
+
+#
+#
+# Part f
+#
+#
+print('\n')
+print('---------- Part (f) ----------')
+#f.1
+print('f.1')
+
+SL = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ",
+       " "]
+
+def print_line_numbers(x:list)-&gt;str:
+    #Take a list of strings and print each string preceded by a line number starting at 1
+    #Use range(len()) to get the exact number of lines you'd need to display the longest line number
+    for i in range(len(x)):
+        print('''{}:  {}'''.format(i+1, x[i]))
+print_line_numbers(SL)
+
+#f.2
+print('\n')
+print('f.2')
+
+def stats(x:list)-&gt;str:
+    #Prints out a list of stats about a list of strings
+    result = 0
+    result_empty = 0
+    result_nonempty = 0
+    result_nonempty_l = 0
+    for i in x:
+        if i.isspace() == True: #checks if a line is just empty white space, if it is add 1 to a variable that will be used to determine the number of empty lines
+            result_empty += 1
+        else: #else add 1 to a variable that will be used to determine the number of non empty lines and add the length of the string to a variable that determines the total characters in all the nonempty lines.
+            result_nonempty += 1
+            result_nonempty_l += len(i)
+    for i in x:
+        result += len(i)
+    print(len(x),'   lines in list')
+    print(result_empty, '   empty lines')
+    print(result/len(x), 'average characters per line')
+    print(result_nonempty_l/result_nonempty, 'average characters per non-empty line')
+
+stats(SL)
+
+#f.3
+print('\n')
+print('f.3')
+#Return a list of individual words from an existing list of strings with all punctuation and white space removed
+def list_of_words(x:list)-&gt;list:
+    result=[]
+    for i in x:
+        #Reusing the punctuation function from c.2 to turn all punctuation to white space which will be unincluded when using split()
+        result += str.split(punctuation(i))
+    return result
+        
+print(list_of_words(SL))
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

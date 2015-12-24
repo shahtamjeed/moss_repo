@@ -1,0 +1,314 @@
+<HTML>
+<HEAD>
+<TITLE>alvizoj/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+wyassine/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Wajih Yassine 42139560 and Wesley Tseng 22428172. ICS 31 Lab sec 16. Lab asst 3.
+
+#
+#
+# Part (c)
+#
+#
+
+print()
+print()
+print('---------- Part C ----------')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match185-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+
+
+print('--- c.1 ---')
+def abbreviate(month: str) -&gt; str:
+        " Return the first three character of the string"
+        return(month[0:3])
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+</FONT>print(abbreviate('January'))
+print(abbreviate('abril'))
+
+#part c.2
+print('--- c.2 ---')
+def find_area_square(length: int) -&gt; int:
+        " Returns the area of the square with a given length"
+        return(length**2)
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+print(find_area_square(1))
+print(find_area_square(5))
+
+#part c.3
+print('--- c.3 ---')
+pi = 3.14159
+def find_area_circle(radius: int) -&gt; int:
+        " Returns the area of a circle with a given radius"
+        return((radius**2)*pi)
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+print(find_area_circle(1))
+print(find_area_circle(5))
+
+
+#part c.4
+print('--- c.4 ---')
+def print_even_numbers(integer: list) -&gt; int:
+        " Return even numbers from a given list"
+        for x in integer:
+                if x % 2 == 0:
+                        print(x)
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+#part c.5
+print('--- c.5 ---')
+def calculate_shipping(weight: int) -&gt; int:
+        " Returns price from a given weight"
+        if weight &lt; 2:
+            return(2.00)
+        else:
+            if weight &lt; 10 and weight &gt;= 2:
+                 return(5.00)
+            else:
+                if weight &gt;= 10:
+                        price = (weight - 10) *1.50 + 5
+                        return price
+                
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+print("Shipping rate of a 1.5 pound package is", calculate_shipping(1.5))
+print("Shipping rate of a 7 pound package is", calculate_shipping(7))
+print("Shipping rate of a 15 pound package is", calculate_shipping(15))
+
+#part c.6
+import tkinter
+print('--- c.6 ---')
+import tkinter
+def create_square(x: int, y: int, length: int) -&gt; tkinter:
+        " Draw in tkinter a square with the three given parameters"
+        my_window = tkinter.Tk()
+        my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+        my_canvas.pack()
+        my_canvas.create_rectangle(x, y, length+x, length+y)
+        tkinter.mainloop()
+create_square(100, 100, 100)
+                                     
+#part c.7
+print('--- c.7 ---')
+def create_circle(x: int, y: int, corner: int) -&gt; tkinter:
+        " Draw in tkinter a circle with three given parameters"
+        my_window = tkinter.Tk()
+        my_canvas = tkinter.Canvas(my_window, width = 500, height = 500)
+        my_canvas.pack()
+        my_canvas.create_oval(x, y, corner+x, corner+y)
+        tkinter.mainloop()
+create_circle(100, 100, 100)
+
+
+#
+#
+# Part (d)
+#
+#                                                               
+print('\n')  
+print('---------- Part D ----------')
+print()                                                             
+
+                              
+
+print('--- d.1 ---')
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+RC2 = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+RC3 = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+RC4 = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#d.1
+def restaurant_price(restaurant: Restaurant) -&gt; int:
+        " Returns the price of a given restaurant"
+        return restaurant.price
+for r in RC:
+        print("The price of", r.name, "is", restaurant_price(r))
+        
+#part d.2
+print('--- d.2 ---')
+RC2.sort(key=restaurant_price)
+for r in RC2:
+        print("The price of", r.name, "is", restaurant_price(r))
+
+#part d.3
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match185-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('--- d.3 ---')
+def costliest(lst: list) -&gt; str:
+    " Returns the name of the highest-priced restaurant on the given list "
+    lst.sort(key=restaurant_price)
+    return lst[-1].name
+print("The most costliest restaurant is", r.name)
+</FONT>
+#part d.4
+print('--- d.4 ---')
+def costliest2(lst: list) -&gt; str:
+    " Returns the name of the highest-priced restaurant on the given list "
+    return sorted(lst, key=restaurant_price)[-1].name
+print("The most costliest restaurant is", r.name)
+
+
+#
+#
+# Part E
+#
+#
+
+print('\n---------- Part E ----------\n')
+
+#part e.1
+print('--- e.1 ---')
+from collections import namedtuple 
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book("J.K. Rowling", "The Giver", "Horror", 1990, 6.50, 25),
+    Book("J.D. Robb", "My Mom Reads", "Technology", 2012, 2.00, 76),
+    Book("Nora Roberts", "Naked in Death", "Mystery", 1978, 25.00, 10),
+    Book("J.R.R. Tolkein", "The Hobbit", "Adventure", 1980, 52.50, 123),
+    Book("George Martin", "The Game of Thrones", "Drama", 1989, 20.50, 200),
+    Book("James Dashner", "The Maze Runner", "Sci-Fi", 2009, 30.00, 150) ]
+
+def book_titles(lst: list) -&gt; list:
+    " Returns the title of each book in the given list "
+    return lst.title
+for x in BSI:
+    print(x.title)
+    
+#part e.2
+print('--- e.2 ---')
+def alphabetical_order(lst2: list) -&gt; list:
+    " Returns the title of each book in alphabetical order "
+    return sorted(lst2, key=book_titles)
+for x in alphabetical_order(BSI):
+    print(x.title)
+
+#part e.3
+print('--- e.3 ---')
+for x in range(len(BSI)):
+    BSI[x] = Book(BSI[x].author, BSI[x].title, BSI[x].genre, BSI[x].year, BSI[x].price*1.10, BSI[x].instock)
+for x in BSI:
+    print('${:.2f}'.format(x.price))
+
+#part e.4
+print('--- e.4 ---')
+for x in BSI:
+    if x.genre == "Technology":
+        print("The book title with category Technology is", x.title)
+
+#part e.5
+print('--- e.5 ---')
+def publish_before2000(lst: list) -&gt; str:
+    ''' Checks publish date of each book and sorts them into two lists, one before 2000 and one after 2000,
+        and compares the lists and returns a string based on the results '''
+    Before2000 = []
+    After2000 = []
+    for x in BSI:
+        if x.year &lt; 2000:
+            Before2000.append(x)
+        else:
+            After2000.append(x)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match185-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if len(Before2000) &gt; len(After2000):
+        return 'More titles before 2000 (' + str(len(Before2000)) + ' vs. ' + str(len(After2000)) + ')'
+    else:
+        return 'More titles 2000 and after (' + str(len(After2000)) + ' vs. ' + str(len(Before2000)) + ')'
+print(publish_before2000(BSI))
+
+#part e.6
+print('--- e.6 ---')
+def inventory_value(book: Book) -&gt; int:
+    " Returns the value of the number of copies in stock of the given book "
+    return book.price * book.instock
+for x in BSI:
+    print('${:.2f}'.format(inventory_value(x)))
+</FONT>
+def top_value(lst: list) -&gt; Book:
+    " Returns the highest inventory value book in the given list "
+    return sorted(lst, key=inventory_value)[-1]
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match185-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print("The highest-value book is", top_value(BSI).title, "by", top_value(BSI).author, "at a value of $ {:.2f}".format(inventory_value(top_value(BSI))))
+
+
+#
+#
+# Part F
+#
+print('\n---------- Part F ----------\n')
+
+
+import tkinter
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width = 1000, height = 1000)
+my_canvas.pack()
+</FONT>
+def draw_eye(x: int, y: int) -&gt; None:
+        " Draw in tkinter a circle with two given values"
+        my_canvas.create_oval(x, y, x+150, y+150, fill = 'black')
+        my_canvas.create_oval(x+5, y+15, x+135, y+135, fill = 'blue')
+        my_canvas.create_oval(x+10, y+40, x+ 135, y+115, fill = 'purple')
+        
+def draw_mouth(x: int, y: int) -&gt; None:
+    "Draw in tkinter a circle with two given values"
+    my_canvas.create_oval(x , y+125, x+260, y+ 220, fill = 'black')
+
+def draw_nose(x:int, y: int) -&gt; None:
+    "Draw in tkinter a rectangle with four given values"
+    my_canvas.create_rectangle(x, y+25, x+50, y+200, fill = 'blue')
+        
+def draw_face(x: int, y:int) -&gt; None:
+        " Draws in tkinter a face with three given parameters "
+        my_canvas.create_oval(x, y, x+ 450, y +550, fill = 'red')
+        draw_eye(x+50, y+50)
+        draw_eye(x+250, y+50)
+        draw_mouth(x+100, y+250)
+        draw_nose(x+200, y+150)
+
+draw_face(25, 50)
+draw_face(525, 50)
+tkinter.mainloop()
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

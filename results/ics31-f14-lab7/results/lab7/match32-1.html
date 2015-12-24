@@ -1,0 +1,222 @@
+<HTML>
+<HEAD>
+<TITLE>cnavasca/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+qlevine/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Quinn Levine 76391611 and Samir Quadri 25205537.  ICS 31 Lab sec 7.  Lab asst 7.
+from random import randrange
+
+print() 
+print()
+print('---------- Part (c) ----------')
+print()
+
+
+#C.1
+nameslist = []
+def random_names(n: int) -&gt; list:
+    '''Return n number of random names'''
+    while len(nameslist) &lt; n:
+        nameslist.append(random_name())
+    return nameslist
+
+
+#C.2
+surnames1 = []
+malenames1 = []
+femalenames1 = []
+surnames = open('surnames.txt','r')
+malenames = open('malenames.txt','r')
+femalenames = open('femalenames.txt','r')
+data = surnames.read().strip()
+datalines = data.split('\n')
+for line in datalines:
+    surnames1.append(line.lower().capitalize().split()[0])
+
+data = malenames.read().strip()
+datalines = data.split('\n')
+for line in datalines:
+    malenames1.append(line.lower().capitalize().split()[0])
+
+data = femalenames.read().strip()
+datalines = data.split('\n')
+for line in datalines:
+    femalenames1.append(line.lower().capitalize().split()[0])
+
+def random_name() -&gt; str:
+    ''' Generate a single random name'''
+    dice = randrange(1,3)
+    if dice == 1:
+        return surnames1[randrange(1,len(surnames1))] + ',' + ' ' + malenames1[randrange(1,len(malenames1))]
+    else:
+        return surnames1[randrange(1,len(surnames1))] + ',' + ' ' + femalenames1[randrange(1,len(femalenames1))]
+print(random_names(10))
+
+
+print()  
+print()
+print('---------- Part (d) ----------')
+print()
+
+
+#D.1
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match32-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def new_table( to_skew: str, start: int ) -&gt; str:
+    '''Return a string skewed by the start amount'''
+
+    result = ''
+
+    for i in range(start, len(to_skew) ):
+        result += to_skew[i]
+        
+    for x in range(start):
+        result += to_skew[x]
+        
+    return result
+
+def Caeser_encrypt( str_to_change: str, key: int ) -&gt; str:
+    '''Encrypt string using Caeser cipher based on int key'''
+    lowered = str_to_change.lower()
+    table = str.maketrans( ALPHABET, new_table( ALPHABET, key ) )
+    return lowered.translate(table)
+</FONT>
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match32-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caeser_decrypt( str_to_change: str, key: int ) -&gt; str:
+    '''Decrypt string using Caeser cipher based on int key'''
+    lowered = str_to_change.lower()
+    table = str.maketrans( new_table( ALPHABET, key ), ALPHABET )
+    return lowered.translate(table)
+</FONT>
+
+
+'''
+L1 = []
+for i in range(1,27):
+    L1.append(Caeser_decrypt(ALPHABET,i))
+'''
+L2 = []
+L3 = []
+L4 = []
+wordlist1 = open('wordlist.txt','r')
+wordlist2 = wordlist1.read()
+wordlist = wordlist2.lower()
+
+def Caesar_break(cipher:str) -&gt; str:
+    
+    for i in range(1,27):
+        L2.append(Caeser_decrypt(cipher,i))
+    for L in L2:
+        word_count = 0
+        L_word = L.split(' ')
+        for word in wordlist.split('\n'):
+            for x in L_word:
+                if (x == word):
+                    word_count += 1
+        L4.append(word_count)
+    for i in range(len(L4)):
+        if (L4[i] == len(L_word)):
+            key = i+1
+    return(Caeser_decrypt(cipher,key))
+'''print(Caesar_break('efivhiirwlmvi xleac'))'''
+
+print()  
+print()
+print('---------- Part (e) ----------')
+print()
+
+
+#e.1
+
+def print_line_numbers( to_use: 'list of str' ) -&gt; str:
+    '''Print a line number before each line'''
+    line_list = ''
+
+    for line in range( len(to_use) ):
+        line_list += ('%d:' %(line+1) + to_use[line] + '\n')
+    return(line_list)
+print(print_line_numbers(['asfasdfa','asdfadsf','hello']))
+print('\n---------- Part ( f(2) ) ----------')
+
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match32-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats( list_to_test: 'list of string') -&gt; None:
+    '''Return number of lines, empty lines, average characters per
+       line, average characters per non-empty line of the string lists'''
+
+    lines = len(list_to_test)
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match32-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    empty_lines = 0
+    
+    for item in list_to_test:
+        if item == '':
+            empty_lines += 1
+            
+    total_char = 0
+
+    for item in list_to_test:
+        total_char += len(item)
+        
+    avg_char_per_line = total_char / len(list_to_test)
+
+    new_list = []
+
+    for line in list_to_test:
+        if line != '':
+            new_list.append(line)
+
+    non_empty_line_total = 0
+    for item in new_list:
+        non_empty_line_total += len(item)
+    non_empty_avg = non_empty_line_total / len(new_list)
+</FONT>    
+    return('%d ' %lines + ' lines in the list' + '\n' + '%d ' %empty_lines + ' empty lines' + '\n' + '%.1f ' %avg_char_per_line + ' average characters per line' + '\n' + '%.1f ' %avg_char_per_line + ' average characters per line' + '\n' + '%.1f ' %non_empty_avg + ' average characters per non-empty line')
+def copy_file(x:str):
+    '''Copies a file'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    infile2 = infile.read()
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if x == 'line numbers':
+        list_of_file = infile2.split('\n')
+        outfile.write(print_line_numbers(list_of_file))
+    elif x == 'housekeeping':
+        list_of_file = infile2.split('\n')
+        start = []
+        housekeeping = False
+        for i in list_of_file:          
+            if i.startswith('*** START'):
+                housekeeping = True
+            elif i.startswith("*** END"):
+                housekeeping = False
+            elif housekeeping:
+                start.append(i)
+        start = ' '.join(start)
+        outfile.write(start)
+    elif x == 'statistics':
+        list_of_file = infile2.split('\n')
+        out_write = infile2 + stats(list_of_file)
+        outfile.write(out_write )
+    else:
+       outfile.write(line) 
+    infile.close()
+    outfile.close()
+copy_file('statistics')
+
+    
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

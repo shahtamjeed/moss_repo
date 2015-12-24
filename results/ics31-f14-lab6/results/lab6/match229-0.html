@@ -1,0 +1,224 @@
+<HTML>
+<HEAD>
+<TITLE>cabrerv1/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+cabrerv1/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+#Victoria Cabrera 93043404 and Pafoua Fang 84351619. ICS 31 Lab sec 15. Lab asst 6.
+print()
+print('-----(c.1)-----')
+print()
+#(c.1)
+def contains(x:str,y:str)-&gt;bool:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match229-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    '''The function checks if the second string occurs in the first string.
+    If the second string does occur, the function returns True; if not, it returns False.'''
+    return y in x
+assert contains('banana', 'ana')==True
+</FONT>assert not contains('racecar', 'ck')==True
+print(contains('anteater','ter'))
+
+print()
+print('-----(c.2)-----')
+print()
+#(c.2)
+def sentence_stats(x:str):
+    '''Takes in a string as a parameter and prints out:its length in characters,
+    its length in words, and average length of each word.'''
+    characters=len(x)
+    print('Characters:',characters)
+    table=x.maketrans('"./,:[];?\!','           ')
+    z=x.translate(table)
+    y=z.split()
+    words=len(y)
+    print('Words:',words)
+    a=0
+    for char in y:
+        a+=len(char)
+    print('Average word length:',a/words)
+    
+sentence_stats('I love UCI.')
+print()
+print('-----(c.3)-----')
+print()
+#(c.3)
+
+def initials(name:str)-&gt;str:
+    '''takes as input a string representing a full name
+    and returns the initials of the name in all capital letters  '''
+    first=''
+    ini=name.title().split()
+    for n in range(len((ini))):
+        first= first+(ini[n][0])
+    return first
+assert initials('Katie Vongpassert') == 'KV'
+assert initials('Luis Castenada')=='LC'
+print(initials('Pafoua Fang'))
+
+print()
+print('-----(d1)-----')
+print()
+#(d1)
+
+from random import randrange
+for num in range(50):
+    print(randrange(0,11))
+print()    
+for num in range(50):
+    print(randrange(1,7))
+    
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match229-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+print('-----(d2)-----')
+print()
+#(d2)
+
+def roll2dice()-&gt;int:
+    '''takes no parameters and returns a number
+    that reflects the random roll of two dice'''
+</FONT>    for num in range(50):
+        x=randrange(1,7)
+        y=randrange(1,7)
+    return x+y
+print(roll2dice())        
+    
+for i in range(50):
+    print(roll2dice())
+
+
+print()
+print('-----(d3)-----')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match229-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+#(d3)
+
+def distribution_of_rolls(n:int):
+    '''takes one number—the number of times to roll two dice—
+    and prints the distribution of the values of those rolls''' 
+</FONT>    num=[]
+    print('Distribution of rolls')
+    for x in range(n):
+        num.append(roll2dice())
+    for i in range(2,13):
+        a = num.count(i)
+        percentage= (a/n)*100
+        print('{0}:   {1}( {2}%)'.format(i, a, '%.1f' % percentage), '*'*a)
+    print('---------------------------')
+    print('    ', n,' rolls')
+        
+distribution_of_rolls(200)
+print()
+print('-----(e1)-----')
+print()
+#(e1)
+
+ALPHABET='abcdefghijklmnopqrstuvwxyz'
+
+def new_alpha(x:str,n:int)-&gt;str:
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match229-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return x[n:27]+ x[0:n]
+
+
+def Caesar_encrypt(plaintext:str,n:int)-&gt;str:
+    '''takes two arguments: a string containing the message
+    and an int for the key and returns the ciphertext'''
+</FONT>    x=plaintext.lower()
+    code=x.maketrans(ALPHABET,new_alpha(ALPHABET,n))
+    return x.translate(code)
+print(Caesar_encrypt('Hello',2))
+
+def Caesar_decrypt(ciphertext:str,n:int)-&gt;str:
+    '''takes two arguments: a string containing the message
+    and an int for the key and returns the plaintext'''
+    x=ciphertext.lower()
+    code=x.maketrans(new_alpha(ALPHABET,n),ALPHABET)
+    return x.translate(code)
+print(Caesar_decrypt('Jgnnq.',2))
+
+print()
+print('-----(e2)-----')
+print()
+#(e2) 
+
+print()
+print('-----(e3)-----')
+print()
+#(e3)
+
+print()
+print('-----(f)-----')
+print()
+#(f)
+poem=[ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+
+
+print()
+
+print()
+print('-----(f1)-----')
+print()
+#(f1)
+
+def print_line(string:list)-&gt;str:
+    n=0
+    for line in range(1,len(string)+1):
+        print('{0:3d}:{1}'.format(line, string[n]))
+        n+=1
+print_line(poem)
+
+
+print()
+print('-----(f2)-----')
+print()
+#(f2)
+
+def stats(s):
+    '''Takes a list and prints the statistics.'''
+    empty_lines=0
+    for num in s:
+        if num == len(num)*'  ':
+            empty_lines+=1
+    average_characters=0
+    for n in s:
+        m=n.split()
+        for m in s:
+            average_characters += len(m)
+    print('{0:5.1f} {1}'.format(len(s),'lines in the list'))
+    print('{0:5.1f} {1}'.format(empty_lines,'empty lines'))
+    print('{0:5.1f} {1}'.format(average_characters/len(s),'average characters per line'))
+    print('{0:5.1f} {1}'.format(average_characters/len(s)-empty_lines,'average characters per non-empty line'))
+            
+stats(poem)
+
+
+print()
+print('-----(f3)-----')
+print()
+#(f3)
+
+def list_of_words(x:list):
+    ''' takes a list of strings as above and
+    returns a list of individual words with all white space and punctuation removed'''
+    words=[]
+    table=str.maketrans('"./,:[];?\!','           ')
+    for word in x:
+        words.extend(word.split())
+        word.translate(table)
+    return words
+    
+        
+print(list_of_words(poem))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,592 @@
+<HTML>
+<HEAD>
+<TITLE>jttran4/(g)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+zuyuel/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6 .py
+#SHAURYA RAJ RATHORE 65212283 and ZUYUE LIANG 75288648 LAB Section 2. Assgn 6
+print('--------c-------')
+print('--------c1-------')
+def contains(x:str,y:str) -&gt; bool:
+    '''takes a 2 strings and returns if the second str is in the first str'''
+    return y in x
+print(contains('banana','ana'))
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+print("--------c2-------")
+def sentence_char(x:str) -&gt; int:
+    '''returns the number of characters in the string'''
+    y=0
+    k=0
+    for i in x:
+        if i=='':
+            y=y+k
+        else:
+            y=y+1
+    return y
+def sentence_char1(x:str): #made for f part
+    y=0
+    k=0
+    for i in x:
+        if i==' ':
+            y=y+k
+        else:
+            y=y+1
+    return y
+def for_words(x:str) -&gt; str:
+    ''' removes the punctuations'''
+    remove=str.maketrans('!@#$%^&*();:&lt;,&gt;./?\|','                    ')
+    return x.translate(remove)
+
+
+def sentence_stats(x:str) -&gt; int:
+    '''returns the number of characters, words and average length of the string'''
+    f=[]
+    print('Characters:',sentence_char(x))
+    b=for_words(x)
+    f=b.split()
+    print('Words:',len(f))
+    s=0
+    for i in f:
+        a=sentence_char(i)
+        s=s+a
+    r=s/len(f)
+    print('Average word length:',r)
+
+sentence_stats('I love UCI')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+print('--------c2---------USER INPUT')
+def sent_ui():
+    x=input('Enter the string:')
+    print('Enter 1 to find the characters')
+    print('Enter 2 to find the no. of words')
+    print('Enter 3 to find the Average word lenght')
+    y=int(input(('Enter your choice:')))
+    if y==1:
+        c=sentence_char(x)
+        print('Characters:',c)
+    elif y==2:
+        c=for_words(x)
+        k=c.split()
+        print('Words:',len(k))
+    elif y==3:
+        c=for_words(x)
+        k=c.split()
+        s=0
+        for i in k:
+            f=sentence_char(i)
+            s=s+f
+        a=s/len(k)
+        print('Average word length:',a)
+sent_ui()
+
+print('-------c3--------')
+def initials(x:str) -&gt; str:
+    ''' returns the initials of the string'''
+    y=x.split()
+    s=''
+    for i in y:
+        s=s+i[0:1]
+    return s.upper()
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+print('------c3------USER INPUT')
+def initials_UI():
+    x=input('Enter the String:')
+    print('Initials:',initials(x))
+initials_UI()
+
+print('-------d--------')
+print('-------d1--------')
+print('random numbers between 0 and 10 inclusive')
+print('')
+from random import randrange
+for i in range(50):
+    r=randrange(0,11)
+    print(r)
+print('')
+print('random numbers between 1 and 6 inclusive')
+print('')
+for i in range(50):
+    r=randrange(1,7)
+    print(r)
+print('-------d2-------')
+print('')
+def roll2dice() -&gt; int:
+    '''returns the sum of 2 dices'''
+    y=[]
+    for i in range(50):
+        r1=randrange(1,7)
+        r2=randrange(1,7)
+        x=r1+r2
+        y.append(x)
+    for i in y:
+        print(i)
+roll2dice()
+print('')
+print('------d2-----------USER INPUT')
+def roll_dice_UI():
+    n=int(input('How many times do you want to roll the dice:'))
+    y=[]
+    for i in range(n):
+        r1=randrange(1,7)
+        r2=randrange(1,7)
+        x=r1 + r2
+        y.append(x)
+    for i in y:
+        print(i)
+roll_dice_UI()
+
+print('')
+print('------d3------')
+def distribution_roll_dice(n:int) -&gt; format:
+    '''Formats the stats of the dice roll'''
+    y=[]
+    result=[]
+    o=[2,3,4,5,6,7,8,9,10,11,12]
+    for i in range(n):
+        r1=randrange(1,7)
+        r2=randrange(1,7)
+        x=r1+r2
+        y.append(x)
+    for i in o:
+        c=0
+        for j in y:
+            if i==j:
+                c=c+1
+        result.append(c)
+    formstr='{0:2d}:{1:6d} ({2:4.1f}%) {3:}'
+
+    for i in range(len(o)):
+        print(formstr.format(o[i],result[i],(result[i]/n)*100,'*'*result[i]))
+    print('-----------------------------')
+    print('      ',n,'rolls      ')
+print('')
+print('')
+distribution_roll_dice(200)
+print('--------d3-----------USER INPUT')
+def disui():
+    n=int(input('How man times do you want to roll the dices:'))
+    y=[]
+    result=[]
+    o=[2,3,4,5,6,7,8,9,10,11,12]
+    for i in range(n):
+        r1=randrange(1,7)
+        r2=randrange(1,7)
+        x=r1+r2
+        y.append(x)
+    for i in o:
+        c=0
+        for j in y:
+            if i==j:
+                c=c+1
+        result.append(c)
+    formstr='{0:2d}:{1:6d} ({2:4.1f}%) {3:}'
+
+    for i in range(len(o)):
+        print(formstr.format(o[i],result[i],(result[i]/n)*100,'*'*result[i]))
+    print('-----------------------------')
+    print('      ',n,'rolls      ')
+
+disui()
+print('-------e-------')
+print('-------e1----------')
+def rotate(x:str,k:int) -&gt; str:
+    '''rotates the str as per the key k'''
+    t=x[k:]+x[0:k]
+    return t
+def caeser_encrypt(x:str,k:int) -&gt; str:
+    '''encrypts the str x as per the key k'''
+    y=x.lower()
+    alph='abcdefghijklmnopqrstuvwxyz'
+    cipher=rotate(alph,k)
+
+    t=y.maketrans(alph,cipher)
+    return y.translate(t)
+print(caeser_encrypt('Shaurya',2))
+def caeser_decrypt(x:str,n:int):
+    '''decrypts the str x as per the key n'''
+    y=x.lower()
+    d=caeser_encrypt(y,26-n)
+    return d
+print(caeser_decrypt('ujcwtac',2))
+print('')
+print('')
+print('---------e1--------USER INPUT')
+def encrypt():
+    x=input('Enter the string:')
+    y=int(input('Enter the key:'))
+    print('Enter 1 to encrypt it')
+    print('Enter 2 to decrypt it')
+    c=int(input('Enter your choice:'))
+    if c==1:
+        r=caeser_encrypt(x,y)
+        print('Encrypted string:',r)
+    if c==2:
+        r=caeser_decrypt(x,y)
+        print('Decrypted string:',r)
+encrypt()
+print('------e2------')
+print('-------e3--------')
+def caeser_encrypt1(x:str,n:int) -&gt; str:
+    '''modifies the encrypt function if key&gt;26'''
+    if n&gt;25:
+        y=n%26
+    else:
+        y=n
+    d=caeser_encrypt(x,y)
+    return d
+print(caeser_encrypt1('cat',30))
+print('')
+print('')
+print('------f-------')
+print('------f1------')
+x=[ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+
+def print_line_numbers(x:list) -&gt; str:
+    '''formats the list x'''
+    formstr='{0:1}:  {1:85}'
+    for i in range(len(x)):
+        print(formstr.format(i+1,x[i]))
+print_line_numbers(x)
+print('')
+print('------f2-----')
+y=[ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ",
+  "                                                                       ",
+  "                                 ",
+  "                                                                     ",
+  '                                                                             ',
+  '                                                  ','            ','            ',
+  '','              ','            ','                  ','                          ',
+  '', '    ','','','','    ','       ','      ','','  ','      ','   ','      ', '      ',
+  '     ','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
+  '','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
+    '','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','']
+def stats(x:list) -&gt; int:
+    ''' formats and gives the stats of list x'''
+    l=len(x)
+    e=0
+    n=0
+    for i in x:
+        if sentence_char1(i)==0:
+            e=e+1
+        c=sentence_char1(i)
+        n=n+c
+    wie=n/(l-e)
+    we=n/l
+    inte=[l,e,we,wie]
+    strin=['lines in the list','empty lines','average characters per line','average characters per non empty line']
+
+    for i in range(4):
+        if i&lt;2:
+
+         formstr=' {0:6}   {1:35}'
+         print(formstr.format(inte[i],strin[i]))
+        else:
+
+         formstr='   {0:6.1f} {1:35}'
+         print(formstr.format(inte[i],strin[i]))
+
+
+
+
+stats(y)
+
+print('-------f3-------')
+
+def remove_punctuations(x:str) -&gt; str:
+    '''removes punctations'''
+    remove=str.maketrans('!@#$%^&*();:&lt;,&gt;./?\|','                    ')
+    return x.translate(remove)
+def list_words(x:list) -&gt; list:
+    '''takes a list od str and returns a list of words in the str'''
+    y=[]
+    for i in x:
+        k=remove_punctuations(i)
+        l=k.split()
+        y.extend(l)
+    return y
+print(list_words(x))
+
+
+
+
+
+print('-------g--------')
+# RESTAURANT COLLECTION PROGRAM
+# ICS 31, UCI, David G. Kay, Fall 2012
+
+# Implement Restaurant as a namedtuple, collection as a list
+
+##### MAIN PROGRAM (CONTROLLER)
+
+def restaurants():  # nothing -&gt; interaction
+    """ Main program
+    """
+    print("Welcome to the restaurants program!")
+    our_rests = Collection_new()
+    our_rests = handle_commands(our_rests)
+    print("\nThank you.  Good-bye.")
+
+MENU = """
+Restaurant Collection Program --- Choose one
+ a:  Add a new restaurant to the collection
+ r:  Remove a restaurant from the collection
+ s:  Search the collection for selected restaurants
+ p:  Print all the restaurants
+ c:  Change prices for the dishes served
+ sc: Search Cuisine
+ cs: Search for a dish
+ q:  Quit
+"""
+
+def handle_commands(C: list) -&gt; list:
+    """ Display menu, accept and process commands.
+    """
+    while True:
+        response = input(MENU)
+        if response=="q":
+            return C
+        elif response=='a':
+            r = Restaurant_get_info()
+            C = Collection_add(C, r)
+        elif response=='r':
+            n = input("Please enter the name of the restaurant to remove:  ")
+            C = Collection_remove_by_name(C, n)
+        elif response=='p':
+            print(Collection_str(C))
+        elif response=='s':
+            n = input("Please enter the name of the restaurant to search for:  ")
+            for r in Collection_search_by_name(C, n):
+                print(Restaurant_str(r))
+        elif response=='c':
+            n = int(input('How many percentage you want to change in price ? '))
+            C = Collection_change_price(C, n)
+        elif response=='sc':
+            n=input('Enter the cuisine you want to search:')
+            C=Collection_search(C,n)
+        elif response=='cs':
+            n=input('Enter the dish you want to search:')
+            C=Collection_custom_search(C,n)
+
+        else:
+            invalid_command(response)
+
+def invalid_command(response):  # string -&gt; interaction
+    """ Print message for invalid menu command.
+    """
+    print("Sorry; '" + response + "' isn't a valid command.  Please try again.")
+
+
+
+
+from collections import namedtuple
+##### Dish
+Dish = namedtuple('Dish', 'name price calories')
+
+def Dish_str(d: Dish) -&gt; str:
+    ''' Take a Dish and returns a string in the form Name ($Price): # cal '''
+    return (d.name + ' ($' + str(d.price) + '): ' + str(d.calories) + ' cal ' )
+
+def Dish_get_info() -&gt; Dish:
+    """ Prompt user for fields of Dish; create and return.
+    """
+    return Dish(
+        input("Please enter the dish's name:  "),
+        float(input("Please enter the dish's price:  ")),
+        float(input("Please enter the dish's calories:  ")))
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match79-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Dish_change_price(d: Dish, n: int) -&gt; Dish:
+    '''  Takes a Dish and a number and returns a Dish that's the same as the
+         parameter except that its price is changed as follows: The number
+         (positive or negative) represents a percentage change in price (so
+         that 100 would double the price and –50 would cut it in half). '''
+    return Dish(d.name, d.price + d.price * (n/100), d.calories)
+
+
+##### Menu
+def Menu_enter() -&gt; list:
+    '''repeatedly asks whether the user wants to add a Dish.
+       If the user enters yes the function prompts the user to
+       create a Dish and adds it on to the growing list of dishes;
+       when the user enters no, the function returns the compiled
+       list of Dishes.'''
+    menu = []
+    repeat = True
+    while repeat:
+        cmd = input('Do you want to add a new dish? ')
+        if cmd == 'yes':
+            menu.append(Dish_get_info())
+        elif cmd == 'no':
+            repeat = False
+            return menu
+        else:
+            invalid_command(cmd)
+
+def Menu_str(m: [Dish]) -&gt; str:
+    s = ''
+    for i in range(len(m)):
+        s = s + Dish_str(m[i])
+</FONT>    return s
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match79-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Menu_change_price(dlist: list, n: int) -&gt; list:
+    ''' Takes a list of Dishes and a number representing a percentage change
+        and returns a list of Dishes with each price changed by the specified
+        amount. '''
+    for i in range(len(dlist)):
+        dlist[i] = Dish_change_price(dlist[i], n)
+</FONT>    return dlist
+def Menu_price_sum(dlist: list) -&gt; int:
+    '''returns the sum of price of dishes'''
+    sum=0
+    for i in dlist:
+        sum=sum+i.price
+    return sum
+def average_price(dlist:list) -&gt; int:
+    '''returns the average price of the dishes'''
+    average=Menu_price_sum(dlist)/len(dlist)
+    return average
+def Calorie_sum(dlist:list) -&gt; int:
+    '''returns the sum of calories'''
+    sum=0
+    for i in dlist:
+        sum=sum+i.calories
+    return sum
+def average_calories(dlist:list) -&gt; int:
+    '''returns the average of calories'''
+    return Calorie_sum(dlist)/len(dlist)
+
+##### Restaurant
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match79-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone menu')
+''' Constructor: r3 = Restaurant('Pascal', 'French', '940-752-0107', [Dish('Escargos', 12.95, 250),
+                                                     Dish('Poached Salmon', 18.50, 550),
+                                                     Dish('Rack of Lamb', 24.00, 850),
+                                                     Dish('Marjolaine Cake', 8.5, 950)])
+'''
+
+def Restaurant_str(self: Restaurant) -&gt; str:
+</FONT>    formstr='Average price:  ${0:4.1f}.Average Calories:  ${1:4.1f}'
+    return (
+        "Name:     " + self.name + "\n" +
+        "Cuisine:  " + self.cuisine + "\n" +
+        "Phone:    " + self.phone + "\n" +
+        "Menu:     " + Menu_str(self.menu) + "\n\n"+
+        formstr.format(Restaurant_average_price(self),Restaurant_average_calorie(self)))
+
+def Restaurant_get_info() -&gt; Restaurant:
+    """ Prompt user for fields of Restaurant; create and return.
+    """
+    return Restaurant(
+        input("Please enter the restaurant's name:  "),
+        input("Please enter the kind of food served:  "),
+        input("Please enter the phone number:  "),
+        Menu_enter())
+
+def Restaurant_change_price(self: Restaurant, n:int) -&gt; Restaurant:
+    return self._replace(menu = Menu_change_price(self.menu, n))
+def Restaurant_average_price(self:Restaurant):
+    return average_price(self.menu)
+def Restaurant_average_calorie(self:Restaurant):
+    return average_calories(self.menu)
+
+
+#### COLLECTION
+# A collection is a list of restaurants
+
+def Collection_new() -&gt; list:
+    ''' Return a new, empty collection
+    '''
+    return [ ]
+
+def Collection_str(C: list) -&gt; str:
+    ''' Return a string representing the collection
+    '''
+    s = ""
+    for r in C:
+        s = s + Restaurant_str(r)
+    return s
+
+def Collection_search_by_name(C: list, name: str) -&gt; list:
+    """ Return list of Restaurants in input list whose name matches input string.
+    """
+    result = [ ]
+    for r in C:
+        if r.name == name:
+            result.append(r)
+    return result
+    # alternative (using a list comprehension):
+    # return [r for r in C if r.name == name]
+
+def Collection_add(C: list, R: Restaurant) -&gt; list:
+    """ Return list of Restaurants with input Restaurant added at end.
+    """
+
+    C.append(R)
+    return C
+
+def Collection_remove_by_name(C: list, name: str) -&gt; list:
+    """ Given name, remove all Restaurants with that name from collection.
+    """
+    result = [ ]
+    for r in C:
+        if r.name != name:
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match79-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            result.append(r)
+    return result
+    #    Alternative:
+    #    return [r for r in self.rests if r.name != name]
+
+def Collection_change_price(C: list, n: int) -&gt; list:
+    ''' Apply the percentage price change to the prices for
+        all the Dishes in all the Restaurants in the collection. '''
+    for i in C:
+        Restaurant_change_price(i, n)
+    return C
+</FONT>def Collection_average_price(C:list):
+    return Restaurant_average_price/len(C)
+def Collection_search(C:list, n:str) -&gt; list:
+    '''searches for the restaurant as per str n'''
+    for i in C:
+        if n==i.cuisine:
+            print(Restaurant_str(i))
+    return C
+            
+            
+            
+    
+
+def Collection_custom_search(C:list,n:str) -&gt; list:
+    '''searches for restaurant as per str n'''
+    for i in C:
+        for j in i.menu:
+            if n in j.name:
+                print(Restaurant_str(i))
+    return C
+
+
+
+restaurants()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

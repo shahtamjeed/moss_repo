@@ -1,0 +1,180 @@
+<HTML>
+<HEAD>
+<TITLE>lihengz2/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+wtbui/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Warren Bui 27377640 Angel Serrano 27144983. ICS Lab sec 4. Lab asst 7.
+
+print()
+print('-----Part C-----')
+print()
+
+#c.1
+
+from random import randrange
+
+infile = open("malenames.txt", 'r')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match235-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+data = infile.readlines()
+malenames = []
+for i in data:
+    i = i.split()
+    malenames.append(i[0])
+infile.close()
+
+infile2 = open("femalenames.txt", 'r')
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match235-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+data = infile2.readlines()
+femalenames = []
+for i in data:
+    i = i.split()
+    femalenames.append(i[0])
+infile2.close()
+
+infile3 = open("surnames.txt", 'r')
+</FONT>data = infile3.readlines()
+surnames = []
+for i in data:
+    i = i.split()
+    surnames.append(i[0])
+infile3.close()
+
+def create_names() -&gt; str:
+    '''Creates a random name string'''
+    s = ''
+    a = randrange(len(surnames))
+    s = surnames[a].lower().capitalize() + ', '
+    q = randrange(2)
+    if q == 0:
+        b = randrange(len(malenames))
+        s += malenames[b].lower().capitalize()
+    elif q == 1:
+        c = randrange(len(femalenames))
+        s += femalenames[c].lower().capitalize()
+    return s
+
+def random_names(x: int) -&gt; list:
+    '''Creates a list of random name strings'''
+    n = []
+    for i in range(x):
+        n.append(create_names())
+    return n
+
+
+print()
+print('-----Part D-----')
+print()
+
+#d.1
+def removepunct(x:str) -&gt; str:
+    '''Removes the punctuation in a string'''
+    alphastr = "abcdefghijklmnopqrstuvwxz'1234567890 "
+    alphalist = []
+    for i in x:
+        if i.lower() in alphastr:
+            alphalist.append(i)
+    return ''.join(alphalist)
+assert removepunct('nvreibk.!@#$$#@/,ferib./few./') == 'nvreibkferibfew'
+assert removepunct("John1123xxX''") == "John1123xxX''"
+
+def alpharotate(x:str, y:int) -&gt; str:
+    '''Rotates letters in a string'''
+    return x[y%26:] + x[:y%26]
+assert alpharotate('the dog and the cat', 26) == 'the dog and the cat'
+assert alpharotate('abcde', 3) == 'deabc'
+
+alphastr2 = 'abcdefghijklmnopqrstuvwxz'
+
+def Caesar_encrypt(msg: str, key:int) -&gt; str:
+    '''Encrypts message using rotated alphabet'''
+    late = msg.lower().maketrans(alphastr2, alpharotate(alphastr2, key))
+    return msg.lower().translate(late)
+assert Caesar_encrypt('hi what is up', 5) == 'mn cmfz nx au'
+assert Caesar_encrypt('joj,./2oFWEvbuiw123', 4) == 'nsn,./2sjbiafzmb123'
+
+def Caesar_decrypt(msg:str, key:int) -&gt; str:
+    '''Decrypts encrypted message into words'''
+    late = msg.maketrans(alpharotate(alphastr2, key), alphastr2)
+    return msg.translate(late)
+
+wordfile = open("wordlist.txt", 'r')
+words = []
+for line in wordfile:
+    words.extend(line.split())
+wordfile.close()
+
+def Caesar_break(string:str) -&gt; str:
+    '''Takes a ciphertext string and returns the plaintext string'''
+    topmatch = 0
+    matchnumber = 0
+    for i in range(26):
+        match = 0
+        for wordsinstring in removepunct(string).split():
+            if Caesar_decrypt(wordsinstring, i) in words:
+                match += 1
+        if match &gt;= topmatch:
+            topmatch = match
+            matchnumber = i
+    return Caesar_decrypt(string, matchnumber)
+assert Caesar_break('mn cmfz nx au') == 'hi what is up'
+assert Caesar_break("gy htgx cm qtllxh. c'g th cvm gtdil") == "my name is warren. i'm an ics major"
+
+
+print()
+print('-----Part E-----')
+print()
+
+#e.1-4
+
+def copy_file(x: str):
+    '''Copies a file'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if x == 'line_numbers':
+        i = 0
+        for line in infile:
+            i += 1
+            outfile.write(" {:5}: ".format(i) + line)
+    elif x == 'Gutenberg trim':
+        copynow = False
+        for line in infile:
+            if '*** START OF' in line:
+                copynow = True
+            if copynow == True:
+                outfile.write(line)
+            if '*** END OF' in line:
+                copynow = False
+    elif x == 'statistics':
+        numoflines = 0
+        emptylines = 0
+        characters = 0
+        for line in infile:
+            outfile.write(line)
+            numoflines += 1
+            characters += line.count('')
+            if line.replace(' ','') == '\n':
+                emptylines += 1
+        outfile.write(
+            '''
+{:7.1f} lines in file
+{:7.1f} empty lines
+{:7.1f} average characters per line
+{:7.1f} average characters per non-empty line'''.format(numoflines, emptylines, characters/numoflines, characters/(numoflines-emptylines)))
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

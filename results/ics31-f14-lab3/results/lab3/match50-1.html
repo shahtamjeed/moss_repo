@@ -1,0 +1,290 @@
+<HTML>
+<HEAD>
+<TITLE>huiyimt/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+llohden/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Gina Robinson 73188675 Lukas Lohden 23739798 ICS 31 Lab Sec 14
+
+import math
+import tkinter
+from collections import namedtuple
+
+# Part 1
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match50-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def abbreviate(month: str) -&gt; str:
+    " Return first three characters of the string month "
+    return month[0:3]
+assert abbreviate('January') == 'Jan'
+assert abbreviate('August') == 'Aug'
+assert abbreviate('december') == 'dec'
+
+# Part 2
+
+def find_area_square(length: int) -&gt; int:
+    " Return area of square with side length of parameter int "
+    return length**2
+assert find_area_square(1) == 1
+assert find_area_square(4) == 16
+assert find_area_square(0) == 0
+
+# Part 3
+
+def find_area_circle(radius: float) -&gt; float:
+    " Return area of circle with radius length of parameter float "
+    return math.pi*(radius**2)
+assert find_area_circle(1) == math.pi
+</FONT>assert find_area_circle(4) == 16*math.pi
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match50-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert find_area_circle(8) == 64*math.pi
+
+# Part 4
+
+def print_even_numbers(listEven: list) -&gt; list:
+    " Return all of the even numbers from parameter list "
+    for i in listEven:
+        if(i%2 == 0):
+            print (i)
+</FONT># do not assert anything because not returning anything
+
+# Part 5
+
+def calculate_shipping(weight: float) -&gt; float:
+    " Return price of shipping "
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match50-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if( weight &lt; 2 ):
+        cost = 2.00
+    elif( 2 &lt;= weight &lt; 10 ):
+        cost = 5.00
+    else:
+        cost = 5.00 + (1.50*(weight-10))
+    return cost
+assert calculate_shipping(1) == 2.00
+assert calculate_shipping(5) == 5.00
+assert calculate_shipping(10) == 5.00
+assert calculate_shipping(11) == 6.50
+</FONT>assert calculate_shipping(2) == 5.00 
+
+# Part 6
+
+def create_square(x:int,y:int,length:int):
+    " Create square in tkinter window with given upper left coordinates and length "
+    my_window = tkinter.Tk()    # Create the graphics window
+    my_canvas = tkinter.Canvas(my_window, width=1000, height=1000) # Create a 1000x1000 canvas to draw on
+    my_canvas.pack()            # Put the canvas into the window
+
+    my_canvas.create_rectangle(x, y, x+length, y+length, fill = "green") # Create square
+    
+# Part 7
+
+def create_circle(x:int,y:int,diameter:int):
+    " Create circle in tkinter window with given upper left coordinates and diameter "
+    my_window = tkinter.Tk()    # Create the graphics window
+    my_canvas = tkinter.Canvas(my_window, width=1000, height=1000) # Create a 1000x1000 canvas to draw on
+    my_canvas.pack()            # Put the canvas into the window
+
+    my_canvas.create_oval(x, y, x+diameter, y+diameter, fill = "blue") # Create circle
+
+# Part D
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+# D.1
+def restaurant_price(Restaurant) -&gt; float:
+    " Return value of the price of given Restaurant's best dish. "
+    return Restaurant.price
+assert restaurant_price(RL[5]) == 35.50
+assert restaurant_price(RL[0]) == 12.50
+
+# D.2
+
+# RL.sort(key=restaurant_price)
+
+# D.3
+
+def costliest(restaurantList) -&gt; str:
+    " Return name of the restaurant with highest priced best dish. "
+    RL.sort(key=restaurant_price)
+    # Executing this argument will alter the list for subsequent functions.
+    return restaurantList[-1].name
+
+# D.4
+
+def costliest2(restaurantList) -&gt; str:
+    " Return name of the restaurant with highest priced best dish. "
+    newList = sorted(restaurantList, key=restaurant_price)
+    return newList[-1].name
+
+# E
+
+Book = namedtuple('Book', 'author title genre year price stock')
+BSI = [
+    Book("Person One","Book A", "genre one", 100, 1.00, 56),
+    Book("Person Two","Book P", "genre two", 200, 2.00, 45),
+    Book("Person Three","Book X", "genre three", 300, 3.00, 66),
+    Book("Person Four","Book K", "genre four", 400, 4.00, 78),
+    Book("Person Five","Book E", "genre five", 500, 5.00, 89),
+    Book("Person Six","Book Z", "genre six", 600, 6.00, 23),
+    Book("Bill Nye", "Science Guy!", "Technology", 0, 1000.00, 645),
+    Book("Gina Roobinsun", "Science Gal!", "Technology", 4000, 99999.99, 666)]
+
+# E.1
+
+for i in BSI:
+    print(i.title) #prints all titles
+print()
+
+# E.2
+
+def book_title(Book) -&gt; str:
+    " Return title of the book "
+    return Book.title
+assert book_title(BSI[0]) == "Book A"
+
+sortedBookList = sorted(BSI, key = book_title)
+for i in sortedBookList:
+    print(i.title)
+print()
+
+# E.3
+
+for i in range(len(BSI)):
+    BSI[i]=BSI[i]._replace(price=BSI[i].price*1.1)
+    print('Updated price:', BSI[i].price)
+print()
+
+# E.4
+
+for i in BSI:
+    if i.genre == "Technology":
+        print(i.title)
+print()
+# E.5
+
+recentBooks = []
+oldBooks = []
+
+for i in range(len(BSI)):
+    if BSI[i].year &lt; 2000:
+        oldBooks.append(BSI[i])
+print(oldBooks)
+print()
+
+for i in range(len(BSI)):
+    if BSI[i].year &gt;= 2000:
+        recentBooks.append(BSI[i])
+print(recentBooks)
+print()
+
+if len(recentBooks) &lt; len(oldBooks):
+    print('More titles before 2000.')
+else:
+    print('More titles 2000 or later.')
+print()
+
+# E.6
+
+def inventory_value(Book) -&gt; float:
+    " Returns value of book inventory. "
+    value = Book.price * Book.stock
+    return value
+
+value_list = []
+
+for i in range(len(BSI)):
+    value_list.append(inventory_value(BSI[i]))
+print (value_list)
+print()
+
+maxI = value_list.index(max(value_list))
+
+print('The highest value book is ', BSI[maxI].title, ' by ', BSI[maxI].author, ' at a value of $', value_list[maxI], '.',sep='')
+print()
+
+
+# F
+'''
+
+my_canvas.create_oval(200,100,800,900,fill = "pale green") # face
+
+my_canvas.create_oval(250,300,450,400,fill = "yellow") # white of eye
+my_canvas.create_oval(300,300,400,400,fill = "forest green") # iris of eye
+my_canvas.create_oval(325,325,375,375,fill = "black") # pupil
+
+my_canvas.create_oval(550,300,750,400,fill = "yellow") # white of right eye
+my_canvas.create_oval(600,300,700,400,fill = "forest green") # iris of right eye
+my_canvas.create_oval(625,325,675,375,fill = "black") # pupil of right eye
+
+
+#my_canvas.create_line(500,350,487.5,375,475, 425, 467.5, 475, 475, 525, \
+#                      500, 550, 525, 525, width = 3, fill = "black", smooth = True) # nose
+
+#fish nose
+my_canvas.create_line(475,350,450,525,fill = "black", width = 3)
+my_canvas.create_line(525,350,550,525,fill = "black", width = 3)
+my_canvas.create_oval(515,515,525,525,fill = "black")
+my_canvas.create_oval(475,515,485,525,fill = "black")
+
+
+my_canvas.create_oval(400, 600, 600, 800, fill = "black")#mouth
+'''
+
+#my_window = tkinter.Tk()    # Define the graphics window
+#my_canvas = tkinter.Canvas(my_window, width=1000, height=1000) # Create a 1000x1000 canvas to draw on
+#my_canvas.pack()            # Put the canvas into the window
+def draw_eye(eye_x:int, eye_y:int, iris_color: str, eyeball_color: str, my_canvas): #center point of left eye, 350 350 
+        my_canvas.create_oval(eye_x-100,eye_y-50,eye_x+100,eye_y+50,fill = eyeball_color) # white of eye
+        my_canvas.create_oval(eye_x-50,eye_y-50,eye_x+50,eye_y+50,fill = iris_color) # iris of eye
+        my_canvas.create_oval(eye_x-25,eye_y-25,eye_x+25,eye_y+25,fill = "black") # pupil
+
+        my_canvas.create_oval(eye_x+200,eye_y-50,eye_x+400,eye_y+50,fill = eyeball_color) # white of right eye
+        my_canvas.create_oval(eye_x+250,eye_y-50,eye_x+350,eye_y+50,fill = iris_color) # iris of right eye
+        my_canvas.create_oval(eye_x+275,eye_y-25,eye_x+325,eye_y+25,fill = "black") # pupil of right eye
+
+def draw_nose(nose_x:int, nose_y:int, my_canvas): #500 500
+        my_canvas.create_line(nose_x-25,nose_y-150,nose_x-50,nose_y+25,fill = "black", width = 3)
+        my_canvas.create_line(nose_x+25,nose_y-150,nose_x+50,nose_y+25,fill = "black", width = 3)
+        my_canvas.create_oval(nose_x+15,nose_y+15,nose_x+25,nose_y+25,fill = "black")
+        my_canvas.create_oval(nose_x-25,nose_y+15,nose_x-15,nose_y+25,fill = "black")
+
+def draw_mouth(mouth_x: int, mouth_y:int, mouth_color:str, my_canvas): # 500 750
+        my_canvas.create_oval(mouth_x-100, mouth_y-150, mouth_x+100, mouth_y+50, fill = mouth_color)
+
+def draw_head(face_x:int, face_y:int, face_color: str, my_canvas): # 500 500
+        my_canvas.create_oval(face_x-300,face_y-400,face_x+300,face_y+400,fill = face_color)
+        
+def draw_face(eye_x: int, eye_y: int, iris_color: str, eyeball_color: str,\
+              nose_x: int, nose_y: int, mouth_x: int, mouth_y:int, mouth_color: str, face_x: int, face_y: int, face_color: str):
+    my_window = tkinter.Tk()    # Define the graphics window
+    my_canvas = tkinter.Canvas(my_window, width=1000, height=1000) # Create a 1000x1000 canvas to draw on
+    my_canvas.pack()            # Create a new Window
+
+    draw_head(face_x, face_y, face_color, my_canvas)
+    
+    draw_eye(eye_x, eye_y, iris_color, eyeball_color, my_canvas)
+
+    draw_nose(nose_x, nose_y, my_canvas)
+        
+    draw_mouth(mouth_x, mouth_y, mouth_color, my_canvas)
+
+
+draw_face(350,350,"blue","white",500,500, 500, 750, "black", 500,500,"light green")
+draw_face(350,350,"forest green","yellow",500,500, 500, 750, "red", 500,500,"medium spring green")
+</PRE>
+</PRE>
+</BODY>
+</HTML>

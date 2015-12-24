@@ -1,0 +1,169 @@
+<HTML>
+<HEAD>
+<TITLE>fderian/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+fderian/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Fransiskus Derian 82691258 and Erik Khou 83063403.  ICS 31 Lab sec 3.  Lab asst 7.
+
+from random import randrange
+
+# Part C
+print("part C")
+
+f1 = open("surnames.txt")
+a1 = f1.readlines()
+f1.close()
+
+surnames = []
+for x in a1:
+    surnames.append(x.split()[0].lower().capitalize())
+
+f2 = open("malenames.txt", 'r')
+a2 = f2.readlines()
+f2.close()
+
+male_names = []
+for x in a2:
+    male_names.append(x.split()[0].lower().capitalize())
+
+f3 = open("femalenames.txt")
+a3 = f3.readlines()
+f3.close()
+
+female_names = []
+for x in a3:
+    female_names.append(x.split()[0].lower().capitalize())  
+
+first_names = []
+first_names.extend(male_names)
+first_names.extend(female_names)
+
+def single_random_element(input_list: list) -&gt; str:
+    return input_list[randrange(len(input_list))]
+
+def create_one_random_name():
+    '''Reads lists of surnames and first names, and generate
+    one random name by picking one surname randomly and combine
+    it with one first name that was picked randomly.'''
+    a = single_random_element(first_names)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match118-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    b = single_random_element(surnames)
+    c = b + ', ' + a
+    return c
+
+def random_names(number: int) -&gt; list:
+    '''Takes an integer and returns a list of that many strings,
+    with each string a randomly generated name'''
+    result = []
+    for x in range(number):
+        result.append(create_one_random_name())
+    return result
+
+#print(random_names(1000))
+
+
+
+#d
+
+print("part D")
+</FONT>
+f_word = open("wordlist.txt")
+a_word = f_word.readlines()
+f_word.close()
+
+wordlist = []
+for x in a_word:
+    wordlist.append(x.strip())
+    
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def Caesar_encrypt (message : str, key : int) -&gt; str:
+    '''Encrypts message with a key'''
+    key = key % 26
+    table = str.maketrans(ALPHABET, ALPHABET[key:] + ALPHABET[:key])
+    return message.lower().translate(table)
+
+
+def Caesar_break(ciphertext: str) -&gt; str:
+    '''Takes a ciphertext string and returns the plaintext
+    for that string, without having the key.'''
+    for k in range(26):
+        table = str.maketrans(ALPHABET[k:] + ALPHABET[:k], ALPHABET)
+        a = ciphertext.translate(table)
+        if a in wordlist:
+           return a 
+
+#print(Caesar_encrypt("test", 5))
+#print(Caesar_break("yjxy"))
+
+
+#e
+
+print("part E")
+
+def stats(sentences: list):
+    '''Prints statistics of list of strings'''
+    empty_line = 0    
+    for item in sentences:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match118-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        if item.strip() == '':
+            empty_line += 1
+
+    characters = 0
+    for item in sentences:
+        characters += len(item)
+
+    average_per_line = characters / len(sentences)
+    average_per_line_non_empty = characters / (len(sentences) - empty_line)
+</FONT>    
+    print('{:6}   lines in the list'.format(len(sentences)),
+          '\n{:6}   empty lines'.format(empty_line),
+          '\n{:8.1f} average character per line'.format(average_per_line),
+          '\n{:8.1f} average character per non_empty line'.format(average_per_line_non_empty))
+
+def copy_file(s: str):
+    '''Copy a file and rewrite it into another new file
+    and includes either line numbers at the start of each line,
+    just the body of the file, or the same file including the statistics
+    depending on a specified parameter.'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    new_Var = infile.readlines()
+    if s == "line numbers":
+        for i in range(len(new_Var)):
+           line = "{:5}: {}".format(i+1, new_Var[i])
+           outfile.write(line)
+    elif s == "Gutenberg trim":
+        w = False
+        for line in new_Var:
+            if "*** START" in line:
+                w = True
+            elif "*** END" in line:
+                break
+            elif w:
+                outfile.write(line)
+    elif s == "statistics":
+        for line in new_Var:
+            outfile.write(line)
+        stats(new_Var)
+    else:
+        for line in new_Var:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+#copy_file("line numbers")    
+#copy_file("Gutenberg trim")
+#copy_file("statistics")
+#copy_file("Whatever")
+</PRE>
+</PRE>
+</BODY>
+</HTML>

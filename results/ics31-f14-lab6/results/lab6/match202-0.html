@@ -1,0 +1,207 @@
+<HTML>
+<HEAD>
+<TITLE>nsukhov/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+nsukhov/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab6.py
+#  Nathanial Sukhov 19223199 and Edgardo Rodriguez, Jr 48906492.  ICS 31 Lab sec 6.  Lab asst 6
+
+#
+# Part C
+#
+
+print()
+print("Part C")
+print()
+
+#
+# Part C.1
+#
+
+print()
+print("Part C.1")
+print()
+
+def contains (s1: str, s2: str) -&gt; bool:
+    '''  Checks if the second string occurs in the first string. If the second string does occur, the function returns True; if not, it returns False '''
+    return s2 in s1
+
+assert contains('banana', 'ana') == True
+assert not contains('racecar', 'ck')
+assert not contains('Irvine', 'ir')
+assert contains ('Anteater', 'eat')
+
+print("Part C.2")
+print()
+
+def sentence_stats(s: str) -&gt; None:
+    ''' Prints out these statistics about the string: its length in characters, its length in words, and the average length of each word '''
+    print('Characters:', len(s))
+    print('Words:', len(s.split()))
+    a = 0
+    for i in s.split():
+        a = a + len(i)
+    print('Average word length:', a / len(s.split()))
+
+sentence_stats('I love UCI')
+
+print()
+print("Part C.3")
+print()
+
+def initials (s: str) -&gt; str:
+    ''' Returns the initials of the name in all capital letters '''
+    initials = ''
+    for i in s.split():
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match202-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        initials = initials + i[0]
+    return initials.upper()
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+print()
+print("Part D.1")
+print()
+
+from random import randrange
+for i in range(50):
+</FONT>    '''' Prints 50 random numbers between 0 and 10 '''
+    print(randrange(11))
+
+print()
+
+for i in range(50):
+    '''' Prints 50 random numbers between 1 and 6 '''
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match202-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print(randrange(1,7))
+
+print()
+print("Part D.2")
+print()
+
+def roll2dice () -&gt; int:
+    ''' Returns the sum of two dice being rolled '''
+    return randrange(1,7) + randrange(1,7)
+
+for i in range (50):
+</FONT>    ''' Returns, 50 times, the sum of two dice being rolled '''
+    print(roll2dice())
+
+print()
+print("Part D.3")
+print()
+
+def distribution_of_rolls(n: int) -&gt; None:
+    ''' Prints the distribution of the values of those rolls '''
+    rolls = []
+    print("Distribution of dice rolls")
+    for i in range(n):
+        rolls.append(roll2dice())
+    for i in range(2,13):
+        print(str(i) + ":     ", str(rolls.count(i)), "(", str(rolls.count(i) / len(rolls) * 100), "%)", rolls.count(i) * "*", sep = '')
+
+    print("----------------------------- \n" +
+        "      " + str(len(rolls)) + " rolls")
+
+distribution_of_rolls(200)
+
+print()
+print("Part E.1")
+print()
+
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate (key: int) -&gt; str:
+    ''' Rotates the alphabet based on the key '''
+    return ALPHABET [key%26: ] + ALPHABET [0:key%26]
+
+
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match202-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_encrypt (s: str, key: int) -&gt; str:
+    ''' Encrypts a message based off of the key '''
+    table = str.maketrans(ALPHABET, rotate(key))
+    return s.lower().translate(table)
+
+def Caesar_decrypt (s: str, key: int) -&gt; str:
+    ''' Decrypts a message based off of the key '''
+    table = str.maketrans(rotate(key), ALPHABET)
+</FONT>    return s.lower().translate(table)
+
+print()
+print("Part F.1")
+print()
+
+#
+# Part F
+#
+
+sentences = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        "]
+
+def print_line_numbers (s: list) -&gt; None:
+    ''' Prints each string preceded by a line number '''
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match202-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for i in range(len(s)):
+        print("{:5d}:   {}".format(i+1, s[i]))
+
+print_line_numbers(sentences)
+
+print()
+print("Part F.2")
+print()
+
+def stats(s: list) -&gt; None:
+</FONT>    ''' Prints the statistics of a list of strings '''
+    lines = 0
+    empty_lines = 0
+    characters = []
+    for i in s:
+        characters.append(len(i))
+        if len(i) == 0:
+            empty_lines = empty_lines + 1
+        else:
+            lines = lines + 1    
+    print("{:4d}     lines in the list".format(lines))
+    print("{:4d}     empty lines".format(empty_lines))
+    print("{:6.1f}   average characters per line".format(sum(characters)/len(s)))
+    print("{:6.1f}   average characters per non-empty line".format(sum(characters)/(lines - empty_lines)))
+
+stats(sentences)          
+    
+print()
+print("Part F.3")
+print()
+
+def list_of_words(s: list) -&gt; list:
+    ''' Returns a list of individual words with all white space and punctuation removed '''
+    words = []
+    for i in s:
+        i = i.replace('.', '')
+        i = i.replace(',', '')
+        i = i.replace('!', '')
+        i = i.replace('?', '')
+        i = i.replace(':', '')
+        i = i.replace(';', '')
+        for r in i.split():
+            words.append(r)
+    return words
+        
+
+print(list_of_words(sentences))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

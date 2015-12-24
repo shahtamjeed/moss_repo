@@ -1,0 +1,219 @@
+<HTML>
+<HEAD>
+<TITLE>gtom1/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+gtom1/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+#Quan Le 80441261 and Gavin Tom 16404177 ICS 31 Lab Sec 5. Lab Asst 2.
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match101-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('C.1')
+hours = int(input('How many hours? '))
+print('This many hours:', hours)
+#print()
+rate = int(input('How many dollars per hour? $'))
+print('This many dollars per hour: $', rate)
+print('Weekly salary:  $', hours * rate)
+
+print()
+print("C.2")
+#code used in this part was taken from C.1
+name = str(input('Hello. What is your name? '))
+</FONT><A NAME="0"></A><FONT color = #FF0000><A HREF="match101-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print ('Hello,',name)
+print ('It\'s nice to meet you.')
+age = int(input('How old are you? '))
+print ('Next year you will be',(age + 1),'years old.')
+print ('Good-bye!')
+
+print()
+print("D")
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND = 8.81
+KRONE_PER_US = 5.50
+print ('Please provide this information: ')
+business_name = str(input('Business name: '))
+</FONT>noEuros = float(input('Number of euros: '))
+noPounds = float(input('Number of pounds: '))
+noDollars = float(input('Number of dollars: '))
+
+print()
+print(('Business Name: '), business_name)
+print(noEuros,' is',noEuros*KRONE_PER_EURO,'krone.')
+print(noPounds,' is',noPounds*KRONE_PER_POUND,'krone.')
+print(noDollars,' is',noDollars*KRONE_PER_US,'krone.')
+print()
+print('Total krone:',noEuros*KRONE_PER_EURO+noPounds*KRONE_PER_POUND+noDollars*KRONE_PER_US)
+
+print()
+print("E")
+
+#Taken from lab assignment
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+print("E.1")
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match101-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(still_another.title)
+print("E.2")
+print(another.price)
+print('E.3')
+print((favorite.price + another.price + still_another.price)/3)
+print('E.4')
+print(favorite.year &lt; 1990)
+</FONT>print('E.5')
+still_another = still_another._replace(price = 26.00)
+#code borrowed from understanding the example code from the lecture in ICS 31 on Thursday October 9, 2014
+print(still_another.price)
+print('E.6')
+
+
+print()
+print('F')
+Animal = namedtuple('Animal', 'name species age weight favorite_food')
+elephant = Animal('Jumbo', 'elephant', '50', '1000', 'peanuts')
+platypus = Animal('Perries', 'platypus','7','1.7','shrimp')
+print(elephant.weight &lt; platypus.weight)
+
+#G
+print()
+print('G')
+
+print('G')
+
+booklist = [favorite, another, still_another]
+
+print('G.1') #price
+print(booklist[0].price &lt;= booklist[1].price)
+print()
+print('G.2') #year
+print(booklist[0].year &gt;= booklist[-1].year)
+
+#H
+print('H')
+
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+#H.1
+print()
+print (RL[2].name)
+
+#H.2
+print()
+print (RL[0].cuisine == RL[3])
+
+#H.3
+print()
+print (RL[6].price)
+
+#H.4
+print()
+RL.sort()
+print(RL)
+
+#H.5
+print()
+print (RL[-1].dish)
+#RL.sort(key = attrgetter('dish'))
+
+#H.6
+R4 = [RL[0],RL[1],RL[-1],RL[-2]]
+print()
+print (R4)
+
+#I
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=2000, height=2000)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+#I.1
+#my_canvas.create_line(100, 100, 300, 300, fill='orange') # Draw orange line
+#my_canvas.create_line(300, 100, 100, 300, fill='blue')   # Draw blue line
+
+my_canvas.create_line(550,550,750,550, fill = 'red')
+my_canvas.create_line(750,550,750,750, fill = 'red')
+my_canvas.create_line(750,750,550,750, fill = 'red')
+my_canvas.create_line(550,750,550,550, fill = 'red')
+
+
+#I.2
+#create diamond
+my_canvas.create_line(900,900,759,759, fill = 'purple')
+my_canvas.create_line(900,900,1041,759, fill = 'purple')
+my_canvas.create_line(759,759,900,618, fill = 'purple')
+my_canvas.create_line(1041,759,900,618, fill = 'purple')
+
+#I.3
+#create a house
+#Create a square
+my_canvas.create_line(550,150,750,150, fill = 'red')
+my_canvas.create_line(750,150,750,350, fill = 'red')
+my_canvas.create_line(750,350,550,350, fill = 'red')
+my_canvas.create_line(550,350,550,150, fill = 'red')
+#create a roof
+my_canvas.create_line(550,150,650,100, fill = 'blue')
+my_canvas.create_line(650,100,750,150, fill = 'blue')
+#Door
+my_canvas.create_line(600,350,640,350, fill = 'purple')
+my_canvas.create_line(640,350,640,250, fill = 'purple')
+my_canvas.create_line(640,250,600,250, fill = 'purple')
+my_canvas.create_line(600,250,600,350, fill = 'purple')
+#window
+my_canvas.create_line(725,250,725,300, fill = 'green')
+my_canvas.create_line(725,300,675,300, fill = 'green')
+my_canvas.create_line(675,300,675,250, fill = 'green')
+my_canvas.create_line(675,250,725,250, fill = 'green')
+
+#I.4
+#create a eye
+my_canvas.create_oval(150,680,400,870, fill = 'white')
+my_canvas.create_oval(200,700,350,850, fill = 'black')
+my_canvas.create_oval(250,750,300,800, fill = 'purple')
+
+#I.5
+my_canvas.create_rectangle(20,20,305,400) #frame_outter
+my_canvas.create_rectangle(15,40,20,60) #power
+my_canvas.create_rectangle(15,75,20,105) #vol_up
+my_canvas.create_rectangle(15,110,20,140) #vol_down
+my_canvas.create_rectangle(25,25,300,395,fill='black') #frame_inner
+my_canvas.create_rectangle(110,55,240,65,fill='white')#tint
+my_canvas.create_oval(95,55,105,65,fill='white')#camera
+my_canvas.create_rectangle(30,75,295,345,fill='blue') #display
+my_canvas.create_oval(135,355,180,400,fill='white') #button_out
+my_canvas.create_oval(140,360,175,395,fill='white') #button
+my_canvas.create_rectangle(145,365,170,390) #button_push
+
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,210 @@
+<HTML>
+<HEAD>
+<TITLE>bplihal/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+gustavl2/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Gustavo Lopez 88346812 and Chad Lei 70953265.  ICS 31 Lab sec 11.  Lab asst 7.
+
+#PART C
+
+insurname = open("surnames.txt", 'r')
+surname_string = insurname.read()
+insurname.close()
+surname_list = surname_string.split()
+surnames = []
+count = 0
+while count &lt; 4000:
+    surnames.append(surname_list[count])
+    count += 4
+
+infemale = open("femalenames.txt", 'r')
+female_string = infemale.read()
+infemale.close()
+female_list = female_string.split()
+females = []
+count = 0
+while count &lt; 4000:
+    females.append(female_list[count])
+    count += 4
+
+inmale = open("malenames.txt", 'r')
+male_string = inmale.read()
+inmale.close()
+male_list = male_string.split()
+males = []
+count = 0
+while count &lt; 4000:
+    males.append(male_list[count])
+    count += 4
+
+#(c.1)
+
+from random import randrange
+
+def single_random_name(l, f, m: list) -&gt; str:
+    '''takes lists of names and returns a string with random first name and last name'''
+    gender = randrange(0, 2)
+    if gender == 0:
+        return l[randrange(0, 1000)] + ', ' + f[randrange(0, 1000)]
+    elif gender == 1:
+        return l[randrange(0, 1000)] + ', ' + m[randrange(0, 1000)]
+
+def random_names(num: int) -&gt; list:
+    '''returns a list of the 'num' (number) of strings'''
+    result = []
+    for i in range(num):
+        result.append(single_random_name(surnames, females, males))
+    return result
+print("----------PART C----------")
+print('Five Random Names: ', random_names(5))
+
+#PART D
+
+inlist = open("wordlist.txt", 'r')
+string_of_words = inlist.read()
+inlist.close()
+list_of_words = string_of_words.lower().split()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate_alphabet(number: int) -&gt; str:
+    '''returns a rotated alphabet based on the key given'''
+    if number &gt; 26:
+        number = number % 26 #(e.3) in this if statement
+    return ALPHABET[number:] + ALPHABET[:number]
+
+def Caesar_encrypt(message: str, key: int) -&gt; str:
+    '''returns ciphertext out of the message using the key'''
+    message = message.lower()
+    key_table = str.maketrans(ALPHABET, rotate_alphabet(key))
+    return message.translate(key_table)
+
+def Caesar_decrypt(message: str, key: int) -&gt; str:
+    '''returns plaintext (OG message) using the key'''
+    message = message.lower()
+    key_table = str.maketrans(rotate_alphabet(key), ALPHABET)
+    return message.translate(key_table)
+
+#CAESAR BREAK FUNCTION
+def Caesar_break(cipher: str) -&gt; str:
+    '''returns the deciphered version of the string'''
+    message_count = [] 
+    possible_messages = []
+    for i in range(26):
+        possible_messages.append(Caesar_decrypt(cipher, i + 1))
+    for message in possible_messages:
+        count = 0 
+        for word in message.split():
+            if word in list_of_words:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match222-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                count += 1 
+                #return message :: here we could've returned the first message with a word in it
+        message_count.append(count) #
+    greatest = 0 
+    place = 0 
+    for i in range(len(message_count)):
+        if message_count[i] &gt; greatest: 
+            greatest = message_count[i] 
+            place = i 
+</FONT>    return possible_messages[place] #but instead we return the message that has the most words that match the dictionary
+assert Caesar_break("x axzt exeexch qtiitg iwpc qgpcsnlxct") == "i like pippins better than brandywine"
+
+print("----------PART D----------")
+print(Caesar_encrypt("i like pippins better than brandywine", 67))
+print(Caesar_break("x axzt exeexch qtiitg iwpc qgpcsnlxct"))
+print()
+print(Caesar_encrypt("testing the limits of this thing", 4))
+print(Caesar_break("xiwxmrk xli pmqmxw sj xlmw xlmrk"))
+print()
+print(Caesar_encrypt("i'll behave asap", 67))
+print(Caesar_break("x'aa qtwpkt phpe"))
+
+#PART E
+
+#statistics function for (e.4)
+def stats(str_list: list) -&gt; str:
+    '''prints stats of the string'''
+    result = ''
+    result += "{:6d}   {}".format(len(str_list), 'lines in the list') + '\n'
+    result += "{:6d}   {}".format(str_list.count(''), 'empty lines') + '\n'
+    total = 0
+    for i in str_list:
+        total += len(i)
+    result += "{:8.1f} {}".format(total / len(str_list), 'average characters per line') + '\n'
+    new_length = 0
+    for i in str_list:
+        if i != '':
+            new_length += 1
+    result += "{:8.1f} {}".format(total / new_length, 'average characters per non-empty line') + '\n\n'       
+    return result
+
+#(e.1)
+def copy_file(string: str):
+    '''uses a copy of Sherlock Holmes to make a new copy'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if string == 'line numbers': #(e.2)
+        number = 1
+        for line in infile:
+            outfile.write('{:5d}: {}'.format(number, line))
+            number += 1
+        print(outfile_name, 'created with line numbers')
+    elif string == 'Gutenberg trim': #(e.3)
+        book = infile.read()
+        infile_list = book.split('\n')
+        for i in range(len(infile_list)):
+            if '*** START' in infile_list[i]:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match222-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                start = i
+                break
+        for j in range(len(infile_list)):
+            if '*** END' in infile_list[j]:
+                end = j
+                break
+        for line in infile_list[start + 1:end]:
+</FONT>            line = line + '\n'
+            outfile.write(line)
+        print(outfile_name, 'created with gutenberg trim')
+    elif string == 'statistics': #(e.4)
+        book = infile.read()
+        infile_list = book.split('\n')
+        outfile.write(stats(infile_list))
+        for line in infile_list:
+            line = line + '\n'
+            outfile.write(line)
+        print(outfile_name, 'created with statistics')
+    else:
+        for line in infile:
+            outfile.write(line)
+        print(outfile_name, 'copy created')
+    infile.close()
+    outfile.close()
+print("----------PART E----------")
+copy_file('')
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+copy_file('statistics')
+
+    
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

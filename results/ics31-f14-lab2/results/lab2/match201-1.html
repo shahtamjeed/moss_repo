@@ -1,0 +1,188 @@
+<HTML>
+<HEAD>
+<TITLE>nickyh1/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+travisam/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Travis Miller 59571522 and Yiteng Zhang 46961535. ICS 31 Lab sec 11.  Lab Asst 2.
+
+#d constants
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match201-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+euro2krone=7.46
+pound2krone=8.81
+dollar2krone=5.50
+
+#c1
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour? $'))
+print('This many dollars per hour: $', rate)
+print('Weekly salary: $', hours * rate)
+
+#c2
+name= input("Hello, What's your name?")
+print ("Hello,", name)
+print ("It's nice to meet you!")
+age= int(input("How old are you?"))
+print ("Next year you will be",age +1,"years old.")
+print ("Good-bye!")
+
+
+#d
+print ("Please provide this information:")
+bname = input("Business name: ")
+neuros = int(input("Number of euros: "))
+npounds = int(input("Number of pounds: "))
+ndollars = int(input("Number of dollars: "))
+print()
+</FONT>print("Copenhagen Chamber of Commerce")
+print("Business name: ", bname)
+k4e=euro2krone * neuros
+k4p=pound2krone * npounds
+k4d=dollar2krone * ndollars
+print(neuros, "euros is",k4e, "krone")
+print(npounds, "pounds is",k4p, "krone")
+print(ndollars, "dollars is",k4d, "krone")
+print("Total krone:",k4e+k4p+k4d) 
+
+#e
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+#e1
+print(still_another.title)
+#e2
+print(another.price)
+#e3
+print ((favorite.price + another.price + still_another.price)/3)
+#e4
+print (favorite.year &lt;  1900)
+#e5
+still_another=still_another._replace(price=26.00)
+print(still_another.price)
+#e6
+still_another=still_another._replace(price=still_another.price*1.2)
+print(still_another.price)
+
+#f
+from collections import namedtuple
+Animal= namedtuple ("Animal","name species age weight favorite_food")
+elephant = Animal("Jumbo","elephant",50,1000,"peanuts")
+platypus = Animal("Perry","platypus",7,1.7,"shrimp")
+print(elephant.weight &lt; platypus.weight)
+
+#g
+booklist = [favorite, another, still_another]
+
+#g1
+print(booklist[0].price &lt; booklist[1].price)
+
+#g2
+print(booklist[0].year &gt; booklist[-1].year)
+
+#h
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#h1
+print (RC[2].name)
+#h2
+print (RC[0].cuisine == RC[3].cuisine)
+#h3
+print(RC[-1].price)
+#h4
+RC.sort()
+print(RC)
+#h5
+print(RC[-1].dish)
+#h6
+nRC=[RC[0],RC[1],RC[-2],RC[-1]]
+print(nRC)
+
+#i
+import tkinter              # Load the library; do this just once per program
+
+#1
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(100, 100, 100, 300, fill='blue')
+my_canvas.create_line(100, 100, 300, 100, fill='blue')
+my_canvas.create_line(100, 300, 300, 300, fill='blue')
+my_canvas.create_line(300, 100, 300, 300, fill='blue')  
+
+#2
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=600, height=600)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_polygon(159, 300, 300, 159, 441, 300, 300, 441, fill='blue')
+
+#3
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=1000, height=900)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_rectangle( 200, 500, 800, 900, fill='blue')
+my_canvas.create_polygon (200, 500, 500, 200, 800, 500, fill='red')
+my_canvas.create_rectangle( 400, 900, 500, 750, fill='green')
+my_canvas.create_rectangle( 600, 800, 700, 700, fill='green')
+
+#4
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=600, height=600)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_oval(150, 300, 450 ,400, fill='white')
+my_canvas.create_oval(250, 300, 350 ,400, fill='blue')
+my_canvas.create_oval(270, 320, 330 ,380, fill='black')
+
+#5
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=600, height=600)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_arc(100, 150, 150 ,100, fill='white', style=tkinter.ARC, start=90)
+my_canvas.create_arc(100, 550, 150 ,600, fill='white', style=tkinter.ARC, start=180)
+my_canvas.create_arc(300, 100, 350 ,150, fill='white', style=tkinter.ARC, start=0)
+my_canvas.create_arc(300, 600, 350 ,550, fill='white', style=tkinter.ARC, start=270)
+my_canvas.create_line(100, 120, 100, 580, fill='black')
+my_canvas.create_line(350, 120, 350, 580, fill='black')
+my_canvas.create_line(120, 100, 330, 100, fill='black')
+my_canvas.create_line(120, 600, 330, 600, fill='black')
+my_canvas.create_rectangle(115, 170, 335, 530, fill='white')
+my_canvas.create_oval(205, 545 ,245, 585, fill='white', activefill='black')
+
+tkinter.mainloop() 
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,229 @@
+<HTML>
+<HEAD>
+<TITLE>calvinlw/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+tylerkv/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Sameel Malik 53665312 and Tyler Vu 82249442 ICS 31 Lab sec 14 Lab asst 6.
+#Part C
+print('Part C')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match222-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+# c1
+def contains (n: str, s: str) -&gt; bool:
+    '''takes as input two strings. The function checks if the second
+    string occurs in the first string. If the second string does occur,
+    the function returns True; if not, it returns False.'''
+</FONT>    if s in n:
+        return True
+    else:
+        return False
+    
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+#c2
+
+def sentence_stats (n:str) -&gt; str:
+    '''takes in a string as a parameter and prints out these statistics
+    about the string: its length in characters, its length in words, and
+    the average length of each word.'''
+    g = 0
+    for b in n.split():
+        g = g + len(b)
+    print('Characters: ', len(n), '\n',
+          'Words: ', len(n.split()), '\n',
+          'Average word length: ', g/len(n.split()))
+#c3
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match222-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def initials(x:str) -&gt; str:
+    '''takes as input a string representing a full name (e.g., Robert B.
+    Qwerty) and returns the initials of the name in all capital letters
+    (e.g., RBQ).'''
+    namelist = x.split()
+</FONT>    initial = ''
+    for i in namelist:
+        initial = initial + i[0]
+    return initial.upper()
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+#d
+print('part D')
+print()
+
+#d1
+from random import randrange
+for x in range(50):
+    print(randrange(11))
+for x in range(50):
+    print(randrange(1, 7))
+    
+#d2
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match222-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def roll2dice () -&gt; int:
+    '''takes no parameters and returns a number that reflects the random
+    roll of two dice.'''
+    return randrange(1,7) + randrange(1,7)
+</FONT>    
+print(roll2dice())
+for x in range(51):
+    print(roll2dice())
+
+#d3
+print()
+def distribution_of_rolls (n:int) -&gt; str:
+    '''takes one number—the number of times to roll two dice—and prints
+    the distribution of the values of those rolls '''
+    print('Distribution of dice rolls')
+    print()
+    s=''
+    for x in range(n):
+        s += str(roll2dice())
+    for v in range(2, 13):
+        v=str(v)
+        print('{:2}:  {:2} ({:4.1f}%) {}'.format(v, s.count(v),
+        (s.count(v)/n) * 100, '*' * s.count(v)))
+    print('------------------------------')
+    print('           {} rolls            '.format(n))
+
+distribution_of_rolls(200)
+
+#e
+print('Part E')
+print()
+
+# e1
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def newalphabet(n:int) -&gt; str:
+    'rearranges alphabet by shifting to the right n times'
+    ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+    ALPHABET = ALPHABET[n:]+ALPHABET[:n]
+    return ALPHABET
+
+
+def Caesar_encrypt (s: str, n: int) -&gt; str:
+    'takes a plain text and encrypts it into code by shifting to right of alphabet'
+    t = s.lower()
+    table = str.maketrans(ALPHABET[0:26],newalphabet(n % 26))
+    return t.translate(table)
+                          
+print(Caesar_encrypt('Tyler',5))
+
+def Caesar_decrpyt(s: str, n:int) -&gt; str:
+    'takes the ciphertext and turns it back into plaintext'
+    table = str.maketrans(ALPHABET[0:26],newalphabet(-n % 26))
+    return s.translate(table)
+
+# e2
+
+code = (Caesar_encrypt('I Love UCI', 30))
+print(Caesar_decrpyt(code, 30))
+
+# e3
+
+#I did it
+
+# f
+print()
+print('Part F')
+print()
+
+mylist = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+
+# f1
+
+
+def print_line_numbers(stringlist:list) -&gt; None:
+    'takes a list of strings and prints each string preceded by a line number'
+    for number in range(1,len(stringlist)+1):
+        y = stringlist[number - 1]
+        print('{:5}: {}'.format(number,y))
+
+
+print_line_numbers(mylist)
+
+# f2
+
+def stats(stringlist:list) -&gt; None:
+    'takes a list of strings and prints statistics'
+    lines = len(stringlist)
+    emptylines = 0
+    for string in stringlist:
+        if string == ' ':
+            emptylines = emptylines + 1
+    avgcharacters = 0
+    for string in stringlist:
+        avgcharacters += len(string)
+    avgcharacters = avgcharacters/len(stringlist)
+    avgcharacters2 = 0
+    for string in stringlist:
+        if string == ' ':
+            avgcharacters2 = avgcharacters2
+        else:
+            avgcharacters2 += len(string)
+    avgcharacters2 = (avgcharacters2/ len(stringlist))
+    print('{:7.1f} {}'.format(lines,'lines in the list'))
+    print('{:7.1f} {}'.format(emptylines,'empty lines'))
+    print('{:7.1f} {}'.format(avgcharacters,'average characters per line'))
+    print('{:7.1f} {}'.format(avgcharacters2,'average characters per non-empty line'))
+
+# f3
+
+def list_of_words(stringlist:list) -&gt; list:
+    '''takes a list of strings as above and returns a list of individual
+    words with all white space and punctuation removed (except for
+    apostrophes/single quotes).'''
+    newlist = []
+    for string in stringlist:
+        splitted = string.split()
+        for word in splitted:
+            newlist.append(word)
+    finallist = []
+    for word2 in newlist:
+        toappend = ''
+        for character in word2:
+            if character not in '. , ? !':
+                toappend += character
+        finallist.append(toappend)     
+    return(finallist)
+
+
+
+
+
+        
+
+
+
+    
+
+
+
+
+        
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

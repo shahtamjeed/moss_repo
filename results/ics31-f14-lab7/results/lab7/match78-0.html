@@ -1,0 +1,195 @@
+<HTML>
+<HEAD>
+<TITLE>sirotat/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+sirotat/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Tanner Sirota 61932813 and Jun Tang 18214963. ICS 31 Lab sec 6. Lab asst 7.
+
+print()
+print()
+print('-----Part c-----')
+print()
+print()
+
+infile = open("malenames.txt", 'r')
+data = infile.readlines()
+infile.close()
+
+infile2 = open("femalenames.txt", 'r')
+data2 = infile2.readlines()
+infile2.close()
+
+infile3 = open("surnames.txt", 'r')
+data3 = infile3.readlines()
+infile3.close()
+
+
+from random import randrange
+
+#C
+def random_surnames() -&gt; str:
+    ''' Produces randomly generated surnames.'''
+    y = data3[randrange(0,1000)].split()
+    return y[0]
+
+def random_malename() -&gt; str:
+    ''' Produces randomly generated male names.'''
+    y = data[randrange(0,1000)].split()
+    return y[0]
+
+def random_femalename() -&gt; str:
+    ''' Produces randomly generated female names.'''
+    y = data2[randrange(0,1000)].split()
+    return y[0]
+    
+def random_names(x:int) -&gt; list:
+    '''Produces randomly generated names by the amount entered.'''
+    empty = []
+    k = randrange(1,3)
+    for p in range(x):
+        if k == 1:
+            empty.append(random_surnames() +', ' + random_malename())
+        else:
+            empty.append(random_surnames() +', ' + random_femalename())
+    return empty
+
+print(random_names(5))
+
+print()
+print()
+print('-----Part d-----')
+print()
+print()
+
+#D
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match78-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def rotate_alphabet(a: int) -&gt; str:
+    '''Takes a number and produces a rotated string'''
+    return ALPHABET[a:] + ALPHABET[0:a]
+
+def Caesar_encrypt(a: str, b: int) -&gt; str:
+    '''Encrypts a message.'''
+    encryption = str.maketrans(ALPHABET,
+                             rotate_alphabet(b))
+    return a.lower().translate(encryption)
+</FONT><A NAME="2"></A><FONT color = #0000FF><A HREF="match78-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+          
+def Caesar_decrypt(a: str, b: int) -&gt; str:
+    '''Decrypts an ecrypted mesage with a key.'''
+    decryption = str.maketrans(rotate_alphabet(b),
+                             ALPHABET)
+    return a.lower().translate(decryption)
+</FONT>
+
+
+infile = open("wordlist.txt", 'r')
+dictionary = infile.read().split()
+
+def Caesar_break(ciphertext: str ) -&gt; str:
+    '''Decrypts an ecrypted message without a key.'''
+    hits = 0
+    key = 0
+    for x in range(26):
+        temp = 0
+        decryption = Caesar_decrypt(ciphertext, x)
+        for word in decryption.split():
+            if word in dictionary:
+                temp += 1
+            if hits &lt; temp:
+                hits = temp
+                key = x
+    result = Caesar_decrypt(ciphertext, key)
+    return result
+
+x = Caesar_encrypt('My message is unreadable', 12)
+print(x)
+print()
+print(Caesar_break(x))
+print()
+y = Caesar_encrypt('Hello how are you doing', 21)
+print(y)
+print()
+print(Caesar_break(y))
+
+
+print()
+print()
+print('-----Part e-----')
+print()
+print() 
+
+
+def copy_file(x: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    if x == "line numbers":
+        line_num = 1
+        for line in infile:
+            outfile.write("{:5d}: ".format(line_num))
+            outfile.write(line)
+            line_num += 1
+    elif x == "Gutenberg trim":
+        copy = False
+        for line in infile:
+            if "*** END" in line:
+                break
+            elif copy == True:
+                outfile.write(line)
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match78-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            elif "*** START" in line:
+                copy = True
+    elif x == "statistics":
+        str_list = []
+        for line in infile:
+            outfile.write(line)
+            str_list.append(line)
+        stats(str_list)
+</FONT>    else:
+        for line in infile:
+            outfile.write(line)
+
+    infile.close()
+    outfile.close()
+
+def stats(a: [str]) -&gt; list:
+    '''Function that takes a list of strings and prints statistics as follows '''
+    x1 = 0
+    x2 = 0
+    x3 = len(a)
+    print("{:5}".format(len(a)) + ' lines in the file')
+    for i in a:
+        if i == '\n' or i == '':
+            x1 += 1
+    print("{:5}".format(x1) + ' empty lines')
+    for b in a:
+        x2 += len(b)
+    print("{:5.1f}".format(x2/len(a)) + ' average characters per line')
+    for c in a:
+        if c == '\n' or i == '':
+            x3 -= 1
+    print("{:5.1f}".format(x2/x3) + ' average characters per non-empty line')
+
+    
+
+    
+
+
+
+
+
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

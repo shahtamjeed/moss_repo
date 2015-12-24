@@ -1,0 +1,357 @@
+<HTML>
+<HEAD>
+<TITLE>kimny2/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+marcosa/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+#Raam Nachiappan 45618246 and Marcos Antonio Avila 58548681
+import tkinter
+from collections import namedtuple
+
+#
+#
+# Part (c)
+#
+#
+
+print()
+print('*********** Part (c) ***********')
+print()
+print('---------- Part (c1) ----------')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match214-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print("Create a function that returns the first 3 letters of the input string.")
+print()
+
+def abbreviate (inputString: str) -&gt; str:
+    '''Returns first 3 letters of a string'''
+    return inputString[0:3]
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+
+print(abbreviate('January'))
+print(abbreviate('abril'))
+
+print()
+print('---------- Part (c2) ----------')
+print("Create a function that calculates the area of a square.")
+</FONT>print()
+
+def find_area_square(length: float) -&gt; float:
+    '''Returns area of a square'''
+    return length**2
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+print(find_area_square(1), "units squared")
+print(find_area_square(5), "units squared")
+
+print()
+print('---------- Part (c3) ----------')
+print("Create a function that calculates the area of a circle.")
+print()
+
+def find_area_circle(radius: float) -&gt; float:
+    '''Returns area of a circle'''
+    return 3.14159*radius**2
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+print(find_area_circle(1), "units squared")
+print(find_area_circle(5), "units squared")
+
+print()
+print('---------- Part (c4) ----------')
+print("Create a function that prints out all even numbers from a list.")
+print()
+
+def print_even_numbers(even_list: list) -&gt; None:
+    '''Prints the even numbers of a list'''
+    for number in even_list:
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match214-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        if number % 2 == 0:
+            print(number)
+            
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])            
+
+print()
+print('---------- Part (c5) ----------')
+print("Create a function able to return the shipping rate based on weight.")
+</FONT>print()
+
+def calculate_shipping(weight: float) -&gt; float:
+    '''Calculates shipping rate based on weight'''
+    if weight &lt; 2:
+        return 2.00
+    elif weight &gt;= 2 and weight &lt; 10:
+        return  5.00
+    else:
+        return 5 + ((weight - 10) * 1.50)
+    return rate   
+assert calculate_shipping(1.5) == 2
+assert calculate_shipping(7) == 5
+assert calculate_shipping(15) == 12.50
+
+print("${:2.2f}".format(calculate_shipping(1.5)))
+print("${:2.2f}".format(calculate_shipping(7)))
+print("${:2.2f}".format(calculate_shipping(15)))
+
+print()
+print('---------- Part (c6) ----------')
+print("Create a function that can draw squares.")
+print()
+
+window1 = tkinter.Tk()    
+canvas1 = tkinter.Canvas(window1, width=500, height=500)  
+canvas1.pack()
+
+print("Check tkinter window.")
+
+def create_square(x: int, y: int, length: int):
+    '''Draws a square'''
+    canvas1.create_rectangle(x,y,x+length,y+length)
+
+create_square(10,10,80)
+
+print()
+print('---------- Part (c7) ----------')
+print("Create a function that can draw circles.")
+print()
+
+print("Check tkinter window.")
+
+def create_circle(x: int, y: int, diameter: int):
+    '''Draws a circle'''
+    canvas1.create_oval(x,y,x+diameter,y+diameter)
+    
+create_circle(400,400,80)
+
+#
+#
+# Part (d)
+#
+#
+
+print()
+print('*********** Part (d) ***********')
+print()
+print('---------- Part (d1) ----------')
+print("Create a function that returns the price of a Restaurant")
+print()
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+
+
+def restaurant_price(restaur: Restaurant) -&gt; float:
+    '''Returns the price of the best dish from a Restaurant type'''
+    return restaur.price
+assert restaurant_price(RC[0]) == 12.50
+assert restaurant_price(RC[-1]) == 10.50
+
+print("${:2.2f}".format(restaurant_price(RC[0])))
+print("${:2.2f}".format(restaurant_price(RC[-1])))
+
+print()
+print('---------- Part (d2) ----------')
+print("Create a function that prints out a list of restaurants sorted by price.")
+print()
+
+RC.sort(key=restaurant_price)
+print(RC)
+
+RC.sort() #restores list to alpha-order, costliest function will sort from this list by price
+
+print()
+print('---------- Part (d3) ----------')
+print("Create a function that returns the name of the restaurant with the most expensive dish.")
+print()
+
+def costliest(restaurantList: list) -&gt; str:
+    '''Returns the name of the restaurant with the most expensive best dish'''
+    restaurantList.sort(key=restaurant_price)
+    return restaurantList[-1].name
+#assert costliest(RC) == 'Noma' This assertion modifies RC list
+
+print(RC)
+print()
+print(costliest(RC))
+print()
+print(RC)
+#print(RC)#list sorted by price
+
+RC.sort() #restores list to alpha-order, costliest2 function will sort from this list by price
+
+print()
+print('---------- Part (d4) ----------')
+print("Create a function that returns the name of the restaurant with the most expensive dish AND does not modify the list of restaurants.")
+print()
+
+def costliest2(restaurantList: list) -&gt; str:
+    '''Returns the name of the restaurant with the most expensive best dish WITHOUT modifying list'''
+    return sorted(restaurantList, key=restaurant_price, reverse=True)[0].name
+assert costliest2(RC) == 'Noma'
+
+print(RC)
+print()
+print(costliest2(RC))
+print()
+print(RC)
+
+#
+#
+# Part (e)
+#
+#
+
+print()
+print('*********** Part (e) ***********')
+print()
+
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book('Edgar Allen Poe', 'The Raven', 'Mystery', 1845, 20.00, 100),
+    Book('John Flanagan', 'Ranger\'s Apprentice: Book 1', 'Adventure', 2004, 16.00, 75),
+    Book('Agatha Christie', 'And Then There Were None', 'Mystery', 1939, 10.50, 34),
+    Book('John Green','The Fault in Our Stars', 'Young-Adult Novel', 2012, 23.00, 234),
+    Book('John Green', 'Looking For Alaska', 'Young-Adult Novel', 2005, 20.00, 253),
+    Book('Bryan Lee O\'Malley', 'Scott Pilgrim\'s Precious Little Life', 'Comedy', 2004, 26.00, 1002),
+    Book('Alisa Smanpan','Book of Modern Technology','Technology', 1996, 4.00, 2) ] #last book to test e.4
+
+print()
+print('---------- Part (e1) ----------')
+print("Write a few statements that will print out every book title.")
+print()
+
+for current_book in BSI:
+    print(current_book.title)
+    
+print()
+print('---------- Part (e2) ----------')
+print("Write a few statements that will print out the book titles in alphabetical order.")
+print()
+
+def get_book_title(bk: Book) -&gt; str:
+    '''Returns the title of a Book type'''
+    return bk.title
+assert get_book_title(BSI[0]) == 'The Raven'
+
+for current_book in sorted(BSI, key=get_book_title):
+    print(current_book.title)
+
+print()
+print('---------- Part (e3) ----------')
+print("Write a few statements that will increase the prices of all books by 10%.")
+print()
+
+for i in range(len(BSI)):
+    BSI[i] = BSI[i]._replace(price = BSI[i].price * 1.10)
+    print("${:2.2f}".format(BSI[i].price))
+
+print()
+print('---------- Part (e4) ----------')
+print("Write a few statements that will print out books with the genre 'Technology'.")
+print()
+
+for current_book in BSI:
+    if(current_book.genre == 'Technology'):
+        print(current_book.title)
+
+print()
+print('---------- Part (e5) ----------')
+print("Write a few statements that will determine if there are more books printed before or after year 2000.")
+print()
+
+beforeList = []
+afterList = []
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match214-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+for current_book in BSI:
+    if(current_book.year &lt; 2000):
+        beforeList.append(current_book.title)
+    elif(current_book.year &gt;= 2000):
+        afterList.append(current_book.title)
+</FONT>
+if len(beforeList) &gt; len(afterList):
+    print("More titiles before 2000", len(beforeList), "vs.", len(afterList))
+else:
+    print("More titles 2000 or later", len(afterList), "vs.", len(beforeList))
+
+print()
+print('---------- Part (e6) ----------')
+print("Write a function that calculates inventory value and a function that returns the Book with the highest inventory value.")
+print()
+
+def inventory_value(bk: Book) -&gt; float:
+    '''Returns the inventory value of a book'''
+    return bk.price * bk.instock
+assert inventory_value(BSI[0]) == 2200
+
+def top_value(bookList: list) -&gt; Book:
+    '''Returns the Book type with the highest inventory value'''
+    return sorted(bookList, key=inventory_value)[-1]
+#assert top_value(BSI) == BSI[-2]   Bad assertion, if list grows, then what?
+
+print("The highest-value book is", top_value(BSI).title, "by", top_value(BSI).author, "at a value of", "${:2.2f}".format((top_value(BSI).instock * top_value(BSI).price)))
+
+#
+#
+# Part (f)
+#
+#
+
+print()
+print('*********** Part (f) ***********')
+print("Make functions that will draw a face.")
+print()
+print("Check tkinter window.")
+
+window2 = tkinter.Tk()
+canvas2 = tkinter.Canvas(window2, width=1000, height=1000)
+canvas2.pack()
+
+def draw_eye(x: int, y: int, eye_color: str) -&gt; None:
+    '''Draws an eye'''
+    canvas2.create_oval(x+0,y+0,x+80,y+60, fill = 'white') 
+    canvas2.create_oval(x+10,y+0,x+70,y+60, fill = eye_color)
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match214-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    canvas2.create_oval(x+35,y+25,x+45,y+35, fill = 'black' )
+
+def draw_nose(x: int, y:int) -&gt; None:
+    '''Draws a nose'''
+    canvas2.create_oval(x, y, x + 80, y + 105, fill = 'light yellow')
+</FONT>
+def draw_mouth(x: int, y: int) -&gt; None:
+    '''Draws a mouth'''
+    canvas2.create_arc(x, y, x + 220, y + 195, start=0, extent=-180, fill='red')
+
+def draw_face(x: int, y: int, eye_color: str, skin_color: str) -&gt; None:
+    '''Draws an entire face'''
+    canvas2.create_oval(x,y,x+300, y+ 350, fill = skin_color)
+    draw_eye(x + 40,y + 80, eye_color)
+    draw_eye(x+ 180,y+ 80, eye_color)
+    draw_nose(x + 110,y + 115)
+    draw_mouth(x + 40,y + 135)
+
+draw_face(0,0,'light blue', 'light green')
+draw_face(300,0,'pink', 'light blue')
+draw_face(300,350,'yellow', 'orange')
+draw_face(0,350, 'blue', 'black')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

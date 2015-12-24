@@ -1,0 +1,303 @@
+<HTML>
+<HEAD>
+<TITLE>llioe/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+llioe/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# lab7
+# Created By: Leonico Lioe on Nov,11/17/2014 2014
+
+# Leonico Lioe 57728347 and Danilo Gonzalez 28017253. ICS Lab sec 9. Lab asst 7.
+
+import string
+from random import randrange
+from math import log10
+
+"""
+# ------------------------------------------------
+#
+#   Part C.
+#
+# ------------------------------------------------
+
+#==========================================================================
+print()
+print('---------- Part C.2 ----------')
+print()
+#==========================================================================
+
+surname = []
+malefirst = []
+femalefirst = []
+
+infile = open("surnames.txt",'r')
+infile1 = open("malenames.txt",'r')
+infile2 = open("femalenames.txt",'r')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match234-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+for data in infile.readlines():
+    temp = data.split()
+    surname.append(temp[0].capitalize())
+for data in infile1.readlines():
+    temp = data.split()
+    malefirst.append(temp[0].capitalize())
+for data in infile2.readlines():
+    temp = data.split()
+    femalefirst.append(temp[0].capitalize())
+</FONT>
+infile.close()
+infile1.close()
+infile2.close()
+
+#==========================================================================
+print()
+print('---------- Part C.3 ----------')
+print()
+#==========================================================================
+
+def random_name(name: [str]) -&gt; str:
+    'Takes 3 list of surnames, male and female names and return a random generated name based on those list'
+    return name[randrange(len(name))]
+
+print("Printing 20 random names: ")
+for i in range(20):
+    print(random_name(surname))
+
+
+#==========================================================================
+print()
+print('---------- Part C.1 ----------')
+print()
+#==========================================================================
+
+
+def random_names(n: int) -&gt; [str]:
+    '''Takes in a number and generate that many number of random names'''
+    surnames = malenames = femalenames = []
+    for i in range(3):
+        if i == 0:
+            infile = open("surnames.txt",'r')
+        if i == 1:
+            infile = open("malenames.txt",'r')
+        if i == 2:
+            infile = open("femalenames.txt",'r')
+
+        for data in infile.readlines():
+            if i== 0:
+                surnames.append(data.split()[0].capitalize())
+            if i == 1:
+                malenames.append(data.split()[0].capitalize())
+            if i == 2:
+                femalenames.append(data.split()[0].capitalize())
+        infile.close()
+    print(femalenames)
+    result = []
+    for i in range(n):
+        result.append(str(random_name(surname)) + ", " + str(random_name(malenames)) if randrange(2) == 0 \
+            else str(random_name(surname)) + ", " + str(random_name(femalenames)))
+    return result
+
+for i in random_names(20):
+    print(i)
+
+# ------------------------------------------------
+#
+#   Part D.
+#
+# ------------------------------------------------
+
+#==========================================================================
+print()
+print('---------- Part D.1 ----------')
+print()
+#==========================================================================
+"""
+def remove_punctuations(s1:str)-&gt;str:
+    """Takes in a string and returns a string without the punctuations"""
+    table = str.maketrans('.,!?:;"*\n',
+                          '         ')
+
+    return s1.translate(table).replace(' ','')
+
+def caesar_decrypt(msg: str, enc_level: int) -&gt; str:
+    """Takes two arguments: a string containing the message(the ciphertext) and an int for the key,
+    indicating how far down the alphabet to find each substitute letter.
+    The encryption function returns the plaintext"""
+    if not(enc_level%26):
+        return msg
+    result = ''
+    enc_level = enc_level%26
+    for i in msg:
+        if 0 &lt;= ord(i)-enc_level &lt; 256:
+            result += chr(ord(i)-enc_level)
+
+    return result
+
+def caesar_break(encrypted: str) -&gt; str:
+    '''Takes a string containing the message (the ciphertext) and try to decrypt it in every single possible combination
+       Returns that decrypted string
+    '''
+    keyval = [0 for _ in range(26)]
+    dict = [[] for _ in range(27)]
+    found_words = [[] for _ in range(27)]
+
+    infile = open("wordlist.txt",'r')
+    for line in infile:
+        word = line.strip().lower()
+        if word[0] &gt; 'z' or word[0] &lt; 'a':
+            dict[26].append(word)
+        else:
+            dict[ord(word[0])-ord('a')].append(word)
+    infile.close()
+
+    for i in range(26):
+        msg = caesar_decrypt(encrypted,i)
+        msgsplit = msg.split()
+        for j in msgsplit:
+            dec_word = remove_punctuations(j.lower())
+            if dec_word and dec_word[0].isalpha():
+                if dec_word in found_words[ord(dec_word[0])-ord('a')]:
+                    keyval[i] += 1
+                elif dec_word in dict[ord(dec_word[0])-ord('a')]:
+                    keyval[i] += 1
+                    found_words.append(dec_word)
+            else:
+                if dec_word in dict[26]:
+                    keyval[i] += 1
+
+    smallest = 0
+    for l in range(len(keyval)):
+        if keyval[l] &gt; keyval[smallest]:
+            smallest = l
+    return caesar_decrypt(encrypted,smallest) if keyval[smallest] else "NO MATCH"
+
+#print(caesar_break('Olnhzlvh#pdq/#olnhzlvh$'))
+
+#==========================================================================
+print()
+print('---------- Part D.2 ----------')
+print()
+#==========================================================================
+
+enc_msg_for_danilo = "Sp}x{~;/v~~s/{rz/xw/~/|xst|0"
+enc_msg_for_leo = "Voy6*~rkxu*y+"
+
+print(caesar_break(enc_msg_for_danilo))
+print(caesar_break(enc_msg_for_leo))
+
+print(caesar_break("""…[kx~w*womrkxsm}‧*s}*~ro*no}m|sz~syx*yp*~ro*lorksy|*yp*wk~~o|*kxn*vsqr~*sx*kvv*s~}*no~ksv}*kxn6
+sx*zk|~smvk|6*yp*~ro*rkzzoxsxq}*yx*kx*k~ywsm*}mkvo8*^rsxq}*yx*k*o|*}wkvv*}mkvo*lorko*vsuo*xy~rsxq*~rk~*y*rko*kx
+ns|om~*ozo|soxmo*kly~8*^ro*ny*xy~*lorko*vsuo*ko}6*~ro*ny*xy~*lorko*vsuo*zk|~smvo}6*~ro*ny*xy~*lorko*vsuomvyn}6*y|
+*lsvvsk|n*lkvv}6*y|*osqr~}*yx*}z|sxq}6*y|*vsuo*kx~rsxq*~rk~*y*rko*oo|*}oox8*Xo~yx*~ryqr~*~rk~*vsqr~k}*wkno*z*yp*zk|~smvo}6*l
+~*~rox*s~*k}*ns}myo|on*~rk~*s~*lorko}*vsuo*k*ko8*Vk~o|6*ryoo|*2sx*~ro*loqsxxsxq*yp~ro*~ox~so~r*mox~|36*s~*k}*pyxn*~rk~*vs
+qr~*nsn*sxnoon*}ywo~swo}*lorko*vsuo*k*zk|~smvo8*Rs}~y|smkvv6*~roovom~|yx6*py|*okwzvo6*k}*~ryqr~*~y*lorko*vsuo*k*zk|~smvo6*kxn*~
+rox*s~*k}*pyxn*~rk~*sx*wkx*|o}zom~}*s~*lorkonvsuo*k*ko8*]y*s~*|okvv*lorko}*vsuo*xos~ro|8*Xy*o*rko*qsox*z8*ao*}kD*
+…S~*s}*vsuo*xos~ro|8‧*^ro|o*s}*yxo*vmul|oku6*ryoo|„ovom~|yx}*lorko*t}~*vsuo*vsqr~8*^ro*{kx~w*lorksy|*yp*k~ywsm*yltom~
+}*2ovom~|yx}6*z|y~yx}6xo~|yx}6*zry~yx}6*kxn*}y*yx3*s}*~ro*}kwo*py|*kvv6*~ro*k|o*kvv*…zk|~smvo*ko}6‧*y|*rk~oo|*y*kx~*~
+y*mkvv*~row8]y*rk~*o*vok|x*kly~*~ro*z|yzo|~so}*yp*ovom~|yx}*2rsmr*o*}rkvv*}o*py|*y|*okwzvo}3*svv*kzzv*kv}y*~y*kvv…zk|
+~smvo}6‧*sxmvnsxq*zry~yx}*yp*vsqr~8*^ro*q|knkv*kmmwvk~syx*yp*sxpy|wk~syx*kly~*k~ywsm*kxn*}wkvv7}mkvolorksy|*n
+|sxq*~ro*ps|}~*{k|~o|*yp*~ro*&lt;:~r*mox~|6*rsmr*qko*}ywo*sxnsmk~syx}*kly~*ry*}wkvv*~rsxq}*ny*lorko6z|ynmon*kx*sxm
+|ok}sxq*myxp}syx*rsmr*k}*psxkvv*|o}yvon*sx*;C&lt;@*kxn*;C&lt;A*l*]mr|Ānsxqo|6*Ros}oxlo|q6*kxn*Ly|x8^ro*psxkvv*yl~ksxon
+*k*myx}s}~ox~*no}m|sz~syx*yp*~ro*lorksy|*yp*wk~~o|*yx*k*}wkvv*}mkvo8*ao*~kuo*z*~ro*wksxpok~|o}*yp*~rk~*no}m|sz~syx*s
+x*~rs}*mrkz~o|8*Lomk}o*k~ywsm*lorksy|*s}*}y*xvsuo*y|nsxk|*ozo|soxmo6*s~*s}*o|nsppsmv~*~y*qo~*}on*~y6*kxn*s~*kzz
+ok|}*zomvsk|*kxn*w}~o|sy}*~y*oo|yxo„ly~r*~y*~ro*xysmo*kxn*~y*~roozo|soxmon*zr}sms}~8*Oox*~ro*ozo|~}*ny*xy~*xn
+o|}~kxn*s~*~ro*k*~ro*yvn*vsuo*~y6*kxn*s~*s}*zo|pom~v|ok}yxklvo*~rk~*~ro*}ryvn*xy~6*lomk}o*kvv*yp*ns|om~6*rwkx*
+ozo|soxmo*kxn*yp*rwkx*sx~s~syx*kzzvso}*~y*vk|qoyltom~}8*ao*uxy*ry*vk|qo*yltom~}*svv*km~6*l~*~rsxq}*yx*k*}wkvv*}m
+kvo*t}~*ny*xy~*km~*~rk~*k8*]y*o*rko*~yvok|x*kly~*~row*sx*k*}y|~*yp*kl}~|km~*y|*swkqsxk~so*pk}rsyx*kxn*xy~*l*myxxo
+m~syx*s~r*y|*ns|om~*ozo|soxmo8*Sx~rs}*mrkz~o|*o*}rkvv*~kmuvo*swwonsk~ov*~ro*lk}sm*ovowox~*yp*~ro*w}~o|sy}*lorksy
+|*sx*s~}*wy}~*}~|kxqo*py|w8ao*mryy}o*~y*okwsxo*k*zroxywoxyx*rsmr*s}*swzy}}slvo6*kl}yv~ov*swzy}}slvo6*~y*ozvksx*sx*
+kx*mvk}}smkv*k6*kxnrsmr*rk}*sx*s~*~ro*rok|~*yp*{kx~w*womrkxsm}8*Sx*|okvs~6*s~*myx~ksx}*~ro*yxv*w}~o|8*ao*mkxxy
+~*wkuo*~ro*w}~o|qy*kk*l*…ozvksxsxq‧*ry*s~*y|u}8*ao*svv*t}~*~ovv*y*ry*s~*y|u}8*Sx*~ovvsxq*y*ry*s~*y|u}*
+o*svv*rko~yvn*y*kly~*~ro*lk}sm*zomvsk|s~so}*yp*kvv*{kx~w*womrkxsm}8"""))
+
+
+# ------------------------------------------------
+#
+#   Part E.
+#
+# ------------------------------------------------
+
+#==========================================================================
+print()
+print('---------- Part E.1 , E.2 , E.3, E.4 ----------')
+print()
+#==========================================================================
+
+def copy_file(pref:str = '') -&gt; None:
+    ''' Takes 1 preference string parameter, copy the content of first file to the second one, and  returns no value
+        (because it does all its work by prompting the user and reading and writing files).
+        Preferences:
+        line number = list the line number before printing each line
+        Gutenberg trim = only copy from wherever '*** starts' is to '*** end'
+        statistics = copy the file and show the statistics at the end
+        no_value = just copy without any added info
+    '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    beginning = end = 0
+    with open(infile_name) as f:
+            for i, l in enumerate(f):
+                if "*** START" in l and not(beginning):
+                    beginning = i + 1
+                elif "*** END" in l:
+                    end = i
+            if end &lt;=  beginning or not(end):
+                end = i
+            totalline = i + 1
+
+    if pref.lower() == 'line numbers':
+        lines = 0
+        for line in infile:
+            lines+=1
+            outfile.write("{:{}d}: {}".format(lines,str(int(log10(totalline))+1),line))
+
+    elif pref.lower() == 'gutenberg trim':
+        lines = 0
+        for line in infile:
+            lines+=1
+            if lines &gt;= beginning and lines &lt;= end:
+                outfile.write(line)
+
+    elif pref.lower() == 'statistics':
+        totalchar = 0
+        empty = 0
+        for line in infile:
+            if line:
+                totalchar += len(line.replace(' ',''))
+            elif not(line):
+                empty += 1
+            outfile.write(line)
+
+        outfile.write('\n\n ------ STATISTICS ------\n')
+        outfile.write('{:}   lines in the list.\n'.format(totalline))
+        outfile.write('{:}   empty lines\n'.format(empty))
+        outfile.write('{:0.1f} average characters per line\n'.format(totalchar/totalline))
+        if not(totalline-empty):
+            outfile.write('{:0.1f} average characters per non-empty line\n'.format(0))
+        else:
+            outfile.write('{:0.1f} average characters per non-empty line\n'.format(totalchar/(totalline-empty)))
+
+    else:
+        for line in infile:
+            outfile.write(line)
+
+    infile.close()
+    outfile.close()
+
+print('\nE1:')
+#copy_file()
+print('\nE2:')
+#copy_file('line numbers')
+print('\nE3')
+#copy_file('Gutenberg trim')
+print('\nE4:')
+copy_file('Statistics')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

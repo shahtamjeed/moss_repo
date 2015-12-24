@@ -1,0 +1,265 @@
+<HTML>
+<HEAD>
+<TITLE>bkurtz/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+blenz/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Kenny John 28177775 and Brett Lenz 76382638. ICS 31 Lab sec 1. Lab asst 7.
+
+
+#
+#
+# Part (c)
+#
+#
+print()
+print()
+print('---------- Part (c) ----------')
+print()
+
+# Open and Read Files
+file_surnames = open('surnames.txt', 'r')
+file_males = open('male_names.txt', 'r')
+file_females = open('female_names.txt', 'r')
+
+
+def get_names(names: 'Open File')-&gt; [str]:
+    '''Splits the files by tabs and returns a list of strings with names,
+       leaving out all other unwanted information'''
+    result = []
+    for i in names:
+        result.append(i.split('\t')[0])
+    return result
+assert get_names(['MARY\t2.629\t 3,991,060\t1\n', 'PATRICIA\t1.073\t 1,628,911\t2\n']) == ['MARY', 'PATRICIA']
+assert get_names([]) == []
+
+# Hold the list of names in variables
+surnames = get_names(file_surnames.readlines())
+male_names = get_names(file_males.readlines())
+females_names = get_names(file_females.readlines())
+
+# Combine female and male first names
+first_names = male_names + females_names
+
+from random import randrange
+
+def get_name(names: list)-&gt; str:
+    '''Returns a random name from the list'''
+    if len(names) == 0:
+        return []
+    else:
+        name = names[randrange(len(names))]
+        name = name.title()
+    return name
+assert get_name(['JERRY']) == 'Jerry'
+assert get_name([]) == []
+
+
+def random_name()-&gt; str:
+    '''Calls for a random name and formats it (Last name, First name)'''
+    last_name = get_name(surnames)
+    first = get_name(first_names)
+    return last_name + ', ' + first
+# Assertion is random
+
+
+def random_names(num: int)-&gt; list:
+    '''Returns a specific length list of names'''
+    result = []
+    for i in range(num):
+        result.append(random_name())
+    return result
+# Assertion is random
+
+# Close files
+file_surnames.close()
+file_males.close()
+file_females.close()
+
+# Call function to create a list of random names
+number_of_random_names = 7
+print('Number of Random Names:', number_of_random_names)
+print(random_names(number_of_random_names))
+
+
+
+
+#
+#
+# Part (d)
+#
+#
+print()
+print()
+print('---------- Part (d) ----------')
+print()
+
+import string
+
+# Open wordlist
+words = open('wordlist.txt', 'r')
+
+# Read word list, set the strings to lowercase, and split the strings by newline
+word_list = words.read().lower().split('\n')
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match213-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_encrypt(message:str, key:int) -&gt; str:
+    "Returns an encrypted message using key as a shift"
+    encrypt = ''
+    for i in range(26):
+        encrypt += string.ascii_lowercase[(i + key) % 26]
+    table = str.maketrans(string.ascii_lowercase, encrypt)
+    return message.lower().translate(table)
+assert Caesar_encrypt('insert obligatory test statement here', -8) == 'afkwjl gtdayslgjq lwkl klslwewfl zwjw'
+assert Caesar_encrypt('To be, or not to be, that is the question', 4) == 'xs fi, sv rsx xs fi, xlex mw xli uyiwxmsr'
+assert Caesar_encrypt('hi there', 3) == 'kl wkhuh'
+
+def Caesar_decrypt(message:str, key:int) -&gt; str:
+</FONT>    "Returns a decrypted message using key as a shift"
+    return Caesar_encrypt(message, -key)
+assert Caesar_decrypt('afkwjl gtdayslgjq lwkl klslwewfl zwjw', -8) == 'insert obligatory test statement here'
+assert Caesar_decrypt('xs fi, sv rsx xs fi, xlex mw xli uyiwxmsr', 4) == 'to be, or not to be, that is the question'
+assert Caesar_decrypt('kl wkhuh', 3) == 'hi there'
+
+
+# Create a cipher word
+message = "The Secret Message is Hello World"
+cipher_word = Caesar_encrypt(message, 15)
+print('Message:', message)
+print('Encrypted Message:', cipher_word)
+
+# Set the ascii lower case alphabet into a variable
+alphabet = string.ascii_lowercase
+
+def create_decryption_alphabet(alpha: str, num: int)-&gt; str:
+    'Return a decrypted alphabet from the key'
+    return Caesar_encrypt(alpha, num)
+assert create_decryption_alphabet(alphabet, 4) == 'efghijklmnopqrstuvwxyzabcd'
+assert create_decryption_alphabet(alphabet, 40) == 'opqrstuvwxyzabcdefghijklmn'
+
+def get_hits(messages: list)-&gt; int:
+    'Returns the number of hits a string gets if its in the wordlist'
+    hits = 0
+    for i in messages:
+        if i in word_list:
+            hits += 1
+    return hits
+assert get_hits(['secret', 'message']) == 2
+assert get_hits(['no', 'is']) == 0
+assert get_hits([]) == 0
+
+
+def Caesar_break(cipher: str)-&gt; str:
+    'Returns the decrypted cipher message without knowing the key and with the most hits in wordlist'
+    temp = []
+    messages = []
+    hits = []
+    print('Decrypting....')
+    for i in range(26):
+        decipher_alphabet = create_decryption_alphabet(alphabet, i)
+        decrypt = str.maketrans(alphabet, decipher_alphabet)
+        temp.append(cipher.translate(decrypt))
+    for i in range(len(temp)):
+        temp[i] = temp[i].split(' ')
+    for i in temp:
+        for j in i:
+            if j in word_list:
+                messages.append(i)
+                break
+    for i in messages:
+        hits_per_message = get_hits(i)
+        hits.append(hits_per_message)
+    if hits == []:
+        return 'No hits'
+    else:
+        return ' '.join(messages[hits.index(max(hits))])
+assert Caesar_break('afkwjl gtdayslgjq lwkl klslwewfl zwjw') == 'insert obligatory test statement here'
+assert Caesar_break('kl wkhuh') == 'hi there'
+assert Caesar_break('') == 'No hits'
+
+# Call and print the decrypted message
+print('Decrypted Message:', Caesar_break(cipher_word))
+
+
+#
+#
+# Part (e)
+#
+#
+print()
+print()
+print('---------- Part (e) ----------')
+print()
+
+
+def copy_file(input_word: str)-&gt; 'Copied File':
+    '''If input_word parameter is 'line numbers' then a copied file with line numbers is created
+       If input_word parameter is 'Gutenberg trim' then a copied trimmed version is created
+       If input_word parameter is 'statistics' then a copied file with statistics of the file is created
+       If input_word parameter word is not one of the above then a plain copied file is created'''
+    empty = 0
+    total = 0
+    line_number = 0
+    line_per_lines = []
+    lines_per_nonempty_lines = []
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        if input_word == 'line numbers':
+                line_number += 1
+                outfile.write('{:5}: {}'.format(line_number, line))
+        elif input_word == 'Gutenberg trim':
+            if '*** START' in line:
+                for line in infile:
+                    if '*** END' in line:
+                        break
+                    else:
+                        outfile.write(line)
+                break
+        elif input_word == 'statistics':
+            outfile.write(line)
+            for line in infile:
+                line_per_lines.append(len(line))
+                if line.strip():
+                    lines_per_nonempty_lines.append(len(line))
+                    total += 1
+                else:
+                    empty += 1
+            average_characters_per_line = sum(line_per_lines)/len(line_per_lines)
+            average_characters_per_nonempty_line = sum(lines_per_nonempty_lines)/len(lines_per_nonempty_lines)
+        else:
+            outfile.write(line)
+    if input_word == 'statistics':
+        print('{:6}   {}'.format(total, 'lines in the list'))
+        print('{:6}   {}'.format(empty, 'empty lines'))
+        print('{:6.1f}   {}'.format(average_characters_per_line, 'average characters per line'))
+        print('{:6.1f}   {}'.format(average_characters_per_nonempty_line, 'average characters per non-empty line'))
+    infile.close()
+    outfile.close()
+
+# Call to create the different type of copy files
+print('*** Create a copied file with line numbers ***')
+copy_file('line numbers')
+print('*** Copy Created ***')
+
+print('\n*** Create a copied file that is trimmed ***')
+copy_file('Gutenberg trim')
+print('*** Copy Created ***')
+
+print('\n*** Create a copied file with statistics ***')
+copy_file('statistics')
+print('*** Copy Created ***')
+
+print('\n*** Create a plain copy ***')
+copy_file('copy')
+print('*** Copy Created ***')
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

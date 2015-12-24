@@ -1,0 +1,201 @@
+<HTML>
+<HEAD>
+<TITLE>ballestc/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ballestc/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Brayan Gallardo 67982922 and Carlo Angelo Ballesteros 48322952.  ICS 31 Lab sec 9.  Lab asst 7.
+
+
+#####################
+#       (c)         #
+#####################
+print('\n\n#####################')
+print('#        C          #')
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match30-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('#####################\n\n')
+
+from random import randrange
+def getName(file: str) -&gt; str:
+    '''takes a file name and return a random name from the list in the file'''
+    infile = open(file)
+    lineList = infile.readlines()
+    randomLine = lineList[randrange(1,1001)]
+    stringList = randomLine.split()
+</FONT>    return stringList[0]
+print('TEST GET NAME FUNCTION: ' + getName('C:/Python34/malenames.txt'))
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match30-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def random_names(n:int) -&gt; list:
+    '''returns n amount of randomly generated names'''
+    namesList = []
+    while len(namesList)&lt;n:
+        gender = randrange(2)
+        if gender == 1:
+            filename = 'C:/Python34/malenames.txt'
+        else:
+            filename = 'C:/Python34/femalenames.txt'
+        fullName = '{}, {}'.format(getName('C:/Python34/surnames.txt').capitalize(), getName(filename).capitalize())
+        namesList.append(fullName)
+    return namesList
+</FONT>print('TEST RANDOM_NAMES FUNCTION (5 NAMES): ') 
+print(random_names(5))
+
+#####################
+#       (d)         #
+#####################
+print('\n\n#####################')
+print('#        D          #')
+print('#####################\n\n')
+
+##################CAESAR CIPHER#########################
+import string
+def removePunctuations(s:str) -&gt; str:
+    '''remove punctuations and returns back the string'''
+    return s.translate(s.maketrans("","", string.punctuation))
+assert removePunctuations('hi!') == 'hi'
+assert removePunctuations('!!help?') == 'help'
+
+def rotate(m: str, k: int) -&gt; str:
+    '''takes a string and rotates it with k and returns modified version'''
+    rotated = m[k:] + m[:k]
+    return rotated
+assert rotate('abcd', 1) == 'bcda'
+assert rotate('cat', 2) == 'tca'  
+
+def Caesar_encrypt(m: str, k: int) -&gt; str:
+    '''takes a message and returns a CIPHERTEXT using a key'''
+    if k&gt;25:
+        k = k - 26
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    return m.translate(str.maketrans(alphabet, rotate(alphabet,k)))
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match30-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert Caesar_encrypt('abcd', 1) == 'bcde'
+assert Caesar_encrypt('cat', 3) == 'fdw'  
+
+def Caesar_decrypt(m: str) -&gt; list:
+    '''takes a message and decrypts it 26 times'''
+    decryptList = []
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    for i in range(26):
+        decryptList.append(m.translate(str.maketrans(alphabet, rotate(alphabet,i))))
+</FONT>    return decryptList
+print('the string "i love uci" decrypted 26 times:\n')
+print(Caesar_decrypt('i love uci'))
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match30-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_break(c: str)-&gt; str:
+    '''breaks and returns a cipthertext code without a key'''
+    mostHitsWord = ''
+    mostHits = 0
+    with open('C:/Python34/wordlist.txt') as inFile:
+        for s in Caesar_decrypt(c): #for everything string/phrase in the list created by decrypt
+            wordlist = s.split()    #splits up the list into a list of single words
+            count = 0
+            for word in wordlist:
+                for line in inFile:
+</FONT>                    if word.lower() == line.lower().strip('\n'):
+                       count += 1
+                inFile.seek(0)
+            if count &gt; mostHits:
+                mostHits = count
+                mostHitsWord = s
+    return mostHitsWord
+print('************************')
+print('  BREAKING CIPHER CODE  ')
+print('  please wait.........  ')
+print('************************')
+print(Caesar_break(Caesar_encrypt('i love uci!', 2)))
+print('************************')
+#####################
+#       (e)         #
+#####################
+print('\n\n#####################')
+print('#        E         #')
+print('#####################\n\n')
+
+def copy_file(s: str):
+    '''promps a user to enter file to copy and file to output, if s ==
+    line numbers then the output adds numbered lining'''
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match30-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'line numbers':
+        copy_with_line_numbers(infile, outfile)
+    elif s == 'Gutenberg trim':
+        copy_with_trim(infile, outfile)     
+    elif s == 'statistics':
+</FONT>        copy_with_statistics(infile, outfile)          
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+def averageCharacters(SL: list, n: int) -&gt; float:
+    '''takes a list of strings and calculates average characters per line. The second parameter
+    is for the amount of lines user wants to substract from the calculations. ie empty lines'''
+    totalChars = 0
+    for s in SL:
+        totalChars += len(s.replace(' ', ''))
+    return totalChars/(len(SL)-n)
+assert averageCharacters(['asdf','asdf'], 0) == 4.0
+assert averageCharacters(['asdf','as'], 0)== 3.0
+assert averageCharacters(['asdf','asdf', 'as'], 1) == 5.0
+
+def copy_with_statistics(infile: object, outfile: object):
+    '''copies file and prints statistics'''
+    countLines = 0
+    countEmptyLines = 0
+    SL = []
+    for line in infile:
+        outfile.write(line)
+        SL.append(line.strip('\n'))
+        if len(SL[countLines]) == 0:
+            countEmptyLines += 1
+        countLines += 1
+        
+    print('{:5}\t{}'.format(countLines, 'lines in the list'))
+    print('{:5}\t{}'.format(countEmptyLines, 'empty lines'))
+    print('{:7.1f}\t{}'.format(averageCharacters(SL, 0), 'Average characters per line'))
+    print('{:7.1f}\t{}'.format(averageCharacters(SL,countEmptyLines), 'Average characters per non-empty line'))    
+
+def copy_with_trim(infile: object, outfile: object):
+    '''copy with gutenber trim'''
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match30-1.html#5" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for line in infile:
+        if "*** START" in line:
+            outfile.write(line)
+            for line in infile:
+                outfile.write(line)
+                if "*** END" in line:
+                    break             #breaks out of inner loop end END appears
+            break                     #breaks out of outer loop to stop writing
+        
+def copy_with_line_numbers(infile: object,outfile: object):
+</FONT>    '''copies with line numbers'''
+    count = 0
+    for line in infile:
+        count += 1
+        outfile.write('{:5}: {}'.format(count, line))
+copyType = '''
+    How would you like to copy this file?
+    Enter 'line numbers' for numbered lines.
+    Enter 'Gutenberg trim' to trim housekeeping content.
+    Enter 'statistics' to include statistics of file.
+    '''
+copy_file(input(copyType))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,246 @@
+<HTML>
+<HEAD>
+<TITLE>fregin/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+fregin/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6(original).py
+#Nam Tran 72182314 and Fabian Regin 73272620. ICS 31 Lab Section 9. Assignment 6.
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match6-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_99.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()  
+print()
+print('---------- Part (c.1) ----------')
+print()
+#c.1
+
+L = ['Apple', 'Orange']
+def contains(s: str, L: 'list of str') -&gt; bool :
+    "Returns True if the second string occurs in the first string and False otherwise"
+    if L[0] in L[1]:
+        print('True')
+    if L[0] != L[1]:
+        print('False')
+    return False
+assert not contains('banana', 'ant')
+assert not contains('green', 'gen')
+assert not contains('blue', 'app')
+assert not contains('velocity', 'pic')
+
+print()  
+print()
+print('---------- Part (c.2) ----------')
+print()
+#c.2
+
+sentence = input("Please enter a sentence: ")
+words = sentence.split()
+totalwords = len(words)
+length = len(sentence) 
+average = sum(map(len, words))/len(words)
+def sentence_stats(R: str) -&gt; str :
+    """
+    Takes a string and prints out its length in characters, its length in
+    words, and the average length of each word
+    """
+    
+print(sentence, words, length, totalwords, average, sep='\n')
+
+
+print()  
+print()
+print('---------- Part (c.3) ----------')
+print()
+#c.3
+
+def intitals(name):
+    char_length = len(name)
+    initial = name[0:1]
+    for i in range(char_length):
+        if name[i] == ' ':
+            initial_location = name[i]
+            initial += ' ' + initial_location 
+    return initial.upper()
+
+given_name = input("Enter name: ")
+
+letters = intitals(given_name)
+
+print(letters)
+
+print()  
+print()
+print('---------- Part (d.1) ----------')
+print()
+#d.1
+
+from random import randrange
+for x in range(50):
+    print (randrange(0, 11, 1))
+for y in range(50):
+    print (randrange(0, 7, 1))
+
+print()  
+print()
+print('---------- Part (d.2) ----------')
+print()
+#d.2
+
+def roll2dice() -&gt; int:
+    '''takes no parameters and returns a number that reflects
+    the random roll of two dice.'''
+    dice1 = randrange(1,7)
+    dice2 = randrange(1,7)
+    for x in range(50):
+
+        return (dice1 + dice2)
+
+print(roll2dice())
+
+print()  
+print()
+print('---------- Part (d.2) ----------')
+print()
+#d.3
+def distribution_of_rolls(m: int):
+    '''returns the distribution of values of dice rolls'''
+    print('Distribution of dice rolls')
+    print()
+    newroll = [0] * 11
+    for x in range(m):   
+        newroll[roll2dice()-2] += 1 
+    for n in range(2, 13):
+        print("{:2d}:   {:2} ({:4.1f}%) {}".format(n, newroll[n-2], (((newroll[n-2])/m) * 100), newroll[n-2] * '*'))
+    return
+distribution_of_rolls(200)
+            
+print()  
+print()
+print('---------- Part (e.1) ----------')
+print()
+#e.1
+
+def key(num: int) -&gt; str:
+    '''Takes an int and returns a string'''
+    ALPHABET = ('abcdefghijklmnopqrstuvwxyz')
+    return ALPHABET[num:] + ALPHABET[:num]
+
+def Caesar_encrypt(s: str, num: int) -&gt; str:
+    '''takes an int and a string and returns a plaintext'''
+    ALPHABET = ('abcdefghijklmnopqrstuvwxyz')
+    result = str.maketrans(ALPHABET, key(num))
+    return s.translate(result)
+
+def Caesar_decrypt(s: str, num: int) -&gt; str:
+    '''takes an int and a string and returns a cyphertext'''
+    ALPHABET = ('abcdefghijklmnopqrstuvwxyz')
+    result = str.maketrans(key(num), ALPHABET)
+    return s.translate(result)
+assert Caesar_encrypt("ball is life", 5) == "gfqq nx qnkj"
+assert Caesar_decrypt("gfqq nx qnkj", 5) == "ball is life"
+
+print (Caesar_encrypt("ball is life", 5))
+
+print()  
+print()
+print('---------- Part (e.3) ----------')
+print()
+#e.3
+
+def key(num: int) -&gt; str:
+    '''Takes an int and returns a string'''
+    ALPHABET = ('abcdefghijklmnopqrstuvwxyz')
+    return ALPHABET[num:] + ALPHABET[:num]
+
+def Caesar_encrypt(s: str, num: int) -&gt; str:
+    '''takes an int and a string and returns a plaintext'''
+    ALPHABET = ('abcdefghijklmnopqrstuvwxyz')
+    num = num%26
+    result = str.maketrans(ALPHABET, key(num))
+    return s.translate(result)
+
+def Caesar_decrypt(s: str, num: int) -&gt; str:
+    '''takes an int and a string and returns a cyphertext'''
+    ALPHABET = ('abcdefghijklmnopqrstuvwxyz')
+    num = num%26
+    result = str.maketrans(key(num), ALPHABET)
+    return s.translate(result)
+assert Caesar_encrypt("ball is life", 5) == "gfqq nx qnkj"
+assert Caesar_decrypt("gfqq nx qnkj", 5) == "ball is life"
+assert Caesar_encrypt("nam tran", 29) == "qdp wudq"
+assert Caesar_decrypt("qdp wudq", 29) == "nam tran"
+print (Caesar_encrypt("ball is life", 5))
+print (Caesar_encrypt("nam tran", 29))
+
+print()  
+print()
+print('---------- Part (f.1) ----------')
+print()
+#f.1
+
+list1 = ["Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  " nation so conceived and so dedicated, can long endure."]
+def print_line_numbers(l: list) -&gt; list:
+    '''takes a list and prints
+    each string with a line number in front.'''
+    for x in range(len(l)):
+        print('{:2}: {:2}'.format(x + 1, l[x]))
+print_line_numbers(list1)
+
+print()  
+print()
+print('---------- Part (f.2) ----------')
+print()
+#f.2
+
+def stats(l: list) -&gt; None:
+    '''prints statistics of a list.'''
+    N = 0
+    P = 0
+    for i in l:
+        N += len(i)
+        if len(i) == 0:
+            P += 1
+    print("{:2}{}{:2}{}{}{}{}{}"
+          .format(len(l),
+            '    Lines in the list \n', P, '    Total empty \n', N/len(l),
+            '  Average characters per line \n', N/(len(l)-P),
+            '  Average characters per non-empty line', sep=""))
+    
+
+print(stats(list1))
+
+print()
+print()
+print('---------- Part (f.3) ----------')
+print()
+#f.3
+
+import string
+def list_of_words(l: list) -&gt; str:
+    '''returns a list of individual
+    words with all white space and
+    punctuation removed'''
+    result = []
+    for x in l:
+        result.extend(x.split())
+
+    p = string.punctuation.replace("'", "")
+    for word in range(len(result)):
+        new = ""
+        for c in result[word]:
+            if c not in p:
+                new += c
+        result[word] = new
+
+    return result
+print(list_of_words(list1))
+</FONT></PRE>
+</PRE>
+</BODY>
+</HTML>

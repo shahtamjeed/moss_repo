@@ -1,0 +1,305 @@
+<HTML>
+<HEAD>
+<TITLE>daldaron/(c)-(g)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+daldaron/(c)-(g)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab4.py
+# David Aldarondo 50177475 ICS 31 Lab sec 7.  Lab asst 4.
+# JUST A NOTE, I DID THIS PROGRAM BY MYSELF BECAUSE THERE WERE NO
+# LAB PARTNERS LEFT.
+
+#(c)
+#1-
+def test_number(n: int, s: str):
+    '''Tests whether input is True or False'''
+    if n &gt; 0 and s == 'positive':
+        return(n &gt; 0)
+    elif n &gt; 0 and s == 'even':
+        return(n % 2 == 0)
+    elif n &lt; 0 and s == 'even':
+        return(n % 2 == 0)
+    elif n &lt; 0 and s == 'negative':
+         return(n % 2 == 0)
+    elif n &lt; 0 and s == 'odd':
+        return(n % 2 &gt; 0)
+    elif n &lt; 0 and s == 'negative':
+        return(n &lt; 0)
+    elif n &gt; 0 and s == 'odd':
+        return(n % 2 &gt; 0)
+    elif n &gt; 0 and s == 'positive':
+        return(n &gt; 0)
+
+assert test_number(14, 'even')
+assert not test_number(100, 'odd')
+assert test_number(33, 'positive')
+assert not test_number(100, 'negative')
+
+#2
+def display(name: str):
+    '''prints the name out with every character on a new line'''
+    for i in name:
+        print(i)
+
+#3
+def square_list(nums):
+    '''takes a list of integers and returns the squares'''
+    squares = []
+    for i in nums:
+        n = i * i
+        squares.append(n)
+    return squares
+
+#4
+def match_first_letter(letter: str, names: list):
+    '''takes a one-character string and a list of strings
+    and prints all the strings in the list that start with
+    the specified character.'''
+    for i in names:
+        if i[0] == letter:
+            print(i)
+
+
+#5
+def match_area_code(area_codes: list, phone_numbers: list) -&gt; str:
+    ''' takes a one-character string and a list of strings
+    and prints all the strings in the list that start with the
+    specified character.'''
+    for i in phone_numbers:
+        if i[1:4] in area_codes:
+            print(i)
+
+#6
+def match_area_codes(area_codes: list, phone_numbers: list) -&gt; str:
+    ''' takes a one-character string and a list of strings
+    and prints all the strings in the list that start with the
+    specified character.'''
+    for i in phone_numbers:
+        if i[1:4] in area_codes:
+            return(i)
+#(d)
+
+#1
+def is_vowel(letter: str):
+    '''takes a one-character-long
+    string and returns True if that character
+    is a vowel and False otherwise.'''
+    vowels = ['a', 'A', 'e', 'E', 'i', 'I', 'o', 'O', 'u', 'U']
+    return letter in vowels
+assert is_vowel('a') 
+assert is_vowel('U')
+assert not is_vowel('X')
+assert not is_vowel('?')
+
+#2
+def print_nonvowels(word: str):
+    '''takes a string and prints out all the
+    characters in the string that are not vowels'''
+    for i in word:
+        if is_vowel(i):
+            pass
+        else:
+            print(i)
+
+#3
+def nonvowels(word: str):
+    '''takes a string and prints out all the
+    characters in the string that are not vowels'''
+    result = ""
+    for i in word:
+        if is_vowel(i):
+            pass
+        else:
+            result = result + i
+    return(result)
+
+assert nonvowels('hello') == ('hll')
+assert nonvowels('Halloween') == ('Hllwn')
+assert not nonvowels('Your') == ('Your')
+assert not nonvowels('David') == ('David')
+
+#4
+def consonants(cn: str):
+    '''takes a string and returns a string containing
+    all the letters in the parameter string that are not vowels'''
+    consonant = ['b', 'B', 'c', 'C', 'd', 'D', 'f', 'F', 'g', 'G', 'h', 'H', 'j', 'J', 'k', 'l', 'L', 'm', 'M', 'n', 'N', 'p', 'P', 'q', 'Q', 'r', 'R', 's', 'S', 't', 'T', 'v', 'V', 'x', 'X', 'y', 'Y', 'z', 'Z']
+    new_str = ''
+    for i in cn:
+        if i in consonant:
+            new_str = new_str + i
+    return(new_str)
+assert consonants('Hello, my name is David') == ('HllmynmsDvd')
+assert consonants('This is a test sentance.') == ('Thsststsntnc')
+
+#5
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match87-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def select_letters(c_or_v: str, word: str):
+    """ takes two parameters, both strings, and returns a string. If
+    the first parameter is 'v', it returns a string containing all
+    the vowels in the second parameter; if the first parameter is
+    'c', it returns a string containing all the consonants in the
+    second parameter. If the first parameter is anything else, it
+    returns the empty string. """
+</FONT>    new_word = ''
+    if c_or_v == 'c':
+        return consonants(word)
+    if c_or_v == 'v':
+        for i in word:
+            if is_vowel(i):
+                new_word = new_word + i 
+        return(new_word)
+
+assert select_letters('v', 'facetiously') == 'aeiou'
+assert select_letters('c', 'facetiously') == 'fctsly'
+
+#6
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match87-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def hide_vowels(word: str):
+    """ takes a string and returns a string in which every vowel
+    in the parameter is replaced with a hyphen ('-') and all other
+    characters remain unchanged"""
+    hyph = ''
+    for i in word:
+        if is_vowel(i):
+</FONT>            i = '-'
+            hyph = hyph + i
+        elif consonants(i):
+            hyph = hyph + i
+    return(hyph)
+assert hide_vowels('Pickle') == 'P-ckl-'
+
+#(e) not done
+
+from collections import namedtuple
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+
+def Restaurant_change_price(obj: str, num: float):
+    
+        
+#(f)
+    Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number,
+#	best dish, price of that dish
+
+R1 = Restaurant("Taillevent", "French", "343-3434", "Escargots", 24.50)
+R2 = Restaurant("La Tour D'Argent", "French", "343-3344", "Ris de Veau", 48.50)
+R3 = Restaurant("Pascal", "French", "333-4444", "Bouillabaisse", 32.00)
+R4 = Restaurant("Thai Touch", "Thai", "444-3333", "Mee Krob", 10.95)
+R5 = Restaurant("Thai Dishes", "Thai", "333-4433", "Paht Woon Sen",  8.50)
+R6 = Restaurant("Thai Spoon", "Thai", "334-3344", "Mussamun", 9.00)
+R7 = Restaurant("McDonald's", "Burgers", "333-4443", "Big Mac", 3.95)
+R8 = Restaurant("Burger King", "Burgers", " 444-3344", "Whopper", 3.75)
+R9 = Restaurant("Wahoo's", "Fish Tacos", "443-4443", "Mahi Mahi Burrito", 7.50)
+R10 = Restaurant("In-N-Out Burger", "Burgers", "434-3344", "Cheeseburger", 2.50)
+R11 = Restaurant("The Shack", "Burgers", "333-3334", "Hot Link Burger", 4.50)
+R12 = Restaurant("Gina's", "Pizza", "334-4433", "Combo Pizza", 12.95)
+R13 = Restaurant("Peacock, Room", "Indian", "333-4443", "Rogan Josh", 12.50)
+R14 = Restaurant("Gaylord", "Indian", "333-3433", "Tandoori Chicken", 13.50)
+R15 = Restaurant("Mr. Chow", "Chinese", "222-3333", "Peking Duck", 24.50)
+R16 = Restaurant("Chez Panisse", "California", "222-3322", "Grilled Duck Breast", 25.00)
+R17 = Restaurant("Spago", "California", "333-2222", "Striped Bass", 24.50)
+R18 = Restaurant("Sriped Bass", "Seafood", "333-2233", "Cedar Plank Salmon", 21.50)
+R19 = Restaurant("Golden Pagoda", "Chinese", "232-3232", "Egg Foo Young", 8.50)
+R20 = Restaurant("Langer's", "Delicatessen", "333-2223", "Pastrami Sandwich", 11.50)
+R21 = Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50)
+R22 = Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50)
+R23 = Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50)
+R24 = Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50)
+R25 = Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50)
+R26 = Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) 
+
+
+RL = [R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16,
+	R17, R18, R19, R20, R21, R22, R23, R24, R25, R26]
+
+
+#(1)
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match87-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def alphabetical(order: list):
+    """takes a list of restaurants and returns that
+    list in alphabetical order by name """
+    order.sort()
+    return(order)
+
+#(2)
+def alphabetical_names(order: list):
+</FONT>    """takes a list of restaurants and returns a list of the names of
+    all the restaurants in alphabetical order by name. """
+    just_names = []
+    alphabetical(order)
+    for Restaurant in order:
+        if Restaurant.name in Restaurant:
+            just_names.append(Restaurant.name)
+    return(just_names)
+
+#(3)
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match87-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def all_Thai(order: list):
+    """ takes a list of restaurants and returns a list of all
+    the Thai restaurants"""
+    Thai_rest = []
+    for Restaurant in order:
+</FONT>        if Restaurant.cuisine == 'Thai':
+            Thai_rest.append(Restaurant.name)
+    return(Thai_rest)
+
+#(4)
+def select_cuisine(order: list, food: str):
+    """takes a list of restaurants and a string
+    representing a cuisine. """
+    lst = []
+    for Restaurant in order:
+        if Restaurant.cuisine == (food):
+            lst.append(Restaurant.name)
+    return(lst)
+
+#(5)
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match87-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def select_cheaper(order: list, cost: int):
+    """takes a list of restaurants and a number (a float) and
+    returns a list of all the restaurants whose price is less
+    than the specified number"""
+    lst = []
+    for Restaurant in RL:
+        if Restaurant.price &lt; cost:
+            lst.append(Restaurant.name)
+</FONT>    return(lst)
+
+#(6)
+def average_price(order1: list):
+    """takes a list of restaurants and returns
+    the average price of (the best dishes at) those restaurants."""
+    total = 0
+    for Restaurant in order1:
+        if Restaurant.price in Restaurant:
+            total = total + Restaurant.price
+            avg = total / len(order1)
+    return(avg)
+
+#(7)
+
+#(8)
+#print(average_price(select_cuisine(RL, 'Indian')))
+#(9)
+print('---f.9---', select_cheaper(RL, 15))
+#(g)
+def create_rectangle_from_center(x: int, y: int, height: int, width:int):
+    """takes four arguments: the x-value and y-value of
+    the point in the center of the rectangle and the height
+    and width of the rectangle."""
+    import tkinter
+    my_window = tkinter.Tk()
+    my_canvas = tkinter.Canvas(my_window, width=1000, height=1000)
+    my_canvas.pack()
+    my_canvas.create_polygon((x - (width/2), (y - (height/2)), (x + (width/2)), (y - (height/2)), (x + (width/2)), (y + (height/2)), (x - (width/2)), (y + (height/2))))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

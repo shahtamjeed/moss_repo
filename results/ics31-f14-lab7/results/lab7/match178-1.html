@@ -1,0 +1,231 @@
+<HTML>
+<HEAD>
+<TITLE>lihengz2/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+phucbn/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Phuc Nguyen 21582212 and .  ICS 31 Lab sec 14.  Lab asst 7.
+
+print()
+print()
+print('---------- Part (C) ----------')
+print()
+
+from random import randrange
+import random
+
+surnamelist = open('surnames.txt', 'r').readlines()
+malenamelist = open('malenames.txt', 'r').readlines()
+femalenamelist = open('femalenames.txt', 'r').readlines()
+
+# Making lists of names
+surnames = []
+for line in surnamelist:
+    end = line.find('\t')
+    surnames.append(line[:end])
+
+malenames = []
+for line in malenamelist:
+    end = line.find('\t')
+    malenames.append(line[:end])
+
+femalenames = []
+for line in femalenamelist:
+    end = line.find('\t')
+    femalenames.append(line[:end])
+
+def random_name() -&gt; str:
+    '''Return a randomly generated name from the given text files'''
+    full_name = ''
+    x = randrange(1,3)
+    if x == 1:
+        name = random.choice(malenames)
+        full_name += name
+    else:
+        name = random.choice(femalenames)
+        full_name += name
+    full_name += ' ' + random.choice(surnames)
+    return full_name
+
+# Testing random_name
+print(random_name())
+print()
+
+def random_names(x: int) -&gt; list:
+    '''Return a list of randomly generated names'''
+    result = []
+    for name in range(x):
+        result.append(random_name())
+    return result
+
+# Testing random_names
+print(random_names(5))
+        
+print()
+print()
+print('---------- Part (D1) ----------')
+print()
+
+# Caesar cipher code from lab 6
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotated(x: int) -&gt; str:
+    '''Rotate the alphabet using the Caesar cipher'''
+    return alphabet[x%26:] + alphabet[:x%26]
+
+def Caesar_encrypt(x: str, y: int) -&gt; 'ciphertext':
+    '''Encrypts the string x using the Caesar cipher indicated by y'''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match178-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    x = x.lower()
+    table = str.maketrans(alphabet, rotated(y))
+    ciphertext = x.translate(table)
+    return ciphertext
+
+def Caesar_decrypt(x: str, y: int) -&gt; 'plaintext':
+    '''Decrypts the string x using the Caesar cipher indicated by y'''
+    x = x.lower()
+    table = str.maketrans(rotated(y), alphabet)
+    plaintext = x.translate(table)
+    return plaintext
+
+# End of Caesar cipher code from lab 6
+
+def decryptions(x: str) -&gt; list:
+    '''Return a list of 26 possible decryptions of a string'''
+    result = []
+</FONT>    for decryption in range(26):
+        result.append(Caesar_decrypt(x, decryption))
+    return result
+
+# Testing decryptions
+print(decryptions('mjqqt rd sfrj nx rfyy'))
+print()
+
+wordlist_textfile = open('wordlist.txt', 'r').readlines()
+
+# Making list of words in lowercase
+wordlist = []
+for line in wordlist_textfile:
+    end = line.find('\n')
+    wordlist.append(line[:end])
+for word in wordlist:
+    word = word.lower()
+
+def wordlist_check(x: str) -&gt; float:
+    '''Return the number of English words in a string'''
+    x = x.split()
+    for i in range(len(x)):
+        x[i] = x[i].lower()
+    counter = 0
+    for word in x:
+        if word in wordlist:
+            counter += 1
+    return counter
+
+# Testing wordlist_check
+print(wordlist_check('Evolved from dears'))
+print()
+
+def Caesar_break(x: str) -&gt; str:
+    '''Decrypt an encrypted string without the key'''
+    possibilities = decryptions(x)
+    hits = 0
+    for i in range(len(possibilities)):
+        if wordlist_check(possibilities[i]) &gt; hits:
+            hits = wordlist_check(possibilities[i])
+            key = i
+    return Caesar_decrypt(x, key)
+        
+# Testing Caesar_break
+print(Caesar_break('ymnx nx f xjhwjy'))
+print(Caesar_break('lcvsclk myvt klhyz'))
+
+print()
+print()
+print('---------- Part (D2) ----------')
+print()
+
+john_msg = 'bj knsnxmji ymj qfg jfwqd'
+matt_msg = 'gur jbeq yvfg vf gbb fznyy'
+
+print("John's message's is: " + john_msg)
+print("Decryption by Matt: ")
+print(Caesar_break(john_msg))
+print('')
+print("Matt's message's is: " + matt_msg)
+print("Decryption by John: ")
+print(Caesar_break(matt_msg))
+
+print()
+print()
+print('---------- Part (E) ----------')
+print()
+
+# Stats code from lab 6
+
+def sum_of_characters(x: 'list of strings') -&gt; str:
+    '''Return the sum of characters in each line in the list'''
+    z = 0
+    for i in x:
+        for j in i:
+            z = z + 1
+    return z
+
+def stats(x: 'list of strings') -&gt; str:
+    '''Print some statistics about the list of strings'''
+    # Assigning variables for formatting
+    average_char = sum_of_characters(x) / len(x)
+    nonempty_average_char = sum_of_characters(x) / (len(x) - x.count('\n'))
+    lines = str(len(x))
+    empty_lines = str(x.count('\n'))
+    char_line = str('{:.2f}'.format(average_char))
+    char_nonempty_line = str('{:.2f}'.format(nonempty_average_char))
+    return ('{:&gt;8} line(s) in the list\
+    \n{:&gt;8} empty line(s)\
+    \n{:&gt;8} average character(s) per line\
+    \n{:&gt;8} average character(s) per non-empty line'\
+    .format(lines, empty_lines, char_line, char_nonempty_line))
+
+# End of stats code from lab 6
+
+def copy_file(x: str) -&gt; None:
+    '''Copy a file based on user input in the same directory'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    textfile = infile.readlines()
+    if x == 'line numbers':
+        for i in range(len(textfile)):
+            outfile.write('{:&gt;5}: {}'.format(i + 1, textfile[i]))
+    elif x == 'Gutenberg trim':
+        start = textfile.index('*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n')
+        end = textfile.index('*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n')
+        for i in range(start + 1, end - 1):
+            outfile.write(textfile[i])
+    elif x == 'statistics':
+        outfile.write(stats(textfile) + '\n\n')
+        outfile.close()
+        outfile = open(outfile_name, 'a')
+        for line in textfile:
+            outfile.write(line)
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+"""
+copy_file()
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+copy_file('statistics')
+"""
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,296 @@
+<HTML>
+<HEAD>
+<TITLE>codyh1/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+gschahal/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Enrique Ruiz 50402628 and Gurkirt Chahal 93465163.    ICS 31 Lab sec 15.  Lab asst 6.
+
+#C1
+print()
+print('--------C.1--------')
+print()
+print()
+
+
+def contains(s: str, t:str) -&gt; bool:
+    """takes as input two strings. The function checks if the second string occurs
+    in the first string. If the second string does occur, the function returns True;
+    if not, it returns False"""
+    if t in s:
+        return True
+
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+assert contains('apple', 'ppl')
+assert contains('fghjk', 'fgh')
+
+
+#C2
+print()
+print('--------C.2--------')
+print()
+print()
+
+
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match240-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def sentence_stats(x:str):
+    """takes in a string as a parameter and prints out these statistics about
+    the string: its length in characters, its length in words, and the average
+</FONT>    length of each word."""
+    print('Characters:',len(x))
+    z = x.count(' ')
+    print('Words:',z + 1)
+    print('Average word length:',len(x)/(z+1))
+
+
+#C3
+print()
+print('--------C.3--------')
+print()
+print()
+
+
+      
+def initials(s: str)-&gt;str:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match240-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    """takes as input a string representing a full name (e.g., Robert B. Qwerty)
+    and returns the initials of the name in all capital letters (e.g., RBQ)."""
+</FONT>    z = s.title()
+    l = z.split()
+    x = ''
+    for i in l:
+        x += i[0]
+    return(x)
+        
+assert initials('dsk jl hvgf') == 'DJH'
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+
+
+#D1
+print()
+print('--------D.1--------')
+print()
+print()
+
+
+
+from random import randrange
+
+x=0
+while x&lt;51:
+    print(randrange(11))
+    x+=1
+z = 0
+print('\n')
+while z&lt;51:
+    print(randrange(1,7))
+    z += 1
+print('\n')
+
+
+
+#D2
+print()
+print('--------D.2--------')
+print()
+print()
+
+
+
+def roll2dice() -&gt; int:
+    x = randrange(1, 7)
+    z = randrange(1,7)
+    return(x+z)
+
+for i in range(50):
+    print(roll2dice())
+print('\n')
+
+
+
+
+#D3
+print()
+print('--------D.3--------')
+print()
+print()
+
+
+
+
+def distribution_of_rolls(i: int):
+    '''prints the distribution of the values of those rolls'''
+    tally = []
+    percent = []
+    w = []
+    b = 2
+    for x in range(i):
+        w.append(roll2dice())
+    for x in range(11):
+        tally.append(w.count(b))
+        percent.append((w.count(b) / i) * 100)
+        b += 1
+    print('Distribution of dice rolls')
+    print('\n')
+    b = 2
+    for x in range(11):
+        print('{0:&gt;2}:    {1:&gt;2} ({2:&gt;4})  {3:&gt;3}'.format(b, tally[x], round(percent[x],1),
+                                                    ('*' * tally[x])))
+        b += 1
+    print('-' * 30)
+    print((' ' * 6),i, 'rolls')
+    return
+print(distribution_of_rolls(300))
+
+
+
+
+#E1
+print()
+print('--------E.1--------')
+print()
+print()
+
+
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+def Caesar_encrypt(s: str, i:int):
+    '''takes two arguments: a string containing the message and an int for the key,
+    indicating how far down the alphabet to find each substitute letter.'''
+    alphabet2 = alphabet
+    alphabet2 += alphabet[0:i%26]
+    return s.translate(str.maketrans(alphabet, alphabet2[i%26:]))
+print(Caesar_encrypt('hello', 37))
+
+def Caesar_decrypt(s:str, i:int):
+    '''returns plaintext of encryption'''
+    decrypt = ''
+    decrypt +=alphabet[i%26:26]
+    decrypt +=alphabet[0:i%26]
+    return s.translate(str.maketrans(decrypt, alphabet))
+print(Caesar_decrypt('spwwz', 37))
+
+
+
+#E2
+print()
+print('--------E.2--------')
+print()
+print()
+
+
+
+#E3
+print()
+print('--------E.3--------')
+print()
+print()
+
+
+print('Replaced i with i%26 in E1')
+
+
+#Replaced i with i%26 in E1
+
+
+
+
+#F1
+print()
+print('--------F.1--------')
+print()
+print()
+
+
+
+k =[ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+def print_line_numbers(l: list):
+    '''takes a list and prints each line on a numbered line'''
+    b = 0
+    w = 1
+    for i in l:
+        print('{0}:  {1}'.format(w, l[b]))
+        w +=1
+        b +=1
+print_line_numbers(k)
+
+
+
+
+#F2
+print()
+print('--------F.2--------')
+print()
+print()
+
+
+
+def stats(l: list):
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match240-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    '''takes a list of strings and prints statistics as follows:
+ 16824  lines in the list
+   483  empty lines
+  53.7  average characters per line
+  65.9  average characters per non-empty line'''
+</FONT>    emp=0
+    strlength=0
+    print('{0:&gt;5}  lines in the list'.format(len(l)))
+    for i in l:
+        strlength+=len(i)
+        if i == '':
+            emp += 1
+    print('{0:&gt;5}  empty lines'.format(emp))
+    print('{0:&gt;5}  average characters per line'.format(strlength/len(l)))
+    print('{0:&gt;5}  average characters per non-empty line'.format(strlength/(len(l)-emp)))
+    
+
+   
+stats(k)
+
+
+
+#F3
+print()
+print('--------F.3--------')
+print()
+print()
+
+
+
+k_stripped =[ """Four score and seven years ago, our fathers brought forth
+    on this continent a new nation, conceived in liberty and dedicated
+    to the proposition that all men are created equal.  Now we are
+    engaged in a great 		civil war, testing whether that nation,
+    or anynation so conceived and so dedicated, can long endure.        """ ]
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match240-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def list_of_words(l:list)-&gt;list:
+    '''takes a list of strings as above and returns a list of
+    individual words with all white space and punctuation removed'''
+</FONT>    single=[]
+    for i in l:
+        single+=i.split()
+    return single
+
+print(list_of_words(k))
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

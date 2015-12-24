@@ -1,0 +1,157 @@
+<HTML>
+<HEAD>
+<TITLE>truongjp/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+wongbm2/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Brian Wong 34216498 and Gavin Tom 16404177 ICS 31 Lab Sec. 5 Lab asst 7.
+
+
+print('----Part C----')
+from random import randrange
+
+surnames_file = open('surnames.txt', 'r')
+femalenames_file = open('femalenames.txt', 'r')
+malenames_file = open('malenames.txt', 'r')
+
+surnames = surnames_file.read().strip().split('\n')
+femalenames = femalenames_file.read().strip().split('\n')
+malenames = malenames_file.read().strip().split('\n')
+first_names = femalenames + malenames
+
+def get_name(name:list)-&gt;str:
+    """gets a random name"""
+    index = randrange(0,len(name))
+    name_line = name[index].split('\t')
+    return name_line[0].capitalize()
+
+def random_names(times:int)-&gt;list:
+    """Returns specified number of names"""
+    total = []
+    for i in range(times):
+        total.append(get_name(surnames) + ', ' + get_name(first_names))
+    return total
+print('Testing function random_names:')
+print(random_names(5))
+print('\n\n')
+
+
+
+
+
+print('----Part D----')
+
+ALPHABET='abcdefghijklmnopqrstuvwxyz'
+def make_translation(encrypt: bool, key:int):
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match201-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    """makes translation depending on key"""
+    new_table = ALPHABET[key:] + ALPHABET[:key]
+    if (encrypt==True):
+        return str.maketrans(ALPHABET, new_table)
+    else:
+        return str.maketrans(new_table, ALPHABET)
+
+def Caesar_encrypt(message:str, key:int)-&gt;str:
+</FONT>    table = make_translation(True, key%26)
+    return message.lower().translate(table)
+
+
+def Caesar_decrypt(message:str, key:int)-&gt;str:
+    table = make_translation(False, key%26)
+    return message.lower().translate(table)
+assert Caesar_encrypt("HI THERE", 3) == 'kl wkhuh'
+assert Caesar_decrypt("kl wkhuh", 3) == 'hi there'
+
+def Caesar_break(string: str):
+    """breaks encrypted message without a key"""
+    dictionary = open('wordlist.txt', 'r')
+    dic = dictionary.read().split('\n')
+
+    possibles =[]
+    counter=[]
+    for i in range(26):
+        possibles.append(Caesar_decrypt(string,i))
+        counter.append(0)
+
+    for i in range(26):
+        for word in possibles[i].split():
+            if word in dic:
+                counter[i] +=1
+                
+    max_times = 0
+    answer = ''
+    for i in range(26):
+        if counter[i]&gt;max_times:
+            max_times = counter[i]
+            answer = possibles[i]
+    return answer
+
+
+import timeit
+start = timeit.default_timer()
+
+print(Caesar_break('n qnpj hmjjxj fsi lnwfkkjx'))
+
+stop = timeit.default_timer()
+print('{:2.3f} seconds'.format(stop - start))
+print()
+print('^Fastest Ceasar_break?')
+print('\n\n')
+
+
+
+print('----Part E----')
+def copy_file(command:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+        
+    if command == 'line numbers':
+        linenumber = 0
+        for line in infile:
+            linenumber += 1
+            outfile.write('{:5d}: {}'.format(linenumber, line))           
+    elif command == 'Gutenberg trim':
+        begin = infile.read()
+        start = begin.find('***\n')+3
+        end = begin.find('*** END')
+        outfile.write(begin[start:end].strip())
+    elif command == 'statistics':
+        begin = infile.read().split('\n')
+        lines_in_the_list = len(begin)
+        total_chars = len(''.join(begin))
+        counter_emp =0
+        for i in begin:
+            if i.strip() == '':
+                counter_emp += 1
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match201-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        avg_char_line= total_chars/lines_in_the_list
+        avg_char_nonemp_line = total_chars/(lines_in_the_list-counter_emp)
+        print('{:7d}   lines in the list'.format(lines_in_the_list))
+        print('{:7d}   empty lines'.format(counter_emp))
+        print('{:9.1f} average characters per line'.format(avg_char_line))
+        print('{:9.1f} average characters per non-empty line'.format(avg_char_nonemp_line))              
+</FONT>    else:
+        for line in infile:
+            outfile.write(line)
+        
+    infile.close()
+    outfile.close()
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

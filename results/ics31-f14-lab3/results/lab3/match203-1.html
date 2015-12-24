@@ -1,0 +1,309 @@
+<HTML>
+<HEAD>
+<TITLE>sargsyaa/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+zahnd/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Derek Zahn 15546893 and Tristan Bock 50665011. ICS 31 Lab sec 15. Lab asst 3.
+
+# Part C
+print('\n-------- Part C --------')
+
+# Part C.1
+
+def abbreviate(month: str) -&gt; str:
+    "Abbreviates the input to the first three leters."
+    return month[0:3]
+
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+
+# Part C.2
+
+def find_area_square(length: int) -&gt; int:
+    "Calculates the area of a square."
+    return (length ** 2)
+
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+# Part C.3
+
+def find_area_circle(radius: int) -&gt; float:
+    "Calculates the area of a circle."
+    return((radius ** 2) * 3.14159)
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+# Part C.4
+
+def print_even_numbers(int_list: list) -&gt; None:
+    "Prints out the even numbers of a list."
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match203-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for num in range(0, len(int_list)):
+        if int_list[num]%2 == 0:
+            print(int_list[num])
+            
+print_even_numbers([2, 47, 34, 103, 4096])      
+</FONT>            
+# Part C.5
+
+def calculate_shipping(weight: float) -&gt; float:
+    "Calculates the coast to ship a package."
+    if weight &lt; 2:
+        rate = 2.00
+    elif 2 &lt;= weight &lt; 10:
+        rate = 5.00
+    else:
+        rate = 5.00 + 1.50 * (weight - 10.0)
+    return rate
+
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+# Part C.6
+
+import tkinter              # Load the library; do this just once per program
+
+def create_square(x: int, y: int, length: int) -&gt; None:
+    "Draws a square given a point and side length."
+    my_window = tkinter.Tk()    # Create the graphics window
+
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+    my_canvas.pack()            # Put the canvas into the window
+    
+    my_canvas.create_rectangle(x, y, x + length, y + length)
+    
+create_square(100, 100, 100)
+
+# Part C.7
+
+def create_circle(x: int, y: int, diam: int) -&gt; None:
+    "Draws a circle given a point and the diameter."
+    my_window = tkinter.Tk()    # Create the graphics window
+
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+    my_canvas.pack()            # Put the canvas into the window
+
+    my_canvas.create_oval(x, y, x + diam, y + diam)
+
+create_circle(100, 100, 100)
+
+# Part D
+print('\n-------- Part D --------')
+
+# Part D.1
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurant_price(rest: Restaurant) -&gt; float:
+    "Returns the price field of a Restaurant."
+    return rest.price
+
+assert restaurant_price(RC[0]) == 12.50
+assert restaurant_price(RC[4]) == 5.50
+
+#Part D.2
+
+RC.sort(key=restaurant_price)
+
+for i in range(0,len(RC)):
+    print(RC[i])
+
+#Part D.3
+
+def costliest(restlist: list) -&gt; str:
+    "Sorts the restaurnats in the given list by price."
+    restlist.sort(key=restaurant_price)
+    return restlist[-1].name
+
+assert costliest(RC) == "Noma"
+
+#Part D.4
+
+def costliest2(restlist: list) -&gt; str:
+    "Sorts the restaurants in the given list by price w/o altering the list."
+    restlist2 = sorted(restlist, key=restaurant_price)
+    return restlist2[-1].name
+
+assert costliest2(RC) == "Noma"
+
+# Part E
+print('\n-------- Part E --------')
+
+# Part E.1
+
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+     Book("Tolkien", "The Hobbit", "Fantasy", 1937, 20.00, 40),
+     Book("Tolkien", "Fellowship of the Ring", "Fantasy", 1954, 18.75, 23),
+     Book("Tolkien", "Two Towers", "Fantasy", 1954, 21.45, 3),
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match203-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+     Book("Tolkien", "The Return of the King", "Fantasy", 1955, 16.89, 300),
+     Book("Rowling", "Harry Potter: The Sorceror's Stone", "Fantasy", 1997, 12.00, 17),
+     Book("Rowling", "Harry Potter: The Prisoner of Azkaban", "Fantasy", 1999, 14.00, 35) ]
+
+
+for i in range(0, len(BSI)):
+     print(BSI[i].title)
+</FONT>
+# Part E.2
+print("\n")
+     
+def book_title(book: Book) -&gt; str:
+    "Returns the title field of a book."
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match203-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return book.title
+
+assert book_title(BSI[0]) == "The Hobbit"
+assert book_title(BSI[2]) == "Two Towers"
+
+for i in range(0, len(BSI)):
+</FONT>    BSIsort = sorted(BSI, key = book_title)
+    print(BSIsort[i].title)
+
+# Part E.3
+print("\n")
+
+for i in range(0, len(BSI)):
+    print("Old price:", "%.2f" % BSI[i].price)
+    BSI[i] = BSI[i]._replace(price = BSI[i].price * 1.1)
+    print("New price:", "%.2f" % BSI[i].price)
+
+# Part E.4
+print("\n")
+
+non_tech = 0
+
+for i in range(0, len(BSI)):
+    if BSI[i].genre == "Technology":
+        print(BSI[i].title, "has a genre of Technology.")
+    elif BSI[i].genre != "Technology":
+        non_tech += 1
+
+if non_tech == len(BSI):
+    print("None of the books in the list BSI has a genre of Technology.")
+
+    
+# Part E.5
+print("\n")
+
+old_books = []
+new_books = []
+num_old_books = 0
+num_new_books = 0
+
+for i in range(0, len(BSI)):
+    if BSI[i].year &lt; 2000:
+        old_books.append(BSI[i])
+        num_old_books += BSI[i].instock
+    else:
+        new_books.append(BSI[i])
+        num_new_books += BSI[i].instock
+
+if num_old_books &gt; num_new_books:
+    print("More books before 2000.(", num_old_books, 'vs.', num_new_books,')')
+else:
+    print("More books after 2000.(", num_new_books, 'vs.', num_old_books,')')
+
+# Part E.6
+print('\n')
+
+def inventory_value(book: Book) -&gt; float:
+    "Take in a book and returns the value of its inventory."
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match203-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    value = book.price * book.instock
+    return value
+
+assert inventory_value(BSI[0]) == 880.00
+assert inventory_value(BSI[4]) == 224.40
+</FONT>assert inventory_value(BSI[3]) == 5573.70
+
+def top_value(booklist: list) -&gt; Book:
+    "Take a list of books and return the Book object with the highest value."
+    booklist2 = sorted(booklist, key = inventory_value)
+    return booklist2[-1]
+
+assert top_value(BSI) == BSI[3]
+
+topbook = top_value(BSI)
+print("The highest-value book is", topbook.title,"by", topbook.author, "at a value of $" + "%.2f" % inventory_value(topbook))
+
+# Part F
+print('\n-------- Part F --------')
+print("Draws faces.")
+
+def draw_eye(x1: int, y1: int, x2: int, y2: int, color: str) -&gt; None:
+    "Draws an eye based on inputed points."
+    dx = x2 - x1
+    dy = y2 - y1
+    my_canvas.create_oval(x1 + dx/4, y1, x2 - dx/4, y2, fill = color)  # Draw iris
+    my_canvas.create_oval(x1 + dx/3, y1 + dy/5, x2 - dx/3, y2 - dy/5, fill = 'black')  # Draw pupil
+    my_canvas.create_oval(x1, y1, x2, y2)                  # Draw eye whites
+
+
+
+def draw_nose(x1: int, y1: int, x2: int, y2: int, x3: int, y3: int) -&gt; None:
+    "Draws a nose given 3 points, the second point being the intersection."
+    my_canvas.create_line(x1, y1, x2, y2)
+    my_canvas.create_line(x2, y2, x3, y3)
+
+
+
+def draw_mouth(x1: int, y1: int, x2: int) -&gt; None:
+    "Draws a straight-line mouth given a point and another x-coordinate."
+    my_canvas.create_line(x1,y1,x2,y1)
+
+
+
+def draw_face(x1: int, y1: int, x2: int, y2: int, eye_color: str) -&gt; None:
+    "Draws the entire face given two points, scaling included."    
+    dx = x2 - x1
+    dy = y2 - y1
+    my_canvas.create_oval(x1, y1, x2, y2)
+    draw_eye(x1 + dx*0.25, y1 + dy*0.25, x1 + dx*0.45, y1 + dy*0.35, eye_color)
+    draw_eye(x1 + dx*0.55, y1 + dy*0.25, x1 + dx*0.75, y1 + dy*0.35, eye_color)
+    draw_nose(x1 + dx*0.5, y1 + dy*0.4, x1 + dx*0.45, y1 + dy*0.55, x1 + dx*0.55, y1 + dy*0.55)
+    draw_mouth(x1 + dx*0.35, y1 + dy*0.67, x1 + dx*0.65)
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+draw_face(0, 0, 500, 500, 'brown') # Normal, equal scale face. No stretch or squish.
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+draw_face(100, 200, 400, 300, 'blue') # Horizontally stretched, vertically squished face.
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+draw_face(100, 100, 200, 400, 'green') # Vertically stretched, horizontally squished faced.
+</PRE>
+</PRE>
+</BODY>
+</HTML>

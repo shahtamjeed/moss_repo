@@ -1,0 +1,225 @@
+<HTML>
+<HEAD>
+<TITLE>richmonl/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+tylerkv/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Tyler Vu 82249442. ICS 31 Lab Sec 14. Lab asst. 7
+
+# Part C ##################################################################
+print('Part C')
+print()
+
+from random import randrange
+
+def female() -&gt;str:
+    'gets female first name'
+    femalename = open('femalenames.txt', 'r')
+    femalename_list = femalename.readlines()
+    splitlist = femalename_list[randrange(1000)].split()
+    return splitlist[0]
+    
+def male() -&gt;str:
+    'gets male first name'
+    malename = open('malenames.txt', 'r')
+    malename_list = malename.readlines()
+    splitlist = malename_list[randrange(1000)].split()
+    return splitlist[0]
+
+def surname() -&gt;str:
+    'gets surname'
+    surname = open('surnames.txt', 'r')
+    surname_list = surname.readlines()
+    splitlist = surname_list[randrange(1000)].split()
+    return splitlist[0]
+
+def random_name() -&gt;str:
+    'generates a single random name'
+    random = randrange(0,1)
+    firstname = ()
+    lastname = surname()
+    if random == 0:
+        firstname = male()
+    else:
+        firstname = female()
+    name = firstname + ' ' + lastname
+    return(name)
+
+def random_names(number:int) -&gt;list:
+    '''takes an integer and returns a list of that many strings, with each
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match224-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    string a randomly generated name'''
+    name_list = []
+    for x in range(number):
+        name_list.append(random_name())
+    return(name_list)
+
+print(random_names(10))
+print()
+
+# Part D ##################################################################
+print('Part D')
+print()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+
+
+def newalphabet(n:int) -&gt; str:
+</FONT>    'rearranges alphabet by shifting to the right n times'
+    ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match224-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    ALPHABET = ALPHABET[n:]+ALPHABET[:n]
+    return ALPHABET
+
+def Caesar_encrypt (s: str, n: int) -&gt; str:
+    'takes a plain text and encrypts it into code by shifting to right of alphabet'
+    t = s.lower()
+</FONT>    table = str.maketrans(ALPHABET[0:26],newalphabet(n % 26))
+    return t.translate(table)
+
+assert Caesar_encrypt('I love UCI',5) == 'n qtaj zhn'
+
+def Caesar_decrypt(s: str, n:int) -&gt; str: 
+    'takes the ciphertext and turns it back into plaintext given the key'
+    table = str.maketrans(ALPHABET[0:26],newalphabet(-n % 26))
+    return (s.translate(table)).capitalize()
+
+example = 'n qtaj zhn'
+
+# D1
+
+def Caesar_break(ciphertext:str) -&gt;str:
+    '''that takes a ciphertext string (encrypted using a Caesar cipher as
+    we did last week) and returns the plaintext for that string, without
+    having the key.'''
+    dictionary = open('wordlist.txt', 'r')
+    temp_list = dictionary.readlines()
+    dictionary_list = []
+    for word in temp_list:
+        dictionary_list.append(word.replace('\n',''))
+    decrypt_score = 0
+    final_score = 0
+    key = 0
+    for number in range(27):   
+        text_split = Caesar_decrypt(ciphertext,number).split()
+        for string in text_split:
+            lower_string = string.lower()
+            if lower_string in dictionary_list:
+                decrypt_score = decrypt_score + 1
+        if decrypt_score &gt; final_score:
+            final_score = decrypt_score
+            decrypt_score = 0
+            key = number
+    return Caesar_decrypt(ciphertext,key)
+
+# Part E ##############################################################
+print('Part E')
+print()
+
+# E1 - E4
+
+def copy_file(string:str) -&gt;None:
+    'copies a file, line by line.'
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if string == 'line numbers':
+        temp_list = infile.readlines() 
+        infile_list = []
+        for word in temp_list:
+            infile_list.append(word.replace('\n',''))
+        for number in range(1,len(infile_list)+1):
+            string_number = infile_list[number - 1]
+            outfile.write('{:5}: {}'.format(number,string_number))
+            outfile.write('\n')
+    elif string == 'Gutenberg trim':
+        temp_list = infile.readlines()
+        infile_list = []
+        for word in temp_list:
+            infile_list.append(word.replace('\n',''))
+        for line in temp_list:
+            if '*** START ' in line:
+                start_point = temp_list.index(line) + 1
+        for line in temp_list:
+            if '*** END ' in line:
+                end_point = temp_list.index(line)
+        for line in temp_list[start_point:end_point]:
+            outfile.write(line)
+    elif string == 'statistics':
+        temp_list = infile.readlines()
+        infile_list = []
+        for word in temp_list:
+            infile_list.append(word.replace('\n',''))
+        linenum = len(infile_list)
+        emptynum = 0
+        for line in temp_list:
+            if line == '\n':
+                emptynum += 1
+        avgchar1 = 0
+        for line in temp_list:
+            avgchar1 += len(line)
+        avgchar = avgchar1/len(temp_list)
+        nonempty1 = 0
+        for line in infile_list:
+            nonempty1 += len(line)
+        nonempty = nonempty1/len(infile_list)
+        for line in temp_list:
+            outfile.write(line)
+        for number in range(4):
+            outfile.write('\n')
+        formatline = '{:7.2f} {:1s} \n'
+        outfile.write(formatline.format(linenum,'lines in the file'))
+        outfile.write(formatline.format(emptynum, 'empty lines'))
+        outfile.write(formatline.format(avgchar, 'average characters per line'))
+        outfile.write(formatline.format(nonempty, 'average characters per non-empty line'))
+    else:   
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+
+
+
+
+
+
+
+    
+    
+    
+
+
+
+    
+            
+                
+
+    
+        
+        
+    
+
+    
+    
+
+
+
+
+
+
+
+
+        
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

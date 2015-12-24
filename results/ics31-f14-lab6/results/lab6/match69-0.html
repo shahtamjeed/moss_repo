@@ -1,0 +1,205 @@
+<HTML>
+<HEAD>
+<TITLE>ajching/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ajching/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Aaron J Ching 28162665 and Adan Castillo 24368198
+
+
+#---------------------------------Part c1)
+
+def contains(word: str, inside: str) -&gt; bool:
+    return (inside in word)
+
+assert contains('banana', 'ana') == True
+assert not contains('racecar', 'ok') == True
+
+
+#---------------------------------Part c2)
+
+def change_to_spaces(phrase: str) -&gt; str:
+    table = str.maketrans('.,!?:;"/*', '         ')
+    return phrase.translate(table)
+
+
+def sentence_stats(word: str):
+    print('Characters: ', len(word))
+    new = change_to_spaces(word)
+    print('Words:', len(new.split()))
+    first = 0
+    avg = 0
+    for i in (new.split()):
+        avg += len(i)
+    avg = (avg/len(new.split()))
+    print('Average word length:', avg)
+    
+sentence_stats('How are you?')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+
+#---------------------------------Part c3)
+
+def initials(name: str) -&gt; str:
+    names = name.split()
+    initials = []
+    for i in names:
+        initials.append(i[0])
+    new = "".join(initials)
+    return new
+
+assert initials('Aaron Ching') == 'AC'
+assert initials('Adan Castillo') == 'AC'
+              
+#---------------------------------Part d1)
+
+from random import randrange
+
+for i in range(50):
+    print(randrange(11), end = '')
+for i in range(50):
+    if i == 50:
+        print(randrange(1,7))
+    else:
+        print(randrange(1, 7), end = '')
+
+#---------------------------------Part d2)
+
+def roll2dice() -&gt; int:
+    return randrange(1,7) + randrange(1, 7)
+
+for i in range(50):
+    print (roll2dice(), end = ''),
+    
+def printstars(stars: int) -&gt; str:
+    star = []
+    for i in range(stars):
+        star.append("*")
+    return("".join(star))
+
+
+def distribution_of_rolls(rolls: int):
+    rolltype = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    rollcount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    for i in range(rolls):
+        roll = roll2dice()
+        for j in range(len(rolltype)):
+            if roll == rolltype[j]:
+                rollcount[j] = rollcount[j] + 1
+    total = sum(rollcount)
+    print("Distribution of dice rolls")
+    for k in range(len(rolltype)):
+          #  print(rolltype[k], ": ", rollcount[k], "(", rollcount[k]/total * 100, "%)", sep= "", end = '')
+            print("{:2}:   {:2} ({:5.2f}%) {:}".format(rolltype[k], rollcount[k], (rollcount[k]/total *100), printstars(rollcount[k])))
+    print("-----------------------------")
+    print(rolls, "rolls")
+
+distribution_of_rolls(200)
+
+#---------------------------------Part e1)
+
+ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+alphabet = ALPHABET.lower()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match69-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_31.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+punctuation = ''',./?'";:!@#$%^&* '''
+
+def Caesar_encrypt(word: str, shift: int) -&gt; str:
+    word = word.lower()
+    newword = []
+    for i in range(len(word)):
+        for j in range(len(alphabet)):
+            if word[i] == alphabet[j]:
+                if ((j + shift) &gt; 25):
+                    shift = shift - 26
+                else:
+                    newword.append(alphabet[j+shift])
+        for k in range(len(punctuation)):
+            if word[i] == punctuation[k]:
+                newword.append(word[i])
+        
+    return "".join(newword)
+
+print(Caesar_encrypt("Aaron Ching", 1))
+
+def Caesar_decrypt(word: str, shift: int) -&gt; str:
+    newword = []
+    for i in range(len(word)):
+        for j in range(len(alphabet)):
+            if word[i] == alphabet[j]:
+                if ((j - shift) &lt; 0):
+                    shift = shift + 26
+                else:
+                    newword.append(alphabet[j-shift])
+        for k in range(len(punctuation)):
+            if word[i] == punctuation[k]:
+                newword.append(word[i])
+                               
+    return "".join(newword)
+
+print(Caesar_decrypt(Caesar_encrypt("Aaron Ching", 1), 1))
+
+#---------------------------------Part e3) done
+#---------------------------------Part f1)
+
+def print_line_numbers(wordlist: list):
+    for i in range(len(wordlist)):
+        print("{:2}:  {:}".format(str(i+1), wordlist[i]))
+
+print_line_numbers(["This is for a lab",
+                    "that is being done in",
+                    "an ICS 31 class",
+                    "where we learn how to code",
+</FONT>                    "with Python.", "a", "b", "c", "d", "e", "f", "g"])
+
+#---------------------------------Part f2)
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match69-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats(wordlist: list):
+    length = len(wordlist)
+    empty = 0
+    total = 0
+    non_empty_total = 0
+    for i in wordlist:
+        if i == "":
+            empty += 1
+            total += 1
+        total += len(i)
+        non_empty_total += len(i)
+    print("{:6} {:}".format((length),"lines in the list"))
+    print("{:6} {:}".format((empty), "empty lines"))
+    print("{:6.1f} {:}".format((total/length), "average characters per line"))
+    print("{:6.1f} {:}".format((non_empty_total), "average characters per non-empty line"))
+
+stats(["This is for a lab",
+                    "that is being done in",
+                    "an ICS 31 class",
+                    "where we learn how to code",
+                    "with Python.", "a", "b", "c", "d", "e", "f", "g"])      
+</FONT>
+#---------------------------------Part f3)
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match69-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def list_of_words(wordlist: list) -&gt; list:
+    for i in range(len(wordlist)):
+        wordlist[i] = change_to_spaces(wordlist[i])
+    newlist = " ".join(wordlist)    
+    newnewlist = newlist.split()
+    return newnewlist
+
+print(list_of_words(["This is for a lab",
+                    "that is being done in",
+                    "an ICS 31 class",
+</FONT>                    "where we learn how to code",
+                    "with Python.", "a", "b", "c", "d", "e", "f", "g"]))
+
+#---------------------------------Part g)
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

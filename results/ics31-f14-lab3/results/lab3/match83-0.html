@@ -1,0 +1,307 @@
+<HTML>
+<HEAD>
+<TITLE>cnapoli/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+cnapoli/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Kimberly Murray 54249717 and Cameron Napoli 73223093. ICS 31 Lab sec 5. Lab asst 3.
+
+#
+# Part (c)
+#
+
+
+# c.1
+def abbreviate(month: str) -&gt; str:
+    ''' Returns only the first three letters of the word '''
+    return month[0:3]
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+assert abbreviate('Cameron') == 'Cam'
+
+
+# c.2
+def find_area_square(side: int) -&gt; int:
+    ''' Returns the squared value of a side '''
+    return side ** 2
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+assert find_area_square(13) == 169
+
+# c.3
+def find_area_circle(radius: float) -&gt; float:
+    ''' Return the area of a circle '''
+    return (3.14159) * (radius ** 2)
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+assert find_area_circle(10) == 314.159
+
+# c.4
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match83-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def print_even_numbers(number_list: list):
+    ''' Prints the even integers '''
+    for num in number_list:
+        if num % 2 == 0:
+            print(num)
+    return
+
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+</FONT>print()
+
+
+# c.5
+def calculate_shipping(weight_of_package: float) -&gt; float:
+    ''' Returns the price of shipping '''
+    if weight_of_package &lt; 2:
+        return 2.00
+    elif weight_of_package &gt;= 2 and weight_of_package &lt; 10:
+        return 5.00
+    elif weight_of_package &gt;= 10:
+        return 5 + ( 1.50 * (weight_of_package - 10) )
+
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match83-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert calculate_shipping(15) == 12.50
+assert calculate_shipping(40.75) == 51.125
+
+
+# Code to setup tkinter drawing window
+import tkinter              
+my_window = tkinter.Tk()    
+my_canvas = tkinter.Canvas(my_window, width = 500, height = 500)   
+my_canvas.pack()
+
+# c.6
+def create_square(x: int, y: int, side_length: int):
+</FONT>    ''' Draws a square on the tkinter canvas '''
+    my_canvas.create_rectangle(x, y, x + side_length, y + side_length)
+    return
+
+create_square(100, 100, 150)
+
+# c.7
+def create_circle(x: int, y: int, diameter:int):
+    ''' Draws a circle on the tkinter canvas '''
+    my_canvas.create_oval(x, y, x + diameter, y + diameter)
+    return
+
+create_circle(100, 100, 150)
+
+
+tkinter.mainloop()          
+
+
+# (d)
+from collections import namedtuple     
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+
+# d.1
+def restaurant_price(restaurant_name: Restaurant) -&gt; float:
+    ''' Returns the value of the price'''
+    return restaurant_name.price
+assert restaurant_price(RL[0])== 12.50
+
+print("First restaraunt's price:", restaurant_price(RL[0]))
+print("Last restaurant's price:", restaurant_price(RL[-1]))
+print()
+
+# d.2
+RL.sort(key = restaurant_price) # uses function restaurant_price as parameter to sort
+print('Dishes in order of price (lowest to highest):')
+
+for r in RL:
+    print(r.dish)
+    
+print()
+
+# d.3
+def costliest(restaurant_list: list) -&gt; str:
+    ''' return the name of the restaurant with the highest price '''
+    restaurant_list.sort(key = restaurant_price)
+    return restaurant_list[-1].name # last item is now the costliest item
+
+print(costliest(RL))
+
+# d.4
+def costliest2(restaurant_list: list) -&gt; str:
+    ''' return the name of the restaurant with the highest price without sorting the original list '''
+    RL2 = restaurant_list.sorted(key = restaurant_price) # sorted doesn't alter original list
+    return RL2[-1].name
+
+print(costliest(RL))
+print()
+
+# (e)
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book('Karl Marx', 'Communist Manifesto', 'technology', 1848, 10, 7),
+    Book('Charlotte Bronte', 'Jane Eyre', 'fiction', 1847, 4, 9),
+    Book('Dr. Seuss', 'The Cat in the Hat', 'childrens', 1957, 5, 18),
+    Book('John Bottomhagens', 'The Daily Toil of Bottomhagens', 'biography', 2008, 300, 2),
+    Book('Eugene Montepython', 'Never was I ever the Beaver', 'non-fiction', 1995, 20, 38),
+    Book('Harold Phlemington', 'The Mystery of the Possessed Transistor', 'technology', 2000, 17, 39),
+    Book('J.A. Haggins','The Job of Penguins','non-fiction', 1956, 8, 3),
+    Book('Prof. Gates','What Is Code?','technology', 2010, 2, 10)]
+
+# e.1
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match83-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+for b in BSI:
+    print(b.title)
+print()
+
+# e.2
+def book_title(book: Book) -&gt; str:
+    ''' Returns title of a book -&gt; used as key value in sort '''
+    return book.title
+
+BSI2 = BSI
+</FONT>BSI2.sort(key=book_title)
+for b2 in BSI2:
+    print(b2.title)
+print()
+
+# e.3
+for i in range(0, len(BSI)): # loop through BSI and reassign books to new Books with price * 1.1
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match83-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    BSI[i] = Book(BSI[i].author, BSI[i].title, BSI[i].genre, BSI[i].year, float(BSI[i].price) * 1.1, BSI[i].instock)
+
+# e.4
+for book in BSI: # check for books with genre of 'technology'
+    if book.genre == 'technology':
+        print(book.title)
+print()
+
+
+# e.5
+booksb2000 = [] # books before 2000
+booksa2000 = [] # books after 2000
+</FONT>for b in BSI:
+    if b.year &lt; 2000:
+        booksb2000.append(b)
+    else:
+        booksa2000.append(b)
+
+if len(booksb2000) &gt; len(booksa2000):
+    print('More titles before 2000 ({} vs. {})'.format(len(booksb2000), len(booksa2000)))
+elif len(booksa2000) &gt; len(booksb2000):
+    print('More titles 2000 or later ({} vs. {})'.format(len(booksa2000), len(booksb2000)))
+else:
+    print('Same number of titles before and after 2000 ({} vs. {})'.format(len(booksa2000), len(booksb2000)))
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match83-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+
+
+# e.6
+def inventory_value(book: Book) -&gt; float:
+    ''' Returns inventory value by multiplying price and the amount in stock'''
+    return book.price * book.instock
+
+def top_value(book_list: list) -&gt;  Book:
+</FONT>    ''' Finds highest value book in a list of books '''
+    highest_value_book = book_list[0]
+    for b in book_list:
+        if inventory_value(b) &gt; inventory_value(highest_value_book):
+            highest_value_book = b
+    return highest_value_book
+
+top_value_book = top_value(BSI)
+print('The highest-value book is {} by {} at a value of ${}'.format(top_value_book.title,
+                                                                    top_value_book.author,
+                                                                    inventory_value(top_value_book)))
+
+# f
+import tkinter
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=1000, height=800)
+my_canvas.pack()
+
+def draw_face(x: int, y: int) -&gt; None:
+    ''' calls multiple functions to draw a face on tkinter '''
+    draw_head(150, 0)
+    draw_mouth(420+x, 450+y)
+    draw_nose(500+x, 320+y)
+    draw_eye(100+x, 50+y, 'RoyalBlue1')
+    draw_eye(425+x, 50+y, 'RoyalBlue1')
+    return
+
+def draw_nose(x: int, y: int) -&gt; None:
+    ''' using tkinter, draws a nose '''
+    my_canvas.create_polygon(0+x, 0+y,
+                             100+x, 120+y,
+                             95+x, 125+y, 
+                             0+x, 125+y,
+                             0+x,0+x, fill='#eabb81')
+    my_canvas.create_oval(10+x, 100+y, 50+x, 140+y, fill='#eabb81',outline='#eabb81')
+    return
+
+def draw_mouth(x: int, y: int) -&gt; None:
+    ''' using tkinter, draws a mouth '''
+    my_canvas.create_oval(0+x, 50+y, 100+x, 150+y, fill = 'red', outline = 'red')
+    my_canvas.create_oval(100+x, 50+y, 200+x, 150+y, fill = 'red', outline = 'red')
+    my_canvas.create_oval(10+x, 75+y, 190+x, 160+y, fill = 'red', outline = 'red')
+    my_canvas.create_line(0+x, 110+y, 200+x, 110+y, fill='black',width='5')
+    return
+
+def draw_head(x: int, y: int):
+    my_canvas.create_oval(0+x,0+y,720+x,750+y, fill='#e7c59b',outline='#e7c59b')
+    return
+
+def draw_eye(x: int, y: int, eye_color: str) -&gt; None:
+    ''' using tkinter, draws an eye '''
+    #pupil
+    my_canvas.create_oval(200+x,300+y,300+x,200+y,fill=eye_color,outline="black", width='3') # pass in color of eye as variable
+    
+    #eye outline
+    my_canvas.create_oval(125+x,300+y,375+x,200+y,outline="black", width='2')
+    
+    #iris
+    my_canvas.create_oval(235+x,235+y, 265+x, 265+y, fill='black')
+    
+    #coloring near iris
+    my_canvas.create_line(235+x,235+y,237+x,237+y,239+x,234+y,fill="lightblue",smooth="true", width='2')
+    my_canvas.create_line(240+x,240+y,237+x,237+y,239+x,234+y,fill="lightblue",smooth="true", width='2')
+    my_canvas.create_line(265+x,250+y,266+x,257+y,fill="lightblue",smooth="true",width='2')
+    my_canvas.create_line(245+x,265+y,255+x,267+y,256+x,269+y,fill="lightblue",smooth="true", width='2')
+    my_canvas.create_line(235+x,250+y,235+x,257+y,230+x,256+y,fill="lightblue",smooth="true", width='2')
+    my_canvas.create_line(258+x,235+y,259+x,236+y,262+x,232+y,fill="lightblue",smooth="true", width='2')
+    
+    #eyebrow
+    my_canvas.create_line(115+x,175+y,255+x,80+y, 385+x, 175+y,fill="dark goldenrod",capstyle='round',smooth="true", width='20')
+    
+    #eyelash
+    my_canvas.create_line(135+x,230+y,145+x,205+y,135+x,180+y,fill="black",smooth="true", width='2')
+    my_canvas.create_line(375+x,245+y,385+x,220+y,375+x,195+y,fill="black",smooth="true", width='2')
+    my_canvas.create_line(150+x,220+y,155+x,205+y,150+x,180+y,fill="black",smooth="true", width='2')
+    my_canvas.create_line(165+x,214+y,175+x,205+y,165+x,170+y,fill="black",smooth="true", width='2')
+    my_canvas.create_line(225+x,200+y,235+x,180+y,225+x,160+y,fill="black",smooth="true", width='2')
+    my_canvas.create_line(305+x,207+y,315+x,180+y,305+x,160+y,fill="black",smooth="true", width='2')
+    return
+
+draw_face(0, 10)
+
+tkinter.mainloop()
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

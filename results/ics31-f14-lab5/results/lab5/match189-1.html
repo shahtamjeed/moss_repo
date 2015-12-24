@@ -1,0 +1,760 @@
+<HTML>
+<HEAD>
+<TITLE>avouraki/(c,e,g,h)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+cjeanson/(c,e,g,h)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab5.py
+# Cassie Jeansonne 18923914 and Annie Tran 33579687.  ICS 31 Lab sec 3.  Lab asst 5.
+
+#
+#
+# Part C
+#
+#
+
+print('\n\n')
+print('-----Part C-----')
+print('\n\n')
+
+#
+#
+#Part C.1
+#
+#
+
+print('\n\n')
+print('-----Part C.1-----')
+print('\n\n')
+
+from collections import namedtuple
+Dish = namedtuple('Dish', 'name price calories')
+
+d1 = Dish('Veggie Delite', 5.20, 320)
+d2 = Dish('Butter Chicken', 9.98, 1200)
+d3 = Dish('Sour Cream Doughnut', 1.2, 600)
+
+DishList = [d1,d2,d3]
+
+d1same = Dish('Veggie Delite', 8.8, 320)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match189-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+d2same = Dish('Butter Chicken', 8.7, 1200)
+
+d1notsame = Dish('Veggie Delite', 8.8, 300)
+d1notsame2 = Dish('Veggie Del', 8.8, 320)
+
+
+#
+#
+#Part C.2
+#
+#
+
+print('\n\n')
+print('-----Part C.2-----')
+print('\n\n')
+
+def Dish_str(dish:namedtuple) -&gt; str:
+    '''return single str'''  
+</FONT>    return str(dish.name) + ' ($'+ str(dish.price) + '): '+ str(dish.calories) +' cal'
+
+assert Dish_str(d1) == "Veggie Delite ($5.2): 320 cal"
+assert Dish_str(d2) == "Butter Chicken ($9.98): 1200 cal"
+assert Dish_str(d3) == "Sour Cream Doughnut ($1.2): 600 cal"
+
+print(Dish_str(d1))
+print()
+
+
+#
+#
+#Part C.3
+#
+#
+
+print('\n\n')
+print('-----Part C.3-----')
+print('\n\n')
+
+
+def Dish_same(dish1, dish2):
+    '''return true is dish name/calories the same, false if not'''
+    return (dish1.name and dish1.calories) == (dish2.name and dish2.calories)
+
+assert Dish_same(d1,d2) == False
+assert Dish_same(d1,d3) == False
+assert Dish_same(d1,d1) == True
+    
+print(Dish_same(d1, d2))
+print(Dish_same(d1, d1))
+print()
+
+#
+#
+#Part C.4
+#
+#
+
+print('\n\n')
+print('-----Part C.4-----')
+print('\n\n')
+
+def Dish_change_price(dish:namedtuple, num:int):
+    '''Changes dish price by percentage'''
+    price = ''
+    if num &lt; 0:
+        price = (num * dish.price / 100) + dish.price
+    else:
+        price = (num * dish.price) + dish.price
+        
+    dish2 = dish._replace(price = price)
+    return dish2
+
+assert Dish_change_price(d1, -50)
+
+print(Dish_change_price(d1, - 50))
+print()
+
+
+#
+#
+#Part C.5
+#
+#
+
+print('\n\n')
+print('-----Part C.5-----')
+print('\n\n')
+
+def Dish_is_cheap(dish:namedtuple, num:float):
+    '''compares price to number'''
+    return dish.price &lt; num
+
+assert Dish_is_cheap(d1, 10.00) == True
+assert Dish_is_cheap(d1, 4.00) == False
+
+print(Dish_is_cheap(d1, 10.00))
+print(Dish_is_cheap(d1, 13.00))
+print()
+        
+
+#
+#
+#Part C.6
+#
+#
+
+print('\n\n')
+print('-----Part C.6-----')
+print('\n\n')
+
+DL = [
+Dish('Fried Chicken', 10.2, 1000),
+Dish('Thai Tea', 2.0, 300),
+Dish('Mochi', 2.0, 150),
+Dish('Korean BBQ', 21.59, 2000),
+Dish('Fried Rice', 5.6, 600)]
+
+
+DL2 = [
+Dish('Cupcakes', 1.2, 50),
+Dish('Salt and Vinegar Chips', 2.5, 300),
+Dish('Salted Duck', 8.43, 700),
+Dish('Salad', 4.89, 100)]
+
+def Dishlist_display(Dishes:list) -&gt; str:
+    ''' takes a list of dishes and returns one large string  consisting
+        of the string representation of each dish followed by a new line '''
+    DL.extend(DL2)
+    List = ""
+    for dish in Dishes:
+        List += Dish_str(dish) + str('\n')
+    return List
+
+print(Dishlist_display(DL))
+
+DL_Assert1 = [d1, d2, d3]
+DL_Assert2 = [d1same, d2same]
+
+
+#
+#
+#Part C.7
+#
+#
+
+print('\n\n')
+print('-----Part C.7-----')
+print('\n\n')
+
+def Dishlist_all_cheap(dishes:list, num:int):
+    ''' returns true if dish price less than num'''
+    for dish in dishes:
+        return Dish_is_cheap(dish,num) and dish.price &lt; num
+
+print(Dishlist_all_cheap(DishList, 10))
+
+
+assert Dishlist_all_cheap([d1,d2,d3], 10)
+assert not Dishlist_all_cheap([d1,d2,d3], 5)
+
+
+#
+#
+#Part C.8
+#
+#
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match189-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('\n\n')
+print('-----Part C.8-----')
+print('\n\n')
+
+def Dishlist_change_price(Dishes:list, num:int) -&gt; list:
+    ''' Takes a list of dishes and a number representing
+</FONT>        a percentage change and returns a list of Dishes
+        with each price changed by the specified amount. '''
+    for dish in Dishes:
+        dPrice = Dishes.pop(0)
+        newprice = dPrice._replace(price = dPrice.price + (dPrice.price * (num/100)))
+        Dishes.append(newprice)
+    return Dishes
+
+print(Dishlist_change_price(DishList, 50))
+
+    
+#
+#
+#Part C.9
+#
+#
+
+print('\n\n')
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match189-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('-----Part C.9-----')
+print('\n\n')
+
+def Dishlist_price(Dishes:list) -&gt; list:
+    ''' Takes a list of Dishes and returns a list of
+        numbers containing just the prices of the dishes
+</FONT>        on that list. '''
+    List = []
+    for dish in Dishes:
+        List.append(str(dish.price))
+    return List
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match189-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(Dishlist_price(DishList))
+
+#
+#
+#Part C.10
+#
+#
+
+print('\n\n')
+print('-----Part C.10-----')
+print('\n\n')
+
+def Dishlist_average(Dishes: list) -&gt; float:
+    ''' Takes a list of Dishes and returns the average
+        price of those dishes. '''
+</FONT>    sum_list = 0
+    for i in Dishes:
+        sum_list += i.price
+    return round(sum_list / len(Dishes),2)
+
+print(Dishlist_average(DishList))
+
+
+
+#
+#
+#Part C.11
+#
+#
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match189-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('\n\n')
+print('-----Part C.11-----')
+print('\n\n')
+
+def Dishlist_keep_cheap(Dishes:list, num: int) -&gt; list:
+    '''Takes a list of Dishes and a number and returns a list
+</FONT>       of those dishes on the original list that have prices
+       less than that number. '''
+    List = []
+    for dish in Dishes:
+        if Dishlist_all_cheap(Dishes, num) and dish.price &lt; num:
+            List.append(dish)
+    return List
+
+print(Dishlist_keep_cheap(DishList, 8))
+
+
+
+#
+#
+#Part C.12
+#
+#
+
+print('\n\n')
+print('-----Part C.12-----')
+print('\n\n')
+
+d1 = Dish('Deep Fried Twinkies', 3.5, 596)
+d2 = Dish('Pickled Greens', 4.65, 369)
+d3 = Dish('Bacon Sandwich', 5.69, 860)
+d4 = Dish('Pho', 4.32, 663)
+d5 = Dish('Black Bean Noodles', 8.99, 650)
+d6 = Dish('Tofu Soup', 9.2, 350)
+d7 = Dish('Spicy Anchovies', 3.2, 150)
+d8 = Dish('Spicy Chicken Guts', 12.6, 400)
+d9 = Dish('Santouka Ramen', 8.94, 560)
+d10 = Dish('Onion Fried Pancakes', 4.5, 420)
+d11 = Dish('Chicken Noodle Soup', 4.3, 650)
+d12 = Dish('Egg Porridge ', 4.6, 560)
+d13 = Dish('Chow Mein', 7.96, 400)
+d14 = Dish('Popcorn Lobster', 12.96, 750)
+d15 = Dish('Coconut Shrimp', 8.45, 500)
+d16 = Dish('Pad Thai', 10.2, 600)
+d17 = Dish('Clam Chowder', 5.20, 400)
+d18 = Dish('Beef Tongue Skewers', 4.5, 700)
+d19 = Dish('Grilled Scallops', 13.5, 900)
+d20 = Dish('Broiled Bunions', 150.5, 220)
+d21 = Dish('Baked Intestines', 236.94, 880)
+d22 = Dish('Fried Fingers', 96.54, 649)
+d23 = Dish('Toasted Tonsils', 107.64, 975)
+d24 = Dish('Grilled Gallbladders', 164.20, 681)
+d25 = Dish('Raw Tentacles', 1600.99, 2000)
+
+Menu_List = [d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13,
+             d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25]
+
+def before_and_after():
+    '''Prompts user for interactive input of a number representing a
+       percentage change in prices, then prints the result of Dishlist_display
+       on the big list of Dishes, then changes all the prices of the Dishes
+       on the big list, and finally prints the result of Dishlist_display again
+       (reflecting the changes list of Dishes). '''
+    print('Enter a number representing a percentage change in prices.')
+    x = int(input())
+    print()
+    print('Here is the original list:', '\n')
+    print(Dishlist_display(Menu_List))
+    print('Here is the altered list:', '\n')
+    y = Dishlist_change_price(Menu_List, x)
+    print(Dishlist_display(y)) 
+
+before_and_after()
+
+
+
+#
+#
+#Part E
+#
+#
+
+print('\n\n')
+print('-----Part E-----')
+print('\n\n')
+
+#
+#
+#Part E.1
+#
+#
+
+print('\n\n')
+print('-----Part E.1-----')
+print('\n\n')
+
+'''
+Write a Python expression that defines r3 as a Restaurant object
+for the French restaurant Pascal whose phone number is 940-752-0107;
+they serve escargots for $12.95 (250 cal.), poached salmon for $18.50
+(550 cal.), rack of lamb for $24.00 (850 cal.), and marjolaine cake
+for $8.50 (950 cal.).
+'''
+Restaurant = namedtuple('Restaurant', 'name cuisine phone menu')
+r1 = Restaurant('Thai Dishes', 'Thai', '334-4433', [Dish('Mee Krob', 12.50, 500),
+                                                    Dish('Larb Gai', 11.00, 450)])
+r2 = Restaurant('Taillevent', 'French', '01-44-95-15-01', 
+				[Dish('Homard Bleu', 45.00, 750),
+				 Dish('Tournedos Rossini', 65.00, 950),
+				 Dish("Selle d'Agneau", 60.00, 850)])
+
+r3 = Restaurant('Pascal', 'French', '940-752-0107',
+                [Dish('Escargots', 12.95, 250),
+                 Dish('Poached Salmon', 18.5, 550),
+                 Dish('Rack of Lamb', 24, 850),
+                 Dish('Marjolaine Cake', 8.5, 950)])
+
+R = [r1, r2, r3]
+
+#
+#
+#Part E.2
+#
+#
+
+print('\n\n')
+print('-----Part E.2-----')
+print('\n\n')
+
+def Restaurant_first_dish_name(Restaurant:namedtuple) -&gt; str:
+    ''' Takes a Restaurant as its argument and returns the name of the first
+        dish on the restaurant's menu. '''
+    y = Restaurant.menu[0]
+    return y.name
+print(Restaurant_first_dish_name(r3))
+
+#
+#
+#Part E.3
+#
+#
+
+print('\n\n')
+print('-----Part E.3-----')
+print('\n\n')
+
+def Restaurant_is_cheap(Restaurant:object, num: int) -&gt; bool:
+    ''' Returns True if the average price of the Restaurant's menu is less
+        than or equal to the number '''
+    return Dishlist_average(Restaurant.menu) &lt;= num
+
+print(Restaurant_is_cheap(r3, 10))
+
+
+#
+#
+#Part E.4
+#
+#
+
+print('\n\n')
+print('-----Part E.4-----')
+print('\n\n')
+
+def Collection_raise_prices(restaurant: list):
+    ''' Returns a list of restaurants with its prices increased by $2.50 '''
+    for i in range(len(restaurant.menu)):
+        restaurant.menu[i] = restaurant.menu[i]._replace(price = restaurant.menu[i].price + 2.5)
+    return restaurant
+
+print(Collection_raise_prices(r3))
+
+#
+#
+#Part E.5
+#
+#
+
+print('\n\n')
+print('-----Part E.5-----')
+print('\n\n')
+
+# Note: A collection in this case is a list of Restaurant objects.
+def Collection_select_cheap(collection: list, num: int) -&gt; list:
+    ''' Takes a collection and a number and returns a list of all the
+        restaurants in the collection whose average price is less than or
+        equal to that number. '''
+    result = []
+    for List in collection:
+        if Dishlist_average(List.menu) &lt;= num:
+            result.append(List)
+    return result
+
+print(Collection_select_cheap(R, 30)) 
+
+
+#
+#
+#Part G
+#
+#
+
+print('\n\n')
+print('-----Part G-----')
+print('\n\n')
+
+from collections import namedtuple
+Count = namedtuple('Count','letter number')
+# result should be Count(letter = ?, number = ?)
+
+
+def letter_count(word: str, character: str) -&gt; str:
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match189-0.html#5" TARGET="0"><IMG SRC="../../bitmaps/tm_0_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    ''' Returns the counts of certain letters in the first parameter; the
+        second parameter is a string that specifies which letters to count '''
+    List = []
+</FONT>    for each_letter in character:
+        List.append("Letter = " + each_letter + ", number="+ str(word.count(each_letter)))
+    return List
+
+print(letter_count('anchovies', 'ae'))
+print('\n')
+print(letter_count('appleslplplplpl', 'apl'))
+print('\n')
+print(letter_count('wow', 'w'))
+
+
+'''
+After program runs:
+
+Python 3.4.2 (v3.4.2:ab2c023a9432, Oct  5 2014, 20:42:22) 
+[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
+Type "copyright", "credits" or "license()" for more information.
+&gt;&gt;&gt; ================================ RESTART ================================
+&gt;&gt;&gt; 
+
+
+
+-----Part C-----
+
+
+
+
+
+
+-----Part C.1-----
+
+
+
+
+
+
+-----Part C.2-----
+
+
+
+Veggie Delite ($5.2): 320 cal
+
+
+
+
+-----Part C.3-----
+
+
+
+False
+True
+
+
+
+
+-----Part C.4-----
+
+
+
+Dish(name='Veggie Delite', price=2.6, calories=320)
+
+
+
+
+-----Part C.5-----
+
+
+
+True
+True
+
+
+
+
+-----Part C.6-----
+
+
+
+Fried Chicken ($10.2): 1000 cal
+Thai Tea ($2.0): 300 cal
+Mochi ($2.0): 150 cal
+Korean BBQ ($21.59): 2000 cal
+Fried Rice ($5.6): 600 cal
+Cupcakes ($1.2): 50 cal
+Salt and Vinegar Chips ($2.5): 300 cal
+Salted Duck ($8.43): 700 cal
+Salad ($4.89): 100 cal
+
+
+
+
+-----Part C.7-----
+
+
+
+True
+
+
+
+-----Part C.8-----
+
+
+
+[Dish(name='Veggie Delite', price=7.800000000000001, calories=320), Dish(name='Butter Chicken', price=14.97, calories=1200), Dish(name='Sour Cream Doughnut', price=1.7999999999999998, calories=600)]
+
+
+
+-----Part C.9-----
+
+
+
+['7.800000000000001', '14.97', '1.7999999999999998']
+
+
+
+-----Part C.10-----
+
+
+
+8.19
+
+
+
+-----Part C.11-----
+
+
+
+[Dish(name='Veggie Delite', price=7.800000000000001, calories=320), Dish(name='Sour Cream Doughnut', price=1.7999999999999998, calories=600)]
+
+
+
+-----Part C.12-----
+
+
+
+Enter a number representing a percentage change in prices.
+50
+
+Here is the original list: 
+
+Deep Fried Twinkies ($3.5): 596 cal
+Pickled Greens ($4.65): 369 cal
+Bacon Sandwich ($5.69): 860 cal
+Pho ($4.32): 663 cal
+Black Bean Noodles ($8.99): 650 cal
+Tofu Soup ($9.2): 350 cal
+Spicy Anchovies ($3.2): 150 cal
+Spicy Chicken Guts ($12.6): 400 cal
+Santouka Ramen ($8.94): 560 cal
+Onion Fried Pancakes ($4.5): 420 cal
+Chicken Noodle Soup ($4.3): 650 cal
+Egg Porridge  ($4.6): 560 cal
+Chow Mein ($7.96): 400 cal
+Popcorn Lobster ($12.96): 750 cal
+Coconut Shrimp ($8.45): 500 cal
+Pad Thai ($10.2): 600 cal
+Clam Chowder ($5.2): 400 cal
+Beef Tongue Skewers ($4.5): 700 cal
+Grilled Scallops ($13.5): 900 cal
+Broiled Bunions ($150.5): 220 cal
+Baked Intestines ($236.94): 880 cal
+Fried Fingers ($96.54): 649 cal
+Toasted Tonsils ($107.64): 975 cal
+Grilled Gallbladders ($164.2): 681 cal
+Raw Tentacles ($1600.99): 2000 cal
+
+Here is the altered list: 
+
+Deep Fried Twinkies ($5.25): 596 cal
+Pickled Greens ($6.9750000000000005): 369 cal
+Bacon Sandwich ($8.535): 860 cal
+Pho ($6.48): 663 cal
+Black Bean Noodles ($13.485): 650 cal
+Tofu Soup ($13.799999999999999): 350 cal
+Spicy Anchovies ($4.800000000000001): 150 cal
+Spicy Chicken Guts ($18.9): 400 cal
+Santouka Ramen ($13.41): 560 cal
+Onion Fried Pancakes ($6.75): 420 cal
+Chicken Noodle Soup ($6.449999999999999): 650 cal
+Egg Porridge  ($6.8999999999999995): 560 cal
+Chow Mein ($11.94): 400 cal
+Popcorn Lobster ($19.44): 750 cal
+Coconut Shrimp ($12.674999999999999): 500 cal
+Pad Thai ($15.299999999999999): 600 cal
+Clam Chowder ($7.800000000000001): 400 cal
+Beef Tongue Skewers ($6.75): 700 cal
+Grilled Scallops ($20.25): 900 cal
+Broiled Bunions ($225.75): 220 cal
+Baked Intestines ($355.40999999999997): 880 cal
+Fried Fingers ($144.81): 649 cal
+Toasted Tonsils ($161.46): 975 cal
+Grilled Gallbladders ($246.29999999999998): 681 cal
+Raw Tentacles ($2401.485): 2000 cal
+
+
+
+
+-----Part E-----
+
+
+
+
+
+
+-----Part E.1-----
+
+
+
+
+
+
+-----Part E.2-----
+
+
+
+Escargots
+
+
+
+-----Part E.3-----
+
+
+
+False
+
+
+
+-----Part E.4-----
+
+
+
+Restaurant(name='Pascal', cuisine='French', phone='940-752-0107', menu=[Dish(name='Escargots', price=15.45, calories=250), Dish(name='Poached Salmon', price=21.0, calories=550), Dish(name='Rack of Lamb', price=26.5, calories=850), Dish(name='Marjolaine Cake', price=11.0, calories=950)])
+
+
+
+-----Part E.5-----
+
+
+
+[Restaurant(name='Thai Dishes', cuisine='Thai', phone='334-4433', menu=[Dish(name='Mee Krob', price=12.5, calories=500), Dish(name='Larb Gai', price=11.0, calories=450)]), Restaurant(name='Pascal', cuisine='French', phone='940-752-0107', menu=[Dish(name='Escargots', price=15.45, calories=250), Dish(name='Poached Salmon', price=21.0, calories=550), Dish(name='Rack of Lamb', price=26.5, calories=850), Dish(name='Marjolaine Cake', price=11.0, calories=950)])]
+
+
+
+-----Part G-----
+
+
+
+['Letter = a, number=1', 'Letter = e, number=1']
+
+
+['Letter = a, number=1', 'Letter = p, number=6', 'Letter = l, number=6']
+
+
+['Letter = w, number=2']
+&gt;&gt;&gt; 
+'''
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,327 @@
+<HTML>
+<HEAD>
+<TITLE>leungd3/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+stuartz/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab7.py
+# Zachary Stuart - 31362386
+# Yuda Chen - 88551199
+# ICS 31
+# Lab Section 4
+# Lab Assignment 7
+
+from random import randrange
+import string
+
+############### Part C ###############
+print("############### Part C ###############")
+print()
+
+CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+def rand_numb(upperlimit:int) -&gt; int:
+    return randrange(1, (upperlimit + 1))
+
+
+def random_names(names:int):
+    name_list = []
+    first_male_text_file = input("Please enter the name of the file from which to pull male firstnames: ")
+    first_female_text_file = input("Please enter the name of the file from which to pull female firstnames: ")
+    last_text_file = input("Please enter the name of the file from which to pull lastnames: ")
+    print()
+    
+    # MALE NAME LIST CONSTRUCTION
+    malefirstnames = open(first_male_text_file, "r")
+    malenamelist = []
+    malenamefile = ""
+    malenamefile = malefirstnames.read(-1)
+    malenamefile = malenamefile.split(sep = None, maxsplit = -1)
+    for item in range(len(malenamefile)):
+        if malenamefile[item][0] in CHARS:
+            malenamelist.append(malenamefile[item])
+
+    # FEMALE NAME LIST CONSTRUCTION
+    femalefirstnames = open(first_female_text_file, "r")
+    femalenamelist = []
+    femalenamefile = ""
+    femalenamefile = femalefirstnames.read(-1)
+    femalenamefile = femalenamefile.split(sep = None, maxsplit = -1)
+    for item in range(len(femalenamefile)):
+        if femalenamefile[item][0] in CHARS:
+            femalenamelist.append(femalenamefile[item])
+
+    # LAST NAME LIST CONSTRUCTION
+    lastnames = open(last_text_file, "r")
+    lastnamelist = []
+    lastnamefile = ""
+    lastnamefile = lastnames.read(-1)
+    lastnamefile = lastnamefile.split(sep = None, maxsplit = -1)
+    for item in range(len(lastnamefile)):
+        if lastnamefile[item][0] in CHARS:
+            lastnamelist.append(lastnamefile[item])
+
+    # FUNCTION
+    for item in range(0, names):
+        if rand_numb(2) == 1:
+            # Male
+            malename = ""
+            malenamefirsthalf = ""
+            malenamesecondhalf = ""
+            malenamefirsthalf = malenamelist[randrange(0, (len(malenamelist) + 1))]
+            malenamesecondhalf += lastnamelist[randrange(0, (len(lastnamelist) + 1))]
+            malenamefirsthalf = malenamefirsthalf.title()
+            malenamesecondhalf = malenamesecondhalf.title()
+            malename = malenamefirsthalf + ", " + malenamesecondhalf
+            print(malename)
+        else:
+            # Female
+            femalename = ""
+            femalenamefirsthalf = ""
+            femalenamesecondhalf = ""
+            femalenamefirsthalf += femalenamelist[randrange(0, (len(femalenamelist)+1))]
+            femalenamesecondhalf += lastnamelist[randrange(0, (len(lastnamelist) + 1))]
+            femalenamefirsthalf = femalenamefirsthalf.title()
+            femalenamesecondhalf = femalenamesecondhalf.title()
+            femalename = femalenamefirsthalf + ", " + femalenamesecondhalf
+            print(femalename)
+    return
+
+random_names(5)
+
+print()
+############### Part D ###############
+print("############### Part D ###############")
+print()
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match237-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def Caesar_encrypt(x: str, y: int) -&gt; str:
+    # The encryption function returns the ciphertext
+    x = x.lower()
+    alph = alphabet.replace(alphabet[0:y],"")
+    shifted = alph + alphabet[0:y]
+    index  = str.maketrans(alphabet, shifted)
+    return x.translate(index)
+
+
+def Caesar_decrypt(x: str, y: int) -&gt; str:
+</FONT>    # Decrypts a coded message into plaintext
+    x = x.lower()
+    return Caesar_encrypt(x,26-y)
+
+def number_to_letter(key:int) -&gt; str:
+    numblist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]
+    charlist = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+    return charlist[key]
+
+def Caesar_break(code:str):
+
+    # variables
+    wordlist = open("wordlist.txt", "r")
+    wordfile = wordlist.read(-1)
+    wordfile = wordfile.split(sep = None, maxsplit = -1)
+    code = code.lower()
+    listed_code = code.split(sep = None, maxsplit = -1)
+    broken_code_list = []
+    broken_code = ""
+    attempt_word = ""
+    counter = 0
+    keycode = 0
+
+    # function
+    
+    while counter != (len(listed_code)):
+        for word in range(len(listed_code)):
+            for x in range(0, 26):
+                attempt_word = Caesar_decrypt(listed_code[word], x)
+                if attempt_word in wordfile:
+                    counter += 1
+                    keycode = x
+                    percentage = ((counter/len(listed_code)) * 100)
+                    if percentage &lt;= 100.00:
+                        print("Percentage Decrypted: " + "{:4.2f}".format(percentage))
+                    else:
+                        print("An Error has occured finding decrypted word!")
+                        return
+                    broken_code_list.append(attempt_word)
+    for item in range(len(broken_code_list)):
+        broken_code += (broken_code_list[item] + " ")
+    print()
+    print("Decrypted Message: " + broken_code)
+    print("Decryption Key: A = " + number_to_letter(keycode) + " (" + str(keycode) + ")")
+    wordlist.close()
+    return
+
+Caesar_break("lclyfvul svclz jvtwbaly zjplujl")
+print()
+print("We emailed to each other and tested the Caesar_break function")
+print()
+Caesar_break("bpmzm qa vw xtikm tqsm pwum")
+print()
+print("This code works, it is automatically made to catch errors if the word does not exist or is not translated correctly, the error message was both expected and anticipated")
+
+
+
+print()
+############### Part E ###############
+print("############### Part E ###############")
+print()
+####### Section 1 #######
+print("####### Section 1 #######")
+
+def copy_file():
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file()
+
+print()
+####### Section 2 #######
+print("####### Section 2 #######")
+print()
+
+def copy_file(parm:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if parm == "line numbers":
+        linenum = 0
+        for line in infile:
+            linenum += 1
+            outfile.write("{:6d}: ".format(linenum) + line)
+        else:     
+            for line in infile:
+                outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file("line numbers")
+
+print()
+####### Section 3 #######
+print("####### Section 3 #######")
+print()
+
+def copy_file(parm:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if parm == "line numbers":
+        linenum = 0
+        for line in infile:
+            linenum += 1
+            outfile.write("{:6d}: ".format(linenum) + line)
+    elif parm == "Gutenberg trim":
+        newlist = [ ]
+        counter = 0
+        for line in infile:
+            counter += 1
+            newlist.append(line)
+        for index in range(len(newlist)):
+            if "*** START" in newlist[index]:
+                start = index
+                break
+        for index in range(len(newlist)):
+            if "*** END" in newlist[index]:
+                end = index
+    
+        del newlist[0:start+1]
+        del newlist[(end - start - 1):(len(newlist))]
+        
+        for apples in newlist:
+            outfile.write(apples)
+    else:     
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file("Gutenberg trim")
+
+
+
+print()
+####### Section 4 #######
+print("####### Section 4 #######")
+print()
+
+def stats(L: [str]):
+    print ( '{:5}   lines in the list'.format(len(L))) #First
+    empty = 0
+    for y in L:
+        if y == '\n':
+            empty += 1
+    print ('{:5}   empty lines'.format(empty) )  #Second
+    CC = []
+    for i in L:
+        for x in i:
+            CC.append(x)
+    print( '{:7.1f} average characters per line'.format((len(CC)/len(L)))) #Third
+    CCC = []
+    for i in L:
+        for x in i:
+            if x != ' ':
+                CCC.append(x)
+    print('{:7.1f} average characters per non-empty line'.format((len(CCC)/len(L)))) #Fourth  
+
+
+def copy_file(parm:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if parm == "line numbers":
+        linenum = 0
+        for line in infile:
+            linenum += 1
+            outfile.write("{:6d}: ".format(linenum) + line)
+    elif parm == "Gutenberg trim":
+        newlist = [ ]
+        counter = 0
+        for line in infile:
+            counter += 1
+            newlist.append(line)
+        for index in range(len(newlist)):
+            if "*** START" in newlist[index]:
+                start = index
+                break
+        for index in range(len(newlist)):
+            if "*** END" in newlist[index]:
+                end = index
+    
+        del newlist[0:start+1]
+        del newlist[(end - start - 1):(len(newlist))]
+        
+        for apples in newlist:
+            outfile.write(apples)
+    elif parm == "statistics":
+        newlist = []
+        for line in infile:
+            newlist.append(line)
+        for lines in newlist:
+            outfile.write(lines)
+        print()
+        stats(newlist)
+    else:     
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file("statistics")
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,239 @@
+<HTML>
+<HEAD>
+<TITLE>diepnn/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+sotoar/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Alejandro Soto 59839668 and Adan Castillo 24368198
+
+print()
+#(c.1)
+print()
+def abbreviate(month):
+    "take any month and return its 3 letter abbreviation"
+    return month[0:3]
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+print()
+
+#(c.2)
+def find_area_square(side_of_square):
+    "given a side of a square, calculate its area"
+    return side_of_square * side_of_square
+                
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+print()
+
+#(c.3)
+def find_area_circle(radius_of_circle: float) -&gt; float:
+    "calculate the area of a circle given its radius"
+    return (radius_of_circle **2) * 3.14159
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+print()
+
+#(c.4)
+def print_even_numbers(value:list)-&gt; list:
+    "take list of values and return only those that are even numbers"
+    for k in value:
+        if k % 2 == 0:
+            print(k)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match234-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+print()
+
+#(c.5)
+def calculate_shipping(value:float)-&gt; float:
+    "calculate the shipping of a certain package using its weight to return a value"
+    if value &lt; 2:
+        return 2.00
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match234-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if (value &gt;= 2) and (value &lt; 10):
+        return 5.00
+    if value &gt; 10:
+        return (5.00 + (1.50 * (value - 10)))
+
+assert calculate_shipping(1.5) == 2.00
+</FONT>assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+print()
+#(c.6)
+
+import tkinter             
+
+my_window = tkinter.Tk()    
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack()           
+
+def create_square(x, y, length_of_side):
+    "Using the x and y cordinates of the top left corner,along with a side length,create square that will read by tkinker"
+    my_canvas.create_rectangle(x, y, x + length_of_side, y + length_of_side)
+    
+
+create_square(100,100,200)
+
+tkinter.mainloop()          
+
+print()
+
+
+#(c.7)
+import tkinter             
+
+my_window = tkinter.Tk()    
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack()           
+
+def create_circle(x, y, d):
+    "Just like the activity above, use whats given to make a circle in tkinter"
+    my_canvas.create_oval(x, y, x + d, y + d)
+    
+
+create_circle(100,100,200)
+
+tkinter.mainloop()
+print()
+
+
+#(d.1)
+from collections import namedtuple     
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+RC = [Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurant_price(Restaurant):
+    "Given a restaurant name from list RC, return its price field"
+    return Restaurant.price
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match234-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert restaurant_price(RC[0]) == 12.50
+assert restaurant_price(RC[1]) == 5.50
+
+print()
+
+#(d.2-3)
+
+RC.sort(key = restaurant_price)
+</FONT>print(RC)
+
+
+
+def costliest(rest)-&gt; str:
+    "Given a list restaurants, return the restaurant with the highest priced dish"
+    return rest[-1].name
+assert(costliest(RC)) == 'Noma'
+
+print()
+#(d.4)
+
+def costliest2(rest:list)-&gt; str:
+    sorted(RC, key = restaurant_price)
+    return rest[-1].name
+print(costliest2(RC))
+assert costliest2(RC) == 'Noma'
+print()
+
+#(e)
+from collections import namedtuple
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [Book('Arthur Conan Doyle','Adventures of Sherlock Holmes', 'Mystery', 1892, 21.50, 50),
+    Book('J.K ROWLEY', 'Harry Potter 1', 'Fiction', 1997, 13.50, 60),
+    Book('Maurice Sendak', 'Where The Wild Things Are', 'Fiction', 1963, 12.75, 80),
+    Book('Dr. Seuss', 'Green Eggs and Ham', 'Fiction', 1960, 14.00, 12),
+    Book('Eric Carle', 'The Very Hungry Catepillar', 'Fiction', 1969, 11.25, 2),
+    Book('E.B White', "Charlotte's Web", 'Fiction', 1952, 17.50, 3) ]
+
+print()      
+#(e.1)
+for i in range(len(BSI)):
+    print(BSI[i].title)
+
+print()
+
+#(e.2)
+
+def Book_title(Book)-&gt; str:
+    return Book.title
+
+BSI2 = sorted(BSI, key = Book_title)
+for i in range(len(BSI2)):
+    print(BSI2[i].title)
+
+print()
+#(e.3)
+
+    
+for i in range(len(BSI)):
+    print(BSI[i].price * 1.1)
+               
+print()
+#(e.4)
+
+for i in range(len(BSI)):
+    if BSI[i].genre == 'Fiction':
+        print(BSI[i].title)
+
+print()
+#(e.5)
+for i in range(len(BSI)):
+    if BSI[i].year &lt; 1960:
+        print(BSI[i].title)
+print()
+for i in range(len(BSI)):
+    if BSI[i].year &gt;= 1960:
+        print(BSI[i].title)
+
+#(e.6)
+print()
+
+#(f)
+print("Tkinter face with eyes, nose, mouth and head.")
+import tkinter
+my_window = tkinter.Tk()    
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500) 
+my_canvas.pack()
+
+def draw_eye(x, y, n):
+    my_canvas.create_oval(x, y, x + n, y + n, fill="black")
+
+def draw_mouth(x, y, n):
+    my_canvas.create_oval(x, y, x + n*2, y + n, fill="black")
+
+def draw_nose(x, y, n):
+    my_canvas.create_arc(x, y, x + n*2, y + n*2, fill="orange")
+
+def draw_face(x, y, n):
+    my_canvas.create_oval(x, y, x + n, y + n)
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match234-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    draw_eye(x + 50, y + 50, 10)
+    draw_eye(x + 100, y + 50, 10)
+    draw_nose(x + 60, y + 60, 20)
+    draw_mouth(x + 60, y + 100, 30)
+</FONT>
+draw_face(100, 100, 150)
+
+tkinter.mainloop()
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

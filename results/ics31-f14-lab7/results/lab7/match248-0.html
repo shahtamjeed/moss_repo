@@ -1,0 +1,211 @@
+<HTML>
+<HEAD>
+<TITLE>binhnn1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+binhnn1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Binh Nguyen 34707912 and Tristan Palmer 80116792.  ICS 31 Lab sec 4.  Lab Asst 7
+
+import string
+import random
+import math
+import os
+import sys
+
+#
+#
+#c
+#
+#
+
+def name_generate(file: str) -&gt; str:
+    '''Return a generated name from the name file'''
+    infile = open(file+'.txt', 'r')
+    num_lines = sum(1 for line in infile)
+    infile.seek(0)
+    return infile.readlines()[random.randrange(0,num_lines)].split()[0].title()
+
+def random_names(a: int) -&gt; list:
+    '''Return a list of names'''
+    result=[]
+    first_name=['malenames','femalenames']
+    for i in range(a):
+        name = name_generate(random.choice(first_name))+' '+name_generate('surnames')
+        result.append(name)
+    return result
+
+#
+#
+#d
+#
+#
+al = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+table_punct = str.maketrans('.,!?:;','      ')
+
+def alphabet_mapping(k: int) -&gt; str:
+    '''Retun the rotated alphabet with resprected to k'''
+    if k &gt; 25: k=k%25
+    return al[k:26]+al[:k]+al[26+k:52]+al[26:26+k]
+
+def Caesar_decrypt(s: str, k: int) -&gt; str:
+    '''Return the decrypted string with respected to k'''
+    table = str.maketrans(al, alphabet_mapping(k))
+    return s.translate(table)
+
+def punct_replace(s: str) -&gt; str:
+    '''Replace all the puctuation to blank'''
+    return s.translate(table_punct)
+infile = open('wordlist.txt', 'r')
+word_list = infile.read().split()
+def Caesar_break(s: str) -&gt; str:
+    temp_list = []
+    
+
+    for i in range(26):
+        num = 0
+        decrypt_string = Caesar_decrypt(s, i)
+        for j in punct_replace(decrypt_string).split():
+            for k in word_list:
+                if k.lower() == j.lower(): num+=1
+        temp_list.append(num)
+        
+    result = Caesar_decrypt(s, temp_list.index(max(temp_list)))    
+    infile.close() 
+    return result
+
+#We put the 2 following code lines as comment since it will reduce the
+#efficiency of the program
+
+#assert Caesar_break('Khoor!? Ddurq.,') == 'Hello!? Aaron.,'
+#assert Caesar_break('X lxaa bdkt id Wjcixcvidc Qtprw, Rpaxudgcxp ctmi ntpg') == 'I will move to Huntington Beach, California next year'
+
+#
+#
+#e
+#
+#
+
+def format_string(i: int, s: str) -&gt; str:
+    a = int(math.log10(i))
+    '''Return the format string'''
+    if s == 'int':
+       return '{:'+str(a+1)+'}'
+    elif s == 'float':
+        return '{:'+str(a+3)+'.1f}'
+
+def letter_count(s: str) -&gt; int:
+    '''Return the number of letter in a string'''
+    result = 0
+    for i in punct_replace(s).split():
+        result+=len(i)
+    return result
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match248-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def emptyline_count(l: list) -&gt; int:
+    '''Return the number of empty line'''
+    result = 0
+    for i in l:
+        if i.isspace(): result+=1
+    return result
+
+def letter_count_list(l: list) -&gt; int:
+    '''Return the number of letter in a list of strings'''
+    result=0
+    for i in l: result+=letter_count(i)
+    return result
+
+def stats(l: list) -&gt; str:
+</FONT>    empty_line = emptyline_count(l)
+    letter = letter_count_list(l)
+    format_str_int = format_string(len(l), 'int')
+    format_str_flo = format_string(len(l), 'float')
+    return (
+    "\nStatistics:\n"\
+    +format_str_int.format(len(l)) + " lines in the list\n"\
+    +format_str_int.format(empty_line)+" empty lines in the list\n"\
+    +format_str_flo.format(letter/len(l))+" average characters per line\n"\
+    +format_str_flo.format(letter/(len(l)-empty_line))+" average characters per non-empty line")
+
+def copy_file(s: str):
+    infile_name = input("Please enter the name of the file to copy (name.txt): ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy (name.txt):  ")
+    outfile = open(outfile_name, 'w')      
+    if s == 'line numbers':
+        '''Copy the file with number at the beginning of each line'''
+        form_str = format_string(sum(1 for _ in infile), 'int')+': '
+        infile.seek(0)
+        i = 1
+        for line in infile:
+            outfile.write(form_str.format(i)+line)
+            i+=1
+    elif s == 'Gutenberg trim':
+        '''Copy the file without the housekeeping information'''
+        control = False
+        for line in infile:
+            if '*** END OF THIS PROJECT' in line: control = False
+            if control: outfile.write(line)
+            if '*** START OF THIS PROJECT' in line: control = True           
+    elif s == 'statistics':
+        '''Copy the file with statistics at the end'''
+        temp = infile.readlines()
+        for i in range(len(temp)):
+            outfile.write(temp[i])
+        outfile.write(stats(temp))
+    else:
+        for line in infile: outfile.write(line)
+    infile.close()
+    outfile.close()
+
+
+MENU = """
+********************************MENU********************************
+*-----------------------------Part (c)-----------------------------*
+*1. Generate Name                                                  *
+*-----------------------------Part (d)-----------------------------*
+*2. Decrypt a String                                               *
+*-----------------------------Part (e)-----------------------------*
+*3. Copy File (With Line Number)                                   *
+*4. Copy File (Remove Housekeeping Info)                           *
+*5. Copy File (With Statistics)                                    *
+*6. Copy File (Keep everythin)                                     *
+********************************************************************
+Please Choose 1 option:
+"""
+def main() -&gt; None:
+    while True:
+        n = int(input(MENU))
+        if n == 1:
+            for i in random_names(int(input('Input the number of name (int): '))): print(i)
+        elif n == 2:
+            print('Decrypted: '+Caesar_break(input('Input the encrypted string (str): ')))
+        elif n == 3:
+            copy_file('line numbers')
+        elif n == 4:
+            copy_file('Gutenberg trim')
+        elif n == 5:
+            copy_file('statistics')
+        elif n == 6:
+            copy_file('')
+        else:
+                print('Invalid input')
+                input()
+                os.system('cls')
+                main()
+    
+        restart = int(input("\nContinue? Please enter '1' for YES or '2' for NO: "))
+        if restart==1:
+            os.system('cls')
+            main()
+        else:
+            print ("Thank you. Program terminated...")
+            input()
+            sys.exit()
+main()    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

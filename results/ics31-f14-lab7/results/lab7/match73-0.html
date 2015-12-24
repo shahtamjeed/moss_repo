@@ -1,0 +1,176 @@
+<HTML>
+<HEAD>
+<TITLE>jaybl/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jaybl/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Jay Lin 95405112 and Zhuyue Liang 75288648 ICS Lab sec 2.
+#part c
+from random import randrange
+
+def last_name():
+    '''randomly generates a last name'''
+    name = ''
+    a = open('surnames.txt')
+    data = a.readlines()
+    for i in data[randrange(1,1000)]:
+        if i.isupper() or i.islower():
+            name += i
+    return name
+
+def first_name():
+    '''randomly generate a first name from either male names or female names'''
+    name = ''
+    if randrange(1) == 0:
+        a = open('male.txt')
+        data = a.readlines()
+        for i in data[randrange(1,1000)]:
+            if i.isupper() or i.islower():
+                name += i
+    else:
+        b = open('female.txt')
+        data1 = readlines()
+        for k in data1[randrange(1,1000)]:
+            if i.isupper() or i.islower():
+                name += k
+    return name
+
+
+def random_name(n:int):
+    '''Randomly generate the number of names, formated "surname, first name",
+passed into the parameter'''
+    list_names = []
+    for i in range(n):
+        a = last_name()
+        b = first_name()
+        name = (a[0]+a[1:].lower() +', '+b[0] + b[1:].lower())
+        list_names.append(name)
+    return list_names
+
+print(random_name(5))
+print(random_name(10))
+
+# part d1
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+def rotated(key : int)-&gt;str:
+    '''rotates alphabet by given key'''
+    newalpha = (alphabet[0: key])
+    neweralf = (alphabet[key: ])
+    stuff = neweralf + (newalpha)
+    return stuff
+
+def Caesar_break(cipher: str) -&gt; str:
+    '''decyphers any Caesar encrypted string'''
+    infile = open('H:/wordlist.txt')
+    content = infile.read()
+    wordList = content.split()
+    match = 0
+    word = []
+    for i in range (1, 27):
+        ugh = cipher.translate(str.maketrans(rotated(i), alphabet))
+        code = ugh.split()
+        for y in code:
+            word.append(wordList.count(y))
+    sortedlist = sorted(word)
+    for x in range(0, len(word)):
+            if word[x] == sortedlist[-1]:
+                return cipher.translate(str.maketrans(rotated(x+1), alphabet))
+    infile.close()
+print(Caesar_break('zkogzads'))
+
+#d2    
+print(Caesar_break('tqpplz hiptu'))
+
+#e
+
+def copy_file(n:str):
+    if n == 'line numbers':
+        '''If the parameters are "line number" then it will copy the file to a
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match73-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+newly created file wuth line numbers formated to the right on the left margin'''
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        line_number = 1
+        for line in infile:
+</FONT>            outfile.write('{:5}:{}'.format(line_number,str(line)))
+            line_number += 1
+        infile.close()
+        outfile.close()
+    elif n == 'Gutenberg trim':
+        '''If the parameters are "Gutenberg trim" then it will copy only the body
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match73-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+of the text from the start line to the end line'''
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        data = infile.readlines()
+</FONT>        start_line = False
+        end_line = False
+        for i in data:
+            if 'START OF THIS PROJECT' in i:
+                start_line = True
+            if 'END OF THIS PROJECT' in i:
+                end_line = True
+            if start_line == True and end_line == False:
+                outfile.write(i)
+        infile.close()
+        outfile.close()
+    elif n == 'Statistics':
+        '''If the parameters are "Statistics" it will copy the text and
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match73-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+and append the statistics of the text at the bottom of the text file'''
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'a+')
+        data = infile.readlines()
+</FONT>        result = 0
+        empty_lines = 0
+        for line in data:
+            outfile.write(line)
+
+        for i in data:
+            if i.isspace():
+                result += 1
+                empty_lines +=1
+        sum_char = 0
+        for i in data:
+            for k in i:
+                if k.isupper() or k.islower():
+                    sum_char += 1        
+        outfile.write('\n{:5}   {}'.format((len(data)),'lines in the file'))
+        outfile.write('\n{:5}   {}'.format((result),'empty lines'))
+        outfile.write('\n{:7.1f} {}'.format((sum_char/len(data)),'average characters per line'))
+        outfile.write('\n{:7.1f} {}'.format((sum_char/(len(data)-(empty_lines))),'average characters per non-empty line'))
+        infile.close()
+        outfile.close()
+    else :
+        '''If the parameters are something other than the three options above,
+it will just write the text to a new file'''
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match73-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+copy_file('Statistics')
+</FONT>copy_file('copy')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

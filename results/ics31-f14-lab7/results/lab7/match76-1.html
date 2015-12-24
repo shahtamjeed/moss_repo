@@ -1,0 +1,185 @@
+<HTML>
+<HEAD>
+<TITLE>dhallanp/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+rjgonza1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+## Ryan Gonzales 57555019 and Alan Carlos 93059720. ICS 31 Lab sec 5. Lab asst 7.
+
+#
+#
+# Part (c)
+#
+#
+print( '----- Part (c) -----' )
+
+def space():
+    print( '\n' )
+from random import randrange
+
+def letters_only( s: str ) -&gt; str:
+    ''' Makes sure to remove numbers and punctuation from a string '''
+    temp = str.maketrans( '1234567890.,',
+                          '            ' )
+    return s.translate( temp )
+
+def get_single_name( filename: str ) -&gt; str:
+    ''' Takes a file and randomly return a name from that file '''
+    infile = open( filename, 'r' )
+    data = infile.read()
+    datafix = letters_only( data )
+    datalist = datafix.split()
+    randomname = randrange( 0,  len( datalist ) )
+    return datalist[ randomname ] 
+    
+
+def random_names( x: int ) -&gt; list:
+    '''Takes an integer and returns a list of random names from .txt file'''
+    namelist = []
+    for i in range( x ):
+        surname = get_single_name( 'surnames.txt' )
+        female = get_single_name( 'femalenames.txt' )
+        male = get_single_name( 'malenames.txt' )  
+        maleorfemale = randrange( 0, 2 )
+        if maleorfemale == 0:
+            fullname = str.capitalize( surname ) + ', ' + str.capitalize( female )
+        else:
+            fullname = str.capitalize( surname ) + ', ' + str.capitalize( male )
+        namelist.append( fullname )
+    return namelist 
+
+print( random_names( 5 ) )
+space()
+print( random_names( 20 ) )
+
+#
+#
+# Part (d)
+#
+#
+print( '----- Part(d) -----' )
+space()
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def Caesar_encrypt( message: str, k: int ) -&gt; str:
+    if k &gt; 25:
+        k = k%26
+    change = str.maketrans( alphabet,
+                            alphabet[k:] + alphabet[:k] )
+    return message.lower().translate( change )
+
+
+def Caesar_decrypt( message: str, k: int ) -&gt; str:
+    if k &gt; 25:
+        k = k%26
+    change = str.maketrans( alphabet,
+                            alphabet[-k:] + alphabet[:-k] )
+    return message.lower().translate( change )
+
+def Caesar_break( message: str ) -&gt; str:
+    encryptlist = []
+    word = ''
+    for x in range( len( alphabet ) ):
+        encryptlist.append( Caesar_decrypt( message, x ) )
+    for y in encryptlist:
+        for a in y.split():
+            infile = open( 'wordlist.txt', 'r' )
+            data = infile.read()
+            lowerdata = data.lower()
+            datalines = lowerdata.split( '\n' )
+            if a in datalines:
+                word += ( a + ' ' )
+    return word
+  
+
+print( Caesar_encrypt( 'Rainbows are beautiful', 6 ) )
+print( Caesar_decrypt( 'xgothucy gxk hkgazolar', 6 ) )
+print( Caesar_break( 'xgothucy gxk hkgazolar' ) )
+space()
+
+#
+#
+# Part (e)
+#
+#
+print( '----- Part (e) -----' )
+space()
+
+
+# Using past function for e2
+def print_line_numbers( l: list ) -&gt; str:
+    lines = ''
+    for i in range( len( l ) ):
+        lines += ( ('''{:5d}:  {}{}'''.format( i+1, l[i] , '\n' ) ) )
+    return lines
+
+# Statistic code from lab 6 for files
+def stats( s: list ) -&gt; str:
+    empty = 0
+    total = 0
+    fulllength = 0
+    full = 0
+    for x in s:
+        if x.isspace() == True:
+            empty += 1
+        else:
+            full += 1
+            fulllength += len( x )
+    for a in s:
+        total += len( a )
+    return str( len( s ) ) + 'lines in the list' + '\n' + str( empty ) + 'empty lines' + '\n' + str( total/len( s ) ) + 'average characters per line' + '\n' + str( fulllength/full ) + 'average character per non-empty lin'
+    
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match76-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def copy_file( s: str ):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore' )
+    data = infile.read()
+    datalines = data.split( '\n' )
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'line numbers':
+        outfile.write( print_line_numbers( datalines ) )
+    elif s == 'Gutenberg trim':
+</FONT><A NAME="0"></A><FONT color = #FF0000><A HREF="match76-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        trim = []
+        start = []
+        end = 0
+        for i in datalines:
+            if '*** START' in i:
+                start.append( datalines.index( i ) )
+        for i in datalines:
+            if '*** END' in i:
+                end += datalines.index( i )
+        trim.extend( datalines[start[0]+1:end] )
+</FONT>        for i in trim:
+            outfile.write( i + '\n' )
+    elif s == 'statistics':
+       for i in data:
+           outfile.write( i )
+       outfile.write( '\n\n' )
+       outfile.write( stats( datalines ) )
+    else:
+        for i in data:
+            outfile.write( i )
+    infile.close()
+    outfile.close()
+
+copy_file( '' ) ## Copies the text file
+copy_file( 'line numbers' ) ## Copies the text file with line numbers
+copy_file( 'Gutenberg trim' ) ## Omits housekeeping material, prints only the body
+copy_file( 'statistics' ) ## Copies the text and prints it's statistics
+    
+    
+        
+        
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

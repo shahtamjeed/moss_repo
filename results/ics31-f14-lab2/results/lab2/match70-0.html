@@ -1,0 +1,232 @@
+<HTML>
+<HEAD>
+<TITLE>scbabu/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+scbabu/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab2.py
+#Hector Solano  81871013          Sharon Babu 55052264    ICS 31. Lab Asst 2.
+
+print('C1')
+hours = int(input('How many hours?'))           
+print('This many hours: ', hours)
+rate = int(input('How many dollars per hour?'))
+print('This many dollars per hour: $', rate)
+print('Weekly salary: $', hours * rate)
+
+print('C2')
+name = str(input('Hello. What is your name? '))
+print('Hello, ', name)
+print('It\'s nice to meet you.')
+age = int(input('How old are you? '))
+print('Next year you will be ', age+1, 'years old.')
+print('Good-bye!')
+
+print('D')
+KRONE_PER_EURO = 7.46           #conversion constants
+KRONE_PER_POUND = 8.81
+KRONE_PER_DOLLAR = 5.50
+
+print('Please provide this information: ')
+business = str(input('Business name: '))
+euros = int(input('Number of euros: '))
+pounds = int(input('Number of pounds: '))
+dollars = int(input('Number of dollars: '))
+
+convertedEuros = euros * KRONE_PER_EURO         #currency converted into krones
+convertedPounds = pounds * KRONE_PER_POUND
+convertedDollars = dollars * KRONE_PER_DOLLAR
+
+print('')
+print('Copenhagen Chamber of Commerce')
+print('Business Name: ', business)
+print(euros, ' euros is ', convertedEuros, ' krone')
+print(pounds, ' pounds is ', convertedPounds, ' krone')
+print(dollars, ' dollars is ', convertedDollars, ' krone')
+
+print('')
+print('Total krone: ', convertedEuros + convertedPounds + convertedDollars)
+
+print('E')
+from collections import namedtuple
+
+Book = namedtuple('Book', 'title author year price')
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match70-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+favorite = Book('Adventures of Sherlock Holmes', 'Arthur Conan Doyle',
+                1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 'Arthur Conan Doyle', 1894, 23.50)
+stillAnother = Book('Return of Sherlock Holmes', 'Arthur Conan Doyle',
+                     1905, 25.00)
+
+print('E1')
+print(stillAnother.title)
+print('E2')
+print('The price of "Memoirs of Sherlock Holmes" is $', another.price)
+</FONT>print('E3')
+print('The average price of all three books is $', 
+     (favorite.price + another.price + stillAnother.price)/3)
+print('E4')
+print(favorite.year&lt;1900)
+
+print('E5')
+stillAnother = Book('Return of Sherlock Holmes', 'Arthur Conan Doyle',
+                     1905, stillAnother.price+1)
+print('E6')
+stillAnother = Book('Return of Sherlock Holmes', 'Arthur Conan Doyle',
+                     1905, stillAnother.price * 1.2)
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match70-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('The new price of "Return of Sherlock Holmes" is $', stillAnother.price)
+
+print('G')
+booklist = [favorite, another, stillAnother]
+print('G1')
+print(booklist[0].price &lt; booklist[1].price)
+</FONT><A NAME="3"></A><FONT color = #00FFFF><A HREF="match70-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('G2')
+print(booklist[0].year &gt; booklist[-1].year)
+
+
+print('F')
+Animal = namedtuple('Animal', 'name species age weight favoriteFood')
+Jumbo = Animal('Jumbo', 'elephant', 50, 1000, 'peanuts')
+</FONT>Perry = Animal('Perry', 'platypus', 7, 1.7, 'shrimp')
+
+Jumbo.weight &lt; Perry.weight
+
+
+print('H')
+from collections import namedtuple
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+#Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish               
+
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match70-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Abba", "Ethiopin", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print('H1')
+print(RL[2].name)
+print('H2')
+print(RL[0].cuisine == RL[3].cuisine)
+</FONT>print('H3')
+print('$', RL[-1].price)
+
+print('H4')
+RL.sort()
+print(RL)
+
+print('H5')
+print(RL[-1].dish)
+
+print('H6')
+nRL = [
+     RL[0],
+     RL[1],
+     RL[-2],
+     RL[-1]
+     ]
+
+print(nRL)
+
+print('I')
+import math
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+#I1
+
+my_canvas.create_line(100, 100, 100, 300, fill='orange') # Draw vertical line
+my_canvas.create_line(100, 100, 300, 100, fill='blue')   # Draw horizontal
+my_canvas.create_line(300, 100, 300, 300, fill='green')  # Draw vertical line
+my_canvas.create_line(300, 300, 100, 300, fill='purple') # Draw horizontal line
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+#I2
+HYPO = math.sqrt(200**2/2)
+two_my_window = tkinter.Tk()
+
+two_my_canvas = tkinter.Canvas(two_my_window, width = 500, height = 500)
+two_my_canvas.pack()
+
+
+two_my_canvas.create_line(250, 100, 250 + HYPO,
+                          100 + HYPO, fill='orange')
+two_my_canvas.create_line(250, 100, 250 - HYPO,
+                          100 + HYPO, fill='blue')
+two_my_canvas.create_line(250, 100+2*HYPO,
+                          250-HYPO, (100+2*HYPO)-HYPO, fill='purple')
+two_my_canvas.create_line(250, 100+2*HYPO, 250+HYPO,
+                          (100+2*HYPO)-HYPO, fill='red')
+
+tkinter.mainloop()
+
+#I3
+house_my_window = tkinter.Tk()    
+
+house_my_canvas = tkinter.Canvas(house_my_window, width=500, height=500)
+house_my_canvas.pack()
+
+
+house_my_canvas.create_polygon(250, 50, 50, 150, 450, 150, fill='blue')#roof
+house_my_canvas.create_rectangle(50, 150, 450, 450, fill='orange') #body of house
+house_my_canvas.create_rectangle(275, 450, 375, 250, fill='purple') #door
+house_my_canvas.create_rectangle(100, 250, 200, 325, fill='white') #window
+house_my_canvas.create_oval(350, 350, 355, 355, fill='black') #door knob
+
+
+tkinter.mainloop()
+
+#I4
+eye_my_window = tkinter.Tk()
+
+eye_my_canvas = tkinter.Canvas(eye_my_window, width=500, height=500)
+eye_my_canvas.pack()
+
+eye_my_canvas.create_oval(25, 125, 475, 375, fill='white') #eye
+eye_my_canvas.create_oval(125, 125, 375, 375, fill='blue') #iris
+eye_my_canvas.create_oval(210, 210, 290, 290, fill='black') #pupil
+
+tkinter.mainloop()
+
+#I5
+solarSystem_my_window = tkinter.Tk()
+
+solarSystem_my_canvas = tkinter.Canvas(solarSystem_my_window, width=1400, height=800)
+solarSystem_my_canvas.pack()
+
+
+solarSystem_my_canvas.create_oval(50, 400, 250, 600, fill='yellow') #sun
+solarSystem_my_canvas.create_oval(300, 495, 310, 505, fill='red') #Mercury
+solarSystem_my_canvas.create_oval(340, 490, 360, 510, fill='green') #Venus
+solarSystem_my_canvas.create_oval(380, 450, 480, 550, fill='blue') #Earth
+solarSystem_my_canvas.create_oval(440, 430, 450, 440, fill='gray') #moon
+solarSystem_my_canvas.create_oval(500, 460, 575, 540, fill='orange') #Mars
+solarSystem_my_canvas.create_oval(700, 425, 850, 575, fill='red') #Jupiter
+solarSystem_my_canvas.create_oval(925, 440, 1045, 560, fill='purple') #Saturn
+solarSystem_my_canvas.create_oval(1070, 445, 1180, 555, fill='blue') #Neptune
+solarSystem_my_canvas.create_oval(1300, 490, 1320, 510, fill='gray') #Pluto
+
+tkinter.mainloop()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

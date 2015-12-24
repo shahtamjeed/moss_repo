@@ -1,0 +1,230 @@
+<HTML>
+<HEAD>
+<TITLE>lgangara/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+lgangara/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab-7-le fin.py
+# Lakshita Gangaramani 34446275, Jaime Arredondo (51929430). ICS31, Lab sec 6, Lab Assignment 7.
+
+
+print('---------- Part (c) ----------')
+print()
+
+#c1
+
+from random import randrange
+
+infile_femalenames = open('femalenames.txt','r')
+infile_malenames = open('malenames.txt','r')
+infile_surnames = open('surnames.txt','r')
+
+
+def random_name(n:int)-&gt;str:
+    '''A function that takes an integer, and returns one randomly generated name
+       from a list of that many names'''
+    
+    firstnames_list = []
+    surnames_list = []
+    
+    for i in range(0, n+1):
+        femalenames_str = infile_femalenames.readline()
+        split_femalenames_list = femalenames_str.split('\t')
+        firstnames_list.append(split_femalenames_list[0].capitalize())
+
+        malenames_str = infile_malenames.readline()
+        split_malenames_list = malenames_str.split('\t')
+        firstnames_list.append(split_malenames_list[0].capitalize())
+
+        surnames_str = infile_surnames.readline()
+        split_surnames_list = surnames_str.split('\t')
+        surnames_list.append(split_surnames_list[0].capitalize())
+         
+    return '{1}, {0}'.format(firstnames_list[randrange(0, n+1)], surnames_list[randrange(0, n+1)])
+
+
+print(random_name(10))
+print()
+
+
+def random_names(n:int)-&gt;list:
+    '''A function that takes an integer, and returns a list of that many
+       randomly generated names'''
+    
+    name_list= []
+    for i in range(n):
+        name_list.append(random_name(n))
+    return name_list
+   
+        
+print(random_names(3))
+print()
+print(random_names(32))
+print()
+
+infile_femalenames.close()
+infile_malenames.close()
+infile_surnames.close()
+
+
+
+print()
+print()
+print('---------- Part (d) ----------')
+print()
+
+#d1
+
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate_alphabet(num: int)-&gt; str:
+    '''Takes in a key, and returns an arrangment of alphabets rotated
+       by the key'''
+    
+    rotated=''
+    rotated+=ALPHABET[num%26:]+ALPHABET[:num%26]
+    return rotated
+
+def translate_punctuation(sentc: str) -&gt; str:
+    '''Takes a string, and returns the string after translating the
+       punctions !?.:;*@#$%^&"()-_=+][{}\/&gt;,&lt;`~| into blank spaces'''
+    
+    table = str.maketrans("""!?.:;*@#$%^&"()-_=+][{}\/&gt;,&lt;`~|""", "                               ")
+    return sentc.translate(table)
+
+
+
+
+def Caesar_break(text: str)-&gt;str:
+    '''Takes a ciphertext string, and returns the translated plaintext message'''
+    trans_text = translate_punctuation(text)
+    trans_text = trans_text.lower()
+    trans_text = trans_text.strip()
+    wordslist = trans_text.split()
+
+    counter = 0
+    translation = ''
+    
+
+    for i in range(1, 27):
+        alpha = rotate_alphabet(i)
+        
+        temp_translation = ''
+        temp_counter = 0
+        
+        for word in wordslist:
+            table1 = str.maketrans(alpha, ALPHABET)
+            trans = word.translate(table1)
+            temp_translation = temp_translation + trans + ' '
+        
+            
+            infile_dictionary = open('wordlist.txt', 'r')
+            
+            if trans in infile_dictionary.read():
+                temp_counter = temp_counter + 1
+                
+            infile_dictionary.close()
+
+        if temp_counter &gt; counter:
+            counter = temp_counter
+            translation = temp_translation
+            
+    return translation
+
+
+
+print(Caesar_break('wklv lv d vhfuhw phvvdjh'))
+print()
+
+#d2
+
+print(Caesar_break('Z czbv glggzvj'))
+print()
+
+print(Caesar_break('Pof gjti, uxp gjti, Sfe gjti, cmvf gjti. J MJLF GJTI.'))
+print()
+
+
+
+
+print()
+print()
+print('---------- Part (e) ----------')
+print()
+
+
+
+def stats(l: 'list of str'):
+    ''' Takes a list of string, and prints its staticstics'''
+    
+    data = [0,0,0,0]
+    data2= ['line in file','empty lines','average characters per line','average characters for non-empty line']
+    total = 0
+    totalnon = 0
+    data[0] = len(l)
+    for i in range(len(l)):
+        total += len(l[i])
+        if l[i] == '\n':
+            data[1] += 1
+        else:
+            totalnon += len(l[i])
+    data[2] = (total/len(l))
+    data[3] = (totalnon/(len(l)-data[1]))
+    for i in range(0,2):
+        print('{0:5}   {1}'.format(data[i],data2[i]))
+    for i in range(0,2):
+        print('{0:7.1f} {1}'.format(data[i+2],data2[i+2]))       
+   
+   
+
+def copy_file1(inst:str):
+    '''Copies the desired file in different ways according to the string parameter:
+       'line numbers'(file copied with line numbers for each line),
+       'Gutenburg trim'(file copied with trimmed start and end),
+       'statistics'(copies file, but also prints statistics about it),
+       any other parameter(copies the file without any alterations)'''
+
+    
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if inst == 'line numbers':
+        content = infile.readlines()
+        for i in range(len(content)):
+            outfile.write('{0:5}: {1}'.format(i+1 ,content[i]))
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match115-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    elif inst == 'Gutenburg trim':
+        for line in infile:
+            if '*** START' in line:
+                outfile.write(line)
+                for line in infile:
+                    if '*** END' in line:
+                        outfile.write(line)
+                        break
+                    else:
+                        outfile.write(line)
+    elif inst == 'statistics':
+        L = []
+        for line in infile:
+            outfile.write(line)
+            L.append(line)
+        stats(L)
+    else:
+        for line in infile:
+            outfile.write(line)
+
+    infile.close()
+    outfile.close()
+
+
+copy_file1(input('Enter string please:'))
+</FONT>
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

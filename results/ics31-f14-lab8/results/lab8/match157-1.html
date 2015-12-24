@@ -1,0 +1,118 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/kunyuz1/(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/shanwl/(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab8partf.py
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match157-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_34.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+"""** This is a sample command file for the Anteater BandB, Stage I
+PL ***********************************************************
+PL Here is a list of available bedrooms (before adding any!)
+** A well-written program works gracefully with empty lists.
+BL
+PL ***********************************************************
+** Now let's add a bedroom:
+AB 101
+BL
+** And some more:
+AB 104
+** Extra blanks around the command should be ignored
+ab    102
+    AB 201
+    Ab      203
+ BL
+PL Thank you for using the Anteater BandB Reservation System!
+</FONT>"""
+def Collection_new()-&gt; list:
+    ''' Return a new, empty collection
+    '''
+    return [ ]
+
+def AB(bl:'list of room', room: str)-&gt; list:
+    bl.append(room)
+    return bl
+
+def lines(bl:'list of room'):
+    print('Number of bedrooms in service:', len(bl))
+    print('------------------------------------')
+
+def BL(bl:'list of room'):
+    s =''
+    lines(bl)
+    for room in bl:
+        s += room + '\n'
+    return s
+
+a = ['101', '102']
+
+def read_file(file_name: str)-&gt; list:
+    infile = open(file_name, 'r')
+    data = infile.readlines()
+    result = []
+    for i in data:
+        result.append(i.strip())
+    infile.close()
+    return result
+"""
+print(read_file('BandB.txt'))
+print()
+"""
+def remove_stars(file_name:str)-&gt; list:
+    result = read_file(file_name)
+    for i in result:
+        if i.count('**') == 1:
+            result.remove(i)
+    return result
+"""
+print(remove_stars('BandB.txt'))
+print()
+"""
+def PL(file_name:str)-&gt; list:
+    result = remove_stars(file_name)
+    line = []
+    for i in result:
+        if 'PL' in i:
+            i = i[3:]
+        line.append(i)
+    return line
+    
+print(PL('BandB.txt'))
+"""
+def availabe_bedroom(file_name:str)-&gt; list:
+    result = PL(file_name)
+    for i in result:
+        if i == 'BL':
+            
+
+
+"""
+def write_str(file_name:str)-&gt; str:
+    result = PL(file_name)
+    s = ''
+    for i in result:
+        s += i + '\n'
+    return s
+
+print(write_str('BandB.txt'))
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,260 @@
+<HTML>
+<HEAD>
+<TITLE>rsuasin/(c)-(g)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+rsuasin/(c)-(g)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab4.py
+# Roshan Suasin 41262572 John Ezekial 56303787 Barlow ICS 31 Lab 13
+
+# c.1
+def test_number(n: int, s: str)-&gt; bool:
+  '''Returns True if the number has the property'''
+  s = s.lower()
+  if n % 2 == 0:
+    if s == 'even':
+      return True
+  if n % 2 == 1:
+    if s == 'odd':
+      return True
+  if n &gt; 0:
+    if s == 'positive':
+      return True
+  if n &lt; 0:
+    if s == 'negative':
+      return True
+  else:
+    return False
+assert test_number(14, 'even')
+assert not test_number(100, 'odd')
+assert test_number(33, 'positive')
+assert not test_number(100, 'negative')
+
+# c.2
+def display():
+  '''Prints out every character in a string, one per line'''
+  WP = input('Enter a word: ')
+  for char in WP:
+    print(char)
+  return
+
+# c.3
+def square_list(l: list):
+  '''Squares every number in the list'''
+  for n in l:
+    print(n ** 2)
+  return
+
+# c.4
+def match_first_letter(s: str, l: list):
+  '''Prints a string in the list that has the same first
+  letter as the string given'''
+  for i in l:
+    if s == i[0]:
+      print(i)
+
+# c.5
+def match_area_code(l: list, l2: list):
+  '''Takes a list of area codes and a list of phone numbers
+  to prints each phone number with any of the area codes'''
+  for i in l2:
+    if i[1:4] in l:
+      print(i)
+
+# c.6
+def matching_area_codes(l: list, l2: list):
+  '''Takes a list of area codes and a list of phone numbers
+  to return a list of phone numbers with the any of the area codes'''
+  result = []
+  for i in l2:
+    if i[1:4] in l:
+      result.append(i)
+  return result
+
+# d.1
+def is_vowel(s: str)-&gt; bool:
+  '''Takes a 1 character long string and returns True if it's a vowel'''
+  vowels = ['a','e','i','o','u']
+  return s.lower() in vowels
+
+# d.2
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match224-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def print_nonvowels(s: str) -&gt; str:
+  '''Prints nonvowels (consonants, spaces, punctuation marks, etc)'''
+  for n in range(len(s)):
+    if is_vowel(s[n]) == False:
+      print(s[n])
+
+# d.3
+def nonvowels(s: str)-&gt; str:
+  '''Returns all characters besides vowels'''
+  result = ''
+  for n in range(len(s)):
+    if is_vowel(s[n]) == False:
+      result = result + s[n]
+  return result
+
+assert nonvowels('Caffeine') == 'Cffn' 
+
+# d.4
+def consonants(s: str)-&gt; str:
+  '''Returns only consonants'''
+  result = ''
+  for n in range(len(s)):
+</FONT><A NAME="2"></A><FONT color = #0000FF><A HREF="match224-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if is_vowel(s[n]) == False and s[n].isalpha():
+      result = result + s[n]
+  return result
+assert consonants('Wow!') == 'Ww'
+
+# d.5
+def select_letters(s: str, s2: str)-&gt; str:
+  '''Returns a word with only consonants or vowels, depending on the first variable
+</FONT>  being c or v, respectively'''
+  result = ''
+  if s == 'c':
+    return consonants(s2)
+  elif s == 'v':
+    for n in range(len(s2)):
+      if is_vowel(s2[n]):
+        result = result + s2[n]
+    return result
+assert select_letters('v', 'Facetiously') == 'aeiou'
+assert select_letters('c', 'facetiously') == 'fctsly'
+
+# d.6
+def hide_vowels(s: str)-&gt; str:
+  '''Returns a string but replaces all vowels with "-"'''
+  result = ''
+  for n in range(len(s)):
+    if is_vowel(s[n]):
+      result = result + '-'
+    else:
+      result = result + s[n]
+  return result
+assert hide_vowels('Wow!') == 'W-w!'
+
+# e
+from collections import namedtuple
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+
+def Restaurant_change_price(R: object, n: int):
+  '''Returns number of object and increases the price by the specified number'''
+  return R._replace(price = R.price + n)
+
+# Restaurant attributes: name, kind of food served, phone number,
+#	best dish, price of that dish
+
+# f
+R1 = Restaurant("Taillevent", "French", "343-3434", "Escargots", 24.50)
+R2 = Restaurant("La Tour D'Argent", "French", "343-3344", "Ris de Veau", 48.50)
+R3 = Restaurant("Pascal", "French", "333-4444", "Bouillabaisse", 32.00)
+R4 = Restaurant("Thai Touch", "Thai", "444-3333", "Mee Krob", 10.95)
+R5 = Restaurant("Thai Dishes", "Thai", "333-4433", "Paht Woon Sen",  8.50)
+R6 = Restaurant("Thai Spoon", "Thai", "334-3344", "Mussamun", 9.00)
+R7 = Restaurant("McDonald's", "Burgers", "333-4443", "Big Mac", 3.95)
+R8 = Restaurant("Burger King", "Burgers", "444-3344", "Whopper", 3.75)
+R9 = Restaurant("Wahoo's", "Fish Tacos", "443-4443", "Mahi Mahi Burrito", 7.50)
+R10 = Restaurant("In-N-Out Burger", "Burgers", "434-3344", "Cheeseburger", 2.50)
+R11 = Restaurant("The Shack", "Burgers", "333-3334", "Hot Link Burger", 4.50)
+R12 = Restaurant("Gina's", "Pizza", "334-4433", "Combo Pizza", 12.95)
+R13 = Restaurant("Peacock, Room", "Indian", "333-4443", "Rogan Josh", 12.50)
+R14 = Restaurant("Gaylord", "Indian", "333-3433", "Tandoori Chicken", 13.50)
+R15 = Restaurant("Mr. Chow", "Chinese", "222-3333", "Peking Duck", 24.50)
+R16 = Restaurant("Chez Panisse", "California", "222-3322", "Grilled Duck Breast", 25.00)
+R17 = Restaurant("Spago", "California", "333-2222", "Striped Bass", 24.50)
+R18 = Restaurant("Sriped Bass", "Seafood", "333-2233", "Cedar Plank Salmon", 21.50)
+R19 = Restaurant("Golden Pagoda", "Chinese", "232-3232", "Egg Foo Young", 8.50)
+R20 = Restaurant("Langer's", "Delicatessen", "333-2223", "Pastrami Sandwich", 11.50)
+R21 = Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50)
+R22 = Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50)
+R23 = Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50)
+R24 = Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50)
+R25 = Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50)
+R26 = Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) 
+
+
+RL = [R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16,
+	R17, R18, R19, R20, R21, R22, R23, R24, R25, R26]
+# f.1
+def alphabetical(l: list)-&gt; list:
+  '''Alphabetizes the list'''
+  return l.sort()
+
+# f.2
+def alphabetical_names(l: list)-&gt; list:
+  '''Returns the names of the list in alphabetical order'''
+  alphabetical(l)
+  result = []
+  for n in range(len(l)):
+    result.append(l[n].name)
+  return result
+
+# f.3
+def all_Thai(l: list)-&gt; list:
+  '''Returns a list of all Thai restaurants'''
+  thai = []
+  for n in range(len(l)):
+    if l[n].cuisine == 'Thai':
+      thai.append(l[n])
+  return thai
+
+# f.4
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match224-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def select_cuisine(l: list, s: str)-&gt; list:
+  '''Returns a list of all restaurants with s type of cuisine'''
+  stuff = []
+  for n in range(len(l)):
+    if s == l[n].cuisine:
+      stuff.append(l[n])
+</FONT>  return stuff
+
+# f.5
+def select_cheaper(l: list, f: float)-&gt; list:
+  '''Returns a list of all restaurants with price lower than f (number)'''
+  result = []
+  for n in range(len(l)):
+    if f &gt; l[n].price:
+      result.append(l[n])
+  return result
+
+# f.6
+def average_price(l: list)-&gt; float:
+  '''Returns the average price of the best dishes of all restaurants in a list'''
+  Sum = []
+  for n in range(len(l)):
+    Sum.append(l[n].price)
+  avg = (sum(Sum) / (len(l)))
+  return avg
+print('\n')
+
+# f.7
+print(average_price(select_cuisine(RL,'Indian')))
+print('\n')
+
+# f.8
+print(average_price((select_cuisine(RL,'Chinese') + (select_cuisine(RL,'Thai')))))
+print('\n')
+
+# f.9
+print(alphabetical_names(select_cheaper(RL,15)))
+print('\n')
+
+import tkinter
+my_window = tkinter.Tk()
+
+diz_winder = tkinter.Canvas(my_window, width = 1200, height = 900)
+diz_winder.pack() # Put the canvas into the window
+def create_rectangle_from_center(x, y, h: int,w :int):
+  '''Creates a rectangle from the center with (x,y) as the center and
+  h-height and w-width'''
+  return diz_winder.create_rectangle(x - w, y - h, x + w, y + h)
+</PRE>
+</PRE>
+</BODY>
+</HTML>

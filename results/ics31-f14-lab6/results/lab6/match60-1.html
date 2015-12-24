@@ -1,0 +1,294 @@
+<HTML>
+<HEAD>
+<TITLE>luhanzhl/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+yuhual5/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6 final.py
+#(Yuhua,Liu 84547831) and (Qi, He 78755613 )ICS31   Lab 8   Assignment 6
+
+
+#
+#
+#(Part c.1)
+#
+#
+print ('\n')
+print ('----------------------------Part c.1----------------------------')
+print ('\n')
+def contains(string1, string2):
+    """ Checks if the second string occurs in the first string. If the second
+string does occur, the function returns True; if not, it returns False."""
+    return bool(string2 in string1)
+
+assert contains('banana', 'ana')
+print (contains('banana', 'ana'))
+assert contains('life', 'li')
+print (contains('life', 'li'))
+assert not contains('racecar', 'ck')
+print (contains('racecar', 'ck'))
+assert not contains('beautiful', 'bu')
+print (contains('beautiful', 'bu'))
+
+
+#
+#
+#print c.2
+#
+#
+print('\n')
+print ('-----------------------part c.2-----------------------')
+print ('\n')
+def string_delete_punctuation(a :str)-&gt;str:
+    table = str.maketrans('!@#$%^&*()~?','            ')
+    return  a.translate(table)
+string_delete_punctuation('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+def sentence_stats(a:str)-&gt;float:
+    print('Characters : ',len(a))
+    b = string_delete_punctuation(a).split()
+    print('Words: ',len(b))
+    sum=''
+    for i in string_delete_punctuation(a):        
+        if i in 'ABCDEFGHIGKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz':
+            sum = sum +i
+    print('Average word length : ',len(sum)/len(b))
+
+print(sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.'))
+print(sentence_stats('I love UCI'))
+        
+
+print ('\n')
+#
+#
+#print c.3
+#
+#
+print('\n')
+print ('-----------------------part c.3-----------------------')
+print ('\n')
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match60-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def initials(a:'str for a full name'):
+    result = ''
+    b = a.split()
+    print(b)
+    for i in b:
+        result = result +i[0]
+    result = result.upper()
+    return result
+</FONT>print(initials('Bill Cosby'))
+assert initials('Bill Cosby') == 'BC'
+print(initials('Guido van Rossum'))
+assert initials('Guido van Rossum') == 'GVR'
+print (initials('alan turing'))
+assert initials('alan turing') == 'AT'
+
+
+print ('\n')
+#
+#
+#print d.1
+#
+#
+print('\n')
+print ('-----------------------part d.1-----------------------')
+print ('\n')
+from random import randrange
+for i in range(50):
+    print (randrange(0,11))
+print ('')
+for i in range(50):
+    print (randrange(1,7))
+
+print ('\n')
+#
+#
+#print d.2
+#
+#
+print('\n')
+print ('-----------------------part d.2-----------------------')
+def roll2dice():
+    return(randrange(1,7)+randrange(1,7))
+for i in range(50):
+    print (roll2dice())
+
+print ('\n')
+#
+#
+#print d.3
+#
+#
+print('\n')
+print ('-----------------------part d.3-----------------------')
+print ('\n')
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match60-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def distribution_of_rolls(a:' number of times to roll two dice'):
+    result = []
+    for i in range(a):
+        result.append(roll2dice())
+    for x in range(2,13):
+        b='{:5.1f}'.format(result.count(x)/a*100)
+        print('{:2}:   {:8}  ({}%)    {:20}'.format(str(x), result.count(x) , str(b), result.count(x)*'*'))
+distribution_of_rolls(200)
+
+print ('\n')
+#
+#
+#print e.1
+#
+#
+print('\n')
+print ('-----------------------part e.1-----------------------')
+</FONT>print ('\n')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match60-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_18.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+Alphabet ='abcdefghijklmnopqrstuvwsyz'
+#ABCDEFGHIJKLMNOPQRSTUVWSYZ
+def Caesar_encrypt(string:'contain the original message',key:int):
+    """Return the ciphertext"""
+    string = string.lower()
+    key1 = key%26
+    new_order = Alphabet[key1:]+Alphabet[:key1]
+    table = str.maketrans(Alphabet,new_order)
+    string = string.translate(table)
+    string =string.capitalize()
+    return string
+print(Caesar_encrypt('I love you', 1))
+assert  Caesar_encrypt('I love you', 1) == 'J mpwf zpv'
+
+
+def Caesar_decrypt(string:'contain the message',key:int):
+    """Returns the plaintext"""
+    string = string.lower()
+    key2 = key%26
+    new_order1 = Alphabet[(-key2):]+Alphabet[:(-key2)]
+    table = str.maketrans(Alphabet,new_order1)
+    string= string.translate(table)
+    string= string.capitalize()
+    return string
+print (Caesar_decrypt('j mpwf zpv', 1))
+assert Caesar_decrypt('j mpwf zpv', 1)=='I love you'   
+print ('\n')
+#
+#
+#print  e.2
+#
+#
+print('\n')
+print ('-----------------------part e.2-----------------------')
+</FONT>print ('\n')
+print ('Lydia:')
+print (Caesar_encrypt('Do you like me.', 730))
+print ('Emma:')
+print (Caesar_decrypt('Fq aqw nkmg og.',730)  )
+print ('Lydia:')
+print (Caesar_encrypt('Go and enjoy your code', 1))
+print ('Emma:')
+print (Caesar_decrypt('Hp boe fokpz zpvs dpef',1))  
+print ('\n')
+#
+#
+#print e.3
+#
+#
+print('\n')
+print ('-----------------------part e.3-----------------------')
+print ('\n')
+print ('\n')
+print('the same function as part e.1')
+assert Caesar_encrypt("cat", 29) == Caesar_encrypt("cat", 3)
+#
+#
+#print f.1
+#
+#
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match60-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_26.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('\n')
+print ('-----------------------part f.1-----------------------')
+print ('\n')
+
+list1 = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.",
+  ""]
+
+def print_line_numbers(list_of_string:list)-&gt;str:
+    for i in range(len(list_of_string)):
+        a= ('{}: {}'.format(i+1, list_of_string[i]))
+        print (a)
+       
+print_line_numbers(list1)
+
+
+
+#
+#
+#print f.2
+#
+#
+print('\n')
+print ('-----------------------part f.2-----------------------')
+print ('\n')
+def stats(list_of_strings:list)-&gt;str:
+    """prints statistics"""
+    lines_in_the_list = len(list_of_strings)
+    empty_lines = 0
+    for i in list_of_strings:
+        if i == '':
+            empty_lines+=1
+    m = 0
+    for i in list_of_strings:
+        m +=len(i)
+    average_characters_per_line = m/len(list_of_strings)
+    average_chracters_per_non_empty_line = m/(lines_in_the_list - empty_lines )
+    print (str(lines_in_the_list)+'    '+'lines in the list\n'+
+          str(empty_lines)+'    '+'empty lines\n'+
+          "{:2.2f}".format(average_characters_per_line)+'    '+'average characters per line\n'+
+          "{:2.2f}".format(average_chracters_per_non_empty_line)+'    '+'average characters per non-empty')
+stats(list1)
+print ('\n')
+#
+#
+#print f.3
+#
+#
+print('\n')
+print ('-----------------------part f.3-----------------------')
+print ('\n')
+def list_of_words(list_of_strings:list)-&gt;list:
+    """Return a list of individual words with all white space and punctuation
+removed"""
+    table = str.maketrans('!@#$%^&*()~?','            ')
+    list2 = []
+    for i in list_of_strings:
+        list2+=i.translate(table).split()
+    return list2
+</FONT>print (list_of_words(list1))
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

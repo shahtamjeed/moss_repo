@@ -1,0 +1,169 @@
+<HTML>
+<HEAD>
+<TITLE>ethands/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+isilva1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Ivan Law 80233840 and Isabel Silva 35084189 and Lazaro Vargas 38358487. ICS 31 Lab Sec 10. Lab asst 7. 
+print()
+print('----(Part C)----')
+print()
+#c
+from random import randrange
+
+def stringCount(file: str, target_string: str):
+    infile=open(file)
+    content=infile.read()
+    return content.count(target_string)
+
+def make_list(file:str):
+    '''makes the txt file into a list'''
+    infile=open(file,"r+")
+    y = []
+    z = []
+    for i in range(stringCount(file,"\n")):
+        x = infile.readline()
+        y.append(x)
+    for i in y:
+        j = i.split()
+        z.append(j[0])
+    return z
+
+
+def random_names(n:int):
+    '''returs a list of many strings with each string randomly generated'''
+    a = make_list("surnames.txt")
+    b = make_list("malenames.txt")
+    c = make_list("femalenames.txt")
+    d = b + c
+    y = []
+    for i in range(n):
+        j = a[randrange(0,len(a))]
+        w = d[randrange(0,len(d))]
+        y.append(j.capitalize() + ", " + w.capitalize())
+    return y
+
+print(random_names(5))
+print()
+print('-----(Part D)----')
+print()
+#d1
+def rotated(string: str, num: float):
+    if num &gt;= 26:
+        num -= 26
+    return string[num:] + string[:num]
+def Caesar_encrypt(m:str, k:int) -&gt; str:
+    ''' entering plaintext returns cipher text'''
+    real_alpha = 'abcdefghijklmnopqrstuvwxyz'
+    real_ALPHA = real_alpha.upper()
+    plus_upper_alpha = real_alpha + real_ALPHA
+    new_alpha = rotated(plus_upper_alpha,k)
+    trans = str.maketrans(plus_upper_alpha, new_alpha)
+    new_string = ''
+    for i in m:
+        new_str = i.translate(trans)
+        new_string += (new_str)  
+    return new_string
+
+def Caesar_decrypt(m:str, k:int) -&gt; str:
+    '''Entering ciphertext and returns plaintext'''
+    real_alpha = 'abcdefghijklmnopqrstuvwxyz'
+    real_ALPHA = real_alpha.upper()
+    plus_upper_alpha = real_alpha + real_ALPHA
+    new_alpha = rotated(plus_upper_alpha,k)
+    trans = str.maketrans(new_alpha, plus_upper_alpha)
+    new_string = ''
+    for i in m:
+        new_str = i.translate(trans)
+        new_string += (new_str)  
+    return new_string
+
+def Caesar_break(x:str):
+    '''takes a ciphertext string and returns the plaintext for that strin without having the key'''
+    y = []
+    c = 26 * [0]
+    f = open("wordlist.txt")
+    u = f.read().split('\n')
+    for i in range(26):
+        y.append(Caesar_decrypt(x,i))
+    for r in y:
+        for s in r.split():
+            if s.lower() in u:  
+                c[y.index(r)] +=1
+                
+
+    return y[c.index(max(c))]
+print()
+print('----Part D2----')
+#d2
+
+print(Caesar_break("Jgnnq, iktchhg"))
+#print(Caesar_break("IKTCHHG JQY CTG aQW."))
+print(Caesar_break("Jgnnq yjcv ku Aqwt pcog?"))
+
+
+print()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match228-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('----Part E----')
+#e
+def empty_line(s: list) -&gt; int:
+    '''Return number of empty lines in the function'''
+    result = []
+    for i in s:
+        if i == '\n':
+            result.append(i)
+    return len(result)
+
+def total_characters(s: list) -&gt; int:
+    '''Returns total number of characters in a line'''
+    result = []
+    for i in s:
+        result.append(len(i))
+    return sum(result)
+
+def copy_file(x):
+</FONT>    '''copy's the file as before but also prints out the statistcs with the given parameter'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    z = ''
+    a = 0
+    y = []
+    t = []
+    if x == "line numbers":
+        for line in infile:
+            a += 1
+            z = "{:&gt;5}".format(str(a)) + ":  " + line
+            outfile.write(z)
+    elif x == "Gutenburg trim":
+        for line in infile:
+            y.append(line)
+        for i in y:
+            if i.startswith("*** START"):
+                t.append(y.index(i))
+            elif i.startswith("*** END"):
+                g = y.index(i)
+                for e in range(t[0]+1,g):
+                    outfile.write(y[e])
+    elif x == "statistics":
+        for line in infile:
+            y.append(line)
+            outfile.write(line)
+        q = len(y)
+        b = empty_line(y)
+        c = total_characters(y)/q
+        d = total_characters(y)/(q-b)
+        print('{:5}   lines in the list \n{:5}   empty lines \n{:7.1f} average characters per line \n{:7.1f} average characters per non empty line'.format(q, b, c, d))
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

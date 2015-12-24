@@ -1,0 +1,214 @@
+<HTML>
+<HEAD>
+<TITLE>namht1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+niharikg/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Nikki Gupta 11391554 Sean Murakami 92635859. ICS Lab sec 15. Lab asst 7.
+
+#
+#
+# Part (c)
+#
+#
+print()
+print()
+print('---------- Part (c) ----------')
+print()
+#(c.1)
+print()
+print('---------- Part (c.1) ----------')
+print()
+import random
+infile = open("surnames.txt", 'r')
+data = infile.read()
+dataline = data.split('\n')
+result = []
+for x in dataline:
+    b = x.split('\t')
+    result.append(b[0])
+#-------
+infile2 = open("femalenames.txt", 'r')
+data2 = infile2.read()
+dataline2 = data2.split('\n')
+result2 = []
+for y in dataline2:
+    c = y.split('\t')
+    result2.append(c[0])
+#-------
+infile3 = open("malenames.txt", 'r')
+data3 = infile3.read()
+dataline3 = data3.split('\n')
+result3 = []
+for z in dataline3:
+    d = z.split('\t')
+    result3.append(d[0])
+#-------
+def name_random() -&gt; str:
+    "Gererate a random name (last name, first name)"
+    s = ''
+    p = random.randrange(len(result))
+    s += result[p] + ', '
+    m = random.randrange(2)
+    if m == 1:
+        n = random.randrange(len(result2))
+        s += result2[n]
+    elif m == 0:
+        n = random.randrange(len(result3))
+        s += result3[n]
+    return s
+print(name_random())
+def random_names(a:int) -&gt; list:
+    "Return a list of randomly generated names"
+    L = []
+    for i in range(a):
+        X = name_random()
+        L.append(X)
+    return L
+print(random_names(5))
+infile.close()
+infile2.close()
+infile3.close()
+
+#
+#
+# Part (d)
+#
+#
+print()
+print()
+print('---------- Part (d) ----------')
+print()
+#(d.1)
+print()
+print('---------- Part (d.1) ----------')
+print()
+wordlist = open("wordlist.txt", 'r')
+dictionary = wordlist.read()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match90-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_13.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+dictionary = dictionary.lower()
+words = dictionary.split('\n')
+wordlist.close()
+def Caesar_decrypt(m:str, n: int) -&gt; str:
+    "Returns the plaintext"
+    m = m.lower()
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    alphabet2 = ''
+    x = (n%26)
+    alphabet2 = alphabet2.join(alphabet[x:].split() + alphabet[0:x].split())
+    m = m.translate(str.maketrans(alphabet2, alphabet))
+    return m
+print(Caesar_decrypt('BJET', 12))
+print(Caesar_decrypt('BJET', 23))
+def Caesar_break(f: str) -&gt; str:
+    key = []
+</FONT>    last = ''
+    g = f.split()
+    for h in g:
+        for i in range(26):
+            key.append(Caesar_decrypt(h, i))
+    for i in key:
+        for j in words:
+            if i == j:
+                if len(g)==1:
+                    last+= i
+                if len(g)&gt;1:
+                    k = last.split()
+                    if len(k)==0:
+                        last += i
+                    else:
+                        last += ' ' + i
+    return last
+print(Caesar_break('Bbmtu'))
+print(Caesar_break('Deerww'))
+print(Caesar_break('Bbmtu Deerww'))
+
+#(d.2)
+print()
+print('---------- Part (d.2) ----------')
+print()
+
+#Partner sent 'bcsb'
+print(Caesar_break('bcsb'))
+#Sent partner 'ejdz'
+#partner did print(Caesar_decrypt('ejdz'))
+
+#
+#
+# Part (e)
+#
+#
+print()
+print()
+print('---------- Part (e) ----------')
+print()
+def stats(a: list) -&gt; str:
+    "Lists the stats of a list of strings"
+    ave = 0
+    print('{0:6}'.format(len(a)), '  lines in the list')
+    empty = 0
+    for emp in a:
+        if emp == '':
+            empty += 1
+    print('{0:6}'.format(empty), '  empty lines')
+    for emp in a:
+        ave += len(emp)
+    st = (ave/len(a))
+    ts = (ave/(len(a)-empty))
+    print('{:8.1f}'.format(st), 'average characters per line')
+    print('{:8.1f}'.format(ts), 'average characters per non-empty line')
+
+def copy_file(x: str) -&gt; str:
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    l = infile.read()
+    lines = l.split('\n')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in range(len(lines)):
+        if lines[line].startswith('*** START'):
+            i = line
+            k = lines[i].startswith('*** START')
+        if lines[line].startswith('*** END'):
+            n = line
+    for line in range(len(lines)):
+        if x == 'line numbers':
+            outfile.write('{0:5}'.format(line+1) + " : " + lines[line] + '\n')
+        elif x == 'Gutenberg trim':
+            if k == True:
+                if line&gt;=i:
+                    outfile.write(lines[line])
+            else:
+                outfile.write(lines[line])
+        elif x == 'statistics':
+            statistics = stats(lines)
+            return statistics
+        else:
+            outfile.write(lines[line])
+    infile.close()
+    outfile.close()
+'''copy_file('line numbers')'''
+copy_file('Gutenberg trim')
+'''copy_file('statistics')'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

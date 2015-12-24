@@ -1,0 +1,302 @@
+<HTML>
+<HEAD>
+<TITLE>kimbemm1/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kimbemm1/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab6.py
+##  Aarish Aziz 69605657 and Kimberly Murray 54249717.  ICS 31 Lab sec 5.  Lab asst 6.
+
+
+#c.1
+print()
+print('-----c.1-----')
+print()
+
+def contains(a: str, b: str)-&gt; bool:
+    '''Checks if second string occurs in first string'''
+    return b in a
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+print(contains('banana', 'ana'))
+
+#c.2
+print()
+
+print('-----c.2-----')
+print()
+
+def change_char(h: str) -&gt;str:
+    b = "?!.,':;*"
+    result = ''
+    for char in h:
+        if char in b:
+            result += ' '
+        else:
+            result += char
+    return result
+
+
+def sentence_stats(a:str):
+    '''Takes a string and prints out statistics regarding the string'''
+    a = change_char(a)
+    character_count = len(a) - a.count(' ')
+    print("Characters: ", len(a))
+    w = a.split()
+    print("Words: ", len(w))
+    average = character_count / len(w)
+    print("Average word length: ", average)
+    
+
+sentence_stats("The red balloon")
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+print()
+print('c.2.2')
+
+
+    
+###c.3
+print()
+print('-----c.3-----')
+print()
+
+def initials (n: str,)-&gt; str:
+    result = ""
+    new = n.upper().split()
+    for x in new:
+        result += x[0]
+    return result
+        
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+#d.1
+print()
+
+print('-----d.1-----')
+print()
+
+from random import randrange
+
+for x in range(51):
+    print(randrange(0, 11))
+    
+print("-------")
+
+for x in range(51):
+    print(randrange(1,7))
+    
+
+#d.2
+print()
+print('-----d.2-----')
+print()
+
+def roll2dice()-&gt; int:
+    return (randrange(1,7) + randrange(1,7))
+
+print(roll2dice())
+print('------')
+for x in range(51):
+    print(roll2dice())
+
+#d.3
+print()
+print('-----d.3-----')
+print()
+
+def distribution_of_rolls(number: int):
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match200-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    result = []
+    newlist = []
+    for x in range(number):
+        result.append(roll2dice())
+    for num in range(2, 13):
+        counted = result.count(num)
+        newlist.append(counted)
+    for z in range(0,11):
+</FONT>        print('{:3}: {:5}({:5.1f}%) {}'.format((z + 2), newlist[z], ((newlist[z]/number)*100), newlist[z] * '*'))
+
+print(distribution_of_rolls(100))
+
+#e.1    
+print()
+print('-----e.1-----')
+print()
+
+def rotated_alpha(a: str, x:int) -&gt; str:
+    result = ''
+    result += a[x:] + a[:x]
+    return result
+
+assert rotated_alpha('computer', 2) == 'mputerco'
+assert rotated_alpha('cat', 2) == 'tca'
+
+
+ALPHABET = 'abcdefhijklmnopqrstuvwxyz'
+upperalpha = ALPHABET.upper()
+
+def Caesar_encrypt(message: str, x:int) -&gt; str:
+    '''Takes an unaltered message(plaintext) and returns a ciphertext'''
+    table = str.maketrans(ALPHABET, rotated_alpha(ALPHABET, x))
+    return message.translate(table)
+
+assert Caesar_encrypt('cat', 1) == 'dbu'
+assert Caesar_encrypt('tree', 1) == 'usff'
+print(Caesar_encrypt('firetruck', 1))
+
+def Caesar_decrypt(message: str, x:int) -&gt; str:
+    '''Takes a ciphertext and returns the plain text'''
+    table = str.maketrans(rotated_alpha(ALPHABET, x), ALPHABET)
+    return message.translate(table)
+
+assert Caesar_decrypt('cvjmejog', 1) == 'building'
+assert Caesar_decrypt('psbogf', 1) == 'orange'
+assert Caesar_decrypt('evdl', 1) == 'duck'
+print(Caesar_decrypt('psbogf', 1))
+
+# e.2 ?
+print()
+print('-----e.2-----')
+print()
+
+# e.3
+print()
+print('-----e.3-----')
+print()
+
+def rotated_alpha(a: str, x:int) -&gt; str:
+    result = ''
+    result += a[x:] + a[:x]
+    return result
+
+assert rotated_alpha('computer', 2) == 'mputerco'
+assert rotated_alpha('cat', 2) == 'tca'
+
+
+ALPHABET = 'abcdefhijklmnopqrstuvwxyz'
+upperalpha = ALPHABET.upper()
+
+def Caesar_encrypt(message: str, x:int) -&gt; str:
+    '''Similar to e.1 except now can accept variables larger than 25'''
+    if x &gt; 26:
+        x = x % (26)
+    table = str.maketrans(ALPHABET, rotated_alpha(ALPHABET, x))
+    return message.translate(table)
+
+assert Caesar_encrypt('cat', 1) == 'dbu'
+assert Caesar_encrypt('tree', 1) == 'usff'
+assert Caesar_encrypt('firetruck', 1) == 'hjsfusvdl'
+print(Caesar_encrypt('firetruck', 1))
+
+def Caesar_decrypt(message: str, x:int) -&gt; str:
+    '''Similar to e.1 except now can accept variables larger than 25'''
+    if x &gt; 26:
+        x = x % (26)
+    table = str.maketrans(rotated_alpha(ALPHABET, x), ALPHABET)
+    return message.translate(table)
+
+assert Caesar_decrypt('cvjmejog', 1) == 'building'
+assert Caesar_decrypt('psbogf', 1) == 'orange'
+assert Caesar_decrypt('psbogf', 27) == 'orange'
+print(Caesar_decrypt('psbogf', 1))
+
+
+# f.1
+print()
+print('-----f.1-----')
+print()
+
+AL = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+
+def print_line_numbers(x: list):
+    '''prints each string in the list with the line number preceding it'''
+    for z in range(len(x)):
+        print('{}: {:5}'.format(z+1, x[z]))
+    
+print(print_line_numbers(AL))
+
+# f.2
+print()
+print('-----f.2-----')
+print()
+
+AL2 = [ "Four score and seven years ago, our fathers brought forth on", " ", " ", 
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match200-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats(x: list):
+    '''takes a list of strings and prints the statistics of each string'''
+    lines = len(x)
+    emptylines = 0
+    characters = 0
+    for s in x:
+        if s == ' ':
+            emptylines += 1
+    for z in x:
+        characters += len(z)
+    print('{:6} lines in the list\n {:5} empty lines\n {:5.1f} average characters per line\n {:5.1f} average characters per non-empty line'.format(lines, emptylines, (characters / lines), (characters/(lines - emptylines))))
+</FONT>print(stats(AL2))
+
+
+# f.3
+print()
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match200-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('-----f.3-----')
+print()
+
+def list_of_words(x: list) -&gt; list:
+    '''Takes a list of strings and returns a list of individual words'''
+    result = []
+    for s in x:
+        s = change_char(s)
+        s = s.split()
+        result += s
+    return result
+
+print(list_of_words(AL))
+</FONT>        
+        
+
+
+
+
+
+
+
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

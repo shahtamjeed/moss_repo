@@ -1,0 +1,268 @@
+<HTML>
+<HEAD>
+<TITLE>dslozano/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+lawi/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Ivan Law 80233840 and Sunaina Kumar 27947698 and Kam Wing Lee 96109555. ICS 31 Lab sec 10. Lab asst 5.
+
+#
+#
+# Part (c) 1
+#
+#
+print()
+print()
+print('---------- Part (c) 1 ----------')
+print()
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match245-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def contains(x:str,y:str) -&gt; str:
+    'Takes two input strings and checks if the second sting occurs in the first'
+    return y in x
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+#
+#
+# Part (c) 2
+#
+#
+print()
+print()
+print('---------- Part (c) 2 ----------')
+print()
+
+def convert(x:str) -&gt; str:
+    'Translates all punctuation marks to blanks'
+    y = ['.','!','?','*',':']
+</FONT>    j = ''
+    for i in x:
+        for k in y:
+            if i == k:
+                i = ' '
+        j = j + i
+    return j
+        
+def sentence_stats(x:str) -&gt; str:
+    'Takes in a string as a parameter and prints out statistics'
+    z = 0
+    j = convert(x)
+    y = j.split()
+    for i in range(len(y)):
+        z += len(y[i])
+        k = z/len(y)
+    print('Characters: ', len(x))
+    print('Words: ', len(y))
+    print('Average word length: ', k)
+
+#
+#
+# Part (c) 3
+#
+#
+print()
+print()
+print('---------- Part (c) 3 ----------')
+print()
+
+def initials(x:str) -&gt; str:
+    'Takes a string representing a full name and returns the initials in all capital letters'
+    z = ''
+    y = x.split()
+    for i in y:
+        z = z + i[0]
+    return z.upper()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match245-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+#
+#
+# Part (d) 1
+#
+#
+print()
+print()
+print('---------- Part (d) 1 ----------')
+print()
+
+from random import randrange
+
+for x in range(50):
+    print(randrange(0,11))
+
+for x in range(50):
+    print(randrange(1,7))
+
+#
+#
+# Part (d) 2
+#
+#
+print()
+print()
+print('---------- Part (d) 2 ----------')
+print()
+
+def roll2dice() -&gt; int:
+    'Takes no parameters and returns a number that reflects the random roll of two dice'
+    x = randrange(1,7)
+    y = randrange(1,7)
+    return x+y
+
+for x in range(50):
+    print(roll2dice())
+
+#
+#
+# Part (d) 3
+#
+#
+print()
+print()
+print('---------- Part (d) 3 ----------')
+print()
+
+    
+def distribution_of_rolls(x:int) -&gt; str:
+</FONT>    'Takes one number as the number of times to roll and returns the distribution of values'
+    y = []
+    k = []
+    z = ''
+    for i in range(x):
+        z = roll2dice()
+        y.append(z)
+    for b in range(2,13):
+        for a in y:
+            if a == b:
+               k.append(a)
+            d = '*' * len(k)
+        print('{:&gt;2}'.format(b), '{:&lt;5}'.format(':'), '{:&gt;2}'.format(str(len(k))), '{:&gt;7}'.format('(' + '{:&gt;4}'.format(str(len(k)*100/x))+'%'+')') ,d)
+        k = []
+    print('-------------------------------------------')
+    print('{:&gt;11}'.format(str(x)),'rolls')
+
+distribution_of_rolls(200)
+
+#
+#
+# Part (e)
+#
+#
+print()
+print()
+print('---------- Part (e) ----------')
+print()
+
+def Caesar_encrypt(x:str,y:int) -&gt; str:
+    'Encrypts a str with Caesar cipher with a key y'
+    k = []
+    t = ''
+    if y &gt; 26:
+        y = y % 26
+    for i in x:
+        if i != ' ':
+            i = chr(ord(i)+y)
+            k.append(i)
+        if i == ' ':
+            k.append(i)
+    for q in k:
+        t = t + q
+    return t
+
+def Caesar_decrypt(x:str,y:int) -&gt; str:
+    'Decrypts a str with Caesar cipher with a key y'
+    k = []
+    t = ''
+    if y &gt; 26:
+        y = y % 26
+    for i in x:
+        if i != ' ':
+            i = chr(ord(i)-y)
+            k.append(i)
+        if i == ' ':
+            k.append(i)
+    for q in k:
+        t = t + q
+    return t
+
+#
+#
+# Part (f) 1
+#
+#
+print()
+print()
+print('---------- Part (f) 1 ----------')
+print()
+
+L1 = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ",
+       "", "                      ","hello"]
+
+
+def print_line_numbers(x:list) -&gt; str:
+    'Takes a list of strings and prints each string preceded by a line number'
+    for i in range(len(x)):
+        print('{:&gt;2}'.format(i+1),': ',x[i])
+
+print_line_numbers(L1)
+
+#
+#
+# Part (f) 2
+#
+#
+print()
+print()
+print('---------- Part (f) 2 ----------')
+print()
+
+def stats(L:list) -&gt; str:
+    'Takes a list of strings and prints statistics' 
+    print("{:&gt;3}".format(len(L)),'lines in the list')
+    y = []
+    for i in range(len(L)):
+       if L[i].strip(' ') == '':
+            y.append(i)
+    print("{:&gt;3}".format(len(y)),'empty lines')
+    counts = 0
+    for w in L:
+        counts = counts + len(w)
+    print("{:&gt;3.0f}".format(counts/len(L)),'average characters per line')
+    print("{:&gt;3.0f}".format(counts/len(y)),'average characters per non-empty line')
+
+stats(L1)
+
+#
+#
+# Part (f) 3
+#
+#
+print()
+print()
+print('---------- Part (f) 3 ----------')
+print()
+
+def list_of_words(L:list) -&gt; list:
+    'Takes a list of strings and returns a list of individual words with all white space and punctuation removed'
+    k = []
+    for i in L:
+        f = i.split()
+        for q in f:
+            j = q.replace(' ','').replace('\t','').replace('\s','').replace(',','').replace('.','').replace('?','').replace('!','')
+            k.append(j)
+    return k
+</PRE>
+</PRE>
+</BODY>
+</HTML>

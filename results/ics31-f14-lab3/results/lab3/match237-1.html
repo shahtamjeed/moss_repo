@@ -1,0 +1,357 @@
+<HTML>
+<HEAD>
+<TITLE>hatorres/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+sargsyaa/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+###lab3test
+
+
+#  Anahit Sargsyan 92527976 and Patricia Garcia 73159523.  ICS 31 Lab sec 9.  Lab asst 3.
+
+#
+#
+# Part (1)
+#
+#
+
+print()  
+print()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match237-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('---------- Part (1) ----------')
+print()
+
+def abbreviate(s: str) -&gt; str:
+    abbr = s[0] + s[1] + s[2]
+    return abbr
+
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+</FONT>
+print (abbreviate('January'))
+
+
+print() 
+print()
+print('---------- Part (2) ----------')
+print()
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match237-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def find_area_square(side: int) -&gt; int:
+    area = side **2
+    return area
+
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+</FONT>
+print (find_area_square(3))
+
+print() 
+print()
+print('---------- Part (3) ----------')
+print()
+
+
+
+PI = 3.14159
+def find_area_circle(radius: float) -&gt; float:
+    circle_area = PI * (radius **2)
+    return circle_area
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+print(find_area_circle(3))
+
+print() 
+print()
+print('---------- Part (4) ----------')
+print()
+
+
+def print_even_numbers(integer_list: list):
+    for i in range(0, len(integer_list)):
+        if integer_list[i]%2==0:
+            print(integer_list[i])
+
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+
+print() 
+print()
+print('---------- Part (5) ----------')
+print()
+
+def calculate_shipping(weight: float) -&gt;float:
+    if weight &lt; 2:
+        rate = 2
+    elif weight &gt;= 2 and weight &lt; 10:
+        rate = 5
+    elif weight &gt;= 10:
+        rate = 5 + ((weight-10)*1.5)
+    return rate
+
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+print( calculate_shipping(7))
+
+print() 
+print()
+print('---------- Part (6) ----------')
+print()
+import tkinter
+def create_square(x_cord: int, y_cord: int, length: int):
+                  
+    my_window = tkinter.Tk()    
+
+    my_canvas = tkinter.Canvas(my_window, width=700, height=700)
+    my_canvas.pack()
+    my_canvas.create_rectangle(x_cord, y_cord, (x_cord+length), (y_cord+length))
+    
+    tkinter.mainloop()          
+
+create_square(100, 100, 200)
+
+
+print() 
+print()
+print('---------- Part (7) ----------')
+print()
+#import tkinter
+import math
+def create_circle(x_cord: int, y_cord: int, diameter: int):
+    
+    my_window2 = tkinter.Tk()    
+
+    my_canvas2 = tkinter.Canvas(my_window2, width=700, height=700)
+    my_canvas2.pack()
+    my_canvas2.create_oval(x_cord, y_cord, (x_cord+(diameter*(math.sqrt(2)/2))), (y_cord+(diameter*(math.sqrt(2)/2))))
+    
+    tkinter.mainloop()          
+
+create_circle(100, 100, 200)
+
+
+print() 
+print()
+print('---------- Part (d.1) ----------')
+print()
+
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurant_price(R: Restaurant):
+    price = R.price
+    return price
+
+assert restaurant_price(RC[0]) == 12.50
+assert restaurant_price(RC[4]) == 5.50
+
+print("The price of", RC[2].name, "is", restaurant_price(RC[2]))
+
+print()
+print('---------- Part (d.2) ----------')
+print()
+#print(RC)
+RC.sort(key = restaurant_price)
+print (RC)
+
+print()
+print('---------- Part (d.3) ----------')
+print()
+
+
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match237-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def costliest(Rest_List: RC) -&gt; float:
+    RC.sort(reverse = True, key = restaurant_price)
+    return Rest_List[0].name
+
+assert costliest(RC) == "Noma"
+</FONT>print ("The costliest Restaurant in the Restaurant Collection is", costliest(RC))
+#print (RC)
+print()
+print('---------- Part (d.4) ----------')
+print()
+
+def costliest2(Rest_List: RC) -&gt; float:
+    #RC.sort(reverse = True, key = restaurant_price)
+    return sorted(Rest_List, reverse = True, key = restaurant_price)[0].name
+
+assert costliest2(RC) == "Noma"
+
+print("The costliest Restaurant in the Restaurant Collection is", costliest2(RC))
+
+
+print()
+print('---------- Part (e.1) ----------')
+print()
+
+from collections import namedtuple 
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book("J. R. R. Tolkien", "Lord of the Rings", "fantasy", 1954, 49.99, 20),
+    Book("Charles Dickens", "A Tale of Two Cities", "fiction", 1859, 15.99, 17),
+    Book("Dan Brown", "The Da Vinci Code", "Technology", 2003, 23.99, 28),
+    Book("Harper Lee", "To Kill a Mockingbird", "fiction", 1960, 12.99, 7),
+    Book("Margaret Mitchell", "Gone with the Wind", "fiction", 1936, 16.99, 10),
+    Book("Douglas Adams", "The Hitchhiker's Guide to the Galaxy", "science fiction", 1979, 19.99, 30)]
+
+for i in range(0, len(BSI)):
+   print (BSI[i].title)
+   
+
+print()
+print('---------- Part (e.2) ----------')
+print()
+
+
+def title(B: Book):
+    return B.title
+
+assert title(BSI[1]) == "A Tale of Two Cities"
+assert title(BSI[4]) == "Gone with the Wind"
+
+for i in range(0, len(BSI)):
+   print(sorted(BSI, key = title)[i].title)
+
+
+print()
+print('---------- Part (e.3) ----------')
+print()
+
+for i in range(0, len(BSI)):
+    newPrice = BSI[i].price + (BSI[i].price*.10)
+    BSI[i] = BSI[i]._replace(price = newPrice)
+print (BSI)
+    
+
+
+print()
+print('---------- Part (e.4) ----------')
+print()
+
+print("The book(s) whose genre is \"Technology\":")
+for i in range (0, len (BSI)):
+    if BSI[i].genre == "Technology":
+        print ( BSI[i].title)
+    
+print()
+print('---------- Part (e.5) ----------')
+print()
+
+books_before_2000 = []
+books_after_2000 = []
+for i in range (0, len (BSI)):
+    if BSI[i].year &lt; 2000:
+        books_before_2000.append(BSI[i].title)
+    else:
+        books_after_2000.append(BSI[i].title)
+
+print ("Books that are published before 2000:\n", books_before_2000)
+print ("Books that are published in or after 2000:\n", books_after_2000)
+
+
+print()
+print('---------- Part (e.6) ----------')
+print()
+
+def inventory_value(B: Book)-&gt; float:
+    value = B.price * B.instock
+    return value
+
+assert inventory_value(BSI[0]) == 1099.7800000000002
+assert inventory_value(BSI[3]) == 100.023
+
+L = []
+def top_value(book_list: BSI) -&gt; list:
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match237-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    L = sorted(BSI, reverse = True, key = inventory_value)
+    return L[0]
+
+assert top_value(BSI).title == "Lord of the Rings"
+assert top_value(BSI).year == 1954
+</FONT>print("The highest-value book is", top_value(BSI).title, "by", top_value(BSI).author, "at the value of $", inventory_value(top_value(BSI)))
+
+print()
+print('---------- Part (6) ----------')
+print()
+
+'''
+my_window = tkinter.Tk()
+my_canvas4 = tkinter.Canvas(my_window3, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas4.pack()
+my_canvas4.create_oval(100, 100, 300, 200)
+my_canvas4.create_oval(175,125, 225, 175)
+my_canvas4.create_oval(150,100, 250, 200)
+'''
+
+my_window3 = tkinter.Tk()
+my_canvas3 = tkinter.Canvas(my_window3, width=500, height=500)
+my_canvas3.pack()
+def draw_eye (x_cord: int, y_cord: int, x2_cord: int, y2_cord: int, start_point: int):
+    x1_eye =(x2_cord-x_cord)/6
+    y1_eye = (y2_cord-y_cord)/8
+    x2_eye = (x2_cord-x_cord)/2
+    y2_eye = (y2_cord-y_cord)/4
+    
+    my_canvas3.create_oval(x1_eye+start_point, y1_eye, x2_eye+start_point, y2_eye)
+    my_canvas3.create_oval((x1_eye *7/4)+start_point, (y1_eye *5/4), (x2_eye *3/4)+start_point, (y2_eye *7/8))
+    my_canvas3.create_oval((x1_eye *3/2)+start_point, y1_eye, (x2_eye *5/6)+start_point, y2_eye)
+
+def draw_mouth(x_cord: int, y_cord: int, x2_cord: int, y2_cord: int):
+    x1_mouth = (x2_cord-x_cord)/2-((x2_cord-x_cord)/5)+ x_cord
+    y1_mouth = (y_cord) + (y2_cord - y_cord)*3/4
+    x2_mouth = (x2_cord-x_cord)/2+((x2_cord-x_cord)/5) + x_cord
+    y2_mouth = (y_cord) + (y2_cord - y_cord)*7/8
+    my_canvas3.create_oval(x1_mouth, y1_mouth, x2_mouth, y2_mouth)
+    my_canvas3.create_line(x1_mouth, y1_mouth+ (y2_mouth-y1_mouth)/2, x2_mouth, y1_mouth+(y2_mouth-y1_mouth)/2)
+
+def draw_nose(x_cord: int, y_cord: int, x2_cord: int, y2_cord, start_point: int):
+    x1_nose = (x2_cord-x_cord)/2-((x2_cord-x_cord)/8)
+    y1_nose = (y2_cord-y_cord)/2+((y2_cord-y_cord)/6)
+    x2_nose = (x2_cord-x_cord)/2+((x2_cord-x_cord)/8)
+    y2_nose = (y2_cord-y_cord)/2+((y2_cord-y_cord)/6)
+    
+    my_canvas3.create_line(x1_nose+ start_point, y1_nose, x2_nose+start_point, y2_nose)
+    my_canvas3.create_line(x1_nose+start_point, y1_nose, x2_nose-((x2_nose-x1_nose)/2)+start_point, y2_nose - (y2_nose*4/8))
+    my_canvas3.create_line(x2_nose-((x2_nose-x1_nose)/2)+start_point, y2_nose - (y2_nose*4/8), x2_nose+start_point, y2_nose)
+    
+    
+def draw_face (x_cord: int, y_cord: int, x2_cord: int, y2_cord: int):
+
+    my_canvas3.create_oval(x_cord, y_cord, x2_cord, y2_cord)
+    draw_eye(x_cord, y_cord, x2_cord, y2_cord, x_cord)
+    draw_eye(x_cord, y_cord, x2_cord, y2_cord, x_cord+ (x2_cord - x_cord)/3)
+    draw_mouth(x_cord, y_cord, x2_cord, y2_cord)
+    draw_nose(x_cord, y_cord, x2_cord, y2_cord, x_cord)
+    
+
+
+
+    
+draw_face(10, 10, 310, 410)
+
+draw_face (320, 10, 520, 300)
+tkinter.mainloop()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

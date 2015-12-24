@@ -1,0 +1,221 @@
+<HTML>
+<HEAD>
+<TITLE>jmbarba/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jmbarba/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Juan Barba 71449970 and Parth Mittal 44013651. ICS 31 Lab sec 14. Lab asst 7.
+print('')
+print("----------part c---------")
+print('')
+
+from random import randrange
+infile=open("surnames.txt",'r')
+surnames=infile.read()
+infile.close()
+infile=open("femalenames.txt",'r')
+femalenames=infile.read()
+infile.close()
+infile=open("malenames.txt",'r')
+malenames=infile.read()
+infile.close()
+def just_the_name(x:str)-&gt;str:
+    '''Returns just the names in the file'''
+    table=str.maketrans('0123456789.,','            ')
+    return x.translate(table)
+def split_function(n:str)-&gt;list:
+    '''takes a file and returns a list'''
+    list=n.split()
+    return list
+
+only_surnames=(split_function(just_the_name(surnames)))
+only_malenames=(split_function(just_the_name(malenames)))
+only_femalenames=(split_function(just_the_name(femalenames)))    
+males_femalenames=only_malenames+only_femalenames
+
+def random_name()-&gt;str:
+    '''takes a list of surnames and names and returns random names from it'''
+    n=randrange(0,len(only_surnames))
+    p=randrange(0,len(males_femalenames))
+    return only_surnames[n] + ' '+ males_femalenames[p]
+print(random_name())
+
+def random_names(number:int)-&gt;list:
+    ''' takes an integer and returns a list of that many names'''
+    list1=[]
+    for x in range(0,number):
+        list1.append(random_name())
+    return list1
+print(random_names(2))
+
+print('')
+print("----------part d---------")
+print('')
+
+x='abcdefghijklmnopqrstuvwxyz'
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match10-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_37.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def rotate(p:int):
+    '''Returns the alphabet rotated by the integer specified'''
+    k=p%26
+    y=''
+    y=(y+x[k:])+x[0:k]
+    return y
+def rotate_26():
+    '''Returns the alphabet rotated by each possible integer in a list'''
+    x=[]
+    for c in range(0,26):
+        p=rotate(c)
+        x.append(p)
+    return x
+
+
+def decryption_alphabet(n:str):
+    '''Retruns the string decrypted by every key'''
+    f=[]
+    y=rotate_26()
+    for z in range(0,26):
+        table=str.maketrans(x,y[z])
+        f.append(n.translate(table))
+    return f
+
+
+
+def split_list(n:str):
+    '''Returns the string as list seperating each word'''
+    y=''
+    for c in (decryption_alphabet(n)):
+        y=y+c+' '
+    return y.split()
+
+
+
+infile=open("wordlist.txt",'r')
+wordlist=infile.read()
+infile.close()
+
+wordlist_split=wordlist.split()
+def word_count(n:str):
+    '''Returns a list that counts whether the key used decrypts a word
+    that matches a word in the dictionary'''
+    y=[]
+    for c in (split_list(n)):
+        z=wordlist_split.count(c)
+        y.append(z)
+    return y
+
+
+def find_index(n:str):
+    '''Returns an integer that matches the indexing of a word that matches
+    in the dictionary'''
+    p=max(word_count(n))
+    z=0
+    for c in word_count(n):
+        if c==p:
+            z+=(word_count(n).index(c))
+    return z
+
+
+
+def final_part(n:str):
+    '''Returns one of the words decrypted'''
+    k=find_index(n)
+    p=split_list(n)
+    return(p[k])
+
+
+def different_str(n:str):
+    '''Returns the whole text decrypted''' 
+    p=n.lower().split()
+    z=''
+    for c in p:
+        y=str(final_part(c))
+        z=z+y+' '
+    return z
+</FONT>print(different_str('crrng qhhgpf'))
+
+print('')
+print("----------part e---------")
+print('')
+
+print()
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match10-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('-' * 10, 'Part (E)', '-' * 10)
+print()
+
+
+def copy_file(string: str):
+    '''Copies one file to another according to parameter supplies'''
+    infile_name = input("\nPlease enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+</FONT>    line = infile.readlines()
+    if string == 'line numbers':
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match10-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_24.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        for i in range(len(line)):
+            outfile.write("{:5d}: {:s}".format(i+1, line[i]))
+    elif string == 'Gutenberg trim':
+        for i in range(len(line)):
+            if "*** START" in line[i]:
+                j = i+1
+            if "*** END" in line[i]:
+                l = i
+                break
+        for i in range(j, l):
+            outfile.write(line[i])
+    elif string == 'statistics':
+        length = len(line)
+        emp = 0
+        for i in line:
+            i = i.split()
+            if len(i) == 0:
+                emp += 1
+        ch = 0
+        for i in line:
+            ch += len(i)
+                 
+        outfile.write("{:5d}    lines in the list\n".format(length))
+        outfile.write("{:5d}    empty lines\n".format(emp))
+        outfile.write("{:7.1f}  average characters per line\n".format(\
+            ch/length))
+        outfile.write("{:7.1f}  average characters per non-empty line\n\n".\
+                            format(ch/(length-emp)))
+        for i in line:
+            outfile.write(i)
+    else:
+        for i in range(len(line)):
+            outfile.write(line[i])
+    infile.close()
+    outfile.close()
+    return
+
+print("\n")
+print("1. Copy file with numbers of lines\n2. Copy file without housekeeping\
+</FONT><A NAME="2"></A><FONT color = #0000FF><A HREF="match10-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+\n3. Copy file with statistics \n4. Copy file simply")
+choice = input("\nEnter your choice : ")
+if choice == '1':
+    copy_file('line numbers')
+elif choice == '2':
+    copy_file('Gutenberg trim')
+elif choice == '3':
+    copy_file('statistics')
+else:
+    copy_file('')
+</FONT>    
+
+print()
+
+
+        
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

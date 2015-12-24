@@ -1,0 +1,282 @@
+<HTML>
+<HEAD>
+<TITLE>jarredo2/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jarredo2/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+#Jaime Arredondo (51929430) and Jessica Zhao (72513967), ICS 31 Lab 3 sec. 6
+
+#
+#
+#Part C
+#
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+<A NAME="6"></A><FONT color = #00FF00><A HREF="match4-1.html#6" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('---------- Part (c) ----------')
+print()
+
+def abbreviate (word: str) -&gt; str:
+    "return first three letters of the perameter"
+    return word[0:3]
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+
+#c2
+def find_area_square(value:int) -&gt; int:
+</FONT>    "return the area of square given the length of one side as the input"
+    return value ** 2
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+#c3
+def find_area_circle(value:int) -&gt; float:
+    "return the area of the circle given the radius as the input"
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match4-1.html#5" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return 3.14159 * value ** 2
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+#c4
+
+def print_even_numbers(numbers:list):
+    "print even numbers of the list"
+    for i in range(len(numbers)) :
+        if numbers[i] % 2==0:
+</FONT>            print (numbers[i])
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match4-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_20.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+#c5
+def calculate_shipping(weight:float) -&gt; float:
+    "return the price for shipping of the package given the weight"
+    if weight&lt;2:
+        return 2
+    elif weight&lt;10:
+        return 5
+    else:
+        return 5 + 1.50*(weight-10)
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+#c6
+import tkinter
+def create_square(x:int,y:int,length:int):
+    '''draws in the tkinter square as described by the arguments,
+    the x-coordinate and the y-coordinate of the upper-left corner
+    and the length of a side'''
+    my_window=tkinter.Tk()
+    my_canvas=tkinter.Canvas(my_window, width= 500, height=500)
+    my_canvas.pack()
+    my_canvas.create_rectangle(x,y,x+length,y+length)
+    tkinter.mainloop()
+create_square(100,100,200)
+
+#c7
+def create_circle(x:int,y:int,diameter:int):
+    '''draws in the tkinter circle as described by the arguments,
+    the x-coordinate and the y-coordinate of the upper-left corner
+    and the diameter of the circle'''
+    my_window1=tkinter.Tk()
+    my_canvas1=tkinter.Canvas(my_window1, width=500, height=500)
+    my_canvas1.pack()
+    my_canvas1.create_oval(x,y,x+diameter,y+diameter)
+    tkinter.mainloop()
+create_circle(100,100,200)
+
+#
+#
+#Part D
+#
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (d) ----------')
+print()
+
+#d1
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+</FONT>    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurant_price(restaurant:namedtuple) -&gt; float:
+    "return the price field of the restaurant"
+    return restaurant.price
+assert restaurant_price(RC[0]) == 12.50
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match4-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert restaurant_price(RC[1]) == 5.50
+assert restaurant_price(RC[2]) == 25.50
+
+#d2
+RC.sort(key=restaurant_price)
+print (RC)
+
+#d3
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+</FONT>    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match4-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+print (RC)
+def costliest(restaurants:list) -&gt; str:
+    "return the name of the highest-priced restaurant from the list while changing the order of the list"
+    restaurants.sort(key=restaurant_price)
+    return restaurants[-1].name
+print (costliest(RC))
+print (RC)
+
+#d4
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+</FONT>    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match4-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+print (RC)
+def costliest2(restaurants:list) -&gt; str:
+    "return the name of the highest-priced restaurant from the list without changing the order of the list"
+    return sorted(restaurants, key = restaurant_price)[-1].name
+print (costliest2(RC))
+print (RC)
+
+#
+#
+#Part E
+#
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (e) ----------')
+print()
+
+from collections import namedtuple
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book("Lee, Amy", "Cooking", "cookbook", 2010, 20.00, 20),
+</FONT>    Book("Smith, Sam", "Songs of Sam Smith", "sheet music", 2014, 25.00, 40),
+    Book("Dr. Seuss", "The Cat in the Hat", "children's book", 1957, 10.00, 25),
+    Book("J.K. Rowling", "Harry Potter", "fantasy", 1997, 30.00, 10),
+    Book("Madden, Steve", "The NFL", "sports", 2008, 15.00, 15),
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match4-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_39.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Book("Perkovic", "How to Code", "technology", 2006, 50.00, 25) ]
+
+#e1
+for i in range(len(BSI)):
+    print (BSI[i].title)
+    
+#e2
+def book_title(book:namedtuple) -&gt; str:
+    "return the title of the book"
+    return book.title
+
+for i in range(len(BSI)):
+    print (sorted(BSI, key = book_title)[i].title)
+
+#e3   
+for i in range(len(BSI)):
+    BSI[i] = BSI[i]._replace(price = BSI[i].price * 1.1)
+    
+#e4
+for i in range(len(BSI)):
+    if BSI[i].genre == 'technology':
+        print (BSI[i].title)
+        
+#e5
+before_2000=[]
+after_2000=[]
+before_instock=0
+after_instock=0
+for i in range(len(BSI)):
+    if BSI[i].year &lt; 2000:
+        before_2000.append(BSI[i].title)
+        before_instock += BSI[i].instock
+    else:
+        after_2000.append(BSI[i].title)
+        after_instock += BSI[i].instock
+if before_instock &gt; after_instock:
+    print ("More titles before 2000 (", before_instock, " vs. ", after_instock, ")", sep="")
+else:
+    print ("More titles after 2000 (", after_instock, " vs. ", before_instock, ")", sep="")
+
+#e6
+def inventory_value (book: Book) -&gt; float:
+    " Return value of inventory of given book"
+    return book.price * book.instock
+
+def top_value(books: list) -&gt; Book:
+    " Return the book with the highest inventory value given a list of books"
+    top=books[0]
+    for i in range(len(books)):
+        if inventory_value(books[i]) &gt; inventory_value(top):
+            top=books[i]
+    return top
+
+print ("The highest-value book is", top_value(BSI).title, "by", top_value(BSI).author, "at a value of $", inventory_value(top_value(BSI)))
+
+#
+#
+#Part E
+#
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (e) ----------')
+print()
+
+def draw_face():
+    "Draws a face"
+    my_window=tkinter.Tk()
+    my_canvas=tkinter.Canvas(my_window, width= 500, height=500)
+    my_canvas.create_oval(100, 50, 400, 450)
+    draw_eye(150, 200, 40, my_canvas)
+    draw_eye(275, 200, 40, my_canvas)
+    draw_nose(250, 250, 60, my_canvas)
+    draw_mouth(200, 360, 110, my_canvas)
+    my_canvas.pack()
+    tkinter.mainloop()
+
+def draw_eye(x: int, y: int, diameter: int, canvas):
+    "Draws an eye given upper left x and y coordinate, iris diameter, and canvas"
+    canvas.create_oval(x, y, x + 2 * diameter, y + diameter)
+    canvas.create_oval(x + diameter / 2, y, x + 3 * diameter / 2, y + diameter, fill="blue")
+    canvas.create_oval(x + diameter / 2 + diameter * 0.25, y + diameter * 0.25, x + 3 * diameter / 2 - diameter * 0.25, y + diameter - diameter * 0.25, fill="black")
+
+def draw_nose(x: int, y: int, height: int, canvas):
+    "Draws a nose given upper left x and y coordinate, height of the nose, and canvas"
+    canvas.create_polygon(x, y, x, y + height, x + height * 0.5, y + height)
+
+def draw_mouth(x:int, y:int, length: int, canvas):
+    "Draws a mouth given upper left x and y coordinate, length of mouth, and canvas"
+    canvas.create_line(x, y, x + length, y)
+</FONT>    
+draw_face()
+draw_face()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

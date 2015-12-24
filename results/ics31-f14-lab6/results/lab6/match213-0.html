@@ -1,0 +1,197 @@
+<HTML>
+<HEAD>
+<TITLE>bryand2/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+bryand2/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+#  James Hernandez 19727483 and Bryan Dang 39795750.  ICS 31 Lab sec 6.  Lab asst 6.
+
+print('part c1')
+print()
+
+def contains(n: str, o: str,) -&gt; bool:
+    '''Returns true if the second string is in the first string'''
+    return o in n
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+assert contains('backpack', 'pack')
+assert not contains('computer', 'at')
+print()
+print('part c2')
+print()
+
+def punct(n: str) -&gt; str:
+    '''Takes a sentence and returns that sentence with punctuation turned into spaces'''   
+    table = n.maketrans(''''",.!?:*''','        ')
+    return n.translate(table)
+assert punct('Bronze person says that Diamond players suck!?...') == 'Bronze person says that Diamond players suck     '
+
+def sentence_stats(o: str):
+    '''Takes in a sentence as a parameter and prints out these statistics about the sentence: its length in characters, its length in words, and the average word of each sentence'''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match213-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print("Characters: " + str(len(o)))
+    print("Words: " + str(len(punct(o).split())))
+    total = 0
+    for i in punct(o).split():
+        total += len(i)
+    print("Average word length: " + str((len(o)) / (len(punct(o).split()))))
+</FONT>sentence_stats('I love UCI')
+sentence_stats('******The ?! quick brown fox:  jumps over the lazy dog.')
+print()
+print('Part c3')
+print()
+
+def initials(n: str) -&gt; str:
+    '''Takes a string and representing a full name (e.g., Montecristo)and returns the initials of the name in all capital letters (e.g., M).'''
+    answer = ''
+    for i in n.split():
+        answer += i[0].upper()
+    return answer
+
+assert initials('Montecristo') == 'M'   
+assert initials('Double Lift') == 'DL'
+
+print('part d1')
+print()
+from random import randrange
+for i in range(50):
+    print(randrange(0, 11))
+print()
+print()
+for i in range(50):
+    print(randrange(1, 7))
+
+print()
+print('part d2')
+print()
+
+def roll2dice():
+    '''Prints out two different rolls as a number between 1 and 6 for both next to each other'''
+    n = []
+    o = []
+    p = []
+    for i in range(50):
+        n = (randrange(1, 7))
+    for g in range(50):
+        o = (randrange(1, 7))
+    p = (n)+ (o)
+    return p
+for p in range(50):
+    print(roll2dice())
+
+print()
+print('part d3')
+print()
+print('Distrubtion of dice rolls')
+def distribution_of_rolls(n:int):
+    '''Rolls 2 dice n amount of times and returns a count of the numbers added up together, the percentage of appearance, and a visual of the amount of times in "*"s'''
+    new = []
+    for p in range(n):
+        str(roll2dice())
+        new.append(roll2dice())
+    for i in range(2,13):
+        print('{:3}:      {:3}       ({:3.3})       {:5}'.format(i, new.count(i), new.count(i)/p *100, new.count(i) * '*'))
+    print('-------------------------------------------------------------')
+    print('             ',n,' rolls')
+distribution_of_rolls(200)
+
+print()
+print('part e1')
+print()
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def code_change(n:int) -&gt;str:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match213-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    '''this will shift the alphabet letters by adding it to the end of the string'''
+    return ALPHABET[n:] + ALPHABET[:n]
+assert code_change(2) == 'cdefghijklmnopqrstuvwxyzab'
+
+def Caesar_encrypt(n:str, s:int) -&gt; str:
+    '''Encrypts a Ceaser code by the specified key and message'''
+    n = n.lower()
+</FONT><A NAME="2"></A><FONT color = #0000FF><A HREF="match213-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    table = n.maketrans(ALPHABET, code_change(s))
+    return n.translate(table)
+assert Caesar_encrypt('Cow', 1) == 'dpx'
+assert Caesar_encrypt('do1g', 2) == 'fq1i'
+
+def Caesar_decrypt(n:str, s:int) -&gt; str:
+    '''Decrypts an encrypted message back to the original message'''
+</FONT>    n = n.lower()
+    table = n.maketrans(ALPHABET, code_change(s * -1))
+    return n.translate(table)
+assert Caesar_decrypt('dpx', 1) == 'cow'
+assert Caesar_decrypt('fq1i', 2) == 'do1g'
+
+print()
+print('part e2')
+print()
+
+print("Bryan's message was J mjlf dpx and using the previous function, it returned as I like cows")
+print("James's message was J bn ivohsz and using the previous function again, it returned I am hungry")
+
+print()
+print('part e3')
+print()
+
+print('Already implemented')
+
+print()
+print('part f1')
+print()
+S = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+
+def print_line_numbers(n:list):
+    '''takes a list of strings and prints each string preceded by a line number'''
+    for i in range(0, len(n)):
+        print('{}: {}'.format(i, n[i]))
+print_line_numbers(S)
+        
+
+print()
+print('part f2')
+print()
+
+def stats(n:list) -&gt; 'info':
+    '''takes a list of strings and prints statistics about the list'''
+    print(str(len(n)) + "lines in the list")
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match213-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print(str(n.count('')) + "empty lines in the list")
+    total = 0
+    for o in n:
+        total += len(o)
+    average = total/(len(n))
+    print(('{:6.1f}' + '{:1}' + 'average characters per line').format(average, ''))
+    print(('{:6.1f}' + '{:1}' + 'average characters per non-empty line').format(total/(len(n)-n.count('')), ''))
+stats(S)
+</FONT>
+print()
+print('part f3')
+print()
+def punct1(n: str) -&gt; str:
+    '''Takes a sentence and returns that sentence with punctuation turned into spaces'''   
+    table = n.maketrans('''",.!?:*''','       ')
+    return n.translate(table)
+
+def list_of_words(n:list) -&gt; 'words':
+    '''takes a list of strings as above and returns a list of individual words with all white space and punctuation removed (except for apostrophes/single quotes).'''
+    new = []
+    for o in n:
+       new.append(str(punct1(o).split()))
+    return new
+print(list_of_words(S))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

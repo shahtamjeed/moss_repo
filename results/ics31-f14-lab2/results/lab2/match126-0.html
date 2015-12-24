@@ -1,0 +1,188 @@
+<HTML>
+<HEAD>
+<TITLE>jamesah1/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jamesah1/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# James Hernandez 19727483 and Nathanial Sukhov 19223199 ICS 31 sec 6 Lab Asst 2
+
+#Secion c.1
+print('Section C')
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour? '))
+print('This many dollars per hour:  $', rate)
+print('Weekly salary:  $', hours * rate)
+
+#Section C.2
+user_name = input('Hello. What is your name? ')
+print('Hello,', user_name, "\nIt's nice to meet you.")
+user_age = int(input('How old are you? '))
+print('Next year you will be', user_age+1, 'years old.')
+print('Good-bye')
+
+#Section d
+print('\nSection d')
+Euro_convert = 7.46
+Pound_convert = 8.81
+Dollar_convert = 5.50
+
+business_name = input('Business name: ')
+number_of_euros = float(input('Number of euros: '))
+number_of_pounds = float(input('Number of pounds: '))
+number_of_dollars = float(input('Number of dollars: '))
+
+#Conversions 
+euro_to_krone = number_of_euros * Euro_convert   
+pound_to_krone = number_of_pounds * Pound_convert
+dollar_to_krone = number_of_dollars * Dollar_convert
+
+print('\nCopenhagen Chamber of Commerce')
+print('Business name:', business_name)
+print(number_of_euros, "euros is", euro_to_krone, 'krone')
+print(number_of_pounds, "pounds is", pound_to_krone, 'krone')
+print(number_of_dollars, "dollars is", dollar_to_krone, 'krone')
+print('')
+print('Total krone:', euro_to_krone + pound_to_krone + dollar_to_krone)
+
+#Section e
+print('\nSection e')
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+print('The title of the book is', still_another.title)
+print('The price of', another.title, 'is', another.price)
+print('The average price is', (favorite.price + another.price + still_another.price)/3)
+print(favorite.year&lt;1900)
+still_another=still_another._replace(price= 26.00)
+still_another=still_another._replace(price= (26.00*.2)+26.00)
+
+#Section f
+print('\nSection f')
+Animal = namedtuple('Animal', 'name species age weight food')
+Animal_1= Animal('Jumbo', 'Elephant', 50, 1000, 'Peanuts')
+Animal_2 = Animal('Perry', 'Platypus', 7, 1.7, 'Shrimp')
+print(Animal_1.weight&lt;Animal_2.weight)
+
+#Section g
+print('\nSection g')
+booklist = [favorite, another, still_another]
+print(booklist[0].price &lt; booklist[1].price)
+
+print(booklist[0].year &gt; booklist[-1].year)
+
+#Section h
+print('\nSection h')
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+print(RC[2].name)
+print(RC[0].cuisine == RC[3].cuisine)
+print(RC[-1].price)
+RC.sort()
+print(RC)
+print(RC[-1].dish)
+RL = [
+    RC[0],
+    RC[1],
+    RC[-2],
+    RC[-1]]
+print(RL)
+
+#Section i
+print('\nSection i')
+import tkinter              # Load the library; do this just once per program
+
+my_window1 = tkinter.Tk()    # Create the graphics window
+my_window2 = tkinter.Tk()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match126-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+my_window3 = tkinter.Tk()
+my_window4 = tkinter.Tk()
+
+my_canvas_square = tkinter.Canvas(my_window1, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas_diamond = tkinter.Canvas(my_window2, width=500, height=500)
+my_canvas_house = tkinter.Canvas(my_window3, width=500, height=500)
+my_canvas_eye = tkinter.Canvas(my_window4, width=500, height=500)
+my_canvas_square.pack()            # Put the canvas into the window
+my_canvas_diamond.pack()
+my_canvas_house.pack()
+my_canvas_eye.pack()
+
+ # Draws square
+my_canvas_square.create_line(100, 100, 100, 300, fill='black') 
+my_canvas_square.create_line(100, 300, 300, 300, fill='black')   
+my_canvas_square.create_line(300, 300, 300, 100, fill='black')
+</FONT>my_canvas_square.create_line(300, 100, 100, 100, fill='black')
+
+my_canvas_diamond.create_line(250,150, 150, 250)   #  Draws the diamond 
+my_canvas_diamond.create_line(150, 250, 250, 350)
+my_canvas_diamond.create_line(250, 350, 350, 250)
+my_canvas_diamond.create_line(350, 250, 250, 150)
+
+
+
+def draw_main_house ():
+    'Draws the main body of the house'
+    my_canvas_house.create_line(50,490,450,490)
+    my_canvas_house.create_line(450,490,450,250)
+    my_canvas_house.create_line(450,250,50,250)
+    my_canvas_house.create_line(50,250,50,490)
+
+def draw_house_roof ():
+    'Draws the roof of the house'
+    my_canvas_house.create_line(50,250,250,100)
+    my_canvas_house.create_line(250,100,450,250)
+
+def draw_window (x: int, y:int) -&gt; 'draws window':
+    'Draws a window starting at (x, y) in top left corner'
+    my_canvas_house.create_line(x, y, x, y+80)
+    my_canvas_house.create_line(x, y+80, x+80, y+80)
+    my_canvas_house.create_line(x+80, y+80, x+80, y)
+    my_canvas_house.create_line(x+80, y, x, y)
+    my_canvas_house.create_line(x+40, y, x+40, y+80) # Vertical Line through the window
+    my_canvas_house.create_line(x, y+40, x+80, y+40) # Horizontal Line through the window
+
+def draw_door (x:int, y:int) -&gt; 'draws a door':
+    'Draws a door starting at (x,y) in top left corner'
+    my_canvas_house.create_line(x,y, x, y+150)
+    my_canvas_house.create_line(x, y+150, x+90, y+150)
+    my_canvas_house.create_line(x+90, y+150, x+90, y)
+    my_canvas_house.create_line(x+90, y, x, y)
+    my_canvas_house.create_oval(x+75, y+70, x+85, y+80) # Draws a handle on the door
+
+draw_main_house ()                                      #Draws the competed house
+draw_house_roof ()
+draw_window (75, 325)
+draw_window (345, 325)
+draw_door (205,340)
+
+
+my_canvas_eye.create_oval (100, 176, 400, 350, fill = 'white')                 #Draws the eye
+
+my_canvas_eye.create_oval (175, 176, 325, 350, fill = 'blue')
+
+my_canvas_eye.create_oval (240, 253 ,260, 273, fill = 'black')
+
+
+
+tkinter.mainloop()         # Combine all the elements and display the window
+</PRE>
+</PRE>
+</BODY>
+</HTML>

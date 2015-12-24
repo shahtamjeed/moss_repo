@@ -1,0 +1,448 @@
+<HTML>
+<HEAD>
+<TITLE>akriebel/(c)-(g)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+akriebel/(c)-(g)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab4.py
+#Alec Kriebel 46541467 and Marlene Guerrero 84775181.  ICS 31 Lab sec 12.  Lab asst 4.
+from collections import namedtuple
+import tkinter
+
+
+print()
+print('---------- Part (c1) ----------')
+print()
+
+def test_number(n: int, s: str):
+    if s == 'even':
+        return n%2 == 0
+    elif s == 'odd':
+        return n%2 &gt; 0
+    elif s == 'positive':
+        return n &gt; 0
+    elif s == 'negative':
+        return n &lt; 0
+assert test_number(14, 'even')
+assert not test_number(100, 'odd')
+assert test_number(33, 'positive')
+assert not test_number(100, 'negative')
+
+print('Example: Testing if 13 is even:', test_number(13, 'even'))
+
+
+
+print()
+print('---------- Part (c2) ----------')
+print()
+
+def display():
+    s = input('What word do you want to print? ')
+    for char in s:
+        print(char)
+#Unassertable due to input()
+
+display()
+
+
+
+print()
+print('---------- Part (c3) ----------')
+print()
+
+def square_list(L: list):
+    for x in range(len(L)):
+        print (L[x] ** 2)
+#Function only prints, and does not return (unnassertable)
+
+square_list([1, 2, 3, 4])
+
+
+
+print()
+print('---------- Part (c4) ----------')
+print()
+
+def match_first_letter(s: str, L: list):
+    for x in range(len(L)):
+        if L[x][0] == s:
+            print(L[x])
+#Function only prints, and does not return (unnassertable)
+            
+match_first_letter('h', ['hello', 'hi', 'goodbye'])
+
+
+    
+print()
+print('---------- Part (c5) ----------')
+print()
+
+<A NAME="6"></A><FONT color = #00FF00><A HREF="match25-1.html#6" TARGET="1"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def match_area_code(L: list, L2: list):
+    for x in range(len(L)):
+        for i in range(len(L2)):
+            if L[x] == L2[i][1:4]:
+</FONT>                print(L2[i])
+#Function only prints, and does not return (unnassertable)
+
+
+match_area_code(['000', '001'], ['(000)000-0000', '(001)000-0000', '(002)000-0000'])
+
+
+
+print()
+print('---------- Part (c6) ----------')
+print()
+        
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match25-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def match_area_codes(L: list, L2: list):
+    number_list = []
+    for x in range(len(L)):
+        for i in range(len(L2)):
+            if L[x] == L2[i][1:4]:
+                number_list.append(L2[i])
+    return number_list
+assert match_area_codes(['600'], ['(600)700-800']) == ['(600)700-800']
+</FONT>
+print(match_area_codes(['000', '001'], ['(000)000-0000', '(001)000-0000', '(002)000-0000']))
+
+
+
+print()
+print('---------- Part (d) ----------')
+print()
+
+def is_vowel(s: str):
+    return s in 'aeiouAEIOU'
+assert is_vowel('e') == True
+assert is_vowel('I') == True
+assert is_vowel('z') == False
+
+print(is_vowel('A'))
+print(is_vowel('?'))
+
+
+
+print()
+print('---------- Part (d2) ----------')
+print()
+
+def print_nonvowels(s: str):
+    non_vowel_str = ''
+    for x in range(len(s)):
+        if is_vowel(s[x]) == False:
+            non_vowel_str += s[x]
+    print(non_vowel_str)
+#Function only prints, and does not return (unnassertable)
+
+print_nonvowels('Hello')
+print_nonvowels('Monday')
+print_nonvowels('October')
+
+print()
+print('---------- Part (d3) ----------')
+print()
+            
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match25-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def nonvowels(s: str) -&gt; str:
+    result = ''
+    for x in range(len(s)):
+        if is_vowel(s[x]) == False:
+            result = result + s[x]
+    return result
+assert nonvowels('Hello') == 'Hll'
+assert nonvowels('Hi') == 'H'
+assert nonvowels('Goodbye') == 'Gdby'
+</FONT>
+print(nonvowels('Monday'))
+print(nonvowels('Monday.? 2356'))
+
+
+
+print()
+print('---------- Part (d4) ----------')
+print()
+
+def consonants(s: str) -&gt; str:
+    result = '' 
+    for x in range(len(s)):
+        if is_vowel(s[x]) == False:
+            if s[x] in 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM':
+                result = result + s[x]
+    return result
+assert consonants('Hello .?2345Hi') == 'HllH'
+
+print(consonants('Monday 123?s'))
+
+
+
+print()
+print('---------- Part (d5) ----------')
+print()
+
+<A NAME="7"></A><FONT color = #0000FF><A HREF="match25-1.html#7" TARGET="1"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def select_letters(s: str, s2: str) -&gt; str:
+    result = ''
+    if s == 'v':
+        for x in range(len(s2)):
+            if is_vowel(s2[x]):
+</FONT>                result = result + s2[x]
+    elif s == 'c':
+        for x in range(len(s2)):
+            if is_vowel(s2[x]) == False:
+                if s2[x] in 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM':
+                    result += s2[x]
+    return result
+assert select_letters('v', 'Goodbye') == 'ooe'
+assert select_letters('c', 'Goodbye') == 'Gdby'
+assert select_letters('j', 'Goodbye') == ''
+        
+print(select_letters('v', 'hello'))
+print(select_letters('c', 'hello'))
+print(select_letters('g', 'hello'))
+
+
+
+print()
+print('---------- Part (d6) ----------')
+print()
+
+def hide_vowels(s: str) -&gt; str:
+    result = ""
+    for x in range(len(s)):
+        if is_vowel(s[x]):
+            result = result + '-'
+        else:
+            result = result + s[x]
+    return result
+assert hide_vowels('Hello') == 'H-ll-'
+
+print(hide_vowels('Hello, this is python.'))
+
+
+
+print()
+print('---------- Part (e) ----------')
+print()
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+Rest = Restaurant('Name', 'American', '555-5555', 'Food', 10)
+
+def Restaurant_change_price(R: Restaurant, n: int):
+    R = R._replace(price = R.price + n)
+    return R
+assert Restaurant_change_price(Rest, 5) == Restaurant(name='Name', cuisine='American', phone='555-5555', dish='Food', price=15)
+
+
+print(Restaurant_change_price(Rest, 10))
+
+      
+
+print()
+print('---------- Part (f) ----------')
+print()
+
+# Restaurant attributes: name, kind of food served, phone number,
+#	best dish, price of that dish
+
+R1 = Restaurant("Taillevent", "French", "343-3434", "Escargots", 24.50)
+R2 = Restaurant("La Tour D'Argent", "French", "343-3344", "Ris de Veau", 48.50)
+R3 = Restaurant("Pascal", "French", "333-4444", "Bouillabaisse", 32.00)
+R4 = Restaurant("Thai Touch", "Thai", "444-3333", "Mee Krob", 10.95)
+R5 = Restaurant("Thai Dishes", "Thai", "333-4433", "Paht Woon Sen",  8.50)
+R6 = Restaurant("Thai Spoon", "Thai", "334-3344", "Mussamun", 9.00)
+R7 = Restaurant("McDonald's", "Burgers", "333-4443", "Big Mac", 3.95)
+R8 = Restaurant("Burger King", "Burgers", "444-3344", "Whopper", 3.75)
+R9 = Restaurant("Wahoo's", "Fish Tacos", "443-4443", "Mahi Mahi Burrito", 7.50)
+R10 = Restaurant("In-N-Out Burger", "Burgers", "434-3344", "Cheeseburger", 2.50)
+R11 = Restaurant("The Shack", "Burgers", "333-3334", "Hot Link Burger", 4.50)
+R12 = Restaurant("Gina's", "Pizza", "334-4433", "Combo Pizza", 12.95)
+R13 = Restaurant("Peacock, Room", "Indian", "333-4443", "Rogan Josh", 12.50)
+R14 = Restaurant("Gaylord", "Indian", "333-3433", "Tandoori Chicken", 13.50)
+R15 = Restaurant("Mr. Chow", "Chinese", "222-3333", "Peking Duck", 24.50)
+R16 = Restaurant("Chez Panisse", "California", "222-3322", "Grilled Duck Breast", 25.00)
+R17 = Restaurant("Spago", "California", "333-2222", "Striped Bass", 24.50)
+R18 = Restaurant("Sriped Bass", "Seafood", "333-2233", "Cedar Plank Salmon", 21.50)
+R19 = Restaurant("Golden Pagoda", "Chinese", "232-3232", "Egg Foo Young", 8.50)
+R20 = Restaurant("Langer's", "Delicatessen", "333-2223", "Pastrami Sandwich", 11.50)
+R21 = Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50)
+R22 = Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50)
+R23 = Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50)
+R24 = Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50)
+R25 = Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50)
+R26 = Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) 
+
+
+RL = [R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16,
+	R17, R18, R19, R20, R21, R22, R23, R24, R25, R26]
+
+print('Adding in RL')
+
+
+
+print()
+print('---------- Part (f1) ----------')
+print()
+
+def alphabetical(L: list) -&gt; list:
+    aplha_list = []
+    alpha_list = sorted(L)
+    return alpha_list
+assert alphabetical(['b','a','c']) == ['a','b','c']
+assert alphabetical(['Hello','Goodbye','Later']) == ['Goodbye','Hello','Later']
+
+print(alphabetical(RL))
+
+
+
+print()
+print('---------- Part (f2) ----------')
+print()
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match25-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def alphabetical_names(L: list) -&gt; list:
+    name_list = []
+    names = sorted(L)
+    for x in range(len(names)):
+        name_list.append(names[x].name)
+    return name_list
+assert alphabetical_names(RL) == ['Addis Ababa', 'Burger King', 'Chez Panisse', 'Gaylord', "Gina's", 'Golden Pagoda', 'In-N-Out Burger', 'Jitlada', "La Tour D'Argent", "Langer's", "McDonald's", 'Mr. Chow', 'Nobu', 'Nola', 'Noma', 'Nonna', 'Pascal', 'Peacock, Room', 'Spago', 'Sriped Bass', 'Taillevent', 'Thai Dishes', 'Thai Spoon', 'Thai Touch', 'The Shack', "Wahoo's"]
+</FONT>
+print(alphabetical_names(RL))
+
+
+
+print()
+print('---------- Part (f3) ----------')
+print()
+
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match25-1.html#5" TARGET="1"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def all_Thai(L: list) -&gt; list:
+    thai_list = []
+    for x in range(len(L)):
+        if L[x].cuisine == 'Thai':
+            thai_list.append(L[x])
+    return thai_list
+assert all_Thai(RL) == [Restaurant(name='Thai Touch', cuisine='Thai', phone='444-3333', dish='Mee Krob', price=10.95), Restaurant(name='Thai Dishes', cuisine='Thai', phone='333-4433', dish='Paht Woon Sen', price=8.5), Restaurant(name='Thai Spoon', cuisine='Thai', phone='334-3344', dish='Mussamun', price=9.0), Restaurant(name='Jitlada', cuisine='Thai', phone='324-4433', dish='Paht Woon Sen', price=15.5)]
+</FONT>
+print(all_Thai(RL))
+
+
+
+print()
+print('---------- Part (f4) ----------')
+print()           
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match25-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def select_cuisine(L: list, S: str) -&gt; list:
+    cuisine_list = []
+    for x in range(len(L)):
+        if L[x].cuisine == S:
+            cuisine_list.append(L[x])
+    return cuisine_list
+assert select_cuisine(RL, 'French') == [Restaurant(name='Taillevent', cuisine='French', phone='343-3434', dish='Escargots', price=24.5), Restaurant(name="La Tour D'Argent", cuisine='French', phone='343-3344', dish='Ris de Veau', price=48.5), Restaurant(name='Pascal', cuisine='French', phone='333-4444', dish='Bouillabaisse', price=32.0)]
+</FONT>
+print(select_cuisine(RL, 'Burgers'))
+
+
+
+print()
+print('---------- Part (f5) ----------')
+print()
+
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match25-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def select_cheaper(L: list, n: float) -&gt; list:
+    cheap_list = []
+    for x in range(len(L)):
+        if L[x].price &lt; n:
+            cheap_list.append(L[x])
+    return cheap_list
+assert select_cheaper(RL, 15) == [Restaurant(name='Thai Touch', cuisine='Thai', phone='444-3333', dish='Mee Krob', price=10.95), Restaurant(name='Thai Dishes', cuisine='Thai', phone='333-4433', dish='Paht Woon Sen', price=8.5), Restaurant(name='Thai Spoon', cuisine='Thai', phone='334-3344', dish='Mussamun', price=9.0), Restaurant(name="McDonald's", cuisine='Burgers', phone='333-4443', dish='Big Mac', price=3.95), Restaurant(name='Burger King', cuisine='Burgers', phone='444-3344', dish='Whopper', price=3.75), Restaurant(name="Wahoo's", cuisine='Fish Tacos', phone='443-4443', dish='Mahi Mahi Burrito', price=7.5), Restaurant(name='In-N-Out Burger', cuisine='Burgers', phone='434-3344', dish='Cheeseburger', price=2.5), Restaurant(name='The Shack', cuisine='Burgers', phone='333-3334', dish='Hot Link Burger', price=4.5), Restaurant(name="Gina's", cuisine='Pizza', phone='334-4433', dish='Combo Pizza', price=12.95), Restaurant(name='Peacock, Room', cuisine='Indian', phone='333-4443', dish='Rogan Josh', price=12.5), Restaurant(name='Gaylord', cuisine='Indian', phone='333-3433', dish='Tandoori Chicken', price=13.5), Restaurant(name='Golden Pagoda', cuisine='Chinese', phone='232-3232', dish='Egg Foo Young', price=8.5), Restaurant(name="Langer's", cuisine='Delicatessen', phone='333-2223', dish='Pastrami Sandwich', price=11.5), Restaurant(name='Nobu', cuisine='Japanese', phone='335-4433', dish='Natto Temaki', price=5.5), Restaurant(name='Nola', cuisine='New Orleans', phone='336-4433', dish='Jambalaya', price=5.5), Restaurant(name='Addis Ababa', cuisine='Ethiopian', phone='337-4453', dish='Yesiga Tibs', price=10.5)]
+</FONT>assert select_cheaper(RL, 4) == [Restaurant(name="McDonald's", cuisine='Burgers', phone='333-4443', dish='Big Mac', price=3.95), Restaurant(name='Burger King', cuisine='Burgers', phone='444-3344', dish='Whopper', price=3.75), Restaurant(name='In-N-Out Burger', cuisine='Burgers', phone='434-3344', dish='Cheeseburger', price=2.5)]
+
+print(select_cheaper(RL, 5))           
+
+
+
+print()
+print('---------- Part (f6) ----------')
+print()
+
+def average_price(L: list) -&gt; float:
+    price_list = []
+    for x in range(len(L)):
+        price_list.append(L[x].price)
+    n = 0
+    for x in range(len(price_list)):
+        n += price_list[x]
+    return n/len(price_list)
+assert average_price(RL) == 15.696153846153845
+
+print(average_price(RL))
+
+
+
+print()
+print('---------- Part (f7) ----------')
+print()
+
+indian_food = select_cuisine(RL, 'Indian')
+print(average_price(indian_food))
+
+
+
+print()
+print('---------- Part (f8) ----------')
+print()
+
+thai_food = select_cuisine(RL, 'Thai')
+chinese_food = select_cuisine(RL, 'Chinese')
+
+asian_food = thai_food + chinese_food
+
+print(average_price(asian_food))
+
+
+
+print()
+print('---------- Part (f9) ----------')
+print()
+
+u15_list = select_cheaper(RL, 15.00)
+u15_name_list = []
+for x in range(len(u15_list)):
+    u15_name_list.append(u15_list[x].name)
+print(u15_name_list)
+
+
+
+print()
+print('---------- Part (g) ----------')
+print()
+
+print('Drawing rectangle from center')
+
+my_window = tkinter.Tk()    
+my_canvas = tkinter.Canvas(my_window, width=1000, height=1000) 
+my_canvas.pack()
+
+def create_rectangle_from_center(x_center, y_center, height, width):
+    my_canvas.create_rectangle(x_center - (height/2), y_center - (width/2), x_center + (height/2), y_center + (width/2))
+
+create_rectangle_from_center(500, 500, 100, 100)
+
+tkinter.mainloop() 
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

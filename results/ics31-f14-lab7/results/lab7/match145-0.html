@@ -1,0 +1,176 @@
+<HTML>
+<HEAD>
+<TITLE>georgeja/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+georgeja/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Jake George 30239661 & Samuel Matyseck 50804665 & Alexander Cosio 12944535
+
+print('-----C-----')
+
+
+
+print('-----C.1, C.2, and C.3-----')
+
+from random import randrange
+
+##last_name =
+##first_name =
+
+def random_lastnames() -&gt; list:
+    infile=open('surnames.txt', 'r')
+    l = [ ]
+    for line in infile:
+        x = infile.readline()
+        lst = x.split()
+        l.append(lst[0])
+    return l
+
+def random_female_names() -&gt; list:
+    infile=open('femalenames.txt', 'r')
+    l = [ ]
+    for line in infile:
+        x = infile.readline()
+        lst = x.split()
+        l.append(lst[0])
+    return l
+
+def random_male_names() -&gt; list:
+    infile=open('malenames.txt', 'r')
+    l = [ ]
+    for line in infile:
+        x = infile.readline()
+        lst = x.split()
+        l.append(lst[0])
+    return l
+
+def random_first_names() -&gt; list:
+    L1 = random_female_names()
+    L2 = random_male_names()
+    L1.extend(L2)
+    return L1
+    
+
+def random_names(num: int) -&gt; list:
+    s = ' '
+    ln = len(random_lastnames())
+    fn = len(random_first_names())
+    l = [ ]
+    for i in range(0, num):
+        s = '{0:}, {1:}'.format(random_lastnames()[randrange(0, ln)], random_first_names()[randrange(0,fn)])
+        l.append(s)
+    return l
+
+print('-----Part D-----')
+
+print('d.1')
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def alphabet_rotate(num: int):
+    s = ALPHABET.replace(ALPHABET[0:num], '') + ALPHABET[0:num]
+    return s
+
+def Caesar_decrypt(s:str, num:int):
+    table = str.maketrans(alphabet_rotate(num), ALPHABET)
+    return s.translate(table)
+
+def Caesar_break(s: str) -&gt; str:
+    L = []
+    for i in range(0, 26):
+       L.append(Caesar_decrypt(s, i))
+    return L
+
+def random_words() -&gt; list:
+    infile=open('wordlist.txt', 'r')
+    l = []
+    for line in infile:
+        x = infile.readline()
+        lst = x.split()
+        l.append(lst[0])
+    return l
+
+def word_count(s: str) -&gt; int:
+    count = 0
+    l = s.split()
+    L = random_words()
+    for i in l:
+        if i in L:
+            count += 1
+    return count
+
+def brute_break(s: str):
+    number = 0
+    word = ''
+    for i in Caesar_break(s):
+        if word_count(i) &gt; number:
+            number = word_count(i)
+            word = i
+    return word
+##print(brute_break('mltravq mltboenapu mltboenapurf Nrntyr Nrntyrf Nrny Nrnyf'))
+
+print('----Part e-----')
+'''
+infile_name = input("Please enter the name of the file to copy: ")
+infile = open(infile_name, 'r')
+outfile_name = input("Please enter the name of the new copy:  ")
+outfile = open(outfile_name, 'w')
+for line in infile:
+    outfile.write(line)
+infile.close()
+outfile.close()
+'''
+print('-----e.2, e.3 & e.4-----')
+
+def stats (L:[str]):
+    count = 0
+    for i in L:
+        if i == '':
+            count += 1
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match145-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    char = 0
+    for r in L:
+        char += len(r)
+    print('{:5d} lines in the list'.format(len(L)))
+    print('{:5d} empty lines'.format(count))
+    print('{:7.1f} average characters per line'.format(char/len(L)))
+    print('{:7.1f} average character per non-empty line'.format(char/(len(L) - count)))
+</FONT>    
+
+def copy_file(s: str): 
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'statistics':
+        L_words = []
+        for line in infile:
+            outfile.write(line)
+            x = infile.readline()
+            L_words.append(x)
+        stats(L_words)
+    elif s == 'line numbers':
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match145-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            outfile.write('{0:5d}'.format(count) + ': ' + line)
+    elif s == 'Gutenberg trim':
+        test = False
+        for line in infile:
+            if '*** END' in line:
+                break
+            elif test:
+                outfile.write(line)
+            elif '*** START' in line:
+                test = True   
+</FONT>    else:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

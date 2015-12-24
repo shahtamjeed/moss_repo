@@ -1,0 +1,639 @@
+<HTML>
+<HEAD>
+<TITLE>hkossow/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+saideepg/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+#Saideep Gupta 81128174 and Henry Kossow 72897832. ICS 31 Lab sec 1.
+
+
+#
+# Part (c)
+#
+
+print()
+print('-' * 10, " Part (C) ", '-' * 10)
+print()
+
+#c.1
+def abbreviate(string: str) -&gt; str:
+    '''Returns the first three characters of given string'''
+    if len(string) &lt;= 3:
+        return string
+    else:
+        return string[0] + string[1] + string[2]
+
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+assert abbreviate('Saideep') == 'Sai'
+assert abbreviate('Henry') == 'Hen'
+
+print("The abbreviation is :",
+      abbreviate(input("\n\nEnter the month (or any string) : ")))
+
+
+#c.2
+def find_area_square(side: float) -&gt; float:
+    '''Returns the area of a square of given side'''
+    return side * side
+
+assert find_area_square(2) == 4
+assert find_area_square(2.5) == 6.25
+assert find_area_square(10) == 100
+assert find_area_square(1.5) == 2.25
+
+print("The area of square is :",
+      find_area_square(float(input("\n\nEnter the side of square : "))))
+
+
+#c.3
+pi = 3.14159
+def find_area_circle(rad: float) -&gt; float:
+    '''Returns the area of circle of given radius'''  
+    return pi * (rad ** 2)
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(10) == 314.159
+assert find_area_circle(2) == 12.56636
+assert find_area_circle(3) == 28.27431
+
+print("The area of circle is : ",
+      find_area_circle(float(input("\n\nEnter the radius of circle : "))))
+
+
+#c.4
+def print_even_numbers(nums: list):
+    '''Prints all even numbers in a given list'''
+    print("\nEven numbers in list are :")
+    for i in nums:
+        if(i % 2) == 0:
+            print(i)
+    return
+
+print("\n\nEnter the list of integers (Press 0 to stop) :")
+nums = []
+while True:
+    num = int(input())
+    if num == 0:
+        break
+    else:
+        nums.append(num)
+
+print("\nThe list is :", nums)
+print_even_numbers(nums)
+
+
+
+#c.5
+def calculate_shipping(weight: float) -&gt; float:
+    '''Returns the shipping cost of a package of given weight'''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match102-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if weight &lt; 2:
+        return 2.0
+    elif weight &lt; 10:
+        return 5.0
+    else:
+        return 5.0 + ((weight - 10) * 1.5)
+
+assert calculate_shipping(2) == 5
+</FONT>assert calculate_shipping(10) == 5
+assert calculate_shipping(11) == 6.5
+assert calculate_shipping(1) == 2
+
+print("The cost of shipping the package is : $",
+      calculate_shipping(float(input("\n\nEnter the weight of the package : "))))
+
+
+
+#c.6.1  -- the given question
+import tkinter
+def create_square(x: float, y: float, side: float):
+    '''Fucntion to draw a square '''
+    my_window = tkinter.Tk()    
+
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+    my_canvas.pack()            
+
+    my_canvas.create_rectangle(x, y, x+side, y+side)
+
+    tkinter.mainloop()
+    return
+
+x = float(input("\n\nEnter the x coordinate : "))
+y = float(input("Enter the y coordinate : "))
+side = float(input("Enter the side of square : "))
+print("The output is :")
+create_square(x, y, side)
+
+
+#c.6.2  -- Gonna ask the user to input color as well
+def create_square(x: float, y: float, side: float, color: str):
+    '''Function to draw a square '''
+    my_window = tkinter.Tk()    
+
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+    my_canvas.pack()            
+
+    my_canvas.create_rectangle(x, y, x+side, y+side, fill = color)
+
+    tkinter.mainloop()
+    return
+
+x = float(input("\n\nEnter the x coordinate : "))
+y = float(input("Enter the y coordinate : "))
+side = float(input("Enter the side of square : "))
+color = input("Enter the color to fill : ")
+print("The output is :")
+create_square(x, y, side, color)
+
+
+#c.7.1  -- Given question
+def create_circle(x: float, y: float, dia: float):
+    '''Fucntion to draw a circle '''
+    my_window = tkinter.Tk()    
+
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+    my_canvas.pack()            
+
+    my_canvas.create_oval(x, y, x+dia, y+dia)
+
+    tkinter.mainloop()
+    return
+
+x = float(input("\n\nEnter the x coordinate : "))
+y = float(input("Enter the y coordinate : "))
+dia = float(input("Enter the diameter of circle : "))
+print("The output is :")
+create_circle(x, y, dia)
+
+
+#c.7.2  --  Gonna ask the user to input color
+def create_circle(x: float, y: float, dia: float, color: str):
+    '''Fucntion to draw a circle '''
+    my_window = tkinter.Tk()    
+
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+    my_canvas.pack()            
+
+    my_canvas.create_oval(x, y, x+dia, y+dia, fill = color)
+
+    tkinter.mainloop()
+    return
+
+x = float(input("\n\nEnter the x coordinate : "))
+y = float(input("Enter the y coordinate : "))
+dia = float(input("Enter the diameter of circle : "))
+color = input("Enter the color to fill : ")
+print("The output is :")
+create_circle(x, y, dia, color)
+
+
+
+#
+# Part (d)
+#
+
+print()
+print('-' * 10, " Part (D) ", '-' * 10)
+print()
+
+
+from collections import namedtuple     
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+
+# d.1
+def restaurant_price(rest: Restaurant) -&gt; float:
+    '''Returns the price of the best dish at a given restaurant'''
+    return rest.price
+
+assert restaurant_price(RC[0]) == 12.50
+assert restaurant_price(RC[1]) == 5.50
+assert restaurant_price(RC[6]) == 10.50
+
+
+#d.2
+RC.sort(key = restaurant_price)
+for i in range(len(RC)) :
+    print(RC[i].name, RC[i].price, sep = '       ')
+
+#d.3
+def costliest(rests: 'list of Restaurants') -&gt; str:
+    '''Returns the name of the costliest restaurant in a given
+    list of Restaurants'''
+    return rests[-1].name
+
+assert costliest(RC) == 'Noma'
+
+print("\n\nThe costliest restaurant in the list is :", costliest(RC))
+
+
+#d.4
+# Defining RC again to test with sorted because it is already sorted
+#using sort()
+
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+
+def costliest2(rests: 'list of Restaurants') -&gt; str:
+    '''Returns the name of the costliest restaurant in a given
+    list of Restaurants'''
+    rests_new = sorted(rests, key = restaurant_price)
+    return rests_new[-1].name
+
+assert costliest2(RC) == 'Noma'
+
+print("\n")
+for i in RC:
+    print(i)
+    #Printing the list initially
+
+print("\nThe costliest restaurant in the list is :", costliest2(RC))
+# Calling the costliest2 function
+
+print("\n")
+for i in RC:
+    print(i)
+    #Printing the list after calling sorted to test if list changed or not
+
+
+
+#
+# Part (e)
+#
+
+print()
+print('-' * 10, " Part (E) ", '-' * 10)
+print()
+
+from collections import namedtuple
+
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [ Book("Chandler, Raymond", "The Big Sleep", "Mystery", 1946, 22.50, 110),
+        Book("Isaacson, Walter", "Steve Jobs", "Technology", 2011, 45, 95),
+        Book("Drummond, Rae", "Pioneer Woman", "Cookbook", 2012, 34.50, 35),
+        Book("Conroy, Pat", "My Losing Season", "Sports", 2002, 39.99, 60),
+        Book("Rowling, J K", "Harry Potter", "Fantasy", 1997, 25.49, 55),
+        Book("Bradbury, Ray", "Fahrenheit 451", "Science Fiction", 1953, 50, 20)
+      ]
+
+#e.1
+print("\nThe titles in the list are :\n")
+for i in range(len(BSI)):
+    print(BSI[i].title)
+
+
+#e.2
+def book_title(book: Book) -&gt; str:
+    '''Returns the title of a given Book'''
+    return book.title
+
+assert book_title(BSI[0]) == 'The Big Sleep'
+assert book_title(BSI[2]) == 'Pioneer Woman'
+assert book_title(BSI[5]) == 'Fahrenheit 451'
+
+print("\nThe alphabetically sorted list of titles is :\n")
+BSI_new = sorted(BSI, key = book_title)
+for i in range(len(BSI_new)):
+    print(BSI_new[i].title)
+    
+
+#e.3
+print("\nOriginal list :\n")
+for i in BSI:
+    print(i)
+
+
+def book_price(book: Book) -&gt; float:
+    '''Returns the price of a given book'''
+    return book.price
+
+assert book_price(BSI[0]) == 22.50
+assert book_price(BSI[1]) == 45
+assert book_price(BSI[5]) == 50
+
+
+for i in range(len(BSI)):
+    BSI[i] = BSI[i]._replace(price = book_price(BSI[i]) + (book_price(BSI[i]) *
+                             0.1))
+
+    
+print("\nThe list with updated prices is :\n")
+for i in BSI:
+    print(i)
+
+
+#e.4
+def book_genre(book: Book) -&gt; str:
+    '''Returns the genre of the book'''
+    return book.genre
+
+assert book_genre(BSI[0]) == 'Mystery'
+assert book_genre(BSI[5]) == 'Science Fiction'
+assert book_genre(BSI[4]) == 'Fantasy'
+
+no_of_books = 0            #just to check if none technology books are present
+print("\nThe title of the book(s) with genre as Technology is :\n")
+for i in BSI:
+    if book_genre(i) == 'Technology':
+        print(i.title)
+        no_of_books = no_of_books + 1
+        
+if no_of_books == 0:     
+    print("None")
+#if no technology books are present, appropriate message is displayed to user
+    
+    
+
+#e.5
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match102-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+before = []
+after = []
+sum_before = 0
+sum_after = 0
+
+for i in range(len(BSI)):
+    if BSI[i].year &lt; 2000:
+        before.append(BSI[i])
+        sum_before = sum_before + BSI[i].instock
+    else:
+        after.append(BSI[i])
+        sum_after = sum_after + BSI[i].instock
+
+if sum_before &gt; sum_after:
+    print("\n\nMore titles before 2000 (", sum_before, "vs.", sum_after, ")")
+else:
+    print("\n\nMore titles 2000 or later (", sum_after, "vs.", sum_before, ")")
+    
+
+
+#e.6
+def inventory_value(book: Book) -&gt; float:
+    '''Returns the value of inventory of a given book'''
+    return book.price * book.instock
+</FONT>
+def top_value(BSI_new: 'list of Books') -&gt; Book:
+    '''Returns the Book object with the highest inventory value in a
+    given list of Books'''
+    BSi_new = sorted(BSI_new, key = inventory_value)
+    return BSI_new[-1]
+
+highest = top_value(BSI)   #variable to hold what is returned by top_value
+print("\n\nThe highest-value book is", highest.title, "by", highest.author,
+      "at a value of $", inventory_value(highest))
+
+
+
+#
+# Part (f)
+#
+
+print()
+print('-' * 10, " Part (F) ", '-' * 10)
+print()
+
+import tkinter
+
+def draw_mouth(my_canvas: 'canvas object'):
+    '''Draw a mouth'''
+    print("\n1. Happy Face\n2. Sad Face\n")
+    choice = int(input("Enter your choice : "))
+    if choice == 1:
+        my_canvas.create_line(200, 320, 220, 340, 250, 345, 280, 340, 300, 320)
+    else:
+        my_canvas.create_line(200, 330, 300, 330)
+    return
+
+
+def draw_eye(my_canvas: 'canvas object', x: float, y: float, color: str):
+    '''Draw an eye'''
+    my_canvas.create_oval(x, y, x+70, y+70, fill = 'white')
+    my_canvas.create_oval(x+10, y+20, x+60, y+70, fill = color)
+    my_canvas.create_oval(x+25, y+30, x+45, y+70, fill = 'black')
+    return
+    
+def draw_nose(my_canvas: 'canvas object'):
+    '''Draw a nose'''
+    color = input("\nWhat color to fill in nose ? ")
+    my_canvas.create_polygon(210, 280, 290, 280, 250, 230, fill = color)
+    return
+
+    
+def draw_face():
+    '''Draws the face by calling functions to draw eyes, nose and mouth'''
+    my_window = tkinter.Tk()
+    
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+    my_canvas.pack()
+
+    color = input("What color to fill in face ? ")
+    my_canvas.create_oval(100, 100, 400, 400, fill = color)
+
+    draw_nose(my_canvas)
+    color = input("\nWhat color of eye : ")
+    y = 160
+    draw_eye(my_canvas, 160, y, color)
+    draw_eye(my_canvas, 270, y, color)
+    draw_mouth(my_canvas)
+
+    tkinter.mainloop()
+    return
+
+    
+draw_face()
+
+# Color combination of yellow face, magenta nose, and green eyes gives a very
+# pretty picture
+
+"""
+OUTPUT:
+
+
+&gt;&gt;&gt; 
+
+----------  Part (C)  ----------
+
+
+
+Enter the month (or any string) : july
+The abbreviation is : jul
+
+
+Enter the side of square : 5
+The area of square is : 25.0
+
+
+Enter the radius of circle : 10
+The area of circle is :  314.159
+
+
+Enter the list of integers (Press 0 to stop) :
+9
+8
+7
+2
+1
+4
+0
+
+The list is : [9, 8, 7, 2, 1, 4]
+
+Even numbers in list are :
+8
+2
+4
+
+
+Enter the weight of the package : 170
+The cost of shipping the package is : $ 245.0
+
+
+Enter the x coordinate : 100
+Enter the y coordinate : 100
+Enter the side of square : 200
+The output is :
+
+
+Enter the x coordinate : 100
+Enter the y coordinate : 100
+Enter the side of square : 175
+Enter the color to fill : cyan
+The output is :
+
+
+Enter the x coordinate : 100
+Enter the y coordinate : 100
+Enter the diameter of circle : 200
+The output is :
+
+
+Enter the x coordinate : 100
+Enter the y coordinate : 100
+Enter the diameter of circle : 180
+Enter the color to fill : red
+The output is :
+
+----------  Part (D)  ----------
+
+Nobu       5.5
+Nola       5.5
+Addis Ababa       10.5
+Thai Dishes       12.5
+Jitlada       15.5
+Nonna       25.5
+Noma       35.5
+
+
+The costliest restaurant in the list is : Noma
+
+
+Restaurant(name='Thai Dishes', cuisine='Thai', phone='334-4433', dish='Mee Krob', price=12.5)
+Restaurant(name='Nobu', cuisine='Japanese', phone='335-4433', dish='Natto Temaki', price=5.5)
+Restaurant(name='Nonna', cuisine='Italian', phone='355-4433', dish='Stracotto', price=25.5)
+Restaurant(name='Jitlada', cuisine='Thai', phone='324-4433', dish='Paht Woon Sen', price=15.5)
+Restaurant(name='Nola', cuisine='New Orleans', phone='336-4433', dish='Jambalaya', price=5.5)
+Restaurant(name='Noma', cuisine='Modern Danish', phone='337-4433', dish='Birch Sap', price=35.5)
+Restaurant(name='Addis Ababa', cuisine='Ethiopian', phone='337-4453', dish='Yesiga Tibs', price=10.5)
+
+The costliest restaurant in the list is : Noma
+
+
+Restaurant(name='Thai Dishes', cuisine='Thai', phone='334-4433', dish='Mee Krob', price=12.5)
+Restaurant(name='Nobu', cuisine='Japanese', phone='335-4433', dish='Natto Temaki', price=5.5)
+Restaurant(name='Nonna', cuisine='Italian', phone='355-4433', dish='Stracotto', price=25.5)
+Restaurant(name='Jitlada', cuisine='Thai', phone='324-4433', dish='Paht Woon Sen', price=15.5)
+Restaurant(name='Nola', cuisine='New Orleans', phone='336-4433', dish='Jambalaya', price=5.5)
+Restaurant(name='Noma', cuisine='Modern Danish', phone='337-4433', dish='Birch Sap', price=35.5)
+Restaurant(name='Addis Ababa', cuisine='Ethiopian', phone='337-4453', dish='Yesiga Tibs', price=10.5)
+
+----------  Part (E)  ----------
+
+
+The titles in the list are :
+
+The Big Sleep
+Steve Jobs
+Pioneer Woman
+My Losing Season
+Harry Potter
+Fahrenheit 451
+
+The alphabetically sorted list of titles is :
+
+Fahrenheit 451
+Harry Potter
+My Losing Season
+Pioneer Woman
+Steve Jobs
+The Big Sleep
+
+Original list :
+
+Book(author='Chandler, Raymond', title='The Big Sleep', genre='Mystery', year=1946, price=22.5, instock=110)
+Book(author='Isaacson, Walter', title='Steve Jobs', genre='Technology', year=2011, price=45, instock=95)
+Book(author='Drummond, Rae', title='Pioneer Woman', genre='Cookbook', year=2012, price=34.5, instock=35)
+Book(author='Conroy, Pat', title='My Losing Season', genre='Sports', year=2002, price=39.99, instock=60)
+Book(author='Rowling, J K', title='Harry Potter', genre='Fantasy', year=1997, price=25.49, instock=55)
+Book(author='Bradbury, Ray', title='Fahrenheit 451', genre='Science Fiction', year=1953, price=50, instock=20)
+
+The list with updated prices is :
+
+Book(author='Chandler, Raymond', title='The Big Sleep', genre='Mystery', year=1946, price=24.75, instock=110)
+Book(author='Isaacson, Walter', title='Steve Jobs', genre='Technology', year=2011, price=49.5, instock=95)
+Book(author='Drummond, Rae', title='Pioneer Woman', genre='Cookbook', year=2012, price=37.95, instock=35)
+Book(author='Conroy, Pat', title='My Losing Season', genre='Sports', year=2002, price=43.989000000000004, instock=60)
+Book(author='Rowling, J K', title='Harry Potter', genre='Fantasy', year=1997, price=28.038999999999998, instock=55)
+Book(author='Bradbury, Ray', title='Fahrenheit 451', genre='Science Fiction', year=1953, price=55.0, instock=20)
+
+The title of the book(s) with genre as Technology is :
+
+Steve Jobs
+
+
+More titles 2000 or later ( 190 vs. 185 )
+
+
+The highest-value book is Fahrenheit 451 by Bradbury, Ray at a value of $ 1100.0
+
+----------  Part (F)  ----------
+
+What color to fill in face ? yellow
+
+What color to fill in nose ? magenta
+
+What color of eye : green
+
+1. Happy Face
+2. Sad Face
+
+Enter your choice : 1
+
+&gt;&gt;&gt; 
+
+Apart from these are the drawings.
+"""
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

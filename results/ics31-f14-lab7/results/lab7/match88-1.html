@@ -1,0 +1,173 @@
+<HTML>
+<HEAD>
+<TITLE>frezine/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+luongc4/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Christopher Luong 76779162 and Alonzo Castanon 94339018.  ICS 31 Lab sec 4.  Lab asst 7.
+
+#
+# Part C
+#
+print()
+print("Part C")
+print()
+
+from random import randrange
+
+def random_names(n: int)-&gt;[str]:
+    lastname = open("surnames.txt", "r")
+    lastdata = lastname.read()
+    lastname.close()
+
+    malenames = open("malenames.txt", "r")
+    maledata = malenames.read()
+    malenames.close()
+
+    femalenames = open("femalenames.txt", "r")
+    femaledata = femalenames.read()
+    femalenames.close()
+    
+    lastlist = lastdata.split()
+    lastlist2 = []
+    #print(lastlist)
+    for i in range(len(lastlist)):
+        if i%4 ==0:
+            lastlist2.append(lastlist[i])
+    #print(lastlist2)
+
+    firstlist = maledata.split()
+    firstlist.extend(femaledata.split())
+    firstlist2 = []
+    #print(lastlist)
+    for i in range(len(firstlist)):
+        if i%4 ==0:
+            firstlist2.append(firstlist[i])
+    #print(firstlist2)
+    #maledata
+
+    namelist = []
+    
+    for x in range(n):
+        firstnum = randrange(0,len(firstlist2))
+        lastnum = randrange(0, len(lastlist2))
+        namelist.append(lastlist2[lastnum]+", "+firstlist2[firstnum])
+    return namelist
+print(random_names(5))
+
+#
+# Part D
+#
+print()
+print("Part D")
+print()
+
+alpha = 'abcdefghijklmnopqrstuvwxyz'
+
+def Caesar_encrypt(msg: str, n: int):
+    msg = msg.lower()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match88-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    alpha2 = alpha[n:]+alpha[:n]
+    table1 = msg.maketrans(alpha, alpha2)
+    return msg.translate(table1)
+assert Caesar_encrypt('abcdef', 2)=='cdefgh'
+
+
+def Caesar_decrypt(msg: str, n: int):
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match88-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    alpha2 = alpha[n:]+alpha[:n]
+    table1 = msg.maketrans(alpha2, alpha)
+    return msg.translate(table1)
+assert Caesar_decrypt('cdefgh', 2)=='abcdef'
+#print(Caesar_decrypt('cdefgh', 2))
+
+
+def Caesar_break(n: str)-&gt;str:
+</FONT>    n = n.lower()
+    word = open("wordlist.txt", "r")
+    worddata = word.read()
+    worddata = worddata.lower()
+    word.close()
+    wordlist = worddata.split()
+    numlist = []
+    
+    for x in range(26):
+        count = 0
+        alpha2 = alpha[x:]+alpha[:x]
+        table1 = n.maketrans(alpha2, alpha)
+        tempn = n.translate(table1)
+        for i in range(len(wordlist)):
+            if wordlist[i] in tempn:
+                count += 1
+        numlist.append(count)
+    numlist2 = sorted(numlist)
+    p = numlist2[-1]
+    s = numlist.index(p)
+    alpha2 = alpha[s:]+alpha[:s]
+    table1 = n.maketrans(alpha2, alpha)
+    decrypt = n.translate(table1)            
+    return decrypt
+print(Caesar_break(Caesar_encrypt("Hello World", 1)))
+
+#
+# Part E
+#
+print()
+print("Part E")
+print()
+
+def copy_file(n: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if n == "line numbers":
+        count = 1
+        for line in infile:
+            count += 1
+            outfile.write(("{0:5.0f}: {1}").format(count, line))
+    elif n == "Gutenberg trim":
+        startfound = False
+        for line in infile:
+            if "*** END" in line:
+                startfound = False
+            if startfound == True:
+                outfile.write(line)
+            if "*** START" in line:
+                startfound = True
+    elif n == "statistics":
+        
+        for line in infile:
+            outfile.write(line)
+
+        infile = open(infile_name, 'r')
+
+        file = infile.read()
+        numchar = len(file)
+        filelist = file.split("\n")
+        totalline = len(filelist)
+        emptyline = filelist.count("")
+
+                
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match88-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        outfile.write("\n"+"{0:7.1f} {1}".format(totalline, "lines in the file\n"))
+        outfile.write("{0:7.1f} {1}".format(emptyline, "empty lines\n"))
+        outfile.write("{0:7.1f} {1}".format(numchar/totalline, "average characters per line\n"))
+        outfile.write("{0:7.1f} {1}".format(numchar/(totalline-emptyline), "average characters per non-empty line\n"))
+</FONT>        
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+copy_file("statistics")
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

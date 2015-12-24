@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/codyh1/(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/codyh1/(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: BandBI.py
+# cody han and lukas lohden
+
+# ANTEATER BED AND BREAKFAST
+
+"""
+This program will keep track of the rooms available for rent (these
+vary, since sometimes a room is closed for redecoration) and the
+reservations that guests have made for these rooms.
+
+"""
+
+# STAGE 1 ==================================================================
+"""Keeps track of the rooms that are available.
+
+Commands:
+
+AB
+(for "add a new
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match118-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_30.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+bedroom") followed by an integer room number (in the range 1–999). Add a
+new bedroom with the specified room number.
+
+BL
+(for "bedroom list"). Print a list of the bedrooms currently
+available. The input file may contain any number of these commands in
+any order; each BL command prints a list of available bedrooms based on
+what has been added as of that point. See the sample output below for
+the format of the printed bedroom list. For this stage, it doesn't
+matter what order the bedrooms appear in.
+
+PL
+(for "print line"), followed by any text. Simply print (or "echo") a
+line, copying the input (not counting the PL and leading whitespace) to
+the output. You'll find it useful in testing, and it's also a simple way
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match118-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+to make the program's reports clearer or fancier.
+
+**
+Comment, followed by any text. Like comments in a program, comment
+lines don't have any effect on the program's behavior; they just serve
+as annotations in the command file.
+</FONT>
+"""
+bedrooms = {}
+
+## True means the room is available.
+## a dictionary item would be {Room: Availability}
+##                             Key     Value
+def addBedroom(room: str, avail=True):
+    """Adds one bedroom with corresponding availability to the bedrooms dictionary.
+    """
+    bedrooms.update({room: avail})
+
+def bedroomList(BD: dict) -&gt; str:
+    """Is called when cmd is BL. Returns str"""
+    result = ''
+    
+    availableBedrooms = []
+    for bedroom in bedrooms:
+        if bedrooms[bedroom]: ## is True
+            availableBedrooms.append(bedroom)  # bedroom is just the key
+       
+    result += 'Number of bedrooms in service:  {:3}\n'.format(len(availableBedrooms))
+    result += '------------------------------------\n'
+    for bedroom in availableBedrooms:
+        result += bedroom + '\n'
+
+    return result
+    
+
+def fileReader(filename: str):
+    """Reads and inteprets a command file."""
+    infile = open(filename, 'r')
+    
+    for line in infile:
+        termlist = line.split() # line is now a list of words called termlist
+        for i in range(len(termlist)):
+            termlist[i] = termlist[i].lower()      # all cmds case insensitive
+
+        cmd = termlist[0]  # is lowercase
+        if cmd == '**':
+            pass
+        elif cmd == 'ab':
+            room = termlist[1]
+            addBedroom(room)
+        elif cmd == 'pl':
+            print(line[3:])
+        elif cmd == 'bl':
+            print(bedroomList(bedrooms))
+            
+            
+
+
+    
+    
+    
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

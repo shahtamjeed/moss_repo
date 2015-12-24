@@ -1,0 +1,281 @@
+<HTML>
+<HEAD>
+<TITLE>gustavl2/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+gustavl2/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+#Raymond Sy 92546228 and Gustavo Lopez 88346812.  ICS 31 Lab sec 11.  Lab asst 3.
+import math
+
+#PART C
+print('-------------part c--------------')
+
+#(1)
+def abbreviate(s: str) -&gt; str:
+    '''returns first three characters in the string'''
+    return s[0:3]
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+
+#(2)
+def find_area_square(l: int) -&gt; int:
+    '''returns length squared'''
+    return (l * l)
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+#(3)
+def find_area_circle(r: int) -&gt; int:
+    '''returns area of a circle using the radius'''
+    return 3.14159 * r ** 2
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+#(4)
+def print_even_numbers(L: list):
+    '''returns the even numbers in a list'''
+    for n in range(len(L)):
+        if L[n] % 2 == 0:
+            print(L[n])            
+
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+#(5)
+def calculate_shipping(w: int) -&gt; int:
+    '''returns shipping cost'''
+    if w &lt; 2:
+        return 2.00
+    elif w &lt; 10:
+        return 5.00
+    elif w &gt;= 10:
+        return 5.00 + (w - 10) * 1.50
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+#(6)
+import tkinter
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas.pack()
+
+def create_square(x, y, l: int):
+    '''create a square'''
+    my_canvas.create_rectangle(x, y, x + l, y + l)
+    tkinter.mainloop()
+
+create_square(100, 100, 300)
+
+#(7)
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas.pack()
+
+def create_circle(x, y, l: int):
+    '''create a circle'''
+    my_canvas.create_oval(x, y, x + l, y + l)
+    tkinter.mainloop()
+    
+create_circle(100, 100, 300)
+
+#PART D
+print('-------------part d--------------')
+
+#(d.1)
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurant_price(Restaurant: list) -&gt; int:
+    '''returns restaurant price'''
+    return Restaurant.price
+
+assert restaurant_price(RC[3]) == 15.50
+assert restaurant_price(RC[5]) == 35.50
+assert restaurant_price(RC[6]) == 10.50
+
+#(d.2)
+RC.sort(key = restaurant_price)
+print(RC)
+
+#(d.3)
+def costliest(L: list) -&gt; str:
+    '''returns the name of the costliest restaurant'''
+    L.sort(key = restaurant_price)
+    return L[-1].name
+
+our_list = [
+    Restaurant("Raymond's", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("TimTown", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Gustavo Tacos", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("The Brandon Barn", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#this has side effects of sort
+print(our_list)
+print(costliest(our_list))
+print(our_list)
+
+
+#(d.4)
+def costliest2(L: list) -&gt; str:
+    '''returns the name of the costliest restaurant without changing the original list'''
+    return sorted(L, key = restaurant_price)[-1].name
+
+#this does not have side effects
+print(our_list)
+print(costliest2(our_list))
+print(our_list)
+
+#PART E
+print('-------------part e--------------')
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book('Gustavo Lopez', 'I Am The Table', 'Technology', 1999, 9.99, 42),
+    Book('Raymond Sy', 'I Too Am A Table', 'suspense', 1985, 19.99, 84),
+    Book('Timothy Clyde Harvey Jr', 'The Experience', 'biography', 2007, 29.95, 761),
+    Book('Bruce Wayne', 'I Am The Batman', 'romance', 2001, 99.98, 3),
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match177-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Book('Brandon Ramriez', 'That Guy Looks Like Me', 'Technology', 1994, 14.36, 200),
+    Book('Harvey Spector', 'I Am Legend', 'mystery', 2012, 19.95, 145) ]
+
+#(e.1)
+for i in range(len(BSI)):
+    print(BSI[i].title)
+
+print()
+
+#(e.2)
+def book_title(Book: list) -&gt; str:
+    '''returns book title'''
+    return Book.title
+</FONT>
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match177-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+for i in range(len(BSI)):
+    print(sorted(BSI, key = book_title)[i].title)
+
+#(e.3)
+print()
+
+for i in range(len(BSI)):
+    BSI[i] = Book(BSI[i].author, BSI[i].title, BSI[i].genre, BSI[i].year, BSI[i].price * 1.1, BSI[i].instock)
+</FONT><A NAME="0"></A><FONT color = #FF0000><A HREF="match177-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print(BSI[i].price)
+
+#(e.4)
+print()
+for i in range(len(BSI)):
+    if BSI[i].genre == 'Technology':
+        print(BSI[i].title)
+
+#(e.5)
+print()
+
+first_list = []
+second_list = []
+
+for i in range(len(BSI)):
+    if BSI[i].year &lt; 2000:
+</FONT>        first_list.append(BSI[i])
+    elif BSI[i].year &gt;= 2000:
+        second_list.append(BSI[i])
+
+first_inventory = 0
+second_inventory = 0
+
+for i in range(len(first_list)):
+    first_inventory += first_list[i].instock
+
+for i in range(len(second_list)):
+    second_inventory += second_list[i].instock
+
+if first_inventory &gt; second_inventory:
+    print('More titles before 2000', '(', first_inventory, 'vs.', second_inventory, ')')
+elif second_inventory &gt; first_inventory:
+    print('More titles 2000 or later', '(', second_inventory, 'vs.', first_inventory, ')')
+
+#(e.6)
+print()
+def inventory_value(n: list) -&gt; float:
+    '''returns the value of the book instock'''
+    return n.price * n.instock
+
+def top_value(l: list) -&gt; list:
+    '''returns the highest value Book from a list'''
+    return sorted(l, key = inventory_value)[-1]
+
+print('The highest-value book is', top_value(BSI).title, 'by', top_value(BSI).author, 'at a value of $', inventory_value(top_value(BSI)))
+
+#PART F
+print('-------------part f--------------')
+
+op_window = tkinter.Tk()
+op_canvas = tkinter.Canvas(op_window, width=1000, height=500)
+op_canvas.pack()#new window
+
+def draw_face(x, y: int):
+    '''draws a whole face'''
+    draw_background(x, y)
+    draw_eye(x + 75, y + 100)#left
+    draw_eye(x + 175, y + 100)#right
+    draw_nose(x + 130, y + 150)
+    draw_mouth(x + 100, y + 275)
+    return
+
+def draw_background(x, y: float):
+    '''draws face by taking in x,y coordinates'''
+    op_canvas.create_oval(x, y, x + 300, y + 300, fill='tan')#head
+
+def draw_nose(x, y: float):
+    '''draws nose by taking in x,y coordinates'''
+    op_canvas.create_oval(x, y, x + 40, y + 50, fill='pink')#nose
+    
+def draw_mouth(x, y: float):
+    op_canvas.create_line(x, y, x + 100, y, fill='black')
+    
+def draw_eye(x, y: float):
+    '''draws an eye by taking in x,y coordinates'''
+    op_canvas.create_oval(x, y, x + 50, y + 35, fill='white')#left eyeball
+    op_canvas.create_oval(x + 17, y + 10, x + 33, y + 25, fill='black')#left pupil
+
+draw_face(100, 100)
+draw_face(600, 100)
+
+#BELOW are the original draw statements
+'''
+op_canvas.create_oval(100, 100, 400, 400, fill='tan')#head
+op_canvas.create_oval(75, 50, 200, 200, fill='tan')#left ear
+op_canvas.create_oval(425, 50, 300, 200, fill='tan')#right ear
+op_canvas.create_oval(230, 250, 270, 300, fill='pink')#nose
+op_canvas.create_line(250, 300, 250, 350, fill='black')
+op_canvas.create_line(250, 350, 275, 375, fill='black')
+op_canvas.create_line(275, 375, 300, 375, fill='black')
+op_canvas.create_line(250, 350, 225, 375, fill='black')
+op_canvas.create_line(225, 375, 200, 375, fill='black')#mouthlines
+op_canvas.create_oval(175, 200, 225, 235, fill='white')#left eyeball
+op_canvas.create_oval(325, 200, 275, 235, fill='white')#right eyeball
+op_canvas.create_oval(192, 210, 208, 225, fill='black')#left pupil
+op_canvas.create_oval(308, 210, 292, 225, fill='black')#right pupil
+op_canvas.create_line(230, 250, 200, 275, fill='black')
+op_canvas.create_line(270, 250, 300, 275, fill='black')#noselines
+'''
+
+tkinter.mainloop()#Combine all the elements and display the window
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

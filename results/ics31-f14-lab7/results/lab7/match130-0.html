@@ -1,0 +1,219 @@
+<HTML>
+<HEAD>
+<TITLE>shengjix/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+shengjix/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+ #   Shengjie Xu 10616769 and Jiuk Choi 14853637.  ICS 31 Lab sec 7.  Lab asst 7.
+
+#
+#
+# Part (c)
+#
+#
+print()  
+print()
+print('---------- Part (c) ----------')
+print()
+
+#1
+from random import randrange
+
+def random_names(n: int) -&gt; [str]:
+    '''takes an integer and returns a list of that many strings, with each string a randomly generated name as described above'''
+    result = []
+    if n == 0:
+        return result
+    else:
+        for i in range(n):
+            r = randrange(2)
+            if r == 0:
+                result.append(gene_name('male'))
+            else:
+                result.append(gene_name('female'))
+    return result            
+assert random_names(0) == []
+
+#2
+f1 = open('surnames.txt')
+surnames = f1.readlines()
+for i in range(len(surnames)):
+    surnames[i] = surnames[i].lower()
+    surnames[i] = surnames[i][0].upper() + surnames[i][1:]
+f2 = open('femalenames.txt')
+femalenames = f2.readlines()
+for i in range(len(femalenames)):
+    femalenames[i] = femalenames[i].lower()
+    femalenames[i] = femalenames[i][0].upper() + femalenames[i][1:]
+f3 = open('malenames.txt')
+malenames = f3.readlines()
+for i in range(len(malenames)):
+    malenames[i] = malenames[i].lower()
+    malenames[i] = malenames[i][0].upper() + malenames[i][1:]
+f1.close()
+f2.close()
+f3.close()
+
+#3
+def single_random_name(lst: list) -&gt; str:
+    '''takes one of the three name lists as a parameter and returns a name chosen at random from that list'''
+    random_name = lst[randrange(1000)]
+    name_temp_list = random_name.split('\t')
+    return name_temp_list[0]
+
+def gene_name(gender: str) -&gt; str:
+    '''return a randomly generated name based on the gender'''
+    if gender == 'male':
+        return '{}, {}'.format(single_random_name(surnames), single_random_name(malenames))
+    elif gender == 'female':
+        return '{}, {}'.format(single_random_name(surnames), single_random_name(femalenames))
+    else:
+        print('Gender is not valid. Please enter gender in lower case.')
+
+
+#
+#
+# Part (d)
+#
+#
+print()  
+print()
+print('---------- Part (d) ----------')
+print()
+
+#1
+ALPHABET1 = 'abcdefghijklmnopqrstuvwxyz'
+ALPHABET2 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+from collections import namedtuple
+Decrypt = namedtuple("Decrypt", "hits decryption")
+
+f = open('dictionary.txt')
+temp_dictionary = f.read().lower()
+f.close()
+dictionary = temp_dictionary.split('\n')
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match130-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def rotate_alphabet(alp: str, key: int) -&gt; str:
+    '''return a "rotated" alphabet with the specified number of characters taken off the front and added on to the end of the string '''
+    if key &gt; 25:
+        key = key % 26
+    return alp[key:] + alp[:key]
+assert rotate_alphabet('ab.c', 1) == 'b.ca'
+
+
+def Caesar_encrypt(m: str, key: int) -&gt; str:
+    '''returns the ciphertext'''
+    table1 = str.maketrans(ALPHABET1, rotate_alphabet(ALPHABET1, key))
+</FONT>    table2 = str.maketrans(ALPHABET2, rotate_alphabet(ALPHABET2, key))
+    temp = m.translate(table1)
+    result = temp.translate(table2)
+    return result
+assert Caesar_encrypt('Abc,..', 1) == 'Bcd,..'
+assert Caesar_encrypt('hi there', 2) == 'jk vjgtg'
+
+
+##def get_hits(d: Decrypt) -&gt; int:
+##    '''get the hits from a Decrypt'''
+##    return d.hits
+
+def Caesar_break(cs: str) -&gt; str:
+    '''takes a ciphertext string (encrypted using a Caesar cipher as we did last week) and returns the plaintext for that string, without having the key'''
+    possible_lst = []
+    table_c = str.maketrans(",./&lt;&gt;?;':'\"[]{}|\\`~!@#$%^&*()_+-=", " " * 33)
+    for i in range(26):
+        hits = 0
+        table_one = str.maketrans(rotate_alphabet(ALPHABET1, i), ALPHABET1)
+        table_two = str.maketrans(rotate_alphabet(ALPHABET2, i), ALPHABET2)
+        temp = cs.translate(table_one)
+        result = temp.translate(table_two)
+        test_result = result.translate(table_c)
+        word_lst = test_result.split()
+        for word in word_lst:
+            if word.lower() in dictionary:
+                hits += 1
+        possible_lst.append(Decrypt(hits, result))
+    possible_lst.sort(reverse = True)
+    return possible_lst[0].decryption
+##assert Caesar_break('C bupy u xlyug') == 'I have a dream'
+##assert Caesar_break('Drsc sc k zobpomd zbyqbkw!') == 'This is a perfect program!'
+
+#
+#
+# Part (e)
+#
+#
+print()  
+print()
+print('---------- Part (e) ----------')
+print()
+
+
+def copy_file(s: str):
+    ''' copy a file, line by line'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    i = 0
+    if s == 'line numbers':
+        for line in infile:
+            outfile.write('{:5d}: '.format(i + 1) + line)
+            i += 1
+    elif s == 'Gutenberg trim':
+        for line in infile:
+            if '*** END' in line:
+                outfile.write('{:5d}: '.format(i + 1) + line)
+                break
+            elif i &gt;= 1:
+                outfile.write('{:5d}: '.format(i + 1) + line)
+                i += 1
+            elif '*** START' not in line:
+                continue
+            else:
+                outfile.write('{:5d}: '.format(i + 1) + line)
+                i = 1
+    elif s == 'statistics':
+        for line in infile:
+            outfile.write(line) 
+        infile = open(infile_name, 'r', errors='ignore')
+        text = infile.read()
+        infile = open(infile_name, 'r', errors='ignore')
+        line_lst = infile.readlines()
+        acpl = len(text) / len(line_lst)
+        acpnel = len(text) / (len(line_lst) - count_empty_lines(line_lst))
+        print('{:6d}   lines in the file'.format(len(line_lst)))
+        print('{:6d}   empty lines'.format(count_empty_lines(line_lst)))
+        print('{:8.1f} average characters per line'.format(acpl))
+        print('{:8.1f} average characters per non-empty line'.format(acpnel))           
+    else:
+        for line in infile:
+            outfile.write(line) 
+    infile.close()
+    outfile.close()
+
+
+def count_empty_lines(lst_s: [str]) -&gt; int:
+    ''' return the numbers of empty lines'''
+    result = 0
+    temp_lst = []
+    for i in lst_s:
+        temp_lst = i.split('\n')
+        temp_1 = ''.join(temp_lst)
+        temp_lst = temp_1.split('\t')
+        temp_2 = ''.join(temp_lst)
+        if len(temp_2) == 0:
+            result += 1
+    return result
+assert count_empty_lines(['a', '', '\n', '\t', 'asdas', '\nfewafwea\n\n']) == 3
+assert count_empty_lines(['a', '', '\n\n\t\n\n\n', '\nsdfdsf\n', '\t\t\t\t\tasd', '\t', '''asdasd
+asdasdasd
+sadasd
+
+asd''']) == 3
+</PRE>
+</PRE>
+</BODY>
+</HTML>

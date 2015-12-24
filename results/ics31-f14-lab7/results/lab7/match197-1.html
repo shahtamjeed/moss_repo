@@ -1,0 +1,198 @@
+<HTML>
+<HEAD>
+<TITLE>richmonl/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+sargsyav/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Vard Sargsyan 48282805 and Dustin Perez 82125385. ICS 31 Lab sec 14. Lab 7.
+
+print('---------- Part (c) ----------')
+
+#c1
+
+infile = open('femalenames.txt', 'r')
+femalenames = infile.readlines()
+femalenames = femalenames[:1001]
+
+infile2 = open('malenames.txt', 'r')
+malenames = infile2.readlines()
+malenames = malenames[:1001]
+
+infile3 = open('surnames.txt', 'r')
+surnames = infile3.readlines()
+surnames = surnames[:1001]
+
+mixed_names = []
+mixed_names.extend(femalenames)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match197-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+mixed_names.extend(malenames)
+def mixed_first_names(l: list) -&gt; str:
+    '''Takes a list of mixed names and creates a new list of seperate strings'''
+    new_mixed_names = []
+    for z in mixed_names:
+        tem_list = z.split('\t')
+        new_mixed_names.append(tem_list[0])
+    return new_mixed_names
+</FONT>m = mixed_first_names(mixed_names)
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match197-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def surnames_list(l: list) -&gt; list:
+    '''Takes a list of surnames and returns a split list'''
+    new_list = []
+    for s in surnames:
+        tem_list = s.split('\t')
+        new_list.append(tem_list[0])
+    return new_list
+</FONT>s = surnames_list(surnames)
+
+
+from random import randrange
+def random_name(x: list, y: list) -&gt; str:
+    '''Randomly generates a first name and a surname'''
+    index = randrange(0, len(x))
+    index2 = randrange(0, len(y))
+    a = (x[index].lower().capitalize())
+    b = (y[index2].lower().capitalize())
+    return (a + ' ' + b)
+
+def random_names(x: int) -&gt; list:
+    '''Takes an integer and returns a list of strings the # of integer'''
+    name_list = []
+    while True:
+        name_list.append(random_name(m, s))
+        if len(name_list) == x:
+            break
+    return name_list
+    
+infile.close()
+infile2.close()
+infile3.close()
+
+print('---------- Part (d) ----------')
+
+infile4 = open('wordlist.txt', 'r')
+wordlist = infile4.readlines()
+
+alpha='abcdefghijklmnopqrstuvwxyz'
+def Caesar_encrypt(x: str, y: int) -&gt; str:
+    '''Takes a decrypted string and a key, returns ciphertext'''
+    a = str.maketrans(alpha, alpha[y:] + alpha[:y])
+    return x.lower().translate(a)
+
+def twenty_six(s:str) -&gt; list:
+    '''Takes str an returns list of 26 possible options'''
+    result = []
+    for i in range(len(alpha)):
+        tem_str = Caesar_encrypt(s,i)
+        result.append(tem_str)
+    return result
+#print(twenty_six('hey hi yo'))
+
+def Caesar_int(s: str) -&gt; int:
+    '''Takes ciphertext, splits ciphertext, returns int of words = wordlist'''
+    l = twenty_six(s)
+    result = []
+    for x in l:
+        tem_list = x.split()
+        hits = 0
+        for w in tem_list:
+            if w+'\n' in wordlist:
+                hits += 1
+        result.append(hits)
+    return result
+#print(Caesar_int('weirdo'))
+
+
+def Caesar_break(s: str) -&gt; str:
+    '''Takes ciphertext, returns plaintext'''
+    l = Caesar_int(s)
+    z = max(l)
+    a = l.index(z)
+    return Caesar_encrypt(s, a)
+#print(Caesar_break('xfjsep'))
+    
+
+infile4.close()
+
+print('---------- Part (e) ----------')
+
+#e2
+
+def copy_file(s: str):
+    '''if the string is line numbers it adds line numbers for each line'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    line_list = infile.readlines()
+    if s == 'line numbers':
+        for i in range(len(line_list)):
+            outfile.write(('{0:5}: '.format((i+1)) + str(line_list[i]) + "\n"))
+    else:
+        for line in line_list:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+#e3
+    
+def copy_file(s: str):
+    '''if the string is Gutenberg trim then it makes a copy of just the body'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    start_line = False
+    if s == 'Gutenberg trim':
+        for line in infile:
+            if start_line:
+                outfile.write(line)
+            elif '*** START OF THIS''' in line:
+                start_line = True
+            elif '*** END' in line:
+                start_line = False
+    else:
+        for line in infile:
+            outfile.write(line)
+        
+    infile.close()
+    outfile.close()
+
+#e4
+  
+def copy_file(s: str):
+    '''if the string is statistic then it adds statistic to the file'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    line_list = infile.readlines()
+    empty_lines = []
+    for line in infile:
+        if line == '':
+            empty_lines.append(line)
+    characters = 0
+    for string in line_list:
+        characters += len(string)
+    
+    avg_c_per_line = characters / len(line_list)
+    avg_c_per_nonempty = characters / (len(line_list) - len(empty_lines))
+    if s == 'statistics':
+        for line in line_list:
+            outfile.write(line)
+        outfile.write('{:5}   '.format(len(line_list)) + 'lines in the list' + '\n')
+        outfile.write('{:5}   '.format(len(empty_lines)) + 'empty lines'+'\n')
+        outfile.write('{:7.1f} '.format(avg_c_per_line) + 'average characters per line' + '\n')
+        outfile.write('{:7.1f} '.format(avg_c_per_nonempty) + 'average characters per non-empty line')
+    else:
+        for line in line_list:
+            outfile.write(line)
+    infile.close()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

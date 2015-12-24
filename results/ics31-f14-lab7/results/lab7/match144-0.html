@@ -1,0 +1,185 @@
+<HTML>
+<HEAD>
+<TITLE>davidhn3/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+davidhn3/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Khuong Tiet 88812261 and David Nguyen 32738360 ICS 31 Lab sec 10. Lab asst. 7
+
+#
+#
+# Part (c)
+#
+#
+print()
+print('---------- Part (c) ----------')
+print()
+
+#c.1
+def random_names(x: int) -&gt; list:
+    '''Returns a list of the parameter amount of strings'''
+    k = 0
+    while k &lt; x:
+        result = []
+        for i in range(x):
+            result.append(str(random_name_generator()))
+            k += 1
+        return result
+    
+#c.2
+infile = open("surnames.txt", 'r')
+surname = infile.read().split()
+infile.close()
+infile = open("femalenames.txt", 'r')
+femalenames = infile.read().split()
+infile.close()
+infile = open("malenames.txt", 'r')
+malenames = infile.read().split()
+infile.close()
+
+
+#c.3
+from random import randrange
+def random_name_generator() -&gt; str:
+    ''' Creates a random name '''
+    list_of_surnames = []
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match144-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    list_of_female = []
+    list_of_male = []
+    list_of_female_male = []
+    for i in range(len(surname)):
+        if i%4 == 0:
+            list_of_surnames.append(surname[i])
+    for i in range(len(femalenames)):
+        if i%4 == 0:
+            list_of_female.append(femalenames[i])
+    for i in range(len(malenames)):
+        if i%4 == 0:
+            list_of_male.append(malenames[i])
+    list_of_female_male.append(list_of_female)
+</FONT>    list_of_female_male.append(list_of_male)
+    listname = list_of_female_male[randrange(0,2)]
+    b = listname[randrange(0,1001)]
+    a = list_of_surnames[randrange(0,1001)]
+    final_name = a.capitalize() + ' ' + b.capitalize()
+    return final_name
+print(random_names(3))
+print(random_names(1))
+
+#
+#
+# Part (d)
+#
+#
+print()
+print('---------- Part (d) ----------')
+print()
+
+#d.1
+def Caesar_decrypt(transstr:str, howfar:int)-&gt;str:
+    '''Takes a string and returns a decrypted string based on the integer'''
+    table = str.maketrans('abcdefghijklmnopqrstuvwxyz', rotate_alphabet(howfar*-1))
+    return transstr.translate(table)
+        
+def rotate_alphabet(order: int) -&gt; str:
+    ''' Takes a number and rotates the alphabet based on the number '''
+    Alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    newAlpha = Alphabet[order:] + Alphabet[:order]
+    return newAlpha
+
+def Caesar_break(x: str) -&gt; str:
+    '''Returns the plaintext for the ciphertext string'''
+    infile = open("wordlist.txt", 'r')
+    wordlist = infile.read()
+    infile.close()
+    possible_str = []
+    possible_str2 = []
+    split_str = []
+    count = []
+    for i in range(26):
+        possible_str.append(Caesar_decrypt(x, i))
+    for y in possible_str:
+        possible_str2.append(y.lower())
+    for letters in possible_str2:
+        split_str.append(letters.split())
+
+    for words in split_str:
+        counter = 0
+        for crypt in words:
+            if crypt in wordlist:
+                counter += 1
+        count.append(counter)
+    for t in range(len(count)):
+        if count[t] == max(count):
+            print(possible_str[t])
+Caesar_break('Cwuxcbmz Skqmvkm')
+Caesar_break('Tapmk ue Wqpzqepmk')
+
+#
+#
+# Part (e)
+#
+#
+print()
+print('---------- Part (e) ----------')
+print()
+
+#e.1, e.2, and e.3
+def copy_file(s: str):
+    ''' Copies a file, line by line '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    counter = 1
+    if s == 'line numbers':
+        for line in infile:
+            a = line
+            outfile.write("{:5}: {:}".format(counter,a))
+            counter+=1
+    elif s == 'Gutenberg trim':
+        for line in infile:
+            counter+=1
+            if counter &gt; 20 and counter &lt; 12695:
+                outfile.write(line)
+    elif s == 'statistics':
+        for line in infile:
+            outfile.write(line)
+        infile = open(infile_name, 'r')
+        text = infile.readlines()
+        lenstr = len(text)
+        numEmpty = 0
+        nonEmptyList = []
+        for j in text:
+            if j.isspace() == True:
+                numEmpty += 1
+            else:
+                nonEmptyList.append(j)
+        aveChar = 0
+        for i in text:
+            aveChar += len(i)
+        aveChar = aveChar/len(text)
+        aveCharNonEmpty = 0
+        for x in nonEmptyList:
+            aveCharNonEmpty += len(x)
+        aveCharNonEmpty = aveCharNonEmpty/len(nonEmptyList)
+        print('{:7}    lines in the file \n'
+              '{:7}    empty lines\n'
+              '{:9.1f}  average characters per line\n'
+              '{:9.1f}  average characters per non-empty line'.format(lenstr, numEmpty, aveChar, aveCharNonEmpty))
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+
+
+        
+</PRE>
+</PRE>
+</BODY>
+</HTML>

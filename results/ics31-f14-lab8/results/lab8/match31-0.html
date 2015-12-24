@@ -1,0 +1,920 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/kpwong1/(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/kpwong1/(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: ICStunes.py
+##############################################
+# Kevin Wong 38236232
+# Moriya Horuchi 80901022
+# ICS 31 Lab 8 Sec. 15
+# 11.24.14
+##############################################
+##############################################
+#           FUNCTION DECLARATIONS
+##############################################
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match31-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def print_banner(s:str, char: str = '*', indent: bool = True, num_of_char: int = 35) -&gt; str:
+    '''
+    *********************************************
+</FONT>    PRINT_BANNER
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match31-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    ---------------------------------------------
+    Description:
+    Prints a banner with a message
+
+    PARAMETERS:
+    s: str    -   message
+
+    RETURNS:
+    a string of the output
+    *********************************************
+    '''
+    # make all whitespace a single space
+    s = ' '.join( s.split() )
+
+    # top of banner
+    string = char * num_of_char + '\n'
+
+    
+    if indent:
+        string += '\t'
+
+    # crappy word wrap
+    if len(s) &gt; num_of_char:
+        for i in range( len(s) ):
+            if (i+1) % num_of_char == 0:
+                s = s[:i+1] + '\n' + s[i+1:]
+            
+    string += s +'\n' + char * num_of_char
+    print(string)
+    return string
+</FONT>
+#######################################
+#           PART E
+# Download the ICStunes program
+#######################################
+print_banner('PART E')
+
+##
+## ICStunes:  A Music Manager
+##
+## Original version ("InfxTunes") in Scheme by Alex Thornton,
+##      modified 2007 and 2008 by David G. Kay
+## Python version by David G. Kay, 2012
+
+from collections import namedtuple
+#######################################
+# Album, Song
+#######################################
+
+Album = namedtuple('Album', 'id artist title year songs')
+# id is a unique ID number; artist and title are strings; year is a number,
+#   the year the song was released; songs is a list of Songs
+
+Song = namedtuple('Song', 'track title length play_count')
+# track is the track number; title is a string; length is the number of
+#   seconds long the song is; play_count is the number of times the user
+#   has listened to the song
+
+MUSIC = [
+    Album(1, "Peter Gabriel", "Up", 2002,
+        [Song(1, "Darkness", 411, 5),
+         Song(2, "Growing Up", 453, 5),
+         Song(3, "Sky Blue", 397, 2),
+         Song(4, "No Way Out", 473, 2),
+         Song(5, "I Grieve", 444, 2),
+         Song(6, "The Barry Williams Show", 735, 1),
+         Song(7, "My Head Sounds Like That", 389, 1),
+         Song(8, "More Than This", 362, 1),
+         Song(9, "Signal to Noise", 456, 2),
+         Song(10, "The Drop", 179, 1)]),
+    Album(2, "Simple Minds", "Once Upon a Time", 1985,
+        [Song(1, "Once Upon a Time", 345, 9),
+         Song(2, "All the Things She Said", 256, 10),
+         Song(3, "Ghost Dancing", 285, 7),
+         Song(4, "Alive and Kicking", 326, 26),
+         Song(5, "Oh Jungleland", 314, 13),
+         Song(6, "I Wish You Were Here", 282, 12),
+         Song(7, "Sanctify Yourself", 297, 7),
+         Song(8, "Come a Long Way", 307, 5)]),
+    Album(3, "The Postal Service", "Give Up", 2003,
+        [Song(1, "The District Sleeps Alone", 284, 13),
+         Song(2, "Such Great Heights", 266, 13),
+         Song(3, "Sleeping In", 261, 12),
+         Song(4, "Nothing Better", 226, 18),
+         Song(5, "Recycled Air", 269, 13),
+         Song(6, "Clark Gable", 294, 12),
+         Song(7, "We Will Become Silhouettes", 300, 11),
+         Song(8, "This Place is a Prison", 234, 9),
+         Song(9, "Brand New Colony", 252, 9),
+         Song(10, "Natural Anthem", 307, 7)]),
+    Album(4, "Midnight Oil", "Blue Sky Mining", 1989,
+        [Song(1, "Blue Sky Mine", 258, 12),
+         Song(2, "Stars of Warburton", 294, 11),
+         Song(3, "Bedlam Bridge", 266, 11),
+         Song(4, "Forgotten Years", 266, 8),
+         Song(5, "Mountains of Burma", 296, 9),
+         Song(6, "King of the Mountain", 231, 8),
+         Song(7, "River Runs Red", 322, 9),
+         Song(8, "Shakers and Movers", 268, 9),
+         Song(9, "One Country", 353, 7),
+         Song(10, "Antarctica", 258, 6)]),
+    Album(5, "The Rolling Stones", "Let It Bleed", 1969,
+        [Song(1, "Gimme Shelter", 272, 3),
+         Song(2, "Love In Vain", 259, 2),
+         Song(3, "Country Honk", 187, 0),
+         Song(4, "Live With Me", 213, 2),
+         Song(5, "Let It Bleed", 327, 2),
+         Song(6, "Midnight Rambler", 412, 1),
+         Song(7, "You Got the Silver", 170, 0),
+         Song(8, "Monkey Man", 251, 13),
+         Song(9, "You Can't Always Get What You Want", 448, 10)])
+]
+#######################################
+# Sorting the collection
+#######################################
+
+# Sort the collection into chronological order
+# The 'key=' argument of sort() takes a function---that function
+#   takes an album and produces the value that will be used for
+#   comparisons in the sort.
+# So first we define that function
+
+def Album_year(A: Album) -&gt; int:
+    ''' Return the album's year
+    '''
+    return A.year
+
+MUSIC.sort(key=Album_year) # Oldest to newest
+assert(MUSIC[0].title == "Let It Bleed") # Kind of a half-hearted test
+assert(MUSIC[-1].title == "Give Up")
+
+MUSIC.sort(key=Album_year, reverse=True) # Newest to oldest
+assert(MUSIC[0].title == "Give Up") # Kind of a half-hearted test
+assert(MUSIC[-1].title == "Let It Bleed")
+
+# Sort the collection by Album title
+def Album_title(A: Album) -&gt; str:
+    ''' Return the album's title
+    '''
+    return A.title
+
+MUSIC.sort(key=Album_title)
+assert(MUSIC[0].title == "Blue Sky Mining") # Kind of a half-hearted test
+assert(MUSIC[-1].title == "Up")
+
+# Sort the collection by length (playing time) of album
+def Album_length(a: Album) -&gt; int:
+    ''' Return the total length of all the songs in the album
+    '''
+    total_length = 0
+    for s in a.songs:
+        total_length += s.length
+    return total_length
+
+MUSIC.sort(key=Album_length)
+assert(MUSIC[0].title == "Once Upon a Time") # Kind of a half-hearted test
+assert(MUSIC[-1].title == "Up")
+
+# Sort the collection by Album id (as above)
+def Album_id(A: Album) -&gt; str:
+    ''' Return the album's number
+    '''
+    return A.id
+
+MUSIC.sort(key=Album_id)
+
+## We can also write a conventional function to sort a collection, so
+## we could say collection_sort(MUSIC, Album_length) instead of using
+## the method notation MUSIC.sort(key=Album_length).  We do this by
+## PASSING A FUNCTION AS A PARAMETER (like the interchangeable
+## attachment on a robot arm).
+
+def collection_sort(C: 'list of Album', keyfunction: 'Function on Albums') -&gt; None:
+    ''' Sort collection according to specified key function
+        Note that this function, like the sort() method, sorts the collection
+        IN PLACE (by reference), so it changes the argument it was called with.
+        That's why it doesn't RETURN anything.
+    '''
+    C.sort(key=keyfunction)
+    return
+
+collection_sort(MUSIC, Album_title)
+assert(MUSIC[0].title == "Blue Sky Mining") # Kind of a half-hearted test
+assert(MUSIC[-1].title == "Up")
+
+collection_sort(MUSIC, Album_id) # Just to put it back in the original order
+
+
+#######################################
+# Top 10 most frequently played songs
+#######################################
+
+# Collect all the songs out of all the albums.
+# To find the MOST frequent, just use the find-largest (king-of-the-hill) algorithm
+# To find the top N is hard to code that way.
+# Better: Take the list of songs, sort by play_count, take first 10 -- songlist[:10]
+
+def Song_play_count(s: Song) -&gt; int:
+    ''' Return the number of times this song has been played
+    '''
+    return s.play_count
+
+def all_songs(MC: 'list of Album') -&gt; 'list of Song':
+    ''' Return a list of all the Songs in a music collection (list of Album)
+    '''
+    result = [ ]
+    for a in MC:
+        result.extend(a.songs)
+    return result
+
+Songlist = all_songs(MUSIC)
+assert(Songlist[0] == Song(1, "Darkness", 411, 5))
+assert(Songlist[1] == Song(2, "Growing Up", 453, 5))
+assert(Songlist[-1] == Song(9, "You Can't Always Get What You Want", 448, 10))
+
+def top_n_played_songs(MC: 'list of Album', n: int) -&gt; 'list of Song':
+    ''' Return a list of the n most frequently played songs in MC
+    '''
+    Songlist = all_songs(MC)
+    Songlist.sort(key=Song_play_count, reverse=True)
+    return Songlist[:n]
+
+assert(top_n_played_songs(MUSIC, 5) ==
+       [Song(4, "Alive and Kicking", 326, 26),
+        Song(4, "Nothing Better", 226, 18),
+        Song(5, "Oh Jungleland", 314, 13),
+        Song(1, "The District Sleeps Alone", 284, 13),
+        Song(2, "Such Great Heights", 266, 13)])
+
+
+###################################
+# Song-displays
+###################################
+# But these songs don't have their album information!  We removed it when we created
+# the list of all songs.  If we want to display selected songs on our iPod screen,
+# we'd want to have the album information along with the song information.
+
+# We could flatten out our data structure, storing a copy of the album
+# information with each song:
+#       1   Up  Peter Gabriel  2002  1  Darkness   411   5
+#       1   Up  Peter Gabriel  2002  2  Growing Up   453  8
+#       1   Up  Peter Gabriel  2002  3  Sky Blue    397  2
+#            ...
+# This would work, but there's a lot of duplicate data---it would be wasteful of storage
+# and error-prone to store our music data this way permanently.
+
+# Instead, let's just get the album info that goes with a song WHEN WE NEED IT,
+# during the computation.  To do this, we define a structure that contains the
+# info we need to display a song (on our iPod screen, e.g.)---song details plus
+# the info we need from that song's album:
+
+Songdisplay = namedtuple('Songdisplay', 'artist a_title year track s_title length play_count')
+
+# We'll create these structures as we need them during the computation,
+# discarding them as we're done; this doesn't affect the main, permanent
+# list of albums (like the one we defined as MUSIC above).
+
+def all_Songdisplays(MC: 'list of Album') -&gt; 'list of Songdisplay':
+    ''' Return a list of all the songs in the collection MC, in Songdisplay form
+    '''
+    result = [ ]
+    for a in MC:
+        result.extend(Album_to_Songdisplays(a))
+    return result
+
+def Album_to_Songdisplays(a: Album) -&gt; 'list of Songdisplay':
+    ''' Return a list of Songdisplays, one for each song in the album
+    '''
+    result = [ ]
+    for s in a.songs:
+        result.append(Songdisplay(a.artist, a.title, a.year,
+            s.track, s.title, s.length, s.play_count))
+    return result
+
+def play_count_from_songdisplay(sd: Songdisplay) -&gt; int:
+    ''' Return the play_count from a Songdisplay
+    '''
+    return sd.play_count
+
+def top_n_played(MC: 'list of Album', n: int) -&gt; 'list of Songdisplay':
+    ''' Return the top n most frequently played songs in MC
+    '''
+    list_of_Songdisplays = all_Songdisplays(MC)
+    list_of_Songdisplays.sort(key=play_count_from_songdisplay, reverse=True)
+    return list_of_Songdisplays[:n]
+
+test_list = top_n_played(MUSIC, 3)
+assert(test_list[0].s_title == "Alive and Kicking")
+assert(test_list[0].a_title == "Once Upon a Time")
+assert(test_list[-1].s_title == "Oh Jungleland")
+assert(test_list[-1].a_title == "Once Upon a Time")
+
+#end e
+print()
+#######################################
+#           PART E.1
+# Write a function called Song_str
+# Then write a function called Album_str
+# write a function called Songdisplay_str
+#######################################
+print_banner('PART E.1')
+
+def Song_str(s: Song) -&gt; str:
+    '''
+    *********************************************
+    SONG_STR
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match31-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    ---------------------------------------------
+    Description:
+    takes a song and returns a string containing that
+</FONT>    song's information in an easily readable format
+    suitable for printing
+
+    PARAMETERS:
+    s: Song    -   song
+
+    RETURNS:
+    str
+    *********************************************
+    '''
+<A NAME="8"></A><FONT color = #00FFFF><A HREF="match31-1.html#8" TARGET="1"><IMG SRC="../../bitmaps/tm_3_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return str.format('{:10s}{:40s}{:15s}{:10s}', 'Track ' + str(s.track), s.title, 'Length: ' + str(s.length//60) + ':' + str( '{:02d}'.format(s.length%60) ), 'Plays: ' + str(s.play_count) )
+
+def Album_str(a: Album) -&gt; str:
+    '''
+    *********************************************
+</FONT>    ALBUM_STR
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match31-1.html#5" TARGET="1"><IMG SRC="../../bitmaps/tm_0_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    ---------------------------------------------
+    Description:
+    takes an album and returns a string containing
+</FONT>    that album's information (including the Song_str
+    information for each song on the album) in an
+    easily readable format suitable for printing
+
+    PARAMETERS:
+    s: Song    -   song
+
+    RETURNS:
+    str
+    *********************************************
+    '''
+    #id artist title year songs
+    result = str.format('{:10s}\n{:20s}\n{:20s}\n{:10s}\n\n', 'ID: ' + str(a.id), 'Artist: ' + a.artist, 'Album: ' + a.title, 'Year: ' + str(a.year) )
+    for i in a.songs:
+        result += '\t' + Song_str(i) + '\n'
+    return result
+
+def Songdisplay_str(sd: Songdisplay) -&gt; str:
+    '''
+    *********************************************
+    SONGDISPLAY_STR
+    ---------------------------------------------
+    Description:
+    takes a Songdisplay and returns a string
+    containing that information in an easily readable
+    form suitable for printing
+    
+    PARAMETERS:
+    s: Songdisplay    -   songdisplay
+
+    RETURNS:
+    str
+    *********************************************
+    '''
+    # artist a_title year track s_title length play_count
+    out =  '{:15s}'.format('Artist') + ': ' + sd.artist + '\n'
+    out += '{:15s}'.format('Album') + ': ' + sd.a_title + '\n'
+    out += '{:15s}'.format('Year') + ': ' + str(sd.year) + '\n'
+    out += '{:15s}'.format('Track') + ': ' + str(sd.track) + '\n'
+    out += '{:15s}'.format('Song') + ': ' + sd.s_title + '\n'
+    out += '{:15s}'.format('Length') + ': ' + str(sd.length//60) + ':' + str( '{:02d}'.format(sd.length%60) ) + '\n'
+    out += '{:15s}'.format('Plays') + ': ' + str(sd.play_count)
+
+    return out
+
+# end e.1
+print()
+#######################################
+#           PART E.2
+# write a key function and a call to the
+# sort() method to sort the collection MUSIC
+# by the number of tracks on each album, lowest
+# to highest; then print the resulting collection
+# using Album_str
+#######################################
+print_banner('PART E.2')
+
+def Album_num_tracks(a: Album) -&gt; int:
+    '''
+    *********************************************
+    ALBUM_NUM_TRACKS
+    ---------------------------------------------
+    Description:
+    returns the number of tracks on the album
+    
+    PARAMETERS:
+    a: Album - album
+
+    RETURNS:
+    int
+    *********************************************
+    '''
+    return len(a.songs)
+
+def Album_num_plays(a: Album) -&gt; int:
+    '''
+    *********************************************
+    ALBUM_NUM_PLAYS
+    ---------------------------------------------
+    Description:
+    returns the total number of plays on the album
+    
+    PARAMETERS:
+    a: Album - album
+
+    RETURNS:
+    int
+    *********************************************
+    '''
+    result = 0
+
+    for i in a.songs:
+        result += i.play_count
+    return result
+
+MUSIC.sort(key=Album_num_tracks) # lowest to highest
+assert(MUSIC[0].title == 'Once Upon a Time') # Kind of a half-hearted test
+
+print_banner('Albums sorted by number of tracks (low to high):', '-', False)
+for i in MUSIC:
+    print(Album_str(i))
+
+MUSIC.sort(key=Album_num_plays)
+print_banner( 'Albums sorted by total play count (low to high):', '-', False)
+for i in MUSIC:
+    print(Album_str(i))
+
+collection_sort(MUSIC, Album_num_tracks)
+print_banner( 'Perform the number-of-tracks sorting task by calling collection_sort and then printing the resulting sorted collection:', '-', False)
+for i in MUSIC:
+    print(Album_str(i))
+
+# end e.2
+print()
+#######################################
+#           PART E.3
+# Write a function called unplayed_songs 
+#######################################
+print_banner('PART E.3')
+
+def Song_unplayed( s: Song) -&gt; bool:
+    '''
+    *********************************************
+    SONG_UNPLAYED
+    ---------------------------------------------
+    Description:
+    returns true if play count is 0
+    
+    PARAMETERS:
+    s: Song - song
+
+    RETURNS:
+    bool
+    *********************************************
+    '''
+    return s.play_count == 0
+
+<A NAME="6"></A><FONT color = #00FF00><A HREF="match31-1.html#6" TARGET="1"><IMG SRC="../../bitmaps/tm_1_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Album_unplayed_songs( a: Album) -&gt; [Songdisplay]:
+    '''
+    *********************************************
+</FONT>    ALBUM_UNPLAYED_SONGS
+    ---------------------------------------------
+    Description:
+    takes an album
+    and returns a list of Songdisplays,
+    one for each song that has never been played
+    
+    PARAMETERS:
+    a: Album - album
+
+    RETURNS:
+<A NAME="7"></A><FONT color = #0000FF><A HREF="match31-1.html#7" TARGET="1"><IMG SRC="../../bitmaps/tm_2_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    [Songdisplay]
+    *********************************************
+    '''
+    result = []
+</FONT>
+    for i in a.songs:
+        if Song_unplayed(i):
+            #artist a_title year track s_title length play_count
+            result.append( Songdisplay(a.artist, a.title, a.year, i.track, i.title, i.length, i.play_count) )
+    return result
+    
+def unplayed_songs( MC: [Album] ) -&gt; [Songdisplay]:
+    '''
+    *********************************************
+    UNPLAYED_SONGS
+    ---------------------------------------------
+    Description:
+    takes a music collection (a list of albums)
+    and returns a list of Songdisplays,
+    one for each song that has never been played
+    
+    PARAMETERS:
+    MC: [Album] - music collection
+
+    RETURNS:
+    [Songdisplay]
+    *********************************************
+    '''
+    result = []
+
+    for i in MC:
+        result.extend( Album_unplayed_songs(i) )
+        
+    return result
+
+print_banner('Print the songs that have not been played', '-', False)        
+for i in unplayed_songs(MUSIC):
+    print( Songdisplay_str(i) )
+    print()
+
+# end e.3
+print()
+#######################################
+#           PART E.4
+# Write a function called length_from_songdisplay 
+#######################################
+print_banner('PART E.4')
+
+def length_from_songdisplay(sd: Songdisplay) -&gt; int:
+    '''
+    *********************************************
+    LENGTH_FROM_SONGDISPLAY
+    ---------------------------------------------
+    Description:
+    takes a Songdisplay and returns the length of the song
+    
+    PARAMETERS:
+    sd: Songdisplay - songdisplay
+
+    RETURNS:
+    int
+    *********************************************
+    '''
+    return sd.length
+
+# end e.4
+print()
+#######################################
+#           PART E.5
+# Write a function called favorite_album
+#######################################
+print_banner('PART E.5')
+
+def Song_listening_time( s: Song ) -&gt; int:
+    '''
+    *********************************************
+    SONG_LISTEN_TIME
+    ---------------------------------------------
+    Description:
+    takes a song and returns the time spent
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match31-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    listening to the song. length * play count
+    
+    PARAMETERS:
+    MC: [Album] - music collection
+
+    RETURNS:
+    Album
+    *********************************************
+</FONT>    '''
+    return s.length * s.play_count
+
+def Album_listening_time( a: Album ) -&gt; int:
+    '''
+    *********************************************
+    ALBUM_LISTEN_TIME
+    ---------------------------------------------
+    Description:
+    takes an album and returns the time spent
+    total listening to the album.
+    
+    PARAMETERS:
+    a: Album - album
+
+    RETURNS:
+    int
+    *********************************************
+    '''
+    result = 0
+
+    for i in a.songs:
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match31-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        result += Song_listening_time(i)
+    return result
+    
+
+def favorite_album( MC: [Album] ) -&gt; Album:
+    '''
+    *********************************************
+</FONT>    FAVORITE_ALBUM
+    ---------------------------------------------
+    Description:
+    takes a list of albums and returns the album
+    that is the "favorite." We'll define the favorite
+    album as the one that the user has spent the
+    most time listening to
+    
+    PARAMETERS:
+    MC: [Album] - music collection
+
+    RETURNS:
+    Album
+    *********************************************
+    '''
+    if len(MC) == 0:
+        return None
+
+    favorite = MC[0]
+
+    for i in MC[1:]:
+        if Album_listening_time(i) &gt; Album_listening_time(favorite):
+            favorite = i
+    return favorite
+
+print_banner('Favorite album is', '-', False)
+print( Album_str(favorite_album(MUSIC) ) )
+
+
+# end e.5
+print()
+#######################################
+#           PART E.6
+# Generalize the top_n_played function
+#######################################
+print_banner('PART E.6')
+
+def top_n( MC: [Album], n: int, function: 'Function', rev: bool) -&gt; [Songdisplay]:
+    '''
+    *********************************************
+    TOP_N
+    ---------------------------------------------
+    Description:
+    takes a list of albums and a number, as before,
+    plus two additional parameters—(the name of)
+    a function we can use as a sort key for comparing
+    albums and a Boolean (that's true if you want
+    the n highest values and false if you want the
+    n lowest)
+    
+    PARAMETERS:
+    MC: [Album] - music collection
+    n: int      - number of Albums to return
+    function: Function - the function to sort with
+    rev: bool - highest values if true, lowest values if false
+
+    RETURNS:
+    [Songdisplay]
+    *********************************************
+    '''
+    return sorted(all_Songdisplays(MC), key=function, reverse=rev)[:n]
+
+
+print_banner('new top_n to produce the same result as top_n_played by calling top_n(MUSIC, 3, play_count_from_songdisplay, True)', '-', False)
+for i in top_n(MUSIC, 3, play_count_from_songdisplay, True):
+    print( Songdisplay_str(i) )
+    print()
+
+
+print_banner(' use it to produce the 10 shortest songs by calling top_n(MUSIC, 10, length_from_songdisplay, False)', '-', False)
+for i in top_n(MUSIC, 10, length_from_songdisplay, False):
+    print( Songdisplay_str(i) )
+    print()
+
+# end e.6
+print()
+#######################################
+#           PART E.7
+# Write a function called  favorite_album2
+# Write at least one example of a favorite
+# measurement function other than total
+# listening time. Then test your  favorite_album2
+# function by applying that new function
+#######################################
+print_banner('PART E.7')
+
+def favorite_album2( MC: [Album], function: 'Function' ) -&gt; Album:
+    '''
+    *********************************************
+    FAVORITE_ALBUM2
+    ---------------------------------------------
+    Description:
+    takes a list of albums and a second argument—a
+    "favorite measurement function" that
+    favorite_album2 can apply to each album, comparing
+    those results to determine the favorite
+    
+    PARAMETERS:
+    MC: [Album] - music collection
+    function: Function - the function to sort with
+
+    RETURNS:
+    [Songdisplay]
+    *********************************************
+    '''
+    return sorted(MC, key=function, reverse=True)[0]
+
+print_banner('favorite_album2 would behave the same way as a call to the original  favorite_album function: favorite_album2(MUSIC, Album_listening_time)', '-', False)
+print( Album_str( favorite_album2(MUSIC, Album_listening_time) ) )
+
+Play_Count_Tuple = namedtuple('Play_Count_Tuple', 'occurences value')
+def find_highest_occurence( l: [int] ) -&gt; Play_Count_Tuple:
+    '''
+    *********************************************
+    FIND_HIGHEST_OCCURENCE
+    ---------------------------------------------
+    Description:
+    returns the highest occurence and the value.
+    If two elements occur an equal amount of times,
+    the higher value of the two is chosen
+    PARAMETERS:
+<A NAME="9"></A><FONT color = #FF00FF><A HREF="match31-1.html#9" TARGET="1"><IMG SRC="../../bitmaps/tm_4_0.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    l: list 
+
+    RETURNS:
+    int
+    *********************************************
+</FONT>    '''
+    if len(l) == 0:
+        return Play_Count_Tuple(0,0)
+    
+    highest_count = 0
+    highest_value = 0
+    for i in l:
+        occurences = l.count(i)
+        value = i
+        if occurences &gt;= highest_count:
+            if value &gt; highest_value:
+                highest_value = value
+                highest_count = l.count(i)
+            
+    return Play_Count_Tuple(highest_count, highest_value)
+    
+
+assert find_highest_occurence([]) == Play_Count_Tuple(0,0)
+assert find_highest_occurence([1,1,2,1,3,5,6,2,3,2,1]) == Play_Count_Tuple(4,1)
+assert find_highest_occurence([1,1,2,1,3,5,6,2,3,2,1,5,5,5]) == Play_Count_Tuple(4,5)
+
+def Album_song_play_count_list( a: Album ) -&gt; [int]:
+    '''
+    *********************************************
+    ALBUM_SONG_PLAY_COUNT_LIST
+    ---------------------------------------------
+    Description:
+    returns the play counts of all the songs on
+    the album
+    
+    PARAMETERS:
+    a: Album - album
+
+    RETURNS:
+    [int]
+    *********************************************
+    '''
+    play_counts = []
+
+    for i in a.songs:
+        play_counts.append(i.play_count)
+    return play_counts
+
+def Album_play_count_occurences( a: Album ) -&gt; int:
+    '''
+    *********************************************
+    ALBUM_PLAY_COUNT_OCCURENCES
+    ---------------------------------------------
+    Description:
+    returns the the highest occurence
+    of a play count. If there is a tie, function
+    will return the album that had the higher play
+    count
+
+    
+    PARAMETERS:
+    a: Album - album
+
+    RETURNS:
+    int
+    *********************************************
+    '''
+    return find_highest_occurence( Album_song_play_count_list(a) ).occurences
+
+def same_play_count( MC: [Album] ) -&gt; Album:
+    '''
+    *********************************************
+    SAME_PLAY_COUNT
+    ---------------------------------------------
+    Description:
+    returns the album with the highest occurence
+    of a play count. If there is a tie, function
+    will return the album that had the higher play
+    count
+
+    
+    PARAMETERS:
+    MC: [Album] - music collection
+
+    RETURNS:
+    Album
+    *********************************************
+    '''
+    occurences = []
+    
+    
+    for i in MC:
+        occurences.append( find_highest_occurence( Album_song_play_count_list( i ) ) )
+
+    return MC[ occurences.index( sorted( occurences, key=lambda Play_Count_Tuple:Play_Count_Tuple.occurences, reverse=True)[0] ) ]
+    
+
+
+print_banner('favorite_album2(MUSIC, Album_play_count_occurences)', '-', False)
+print( Album_str( favorite_album2(MUSIC, Album_play_count_occurences) ) )
+
+
+# end e.7
+print()
+#######################################
+#           PART E.8
+# Write a function called  collection_search
+#######################################
+print_banner('PART E.')
+
+def collection_search( MC: [Album], search: str) -&gt; [Songdisplay]:
+    '''
+    *********************************************
+    COLLECTION_SEARCH
+    ---------------------------------------------
+    Description:
+    searches your collection for songs containing
+    that keyword in their title, their artist, or their album's title
+
+    
+    PARAMETERS:
+    MC: [Album] - music collection
+    search: str - search criteria
+
+    RETURNS:
+    [Songdisplay]
+    *********************************************
+    '''
+    list_of_songdisplays = all_Songdisplays(MC)
+    result = []
+
+    for sd in list_of_songdisplays:
+        if search in sd.artist:
+            result.append(sd)
+        elif search in sd.a_title:
+            result.append(sd)
+        elif search in sd.s_title:
+            result.append(sd)
+
+    return result
+
+print_banner('Search Function', '-', False)
+
+while True:
+    answer = input('Would you like to search the music collection? ')
+    if answer.strip().lower() == 'n' or answer.strip().lower() == 'no':
+        break
+    else:
+        for i in collection_search( MUSIC, input('Enter a key word to search for: ') ):
+            print( '*' * 35)
+            print( '-' * 35)
+            print( Songdisplay_str(i) )
+            print( '-' * 35)
+                
+            print( '*' * 35)
+ 
+# end e.8
+print()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

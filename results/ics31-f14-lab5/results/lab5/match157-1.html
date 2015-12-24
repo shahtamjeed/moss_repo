@@ -1,0 +1,241 @@
+<HTML>
+<HEAD>
+<TITLE>joop2/(c,e,g,h)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+wleonard/(c,e,g,h)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab5.py
+# William Leonard 26127264 and April Huie 32817908. ICS 31 Lab sec 16. Lab asst 5.
+
+print('------(part c)------')
+
+# 1 & 12:
+
+from collections import namedtuple
+
+Dish = namedtuple('Dish', 'name price calories')
+
+d1 = Dish('Faux-filet', 19.00, 200)
+d2 = Dish('Chicken Pie', 12.00, 300)
+d3 = Dish('Chicken Pie', 12.00, 300)
+d4 = Dish('Spaghetti', 10.00, 250)
+d5 = Dish('Cheesey potatoes', 11.00, 600)
+d6 = Dish('Burrito', 13.00, 1000)
+d7 = Dish('Pumpkin Pie', 10.50, 700)
+d8 = Dish('Grilled Cheese', 5.00, 500)
+d9 = Dish('Stirfried Vegetales', 8.00, 300)
+d10 = Dish('Dog food', 10.75, 2000)
+d11 = Dish('Cat food', 9.99, 3000)
+d12 = Dish('Bear food', 10.00, 20000)
+d13 = Dish('Chicken Salad', 8.75, 100)
+d14 = Dish('Tomato Soup', 4.99, 250)
+d15 = Dish('Fried Rice', 5.99, 300)
+d16 = Dish('Spider roll', 5.99, 190)
+d17 = Dish('Crunchy roll', 5.99, 200)
+d18 = Dish('Spicy tuna tartar', 6.99, 250)
+d19 = Dish('Halal Lamb Kebab', 9.99, 300)
+d20 = Dish('Foie gras', 49.99, 120)
+d21 = Dish('Ribeye Steak', 19.99, 500)
+d22 = Dish('Sirloin Steak', 20.99, 500)
+d23 = Dish('Feduccini Alfredo', 15.99, 300)
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match157-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+d24 = Dish('Chicken Marsala', 12.99, 250)
+d25 = Dish('Banana Foster', 9.99, 1200)
+
+# 2:
+
+def Dish_str(a: Dish) -&gt; str:
+    return a.name + ' ($' + str(a.price) + '): ' + str(a.calories) + ' cal'
+</FONT>
+# 3:
+
+def Dish_same(a: Dish, b: Dish) -&gt; bool:
+    return a.name + str(a.calories) == b.name + str(b.calories)
+
+assert Dish_same(d1, d2) == False
+assert Dish_same(d2, d3) == True
+
+# 4:
+
+def Dish_change_price(a: Dish, b: int) -&gt; Dish:
+    
+    x = a._replace(price = a.price + (a.price * b / 100))
+    return x
+
+# 5:
+
+def Dish_is_cheap(a: Dish, b: int) -&gt; bool:
+    return a.price &lt; b
+
+# 6:
+
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match157-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+DL = [d1, d2, d3, d4, d5]
+
+DL2 = [d6, d7, d8, d9]
+
+DL.extend(DL2)
+
+def Dishlist_display(Dishes: list) -&gt; str:
+    s = ''
+    for i in Dishes:
+        s = s+ '\n'+str(i)
+</FONT>    return s
+
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match157-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(Dishlist_display(DL))
+
+# 7:
+
+def Dishlist_all_cheap(Dishes: list, n: int) -&gt; bool:
+    l = []
+    for i in Dishes:
+        if Dish_is_cheap(i, n):
+</FONT>            l.append(i)
+    return len(l) == len(Dishes)
+
+# 8:
+
+def Dishlist_change_price(Dishes: list, n: int) -&gt; list:
+    l = []
+    for i in Dishes:
+        i = Dish_change_price(i, n)
+        l.append(i)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match157-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return l
+
+# 9:
+
+def Dishlist_prices(Dishes: list) -&gt; list:
+    l = []
+    for i in Dishes:
+        l.append(i.price)
+    return l
+
+# 10:
+
+def Dishlist_average(Dishes: list) -&gt; float:
+    s = 0.0
+</FONT>    l = Dishlist_prices(Dishes)
+    for i in l:
+        s += i
+    return s/len(Dishes)
+
+# 11:
+
+def Dishlist_keep_cheap(Dishes: list, n: int) -&gt; list:
+    for i in Dishes:
+        if not Dish_is_cheap(i, n):
+           Dishes.remove(i) 
+    return Dishes
+
+# 12:
+
+
+
+def before_and_after():
+    Dishes = [d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25]
+    a = float(input('Input a number representing a percentage:'))
+    print(Dishlist_display(Dishes))
+    Dishes = Dishlist_change_price(Dishes, a)
+    print(Dishlist_display(Dishes))
+    
+print('------(part e)------')
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone menu')
+r1 = Restaurant('Thai Dishes', 'Thai', '334-4433', [Dish('Mee Krob', 12.50, 500),
+                                                    Dish('Larb Gai', 11.00, 450)])
+r2 = Restaurant('Taillevent', 'French', '01-44-95-15-01', 
+				[Dish('Homard Bleu', 45.00, 750),
+				 Dish('Tournedos Rossini', 65.00, 950),
+				 Dish("Selle d'Agneau", 60.00, 850)])
+
+# 1:
+
+r3 = Restaurant('Pascal', 'French', '940-752-0107', [Dish('Escargots', 12.95, 250),
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match157-0.html#5" TARGET="0"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                                                     Dish('Poached Salmon', 18.50, 550),
+                                                     Dish('Rack of Lamb', 24.00, 850),
+                                                     Dish('Marjolaine Cake', 8.50, 950)])
+
+# 2:
+
+def Restaurant_first_dish_name(r: Restaurant) -&gt; str:
+    if len(r.menu) &gt; 0:
+</FONT>        return r.menu[0].name
+    else:
+        return ''
+assert Restaurant_first_dish_name(r1) == 'Mee Krob'
+assert Restaurant_first_dish_name(r2) == 'Homard Bleu'
+assert Restaurant_first_dish_name(Restaurant('Test', 'American', '949-123-4567', [])) == ''
+
+# 3:
+
+def Restaurant_is_cheap(r: Restaurant, n: int) -&gt; bool:
+    return Dishlist_average(r) &lt;= n
+
+# 4:
+
+Collection = [d1,d2,d3]
+
+def Dish_raise_price(d: Dish) -&gt; Dish:
+    x = d._replace(price = d.price + 2.50)
+    return x
+
+def Menu_raise_prices(menu: list) -&gt; list:
+    for m in menu:
+        Dish_raise_price(m)
+    return menu
+
+def Restaurant_raise_prices(r: Restaurant) -&gt; Restaurant:
+    for i in r:
+        Menu_raise_prices(r.menu)
+    return r
+
+def Collection_raise_prices(Collection: list) -&gt; list:
+    for r in Collection:
+        Restaurant_raise_prices(r)
+    return C
+
+# 5:
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match157-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Collection_select_cheap(Collection: list , n: int) -&gt; list:
+    l = []
+    for i in Collection:
+        if Dishlist_average(i.menu) &lt;= n:
+            l.append(i.name)
+</FONT>    return l
+
+print('------(part g)------')
+
+Count = namedtuple('Count', 'letter number')
+
+def letter_count(s1: str, s2: str) -&gt; list:
+    '''returns the counts of certain letters in the first parameter,
+    the second letter specifies which letters to count'''
+    l = []
+    for a in s2:
+        c = Count(a, s1.count(a))
+        l.append(c)
+    return l
+
+assert letter_count( 'The cabbage has baggage', 'abcd') == [Count(letter='a', number = 5),
+                                                            Count(letter = 'b', number = 3),
+                                                            Count(letter = 'c', number = 1),
+                                                            Count(letter = 'd', number = 0)]
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

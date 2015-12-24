@@ -1,0 +1,208 @@
+<HTML>
+<HEAD>
+<TITLE>cwpham/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jonathn6/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Jonathan Nguyen 93726859 & Collin Pham 77702561
+
+
+# c.1
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match45-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_32.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def space():
+    print();
+
+def contains(first: str, second: str) -&gt; bool:
+    return second in first;
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+space();
+
+# c.2
+
+def sentence_stats(first: str) -&gt; str:
+    tempString = "";
+    
+    for y in range(len(first)):
+        if (check_punctuation(first[y]) == False):
+            tempString += first[y];
+            
+    tempString = " ".join(tempString.split())
+    spaces = count_spaces(tempString);
+    
+    print("\""+tempString+"\" statistics:");
+    print("\tCharacters: " + str(len(first)));
+    print("\tWords: " + str((spaces + 1)));
+    print("\tAverage word length: " + str((len(tempString) - spaces)/(spaces + 1)));
+
+def count_spaces(first: str) -&gt; int:
+    # Counts the spaces between words
+    spaces = 0;
+    for x in first:
+        if (x == " "):
+            spaces += 1;
+    return spaces;
+def check_punctuation(first: str) -&gt; bool:
+    # Checks for punctuation
+    nonos = ["'", "?", ":", "!", ".", ",", "&", "*"];
+    for x in nonos:
+        if (first == x):
+            return True;
+    return False;
+        
+sentence_stats("Hey, what's up?");
+space();
+sentence_stats("I love UCI");
+space();
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.');
+
+
+abc = "abcdefghijklmnopqrstuvwxyz"
+def initials(first: str) -&gt; str:
+    # Finds the initials in a name.
+    txt = "";
+    first = first.title();
+    for x in first:
+        for y in abc:
+</FONT>            if (x[0] == y.upper()):
+                txt += x[0];
+    return txt;
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match45-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+# d.1
+from random import randrange;
+for x in range(51):
+    print(str(randrange(11)));
+
+space();
+
+for x in range(51):
+    print(randrange(7));
+
+# d.2
+def roll2dice() -&gt; int:
+</FONT>    # Returns the total of 2 rolled di
+    return int(randrange(1, 7) + randrange(1, 7));
+
+print(roll2dice());
+space();
+
+# d.3
+from collections import namedtuple;
+from math import trunc;
+
+def distribution_of_rolls(first: int) -&gt; str:
+    tempList = [];
+    star = "*";
+    for x in range(first):
+        tempList.append(roll2dice());
+
+    print(tempList);
+
+    for a in range(2,13):
+        numTimes = tempList.count(a);
+        print('{:4}:{:6} ({:4.1f}%)  {:}'.format(a, numTimes, (numTimes/len(tempList)) * 100, star * numTimes));
+distribution_of_rolls(200);
+space();
+
+# e.1
+alphabet = "abcdefghijklmnopqrstuvwxyz";
+def Caesar_encrypt(first: str, second: int) -&gt; str:
+    if second &gt; 26:
+        second = second % 26;
+    return first.lower().translate(str.maketrans(alphabet, alphabet_rotate(second)));
+    
+def Caesar_decrypt(first: str, second: int) -&gt; str:
+    if second &gt; 26:
+        second = second % 26; 
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match45-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return first.lower().translate(str.maketrans(alphabet_rotate(second), alphabet));
+def alphabet_rotate(move: int) -&gt; str:
+    return alphabet[move:] + alphabet[:move];
+
+print(alphabet_rotate(1));
+print(Caesar_encrypt("Hello, how are you doing?", 1));
+print(Caesar_decrypt(Caesar_encrypt("Hello, how are you doing?", 1), 1));
+
+
+# e.2
+
+print(Caesar_decrypt("spj, hsle lcp jzf oztyr zy qctolj ytrse? oz jzf hlye ez rz lyo ple?", 11));
+print(Caesar_decrypt("xi sio quhn ni ai myy u gipcy nigilliq? qy bupy nby xus izz.", 20));
+space();
+
+# e.3
+
+print(Caesar_encrypt("Hello, how are you doing?", 78));
+</FONT>space();
+
+# f.1
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match45-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_25.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+texts = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+
+def print_line_numbers(text: list) -&gt; str:
+    for x in range(len(text)):
+        print('{:3}: {:&gt;5}'.format(x+1, text[x]))
+
+print_line_numbers(texts);
+
+# f.2
+
+text2 = ["Hey, what's up", "", "", "How are you?"];
+
+def stats(strings: list) -&gt; str:
+    empty = 0;
+    lines = 0;
+    sumCharacters = 0;
+    for x in strings:
+        lines += 1;
+        if len(x) == 0:
+            empty += 1;
+        else:
+            sumCharacters += len(x);
+    print('{:6.0f}     {:}'.format((lines), 'lines in the list'));
+    print('{:6.0f}     {:}'.format((empty), 'empty lines'));
+    print('{:8.1f}   {:}'.format((sumCharacters/lines),'average characters per line'));
+    print('{:8.1f}   {:}'.format((sumCharacters/(lines-empty)),'average characters per non empty line'));
+
+    
+stats(text2);
+
+
+# f.3
+noRemove = "abcdefghijklmnopqrstuvwxyz'";
+punctuation = ['(', ')', '?', ':', ';', ',', '.', '!', '/', '"', '[', ']']
+def list_of_words(first: list) -&gt; list:
+    temp = [];
+    for x in punctuation:
+        for y in range(len(first)):
+                first[y] = first[y].replace(x, "");
+    for a in first:
+        if (len(a) != 0):
+            temp.append(a.split());
+    return temp;
+</FONT>
+print(list_of_words(text2));
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

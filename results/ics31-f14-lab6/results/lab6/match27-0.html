@@ -1,0 +1,419 @@
+<HTML>
+<HEAD>
+<TITLE>keungh/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+keungh/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab6.py
+# ICS 31 Lab Sec 12. Lab Asst 6
+# Keung Huang #76679882 and Grace Chang #________ 
+
+#
+#
+# Part (E)
+#
+#
+print()
+print('---------- Part (E) ----------')
+print()
+alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ .!?,:;()'
+'''
+def Caesar_encrypt(msg: str, num: int)-&gt; str:
+    "Encrypts a msg by shifting the characters on an inputted string by an inputted number"
+    newStr = ''
+    for item in msg:
+        if item in alphabet:
+            a = alphabet.find(item)
+            b = a + num
+            if b &gt; 52:
+                b = b % 52
+            newStr = newStr + alphabet[b]
+        else:
+            newStr += item
+    return newStr
+'''
+# Using translate method, but only works cn char defined in alphabet
+#
+#
+# Part (E 2)
+#
+#
+print()
+print('---------- Part (E 1) ----------')
+print()
+def Caesar_encrypt(msg: str, num: int)-&gt; str:
+    for item in msg:
+        a = alphabet.find(item)
+        b = a + num
+        if b &gt; 52:
+            b= b% 52
+        msgkey = msg.maketrans(item, alphabet[b])
+        msg = msg.translate(msgkey)
+            
+    return msg
+
+Caesar_encrypt('Hello there!', 2)
+
+def Caesar_decrypt(msg: str, num: int)-&gt; str:
+    "encrypts an inputted message based on an inputted key"
+    newStr = ''
+    for item in msg:
+        if item in alphabet:
+            a = alphabet.find(item)
+            b = a - num
+            if b &lt; 0:
+                b = b % 52
+            newStr = newStr + alphabet[b]
+        else:
+            newStr += item
+    return newStr
+
+assert Caesar_encrypt("Hello there!", 10) == "RyvvykDByByj"
+assert Caesar_encrypt("Lab 6. py", 5) == 'QfgfeefuD'
+
+#
+#
+# Part (F 1)
+#
+#
+print()
+print('---------- Part (F 1) ----------')
+print()
+def print_line_numbers(l:list)-&gt; str:
+    "Prints out strings in a list and numbers them"
+    for item in range(len(l)):
+        num = item+ 1
+        print('{:5}: {}'.format(num, l[item]))
+
+A = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great         civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+print_line_numbers(A)
+
+#
+#
+# Part (F 2)
+#
+#
+print()
+print('---------- Part (F 2) ----------')
+print()
+def blank_count(l: list)-&gt; int:
+    "returns number of empty strings in a list of strings"
+    a = 0
+    for strings in l:
+        if strings.count(" ") == len(strings):
+            a += 1
+    return a
+
+def char_count(l: list)-&gt; float:
+    "returns character count of characters in a list of strs"
+    a = 0
+    for strings in l:
+        a = a + len(strings) 
+    return a
+
+def avg_char_line(l:list)-&gt; float:
+    '''computes average chars per line'''
+    a = char_count(l) / len(l)
+    return a
+
+def avg_char_line2(l: list)-&gt; float:
+    '''computes average chars per line without empty strings'''
+    a = char_count(l)
+    b = a / (len(l)- blank_count(l))
+    return b
+
+def stats(l: list)-&gt; str:
+    "prints out rows of stats "
+    print("{:7d}{:0s}".format(len(l), "lines in the list" ))
+    print("{:7d}{:0s}".format(blank_count(l), "empty lines"))
+    print("{:7.1f}{:0s}".format(avg_char_line(l)), "average characters per line")
+    print("{:7.1f}{:0s}".format(avg_char_line2(1), "average characters per non_empty line"))
+
+#
+#
+# Part (F 3)
+#
+#
+print()
+print('---------- Part (F 3) ----------')
+print()
+
+def list_of_strings(l :list)-&gt; str:
+    "returns a list of words without its enpoint puntuation marks"
+    a = []
+    b = ""
+    for string in l:
+        for char in string:
+            if char not in " . ! ? , : ; ":
+                b = b + char
+        a.append(b)
+        b = ""
+    return a
+
+#
+#
+# Part (G  )
+#
+#
+print()
+print('---------- Part (G  ) ----------')
+print()
+
+
+
+__author__ = 'dgk'
+
+# RESTAURANT COLLECTION PROGRAM
+# ICS 31, UCI, David G. Kay, Fall 2012
+
+# Implement Restaurant as a namedtuple, collection as a list
+
+##### MAIN PROGRAM (CONTROLLER)
+
+def restaurants():  # nothing -&gt; interaction
+    """ Main program
+    """
+    print("Welcome to the restaurants program!")
+    our_rests = Collection_new()
+    our_rests = handle_commands(our_rests)
+    print("\nThank you.  Good-bye.")
+
+MENU = """
+Restaurant Collection Program --- Choose one
+ a:  Add a new restaurant to the collection
+ r:  Remove a restaurant from the collection
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match27-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ s:  Search the collection for selected restaurants
+ p:  Print all the restaurants
+ c:  Change prices for the dishes served
+ f:  Find restaurants with the an inputted cuisine
+ d:  Find restaurants that serve the dish
+ q:  Quit
+"""
+
+def handle_commands(C: list) -&gt; list:
+    """ Display menu, accept and process commands.
+</FONT>    """
+    while True:
+        response = input(MENU)
+        if response=="q":
+            return C
+        elif response=='a':
+            r = Restaurant_get_info()
+            C = Collection_add(C, r)
+        elif response=='r':
+            n = input("Please enter the name of the restaurant to remove:  ")
+            C = Collection_remove_by_name(C, n)
+        elif response=='p':
+            print(Collection_str(C))
+        elif response=='s':
+            n = input("Please enter the name of the restaurant to search for:  ")
+            for r in Collection_search_by_name(C, n):
+                print(Restaurant_str(r))
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match27-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        elif response=="c":
+            num = float(input("Enter a percentage to change prices by "))
+            C = Collection_change_price(C, num)
+        elif response=="f":
+            a = input("Enter a cuisine to find ")
+            Collection_find_cuisine(C,a)
+        elif response=="d":
+            s = input("Enter a word or phrase that is part of a dish ")
+</FONT>            Collection_search_dish(C, s)
+        else:
+            invalid_command(response)
+
+def invalid_command(response):  # string -&gt; interaction
+    """ Print message for invalid menu command.
+    """
+    print("Sorry; '" + response + "' isn't a valid command.  Please try again.")
+
+##### Restaurant
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone menu')
+# menu is list of dishes
+
+# Constructor:   r1 = Restaurant('Taillevent', 'French', '01-11-22-33-44', 'Escargots', 23.50)
+
+def Restaurant_str(self: Restaurant) -&gt; str:
+    return (
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match27-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        "Name:     " + self.name + "\n" +
+        "Cuisine:  " + self.cuisine + "\n" +
+        "Phone:    " + self.phone + "\n" +
+        Menu_str(self)+  "\n" )
+
+def Restaurant_get_info() -&gt; Restaurant:
+    """ Prompt user for fields of Restaurant; create and return.
+    """
+    return Restaurant(
+        input("Please enter the restaurant's name:  "),
+        input("Please enter the kind of food served:  "),
+        input("Please enter the phone number:  "), 
+        Menu_enter())
+
+def Restaurant_change_price(rest: Restaurant, num: float)-&gt; Restaurant:
+    rest = rest._replace(menu = Menu_change_price(rest.menu, num))
+    return rest
+
+#### COLLECTION
+# A collection is a list of restaurants
+
+def Collection_new() -&gt; list:
+    ''' Return a new, empty collection
+</FONT>    '''
+    return [ ]
+
+def Collection_str(C: list) -&gt; str:
+    ''' Return a string representing the collection
+    '''
+    s = ""
+    for r in C:
+        s = s + Restaurant_str(r)
+    return s
+
+def Collection_search_by_name(C: list, name: str) -&gt; list:
+    """ Return list of Restaurants in input list whose name matches input string.
+    """
+    result = [ ]
+    for r in C:
+        if r.name == name:
+            result.append(r)
+    return result
+    # alternative (using a list comprehension):
+    # return [r for r in C if r.name == name]
+
+def Collection_add(C: list, R: Restaurant) -&gt; list:
+    """ Return list of Restaurants with input Restaurant added at end.
+    """
+    C.append(R)
+    return C
+
+def Collection_remove_by_name(C: list, name: str) -&gt; list:
+    """ Given name, remove all Restaurants with that name from collection.
+    """
+    result = [ ]
+    for r in C:
+        if r.name != name:
+            result.append(r)
+    return result
+    #    Alternative:
+    #    return [r for r in self.rests if r.name != name]
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match27-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_28.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Collection_change_price(C: list, num: float)-&gt; list:
+    "changes prices in collection by price inputted"
+    for rest in range(len(C)):
+        C[rest] = Restaurant_change_price(C[rest], num)
+    return C
+
+#### Menus
+def Menu_enter()-&gt; list:
+    "repeatedly asks for user to input a dish"
+    newList = []
+    while True:
+        response = input("Do you want to add a new dish? (yes/no) ")
+        if response == "yes":
+            newList.append(Dish_get_info())
+        elif response == "no":
+            return newList
+        else:
+            invalid_command(response)
+
+def Menu_str(r: Restaurant)-&gt; str:
+    "prints out the menu"
+    newStr = ''
+    for dish in r[-1]:
+        newStr = newStr + Dish_str(dish)
+    
+    return newStr + '\n' + Menu_avgs(r)
+
+def Menu_change_price(menu: list, num: float)-&gt; Restaurant:
+    "changes price for all dishes in a menu"
+    for dish in range(len(menu)):
+        menu[dish] = Dish_change_price(menu[dish], num)
+    return menu
+
+#### Dishes
+Dish = namedtuple("Dish", "name price cal")
+def Dish_str(s: Dish)-&gt; str:
+    "returns a string in the form specified"
+    return "Name: " + s.name + " ($" + str(s.price) + "): " + str(s.cal) + "cal." + "\n"
+
+def Dish_get_info() -&gt; Dish:
+    """ Prompt user for fields of Restaurant; create and return.
+    """
+    return Dish(
+        input("Please enter the dish's name:  "),
+        float(input("Please enter the price of the dish:  ")),
+        float(input("Please enter the calores of that dish:  ")))
+
+def Dish_change_price(d: Dish, num: float)-&gt; Dish:
+    "replaces the price of a dish and number by input specified"
+    d = Dish(d.name, (d.price * (1 + num/100)), d.cal)
+    return d
+    
+
+#
+#
+#G.1
+#
+#
+
+def Menu_avgs(r: Restaurant)-&gt; str:
+    "returns the average prices and calories of a menu in str format"
+    return "Average Price: ${:0}.  Average Calories: {:0}".format(Menu_avg_price(r), Menu_avg_cal(r))
+
+def Menu_avg_price(r: Restaurant)-&gt; float: 
+    "returns avg price of a menu"
+    price = 0
+    for dish in r[-1]:
+        price = price + dish.price
+    return price/len(r[-1])
+
+def Menu_avg_cal(r: Restaurant)-&gt; float:
+    "returns the average cal of a menu"
+    cal = 0
+    for dish in r[-1]:
+        cal = cal + dish.cal
+    return cal/len(r[-1])
+
+#
+#
+#G.2
+#
+#
+def Collection_find_cuisine(C: list, cuisine: str)-&gt; str:
+    "searches and displays the restuarants with the inputted cuisine"
+    for r in range(len(C)):
+        if C[r].cuisine == cuisine:     
+            print( "The restaurant(s) with this cuisine : \
+{}, Average Price: ${}".format(C[r].name, Menu_avg_price(C[r])))
+
+#
+#
+#G.3
+#
+#
+def Collection_search_dish(C: list, s: str)-&gt; str:
+    "searches for a dish in a restaurant list"
+    for rest in C:                       # for restaurants in list C
+        for dish in rest[-1]:            # for dishes in Menu
+            if s in dish.name:           # if inputted word/phrase is part of list
+                print(Restaurant_str(rest))
+</FONT>restaurants()
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

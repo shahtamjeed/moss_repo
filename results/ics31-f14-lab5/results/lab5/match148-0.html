@@ -1,0 +1,283 @@
+<HTML>
+<HEAD>
+<TITLE>anuragr/(c,e,g,h)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+anuragr/(c,e,g,h)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab5.py
+# Anurag Rai 3164072 and Ehsan Subhani 10925275 ICS 31 Lab sec 1. Lab asst. 5
+from collections import namedtuple
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c) ----------')
+print()
+Dish =namedtuple('Dish','name price calories')
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.1) ----------')
+print()
+d1= Dish('Apple',55,5000)
+d2= Dish('Apple',66,5000)
+d3= Dish('Rango',43,3300)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match148-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.2) ----------')
+print()
+def Dish_str(r:Dish)-&gt;str:
+    return r.name+"($"+str(r.price)+"):"+str(r.calories)+" cal"
+print(Dish_str(d1))
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.3) ----------')
+print()
+def Dish_same(r:Dish,p:Dish)-&gt;bool:
+    return r.name ==p.name and r.calories==p.calories
+</FONT>        
+print(Dish_same(d1,d2))
+assert Dish_same(d1,d2)== True
+assert Dish_same(d3,d2) == False
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.4) ----------')
+print()
+def Dish_change_price(r:Dish,i:float)-&gt;Dish:
+    np=r.price+r.price*(i*.01)
+    r=r._replace(price=np)
+    return r
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match148-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(Dish_change_price(d1,100))
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.5) ----------')
+print()
+def Dish_is_cheap(r:Dish,x:float)-&gt;bool:
+    return r.price &lt; x
+print(Dish_is_cheap(d1,20))
+print(Dish_is_cheap(d1,60000))
+</FONT>print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.6) ----------')
+print()
+DL=[Dish('Lasagna',25,500),
+    Dish('Salad',14,500),
+    Dish('Soup',5,330),
+    Dish('Pie',10,1000),
+    Dish('Cookie',5,500)]
+DL2=[
+    Dish('Pizza',15,1500),
+    Dish('Burger',8,2000),
+    Dish('Rice',12,1750),
+    Dish('Cake',20,2000)]
+DL.extend(DL2)
+def Dishlist_display(r:'list of dishes')-&gt;str:
+    for i in r:
+        print(i,"\n")
+Dishlist_display(DL)
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.7) ----------')
+print()
+def Dish_all_cheap(r:'list of dishes',p: float)-&gt; bool:
+    for i in r:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match148-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        return i.price &lt; p
+print(Dish_all_cheap(DL,50))
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.8) ----------')
+print()
+def Dishlist_change_price(r:Dish, i:float)-&gt;list:
+    result=[]
+    for d in r:
+        np= d.price + d.price*(i*.01)
+</FONT>        d= d._replace(price=np)
+        result.append(d)
+    return result
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match148-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+Dishlist_change_price(DL,100)
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.9) ----------')
+print()
+def Dish_prices(d:Dish)-&gt;float:
+    result=[]
+    for i in d:
+        p=i.price
+</FONT>        result.append(p)
+
+    return result
+print(Dish_prices(DL))
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.10) ----------')
+print()
+def Dishlist_average(d:'list of Dishes')-&gt;float:
+    i=0
+    for c in d:
+       i += c.price/len(d)
+       
+    return i
+print(Dishlist_average(DL))
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.11) ----------')
+print()
+def  Dish_keep_cheap(d:'list of restaurants',g:float)-&gt;'list of restauants':
+    result=[]
+    for z in d:
+        if z.price&lt; g:
+            result.append(z)
+    return result
+print(Dish_keep_cheap(DL,10))
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.12) ----------')
+print()
+List_Dish=[
+    Dish('Pizza',15,1500),
+    Dish('Burger',8,2000),
+    Dish('Rice',12,1750),
+    Dish('Cake',20,2000),
+    Dish('Lasagna',25,500),
+    Dish('Salad',14,500),
+    Dish('Soup',5,330),
+    Dish('Pie',10,1000),
+    Dish('Cookie',5,500),
+    Dish('Apple',1,200),
+    Dish('Banana',1,240),
+    Dish('Sushi',5,300),
+    Dish('Chow Mein',5,300),
+    Dish('Green Tea',3,400),
+    Dish('Orange Chicken',5,400),
+    Dish('Kung Pao Chicken',4,300),
+    Dish('Brocoli Beef',8,555),
+    Dish('Pita Bread',6,450),
+    Dish('Sesame Bread',5,440),
+    Dish('Sweet and Sour Chicken',7.50,950),
+    Dish('Fortune Cookie',1,100),
+    Dish('Egg Roll',3,300),
+    Dish('Fried Rice',8.50,650),
+    Dish('Water',1,90),
+    Dish('Shrimp',3.50,100)]
+def before_and_after():
+    p=int(input('Write percentage:'))
+    Dishlist_display(List_Dish)
+    p=Dishlist_change_price(List_Dish,p)
+    Dishlist_display(p)
+before_and_after()
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (e.1) ----------')
+print()
+Restaurant = namedtuple('Restaurant', 'name cuisine phone menu')
+r1 = Restaurant('Thai Dishes', 'Thai', '334-4433', [Dish('Mee Krob', 32.50, 500),
+                                                    Dish('Larb Gai', 11.00, 450)])
+r2 = Restaurant('Taillevent', 'French', '01-44-95-15-01', 
+				[Dish('Homard Bleu', 45.00, 750),
+				 Dish('Tournedos Rossini', 65.00, 950),
+				 Dish("Selle d'Agneau", 60.00, 850)])
+r3 = Restaurant('Pascal','French','940-752-0107',
+                           [Dish('Escargots',12.95,250),
+                            Dish('Poached Salmon',18.50,550),
+                            Dish('Rack of Lamb',24,850),
+                            Dish('Marjolaine Cake',8.50,950)])
+collection=[r1,r2,r3]
+for i in r1.menu:
+    print(i.price/len(r1.menu))
+    print(len(r1.menu))
+    
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (e.2) ----------')
+print()
+def Restaurant_first_dish_name(r:Restaurant)-&gt;str:
+    for i in r:
+        for p in r.menu:
+            return p.name
+assert Restaurant_first_dish_name(r1)== 'Mee Krob'
+assert Restaurant_first_dish_name(r2)== 'Homard Bleu'
+print(Restaurant_first_dish_name(r1))
+print(Restaurant_first_dish_name(r3))
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (e.3) ----------')
+print()
+def Restaurant_is_cheap(r:Restaurant,num:float)-&gt;bool:
+    number=0
+    for p in r.menu:
+        number += p.price/len(r.menu)
+    print(number)
+    return number &lt;= num
+print(Restaurant_is_cheap(r1,11.75))
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (e.4) ----------')
+print()
+def Collection_raise_prices(r:collection)-&gt;collection:
+    result=[]
+    for d in r:
+        for g in d.menu:
+            f=[]
+            p = g.price+2.50
+            new_price=g._replace(price=p)
+            f.extend(new_price)
+            new_menu=d._replace(menu=f)
+            result.extend(new_menu)
+    return result
+print(Collection_raise_prices(collection))
+
+
+def Collection_change_price(r:collection,num:float)-&gt;collection:
+    result=[]
+    num=float(input('Tell me the percent:  '))
+    for d in r:
+        for g in d.menu:
+            menu=[]
+            np= g.price + g.price*(num*.01)
+            new= g._replace(price=np)
+            menu.extend(new)
+            new_list=d._replace(menu=new)
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match148-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            result.extend(new_list)
+    return result
+print(Collection_change_price(collection,90))
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (e.5) ----------')
+print()
+def Collection_select_cheap(c:collection,num:float)-&gt;list:
+    result=[]
+    for d in c:
+</FONT>        print(Dishlist_average(d.menu))
+        if Dishlist_average(d.menu) &lt;= num:
+            result.append(d)
+    return result
+    
+print(Collection_select_cheap(collection,20))
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (g) ----------')
+print()
+def letter_count(R:str,P:str)-&gt;list:
+    count= namedtuple('count','letter number')
+    why_me=[]
+    for i in P:
+        h=0
+        for f in R:
+            if i==f:
+                h+=1
+        q =count(i,h)
+        why_me.append(q)
+    return why_me
+print(letter_count('why austin','lmsad'))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,182 @@
+<HTML>
+<HEAD>
+<TITLE>jttran4/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jttran4/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Julie Tran 65882968 and Andrew Budiarta 51072892.  ICS 31 Lab sec 8.  Lab asst 7.
+
+# Part (c)
+print()
+print('------Part (c)------')
+print()
+
+from random import randrange
+
+def get_surname() -&gt; str:
+    ''' Returns a random surname. '''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match138-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    surname_file = open('surnames.txt', 'r')
+    datalines = surname_file.readlines()
+    surnames = []
+    for line in datalines:
+        words = line.split()
+        surnames.append(words[0].lower().capitalize())
+</FONT>    ran_num = randrange(len(surnames))
+    surname_file.close()
+    return surnames[ran_num]
+
+def get_female_name() -&gt; str:
+    ''' Returns a random female name. '''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match138-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    female_name_file = open('femalenames.txt', 'r')
+    datalines = female_name_file.readlines()
+    female_names = []
+    for line in datalines:
+        words = line.split()
+        female_names.append(words[0].lower().capitalize())
+</FONT>    ran_num = randrange(len(female_names))
+    female_name_file.close()
+    return female_names[ran_num]
+
+def get_male_name() -&gt; str:
+    ''' Returns a random male name. '''
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match138-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    male_name_file = open('malenames.txt', 'r')
+    datalines = male_name_file.readlines()
+    male_names = []
+    for line in datalines:
+        words = line.split()
+        male_names.append(words[0].lower().capitalize())
+</FONT>    ran_num = randrange(len(male_names))
+    male_name_file.close()
+    return male_names[ran_num]
+
+def random_name() -&gt; str:
+    ''' Returns a random name (surname and female or male name). '''
+    gender = randrange(2)
+    first_name = ''
+    if gender == 0:
+        first_name = get_female_name()
+
+    else:
+        first_name = get_male_name()
+    return (get_surname() + ', ' + first_name)
+
+def random_names(n: int) -&gt; list:
+    ''' Takes an integer and returns a list of that many strings, with
+        each string a randomly generated name. '''
+    result = []
+    for i in range(n):
+        result.append(random_name())
+    return result
+print(random_names(3))
+
+# Part (d)
+print()
+print('------Part (d)------')
+print()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate_alphabet(key: int) -&gt; str:
+    ''' Takes in a number and shifts the alphabet by that number. '''
+    return ALPHABET[(key%26):] + ALPHABET[:(key%26)]
+
+
+# List of decryption alphabets
+key_list = []
+for i in range(26):
+    key_list.append(rotate_alphabet(i))
+
+def Caesar_break(cipher: str) -&gt; str:
+    ''' Takes a ciphertext string and returns the plaintext for that string,
+        without having the key. '''
+    decryption_list = []
+    for i in key_list:
+        table = str.maketrans(ALPHABET, i)
+        decryption_list.append(cipher.translate(table))
+    dictionary_file = open('wordlist.txt', 'r')
+    wordlist = dictionary_file.readlines()
+    greatest_count = 0
+    plaintext = ''
+    for i in decryption_list:
+        count = 0
+        for j in wordlist:
+            word = j.strip('\n')
+            if word in i:
+                count += 1
+        if count &gt; greatest_count:
+            greatest_count = count
+            plaintext = i
+    dictionary_file.close()
+    return plaintext
+assert Caesar_break('kl wkhuh') == 'hi there'
+assert Caesar_break('htruzyjw xhnjshj') == 'computer science'
+
+# Part (e)
+print()
+print('------Part (e)------')
+print()
+
+def stats(s: list):
+    ''' Takes in a list of strings and prints out the number of lines, number of
+        average characters per line, and average characters per non-empty line. '''
+    lines = len(s)
+    empty_lines = s.count('\n')
+    sum_chars = 0
+    for i in s:
+        sum_chars += len(i)
+    avg_char = sum_chars / lines
+    avg_char_empt = sum_chars / (lines - empty_lines)
+    print("{:6}   lines in the list \n{:6}   empty lines \n{:8.1f} average characters per line \n{:8.1f} average characters per non-empty line"
+          .format(lines, empty_lines, avg_char, avg_char_empt))
+
+def copy_file(s: str):
+    ''' Copies a file. If the parameter is "line numbers", include line numbers.
+        If the parameter is "Gutenberg trim", start after "*** START" and end
+        before "*** END".
+        If the parameter is "statistics", print the statistics. '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    line_list = infile.readlines()
+    if s == 'line numbers':
+        for i in range(len(line_list)):
+            datalines = "{:5}: {}".format(i + 1, line_list[i])
+            outfile.write(datalines)
+    elif s == 'Gutenberg trim':
+        result = []
+        start = False
+        for line in line_list:
+            if '*** END' in line:
+                break
+            if start:
+                result.append(line)
+            if '*** START' in line:
+                start = True
+        outfile.write(''.join(result))
+    elif s == 'statistics':
+        for line in infile:
+            outfile.write(line)
+        stats(line_list)
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+copy_file('')
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+copy_file('statistics')
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

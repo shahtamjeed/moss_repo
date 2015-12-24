@@ -1,0 +1,191 @@
+<HTML>
+<HEAD>
+<TITLE>jasonyc2/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+vals/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Sebastian Val 21288450 and Chan Woo Park 26984415.  ICS 31 Lab sec 7.  Lab asst 3.
+import random
+import csv
+from collections import namedtuple
+import string
+
+#
+# Part (c)
+#
+#
+print()
+print('---------- Part (c) ----------')
+print()
+nameentry = namedtuple('nameentry','name frequency number rank')
+def read_fnames() -&gt; list:
+    '''Read file of first names'''
+    nameentries = []
+    malefile = open('malenames.txt')
+    femalefile = open('femalenames.txt')
+    namereader = csv.reader(malefile, delimiter='\t')
+    for row in namereader:
+        nameentries.append(nameentry._make(row))
+    namereader = csv.reader(femalefile, delimiter='\t')
+    for row in namereader:
+        nameentries.append(nameentry._make(row))        
+    return nameentries
+
+def read_surnames() -&gt; list:
+    '''Read file of surnames'''
+    nameentries = []
+    surfile = open('surnames.txt')
+    namereader = csv.reader(surfile, delimiter='\t')
+    for row in namereader:
+        nameentries.append(nameentry._make(row))
+    return nameentries
+
+    
+def get_fnames() -&gt; list:
+    '''Return list of first names'''
+    nameentries = read_fnames()
+    return [nameentry.name for nameentry in nameentries]
+    
+    
+def get_surnames() -&gt; list:
+    '''Return list of surnames'''
+    nameentries = read_surnames()
+    return [nameentry.name for nameentry in nameentries]
+
+def generate_name() -&gt; str:
+    '''Returns one randomly generated name'''
+    firstnames = get_fnames()
+    surnames = get_surnames()
+    return "{0}, {1}".format(random.choice(surnames).capitalize(), random.choice(firstnames).capitalize())
+
+#c.1
+def random_names(numnames: int) -&gt; list:
+    '''Returns a list of numnames random names'''
+    namelist = []
+    for i in range(numnames):
+        namelist.append(generate_name())
+    return namelist
+
+#
+# Part (d)
+#
+#
+print()
+print('---------- Part (d) ----------')
+print()
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match99-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+'''Recopying Caesar_encrypt, Caesar_decrypt, list_of_words functions from last weeks lab'''
+def Caesar_encrypt(plaintext: str, keynum: int) -&gt; str:
+    '''Returns the encrypted message'''
+    keynum = keynum % 26
+    transtable = str.maketrans(string.ascii_lowercase, string.ascii_lowercase[keynum:]+string.ascii_lowercase[:keynum])
+    return plaintext.lower().translate(transtable)
+</FONT>assert Caesar_encrypt('abcz',25) == 'zaby'
+assert Caesar_encrypt('abcz',51) == 'zaby'
+assert Caesar_encrypt('The quick brown fox jumps over the lazy dog.',13) == 'gur dhvpx oebja sbk whzcf bire gur ynml qbt.'
+assert Caesar_encrypt('The quick brown fox jumps over the lazy dog.',14) == 'hvs eiwqy pfckb tcl xiadg cjsf hvs zonm rcu.'
+        
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match99-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_decrypt(ciphertext: str, keynum: int) -&gt; str:
+    '''Returns the decrypted message'''
+    keynum = keynum % 26
+    transtable = str.maketrans(string.ascii_lowercase[keynum:]+string.ascii_lowercase[:keynum], string.ascii_lowercase)
+    return ciphertext.translate(transtable)
+</FONT>assert Caesar_decrypt('zaby',25) == 'abcz'
+assert Caesar_decrypt('zaby',51) == 'abcz'
+assert Caesar_decrypt('gur dhvpx oebja sbk whzcf bire gur ynml qbt.',13) == 'the quick brown fox jumps over the lazy dog.'
+assert Caesar_decrypt('hvs eiwqy pfckb tcl xiadg cjsf hvs zonm rcu.',14) == 'the quick brown fox jumps over the lazy dog.'
+
+
+def get_dictionary_words() -&gt; list:
+    '''Reads dictionary words from wordlist'''
+    wordentries = []
+    wordfile = open('wordlist.txt', newline='\n')
+    wordentries = wordfile.readlines()
+    wordentries = [word[:-1].lower() for word in wordentries]
+    return wordentries
+    
+
+#d.1
+possibletext = namedtuple('possibletext','text wordcount')
+def get_wordcount(textentry: possibletext) -&gt; int:
+    '''Returns wordcount for a textentry'''
+    return textentry.wordcount
+
+def Caesar_break(ciphertext: str) -&gt; str:
+    '''Returns deciphered ciphertext'''
+    possibletexts = []
+    dictionarywords = get_dictionary_words()
+    for i in range(26):
+        possibletexts.append(possibletext(Caesar_decrypt(ciphertext,i),0))
+    for textnum in range(len(possibletexts)):
+        wordlist = possibletexts[textnum].text.split()
+        for word in wordlist:
+            if word.lower() in dictionarywords:
+                possibletexts[textnum] = possibletexts[textnum]._replace(wordcount = possibletexts[textnum].wordcount + 1)
+    possibletexts.sort(key = get_wordcount, reverse = True)
+    return possibletexts[0].text
+# print(Caesar_break('gur dhvpx oebja sbk whzcf bire gur ynml qbt.'))
+# print(Caesar_break(Caesar_encrypt('testing my very new function to see if it really works or not.',16)))
+
+#d.2 in emails between partners
+
+#
+# Part (e)
+#
+#
+print()
+print('---------- Part (e) ----------')
+print()
+
+#e.1, e.2
+
+def copy_file(display_lines :str = None) :
+    filelines = []
+    line_num = 0
+    trim_begin = False
+    trim_end = False
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        filelines.append(line)
+        line_num += 1
+        if "*** START" in line:
+            trim_begin = True
+            if display_lines == 'Gutenberg trim':
+                continue
+        if "*** END" in line:
+            trim_end = True
+            if display_lines == 'Gutenberg trim':
+                continue            
+        if display_lines == 'Gutenberg trim' and not trim_begin:
+            continue
+        if display_lines == 'Gutenberg trim' and trim_end:
+            continue
+        if display_lines == 'line numbers':
+            outfile.write("{0:5}: {1}".format(line_num, line))
+        else:
+            outfile.write(line)        
+    infile.close()
+    outfile.close()    
+    if display_lines == 'statistics':
+        print("{0:5}   lines in the file".format(len(filelines)))
+        print("{0:5}   empty lines".format(filelines.count('\n')))
+        print("{0:7.1f} average characters per line".format(len(''.join(filelines)) / len(filelines)))
+        print("{0:7.1f} average characters per non-empty line".format(len(''.join(filelines)) / (len(filelines) - filelines.count('\n'))))
+
+# copy_file()
+# copy_file('line numbers')
+# copy_file('Gutenberg trim')
+# copy_file('statistics')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

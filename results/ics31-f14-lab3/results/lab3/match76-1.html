@@ -1,0 +1,520 @@
+<HTML>
+<HEAD>
+<TITLE>melodc2/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+nsukhov/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Nathanial Sukhov 19223199 and Alvin Nguyen 56511577 ICS 31 Lab sec 6
+
+#
+#
+# Part C
+#
+#
+
+print()
+print()
+print('--------Part C--------')
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match76-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+
+#
+#
+# Part C.1
+#
+#
+
+print('Part C.1\n')
+
+def abbreviate (n: str) -&gt; str:
+    '''Returns first three characters of the input'''
+    return(n[0:3])
+
+assert abbreviate ('January') == 'Jan'
+assert abbreviate ('April') == 'Apr'
+</FONT>
+abbreviation = input("What would you like to abbreviate? ")
+print("\nThe abreviation of", abbreviation, "is:", abbreviate(abbreviation))
+
+#
+#
+# Part C.2
+#
+#
+
+print()
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match76-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Part C.2\n')
+
+def find_area_square (n:int) -&gt; int:
+    '''Finds the area of a square using the side length'''
+    return(n**2)
+    
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+</FONT>
+side_length = int(input("What would you like the side length of the square to be? "))
+print("\nThe area of the square with side length '", side_length, "' is: ", find_area_square(side_length), sep='')
+
+#
+#
+# Part C.3
+#
+#
+
+print()
+print('Part C.3\n')
+
+def find_area_circle (n:float) -&gt; float:
+    '''Find the area of a circle using the radius'''
+    return((n**2)*3.14159)
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+circle_radius = int(input("What is the radius of the circle that you want the area of? "))
+print("\nThe area of the circle of radius '", circle_radius, "' is: ", find_area_circle(circle_radius), sep='')
+
+#
+#
+# Part C.4
+#
+#
+
+print()
+print('Part C.4\n')
+
+
+def  print_even_numbers(n: list):
+    '''Returns even integers from a list of integers'''
+    for i in range (len(n)):
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match76-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        if n[i]%2 == 0:
+            print(n[i])
+
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+#
+#
+# Part C.5
+#
+#
+
+print()
+print('Part C.5\n')
+
+
+def calculate_shipping (n: float) -&gt; str:
+    '''Returns shipping rates based on weight'''
+    if n &lt; 2:
+</FONT>        return (2.00)
+    elif n &gt;= 2 and n &lt;10:
+        return (5.00)
+    else:
+        return (5+(n-10)*1.5)
+
+assert calculate_shipping (1.5) ==2.00
+assert calculate_shipping (7) == 5.00
+assert calculate_shipping (15) == 12.5
+
+weight = int(input("What is the weight of the box that you want to ship? "))
+print("\nThe cost of shipping for a bod of weight '", weight, "' is ", calculate_shipping(weight), sep='')
+
+#
+#
+# Part C.6
+#
+#
+
+print()
+print ('Part C.6\n')
+
+import tkinter              # Load the library; do this just once per program
+
+def create_tkinter () -&gt; 'canvas variable':
+    '''creates the tkinter window'''
+    my_window = tkinter.Tk()    # Create the graphics window
+    my_canvas = tkinter.Canvas(my_window, width=900, height=1000)  # Create a 900x1000 canvas to draw on
+    my_canvas.pack() # Put the canvas into the window
+    return (my_canvas)
+
+
+def create_square (a:int, b:int, c:int):
+    '''Draws a square in the tkinter window'''
+    my_canvas1 = create_tkinter ()
+    my_canvas1.create_rectangle (a, b, a+c, b+c)
+    
+
+create_square (50,50,550)
+
+print("Executed")
+
+#
+#
+# Part C.7
+#
+#
+
+print()
+print('Part C.7\n')
+
+def create_circle (a:int, b:int, c:int):
+    '''Draws a circle in the tkinter window'''
+    my_canvas1 = create_tkinter ()
+    my_canvas1.create_oval (a, b, a+c, b+c)
+
+create_circle (50,50,550)
+
+print("Executed")
+
+#
+#
+# Part D
+#
+#
+
+print()
+print()
+print('--------Part D--------')
+print()
+
+#
+#
+# Part D.1
+#
+#
+
+print()
+print(' Part D.1\n')
+
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+
+
+RL = [
+        Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+        Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+        Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+        Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+        Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+        Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+        Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+
+def restaurant_price(n: Restaurant) -&gt; float:
+    '''Returns the price value of a restaurant '''
+    
+    return(n.price)
+
+assert restaurant_price(RL[0]) == 12.5
+assert restaurant_price(RL[2]) == 25.5
+assert restaurant_price(RL[4]) == 5.5
+assert restaurant_price(RL[5]) == 35.5
+
+
+
+print("Executed")
+
+#
+#
+# Part D.2
+#
+#
+
+print()
+print(' Part D.2\n')
+
+RL.sort(key=restaurant_price)
+print(RL)
+
+#
+#
+# Part D.3
+#
+#
+
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match76-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+print(' Part D.3\n')
+
+RL = [
+        Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+        Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+        Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+</FONT>        Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+        Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+        Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+        Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def costliest (n: list) -&gt; str:
+    '''Finding the highest priced restaurant on the list'''
+    n.sort(key=restaurant_price)
+    return(n[-1].name)
+
+assert costliest(RL) == 'Noma'
+
+print("The restaurant with the costliest mean is:", costliest(RL))
+
+#
+#
+# Part D.4
+#
+#
+
+print()
+print(' Part D.4\n')
+
+RL = [
+        Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+        Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+        Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+        Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+        Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+        Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+        Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+
+def costliest2 (n:list) -&gt; str:
+    '''Finding the highest priced restaurant on the list without changing the original list'''
+    sorted_list = sorted(n, key=restaurant_price)
+    return(sorted_list[-1].name)
+
+assert costliest2(RL) == 'Noma'
+
+print("The restaurant with the costliest meal is:", costliest2(RL))
+
+#
+#
+# Part E
+#
+#
+
+print()
+print()
+print('--------Part E--------')
+print()
+
+Book = namedtuple('Book', 'author title genre year price instock')
+
+BSI = [
+    Book("Dekkar, Ted", "Skin", "Mystery", 2009, 25.00, 10),
+    Book("May, Misty", "Dark", "Horror", 2010, 20.00, 23),
+    Book("Schmoe, Joe", "His Car", "Technology", 1999, 10.85, 1),
+    Book("Smith, John", "How Can I Help?", "Cookbook", 1899, 2.25, 57),
+    Book("Wonder, Kelli", "Long Distance Relationships", "Advice", 2014, 100.00, 1000),
+    Book("Hobbes, Calvin", "Legend of the League", "Technology", 1976, 3.50, 37) ]
+
+#
+#
+# Part E.1
+#
+#
+
+print()
+print(' Part E.1\n')
+
+
+def printing_books (n:list):
+    '''Prints the title of each of the books in the list'''
+    for i in range(len(n)):
+        print (n[i].title)
+
+print("The titles of the books in the list are:\n")
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match76-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+printing_books (BSI)
+
+
+#
+#
+# Part E.2
+#
+#
+
+print()
+print(' Part E.2\n')
+
+def book_name(n: BSI) -&gt; str:
+    '''Returns the price value of a restaurant '''
+    
+    return(n.title)
+
+assert book_name(BSI[0]) == "Skin"
+assert book_name(BSI[2]) == "His Car"
+</FONT>assert book_name(BSI[4]) == "Long Distance Relationships"
+assert book_name(BSI[5]) == "Legend of the League"
+
+def printing_books2 (n:list):
+    '''Prints the title of each of the books in the list in alphabetical order'''
+    sorted_books = sorted(n, key=book_name)
+    for i in range(len(n)):
+        print (sorted_books[i].title)
+        
+print("The titles of the books in the list in alphabetical order are:\n")
+printing_books2 (BSI)
+
+#
+#
+# Part E.3
+#
+#
+
+print()
+print(' Part E.3\n')
+ 
+def repricing (n:list):
+    '''Raises the price of each of the items in the list by 10%'''
+    for i in range(len(n)):
+        n[i] = n[i]._replace(price = n[i].price * 1.1)
+        print("The new price of:", n[i].title, "is:", n[i].price)
+
+repricing(BSI)
+
+#
+#
+# Part E.4
+#
+#
+
+print()
+print(' Part E.4\n')
+
+def choosing_books (n:list):
+    '''Chooses the books who's genre matches that of the user input and prints the results'''
+    g = input("What is the genre of book that you are looking for? ")
+    number_of_books = 0
+    for i in range(len(n)):
+        if n[i].genre == g:
+            print("\n'",n[i].title, "'", " is in the ", g, " genre", sep='')
+            number_of_books = number_of_books + 1
+            
+    if number_of_books == 0:
+        print("\nSorry, no books were found with the genre:", g)
+            
+
+choosing_books(BSI)
+
+#
+#
+# Part E.5
+#
+#
+
+print()
+print(' Part E.5\n')
+   
+def counting_books (n:list, s:int) -&gt; int:
+    '''Returns the amount of book before and after the split date (s)'''
+    titles_after = []
+    titles_before = []
+    for i in range(len(n)):
+        if n[i].year &gt;= s:
+            titles_after.append(n[i])
+        else:
+            titles_before.append(n[i])
+            
+    titles_after_instock = 0
+    titles_before_instock = 0
+    for i in range(len(titles_after)):   #Adding the number of books after 2000
+        titles_after_instock = titles_after_instock + titles_after[i].instock
+    for i in range(len(titles_before)):    #Add the number of books before 2000
+        titles_before_instock = titles_before_instock + titles_before[i].instock
+
+    
+    if titles_before_instock &gt; titles_after_instock: #prints number of books before 2000 is &gt; than after 2000, prints statement
+        print("More titles before ", s, " (", titles_before_instock, " vs. ", titles_after_instock, ")", sep='')
+    else: #opposite of the if statement
+        print("More titles ", s, " or later", " (", titles_after_instock, " vs. ", titles_before_instock, ")", sep='')
+
+counting_books (BSI, 2000)
+
+#
+#
+#Part E.6
+#
+#
+
+print()
+print(' Part E.6\n')
+
+def inventory_value (n:str) -&gt; float:
+    ''' Multiplies book price with book inventory stock '''
+    for i in range(len(BSI)):
+        if n == BSI[i].title:
+            inv_price = BSI[i].price * BSI[i].instock
+            return(inv_price)
+
+assert inventory_value ("Dark") == 506.0
+assert inventory_value ("Skin") == 275.00000000000006
+assert inventory_value ("Legend of the League") == 142.45000000000002
+
+print("The inventory value of Legend of the League is ", inventory_value("Legend of the League"))
+print ()
+
+def top_value (n:list) -&gt; str:
+    ''' Goes through book list, prints highest valued book and its information'''
+    tv1 = []
+    for i in range(len(n)): #stores inventory price into a list
+        tv1.append(n[i].price * n[i].instock)
+
+    tv2 = sorted(tv1) #sorts that list of prices
+    highest_value = tv2[-1] # takes the highest price on the list
+
+    for i in range(len(tv1)): 
+        if tv1[i] == highest_value: #searches through original list to find the place of the highest priced book
+            book_in_list = i 
+            
+    print("The highest-value book is", n[book_in_list].title,"by",n[book_in_list].author,"at a value of $",  highest_value)
+    
+top_value (BSI)
+
+#
+#
+#Part F
+#
+#
+print()
+print(' Part F\n')
+
+
+my_canvas1 = create_tkinter ()
+
+def draw_eye (x:int, y:int, c:str):
+    ''' Draws eye based on arguments '''
+    my_canvas1.create_oval (x, y, x+250, y+150, fill = 'white')
+
+    my_canvas1.create_oval (x +75, y, x + 175, y+150, fill = c)
+
+    my_canvas1.create_oval (x + 115, y+67 ,x + 135, y + 87, fill = 'black')
+
+def draw_nose (x:int, y:int):
+    ''' Draws nose based on arguments '''
+    my_canvas1.create_line (x, y, x - 85, y + 350)
+    my_canvas1.create_line (x-85, y + 350, x + 35 , y + 350)
+
+def draw_mouth (x:int, y:int):
+    ''' Draws mouth based on arguments '''
+    my_canvas1.create_line (x,y,x+580,y)
+    my_canvas1.create_line (x,y+1,x+580,y+1)
+    my_canvas1.create_line (x,y+2,x+580,y+2)
+    my_canvas1.create_line (x,y+3,x+580,y+3)
+    my_canvas1.create_line (x,y+4,x+580,y+4)
+
+my_canvas1.create_oval (2, 2, 898, 989) #draws head
+draw_eye (125,200, 'blue')
+draw_eye (525,200, 'blue')
+draw_nose (450, 275)
+my_canvas1.create_line (140, 140, 760, 851)
+my_canvas1.create_oval (130,150,365,385,fill="black") # draws eye-patch
+draw_mouth (160,796)
+</PRE>
+</PRE>
+</BODY>
+</HTML>

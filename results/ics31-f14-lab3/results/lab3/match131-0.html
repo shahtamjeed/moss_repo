@@ -1,0 +1,499 @@
+<HTML>
+<HEAD>
+<TITLE>justonl/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+justonl/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: PLab3edited.py
+# Juston Lin 23248090 and Chai Vue 11157637.  ICS 31 Lab sec 2.  Lab asst 3.
+
+#
+#
+# Part (c1)
+#
+#
+print()
+print('---------- Part (c) ----------')
+print()
+
+def abbreviate(wordies):
+    short_wordies = wordies[0] + wordies[1] + wordies[2]
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match131-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return  short_wordies
+
+
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+
+#
+#
+# Part (c2)
+#
+#
+
+def find_area_square(numba):
+    numba_squared = numba**2
+    return numba_squared
+
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+#
+#
+# Part (c3)
+#
+#
+def find_area_circle(radius):
+    area_of_circle = radius**2 * 3.14159
+    return area_of_circle
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+
+
+#
+#
+# Part (c4)
+#
+#
+
+def print_even_numbers(numba_even): #numba_even is the item we want to run
+    for i in numba_even: # i is the subset of items in numba_even
+        if i%2 == (0): # this is to get even numbers aka if remainder of #/2 = 0, then it is even
+            print (i) #prints the 1st subset, then it goes back into the for loop for the next subset to be ran
+            
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+#I need to get even numbers from list of integers
+
+
+#
+#
+# Part (c5)
+#
+#
+
+def calculate_shipping(weight): #def creates a function
+    
+    if weight &lt; 2: #if this, print it, else print something ese
+</FONT>        return 2 #return assigns a value to calculate_shipping(#),
+                 #so if you print it, you get a value
+    elif weight &lt; 10:
+        return 5
+    elif weight &gt; 10:
+        return 5 + 1.5*(weight-10)
+
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+print(calculate_shipping(15))
+    
+#
+#
+# Part (c6)
+#
+#
+
+import tkinter              # Load the library; do this just once per program
+
+def create_square(x,y,length_of_side):
+    my_window = tkinter.Tk()    # Create the graphics window
+
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+    my_canvas.pack()            # Put the canvas into the window
+
+    
+    my_canvas.create_line(x, y, x+length_of_side, y)
+    my_canvas.create_line(x, y, x, y + length_of_side)
+    my_canvas.create_line(x, y + length_of_side, x +length_of_side ,y+length_of_side)
+    my_canvas.create_line(x + length_of_side, y, x + length_of_side, y + length_of_side)
+
+    tkinter.mainloop()     
+create_square(100,200,30)        
+
+import tkinter
+
+def create_rectangle(x,y,length_of_side):
+    my_window = tkinter.Tk()    # Create the graphics window
+
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+    my_canvas.pack()            # Put the canvas into the window
+
+    
+    my_canvas.create_line(x, y, x+2*length_of_side, y)#top to right
+    my_canvas.create_line(x, y, x, y + length_of_side)#left top to down left
+    my_canvas.create_line(x, y + length_of_side, x +2*length_of_side ,y+length_of_side)
+    #down left to down right
+    my_canvas.create_line(x + 2*length_of_side, y, x + 2*length_of_side, y + length_of_side)
+    #top right to down right
+
+    tkinter.mainloop()     
+create_rectangle(100,200,50)
+
+#
+#
+# Part (c7)
+#
+#
+
+import tkinter              # Load the library; do this just once per program
+
+def create_circle(x, y, z):
+    my_window = tkinter.Tk()    # Create the graphics window
+
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+    my_canvas.pack()            # Put the canvas into the window
+
+
+    my_canvas.create_oval(x+z, y+z, x+ 2*z, y+2*z, fill='black')
+
+
+    tkinter.mainloop()          # Combine all the elements and display the window
+create_circle(100, 100, 30)
+
+#
+#
+# Part (d1)
+#
+#
+print()
+print('---------- Part (d) ----------')
+print()
+
+from collections import namedtuple    
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurant_price(restaurant):
+    true_money = restaurant.price
+    return true_money
+
+def true_value(book):
+    true_money = book.new_inventory
+    return true_money
+
+
+assert restaurant_price(RL[1]) == 5.50
+assert restaurant_price(RL[0]) == 12.50
+assert restaurant_price(RL[2]) == 25.50
+#
+#
+# Part (d2)
+#
+#
+
+from collections import namedtuple    
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurant_price(restaurant):
+    true_money = restaurant.price
+    return true_money
+
+RL.sort (key=restaurant_price)
+#key= will sort the namedtuple by which values
+                                # were referred to in the stated function
+assert RL[0].price == 5.50
+assert RL[0].cuisine == "Japanese"
+print (RL)
+
+#
+#
+# Part (d3)
+#
+#
+from collections import namedtuple    
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurant_price(restaurant):
+    true_money = restaurant.price
+    return true_money
+
+def costliest(place): #this defines function costliest
+    RL.sort (key=restaurant_price) # this sorts the price from least to greatest
+    most_money_name = place[-1].name    #assigns the name of greatest
+    return most_money_name #returns the name of the greatest
+
+print(costliest(RL)) # prints the name of the greatest in RL
+
+#
+#
+# Part (d4)
+#
+#
+
+from collections import namedtuple    
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurant_price(restaurant):
+    true_money = restaurant.price
+    return true_money
+
+def costliest2(place): # this function does not change the original list
+    new_list = sorted(place , key=restaurant_price) #creates a new list to sort
+    most_money_name = new_list[-1].name
+    return most_money_name
+
+print (costliest2(RL)) # this runs the code for the duplicate list
+print (RL) # the old list, however, has not changed
+assert costliest2(RL) != "Addis Ababa"
+#
+#
+# Part (e)
+#
+#
+print()
+print('---------- Part (e) ----------')
+print()
+
+from collections import namedtuple   
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI=[
+    Book("Mr. Doom","Damn Son!","Technology",2069,13.01,51),
+    Book("Mr. Poo","Damn Mom!","Sports",269,13.02,52),
+    Book("Mr. Goo","Damn Girl!","Math",69,13.03,53)]
+#
+#
+# Part (e1)
+#
+#
+
+def name_Printer(LLister):
+    for subsets in LLister:
+        print (subsets.title)
+    
+
+(name_Printer(BSI))
+
+
+#
+#
+# Part (e2)
+#
+#
+def alphabitizer(LLister):
+    listies = LLister.title
+    return listies
+
+def name_Printer2(LLister):
+    new_list = sorted(LLister, key= alphabitizer)
+    for subsets in new_list:
+        print(subsets.title)
+
+(name_Printer2(BSI))
+assert BSI == [
+    Book("Mr. Doom","Damn Son!","Technology",2069,13.01,51),
+    Book("Mr. Poo","Damn Mom!","Sports",269,13.02,52),
+    Book("Mr. Goo","Damn Girl!","Math",69,13.03,53)]
+
+#
+#
+# Part (e3)
+#
+#
+
+def raises(money_raised):
+    
+    this_new_list = []
+    
+    for subsets in money_raised:
+        increasedprice = subsets.price + subsets.price*.1
+        this_new_list.append(Book(subsets.author,subsets.title,subsets.genre,
+                 subsets.year,increasedprice,subsets.instock))
+    return this_new_list
+        
+
+
+print(raises(BSI))
+assert raises(BSI) != BSI
+print()
+#
+#
+# Part (e4)
+#
+#
+def tech_printer(books):
+    for book in books:
+        if book.genre == 'Technology':
+            print (book.title)
+        else:
+            print ('This book does not have the genre technology')
+tech_printer(BSI)
+
+
+#
+#
+# Part (e5)
+#
+#
+
+def book_ages(books):
+    books_less_2000 = []
+    books_greater_2000 = []
+    for book in books:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match131-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        if book.year &lt; 2000:
+            books_less_2000.append(book.year)
+        else:
+            books_greater_2000.append(book.year)
+    if len(books_greater_2000) &gt; len(books_less_2000):
+</FONT>        print ('More titles 2000 or later (', len(books_greater_2000),'vs. '
+               , len(books_less_2000),')')
+    else:
+        print ('More titles before 2000 (', len(books_less_2000),'vs. '
+               , len(books_greater_2000),')')
+    assert len(books_less_2000) &gt; len(books_greater_2000) # this is to double-check my
+                                                          # results. Note that I would not actually add this in the actual code
+
+book_ages(BSI)
+
+    
+#
+#
+# Part (e6)
+#
+#
+def inventory_value(Books):
+    # want this to return the value of the inventory of our book
+    new_inventory = []
+    for subsets in Books:
+        new_inventory.append(subsets.price*subsets.instock)
+    return new_inventory
+
+def top_value(newstuff):
+    # want this to return the highest value inventory
+    newstuff.sort()
+    print (newstuff[-1])
+
+
+top_value(inventory_value(BSI))
+
+
+def true_value(book):
+        true_money = book.new_inventory
+        return true_money
+
+def combining_for_Top_Value (books):
+    Bookies = namedtuple('Bookies', 'author title genre year price instock new_inventory')
+    
+    books_price_inventory = []
+    for subsets in books:
+        new_inventory = subsets.price*subsets.instock
+        books_price_inventory.append(Bookies(subsets.author,subsets.title,
+                                          subsets.genre,
+                                          subsets.year,
+                                          subsets.price,
+                                          subsets.instock,
+                                          new_inventory))
+
+
+    books_price_inventory.sort(key=true_value)
+    print ('''The highest-value book is''',
+           books_price_inventory[-1].title,
+           ' by ', books_price_inventory[-1].author, '''at a value of $''' ,
+           books_price_inventory[-1].new_inventory)
+
+
+inventory_value(BSI)
+assert inventory_value(BSI) !=BSI
+
+#
+#
+# Part (f)
+#
+#
+print()
+print('---------- Part (f) ----------')
+print()
+
+import tkinter
+
+my_window = tkinter.Tk()
+
+my_canvas = tkinter.Canvas(my_window, width=5000, height=1000)  #
+
+
+def draw_eye(x,y,z,a,b):
+
+    my_canvas.pack()
+    my_canvas.create_oval((x), (y),(x+z), (y+z),fill = 'green') #small eye
+    my_canvas.create_oval((x+a), (y),(x+z+a), (y+z),fill = 'green') #small eye
+    my_canvas.create_oval((x+b), (y+b),(x+z), (y+z),fill = 'black')
+    my_canvas.create_oval((x+a+b), (y+b),(x+z+a), (y+z),fill = 'black')
+    
+    
+def draw_nose(x,y,z,a,b): 
+
+    my_canvas.pack()
+
+    my_canvas.create_oval((x+z),(y+z),(x+2*z),(y+2*z))
+
+def draw_mouth(x,y,z,a,b):
+    my_canvas.pack()
+
+    my_canvas.create_line((x),(y+3*z),(x+3.3*z),(y+3*z))
+
+
+    
+
+
+def draw_face(x,y,z,a,b):
+
+    my_canvas.pack()
+    my_canvas.create_oval(x-1*z,y-1*z,x+4.5*z,y+4.5*z)
+    draw_eye(x,y,z,a,b)
+    
+    draw_nose(x,y,z,a,b)
+    
+    draw_mouth(x,y,z,a,b)
+    
+draw_face(100,100,150,300,25)
+draw_face(1000,100,150,300,25)
+
+##x value is the x value
+##y value is the y value
+##z value is the 1st change
+##a value is the 2nd change
+##b value is the 3rd change
+</PRE>
+</PRE>
+</BODY>
+</HTML>

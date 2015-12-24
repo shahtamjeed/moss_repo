@@ -1,0 +1,177 @@
+<HTML>
+<HEAD>
+<TITLE>choues/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+hercep/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Paulo Herce 52199956. ICS 31 Lab sec 10. Lab asst 7.
+
+from random import randrange
+wordlist = open('wordlist.txt','r')
+femalenames = open('femalenames.txt','r')
+malenames = open('malenames.txt','r')
+surnames = open('surnames.txt','r')
+
+
+print('')
+print('')
+print('')
+print('---part c---')
+print('')
+print('')
+print('')
+
+#c
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match38-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_24.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def random_names (x:int)-&gt;[str]:
+    listofnames = []
+    a = surnames.read()
+    b = a.split()
+    c = 0
+    surnames1 = []
+    while c &lt; len(b):
+        surnames1.append(b[c])
+        c += 4
+    d = malenames.read()
+    e = d.split()
+    f = 0
+    malenames1 = []
+    while f &lt; len(e):
+        malenames1.append(e[f])
+        f+=4
+    g = femalenames.read()
+    h = g.split()
+    i = 0
+    femalenames1 = []
+    while i &lt; len(h):
+        femalenames1.append(h[i])
+        i+=4
+    firstnames = malenames1 + femalenames1
+    for j in range(x):
+        k = ('{}, {}'.format(surnames1[randrange(len(surnames1))],
+                              firstnames[randrange(len(firstnames))]))
+        listofnames.append(k)
+    return listofnames
+
+print(random_names(2))
+</FONT>
+
+print('')
+print('')
+print('')
+print('---part d---')
+print('')
+print('')
+print('')
+
+#d
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match38-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+
+
+def Caesar_encrypt(x:str,y:int):
+    GG = x.lower()
+    word_list = GG.split()
+    
+    word_list2 = []
+    for word in word_list:
+        new_word = ''
+        for letter in word:
+            for c in range(len(alphabet)):
+</FONT>                if letter == alphabet[c]:
+                    new_word += alphabet[(c+y)%26]
+        word_list2.append(new_word)
+    encryptedword = ''
+    for a in word_list2:
+        encryptedword = encryptedword + a + ' '
+    result = encryptedword.strip()
+    return result
+'''
+def Caesar_break(x:str)-&gt;str:
+    word_list = x.split()
+    word_list2 = []
+    for word in word_list:
+        new_word = ''
+        for letter in word:
+            number = 0
+            for c in range(len(alphabet)):
+                if letter == alphabet[c]:
+                    while number &lt; len(alphabet):
+                        number += 1
+                        new_word+=alphabet[(c-number)%26]
+        word_list2.append(new_word)
+    
+    
+    g = []
+    y = ''
+    for encrypted_words in word_list2:
+        for letter in encrypted_words:
+            for c in range(len(letter)):
+                if letter = encrypted_words[c]:
+  '''
+def Caesar_break(x:str)-&gt;str:
+    word_list = x.split()
+    word_list2 = []
+    word_list3 = []
+    for y in range(26):
+        for word in word_list:
+            new_word = ''
+            for letter in word:
+                for c in range(len(alphabet)):
+                    if letter == alphabet[c]:
+                        new_word += alphabet[(c-y)%26]
+            word_list2.append(new_word)
+    encryptedword = ''
+    for a in word_list2:
+        encryptedword = encryptedword + a + ' '
+    result = encryptedword.strip()
+    OMG = result.split()
+    number = 0
+    newlist = []
+    while number&lt;len(OMG):
+        
+        newlist.append(OMG[number:(number+len(word_list))])
+        number += len(word_list)
+    uhh = []
+    for list2 in newlist:
+        encryptedword2 = ''
+        for b in list2:
+            encryptedword2 = encryptedword2 + b + ' '
+        result1 = encryptedword2.strip()
+        uhh.append(result1)
+    a = wordlist.read()
+    words = a.split()
+    
+    return uhh
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

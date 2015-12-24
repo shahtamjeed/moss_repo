@@ -1,0 +1,139 @@
+<HTML>
+<HEAD>
+<TITLE>leungd3/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+leungd3/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#David Leung 18134502
+#Rushabh Shah 94725179
+#ICS 31 Lab 4, Lab assigt. 7
+
+from random import randrange
+######## C ########
+lastnames = []
+names = []
+
+surnames = [line.split() for line in open('surnames.txt', 'r')]
+malenames = [line.split() for line in open('malenames.txt', 'r')]
+femalenames = [line.split() for line in open('femalenames.txt', 'r')]
+
+malenames.append(femalenames)
+
+for item in range(0, len(malenames)):
+    names.append(malenames[item][0])
+for item in range(0, len(surnames)):
+    lastnames.append(surnames[item][0])
+    
+def random_names(x: int)-&gt; list:
+    result1 = []
+    result2 = []
+    realresult = []
+    while (x &gt; 0):
+        result1.append(randrange(1, len(lastnames)))
+        result2.append(randrange(1, len(malenames)))
+        x -= 1
+    for item in result1:
+        realresult.append(str(lastnames[item]) + ' , ' + str(names[item]))
+    return realresult
+
+print(random_names(5))
+
+#c.2-c.3 are done in c.1
+
+######## D ########
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match237-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+
+def Caesar_encrypt(x: str, y: int) -&gt; str:
+    # The encryption function returns the ciphertext
+    x = x.lower()
+    alph = alphabet.replace(alphabet[0:y],"")
+    shifted = alph + alphabet[0:y]
+    index  = str.maketrans(alphabet, shifted)
+    return x.translate(index)
+
+def Caesar_decrypt(x: str, y:int):
+</FONT>    return Caesar_encrypt(x, 26-y)
+
+def Caesar_break(x: str):
+    x = x.lower()
+    words = []
+    infile = open('wordlist.txt', 'r')
+    for line in infile:
+        line = line.strip('\n')
+        line = line.lower()
+        words.append(line)
+    result = []
+    for n in range(26):
+        stringCount = Caesar_decrypt(x, n)
+        stringCount = stringCount.split()
+        count = 0
+        for i in range(0, len(stringCount)):
+            if (stringCount[i] in words):
+                count += 1
+        result.append(count)
+        
+    return Caesar_decrypt(x, result.index(max(result)))
+
+print(Caesar_break('iusvazkx yioktik'))
+
+########## E ###########
+
+def copy_file(x: str):
+    text = []
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    if (x == 'line numbers'):
+        lineNum = 1
+        for line in infile:
+            outfile.write('{:5}: {}'.format(lineNum,line))
+            lineNum+=1
+
+    if (x == 'Gutenberg trim'):
+        lineNum = 1
+        for line in infile:
+            if (lineNum &gt; 19):
+                if (lineNum &lt; 12694):
+                    outfile.write('{:5}: {}'.format(lineNum,line))
+            lineNum+=1
+
+    if (x == 'statistics'):
+        chars = 0
+        emptylines = 0
+        lineNum = 1
+        for line in infile:
+            for letter in range(len(line)):
+                chars += 1
+            if line == "\n":
+                emptylines +=1
+            lineNum += 1
+        infile = open(infile_name, 'r')
+        print(str("{:5d}".format(lineNum)) + "     " + "lines in the list")
+        print(str("{:5d}".format(emptylines)) + "     " + "empty lines")
+        print(str("{:8.2f}".format(chars/len(infile.read()))) + "  " + "average characters per line")
+        print(str("{:8.2f}".format(chars/(abs(len(infile.read())-emptylines)))) + "  " + "average characters per non-empty line")
+
+
+                
+    infile.close()
+    outfile.close()
+
+
+copy_file('statistics')
+
+
+
+                 
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

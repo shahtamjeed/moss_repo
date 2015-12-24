@@ -1,0 +1,223 @@
+<HTML>
+<HEAD>
+<TITLE>marcosa/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+meixuant/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Laurie Tang 72124006 and Kitty Lui 61656579 lab section 16 lab asst 7
+print()
+print()
+print('---------- Part (c.1) ----------')
+print()
+
+from random import randrange
+
+Lnames=[]
+Fnames=[]
+Mnames= []
+result = []
+a = open("surnames.txt", 'r').read().splitlines()
+for line in a:
+    b=line.split('\t')
+    Lnames.append(b[0])
+
+m = open("femalenames.txt",'r').read().splitlines()
+for line in m:
+    c= line.split('\t')
+    Fnames.append(c[0])
+
+o = open("malenames.txt", 'r').read().splitlines()
+for line in o:
+    x = line.split('\t')
+    Mnames.append(x[0])
+
+def random_names(n:int) -&gt;list:
+    Fnames.extend(Mnames)
+    for i in range(n):
+        index=randrange(0,len(Fnames))
+        index1=randrange(0,len(Lnames))
+        result.append(Lnames[index1] + ',' + Fnames[index])
+    return result
+print(random_names(3))
+
+print()
+print()
+print('---------- Part (c.3) ----------')
+print()
+
+from random import randrange
+def random_name(x:list) -&gt;str:
+    index  = randrange(0,len(x))
+    index1 = randrange(0,len(Lnames))
+                       
+    return x[index] + ',' + Lnames[index1]
+print(random_name(Fnames))
+
+print()
+print()
+print('---------- Part (d) ----------')
+print()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match126-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def is_capital(UIstring:str, convertString: str) -&gt; str:
+    upperCaseList = []
+    returnString = ""
+    for character in UIstring:
+        upperCaseList.append(character.isupper())
+
+    for index in range(len(convertString)):
+        if(upperCaseList[index]):
+            returnString += convertString[index].upper()
+        else:
+            returnString += convertString[index]
+    return(returnString)
+
+def Caesar_decrypt(n2:str, k2:int):
+    lowerCaseString = n2.lower()
+    alphabet1 = "abcdefghijklmnopqrstuvwxyz"
+</FONT>    cipher1 = alphabet1[-k2:]+alphabet1[:-k2]
+    table2 = str.maketrans(alphabet1,
+                           cipher1)
+        
+    return is_capital(n2, lowerCaseString.translate(table2))
+def Caesar_break(cipher:str) -&gt;str:
+    list_of_str=[]
+    list_of_count=[]
+    infile = open('wordlist.txt', 'r').read( ).splitlines()
+    for i in range(1, 27):
+        string1= Caesar_decrypt(cipher, i)
+        list_of_str.append(string1)
+    for string in list_of_str:
+        count=0
+        for word in string.split():
+            if word in infile:
+                count += 1
+        list_of_count.append(count)
+    a= max(list_of_count)
+    return Caesar_decrypt(cipher, list_of_count.index(a)+1)
+print(Caesar_break('bzs'))
+
+print()
+print()
+print('---------- Part (d.2) ----------')
+print()
+
+assert(Caesar_break('jgnnq yqtnf iqqf oqtpkpi!'))== 'hello world good morning!'
+assert(Caesar_break('ifmmp'))== 'hello'
+
+print()
+print()
+print('---------- Part (e.1) ----------')
+print()
+
+def copy_file():
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+copy_file()
+
+
+print()
+print()
+print('---------- Part (e.2) ----------')
+print()
+
+def copy_file1(n:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    i = 0
+    if n == 'line numbers':
+       for line in infile:
+           i += 1
+           outfile.write(str(i)+':')
+           outfile.write(line)
+    else:
+        for line in infile:
+           outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file1('line numbers')
+
+print()
+print()
+print('---------- Part (e.3) ----------')
+print()
+def copy_file2(n:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r',errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if n == 'Gutenberg trim':
+        infile2 = infile.readlines()
+        result = 0
+        result2 = 0
+        for i in range(len(infile2)):
+            if '*** START' in infile2[i] and result==0:
+                result = i
+            if '*** END' in infile2[i]:
+                result2 = i
+        for i in range(result + 1, result2):
+            outfile.write(infile2[i])
+    infile.close()
+    outfile.close()
+copy_file2('Gutenberg trim')
+
+print()
+print()
+print()
+print('---------- Part (e.4) ----------')
+print()
+
+def stats(l:list):
+    print('{:2}   '.format(len(l)) + 'lines in the file')
+    result = 0
+    for x in l:
+        if x.strip() == "":
+            result += 1
+    print('{:2}   '.format(result) + 'empty lines')
+    count = 0
+    for y in l:
+        for z in y:
+            count += 1
+    average = count/len(l)
+    print('{:4} '.format(average) + 'average characters per line')
+    count2 = 0  
+    for strs in l:
+        if strs.strip() != "":
+            for char in strs:
+                count2 += 1
+    average2 = count2/(len(l)-result)
+    print('{:4} '.format(average2) + 'average characters per non-empty line')
+    
+def copy_file3(n:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if n == 'statistics':
+        infile2 = infile.readlines()
+        for i in range(len(infile2)):
+            outfile.write(infile2[i])
+        stats(infile2)  
+    infile.close()
+    outfile.close()
+
+copy_file3('statistics')
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,299 @@
+<HTML>
+<HEAD>
+<TITLE>rfilkin/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+rfilkin/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+#Robert Filkin 67836837 and Suhang Jiang 70529385 ICS 31 sec6. 
+
+#
+#
+# part c
+#
+#
+print()
+print ("---c.1---")
+print()
+#c.1
+def contains(s1: str ,s2: str)-&gt; bool:
+    '''returns True if the 2nd string occurs in the 1st string;
+    return False if otherwise'''
+    return s2 in s1
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+print()
+print ("---c.2---")
+print()
+#c.2
+def sentence_stats(S: str):
+    ''' takes a string as a parameter and prints out these
+    statistics about the string: its length in characters, its length
+    in words, and the average length of each word.'''
+    words = punc_to_blanks(S).split()
+    total_chars_no_blanks = len(''.join(words))
+    total_words = len(words)
+    print("The input string's length in characters is:", str(len(S)))
+    print("The input string's length in words is:", str(total_words))
+    print("The average length of each input string's word is:",
+          str(total_chars_no_blanks / total_words))
+
+
+def punc_to_blanks(S: str)-&gt; str:
+    ''' changes all non-letter characters in the
+    input string into blank spaces '''
+    result = ''
+    for c in S:
+        if c in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ':
+            result = result + c
+        else:
+            result = result + ' '
+    return result
+
+sentence_stats('I love UCI')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+
+print()
+print ("---c.3---")
+print()
+#c.3
+
+def initials(S: str) -&gt; str:
+    '''  takes a string representing a full name (e.g., Robert B. Qwerty)
+    and returns the initials of the name in all capital letters
+    (e.g., RBQ). '''
+    words = punc_to_blanks(S).split()
+    result = ''
+    for w in words:
+        result = result + w[0]
+    result = result.upper()
+    return result
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+#
+#
+# part d
+#
+#
+
+print()
+print ("---d.1---")
+print()
+#d.1
+from random import randrange
+for i in range(50):
+    print (randrange(11))
+
+print()
+
+for i in range(50):
+    print (randrange(1,7))
+
+
+print()
+print ("---d.2---")
+print()
+#d.2
+def roll2dice()-&gt; int:
+    ''' rolls 2 dice and returns the sum of the results '''
+    die1 = randrange(1,7)
+    die2 = randrange(1,7)
+    return die1 + die2
+
+for i in range( 50 ):
+    print( roll2dice() )
+    
+
+print()
+print ("---d.3---")
+print()
+#d.3
+def distribution_of_rolls(rolls: int):
+    ''' takes an int, and rolls 2 dice that number of times. Then,
+    prints the distribution of the values of those rolls in the
+    form shown below:
+    
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match125-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_18.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Distribution of dice rolls
+
+     2:     7 ( 3.5%)  *******
+     3:    14 ( 7.0%)  **************
+     4:    15 ( 7.5%)  ***************
+     5:    19 ( 9.5%)  *******************
+     6:    24 (12.0%)  ************************
+     7:    35 (17.5%)  ***********************************
+     8:    24 (12.0%)  ************************
+     9:    28 (14.0%)  ****************************
+    10:    18 ( 9.0%)  ******************
+    11:     9 ( 4.5%)  *********
+    12:     7 ( 3.5%)  *******
+    -----------------------------
+          200 rolls
+          
+    '''
+</FONT>    tallies = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    for i in range(rolls):
+        rolled = roll2dice()
+        tallies[rolled - 2] += 1
+    percentages = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    for i in range(len(tallies)):
+        percentages[i] = tallies[i] / rolls
+    for i in range(2, 13):
+        print("{:2.0f}: {:4d} ({:4.1f}%)  ".format( i, tallies[i-2], percentages[i-2] * 100) + (tallies[i-2] * '*')) 
+    print('-----------------------------')
+    print('     ', str(rolls), 'rolls        ')
+
+    
+distribution_of_rolls(200)    
+
+
+#
+#
+# part e
+#
+#
+print()
+print ("---e.1---")
+print()
+#e.1
+
+def Caesar_encrypt(s: str ,k: int)-&gt; str:
+    '''takes a plaintext message(a string) and a key (an int).
+    encrypts the plaintext and returns the ciphertext.'''
+    s = s.lower()
+    org='abcdefghijklmnopqrstuvwxyz'
+    new=''
+    for i in range(len(org)):
+        j = i+k
+        j = j % 26
+        new =new+ org[j]
+    table=str.maketrans(org, new)
+    return s.translate(table)
+    
+print( Caesar_encrypt( 'AbCdeF', 3 ) )
+
+def Caesar_decrypt(s: str ,k: int)-&gt; str:
+    '''takes a ciphertext message(a string) and a key (an int).
+    decrypts the ciphertext and returns the plaintext.'''
+    s = s.lower()
+    org='abcdefghijklmnopqrstuvwxyz'
+    new=''
+    for i in range(len(org)):
+        j = i+k
+        j = j % 26
+        new =new+ org[j]
+    table=str.maketrans(new, org)
+    return s.translate(table)
+
+print( Caesar_decrypt( 'DeFghI', 3 ) )
+
+#
+#
+# part f
+#
+#
+print()
+print ("---f.1---")
+#f.1
+print()
+def print_line_numbers(l):
+    '''takes a list of strings and
+    prints each string preceded by a line number
+    '''
+    for i in range(len(l)):
+        print ("{:2d}:  {}".format(i+1,l[i]))
+L=[ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+
+print_line_numbers(L)
+
+
+print()
+print ("---f.2---")
+print()
+#f.2
+def stats(L: list):
+    '''takes a list of strings and print statistice in
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match125-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    the following format:
+    
+    16824   lines in the list
+      483   empty lines
+       53.7 average characters per line
+       65.9 average characters per non-empty line
+</FONT>       
+    '''
+    empty_line_total = 0
+    character_total = 0
+
+    for i in L:
+        character_total += len(i)
+        if i == '':
+            empty_line_total += 1
+        
+    avg_chars_per_line = character_total / len(L)
+    avg_chars_per_line_non_empty = character_total / (len(L) - empty_line_total)
+
+    print(  "{:5d}   lines in the list \n"
+            "{:5d}   empty lines \n" 
+            "{:7.1f} average characters per line \n"
+            "{:7.1f} average characters per non-empty line".format(len(L), empty_line_total,
+                                                                   avg_chars_per_line,avg_chars_per_line_non_empty))
+
+    
+stats( [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ",
+  "",
+  "    ",
+  "\n",
+  "   r   "])
+
+print()
+print ("---f.3---")
+print()
+#f.3
+
+
+table2 = str.maketrans('.,!?;:"',
+                       '       ')
+
+def list_of_words(list)-&gt; list:
+    ''' takes a list of strings, and returns a list of individual words
+    with all all white space and punctuation removed (except for
+    apostrophes/single quotes).'''
+    n=[]
+    m=[]
+    for i in list:
+        n.append(i.translate(table2))
+    for i in n:
+        m.extend(i.split())
+    return m
+print(list_of_words(L))
+
+
+assert(list_of_words( ["This is~ a test!",
+                       "and thi   s 'line' will indent?"])) == ['This', 'is~', 'a', 'test',
+                                                                 'and', 'thi', 's', "'line'",
+                                                                 'will', 'indent']
+
+
+        
+                
+</PRE>
+</PRE>
+</BODY>
+</HTML>

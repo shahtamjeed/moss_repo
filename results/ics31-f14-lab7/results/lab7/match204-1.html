@@ -1,0 +1,343 @@
+<HTML>
+<HEAD>
+<TITLE>kyaseen/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+liyanc/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Cristia Perez 35123152 and Liyan Chen 79566792. ICS 31 Lab sec 10. Lab asst 7.
+from collections import namedtuple
+from random import randrange
+import math
+#c.1 & c.2
+print('--Part C1 & C2--')
+
+Name = namedtuple("Name", "string freq")
+
+def random_names(n: int) -&gt; list:
+    '''Returns a list of names'''
+    result = []
+    surname_file = open('surnames.txt')
+    female_file = open('femalenames.txt')
+    male_file = open('malenames.txt')
+    surname_list = surname_file.readlines()
+    female_list = female_file.readlines()
+    male_list = male_file.readlines()
+    surname_file.close()
+    female_file.close()
+    male_file.close()
+    surname_result = []
+    female_result = []
+    male_result = []
+    for element in surname_list:
+        res = element.split('\t')
+        surname_tuple = Name(res[0], int(1000*3.304997234003319*float(res[1])))
+        surname_result.append(surname_tuple)
+        
+    for element in female_list:
+        res = element.split('\t')
+        female_tuple = Name(res[0], int(1000*2.22164262066775*float(res[1])))
+        female_result.append(female_tuple)
+        
+    for element in male_list:
+        res = element.split('\t')
+        male_tuple = Name(res[0], int(1000*2.12204481446989*float(res[1])))
+        male_result.append(male_tuple)
+    for i in range(n):
+        surname_string = random_name(surname_result)
+        female_string = random_name(female_result)
+        male_string = random_name(male_result)
+        result.append(final_make_up(surname_string, female_string, male_string))
+    return result
+
+print('\n')
+
+#c.3
+print('--Part C3--')
+
+def random_name(l:list) -&gt;str:
+    '''Returns a random name'''
+    num = randrange(1,100001)
+    i=-1
+    while num &gt; 0:
+        
+        i+=1
+        num-=l[i].freq
+    return l[i].string
+
+def final_make_up(lastname:str, female:str, male:str)-&gt; str:
+    '''Format the final output'''
+    i = randrange(0,2)
+    if i==0:
+        firstname = female
+    else:
+        firstname = male
+    result=''
+    firstname=firstname.lower()
+    lastname=lastname.lower()
+    result = chr(ord(lastname[0])-32)+lastname[1:len(lastname)]
+    result+=', '
+    result+= chr(ord(firstname[0])-32)+firstname[1:len(firstname)]
+    return result
+
+print(random_names(10))
+
+print('\n')
+
+#d.1 & d.2
+print('--Part D1 & D2--')
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def Caesar_encrypt(text: str, cipher: int)-&gt;str:
+    '''Encrypts text by shifting the characters by a number'''
+    text = text.lower()
+    result = ''
+    for char in text:
+        if char in ALPHABET:
+            result += chr((ord(char)+cipher-97)%26+97)
+        else:
+            result += char
+    return result
+
+def Caesar_decrypt(text: str, cipher: int)-&gt; str:
+    """decrypt the codes"""
+    result = ''
+    for char in text:
+        if char in ALPHABET:
+            result += chr((ord(char)-cipher-97)%26+97)
+        else:
+            result += char
+    return result
+
+def Caesar_break(cipher:str)-&gt;str:
+    """break the secret"""
+    f= open('wordlist.txt')
+    words=f.read()
+    words.lower()
+    f.close()
+    max_freq=0
+    max_str=''
+    for i in range(1,27):
+        decrypt_text=Caesar_decrypt(cipher,i)
+        decrypt_list=decrypt_text.split(' ')
+        frequency=0
+        for s in decrypt_list:
+            if s in words:
+                frequency+=1
+        percentage= frequency/len(decrypt_list)
+        if percentage&gt;max_freq:
+            max_str=decrypt_text
+            max_freq=percentage
+    return max_str
+
+
+print(Caesar_encrypt('Tonight I\'m going to have dinner',21))
+
+print(Caesar_break("ojidbco d'h bjdib oj cvqz ydiizm"))
+
+print('\n')
+
+#------------------RSA---------------
+
+def linear_prime(a:int,b:int)-&gt;list:
+    l=[]
+    result=[]
+    for t in range(b+1):
+        l.append(True)
+    l[0]=False
+    l[1]=False
+    for t in range(2, b+1):
+        if l[t]:
+            for i in range(2*t, b+1, t):
+                l[i]=False
+    for t in range(a, b+1):
+        if l[t]: 
+            result.append(t)
+    return result
+
+def egcd(a:int, b:int)-&gt;int:
+    x, y, u, v = 0, 1, 1, 0
+    while not a == 0:
+        q, r = b//a, b%a
+        m, n = x-u*q, y-v*q
+        b,a, x,y, u,v = a,r, u,v, m,n
+    gcd = b
+    return x
+
+def exp_mod(m:int, e:int, phi:int)-&gt;int:
+    if e==0:
+        return 1
+    if (e % 2) ==0:
+        num=exp_mod(m, int(e/2), phi)
+        return (num*num) % phi
+    else:
+        num=exp_mod(m, int(e/2), phi)
+        return (num*num*m) % phi
+
+def generate_key(ran:int)-&gt;list:
+    primes=linear_prime(10,ran)
+    p=primes[randrange(len(primes))]
+    q=primes[randrange(len(primes))]
+    e=primes[randrange(len(primes))]
+    N=p*q
+    phi=(p-1)*(q-1)
+    d=egcd(e,phi)
+    if d&lt;0 :
+        d=d%phi
+    return [e,N,d,phi]
+
+def encrypt(m:int, public_key:list)-&gt;int:
+    return exp_mod(m, public_key[0], public_key[1])
+
+def decrypt(m:int, private_key:list, public_key:list)-&gt;int:
+    return exp_mod(m, private_key[0], public_key[1])
+
+def init():
+    l=generate_key(int(input('input your key range')))
+    public_key=l[0:2]
+    private_key=l[2:]
+    message=input('input your message: ')
+    
+    cipher=''
+    for s in message:
+        cipher+=chr(encrypt(ord(s), public_key))
+    print("public key: ",public_key)
+    print("private key: ",private_key)
+    print(cipher)
+    recover=''
+    for s in cipher:
+        recover+=chr(decrypt(ord(s), private_key,public_key))
+    print("decrypted message: ",recover)
+
+def Caesar_break_RSA(m, public_key)-&gt;str:
+    primes=linear_prime(1,int(math.sqrt(float(public_key[1]))))
+    b= True
+    p=0
+    for i in primes:
+        if ((public_key[1] % i == 0 )and b):
+            b=False
+            p=i
+    q=int(public_key[1]/p)
+    phi=(p-1)*(q-1)
+    d=egcd(public_key[0],phi)
+    if d&lt;0:
+        d=d%public_key[1]
+    print("I got your private key!")
+    print('private key: [',d,',',phi,']')
+    message=''
+    for s in m:
+        message+=chr(decrypt(ord(s),[d,phi],public_key))
+    return message
+
+b=input("Do you want to break RSA?(Yes or No)")
+if b=='Yes':
+    
+    stop=False
+    while not stop:
+        print('''A. Encrypt a message
+B. Decrypt a message
+C. Break a message
+D. Generate you keys
+E. Stop this game\n
+''')
+        s=input()
+        if s=='D':
+            l=generate_key(int(input('input your key prime number range, which is supposed to be less than 100')))
+            public_key=l[0:2]
+            private_key=l[2:]
+            print("Here's your keys")
+            print("public key: ",public_key)
+            print("private key: ",private_key)
+        elif s=='A':
+            message=input('input your message: ')
+            print("input your public key:")
+            e=int(input("e?"))
+            N=int(input("N?"))
+            cipher=''
+            for s in message:
+                cipher+=chr(encrypt(ord(s), [e,N]))
+            print("Here you go:")
+            print(cipher)
+        elif s=="B":
+            cipher=input('input your cipher: ')
+            print("input your public key:")
+            e=int(input("e?"))
+            N=int(input("N?"))
+            print("input your private key:")
+            d=int(input('d?'))
+            phi=int(input('phi?'))
+            recover=''
+            for s in cipher:
+                recover+=chr(decrypt(ord(s), [d,phi],[e,N]))
+            print(recover)
+        elif s=="C":
+            cipher=input('input your cipher: ')
+            print('At least I have the right to get the public key!')
+            print("input your public key:")
+            e=int(input("e?"))
+            N=int(input("N?"))
+            print(Caesar_break_RSA(cipher,[e,N]))
+        elif s=='E':
+            stop=True
+        else:
+            print("Er... I don't know what you said.")
+
+#-------------------RSA------------------
+
+#Part E
+print('--Part E--')
+
+punctuation = str.maketrans('.:;,#$@!?*',
+                            '          ')
+
+def stats(l: list):
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match204-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print('{:5}        lines in the list'.format(len(l)))
+    print('{:5}        empty lines'.format(l.count('\n')))
+    print('{:8.2f}     average characters per line'.format(len("".join(l))/len(l)))
+    result = []
+    for i in l:
+        if not (i == '\n'):
+            result.append(i)
+    print('{:8.2f}     average characters per non-empty line'.format(len("".join(l))/len(result)))
+
+
+def copy_file(s):
+    '''Copies a file'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name)
+</FONT>    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name,'w')
+    inlist=infile.readlines()
+    t=0
+    b=False
+    for line in inlist:
+        if s=='line numbers':
+            t+=1
+            outfile.write(('{:5d}: '.format(t))+line)
+        elif s=='Gutenberg trim':
+            if "*** END OF THIS PROJECT" in line:
+                b=False
+            if b:
+                outfile.write(line)
+            if "*** START OF THIS PROJECT" in line:
+                b=True
+        elif s=='statistics':
+            outfile.write(line)
+    if s=='statistics':
+        stats(inlist)
+    infile.close()
+    outfile.close()
+    
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+copy_file('statistics')
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

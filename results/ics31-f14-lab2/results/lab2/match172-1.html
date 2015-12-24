@@ -1,0 +1,271 @@
+<HTML>
+<HEAD>
+<TITLE>ballestc/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+maroa/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Miguel Roa 77291913 and Derek Zahn 15546893 ICS 31 Lab sec 15.  Lab Asst 2.
+
+# Part C of Lab 2
+print('This is Part C:\n')
+
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  ', rate)
+print('Weekly salary:  ', hours * rate)
+
+# Part C.1
+
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour?'))
+print('This many dollars per hour: $', rate)
+print('Weekly salary: $', hours * rate)
+
+# Part C.2
+
+name = input('Hello. What is your name?')
+print('Hello,', name, "\nIt's nice to meet you.")
+age = int(input('How old are you?'))
+print('Next year you will be', age +  1, 'years old.\nGood-bye!')
+
+# Part D
+print('\nThis is Part D:\n')
+
+Euro_to_Krone = 7.46
+Pound_to_Krone = 8.81
+Dollar_to_Krone = 5.50
+
+print('What is the name of your business?')
+business_name = input()
+print('How many euros do you have?')
+euros = float(input())
+print('How many pounds do you have?')
+pounds = float(input())
+print('How many dollars do you have?')
+dollars = float(input())
+print('Copenhagen Chamber of Commerce\nBusiness name:', business_name, '\n',
+      euros, 'euros is', euros * Euro_to_Krone, 'krone\n', pounds, 'pounds is',
+      pounds * Pound_to_Krone, 'krone\n', dollars, 'dollars is', dollars * Dollar_to_Krone,
+      'krone')
+total_krone = (euros * Euro_to_Krone) + (pounds * Pound_to_Krone) + (dollars * Dollar_to_Krone)
+print('\nTotal krone:', total_krone)
+
+# Part E
+print('\nThis is Part E:\n')
+
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match172-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                    'Arthur Conan Doyle', 1905, 25.00)
+
+# Part E.1
+
+print('Title of book in still_another:', still_another.title)
+
+# Part E.2
+
+print('The price of Memoirs of Sherlock Homes is: $', another.price)
+
+# Part E.3
+
+avg_price = (favorite.price + another.price + still_another.price) / 3
+print('The average price of the three books is: $', avg_price)
+
+# Part E.4
+
+date_published = (favorite.year &lt; 1900)
+</FONT>print('Was', favorite.title, 'published before 1900?', date_published)
+
+# Part E.5
+
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 26.00)
+
+# Part E.6
+
+increased_price = still_another.price * 1.2
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, increased_price)
+
+# Part F
+print('\nThis is Part F:\n')
+
+Animal = namedtuple('Animal', 'name species age weight favorite_food')
+Jumbo = Animal('Jumbo', 'Elephant', 50, 1000, 'peanuts')
+Perry = Animal('Perry', 'Platypus', 7, 1.7, 'shrimp')
+
+whos_heavier = (Jumbo.weight &lt; Perry.weight)
+print('Does Jumbo weigh less than Perry?', whos_heavier)
+
+# Part G
+print('\nThis is Part G:\n')
+
+booklist = [favorite, another, still_another]
+
+# Part G.1
+
+is_cheaper = (booklist[0].price &lt; booklist[1].price)
+print('Is the first book cheaper than the second book?', is_cheaper)
+
+# Part G.2
+
+recently_published = (booklist[0].year &gt; booklist[-1].year)
+print('Was the first book published more recently than the last book?', recently_published)
+
+# Part H
+print('\nThis is Part H:\n')
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match172-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+# Part H.1
+
+print('Name of third restaurant:', RC[2].name)
+
+# Part H.2
+
+same_food = (RC[0].cuisine == RC[3].cuisine)
+</FONT>print('Does the first and fourth restaurant serve the same kind of food?', same_food)
+
+# Part H.3
+
+print('The best dish,', RC[-1].dish, ', at', RC[-1].name, 'costs', RC[-1].price)
+
+# Part H.4
+
+RC.sort()
+print('The list of restaurants arranged alphabetically:', RC[0].name, ',', RC[1].name,
+      ',', RC[2].name, ',', RC[3].name, ',', RC[4].name, ',', RC[5].name, ',', RC[6].name)
+
+# Part H.5
+
+RC.sort()
+print('The best dish at', RC[-1].name, 'is', RC[-1].dish)
+
+# Part H.6
+
+RC.sort()
+New_Restaurants = [RC[0], RC[1], RC[-2], RC[-1]]
+print(New_Restaurants)
+
+# Part I.1 (Square)
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(100, 100, 100, 300, fill = 'orange') # Draw left side
+my_canvas.create_line(100, 300, 300, 300, fill = 'blue')   # Draw bottom
+my_canvas.create_line(300, 300, 300, 100, fill = 'orange') # Draw right side
+my_canvas.create_line(300, 100, 100, 100, fill = 'blue')   # Draw top
+
+# Part I.2 (Diamond)
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(200, 100, 119, 283, fill = 'orange') # Draw top left
+my_canvas.create_line(119, 283, 200, 466, fill = 'blue')   # Draw bottom left
+my_canvas.create_line(200, 466, 281, 283, fill = 'orange') # Draw bottom right
+my_canvas.create_line(281, 283, 200, 100, fill = 'blue')   # Draw top right
+
+# Part I.3 (House)
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_rectangle(100, 300, 300, 500)  # Draw walls
+my_canvas.create_rectangle(125, 425, 175, 500)  # Draw door
+my_canvas.create_rectangle(200, 385, 275, 465)  # Draw window
+my_canvas.create_line(237.5, 385, 237.5, 465)   # Draw window split vertical
+my_canvas.create_line(200, 425, 275, 425)       # Draw window split horizontal
+my_canvas.create_line(100, 300, 200, 200)       # Draw roof left
+my_canvas.create_line(200, 200, 300, 300)       # Draw roof right
+
+# Part I.4 (Eye)
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_oval(200, 200, 300, 300, fill = 'brown')  # Draw iris
+my_canvas.create_oval(235, 235, 265, 265, fill = 'black')  # Draw pupil
+my_canvas.create_oval(175, 175, 325, 325)                  # Draw eye whites
+
+
+# Part I.5 (Face)
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_oval(75, 75, 325, 150, fill = 'yellow')       # Draw halo
+my_canvas.create_oval(100, 100, 300, 350, fill = 'green')      # Draw face skin
+my_canvas.create_oval(130, 150, 180, 200, fill = 'red')        # Draw left iris
+my_canvas.create_oval(220, 150, 270, 200, fill = 'red')        # Draw right iris
+my_canvas.create_oval(145, 160, 165, 180, fill = 'black')      # Draw left pupil
+my_canvas.create_oval(235, 170, 255, 190, fill = 'black')      # Draw right pupil
+my_canvas.create_rectangle(130, 220, 270, 300, fill = 'black') # Draw mouth space
+my_canvas.create_rectangle(130, 220, 270, 235, fill = 'white') # Draw top teeth
+my_canvas.create_rectangle(130, 285, 270, 300, fill = 'white') # Draw bot teeth
+my_canvas.create_line(145, 220, 145, 235)                      # Draw top teeth splits
+my_canvas.create_line(160, 220, 160, 235)
+my_canvas.create_line(175, 220, 175, 235)
+my_canvas.create_line(190, 220, 190, 235)
+my_canvas.create_line(210, 220, 210, 235)
+my_canvas.create_line(225, 220, 225, 235)
+my_canvas.create_line(240, 220, 240, 235)
+my_canvas.create_line(255, 220, 255, 235)
+my_canvas.create_line(145, 285, 145, 300)                      # Draw bot teeth splits
+my_canvas.create_line(160, 285, 160, 300)
+my_canvas.create_line(175, 285, 175, 300)
+my_canvas.create_line(190, 285, 190, 300)
+my_canvas.create_line(210, 285, 210, 300)
+my_canvas.create_line(225, 285, 225, 300)
+my_canvas.create_line(240, 285, 240, 300)
+my_canvas.create_line(255, 285, 255, 300)
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

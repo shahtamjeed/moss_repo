@@ -1,0 +1,242 @@
+<HTML>
+<HEAD>
+<TITLE>huiyimt/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+solanoh/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab7.py
+# Frances Liu 13931652 and Hector Solano 81871013. Lab sec 7.  Lab asst 7.
+
+from random import randrange
+
+###########################################
+################### C #####################
+###########################################
+
+print()
+print("----------------C1------------------")
+
+def readtxt(name:str)-&gt;[str]:
+    '''takes name of file and returns string'''
+    names =[]
+    infile=open(name, 'r')
+    contents = infile.read()
+    strings = contents.split('\n')
+    for i in strings:
+        if i != '':
+            name = i.split()
+            names.append(name[0])
+    infile.close()
+    return names
+
+surnames=readtxt("surnames.txt")
+femalenames=readtxt("femalenames.txt")
+malenames=readtxt("malenames.txt")
+
+def format_name(name:str)-&gt;str:
+    '''returns name in correct format "Hector" '''
+    string = name[1:]
+    return name[0] + string.lower()
+       
+def random_name()-&gt;str:
+    '''returns a random name'''
+    temp=randrange(1,1000) 
+    if temp%2==1:
+        return format_name(surnames[temp%len(surnames)]) + " " + format_name(malenames[temp%len(malenames)])
+    return  format_name(surnames[temp%len(surnames)]) + " " + format_name(femalenames[temp%len(surnames)]) 
+
+def random_names(i:int)-&gt;str:
+    '''takes an integer and returns a list of that many strings'''
+    answer=[]
+    for n in range(i):
+        answer.append(random_name())
+    return answer
+print()
+print("       Printing 10 random names 10           ")
+print(random_names(10))
+
+###########################################
+################### D #####################
+###########################################
+
+print()
+print("----------------D1------------------")
+
+
+AB="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+ab="abcdefghijklmnopqrstuvwxyz"
+
+def Caesar_encrypt(message: str, key: int) -&gt; str:
+    ''' Takes a str and key and returns en encrypted string '''
+    ciphertext = ''
+    
+    for i in message:
+        flag = False
+        for k in range(len(AB)):
+            if i == AB[k]:
+                flag = True
+                ciphertext += AB[ (k + key)%25]
+        if not flag:
+            for j in range(len(ab)):
+                if i == ab[j]:
+                    flag = True
+                    ciphertext += ab[ (j + key)%25]
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match207-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        if not flag:
+            ciphertext += i
+    return ciphertext
+
+assert Caesar_encrypt("AbCdE",1) == "BcDeF"
+assert Caesar_encrypt("A b", 2) == "C d"
+
+def Caesar_decrypt(ciphertext: str, key: int) -&gt; str:
+    ''' Takes an encrypted str and key and returns the decrypted str '''
+    message = ''
+</FONT>    for i in ciphertext:
+        flag = False
+        for k in range(len(AB)):
+            if i == AB[k]:
+                flag = True
+                message += AB[ (k - key)%25]
+        if not flag:
+            for j in range(len(ab)):
+                if i == ab[j]:
+                    flag = True
+                    message += ab[ (j - key)%25]
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match207-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        if not flag:
+            message += i
+    return message
+
+assert Caesar_decrypt("BcDeF", 1)  == "AbCdE"
+assert Caesar_decrypt("C d", 2) == "A b"
+
+
+def Caesar_break(ciphertext:str)-&gt;str:
+     ''' Takes the ciphertext and returns the plaintext'''
+     possible=[]
+</FONT>     infile=open("wordlist.txt","r")
+     contents=infile.read()
+     words=contents.split("\n")
+     count = 0
+     answer = ''
+     for i in range(26):
+         possible.append(Caesar_decrypt(ciphertext,i+1))
+     for x in possible:
+         counttemp=0
+         temp=x.split(" ")
+         for dword in temp:
+             if dword in words:
+                 counttemp += 1
+         if counttemp &gt; count:
+            count = counttemp
+            answer = x
+     infile.close()
+     return answer
+
+print("Decrypting first Message by brute force")
+print("Gn jbn dqn kncd cdemnwdc rw cnldrxw 9 ============", Caesar_break("Gn jbn dqn kncd cdemnwdc rw cnldrxw 9"))
+print()
+print("Decrypting second Message by brute force")
+print("Ry umy ughjno xjiy rdoc ocdn guv, ocdn dn bmyuo ===============", Caesar_break("Ry umy ughjno xjiy rdoc ocdn guv, ocdn dn bmyuo"))
+      
+
+
+
+print()
+print("----------------E-------------------")
+###################################################
+####################### E1 ########################
+###################################################
+
+def stats (lst: [str]) -&gt; str:
+    ''' Takes a str list and prints lines in list, empty lines, average characters per line and non-empty line
+        and returns a formated string'''
+    lines = 0
+    for i in lst:
+        lines += 1
+    empty_lines = 0
+    for i in lst:
+        words = i.strip()
+        if words  == '' :
+            empty_lines += 1
+    total_characters = 0
+    characters = []
+    longstring = ''
+    for i in lst:
+        characters.append(i.split())
+    for k in characters:
+        for j in k:
+            total_characters += len(j)
+    average_char_line = total_characters/len(lst)
+    average_char_non_line = total_characters/(len(lst) - empty_lines)
+    formated_string = ('\n {:5} lines in the file \n'.format(len(lst)))
+    formated_string += (' {:5} empty lines \n'.format(empty_lines))
+    formated_string += (' {:5.1f} average character per line \n'.format(average_char_line))
+    formated_string += (' {:5.1f} average character per non-empty line \n'.format(average_char_non_line))
+    return formated_string
+    
+def copyfile(s:str):
+    '''copies the file'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', encoding='UTF-8')
+    contents=infile.read()
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w', encoding = 'UTF-8')
+    
+#######################################################    
+###################### E2 #############################
+#######################################################
+    
+    if s=="line numbers":
+        temp=contents.split("\n")
+        for linenum in range(len(temp)):
+            string = '{:5}: {}\n'.format(linenum+1,temp[linenum])
+            outfile.write(string)
+            
+#########################################################            
+###################### E3 ###############################
+#########################################################            
+            
+    elif s=="Gutenberg trim":
+        temp=contents.split("\n")
+        startln=0
+        endln=0
+        flagstart=True
+        flagend=True
+        for linenum in range(len(temp)):
+            if "START" in temp[linenum] and flagstart:
+                startln=linenum+1
+                flagstart=False
+            if "END" in temp[linenum] and flagend:
+                endln=linenum
+                flagend=False
+        for linenum in range(startln,endln):
+            outfile.write("\n"+temp[linenum])
+            
+############################################################            
+####################### E4 #################################
+############################################################            
+            
+    elif s=="Statistics":
+        temp = contents.split("\n")
+        statistics = stats(temp)
+        contents += statistics
+        outfile.write(contents)
+        
+    else:
+        outfile.write(contents)
+    infile.close()
+    outfile.close()
+
+copyfile("line numbers")
+copyfile("Gutenberg trim")
+copyfile("Statistics")
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

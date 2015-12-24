@@ -1,0 +1,223 @@
+<HTML>
+<HEAD>
+<TITLE>luhanzhl/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+luhanzhl/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+#Yuemin Niu 16667482 and Luhanzhi Li 94523635.  ICS 31 Lab 6
+
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match104-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+from collections import namedtuple
+
+#c.1
+print('\n')  # Leaves a blank line.  print('\n') leaves two blank lines.
+print('---------- Part (c.1) ----------')
+print()
+def contains(S:str, L:str)-&gt;bool:
+    '''checks if the second str occurs in the first string'''
+    return L in S
+assert contains('banana', 'ana')== True
+assert not contains('racecar', 'ck')==True
+assert contains('joy', 'abc')==False
+
+
+print('\n')  # Leaves a blank line.  print('\n') leaves two blank lines.
+</FONT>print('---------- Part (c.1) ----------')
+print()
+
+#c.2
+print('\n')  # Leaves a blank line.  print('\n') leaves two blank lines.
+print('---------- Part (c.2) ----------')
+print()
+def sentence_stats(S:str):
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match104-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print('Character:', len(S))
+    table = str.maketrans("*?,.:;?!",'        ')
+    A=S.translate(table).split()
+    print('Words:', len(A))
+    result = []
+    for word in A:
+        result.append(len(word))
+    print('Average word length:',sum(result)/len(A))
+
+sentence_stats('I love UCI')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+#c.3
+print('\n')  # Leaves a blank line.  print('\n') leaves two blank lines.
+print('---------- Part (c.3) ----------')
+print()
+</FONT>
+def initials(a:'str for a full name'):
+   result = ''
+   b = a.split()
+   print(b)
+   for i in b:
+       result = result +i[0]
+   result = result.upper()
+   return result
+print(initials('Guido van Rossum'))
+
+#d
+from random import randrange
+
+#d.1
+print('\n')  # Leaves a blank line.  print('\n') leaves two blank lines.
+print('---------- Part (d.1) ----------')
+print()
+
+##for i in range(50):
+##   print(randrange(1,7))
+
+
+
+#d.2
+print('\n')  # Leaves a blank line.  print('\n') leaves two blank lines.
+print('---------- Part (d.2) ----------')
+print()
+
+def roll2dice()-&gt;int:
+    return randrange(1,7)+randrange(1,7)
+
+#d.3
+print('\n')  # Leaves a blank line.  print('\n') leaves two blank lines.
+print('---------- Part (d.3) ----------')
+print()
+
+def distribution_of_rolls(a:' number of times to roll two dice'):
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match104-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    result = []
+    for i in range(a):
+        result.append(roll2dice())
+    for x in range(2,13):
+        b='{:5.1f}'.format(result.count(x)/a*100)
+        print('{:2}:   {:8}  ({}%)    {:20}'.format(str(x), result.count(x) , str(b), result.count(x)*'*'))
+            
+distribution_of_rolls(200)
+print('---------------------------')
+print('       ''200 rolls''       ')
+
+#e
+
+
+print('\n')  # Leaves a blank line.  print('\n') leaves two blank lines.
+print('---------- Part (e) ----------')
+print()
+Alphabet ='abcdefghijklmnopqrstuvwsyz'
+
+def Caesar_encrypt(string:'contain the original message',key:int):
+</FONT>    """Return the ciphertext"""
+    string = string.lower()
+    key1 = key%26
+    new_order = Alphabet[key1:]+Alphabet[:key1]
+    table = str.maketrans(Alphabet,new_order)
+    string = string.translate(table)
+    string =string.capitalize()
+    return string
+print(Caesar_encrypt('I love UCI', 1))
+assert  Caesar_encrypt('I love UCI', 1) == 'J mpwf vdj'
+
+
+def Caesar_decrypt(string:'contain the message',key:int):
+    """Returns the plaintext"""
+    string = string.lower()
+    key2 = key%26
+    new_order1 = Alphabet[(-key2):]+Alphabet[:(-key2)]
+    table = str.maketrans(Alphabet,new_order1)
+    string= string.translate(table)
+    string= string.capitalize()
+    return string
+print (Caesar_decrypt('j mpwf vdj', 1))
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match104-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert Caesar_decrypt('j mpwf vdj', 1)=='I love uci'
+
+#e.2
+print('\n')
+print ('-----------------------part e.2-----------------------')
+print ('\n')
+print ('Lulu:')
+print (Caesar_encrypt('Good luck to you.', 100))
+print ('Yuemin:')
+print (Caesar_decrypt('Ckkz hqyg pk ukq.',100)  )
+print ('Lulu:')
+print (Caesar_encrypt('enjoy the assignment', 1))
+print ('Yumin:')
+print (Caesar_decrypt('Fokpz uif byyjhonfou',1))  
+print ('\n')
+
+
+#f
+
+#f.1
+print('\n')
+</FONT>print ('-----------------------part f.1-----------------------')
+print ('\n')
+
+list1 = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.",
+  ""]
+
+def print_line_numbers(list_of_string:list)-&gt;str:
+    for i in range(len(list_of_string)):
+        a= ('{}: {}'.format(i+1, list_of_string[i]))
+        print (a)
+       
+print_line_numbers(list1)
+
+
+
+
+#f.2
+print('\n')
+print ('-----------------------part f.2-----------------------')
+print ('\n')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match104-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats(list_of_strings:list)-&gt;str:
+    """prints statistics"""
+    lines_in_the_list = len(list_of_strings)
+    empty_lines = 0
+    for i in list_of_strings:
+        if i == '':
+            empty_lines+=1
+    m = 0
+    for i in list_of_strings:
+        m +=len(i)
+    average_characters_per_line = m/len(list_of_strings)
+    average_chracters_per_non_empty_line = m/(lines_in_the_list - empty_lines )
+    print (str(lines_in_the_list)+'    '+'lines in the list\n'+
+          str(empty_lines)+'    '+'empty lines\n'+
+          "{:2.2f}".format(average_characters_per_line)+'    '+'average characters per line\n'+
+          "{:2.2f}".format(average_chracters_per_non_empty_line)+'    '+'average characters per non-empty')
+stats(list1)
+print ('\n')
+</FONT>
+
+#f.3
+print('\n')
+print ('-----------------------part f.3-----------------------')
+print ('\n')
+def list_of_words(list_of_strings:list)-&gt;list:
+    """Return a list of individual words with all white space and punctuation
+removed"""
+    table = str.maketrans('!@#$%^&*()~?','            ')
+    list2 = []
+    for i in list_of_strings:
+        list2+=i.translate(table).split()
+    return list2
+print (list_of_words(list1))
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

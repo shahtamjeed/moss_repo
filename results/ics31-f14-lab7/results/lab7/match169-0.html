@@ -1,0 +1,182 @@
+<HTML>
+<HEAD>
+<TITLE>jwagas/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jwagas/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab7.py
+# Joshua Wagas 61132289 Marc Orbe 12792875 Lab 6 sec 2 asst Neeraj Kumar
+
+#C
+print('-'*6, 'C', '-'*6)
+
+import random
+import itertools
+from random import randrange
+
+s = open("surnames.txt", "r")
+f = open("femalenames.txt", "r")
+m = open("malenames.txt", "r")
+data1 = s.read()
+data2 = f.read()
+data3 = m.read()
+lastname = (data1.split())
+malename = (data2.split())
+femalename = (data3.split())
+
+last = lastname[::4]
+male = malename[::4]
+female = femalename[::4]
+
+def random_firstname (m:list, f:list, l:list) -&gt; str:
+    finalname=''
+    firstname = m + f
+    ranname = random.choice(firstname)
+    randlastname = random.choice(last)
+    finalname = ranname + '  ' + randlastname
+    return finalname
+
+def random_names(i:int) -&gt;  list:
+    finallist = [ ]
+    c = list(range(i))
+    for x in c:
+         finallist.append(random_firstname(male,female,last))
+    return finallist
+        
+print(random_names(6))
+
+#D
+print('-'*6, 'D', '-'*6)
+#D.1
+
+d = open("wordlist.txt", "r")
+words = d.read()
+dictionary = (words.split())
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match169-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def rotate(i:int) -&gt; str:
+    '''Rotates the letters of the alphabet by an integer, negatives
+    push the last letter up while positives push first letter down'''
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    return alphabet[i:] + alphabet [:i]
+</FONT>
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match169-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_encrypt(a:str, c:int) -&gt; str:
+    '''Encrypts a str using a key specified by the int'''
+    key = rotate(c)
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    final = a.lower().maketrans(alphabet, key)
+</FONT>    return a.lower().translate(final)
+
+def Caesar_decrypt(a:str, c:int) -&gt; str:
+    '''Decrypts a str using a key specified by the int'''
+    key = rotate(c)
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    final = a.lower().maketrans(key, alphabet)
+    return a.lower().translate(final)
+
+
+def Caesar_break(s:str) -&gt; str:
+    k = (list(range(27)))
+    result = []
+    for i in k:
+        result.append(Caesar_decrypt(s,i))
+    for x in result:
+        for f in dictionary:
+            final = f.lower()
+            if x in final:
+                print(x)
+
+
+#D.2
+Caesar_break("surorqjhu'v")
+
+
+#E
+print('-'*6, 'E', '-'*6)
+#E.1
+
+def copy_file(x:str):
+    if x == ('line numbers'):
+            infile_name = input("Please enter the name of the file to copy: ")
+            infile = open(infile_name, 'r', errors='ignore')
+            outfile_name = input("Please enter the name of the new copy:  ")
+            outfile = open(outfile_name, 'w')
+            novel = infile.readlines()
+            count = 0
+            for i in novel:
+                count += 1
+                outfile.write(str(count))
+                outfile.write(':')
+                outfile.write(i)
+            infile.close()
+            outfile.close()
+
+#E.2
+    elif x == ('Gutenberg trim'):
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r', errors='ignore')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        novel = infile.readlines()
+        count = 0
+        for line in novel:
+            count+=1
+            if count &gt; 19:
+                outfile.write(line)
+            if count == 12693:
+                break
+        infile.close()
+        outfile.close()
+
+#E.3
+    elif x ==('statistics'):
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r', errors='ignore')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        novel = infile.readlines()
+        count = 0
+        blank = 0
+        char = 0
+        for i in novel:
+            count += 1
+        outfile.write('{} Lines in the list'.format(str(count)) + '\n')
+        for b in novel:
+            if b == '\n':
+                blank += 1
+        outfile.write('{}  Empty lines'.format(str(blank)) + '\n')
+        for i in novel:
+            for a in i:
+                char += 1
+        outfile.write('{:5.2f} average characters per line'.format(char/len(novel)) + '\n')
+        for i in novel:
+            for e in i:
+                non = count - blank
+        outfile.write("{:5.2f} average characters per non-empty line".format(char/non))  
+        infile.close()
+        outfile.close()
+#E.4
+    elif x ==():
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+copy_file('statistics')
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

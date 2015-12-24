@@ -1,0 +1,184 @@
+<HTML>
+<HEAD>
+<TITLE>reynagaa/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+reynagaa/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Alejandro Reynaga-Aguilera 94979912 Bryson Cateil 83626339 Lab Assignment 7 Lab sec 6
+
+from random import randrange
+
+'''We are on Caesar_break and we still need to test the function, ITS NOT DONE'''
+surnames = 'surnames.txt'
+femalenames = 'femalenames.txt'
+malenames = 'malenames.txt'
+#c
+def random_names(x:int)-&gt;list:
+    '''Takes an interger and returns a list of strings'''
+    listofnames = []
+    
+    flist = return_list(femalenames)
+    surnameslist = return_list(surnames)
+    malelist = return_list(malenames)
+    
+    while True:
+        female = random_name(flist)
+        surname = random_name(surnameslist)
+        male = random_name(malelist)
+
+        if len(listofnames) != x:
+            whole_name = random_whole_name(male,female,surname)
+            listofnames.append(whole_name)
+        else:
+            return listofnames
+
+def return_list(file:str)-&gt;list:
+    '''Opens a file and returns the names in the file'''
+    name_list = []
+
+    names_file = open(file,'r')
+    names1 = names_file.readlines()
+              
+    for name in names1:
+        b = name.split('\t')
+        name_list.append(b[0])
+    names_file.close()    
+    return name_list
+
+def random_name(x:list)-&gt;str:
+    '''Takes a list and returns a random name'''
+    b = randrange(0,len(x))
+    return x[b]
+
+def random_whole_name(x:str, y:str, z:str)-&gt;str:
+    b = randrange(0,2)
+    if b == 0:
+        return z+','+x
+    else:
+        return z+','+y
+    
+print(random_names(3))
+print(random_names(1))
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match55-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(random_names(5))
+
+#d
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def create_rotated_alphabet(a: str, n: int) -&gt; str:
+    ''' create a version of the alphabet that is n spaces away for use in
+    the Caesar cypher '''
+    rotated_alphabet = ''
+    for i in range(26):
+        if i+n &lt; 26:
+            rotated_alphabet += a[i+n]
+        elif i+n &lt; 0:
+            rotated_alphabet += a[i+n + 26]
+        else:
+            rotated_alphabet += a[i+n - 26]
+    return rotated_alphabet
+</FONT>
+def Caesar_encrypt(message:str, key:int, a: str) -&gt; str:
+    ''' encrypt a message using the Caesar cypher: replace a letter with
+    a letter that is key spaces along the alphabet '''
+    table = str.maketrans(a, create_rotated_alphabet(a, key))
+    return message.translate(table)
+
+def Caesar_decrypt(message:str, key:int, a: str) -&gt; str:
+    ''' Decrypt an encoded message by reversing the key '''
+    table = str.maketrans(a, create_rotated_alphabet(a, -key))
+    return message.translate(table)
+
+def counter_sentence(x:int,y:str):
+    '''Takes a string and decrypts it for the amount counter'''
+    sentence_list = []
+    while True:
+        x +=1
+        if x == 26:
+            return sentence_list
+            break
+        else:
+            newsent = Caesar_decrypt(y,x,alphabet)
+            sentence_list.append(newsent)
+            
+def Caesar_break(sent:str)-&gt;str:
+    '''Takes an encrypted string and return a string thats decrypted'''
+    dictionary = []
+    counter1 = 0
+    counter = 0
+    string = ''
+    filename = open('wordlist.txt','r')
+    b = filename.readlines()
+    for lines in b:
+        x = lines.split('\n')
+        dictionary.append(x[0])
+    filename.close()
+    listsent = counter_sentence(counter,sent)
+    for words in listsent:
+        c = words.split(' ')
+        for word in c:
+            if word in dictionary:
+                counter1 += 1
+                if counter1 == len(c):
+                    for items in c:
+                        string = string+items+' '
+                        string = string[0:-1]
+                    return string
+                else:
+                    pass
+          
+assert Caesar_break('Tmnx nx f qtsl qfg.') == None
+assert Caesar_break("A'cukc") == "A'asia"
+
+#e
+def copy_file(x:str):
+    '''Copies the file given and gives the new copy a different name'''
+    counter = 0
+    counter_lines = 0
+    counter_empty = 0
+    counter_characters = 0
+    
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if x == 'line numbers':
+        for line in infile:
+            counter += 1
+            outfile.write(str(counter)+': '+line)
+                
+    elif x == 'Gutenberg trim':
+        for line in infile:
+            if '*** START' in line:
+                break
+        for line in infile:
+            if '*** END' in line:
+                break
+            else:
+                pass
+            outfile.write(line)
+    elif x == 'statistics':
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match55-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        for line in infile:
+            counter_lines +=1
+            if line == '\n':
+                counter_empty += 1
+            for characters in line:
+                counter_characters += 1
+        print('{:6}   lines in the file'.format(counter_lines))
+        print('{:6}   empty lines'.format(counter_empty))
+        print('  {:6.1f} average characters per line'.format(counter_characters/counter_lines))
+        print('  {:6.1f} average characters per non-empty line'.format(counter_characters/(counter_lines - counter_empty)))
+</FONT>    infile.close()
+    outfile.close()
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

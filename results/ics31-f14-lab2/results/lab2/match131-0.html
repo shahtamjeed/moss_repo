@@ -1,0 +1,165 @@
+<HTML>
+<HEAD>
+<TITLE>calvinlw/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+calvinlw/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+
+# Calvin Wong 4978780596 and Phuc Pham 69068910. ICS 31 Lab sec 8.  Lab Asst 2.
+
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  ', rate)
+print('Weekly salary:  ', hours * rate)
+
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour?'))
+print('This many dollars per hour:  $', rate)
+print('Weekly salary:  $', hours * rate)
+
+name = input('Hello. What is your name?')
+print('Hello,', name)
+print('It\'s nice to meet you.')
+age = int(input('How old are you?'))
+print('Next year you will be', age+1,'years old')
+print('Good-bye!')
+
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND = 8.81
+KRONE_PER_DOLLAR = 5.50
+
+print('Please provide this information:')
+name = input('Business name:')
+numEuros = int(input('Number of euros:'))
+numPounds = int(input('Number of pounds:'))
+numDollars = int(input('Number of dollars:'))
+print()
+print('Copenhagen Chamber of Commerce')
+print('Business name:', name)
+conversion_euro = KRONE_PER_EURO * numEuros
+conversion_pound = KRONE_PER_POUND * numPounds
+conversion_dollar = KRONE_PER_DOLLAR * numDollars
+print(numEuros, 'euros is', conversion_euro, 'krone')
+print(numPounds, 'pounds is', conversion_pound, 'krone')
+print(numDollars, 'dollars is', conversion_dollar, 'krone')
+print()
+print ('Total Krone:', conversion_euro + conversion_pound + conversion_dollar)
+
+
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+print(still_another.title)
+print(another.price)
+print ((favorite.price + another.price + still_another.price) / 3)
+print (favorite.year &lt; 1900)
+
+still_another = still_another._replace(price = 26)
+still_another = still_another._replace(price = still_another.price*1.2)
+
+ 
+Animal = namedtuple('Animal', 'name species age weight food')
+jumbo = Animal('Jumbo','Elephant', 50, 1000, 'peanuts')
+perry = Animal('Perry','Platypus', 7, 1.7, 'shrimp')
+print (not(jumbo.weight &lt; perry.weight))
+
+booklist = [favorite, another, still_another]
+print(booklist[0].price &lt; booklist[1].price)
+print(booklist[0].year &gt; booklist[-1].year)
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print (RC[2].name)
+print (RC[0].cuisine == RC[3].cuisine)
+print (RC[-1].price)
+RC.sort()
+print (RC)
+RC.sort(reverse = True)
+print (RC[0].dish)
+RC.sort()
+print (RC)
+r4 = [RC[0], RC[1], RC[-2], RC[-1]]
+print (r4)
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+my_window2 = tkinter.Tk()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match131-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+my_window3 = tkinter.Tk()
+my_window4 = tkinter.Tk()
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas2 = tkinter.Canvas(my_window2, width=500, height=500)
+my_canvas3 = tkinter.Canvas(my_window3, width=500, height=500)
+my_canvas4 = tkinter.Canvas(my_window4, width=500, height=500)
+my_canvas2.pack()
+my_canvas3.pack()
+my_canvas4.pack()
+my_canvas.pack()# Put the canvas into the window
+
+#Draw Square
+my_canvas.create_line(100, 100, 100, 300, fill='orange') 
+my_canvas.create_line(100, 300, 300, 300, fill='orange')   
+my_canvas.create_line(300, 100, 100, 100, fill='orange')
+</FONT>my_canvas.create_line(300, 100, 300, 300, fill='orange')
+
+
+#Draw Diamond
+my_canvas2.create_line(200, 100, 100, 273, fill='blue')
+my_canvas2.create_line(100, 273, 200, 446, fill='blue')   
+my_canvas2.create_line(200, 100, 300, 273, fill='blue')
+my_canvas2.create_line(200, 446, 300, 273, fill='blue')
+
+#Draw Fancy House with Door and Windows
+my_canvas3.create_line(200, 100, 100, 273, fill='orange')   # Orange Lines make the roof
+my_canvas3.create_line(200, 100, 300, 273, fill='orange')
+my_canvas3.create_line(100, 273, 100, 446, fill='purple')   # Purple Lines make the walls
+my_canvas3.create_line(300, 446, 300, 273, fill='purple')
+my_canvas3.create_line(100, 273, 300, 273, fill='purple')
+my_canvas3.create_line(100, 446, 300, 446, fill='purple')
+my_canvas3.create_rectangle(175, 375, 225, 446, fill='brown') # Brown Rectangle makes the door
+my_canvas3.create_oval(180, 410, 190, 420, fill='yellow')     # Yellow Oval makes the door knob  
+my_canvas3.create_rectangle(125, 300, 170, 345, fill='white') # White Rectangles make the windows
+my_canvas3.create_rectangle(275, 300, 230, 345, fill='white')
+my_canvas3.create_line(147, 300, 147, 345, fill='black')      # Black Lines make the window frames
+my_canvas3.create_line(125, 322, 170, 322, fill='black')
+my_canvas3.create_line(253, 300, 253, 345, fill='black')
+my_canvas3.create_line(275, 322, 230, 322, fill='black')
+
+#Draw an eye with pupil and iris
+my_canvas4.create_oval(100,200,300,300,fill='white') #eye outline
+my_canvas4.create_oval(150,200,250,300,fill='blue') #iris
+my_canvas4.create_oval(170,220,230,280,fill='black') #pupil
+
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

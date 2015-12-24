@@ -1,0 +1,293 @@
+<HTML>
+<HEAD>
+<TITLE>calvinlw/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+calvinlw/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Calvin Wong 49787805 and Ming Huang 89334833. ICS 31 Lab sec 7. Lab asst 6.
+#
+#
+# Part (c1)
+#
+#
+print()
+print()
+print('-------- Part (c1) --------')
+print()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match122-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def contains(s1:str, s2:str) -&gt;bool:
+    '''Takes as input two strings. The function checks if the
+    second string occurs in the first string. If the second
+    string does occur, the function returns True;
+    if not, it returns False.'''
+    return s2 in s1
+
+assert contains('banana', 'ana')
+</FONT>assert not contains('racecar', 'ck')
+assert not contains('', 'anteater')
+assert contains('anteater', '')
+
+
+
+#
+#
+# Part (c2)
+#
+#
+print()
+print()
+print('-------- Part (c2) --------')
+print()
+def punc_to_blank(s:str) -&gt; str:
+    '''Takes a string as a input and translate all punctuation to blanks'''
+    table = str.maketrans('`~!@#$%^&*()-_=+[{]}\|;:,&lt;.&gt;/?',
+                          '                              ')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match122-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return s.translate(table)
+def sentence_stats(s:str):
+    '''takes in a string as a parameter and prints out these statistics
+    about the string: its length in characters, its length in words, and
+    the average length of each word.'''
+    print('Characters: ', len(s))
+    wordlist = punc_to_blank(s).split()
+</FONT>    print('Wods: ', len(wordlist))
+    s1 = ''.join(wordlist)
+    print('Average word length: ', len(s1)/len(wordlist))
+    return
+    
+sentence_stats('I love UCI')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+
+
+#
+#
+# Part (c3)
+#
+#
+print()
+print()
+print('-------- Part (c3) --------')
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match122-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+def initials(s:str) -&gt; str:
+    '''takes as input a string representing a full name (e.g.,  Robert B. Qwerty)
+    and returns the initials of the name in all capital letters (e.g., RBQ).'''
+    initial = ''
+</FONT>    s = s.upper()
+    wordlist = s.split()
+    for w in wordlist:
+        initial += w[0]
+    return initial
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+
+
+#
+#
+# Part (d1)
+#
+#
+print()
+print()
+print('-------- Part (d1) --------')
+print()
+from random import randrange
+i = 0
+print('prints out 50 random numbers between 0 and 10')
+for i in range(50):
+    print(randrange(11))
+    i += 1
+print(' prints out 50 random numbers between 1 and 6 ')
+for i in range(50):
+    print(randrange(1, 7))
+    i += 1
+
+
+
+#
+#
+# Part (d2)
+#
+#
+print()
+print()
+print('-------- Part (d2) --------')
+print()
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match122-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def roll2dice() -&gt; int:
+    '''Takes no parameters and
+    returns a number that reflects the random roll of two dice. '''
+    return randrange(1,7) + randrange(1,7)
+    
+for i in range(50):
+    print(roll2dice())
+</FONT>    i += 1
+
+
+
+#
+#
+# Part (d3)
+#
+#
+print()
+print()
+print('-------- Part (d3) --------')
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match122-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+def distribution_of_rolls(n:int):
+    '''Takes one number—the number of times to roll two dice—and
+    prints thedistribution of the values of those rolls'''
+</FONT>    print('Distribution of dice rolls','\n')
+    s = ''
+    formatStr = '{0:2}:{1:6} ( {2:4}% ) '
+    for i in range(n):
+        s += str(roll2dice())
+    for i in range(2,13):
+        num = s.count(str(i))
+        print(formatStr.format(i, num, num * 100 / n), '*' * num)
+    print('-----------------------------')
+    print('       ', n , 'rolls           ')
+    return
+distribution_of_rolls(200)
+
+
+
+#
+#
+# Part (e1)
+#
+#
+print()
+print()
+print('-------- Part (e1) --------')
+print()
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def roated(n:int) -&gt; str:
+    '''Takes a number and produces a "rotated" alphabet with the specified
+    number of characters taken off the front and added on to the end of the
+    string.'''
+    return ALPHABET[n:] + ALPHABET[:n]
+
+def Caesar_encrypt(s:str, key:int) -&gt; str:
+    '''Takes two arguments: a string containing the message and an int
+    for the key,indicating how far down the alphabet to find each substitute
+    letter and returns the ciphertext'''
+    table = str.maketrans(ALPHABET,roated(key%26))
+    return s.translate(table)
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match122-1.html#5" TARGET="1"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert Caesar_encrypt('hi there',29) == 'kl wkhuh'
+assert Caesar_encrypt('hi', 26) == 'hi'
+
+def Caesar_decrypt(s:str, key:int) -&gt; str:
+    '''Takes two arguments: a string containing the message and an int for
+</FONT>    the key, indicating how far down the alphabet to find each substitute
+    letter and returns the plaintext.'''
+    table = str.maketrans(roated(key%26), ALPHABET)
+    return s.translate(table)
+assert Caesar_decrypt('kl wkhuh',3) == 'hi there'
+    
+
+#
+#
+# Part (f1)
+#
+#
+print()
+print()
+print('-------- Part (f1) --------')
+print()
+
+def print_line_numbers(SL: 'list of str'):
+    '''Takes a list of strings and prints each string preceded by a line number'''
+    for i in range(len(SL)):
+        formatStr = '{0:5}:  {1}'
+        print(formatStr.format(i+1,SL[i]))
+
+print_line_numbers([ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ])
+
+
+#
+#
+# Part (f2)
+#
+#
+print()
+print()
+print('-------- Part (f2) --------')
+print()
+def stats(L:[str]):
+    '''prints the statistics of the list of strings, including # of lines,
+       # of empty lines, average characters per line, and average characters
+       per non-empty line'''
+    formatStr = '{0:6.1f}  {1}'
+    print(formatStr.format(len(L),'lines in the list'))
+    SL = L[:]
+    TotalofNonEmpty = 0
+    num_of_empty = 0
+    for i in range(len(SL)):
+        SL[i] = SL[i].strip()
+        if SL[i] == '':
+            num_of_empty += 1
+    print(formatStr.format(num_of_empty,'empty lines'))
+    totalCharacters=0
+    for s in L:
+        totalCharacters+= len(s)
+    print(formatStr.format(totalCharacters/ len(L), 'average characters per line'))
+    for s in SL:
+        TotalofNonEmpty += len(s)
+    print(formatStr.format(TotalofNonEmpty/ (len(L) - num_of_empty),'average characters per non-empty line'))
+
+stats( ["Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ,
+  "                    ","     "," "])
+stats(["cs","se","cse","     ","  "])
+
+
+#
+#
+# Part (f3)
+#
+#
+print()
+print()
+print('-------- Part (f3) --------')
+print()
+def list_of_words(SL:[str]) -&gt; 'list of str':
+    '''takes a list of strings and returns a list of individual words with all
+       white space and punctuation removed except for apostrophes and single quotes'''
+
+    result = []
+    table1 = str.maketrans('`~!@#$%^&*()-_=+[{]}\|;:,&lt;.&gt;/?',
+                           '                              ')
+    for s in SL:
+        s = s.translate(table1)
+        result.extend(s.split())
+    return result
+
+print(list_of_words(['hello there!', 'bye-bye.','$5']))
+print(list_of_words(['apostrophe\'s car is new']))
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

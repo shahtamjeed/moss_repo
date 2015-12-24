@@ -7,19 +7,32 @@ require_once('db.php');
 class Results extends Database
 {
 
-	function __construct($file=NULL, $values=NULL, $save_as="")
+	function __construct($file=NULL, $values=NULL, $save_as="", $format="json")
 	{
 		parent::__construct();
-
+		
 		if (!is_null($file) && !is_null($values) && !is_null($save_as))
 			$this->unzip_and_save($file, $values, $save_as);
+
+		else if (!is_null($file))
+		{
+			$this->data = $this->query($file, $format);
+		}
+	}
+
+
+	public function get($values=array(), $cols="*", $type="AND", $format="json")
+	{
+		return str_replace('"', "'", $this->select("results", $values, $cols, $type, $format));
 	}
 
 
 	public function unzip_and_save($file, $values, $save_as="")
 	{
-		$this->unzip($file, $save_as);
-		$this->create_db_entry($values);
+		if ($this->unzip($file, $save_as))
+			$this->create_db_entry($values);
+		else
+			throw new Exception("Results->unzip_and_save: there was a problems unzipping file $file");
 	}
 
 
@@ -65,6 +78,10 @@ class Results extends Database
 		}
 	}
 }
+
+
+$r = new Results();
+var_dump($r->get(array("name" => "lab2")));
 
 
 ?>

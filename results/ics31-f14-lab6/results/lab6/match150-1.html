@@ -1,0 +1,237 @@
+<HTML>
+<HEAD>
+<TITLE>marshll/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ssthothr/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+#Elaine Thai 27403490 and Sreeja Sthothra Bhashyam 25185345. ICS 31 Lab sec 10.
+
+print()
+print('----------(c)----------')
+print()
+
+#c1
+print('----------(c1)----------')
+def contains (a: str, b: str):
+    '''Checks if the second string occurs in the first string '''
+    return b in a
+assert contains('banana', 'ana') == True
+assert not contains('racecar', 'ck') == True
+assert contains('pineapple', 'map') == False
+assert not contains('apple', 'le') == False
+
+print('contains(\'banana\', \'ama\')')
+print(contains('banana','ana'))
+
+#c2
+print('----------(c2)----------')
+def sentence_stats(instring: str):
+    ''' Takes in a string and returns its length, number of words
+    in string, and average length of each word'''
+    print('Characters: ', len(instring))
+    instring2 = instring.maketrans('?!:*;.', '      ')
+    instring3 = instring.translate(instring2)
+    print('Words ', len(instring3.split()))
+    charactersum=0
+    for x in instring3.split():
+        charactersum+=len(x)
+    print('Average word length: ', (charactersum/len(instring3.split())))
+sentence_stats('I love UCI')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+#c3
+print('----------(c3)----------')
+def initials(istr: str) -&gt; str:
+    ''' Takes an input string and returns initials '''
+    initials=''
+    for x in istr.split():
+       initials+=x[0]
+    return initials.upper()
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+print()
+print('----------(d)----------')
+print()
+
+#d1
+print('----------(d1)----------')
+from random import randrange
+''' Prints 50 random numbers from 0 to 10 '''
+for x in range(50):
+    print(randrange(0,11))
+print()
+''' Prints 50 random numbers from 1 to 6 '''
+for x in range(50):
+    print(randrange(1,7))
+print()
+
+#d2
+print('----------(d2)----------')
+def roll2dice():
+    ''' Returns a number that represents the random roll of two dice '''
+    p=randrange(0,36)
+    if p in [0]:
+        r = 2
+    if p in [1, 2]:
+        r = 3
+    if p in [3, 4, 5]:
+        r = 4
+    if p in [6, 7, 8, 9]:
+        r = 5
+    if p in [10, 11, 12, 13, 14]:
+        r = 6
+    if p in [15, 16, 17, 18, 19, 20]:
+        r = 7
+    if p in [21, 22, 23, 24, 25]:
+        r = 8
+    if p in [26, 27, 28, 29]:
+        r = 9
+    if p in [30, 31, 32]:
+        r = 10
+    if p in [33, 34]:
+        r = 11
+    if p in [35]:
+        r = 12
+    return r
+
+for x in range(50):
+    print(roll2dice())
+
+#d3
+print('----------(d3)----------')
+from collections import namedtuple
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match150-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def distribution_of_rolls(num: int):
+    ''' Prints a distribution of the values of the input number of rolls of 2 dice '''
+    total = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    for y in range(num):
+        x = roll2dice()    
+        if x == 2:
+            total[2]+=1
+        if x == 3:
+            total[3]+=1
+        if x == 4:
+</FONT>            total[4]+=1
+        if x == 5:
+            total[5]+=1
+        if x == 6:
+            total[6]+=1
+        if x == 7:
+            total[7]+=1
+        if x == 8:
+            total[8]+=1
+        if x == 9:
+            total[9]+=1
+        if x == 10:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match150-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            total[10]+=1
+        if x == 11:
+            total[11]+=1
+        if x == 12:
+            total[12]+=1
+    print('Distribution of dice rolls ', '\n')
+    for n in range(2,13):
+        print("{:2d}:{:6d} ({:4.1f}%)  {}".format(n, total[n], (total[n]/num)*100, ('*'*total[n])))
+    print('-----------------------------')
+    print('      ', num, ' rolls              ')
+distribution_of_rolls(200)
+
+print()
+print('----------(e)----------')
+</FONT>print()
+
+#e1, e3
+print('----------(e1, e3)----------')
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+def Caesar_encrypt(ptext: str, n: int) -&gt; str:
+    '''Return ciphertext of message'''
+    if n&gt;25:
+        n=n%26
+    else:
+        n=n
+    shifted_alphabet = alphabet[n:] + alphabet[:n]
+    ptext = ptext.lower()
+    table = str.maketrans(alphabet, shifted_alphabet)
+    return ptext.translate(table)
+assert Caesar_encrypt('APE', 2) == 'crg'
+
+def Caesar_decrypt(ctext: str, n: int) -&gt; str:
+    ''' Return plaintext of message '''
+    shifted_alphabet = alphabet[n:] + alphabet[:n]
+    ctext = ctext.lower()
+    table = str.maketrans(shifted_alphabet, alphabet)
+    return ctext.translate(table)
+assert Caesar_decrypt('CRRNG', 2) == 'apple'
+
+print()
+print('----------(f)----------')
+print()
+#f1
+print('----------(f1)----------')
+def print_line_numbers(ls:[str]):
+    ''' Print each string preceded by a line number'''
+
+    for x in range(len(ls)):
+        print("{:5d}:  {}".format(x+1, ls[x]))
+    return
+print_line_numbers(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'])
+
+#f2
+print('----------(f2)----------')
+s = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+     
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match150-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats(lsts: list) -&gt; str:
+    "Lists the statistics of a list of strings"
+    print('{0:6}'.format(len(lsts)), '  lines in the list')
+    x = 0
+    for p in lsts:
+        if p == '':
+            x += 1
+    print('{0:6d}'.format(x), '  empty lines')
+</FONT>    sump = 0
+    for p in lsts:
+        sump += len(p)
+    print('{0:8}'.format((sump/len(lsts))), 'average characters per line')
+    print('{0:8}'.format((sump/(len(lsts)-x))), 'average characters per non-empty line')
+stats(s)
+
+#f3
+print('----------(f3)----------')
+def punctuation_blank(instrn: str) -&gt; str:
+    "Returns str w/o punctuation"
+    result = ''
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match150-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for x in instrn:
+        if x in "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz '1234567890":
+            result += x
+    return result
+
+def list_of_words(inptstrng: list) -&gt; list:
+    "Returns list of words without spaces amd punctuation"
+    result1 = []
+    for y in inptstrng:
+        result1 += (punctuation_blank(y)).split()
+    return result1
+print(list_of_words(s))
+</FONT>
+    
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

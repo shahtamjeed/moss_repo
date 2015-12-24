@@ -1,0 +1,484 @@
+<HTML>
+<HEAD>
+<TITLE>boriboon/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+boriboon/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Niles Boriboon 81592616 and Alexander Cosio 12944535. ICS 31 Lab sec. 11. Lab asst. 3
+
+#Part (c)
+
+#Part (c.1)
+
+def abbreviate (n: str) -&gt; str:
+    #take the given string and prints the first three characters
+    return n[0] + n[1] + n[2]
+
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+assert abbreviate('paper') == 'pap'
+
+#Part (c.2)
+
+def find_area_square (a: int) -&gt; int:
+    #equation that allows user to find the area of a square
+    return a ** 2
+
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+assert find_area_square(6) == 36
+
+#Part (c.3)
+
+def find_area_circle (b: int) -&gt; int:
+    #takes the input radius and gives you the area
+    return 3.14 * (b ** 2)
+
+assert find_area_circle(1) == 3.14
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match157-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert find_area_circle(5) == 78.5
+assert find_area_circle(2) == 12.56
+
+#Part (c.4)
+print()
+print('------- Part(c.4) --------')
+print()
+def print_even_numbers (c: list) -&gt; int:
+    #checks if the numbers with in the list are even, if they are they are printer out
+    for number in c:
+        if number % 2 == 0:
+            print(number)
+</FONT>    
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+#Part (c.5)
+
+def calculate_shipping (d: float) -&gt; float:
+    #calculate the shipping cost of certain packages weight
+    if d &lt; 2:
+        return 2.00
+    elif 2 &lt;= d &lt; 10:
+        return 5.00
+    else:
+        return 5.00 + 1.50 * (d - 10)
+
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+#Part (c.6)
+print()
+print('------ Part(c.6) -------')
+print()
+
+import tkinter
+
+def create_square():
+    #takes the user input and allows them to make a square
+    x_int = int(input('x-int'))
+    y_int = int(input('y-int'))
+    len_int = int(input('length'))
+    x2 = x_int + len_int
+    y2 = y_int + len_int
+
+    my_window = tkinter.Tk()    # Create the graphics window
+
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+    my_canvas.pack()            # Put the canvas into the window
+    
+    my_canvas.create_rectangle(x_int, y_int, x2, y2, fill='')
+    #my_canvas.create_rectangle(100, 100, 300, 300, fill='')
+    tkinter.mainloop()
+create_square()
+
+#Part (c.7)
+print()
+print('------ Part(c.7) -------')
+print()
+
+def create_circle():
+    #takes the user input and allows them to create a circle
+    xint = int(input('x_int'))
+    yint = int(input('y_int'))
+    dia = int(input('diameter'))
+
+    my_window = tkinter.Tk()    # Create the graphics window
+
+    my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+    my_canvas.pack()            # Put the canvas into the window
+
+    my_canvas.create_oval(xint, yint, xint + dia, yint + dia, fill='')
+  
+    tkinter.mainloop()
+create_circle()
+
+#Part (d)
+
+#Part (d.1)
+
+from collections import namedtuple     
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurant_price(RC):
+    #returns the price of each restaurant
+    return RC.price
+
+assert restaurant_price(RC[0]) == 12.50
+assert restaurant_price(RC[1]) == 5.50
+assert restaurant_price(RC[3]) == 15.50
+
+#Part (d.2)
+print()
+print('-------- Part (d.2) --------')
+print()
+
+RC.sort(key=restaurant_price)
+print(RC)
+
+#Part (d.3)
+print()
+print('------- Part (d.3) --------')
+print()
+
+def costliest(RC):
+    #prints out the name of the restaurant that has the highest price
+    RC.sort(key=restaurant_price)
+    print(RC[-1].name)
+
+costliest(RC)
+
+#Part (d.4)
+
+print()
+print('------- Part(d.4) --------')
+print()
+
+def costliest2(RC):
+    #prints out the name of the restaurant that had the highest price
+    #had to use sorted() instead of .sort
+    x = sorted(RC, key=restaurant_price)
+    return(x[-1].name)
+   
+print(costliest2(RC))
+
+#Part (e)
+
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book('Suzanne Collins', 'The Hunger Games', 'Adventure Fiction', 2008, 7.00, 100),
+    Book('J.K. Rowling', 'Harry Potter and the Socerer\'s Stone', 'Fantasy', 2003, 8.50, 75),
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match157-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Book('Harper Lee', 'To Kill a Mockingbird', 'Social Drama', 1960, 5.00, 100),
+    Book('Lois Lowry', 'The Giver', 'Science Fiction', 1993, 10.00, 150),
+    Book('John Green', 'The Fault in our Stars', 'Young Adult', 2012, 12.50, 200),
+    Book('F. Scott Fitzgerald', 'The Great Gatsby', 'Jazz Age Novel', 1925, 8.00, 115) ]
+
+#Part (e.1)
+print()
+print('------- Part (e.1) --------')
+print()
+
+def sequence(BSI):
+</FONT>    #prints out the book titles in abc order
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match157-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for order in BSI:
+        print(order.title)
+
+sequence(BSI)
+
+#Part (e.2)
+print()
+print('------- Part (e.2) --------')
+print()
+
+def book_title(BSI):
+    #returns the title of the books within the BSI tuple
+    return BSI.title
+
+def sequence2(BSI):
+</FONT>    #sorts and prints the book titles abc order
+    y = sorted(BSI, key = book_title)
+    for order2 in y:
+        print(order2.title)
+
+
+sequence2(BSI)
+
+#Part (e.3)
+print()
+print('------- Part (e.3) --------')
+print()
+
+def sequence3(BSI):
+    #prints out the price increase of all the books by 10%
+    for price in BSI:
+        print(price.price * 1.1)
+        
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match157-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+sequence3(BSI)
+
+#Part (e.4)
+print()
+print('------- Part (e.4) -------')
+print()
+
+def sequence4(BSI):
+    #checks the genre of each of the books, if any of them is about Technology then it should print it out.
+    for genre in BSI:
+        if genre.genre == 'Technology':
+            print(genre.genre)
+    
+sequence4(BSI)
+
+#Part (e.5)
+print()
+print('------ Part (e.5) -------')
+</FONT>print()
+
+def sequence5(BSI):
+    #prints out the book list of the books that were written before 2000
+    BSI2 = []
+    for book in BSI:
+        if book.year &lt; 2000:
+            BSI2.append((book.title, book.instock))
+    return(BSI2)
+            
+print(sequence5(BSI))
+
+def sequence6(BSI):
+    #prints the book list of the books that were written after the year 2000
+    BSI3 = []
+    for book in BSI:
+        if book.year &gt;= 2000:
+            BSI3.append((book.title, book.instock))
+    return(BSI3)
+
+print(sequence6(BSI))
+
+def sequence7(BSI):
+    #prints out the amount of books for books written before 2000
+    BSI2 = []
+    for book in BSI:
+        if book.year &lt; 2000:
+            BSI2.append(book.instock)
+    return(BSI2)
+
+a=(sequence7(BSI))
+
+def sequence8(BSI):
+    #prints out the amount of books available for books written after 2000
+    BSI3 = []
+    for book in BSI:
+        if book.year &gt;= 2000:
+            BSI3.append(book.instock)
+    return(BSI3)
+
+b=(sequence8(BSI))
+
+a1 = sum(a)
+b1= sum(b)
+
+if a1 &gt; b1:
+    print('More titles before 2000', '(', a1, 'vs', b1, ')')
+
+if a1 &lt; b1:
+    print('More titles 2000 or later', '(', b1, 'vs', a1, ')')
+
+#Part (e.6)
+print()
+print('------ Part(e.6) -------')
+print()
+
+W = []
+def inventory_value(BSI):
+    #returns the product of the book price times number of books in stock
+    return BSI.instock * BSI.price
+
+def top_value(BSI):
+    #sorts the books, and then prints out the string with the book that is worth more when inventory_value(BSI) is done.
+    BSI_sorted = sorted(BSI, key = inventory_value)
+    print(BSI_sorted[-1])
+    print('The highest-value book is', BSI_sorted[-1].title, 'by', BSI_sorted[-1].author, 'at a value of $', (BSI_sorted[-1].instock * BSI_sorted[-1].price))
+
+top_value(BSI)
+
+#Part (f)
+import tkinter 
+
+def draw_face():
+    #draws a yellow face with blue eyes and white mouth, and nose
+    my_window = tkinter.Tk()   
+
+    my_canvas = tkinter.Canvas(my_window, width=1000, height=1000)  
+    my_canvas.pack()
+
+    my_canvas.create_oval(50, 50, 950, 950, fill='yellow')
+    def draw_eye1():
+        #draws left eye
+        my_canvas.create_oval(100, 160, 400, 340, fill='white')
+        my_canvas.create_oval(185, 190, 325, 310, fill='lightblue')
+        my_canvas.create_oval(215, 210, 290, 290, fill='black')
+
+    draw_eye1()
+
+    def draw_eye2():
+        #draws right eye
+        my_canvas.create_oval(600, 160, 900, 340, fill='white')
+        my_canvas.create_oval(685, 190, 825, 310, fill='lightblue')
+        my_canvas.create_oval(715, 210, 790, 290, fill='black')
+
+    draw_eye2()
+
+    def draw_nose():
+        #draws two lines that make up the nose
+        my_canvas.create_line(450, 500, 520, 400, fill='black')
+        my_canvas.create_line(450, 500, 550, 500, fill='black')
+        
+    draw_nose()
+
+    def draw_mouth():
+        #draws a white circle that is the mouth
+        my_canvas.create_oval(350, 700, 650, 850, fill='white')
+    draw_mouth()
+    
+    tkinter.mainloop()
+    
+draw_face()
+
+def draw_face2():
+    #draws a beige face with brown eyes and a red mouth
+    my_window = tkinter.Tk()   
+
+    my_canvas = tkinter.Canvas(my_window, width=1000, height=1000)  
+    my_canvas.pack()
+
+    my_canvas.create_oval(100, 100, 900, 900, fill='beige')
+    def draw_eye1():
+        #draws the left eye
+        my_canvas.create_oval(200, 260, 500, 440, fill='white')
+        my_canvas.create_oval(285, 290, 425, 410, fill='brown')
+        my_canvas.create_oval(315, 310, 390, 390, fill='black')
+
+    draw_eye1()
+
+    def draw_eye2():
+        #draws the right eye
+        my_canvas.create_oval(500, 260, 800, 440, fill='white')
+        my_canvas.create_oval(585, 290, 725, 410, fill='brown')
+        my_canvas.create_oval(615, 310, 690, 390, fill='black')
+
+    draw_eye2()
+
+    def draw_nose():
+        #draws the nose
+        my_canvas.create_line(450, 600, 550, 475, fill='black')
+        my_canvas.create_line(450, 600, 575, 600, fill='black')
+        
+    draw_nose()
+
+    def draw_mouth():
+        #draws the red mouth
+        my_canvas.create_oval(425, 700, 575, 850, fill='red')
+    draw_mouth()
+    
+    tkinter.mainloop()
+    
+draw_face2()
+
+#Python Lab3 Solution Check
+'''
+
+------- Part(c.4) --------
+
+2
+20
+710
+1004
+
+------ Part(c.6) -------
+
+x-int100
+y-int100
+length100
+
+------ Part(c.7) -------
+
+x_int100
+y_int100
+diameter200
+
+-------- Part (d.2) --------
+
+[Restaurant(name='Nobu', cuisine='Japanese', phone='335-4433', dish='Natto Temaki', price=5.5), Restaurant(name='Nola', cuisine='New Orleans', phone='336-4433', dish='Jambalaya', price=5.5), Restaurant(name='Addis Ababa', cuisine='Ethiopian', phone='337-4453', dish='Yesiga Tibs', price=10.5), Restaurant(name='Thai Dishes', cuisine='Thai', phone='334-4433', dish='Mee Krob', price=12.5), Restaurant(name='Jitlada', cuisine='Thai', phone='324-4433', dish='Paht Woon Sen', price=15.5), Restaurant(name='Nonna', cuisine='Italian', phone='355-4433', dish='Stracotto', price=25.5), Restaurant(name='Noma', cuisine='Modern Danish', phone='337-4433', dish='Birch Sap', price=35.5)]
+
+------- Part (d.3) --------
+
+Noma
+
+------- Part(d.4) --------
+
+Noma
+
+------- Part (e.1) --------
+
+The Hunger Games
+Harry Potter and the Socerer's Stone
+To Kill a Mockingbird
+The Giver
+The Fault in our Stars
+The Great Gatsby
+
+------- Part (e.2) --------
+
+Harry Potter and the Socerer's Stone
+The Fault in our Stars
+The Giver
+The Great Gatsby
+The Hunger Games
+To Kill a Mockingbird
+
+------- Part (e.3) --------
+
+7.700000000000001
+9.350000000000001
+5.5
+11.0
+13.750000000000002
+8.8
+
+------- Part (e.4) -------
+
+
+------ Part (e.5) -------
+
+[('To Kill a Mockingbird', 100), ('The Giver', 150), ('The Great Gatsby', 115)]
+[('The Hunger Games', 100), ("Harry Potter and the Socerer's Stone", 75), ('The Fault in our Stars', 200)]
+More titles 2000 or later ( 375 vs 365 )
+
+------ Part(e.6) -------
+
+Book(author='John Green', title='The Fault in our Stars', genre='Young Adult', year=2012, price=12.5, instock=200)
+The highest-value book is The Fault in our Stars by John Green at a value of $ 2500.0
+'''
+
+
+    
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

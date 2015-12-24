@@ -1,0 +1,196 @@
+<HTML>
+<HEAD>
+<TITLE>achongco/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+achongco/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Zainab Khan 76619225 and Arielle Chongco 45137728.  ICS 31 Lab sec 9.  Lab asst 7.
+
+from random import randrange
+
+#
+#
+# Part (c)
+#
+#
+
+print("------------ Part (c) ------------\n\n")
+
+def file_open(name: str) -&gt; [str]:
+    """ Extracts list of string names from files
+    """
+    infile = open(name,'r')
+    result = []
+    for line in infile:
+        result.append(line.split()[0].title())
+    infile.close()
+    return result
+
+global surname
+global female_name
+global male_name
+
+surname = file_open("surnames.txt")
+female_name = file_open("femalenames.txt")
+male_name = file_open("malenames.txt")
+
+def generate_name() -&gt;str:
+    """ Generates a random name
+    """
+    last_name = surname[randrange(0,len(surname))]
+    first_name = ""
+    if(randrange(0,2) == 0):
+        first_name = male_name[randrange(0, len(male_name))]
+    else:
+        first_name = female_name[randrange(0, len(female_name))]
+    return (last_name + ", " + first_name)
+
+print(generate_name())
+
+def random_names(num: int) -&gt; [str]:
+    """ Generates given num number of random names
+    """
+    result = []
+    for count in range(num):
+        result.append(generate_name())
+    return result
+
+print(random_names(10))
+
+#
+#
+# Part (d)
+#
+#
+
+print("------------ Part (d) ------------\n\n")
+
+global ALPHABET
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match75-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+
+def rotate_alpha(key: int) -&gt;str:
+    """Rotates alphabet based on given int value and returns rotated alphabet
+    """
+    return (ALPHABET[key:26] + ALPHABET[0:key])
+assert rotate_alpha(2) == "cdefghijklmnopqrstuvwxyzab"
+assert rotate_alpha(10) ==  "klmnopqrstuvwxyzabcdefghij"
+
+def Caesar_encrypt(mesg:str, key:int)-&gt;str:
+    '''Takes in a message and a key and encrypts the message and return it'''
+    key = key % 25
+    transtab = str.maketrans(ALPHABET, rotate_alpha(key))
+</FONT>    mesg = mesg.lower()
+    return mesg.translate(transtab)
+assert Caesar_encrypt("this is a test",3) == "wklv lv d whvw"
+assert Caesar_encrypt("Encrypt me please", 7) == "lujyfwa tl wslhzl"
+
+def Caesar_decrypt(mesg:str, key:int)-&gt;str:
+    '''Takes in a message and a key and decrpyts the message and returns it'''
+    key = key % 25
+    transtab = str.maketrans(ALPHABET, rotate_alpha(key*-1))
+    return mesg.translate(transtab)
+assert Caesar_decrypt("wklv lv d whvw", 3) == "this is a test"
+assert Caesar_decrypt("lujyfwa tl wslhzl", 7) =="encrypt me please"
+
+def Caesar_break(mesg:str)-&gt;str:
+    '''Breaks the Caesar cypher using the brute force method'''
+    possibilities = []
+    for sample_key in range(26):
+        possibilities += [Caesar_decrypt(mesg,sample_key)]
+    hits = []
+    for sample_poss in possibilities:
+        hits += [check_words(sample_poss)]
+    return possibilities[hits.index(max(hits))]
+
+global dictionary
+dictionary = file_open("wordlist.txt")
+
+def check_words(sample_poss:str)-&gt;int:
+    '''Gives a count of how many dictionary-defined words are in sample_poss'''
+    count = 0
+    transtab = str.maketrans("!.$,;-?&","        ")
+    for word in sample_poss.translate(transtab).split():
+        if word.title() in dictionary:
+            count += 1
+    return count
+assert check_words("Cabazon Bywoods Cat") == 2
+message = Caesar_encrypt("Hello there folks. Are you having fun today?",8)
+assert Caesar_break(message)=="hello there folks. are you having fun today?"
+
+
+arielle_message = "Decrypt this phrase please."
+a_encrypt = Caesar_encrypt(arielle_message, 12)
+print(Caesar_break(a_encrypt))
+
+z_secret = "Minesweeper is a very fun game if you are bored"
+z_encrypt = Caesar_encrypt(z_secret,2)
+print(Caesar_break(z_encrypt))
+
+
+
+#
+#
+# Part (e)
+#
+#
+
+print("------------ Part (e) ------------\n\n")
+
+def copy_file(instruction: str):
+    """ Copies file into specified file location
+    """
+    
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if instruction=='line numbers':
+        count = 1
+        for line in infile:
+            outfile.write("{:5d}:   {:}".format((count),line))
+            count += 1
+    elif instruction=="Gutenberg trim":
+        okay = False
+        for line in infile:
+            if ("*** END" in line):
+                okay = False
+                break
+            if (okay):
+                outfile.write(line)
+            if ("*** START" in line):
+                okay = True
+    elif instruction == "statistics":
+        file = []
+        for line in infile:
+            file.append(line)
+            outfile.write(line)
+        stats(file)
+    else:
+        for line in infile:
+            outfile.write(line)   
+    infile.close()
+    outfile.close()
+
+def stats(list_str: [str]) -&gt; [str]:
+    '''Takes in a list of string and returns the stats of the strings'''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match75-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    avg_char = 0
+    empty_lines = 0
+    length = len(list_str)
+    for i in range(length):
+        avg_char += len(list_str[i])
+        empty_lines += int(list_str[i].isspace())    
+</FONT>    print('{:6d}   {}'.format(length, 'lines in the list'))
+    print('{:6d}   {}'.format(empty_lines, 'empty lines'))
+    print('    {:2.1f} {}'.format((avg_char/length), 'average character per line'))
+    print('    {:2.1f} {}'.format((avg_char/(length-empty_lines)), 'average character per line'))
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

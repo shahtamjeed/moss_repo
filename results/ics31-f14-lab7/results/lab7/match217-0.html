@@ -1,0 +1,177 @@
+<HTML>
+<HEAD>
+<TITLE>alexal9/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+alexal9/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Celine Deleon 95467682 and Alexander Lee 57595929.  ICS 31 Lab sec 2.  Lab asst 7.
+
+# Part C
+print()
+print('-----Part C-----')
+print()
+from random import randrange
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match217-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+surnames = open('surnames.txt','r')
+female_names = open('femalenames.txt', 'r')
+male_names = open('malenames.txt', 'r')
+
+surnames_list = []
+females_list = []
+males_list = []
+
+for line in surnames:
+    surnames_list.append(line.split()[0])
+
+for line in female_names:
+    females_list.append(line.split()[0])
+
+for line in male_names:
+    males_list.append(line.split()[0])
+</FONT>
+def random_name()-&gt; str:
+    '''Returns a random name'''
+    last_name = surnames_list[randrange(1000)]
+    value = randrange(2)
+    if value == 0:
+        first_name = females_list[randrange(1000)]
+        return last_name + ", " + first_name
+    elif value == 1:
+        first_name = males_list[randrange(1000)]
+        return last_name + ", " + first_name
+        
+def random_names(n:int)-&gt; list:
+    '''Returns a list of random names'''
+    result = []
+    for i in range(n):
+        result.append(random_name())
+    return result
+print(random_names(10))
+
+# Part D
+print('-----Part D-----')
+
+# Part D.1
+print()
+print('-----Part D.1-----')
+print()
+
+infile = open('wordlist.txt', 'r')
+wordlist = infile.read().split()
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+punctuation = '.,!?:;"@#$%^&*()/&lt;&gt;`~-_=+'
+
+def remove_punctuation(str1: str) -&gt; str:
+    ''' Removes all punctuation in the input string '''
+    result = ''
+    for i in str1:
+        if i not in punctuation:
+            result += i
+    return result
+assert remove_punctuation("lol*** h!i: my,  nAme  i%^s &*(^     alex") == \
+       'lol hi my  nAme  is      alex'
+
+def Caesar_encrypt(code: str, shift: int) -&gt; str:
+    ''' Encrypt a message with a Caesar cipher with key shift '''
+    shift %= 26 # Wraps around if shift &gt; 25
+    shifted = alphabet[shift:] + alphabet[:shift]
+    table = str.maketrans(alphabet, shifted)
+    return code.lower().translate(table)
+assert Caesar_encrypt('abcdefghijklmnopqrstuvwxyz', 10) == \
+                      'klmnopqrstuvwxyzabcdefghij'
+
+def Caesar_decrypt(code: str, shift: int) -&gt; str:
+    ''' Decrypt a Caesar cipher message with the given key shift '''
+    shift %= 26 # Wraps around if shift &gt; 25
+    shifted = alphabet[shift:] + alphabet[:shift]
+    table = str.maketrans(shifted, alphabet)
+    return code.lower().translate(table)
+assert Caesar_decrypt('rovvy wi xkwo sc kvoh', 10) == 'hello my name is alex'
+
+def Caesar_break(code: str) -&gt; str:
+    ''' Decrypt a Caesar cipher without the key '''
+    code_list = []
+    total = []
+    code = remove_punctuation(code)
+    for i in range(26):
+        code_list.append(Caesar_decrypt(code, i))
+    for i in code_list:
+        number = 0
+        for word in i.split():
+            if word in wordlist:
+                number += 1
+        total.append(number)
+    return code_list[total.index(max(total))]
+
+print(Caesar_break('r(*&%ovvy wi$%^& x&*(kwo sc kvoh'))
+
+# Part D.2
+print()
+print('-----Part D.2-----')
+print()
+
+print(Caesar_break('rtaxct xh iwt qthi'))
+print()
+print(Caesar_break('ymfspxlnansl inssjw nx dzrrd'))
+
+# Part E
+print()
+print('-----Part E-----')
+print()
+
+def copy_file(s:str):
+    ''' Copy a file and perform certain tasks given the input string '''
+    # Part E.1
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    # Part E.2
+    if s == 'line numbers':
+        file = infile.read().split('\n')
+        for i in range(len(file)):
+            outfile.write('{:5d}: {} \n'.format(i + 1, file[i]))
+    # Part E.3
+    elif s == 'Gutenberg trim':
+        file = infile.read().split('\n')
+        body = file[file.index("*** START OF THIS PROJECT GUTENBERG \
+EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***"):file.index("*** END OF THIS PROJECT GUTENBERG \
+EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***")+1]
+        for line in body:
+            outfile.write(line + '\n')
+    # Part E.4
+    elif s == 'statistics':
+        sentences = infile.read().split('\n')
+        total = 0 # total number of characters
+        empty = 0 # number of empty lines
+        for i in sentences:
+            total += len(i)
+            if i.strip() == '':
+                empty += 1
+        avg_char_per_line = total / len(sentences)
+        avg_char_per_nonempty_line = total /(len(sentences)-empty)   
+        print('{:5}   {}'.format(len(sentences), 'lines in the list'))
+        print('{:5}   {}'.format(empty, 'empty lines'))
+        print('{:7.1f} {}'.format(avg_char_per_line, 'average character per line'))
+        print('{:7.1f} {}'.format(avg_char_per_nonempty_line,
+                               'average character per non-empty line'))
+        for line in sentences:
+            outfile.write(line + '\n')            
+    else:    
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+copy_file('')
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+copy_file('statistics')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

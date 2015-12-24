@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/truongjp/(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/zainabk/(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: BandBI.py
+# Zainab Khan 76619225 and Edwin Alexander Lopez 78243641. Lab sec 9. Asst 8.
+
+#Stage 1
+
+
+#Dear Reader, for testing purposes we have
+#commented out the file input portion of our file.
+#Please understand that the variable 'lines' is what
+#our sample command file would have given us,
+#after we replaced the '\n' on each line.
+"""
+input_file = open("bandbstage1.txt",'r')
+inputs = input_file.readlines()
+in_lines = []
+for line in inputs:
+    in_lines.append(line.replace("\n",""))
+"""
+
+in_lines = ["** This is a sample command file for the Anteater BandB, Stage I",
+"PL ***********************************************************",
+"PL Here is a list of available bedrooms (before adding any!)",
+"** A well-written program works gracefully with empty lists.",
+"BL",
+"PL ***********************************************************",
+"** Now let's add a bedroom:",
+"AB 101",
+"BL",
+"** And some more:",
+"AB 104",
+"** Extra blanks around the command should be ignored",
+"ab    102",
+"    AB 201",
+"    Ab      203",
+" BL",
+"PL Thank you for using the Anteater BandB Reservation System!",
+"** That's the end of the sample data for Stage I."]
+
+
+"""
+AB
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match105-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_40.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+(for "add a new bedroom") followed by an integer room number (in the range 1–999). Add a new bedroom with the specified room number.
+BL
+(for "bedroom list"). Print a list of the bedrooms currently available. The input file may contain any number of these commands in any order; each BL command prints a list of available bedrooms based on what has been added as of that point. See the sample output below for the format of the printed bedroom list. For this stage, it doesn't matter what order the bedrooms appear in.
+PL
+(for "print line"), followed by any text. Simply print (or "echo") a line, copying the input (not counting the PL and leading whitespace) to the output. You'll find it useful in testing, and it's also a simple way to make the program's reports clearer or fancier.
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match105-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+**
+Comment, followed by any text. Like comments in a program, comment lines don't have any effect on the program's behavior; they just serve as annotations in the command file.
+</FONT>"""
+
+bed_list = []
+for line in in_lines:
+    line = line.strip()
+    command = line[0:2]
+    if command=="**":
+        continue #ignore line; do nothing; move to next line in lines
+    elif command.upper()=="PL":
+        print(line[3:]) #ignore "PL "
+    elif command.upper()=="AB":
+        do = line.split()
+        bed_list.append(int(do[1]))
+    elif command.upper()=="BL":
+        print("Number of bedrooms in service:",len(bed_list))
+        print("----------------------------------")
+        for bed in bed_list:
+            print(bed)
+</PRE>
+</PRE>
+</BODY>
+</HTML>

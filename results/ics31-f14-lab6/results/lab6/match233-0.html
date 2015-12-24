@@ -1,0 +1,208 @@
+<HTML>
+<HEAD>
+<TITLE>jkandu/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jkandu/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Roshan Suasin 41262572 and Jason Kandu 23434725 ICS 31 Lab 13
+
+from string import punctuation  
+
+# c
+
+print('\n')
+print('----------- Part (c) -----------')
+print('\n')
+
+# c.1
+
+def contains(s: str, s2: str)-&gt; bool:
+  '''If the second string is within the first string, returns True'''
+  return s2.lower() in s.lower()
+assert contains('banana','ana') == True
+assert not contains('racecar','ck') == True
+assert contains('What\'s up?' , ' ') == True
+assert not contains('Hello Friend!', 'No') == True
+
+# c.2
+
+def sentence_stats(s: str):
+    '''Prints length of string, amount of words, and average word length'''
+    print('Characters: ', len(s))
+    s = s.translate(str.maketrans(punctuation, ' '*len(punctuation))).split()
+    print('Words: ', len(s))
+    avg = 0
+    for n in s:
+      avg +=(len(n))
+    print('Average word length: ', avg/len(s))
+    
+sentence_stats('Hello World!')
+sentence_stats('I would like some yogurt, please')
+sentence_stats('***The ?! quick brown fox: ** jumps over the lazy dog.')
+
+# c.3
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match233-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def initials(s: str)-&gt; str:
+  '''Takes a string/name and returns the first initial of each word together'''
+  s = s.upper().split()
+  Initials = ''
+  for word in s:
+    Initials += word[0]
+  return Initials
+assert initials('Roshan Suasin') == 'RS'
+</FONT>assert initials('Bill Gates') == 'BG'
+assert initials('David g kay') == 'DGK'
+
+# d
+
+print('\n')
+print('----------- Part (d) -----------')
+print('\n')
+
+# d.1
+
+from random import randrange
+
+for n in range(50):
+  print(randrange(11))
+
+print('\n')
+
+# d.2
+
+def roll2dice():
+  '''Simulates rolling 2 six-sided dice'''
+  return (randrange(1,7) + randrange(1,7))
+
+for n in range(50):
+  print(roll2dice())
+
+print('\n')
+
+# d.3
+
+def distribution_of_rolls(n: int):
+  result = [0 for num in range(12)]
+  for i in range(n):
+    roll = roll2dice()
+    result[roll - 2] += 1
+  
+  print('Distribution of dice rolls \n')
+  for num in range(2,13):
+    print('{0:2}: {1:5} ({2:4.1f}%) {3:&gt;}'.format(num, result[num-2], result[num-2]* n/100, '*' * result[num-2]))
+  print('-----------------------------')
+  print('{:12} rolls'.format(n))
+
+distribution_of_rolls(100)
+distribution_of_rolls(200)
+distribution_of_rolls(150)
+
+print('\n')
+print('----------- Part (e) -----------')
+print('\n')
+
+# e
+
+# e.1
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match233-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+alpha = 'abcdefghijklmnopqrstuvwxyz'
+
+
+def rotate(n: int)-&gt; str:
+  '''Rotates the alphabet by the given number'''
+  return alpha[n%26:] + alpha[0:n%26]
+</FONT>
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match233-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_encrypt(plainText: str, key: int)-&gt; str:
+  '''Encrypts a Text using a Caesar Cipher with # key'''
+  return plainText.lower().translate(str.maketrans(alpha, rotate(key)))
+assert Caesar_encrypt('hello world',6) == 'nkrru cuxrj'
+assert Caesar_encrypt('Hello My Servile', 6) == 'nkrru se ykxbork'
+
+def Caesar_decrypt(cipheredText: str, key: int)-&gt; str:
+  '''Decrypts a ciphered Text using a Caesar Cipher with # key'''
+  return cipheredText.lower().translate(str.maketrans(rotate(key),alpha))
+</FONT># e.2
+print(Caesar_encrypt('roshan suasin is the homie tho', 191))
+print(Caesar_decrypt('axbqjw bdjbrw rb cqn qxvrn cqx', (191%26)))
+
+# e.3
+### Finished that in e.1 (Refer to rotate function)
+
+print('\n')
+print('----------- Part (f) -----------')
+print('\n')
+
+# f
+
+Text = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent  a new nation, conceived in liberty and dedicated",
+         "   ",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great", "","!?@?@?", 	"	civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.       " ]
+
+# f.1
+
+def print_line_numbers(textList: list):
+  '''Takes a list of strings and prints each string preceded by a line number'''
+  for n in range(len(textList)):
+    print('{0:3}: {1:5}'.format( n + 1, textList[n]))
+
+print_line_numbers(Text)
+
+print('\n')
+# f.2
+
+def stats(textList: list):
+  print('{:7} lines in the list'.format(len(textList)))
+  
+  result = 0
+  for i in textList:
+    if i == '':
+      result += 1
+  print('{:7} empty lines'.format(result))
+  
+  avg = 0
+  for n in textList:
+    avg +=(len(n))
+  print('{:7.1f} average characters per line'.format(avg/len(textList)))
+  
+  nonEmpty = 0
+  for n in textList:
+    if n != '':
+      nonEmpty += 1
+  print('{:7.1f} average characters per non-empty line'.format(avg/nonEmpty))
+
+stats(Text)
+
+print('\n')
+
+# f.3
+stuff = ['Go back to your restaurants program from last week (modified to handle menus—lists of Dish structures).',
+         'You may start with the code that either partner submitted.',
+         "Getting up to speed with code that someone else initially wrote is a real-world programmer's skill; most real programming is modifying or extending an already-existing product. ",
+         "But it's also okay to start fresh and make the dishlist/menu modifications from scratch; sometimes that's the best approach, even when you already have some code that does the task, because if the existing code isn't solid—if it doesn't work as it should, or if it's too hard to understand—it makes no sense to try to build more code on that shaky foundation." ,
+         "Besides, it won't take you nearly as long the second time because you've already thought about the issues and you've already learned something from the mistakes you've made. ","(Donald Knuth of Stanford, who might be America's most famous computer scientist, once suggested this as a software development method: Write the code and get it working; then throw it away and write it again from scratch.",
+         " His point was that people tend to cling to code they've already written, even if it's bad code that's dragging down their further development.",
+         " Starting afresh frees the programmer from the burden of previous bad decisions and allows 'getting it right this time.')"]
+def list_of_words(l: list)-&gt; list:
+  '''Takes a list of strings and returns a list of individial words of the strings
+  without whitespace or punctuations (except apostrophes/single quotes)'''
+  wordList = []
+  for sentence in l:
+    newSentence = sentence.strip(punctuation).split()
+    wordList.extend(newSentence)
+  return wordList
+      
+print(list_of_words(stuff))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

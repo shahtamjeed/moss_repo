@@ -1,0 +1,618 @@
+<HTML>
+<HEAD>
+<TITLE>saideepg/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+saideepg/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Saideep Gupta 81128174 and Justin Dong 23367438. ICS 31 Lab sec 1. Lab asst 6.
+
+
+
+#
+# Part c
+#
+
+print()
+print('-' * 10, 'Part (C)', '-' * 10)
+print()
+
+#c.1
+def contains(string1: str, string2: str) -&gt; bool:
+    '''Takes as input two strings. Function checks if the second string occurs
+    in the first string and returns True if it does and False otherwise'''
+    return string2 in string1
+
+assert contains('apple', 'app') == True
+assert contains('anteater', 'ant') == True
+assert contains('banana', 'app') == False
+assert not contains('programmer', 'paula') == True
+
+print()
+string1 = input("Enter string 1 : ")
+string2 = input("Enter string 2 : ")
+print("\nString 2 is in String 1 : ")
+print(contains(string1, string2))
+      
+
+#c.2
+def translate_to_blank(string: str) -&gt; str:
+    '''Takes a string and replaces all punctuation marks with blank space'''
+    table = str.maketrans(".,!?:;'*",
+                          "        ")
+    return string.translate(table)
+
+assert translate_to_blank('I,.') == 'I  '
+assert translate_to_blank('I love, UCI') == 'I love  UCI'
+
+def sentence_stats(string: str):
+    '''Takes a string and prints out some statistics'''
+    print("\nCharacters : ", len(string))
+    string = translate_to_blank(string)
+    word = 1  # to count the first word
+    string = string.strip()   # to remove any spaces in front of the string
+    if len(string) == 0:   # check if string is empty
+        word = 0
+    else:
+        for i in range(len(string)):
+            if i == (len(string) - 1):   # to break at last position or else
+                                        # error when check for string[i+1]
+                break
+            if string[i] == ' ' and string[i+1] != ' ':  
+                word += 1
+    print("Words : ", word)
+    word_list = string.split()
+    sum = 0
+    for i in word_list:
+        sum += len(i)
+    print("Average word length : ", sum/(len(word_list)) )
+    return
+
+print("\n")
+string = input("Enter string : ")
+sentence_stats(string)
+
+
+#c.3
+def initials(string: str) -&gt; str:
+    '''Takes a string representing a full name and returns the initials of the
+    name in capital letter'''
+    string = string.title()
+    result = string[0]
+    for i in range(len(string)):
+        if string[i] == ' ':
+            result += string[i+1]
+    return result
+
+assert initials('Bill Gates') == 'BG'
+assert initials('mark zuckerberg') == 'MZ'
+assert initials('Steve jobs') == 'SJ'
+assert initials('dennis Ritchie') == 'DR'
+
+print("\n")
+string = input("Enter the string : ")
+print("The initials are : ")
+print(initials(string))
+
+
+#
+# Part d
+#
+
+print()
+print('-' * 10, 'Part (D)', '-' * 10)
+print()
+
+from random import randrange
+
+#d.1
+print("\nRandom Numbers between 0 and 10 (both inclusive) are : ")
+for i in range(50):
+    print(randrange(0, 7) + randrange(0, 7))  # two random numbers generated
+
+print()
+
+
+#d.2
+def roll2dice():
+    '''Returns a number that reflects the random roll of two dice'''
+    print(randrange(2, 13))
+    return
+
+print("\n")
+print("Random Roll of two dice : ")
+for i in range(50):
+    roll2dice()
+
+print()
+
+
+#d.3
+def distribution_of_rolls(num: int) :
+    '''Takes one number and prints the distribution of values of those rolls'''
+    result = []
+    for i in range(num):
+        result.append(randrange(1,7) + randrange(1,7))
+    print("\nDistribution of dice rolls : \n")
+    i = 2
+    while i &lt;= 12:
+        print("{:2d}:   {:2d} ({:4.1f}%)   {:}".format(\
+            i, result.count(i), ((result.count(i))/num) * 100, '*' * \
+            result.count(i)))
+        i += 1
+    print('-' * 28)
+    print("\t", num, "rolls")
+    return
+
+print("\n")
+num = int(input("Enter number of times to roll two dice : "))
+distribution_of_rolls(num)
+print()
+
+
+
+#
+# Part e
+#
+# Also included the check for the key (if its greater than 25)
+# Also put the entire thing in a sort of menu.
+
+print()
+print('-' * 10, 'Part (E)', '-' * 10)
+print()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+while True:
+    print("\n\n Options:\n1. Encrypt message\n2. Decrypt message\n3. Quit\n")
+    choice = int(input("Enter your choice : "))
+    if choice == 1:
+        def caesar_encrypt(string: str, num: int) -&gt; str:
+            '''Takes a string containing the message and a number containing
+            the key and encrypts the message accordingly'''
+            if num &gt; 26:
+                num = num % 26
+            result = ''
+            string = string.lower()
+            for i in range(len(string)):
+                for j in range(len(ALPHABET)):
+                    if string[i] == ALPHABET[j]:
+                        if j &gt;= 25:
+                            j = -1
+                            result += ALPHABET[j + num]
+                        else:
+                            result += ALPHABET[j + num]
+                        break
+                    elif string[i] not in ALPHABET:
+                        result += string[i]
+                        break
+            return result
+
+        print("\n")
+        string = input("Enter message in plaintext : ")
+        num = int(input("Enter key : "))
+        print("\nThe cipher text is : ")
+        print(caesar_encrypt(string, num))
+
+    elif choice == 2:
+        def caesar_decrypt(string: str, num: int) -&gt; str:
+            '''Takes an encrypted message and a key and decrypts it accordingly'''
+            if num &gt; 26:
+                num = num % 26
+            result = ''
+            string = string.lower()
+            for i in range(len(string)):
+                for j in range(len(ALPHABET)):
+                    if string[i] == ALPHABET[j]:
+                        if  j == 0:
+                            j = 26
+                            result += ALPHABET[j - num]
+                        else:
+                            result += ALPHABET[j - num]
+                        break
+                    elif string[i] not in ALPHABET:
+                        result += string[i]
+                        break
+            return result
+    
+        print("\n")
+        string = input("Enter encrypted message : ")
+        num = int(input("Enter key : "))
+        print("\nThe decrypted message is : ")
+        print(caesar_decrypt(string, num))
+                    
+    elif choice == 3:
+        print("\nTHANKYOU")
+        break
+    else:
+        print("INAVLID COMMAND")
+
+print()
+
+
+#
+# Part f
+#
+
+print()
+print('-' * 10, 'Part (F)', '-' * 10)
+print()
+
+string_list = \
+[ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation,\
+  or any",
+  "                             ",  #empty string
+  "nation so conceived and so dedicated, can long endure.        "
+]
+
+#f.1
+def print_line_numbers(string_list: [str]) :
+    '''Takes a list of strings and prints each string seperately with the
+    line number '''
+    n = len(str(len(string_list)))
+    for i in range(len(string_list)):
+        print("{:{:}d}:  {:}".format(i+1, n, string_list[i]))
+    return
+
+print("\n")
+print("The Output is : \n")
+print_line_numbers(string_list)
+
+
+#f.2
+def stats(string_list: [str]):
+    '''Takes a list of strings and prints some statistics about it'''
+    n = len(str(len(string_list)))
+    lines = len(string_list)
+    empty = 0
+    for i in string_list:
+        i = i.split()
+        if len(i) == 0:
+            empty += 1
+    char = 0
+    for  i in string_list:
+        char += len(i)
+    print("{:5d}    lines in the list".format(lines))
+    print("{:5d}    empty lines".format(empty))
+    print("{:7.1f}  average characters per line".format((char/lines)))
+    print("{:7.1f}  average characters per non-empty line".format(\
+        (char/(lines-empty))))
+    return
+
+print("\n")
+print("The string list statistics are : \n")
+stats(string_list)
+
+
+#f.3
+def list_of_words(string_list : [str]) -&gt; [str]:
+    '''Takes a list of strings and returns a list of individual words with
+    all punctuation, except single quotes, removed'''
+    table = str.maketrans(',.;:"*!',
+                          '       ') 
+    result = []
+    for i in string_list:
+        i = i.translate(table)
+        i = i.split()
+        for j in i:
+            result.append(j)
+    return result
+
+print("\n")
+result = list_of_words(string_list)
+print("The ist of individual words is : \n")
+for i in result:
+    print(i)
+print()
+
+
+
+"""
+OUTPUT :
+
+&gt;&gt;&gt; 
+
+---------- Part (C) ----------
+
+
+Enter string 1 : banana
+Enter string 2 : an
+
+String 2 is in String 1 : 
+True
+
+
+Enter string : ***The ?! quick brown fox:  jumps over the lazy dog.
+
+Characters :  52
+Words :  9
+Average word length :  3.888888888888889
+
+
+Enter the string : bill GATES
+The initials are : 
+BG
+
+---------- Part (D) ----------
+
+
+Random Numbers between 0 and 10 (both inclusive) are : 
+6
+4
+9
+9
+6
+3
+3
+6
+7
+4
+4
+2
+7
+6
+4
+9
+6
+8
+5
+6
+5
+11
+5
+6
+5
+5
+8
+8
+7
+6
+7
+5
+0
+4
+9
+7
+5
+5
+0
+6
+1
+2
+5
+5
+4
+4
+6
+7
+7
+7
+
+
+
+Random Roll of two dice : 
+8
+8
+3
+2
+2
+6
+5
+3
+2
+5
+2
+5
+3
+3
+3
+12
+5
+11
+12
+6
+8
+10
+6
+6
+12
+6
+4
+11
+9
+6
+9
+6
+7
+7
+11
+12
+7
+7
+11
+8
+6
+8
+4
+5
+10
+3
+9
+2
+10
+12
+
+
+
+Enter number of times to roll two dice : 200
+
+Distribution of dice rolls : 
+
+ 2:    2 ( 1.0%)   **
+ 3:   13 ( 6.5%)   *************
+ 4:   17 ( 8.5%)   *****************
+ 5:   34 (17.0%)   **********************************
+ 6:   23 (11.5%)   ***********************
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match174-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ 7:   35 (17.5%)   ***********************************
+ 8:   21 (10.5%)   *********************
+</FONT> 9:   22 (11.0%)   **********************
+10:   16 ( 8.0%)   ****************
+11:   10 ( 5.0%)   **********
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match174-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+12:    7 ( 3.5%)   *******
+----------------------------
+</FONT>	 200 rolls
+
+
+---------- Part (E) ----------
+
+
+
+ Options:
+1. Encrypt message
+2. Decrypt message
+3. Quit
+
+Enter your choice : 1
+
+
+Enter message in plaintext : paula programmer
+Enter key : 3
+
+The cipher text is : 
+sdxod surjudpphu
+
+
+ Options:
+1. Encrypt message
+2. Decrypt message
+3. Quit
+
+Enter your choice : 2
+
+
+Enter encrypted message : sdxod surjudpphu
+Enter key : 3
+
+The decrypted message is : 
+paula programmer
+
+
+ Options:
+1. Encrypt message
+2. Decrypt message
+3. Quit
+
+Enter your choice : 3
+
+THANKYOU
+
+
+---------- Part (F) ----------
+
+
+
+The Output is : 
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match174-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+1:  Four score and seven years ago, our fathers brought forth on
+2:  this continent a new nation, conceived in liberty and dedicated
+3:  to the proposition that all men are created equal.  Now we are
+4:     engaged in a great 		civil war, testing whether that nation,  or any
+5:                               
+</FONT>6:  nation so conceived and so dedicated, can long endure.        
+
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match174-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+The string list statistics are : 
+
+    6    lines in the list
+    1    empty lines
+   57.8  average characters per line
+   69.4  average characters per non-empty line
+</FONT>
+
+The ist of individual words is : 
+
+Four
+score
+and
+seven
+years
+ago
+our
+fathers
+brought
+forth
+on
+this
+continent
+a
+new
+nation
+conceived
+in
+liberty
+and
+dedicated
+to
+the
+proposition
+that
+all
+men
+are
+created
+equal
+Now
+we
+are
+engaged
+in
+a
+great
+civil
+war
+testing
+whether
+that
+nation
+or
+any
+nation
+so
+conceived
+and
+so
+dedicated
+can
+long
+endure
+
+&gt;&gt;&gt; 
+
+"""
+
+
+          
+    
+    
+    
+
+
+
+
+        
+</PRE>
+</PRE>
+</BODY>
+</HTML>

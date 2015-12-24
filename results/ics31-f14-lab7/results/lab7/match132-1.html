@@ -1,0 +1,184 @@
+<HTML>
+<HEAD>
+<TITLE>bkcho/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+theresht/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Theresa Tran 89363501 and John Ko 11195112. Lab sec 3. Lab asst 7.
+from collections import namedtuple
+#
+#  Part c
+#
+#
+
+#c1
+print()  
+print()
+print('---------- Part (c) ----------')
+print()
+
+#C1
+
+def random_names(num: int)  -&gt; list:
+    '''Takes an integer and returns a list of random names '''
+    results = []
+    lastnames = read_file('surnames.txt')
+    fnames = read_file('femalenames.txt')
+    mnames = read_file('malenames.txt')
+    for i in range(num):
+        results.append(random_name(fnames, mnames, lastnames))
+    return results
+#C2
+Names = namedtuple("Names", "name percentage population rank")
+
+def read_file(file: str) -&gt; list:
+    '''Reads in a file returns a list of Names'''
+    filehandler = open(file, 'r')
+    results = []
+    for line in filehandler:
+        line = line.strip("\n")
+        name, per, pop, rank = line.split("\t")
+        tuple = Names(name, per, pop, rank)
+        results.append(tuple)
+    return results
+#C3
+from random import randrange
+def random_name(f: list, m: list, l: list) -&gt; str:
+    '''Generates a single random name'''
+    firstname = ''
+    if randrange(2):
+        firstname = f[randrange(len(f))].name 
+    else:
+        firstname = m[randrange(len(m))].name
+    return firstname + ' ' + l[randrange(len(l))].name 
+
+print(random_names(3))
+
+#
+#  Part D
+#
+#
+
+#d1
+print()  
+print()
+print('---------- Part (D) ----------')
+print()
+
+def get_dict(str):
+    '''Returns dictionary list'''
+    results = dict()
+    file = open(str, 'r')
+    for line in file:
+        line = line.strip("\n")
+        results[line] = 1 
+    return results
+
+ALPHABET='abcdefghijklmnopqrstuvwxyz'
+
+def Caesar_encrypt(s:str,n:int)-&gt;str:
+    ''' caesars encryption '''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match132-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    n=n%26
+    SHIFTED = ALPHABET[n:]+ALPHABET[:n]
+    table=str.maketrans(ALPHABET,SHIFTED)
+    return s.translate(table)
+
+def Caesar_decrypt(s:str,n:int):
+</FONT>    ''' decrptyts caesars encrpytion '''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match132-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    n = n % 26
+    SHIFTED = ALPHABET[n:]+ALPHABET[:n]
+    table=str.maketrans(SHIFTED,ALPHABET)
+    return s.translate(table)
+
+def Caesar_break(ciph: str) -&gt; str:
+    '''Brute forces a Caesar decrypt'''
+</FONT>    dict = get_dict('wordlist.txt')
+    for i in range(26):
+        test = Caesar_decrypt(ciph, i)
+        if dict.get(test) != None:
+            return test
+    return "no string found"
+
+print("begot : " + Caesar_encrypt("begot", 6))
+
+print(Caesar_break('hkmuz'))
+
+#
+#  Part E
+#
+#
+
+#e1
+print()  
+print()
+print('---------- Part (E) ----------')
+print()
+
+#e2 & e3 & e4
+def copy_file(ln: str):
+    '''Copies a file'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    flag = False
+    lc = 1
+    empty = 0 
+    lines = 0
+    char = 0  
+    for line in infile:
+        if ln == 'line numbers':
+            outfile.write('{:&gt;5}: '.format(lc) + line)
+            lc += 1 
+        elif ln == 'Gutenberg trim':
+            if flag:
+                if '*** END' in line:
+                    return
+                outfile.write(line)
+            elif '*** START' in line:
+                flag = True
+        elif ln == 'statistics':
+            if line == "\n":
+                empty += 1
+            else:
+                char += len(line)
+            lines += 1
+            outfile.write(line)
+                    
+        else: 
+            outfile.write(line)
+    if ln == 'statistics':
+        sprint(lines, 'lines in the file')
+        sprint(empty, 'empty lines')
+        sprint(char/lines, 'average characters per line')
+        sprint(char/(lines - empty), 'average characters per non-empty line')
+        ''' '''
+
+    infile.close()
+    outfile.close()
+
+def sprint(num, phrase:str):
+    '''Helps a function with printing'''
+    print('{:&gt;7.1f} '.format(num) + phrase)
+
+
+print("copy_file('line numbers')")
+copy_file('line numbers')
+print("copy_file('Gutenberg trim')")
+copy_file('Gutenberg trim')
+print("copy_file('statistics')")
+copy_file('statistics')
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

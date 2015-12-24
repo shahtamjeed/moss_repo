@@ -1,0 +1,205 @@
+<HTML>
+<HEAD>
+<TITLE>brgallar/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+nhanp1/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab3 (1).py
+# Part (c)
+
+#1
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match24-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def abbreviate(word: str) -&gt; str:
+    return word[0:3]
+assert abbreviate('December') == 'Dec'
+assert abbreviate('November') == 'Nov'
+print(abbreviate('June'))
+
+#2
+print ("\n")
+
+def find_area_square(number: int) -&gt; int:
+    return number**2
+assert find_area_square(6) == 36
+assert find_area_square(7) == 49
+print(find_area_square(3))
+
+#3
+print ("\n")
+
+def find_area_circle(radius: float) -&gt; float:
+</FONT>    return (radius**2)*(3.14)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match24-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert find_area_circle(2) == 12.56
+assert find_area_circle(3) == 28.26
+print(find_area_circle(4))
+
+#4
+print ("\n")
+
+def print_even_numbers(number: list) -&gt; list:
+    for x in number:
+        if x%2 == 0:
+            print (x)
+number = [2, 47, 31, 99, 20, 19, 23, 105, 710, 1004]    
+print_even_numbers(number)
+
+
+#5
+print ("\n")
+
+def calculate_shipping(rate: float) -&gt; float:
+        if rate &lt; 2:
+            return (2.00)
+        elif 2 &lt; rate &lt;10:
+</FONT>            return (5.00)
+        elif rate &gt;= 10:
+            return (5.00+(rate-10)*1.50)
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match24-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+print(calculate_shipping(10.50)
+
+#6
+print ("\n")
+
+import tkinter              
+
+my_window = tkinter.Tk()    
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack()            
+</FONT>
+def create_square(x,y,l):
+    my_canvas.create_rectangle(x,y,x+l,y+l)
+create_square(50,50,100)
+
+tkinter.mainloop()
+
+
+# 6
+print ('n\')
+
+import tkinter
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas.pack()
+
+def create_circle(x,y,r):
+    my_canvas.create_oval(x,y,x+r,y+r)
+create_circle(200,200,100)
+
+tkinter.mainloop()
+
+# Part(D)
+
+# D.1
+print ("\n")
+
+from collections import namedtuple     
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+def restaurant_price(price: Restaurant) -&gt; float:
+    return price.price
+print (sorted(RC,key=restaurant_price))
+assert restaurant_price(RC[0]) == 12.50
+
+# D.2 
+print ("\n")
+
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match24-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+RC.sort(key=restaurant_price)
+print (RC)
+
+# D.3
+print ("\n")
+
+def costliest(price: list):
+    price.sort(key=restaurant_price)
+    return price[-1].name
+print (costliest(RC))
+</FONT>
+
+
+# D.4
+print ("\n")
+
+print(RC)
+print(costliest(RC))
+ 
+
+# Part(E)
+
+# E.1
+print ("\n")
+
+from collections import namedtuple
+book = namedtuple('book', 'author title genre year price instock')
+BSI = [book('Peter Van Rossum', 'Artificial Paradise', 'nonfiction', '1993', '29.99', '2'),
+book('Peter Ross', 'Artificial Intelligent', 'nonfiction', '1996', '13.35', '3'),
+book('Aaron Woood', 'Life of Pi', 'fiction', '2000', '20.00', '4'),
+book('Matt Carpenter', 'The End', 'fiction', '2012', '19.94', '3') 
+,book('Karen Lauer', 'The Wood', 'fiction', '2011', '19.83', '6'),
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match24-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+book('John Snow', 'You Know Nothing', 'nonfiction', '2012', '21.95', '7')]
+for i in BSI:
+    print (i.title)
+
+# E.2
+print ("\n")
+
+def book_title(title: book):
+    return title.title
+for i in sorted(BSI,key=book_title):
+    print (i.title)
+</FONT>
+# E.3
+print ('\n')
+       
+book = namedtuple('book', 'author title genre year price instock')
+BSI = [book('Peter Van Rossum', 'Artificial Paradise', 'nonfiction', '1993', '29.99', '2'),
+book('Peter Ross', 'Artificial Intelligent', 'nonfiction', '1996', '13.35', '3'),
+book('Aaron Woood', 'Life of Pi', 'fiction', '2000', '20.00', '4'),
+book('Matt Carpenter', 'The End', 'fiction', '2012', '19.94', '3') 
+,book('Karen Lauer', 'The Wood', 'fiction', '2011', '19.83', '6'),
+book('John Snow', 'You Know Nothing', 'nonfiction', '2012', '21.95', '7')]
+
+def price_hike(price: float): 
+    return (price.price*1.1)
+for i in BSI:
+    print (i.price.replace(i.price,i.price*1.1))
+
+# Part (F)
+import tkinter
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas.pack()
+
+def draw_face(x,y,r):
+    my_canvas.create_oval(x,y,x+r,y+r)
+draw_face(50,70,400)
+
+def draw_mouth(x,y,z,c):
+    my_canvas.create_arc(x,y,z,c,start_180,end_0)
+Draw_mouth(75,75,35,0)
+
+tkinter.mainloop()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

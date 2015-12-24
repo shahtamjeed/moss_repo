@@ -1,0 +1,250 @@
+<HTML>
+<HEAD>
+<TITLE>kimbemm1/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+nagles/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+#Samantha Nagle 62733752 and Richmond Liu 32851015. ICS 31 Lab sec 15. Lab asst. 6
+
+#Part C
+
+#C1
+
+print("------PART C.1------")
+print()
+
+def contains (str1:str, str2:str) -&gt; bool:
+    '''Returns true if the first string contains the second string, and false if otherwise''' 
+    return str2 in str1
+
+assert contains('banana', 'ana') == True
+assert not contains('racecar', 'ck') == True
+assert contains('Richmond','sdfghj') == False
+assert not contains('Samantha','man') == False
+
+#C2
+
+print("------PART C.2------")
+print()
+
+import string
+
+def punctuation(sentence:str)-&gt;str:
+    '''Replaces all characters in a string that are not letters with spaces'''
+    for i in sentence:
+        if i not in string.ascii_letters:
+          sentence = sentence.replace(i,' ')
+    return sentence
+
+def sentence_stats(sentence:str) -&gt; str:
+    '''Prints the # of characters, # of words, and average word length of a string'''
+    sentence = punctuation(sentence)
+    word_list = sentence.split()
+    num = 0
+    for x in word_list:
+        num += len(x)
+    num /= len(word_list)
+    print (word_list)
+    print('Characters:',len(sentence),'\nWords',len(word_list),'\nAverage word length:',num)
+
+sentence_stats('I love UCI')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+#C3
+
+print("------PART C.3------")
+print()
+
+def initials (name:str) -&gt; str:
+    '''Returns the initials of a string of a name'''
+    name_list = name.split()
+    name_initials = ('')
+    for x in name_list:
+        name_initials += x[0]
+    name_initials = name_initials.upper()
+    return name_initials
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+#Part D
+
+#D1
+
+print("------PART D.1------")
+print()
+
+from random import randrange
+'''
+for x in range(50):
+    print(randrange(1,11))
+
+print()
+
+for x in range(50):
+    print(randrange(1,7))
+'''
+#D2
+
+print("------PART D.2------")
+print()
+
+def roll2dice() -&gt; int:
+    '''returns the result of a random roll of two die'''
+    x = randrange(1,7)
+    y = randrange(1,7)
+    return x + y
+'''
+for i in range(50):
+    print(roll2dice())
+
+def num_count(x:list) -&gt; int:
+    for j in range(2,13):
+        count = x.count(j)
+    return count
+'''
+
+#D3
+
+print("------PART D.3------")
+print()
+    
+
+def distribution_of_rolls(x: int) -&gt; str:
+    '''prints out a tally and percentage of the number of times each number appears in a number of random die rolls'''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match200-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    roll_results = []
+    die_counts = []
+    for i in range(x):
+        roll_results.append(roll2dice())
+    for j in range(2,13):
+        count = roll_results.count(j)
+        die_counts.append(count)
+    for g in range(0,11):
+</FONT>        #print(g+2,':     ',die_counts[g], '(',(die_counts[g]/x)*100,'%)', die_counts[g]*'*')
+        print("{:2}:   {:3} ({:5.1f}%){}".format(g+2,die_counts[g],die_counts[g]/x*100, die_counts[g]*'*'))
+    print('--------------------\n',x,'rolls')    
+
+distribution_of_rolls(200)
+
+#Part E
+
+#E1
+
+print("------PART E.1------")
+print()
+
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def alphabet_rotate(num:int) -&gt; str:
+    '''Takes a number and rotates the characters in the string alphabet by that number'''
+    if num &gt; 26:
+            num = num%26
+    alphabet1 = ''
+    alphabet1 += alphabet[num:] + alphabet[:num]
+    return alphabet1
+
+
+def Caesar_encrypt(msg:str,key:int) -&gt; str:
+    '''Takes a string and encrypts it according to the key'''
+    rotate = str.maketrans(alphabet,alphabet_rotate(key))
+    return msg.translate(rotate)
+
+assert Caesar_encrypt("hi there",3) == 'kl wkhuh'
+
+print(Caesar_encrypt('cat',3))
+print(Caesar_encrypt('cat',29))
+
+
+def Caesar_decrypt(msg:str,key:int) -&gt; str:
+    '''Takes an encrypted string and decrypts it according to the key'''
+    rotate = str.maketrans(alphabet_rotate(key),alphabet)
+    return msg.translate(rotate)
+
+assert Caesar_decrypt('kl wkhuh',3) == 'hi there'
+
+    
+
+#Part F
+
+#F1
+
+
+print("------PART F.1------")
+print()
+
+def print_line_numbers(strlist:list):
+    '''Prints the number of each line and the line itself in a list of strings'''
+    for x in range(len(strlist)):
+        print(x+1,':', strlist[x])
+
+print_line_numbers([ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ])
+
+#F2
+
+print("------PART F.2------")
+print()
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match200-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats (strlist:list):
+    '''Takes a list of string and prints the number of lines, the number of empty lines, the averagee number of characters for all lines, and the average number of characters for non-empty lines'''
+    lines_in_list = len(strlist)
+    empty_lines = 0
+    total_chars_string = 0
+
+    for x in strlist:
+        #counts the empty lines in the string and adds the number to empty_lines
+        if x == '':
+            empty_lines += 1    
+            
+    for y in strlist:
+        #counts the total number of characters
+        total_chars_string += len(y)
+        
+    print('{:5}   lines in the list\n{:5}   empty lines\n{:7.1f} average characters per line\n{:7.1f} average characters per non-empty line'.format(lines_in_list,empty_lines,total_chars_string/lines_in_list,total_chars_string/(lines_in_list-empty_lines)))
+</FONT>
+stats([ "Four score and seven years ago, our fathers brought forth on",'','',
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ])
+
+#F3
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match200-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print("------PART F.3------")
+print()
+
+def list_of_words(strlist:list) -&gt; list:
+        '''Takes a list of strings and returns a list of all the words in the strings'''
+        result = []
+        for x in strlist:
+                x = punctuation(x)
+                c = x.split()
+                result += c 
+        return result
+
+print(list_of_words([ "Four score and seven years ago, our fathers brought forth on",'','',
+</FONT>  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]))
+
+
+                
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

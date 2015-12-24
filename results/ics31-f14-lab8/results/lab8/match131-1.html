@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/luhanzhl/(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/yuhual5/(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: BandBI.py..py
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match131-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_98.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+from collections import namedtuple
+Reservation = namedtuple('Reservation','rnum adate ddate name')
+def handle_commands(s:str) -&gt; None:
+    infile=open(s,'r')
+    lines = infile.read().split('\n')
+    com = 0
+    for l in lines:
+        r = l.split()
+        command = r[0].upper()
+        if command == 'BL' or command == 'Bl'or command == 'bL'or command == 'bl':
+            BL()
+        elif command == 'AB'or command == 'Ab'or command == 'aB'or command == 'ab':
+            AB(r[1])
+        elif command == 'PL'or command == 'Pl'or command == 'pL'or command == 'pl':
+            res = ''
+            for s in range(len(r)-1):
+                res += r[s+1] + ' '
+            PL(res)
+
+BedroomList = []
+reservation = []
+def AB(n:int)-&gt;None:
+    BedroomList.append(n)
+        
+def BL()-&gt;None:
+    print('Number of bedrooms in service:   ' + str(len(BedroomList)))
+    print ('--------------------------------------------')
+    for b in BedroomList:
+        print (b)
+
+def PL(s:str)-&gt;None:
+    print (s)
+
+handle_commands('Stage1.txt')
+</FONT></PRE>
+</PRE>
+</BODY>
+</HTML>

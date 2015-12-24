@@ -1,0 +1,183 @@
+<HTML>
+<HEAD>
+<TITLE>annievt1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+moonsm/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Melody Foley and Seung Min Moon 64448209. ICS 31 Lab sec 12. Lab asst 7.
+
+
+print('---------- Section (c) ----------')
+print()
+
+from random import randrange
+
+## c.1 - c.3
+print()
+print('---------- Part (c.1 - c.3) ----------')
+print()
+
+def name_list(filename:str) -&gt; [str]:
+    '''Takes a filename and returns a list of all the names'''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match101-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    infile = open(filename, 'r')
+    lines = infile.readlines()
+    infile.close()
+    names = []
+    for line in lines:
+        x = line.split()
+        names.append(x[0])
+</FONT>    return names
+
+# Testing rand_name_list function
+assert(name_list('femalenames.txt')[0] == 'MARY')
+assert(name_list('malenames.txt')[0] == 'JAMES')
+
+
+def single_random_name(filename:list)-&gt;str:
+    '''returns a single random name from name list'''
+    the_list = name_list(filename)
+    return the_list[randrange(0,len(the_list))]
+
+# Testing single_random_name function
+print('These are single random names (male and female):')
+print(single_random_name('malenames.txt'))
+print(single_random_name('femalenames.txt'))
+print()
+
+
+def random_names(n:int)-&gt;[str]:
+    '''takes an integer n and returns a list of n strings with randomly generated names
+    '''
+    fString = '{}, {}'
+    result = []
+    for i in range(n):
+        firstname = ''
+        if randrange(0,1):
+            firstname += (single_random_name('femalenames.txt'))
+        else:
+            firstname += (single_random_name('malenames.txt'))
+        lastname = single_random_name('surnames.txt')
+        result.append(fString.format(lastname.title(), firstname.title()))
+        #  str.title() prints the string in a title format
+    return result
+
+# Testing random_names function
+print('Thes are lists of random names formatted like this --&gt; Lastname, Firstname:')
+print()
+print(random_names(6), '\n')
+print(random_names(10), '\n')
+print(random_names(12), '\n')
+
+
+print('---------- Section (d) ----------')
+print()
+print()
+print('---------- Part (d.1) ----------')
+print()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match101-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+alphabet =  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+
+def rotated_alphabet(x:str,y:int)-&gt; str:
+    "Returns str changed by x"
+    result = ''
+    change = len(x)
+    for i in range(change):
+        if y + i &lt; change:
+            result += x[y + i]
+        if y + i &gt;= change:
+            result += x[y + i - change]
+</FONT>    return result
+
+def Caesar_encrypt(x:str, y:int)-&gt;str:
+    '''Returns x in a ciphertext'''
+    table = str.maketrans(alphabet, rotated_alphabet(alphabet,y))
+    return x.translate(table)
+
+def Caesar_decrypt(x:str, y:int)-&gt;str:
+    '''Returns x in a plaintext'''
+    return Caesar_encrypt(x, -y)
+
+
+def Caesar_break(x:str) -&gt;str:
+    '''Returns plaintext without having the key'''
+    infile = open("wordlist.txt", 'r')
+    data=infile.readlines()
+    result1 =[]
+    for i in data:
+        result1.append(i.strip())
+    result2 = []
+    for a in range(26):
+        result2.append(Caesar_decrypt(x, a))
+    result3 = []
+    for b in result2:
+        for c in b.split():
+            if c in result1:
+                result3.append(c)
+    return(result3)
+    infile.close()
+
+
+print()
+print('---------- Part (d.2) ----------')
+print()
+print("Caesar_encrypt('hello', 3):", Caesar_encrypt('hello', 3))
+print("Caesar_break(Caesar_encrypt('hello', 3)):", Caesar_break(Caesar_encrypt('hello', 3)))
+print("Caesar_encrypt('pizza', 5):", Caesar_encrypt('pizza', 5))
+print("Caesar_break(Caesar_encrypt('pizza', 5):", Caesar_break(Caesar_encrypt('pizza', 5)))
+
+print()
+print('---------- Section (e) ----------')
+print()
+print()
+print('---------- Part (e.1-e.4) ----------')
+print()
+
+def stats(L:list)-&gt;None:
+    '''Prints statistics about lines in list, empty lines,
+       average characters per line, and
+       average characters per non-empty line'''
+    h = '{:8.1f}'
+    lines_in_list = len(L)
+    characters_per_line = 0
+    empty_lines = 0
+    for i in L:
+        if i == "":
+            empty_lines += 1
+        characters_per_line += len(i)
+    average_per_line = characters_per_line / lines_in_list
+    average_per_nonempty_line = characters_per_line / (lines_in_list - empty_lines)
+    print(h.format(lines_in_list), "lines in the list")
+    print(h.format(empty_lines), "empty lines")
+    print(h.format(average_per_line), "average characters per line")
+    print(h.format(average_per_nonempty_line), "average characters per non-empty line")
+
+
+def copy_file(x:str)-&gt;None:
+    '''Copies file specified by x'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    each_line = infile.readlines()
+    for line in range(len(each_line)):
+        if x == 'line numbers' or x == 'statistics':
+            x2 = ('{:5}: {:}'.format(line, each_line[line]))
+            outfile.write(x2)
+        elif x == 'Gutenberg trim':
+            if line &gt; 18 and line &lt; 11782:
+                outfile.write(each_line[line])
+    if x == 'statistics':
+        stats(each_line)
+    infile.close()
+    outfile.close()
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,237 @@
+<HTML>
+<HEAD>
+<TITLE>biscochn/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ddieu/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7 (1).py
+#Lindsey Wong 35477730 and Diana Dieu 51895226
+
+#Part C
+print('C.1')
+infile = open("surnames.txt", 'r')
+data1 = infile.readlines()
+infile.close()
+print('')
+
+from random import randrange
+def surnames_split():
+    '''Returns a list of surnames'''
+    f1 = open("surnames.txt", 'r')
+    temp = []
+    newlist = []
+    surnames = f1.readlines()
+    for x in surnames:
+        temp.append(x.split())
+    for x in temp:
+        newlist.append(x[0])
+    f1.close()
+    return(newlist) 
+
+def surnames(num: int):
+    '''Returns a specified number of randomly generated surnames'''
+    surnamelist=[]
+    surnamelist = surnames_split()
+    for i  in range(0, num):
+        x = randrange(0,len(surnamelist))
+        return (surnamelist[x])
+
+def female_names_split():
+    '''Returns a list of female names'''
+    f1 = open("femalenames.txt", 'r')
+    temp = []
+    newlist = []
+    femalenames = f1.readlines()
+    for x in femalenames:
+        temp.append(x.split())
+    for x in temp:
+        newlist.append(x[0])
+    f1.close()
+    return(newlist)
+
+def femalenames(num: int):
+    '''Returns a specified number of randomly generated female names'''
+    femalenames=[]
+    femalenames = female_names_split()
+    for i  in range(0, num):
+        x = randrange(0,len(femalenames))
+        return (femalenames[x])
+        
+def male_names_split():
+    '''Returns a list of male names'''
+    f1 = open("malenames.txt", 'r')
+    temp = []
+    newlist = []
+    malenames = f1.readlines()
+    for x in malenames:
+        temp.append(x.split())
+    for x in temp:
+        newlist.append(x[0])
+    f1.close()
+    return(newlist)
+
+def malenames(num: int):
+    '''Returns a specified number of randomly generated male names'''
+    malenames=[]
+    malenames = male_names_split()
+    for i in range(0, num):
+        x = randrange(0,len(malenames))
+        return (malenames[x])
+        
+def random_name(l: list)-&gt; str:
+    '''Returns one randomly generated name from the inputed list'''
+    if l == surnames:
+        return(surnames(1))
+    elif l == femalenames:
+        return(femalenames(1))
+    elif l == malenames:
+        return(malenames(1))
+
+def male_female():
+    '''Returns a randomly generated male or female name'''
+    female = 1
+    male = 2
+    x = randrange(0,3)
+    if x == female:
+        return (random_name(femalenames))
+    else:
+        return (random_name(malenames))
+
+def random_names(n: int) -&gt; list:
+    '''Returns a list of randomly generated names'''
+    format_str= '{}, {}'
+    names = []
+    for i in range(n):
+        k = format_str.format(random_name(surnames), male_female())
+        names.append(k)
+    print(names)
+random_names(10)
+
+#Part D
+print('D.1')
+infile = open("wordlist.txt", 'r')
+word_dictionary = infile.read().split('\n')
+infile.close()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+table = str.maketrans('ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                          'abcdefghijklmnopqrstuvwxyz')
+def key() -&gt; list:
+    '''Returns 26 rotated alphabet keys'''
+    key_list = []
+    for i in range(26):
+        key_list.append(ALPHABET[i:27] + ALPHABET[0:i])
+    return key_list
+
+def Caesar_break(sentence: str) -&gt; str:
+    '''Takes a ciphertext string  and returns the plaintext for that string'''
+    most_key = 0
+    temp_matches = 0 
+    num_matches = -1 
+    wordlist = key()
+    sentence_list = sentence.split() 
+    for i in range(len(wordlist)):
+        for word in sentence_list:
+            table = word.maketrans(ALPHABET, wordlist[i]) 
+            each_word = word.translate(table)
+            if each_word in word_dictionary:
+                temp_matches += 1
+        if num_matches &lt;= temp_matches:
+            num_matches = temp_matches
+            most_key = i
+    table2 = sentence.maketrans(ALPHABET, wordlist[most_key])
+    return sentence.translate(table2)
+
+print(Caesar_break('qpmbs cfbs'))
+print(Caesar_break('cpc'))
+        
+#Part E
+infile = open("pg1661.txt", 'r', errors='ignore')
+lines = infile.readlines()
+infile.close()
+print('')
+
+def print_line_numbers (S: list) -&gt; str:
+    '''Returns a string preceded by a line number'''
+    x = ''
+    format_str = '{:5}: {}'
+    for i in range(len(S)):
+        x +=(format_str.format(int(i+1),S[i]))
+    return x 
+    
+def stats (S: list):
+    '''Returns statistics of the list of strings'''
+    print(len(S), 'lines in the list')
+    result = 0
+    for i in range(len(S)):
+        if S[i] == '\n':
+            result += 1
+    print(result, 'empty lines')
+    characters = 0
+    for i in range(len(S)):
+        characters += len(S[i])
+    print(characters / len(S), 'average characters per line')
+    print(characters / (len(S)-result), 'average characters per non-empty line')
+    
+def copy_file(s: str):
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match247-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    '''Copies and edits files based on user input'''
+    if s == 'line numbers':
+            infile_name = input("Please enter the name of the file to copy: ")
+            infile = open(infile_name, 'r', errors='ignore')
+            outfile_name = input("Please enter the name of the new copy:  ")
+            outfile = open(outfile_name, 'w')
+            newfile = print_line_numbers(lines)
+</FONT><A NAME="0"></A><FONT color = #FF0000><A HREF="match247-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            for line in newfile:
+                outfile.write(line)
+            infile.close()
+            outfile.close()
+    elif s == 'Gutenberg trim':
+            infile_name = input("Please enter the name of the file to copy: ")
+            infile = open(infile_name, 'r', errors='ignore')
+            outfile_name = input("Please enter the name of the new copy:  ")
+            outfile = open(outfile_name, 'w')
+</FONT>            newfile = print_line_numbers(lines[20:12693])
+            for line in newfile:
+                outfile.write(line)
+            infile.close()
+            outfile.close()
+    elif s == 'statistics':
+            infile_name = input("Please enter the name of the file to copy: ")
+            infile = open(infile_name, 'r', errors='ignore')
+            outfile_name = input("Please enter the name of the new copy:  ")
+            outfile = open(outfile_name, 'w')
+            for line in infile:
+                outfile.write(line)
+            infile.close()
+            outfile.close()
+            return stats(lines)
+    else:   
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r', errors='ignore')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+copy_file('statistics')
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+copy_file('')
+    
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

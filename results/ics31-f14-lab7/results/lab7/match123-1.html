@@ -1,0 +1,191 @@
+<HTML>
+<HEAD>
+<TITLE>hyliu1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+shaneenl/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Erica Gee 26003014 and Shaneen Lin 56093892 ICS 31 Lab sec 3.  Lab asst 7.
+
+ 
+# c.1
+infile = open("surnames.txt",'r')
+surnames = infile.readlines()
+in_file = open("femalenames.txt",'r')
+femalenames = in_file.readlines()
+infiles = open("malenames.txt",'r')
+malenames = infiles.readlines()
+
+from random import randrange
+def random_name(L: list)-&gt; str:
+    ''' takes one of the three name list and returns a
+    random name from that list'''
+    return L[randrange((len(L)))]
+
+
+def random_names(n: int)-&gt; [str]:
+    ''' takes an integer and returns a list of that many strings'''
+    result1 = []
+    for name in surnames:
+        x = name.split()
+        result1.append(x[0])
+    result2 = []
+    for female in femalenames:
+        y = female.split()
+        result2.append(y[0])
+    result3 = []
+    for male in malenames:
+        z = male.split()
+        result3.append(z[0])
+
+    result4 = []
+    fullname = ''
+    for i in range(n):
+        if randrange(0,2) == 0:
+            fullname = random_name(result1) + ',' + random_name(result2)
+            result4.append(fullname)
+        else:
+            fullname = random_name(result1) + ',' + random_name(result3)
+            result4.append(fullname)
+    return result4
+
+
+print (random_names(4))
+print ('a')
+print (random_names(5))
+print ('b')
+print (random_names(10))
+
+
+#d
+def Caesar_decrypt(encrypted:str,key:int)-&gt;str:
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    key = key % len(alphabet)
+    table = str.maketrans(alphabet[key:] + alphabet[:key],alphabet)
+    return encrypted.translate(table)
+
+def Caesar_break(cb:str) -&gt; str:
+    '''returns plaintext version of ciphertext encrypted by Caesar_encrypt'''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match123-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    infile = open('wordlist.txt','r')
+</FONT>    file = infile.readlines()
+    check_list = []
+    word_key = []
+    m = 0
+    for i in file:
+        check_list.append(i.strip('\n'))
+    infile.close()
+    for x in range(25):
+        word_key = Caesar_decrypt(cb,x).split()
+        for c in check_list:
+            for word in word_key:
+                if word == c:
+                    count[x] += 1
+        if count[x] &gt; count[m]:
+            m = x
+    return Caesar_decrypt(cb,m)
+    
+
+print(Caesar_break('sqzqdmfq efduzse'))
+assert Caesar_break('sqzqdmfq efduzse') == 'generate strings'
+assert Caesar_break('xubbe vyvjo jxekiqdt mehbti') == 'hello fifty thousand worlds'
+
+
+#e
+
+def check_if_empty(s: str) -&gt; bool:
+    ''' checks if line is empty '''
+    return len(s.split()) == 0
+
+def count_empty(list_str: list) -&gt; int:
+    ''' counts empty lines in a list of strings '''
+    count = 0
+    for item in list_str:
+        if check_if_empty(item):
+            count += 1
+    return count
+
+def average_char_per_line(list_str: list) -&gt; float:
+    ''' returns average character count in a list of strings '''
+    count = 0
+    for item in list_str:
+        count += len(item)
+    return (count)/len(list_str)
+
+def average_char_non_empty(list_str: list) -&gt; float:
+    ''' counts average characer count of non empty lines in a list of strings '''
+    count = 0
+    nonempty = 0
+    for item in list_str:
+        if not check_if_empty(item):
+            count += len(item)
+            nonempty += 1
+    return count/nonempty
+
+def copy_file(name:str):
+    ''' takes no parameter and returns no value'''
+    count = 0
+    if name == 'line numbers':
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match123-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r', errors = 'ignore')
+        fileread = infile.readlines()
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w', errors = 'ignore')
+        for number in range(len(fileread)):
+</FONT>            for line in fileread:
+                count += 1
+                outfile.write("{} {}".format(str(count)+ ':', line, sep=' '))
+        infile.close()
+        outfile.close()
+    elif name == 'Gutenberg trim':
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match123-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r', errors = 'ignore')
+        fileread = infile.readlines()
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w', errors = 'ignore')
+        start = "*** START"
+        end = "*** END"            
+        s = False
+</FONT>        for word in fileread:
+            if start in word:
+                s = True
+                continue
+            elif end in word:
+                break
+            if s == True:
+                outfile.write(word)
+    elif name == 'statistics':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r', errors = 'ignore')
+        fileread = infile.readlines()
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w', errors = 'ignore')
+        print ("{:&gt;6}   lines in the list".format(len(fileread)) + '\n' +
+                "{:&gt;6}   empty lines".format(count_empty(fileread)) + '\n' +
+                "{:&gt;8.1f} average characters per line".format(average_char_per_line(fileread)) + '\n' +
+                "{:&gt;8.1f} average characters per non-empty line".format(average_char_non_empty(fileread)) + '\n\n')
+    else:
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r', errors = 'ignore')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+
+            
+        
+           
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

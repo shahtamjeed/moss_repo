@@ -1,0 +1,253 @@
+<HTML>
+<HEAD>
+<TITLE>ginamr/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ginamr/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Ethan Sanchez 70748407 and Gina Robinson 73188675. ICS Lab 14 Lab Asst.
+#Prateek Basavapur
+
+#Part c.1
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour?'))
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match224-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('This many dollars per hour:  ', rate)
+print('Weekly salary:  ', hours * rate)
+print("")
+
+#Part c.2
+name = str(input('Hello. What is your name?'))
+print('Hello,', name)
+print("It's nice to meet you!")
+age = int(input('How old are you?'))
+print('Next year you will be', age + 1, 'years old.')
+</FONT>print('Goodbye')
+print("")
+
+#part d
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND = 8.81
+KRONE_PER_DOLLAR = 5.50
+
+print('Please provide this information:')
+biz_name = str(input('Business Name: '))
+num_euros = int(input('Number of euros: '))
+num_pounds = int(input('Number of pounds: '))
+num_dollars = int(input('Number of dollars: '))
+
+print('Copenhagen Chamber of Commerce')
+print('Business name: ', biz_name)
+print(num_euros, 'euros is ', num_euros * KRONE_PER_EURO, 'krone')
+print(num_pounds, 'pounds is ', num_pounds * KRONE_PER_POUND, ' krone')
+print(num_dollars, 'dollars is ', num_dollars * KRONE_PER_DOLLAR, 'krone')
+
+total_krone = (num_euros * KRONE_PER_EURO) + (num_pounds * KRONE_PER_POUND) +\
+(num_dollars * KRONE_PER_DOLLAR)
+
+print('Total krone: ', total_krone)
+print("")
+
+#part e
+from collections import namedtuple
+
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+#part e.1
+print('still_another title is: ',still_another.title)
+
+#part e.2
+print('Price of another_book is: ',another.price)
+
+#part e.3
+price_list = [favorite.price, another.price, still_another.price]
+print('Average of book prices is: ',sum(price_list)/len(price_list))
+
+#part e.4
+print('favorite book published before 1900: ',favorite.year&lt;1900)
+
+#still_another.price = 26.0 cannot change single attribute
+#print(still_another)
+
+#part e.5
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 26.00)
+print('still_another price now is: ',still_another.price)
+
+#part e.6
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 26.00 * 1.2)
+print('still_another price now is 20% higher and is: ',still_another.price)
+print("")
+
+#part f
+Animal = namedtuple('Animal', 'name species age weight favorite_food')
+
+jumbo = Animal('Jumbo', 'Elephant', 50, 1000, 'peanuts')
+perry = Animal('Perry', 'PLatypus', 7, 1.7, 'shrimp')
+
+print('Jumbo is skinnier than perry.', jumbo.weight &lt; perry.weight)
+print("")
+
+#part g
+book_list =[favorite, another, still_another]
+
+#part g.1
+print('The first book is cheaper than the second book.', \
+      book_list[0].price &lt; book_list[1].price)
+
+#part g.2
+print('The first book is more recent than the last.', book_list[0].year &gt; \
+      book_list[-1].year)
+print("")
+
+#part h
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#part h.1
+print('The third restaurant on the list is: ', RC[2].name)
+
+#part h.2
+print('First and fourth serve same cuisine: ',RC[0].cuisine == RC[3].cuisine)
+
+#part h.3
+print('Price of best dish at last: $', RC[-1].price)
+
+#part h.4
+RC.sort()
+print(RC[0].name,",",RC[1].name,",",RC[2].name,",",RC[3].name,",",RC[4].name,\
+      RC[5].name,",",RC[-1].name)
+
+#part h.5
+print("The best dish at",RC[-1].name,"is",RC[-1].dish)
+
+#part h.6
+RCFL = [ RC[0], RC[1], RC[-2], RC[-1] ]#first two and last two from sorted
+                                       #RC list
+print("First and last two sorted is: ", RCFL)
+
+# part i TKINTER CODE FOLLOWS
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=700, height=700)  # Create a 500x500 canvas to draw on
+my_canvas.pack()    # Put the canvas into the window
+
+#Lines, add 300 to all x values
+my_canvas.create_line(400, 300, 600, 300)
+my_canvas.create_line(600, 500, 600, 300)
+my_canvas.create_line(400, 300, 400, 500)
+my_canvas.create_line(400, 500, 600, 500)
+
+#Square
+my_canvas.create_polygon(100, 300, 300, 300, 300, 500, 100, 500, fill = "black")
+
+#Diamond
+my_canvas.create_polygon(500, 10, 600, 141, 500, 293, 400, 141, fill = "midnight blue",\
+                         outline = "lime green", width = 4)
+
+#Diamonds
+my_canvas.create_polygon(180, 175, 200, 225, 180, 280, 160, 225)
+
+my_canvas.create_polygon(320, 175, 340, 225, 320, 280, 300, 225)
+
+#Roof of the house
+my_canvas.create_polygon(50, 110, 100, 73, 150, 110, fill = "sienna",\
+                         outline = "black", width = 2)
+#Base of the house
+my_canvas.create_polygon(70, 110, 130, 110, 130, 170, 70, 170,\
+                         fill = "firebrick", outline = "black", width = 2)
+
+#Door
+my_canvas.create_polygon(90, 140, 110, 140, 110, 170, 90, 170, fill = "tomato",\
+                          outline = "black", width = 2)
+
+#Window
+my_canvas.create_polygon(90, 130, 90, 120, 110, 120, 110, 130, fill = "gold", outline = "black", width = 2)
+
+#Vertical line in window
+my_canvas.create_line(100, 130, 100, 120)
+#Horizontal line in window
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match224-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+my_canvas.create_line(90, 125, 110, 125)
+
+#Doorknob
+my_canvas.create_oval(103, 152, 108, 158, fill = "black")
+
+#Eye
+my_canvas.create_oval(200, 200, 300, 250, fill = "gold", outline = "firebrick")
+
+#Iris
+my_canvas.create_oval(225, 200, 275, 250, fill = "orange red", outline = "yellow")
+</FONT>
+#Pupil
+my_canvas.create_oval(245, 200, 256, 250, fill = "gold", outline = "red")
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match224-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+my_canvas.create_oval(248, 200, 253, 250, fill = "black")
+
+#Solar System
+
+#Sun
+my_canvas.create_oval(100, 450, 150, 500, fill = "gold")
+
+my_canvas.create_oval(105, 455, 145, 495, fill = "yellow", outline = "red")
+
+#Mercury
+my_canvas.create_oval(151, 453, 157, 459, fill = "sandy brown")
+</FONT>
+#Venus
+my_canvas.create_oval(161, 437, 173, 449, fill = "peru")
+
+#Earth
+my_canvas.create_oval(175, 423, 187, 435, fill = "light sea green")
+
+my_canvas.create_oval(186, 433, 188, 435, fill = "white")
+
+#Mars
+my_canvas.create_oval(187, 417, 193, 423, fill = "firebrick")
+
+#Saturn
+my_canvas.create_oval(200, 390, 220, 410, fill = "seashell4")
+
+#Jupiter
+my_canvas.create_oval(222, 372, 238, 388, fill = "light goldenrod")
+
+my_canvas.create_line(222, 372, 238, 388, fill = "sandy brown")
+
+#Uranus
+my_canvas.create_oval(244, 354, 256, 366, fill = "cadet blue")
+
+my_canvas.create_line(250, 353, 250, 367, fill = "light sea green")
+
+#Pluto
+my_canvas.create_oval(265, 335, 275, 345, fill = "slate blue")
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,246 @@
+<HTML>
+<HEAD>
+<TITLE>mengql3/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+mengql3/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Mengqi Li  92059150 and Daniel Ibarra 36702561.  ICS 31 Lab sec 7.  Lab asst 7.
+
+#
+#
+# Part C
+#
+#
+
+# C.1
+# get name: s: str -&gt; str
+def get_name(s:str) -&gt; str:
+    "return the name part from whole string"
+    result = ''
+    for i in range(0, len(s)):
+        if s[i:i+1] == '\t':
+            break
+        else:
+            result = result + s[i:i+1]
+    return result
+
+# make a list of surname from surnames.txt
+with open ("surnames.txt", "r") as myfile:    surnames_data=myfile.readlines()
+    
+for i in range(0, len(surnames_data)):
+    surnames_data[i] = get_name(surnames_data[i])
+print('# of surname:', len(surnames_data))
+
+# make a list of malenames from malenames.txt
+with open ("malenames.txt", "r") as myfile:
+    malenames_data=myfile.readlines()
+    
+for i in range(0, len(malenames_data)):
+    malenames_data[i] = get_name(malenames_data[i])
+print('# of male names:', len(malenames_data))
+
+# make a list of femalenames from malenames.txt
+with open ("femalenames.txt", "r") as myfile:
+    femalenames_data=myfile.readlines()
+    
+for i in range(0, len(femalenames_data)):
+    femalenames_data[i] = get_name(femalenames_data[i])
+print('# of female names:', len(femalenames_data))
+
+
+import random
+# generate_name:
+def generate_name( ) -&gt; str:
+    "return  a random name"
+    name_str = ''
+    male_or_female = random.randrange(1,3)
+    if male_or_female == 1:
+        name_str += surnames_data[random.randrange(0,1000)] + ' ' + malenames_data[random.randrange(0,1000)]
+    elif male_or_female == 2:
+        name_str += surnames_data[random.randrange(0,1000)] + ' ' + femalenames_data[random.randrange(0,1000)]
+
+    return name_str
+
+# random_names: n: int -&gt; list of string
+def random_names(n:int) -&gt; list:
+    "return a list of random name"
+    result =[]
+    for k in range(0, n):
+        temp_str = generate_name()
+        result.append(temp_str)
+    return result
+
+
+
+print(random_names(10))
+
+#
+#
+# Part D
+#
+#
+
+# d.1
+import re
+
+# global constant list
+ALPHABET = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+            'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+            's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+# translate: text: str,  key: int  -&gt; str
+def translate(text:str, key:int) -&gt; str:
+    "return a lowercase string, every character changes according to the input key"
+    temp_str = text.lower()
+    result = ''
+    for i in range(0, len(temp_str)):
+        if temp_str[i:i+1].isalpha():
+            for n in range(0, len(ALPHABET)):
+                if ALPHABET[n] == temp_str[i:i+1]:
+                    result = result + ALPHABET[n+key]
+        elif temp_str[i:i+1] == ' ':
+            result = result + ' '
+        else:
+            result = result + ''
+    return result
+
+# Caesar_encrypt:  plaintext: str, key: int -&gt; str
+def Caesar_encrypt(plaintext:str, key:int) -&gt; str:
+    "return string encrypted by rule, for example: 'a' became 'b'"
+    result = translate(plaintext, (key%26))
+    return result
+
+# Caesar_decrypt: ciphertext: str, key: int -&gt; str
+def Caesar_decrypt(ciphertext:str, key:int) -&gt; str:
+    "return string decrypted by rule, for example: 'b' became 'a'"
+    result = translate(ciphertext, ((key%26)*(-1)))
+    return result
+
+# remove_marks: s: str -&gt; str
+def remove_marks(s: str) -&gt; str:
+    " takes a string and returns a string without special marks "
+    return re.sub('[.,\-+!?;:/@*#]', '', s)
+
+# re_list_word_in_string: l: list -&gt; list
+def re_list_word_in_string(l: list) -&gt; list:
+    "return a word list with only word, no space or marks"
+    result = []
+    
+    for i in range(0, len(l)):
+        result.append(remove_marks(l[i]))
+    return result
+
+
+with open ("wordlist.txt", "r") as myfile:
+    wordlist_data = myfile.read()
+
+'''
+# Caesar_break: ciphertext: str -&gt; str
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match232-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_break(ciphertext:str) -&gt; str:
+    result_list = []
+    
+    for i in range(0, 25):
+        temp_str = Caesar_decrypt(ciphertext, i)
+        if temp_str in wordlist_data:
+            result_list.append(temp_str)
+    return 'Hints: ' + str(result_list)
+</FONT>'''
+
+def Caesar_break(s: str) -&gt; str:
+    "return a Hint string to show all possible key according to the input string"
+    temp_list = s.split()
+
+    list_word = re_list_word_in_string(temp_list)
+
+    list_decryption = []
+
+    for i in range(26):
+        counter = 0
+        temp_str = Caesar_decrypt(s, i)
+        temp_list_decrypt = temp_str.split()
+        list_word_decrypt = re_list_word_in_string(temp_list_decrypt)
+
+        for word in list_word_decrypt:
+            if word in wordlist_data:
+                counter += 1
+
+        if counter == len(list_word):
+            break
+    return 'Hint: ' + temp_str
+
+print(Caesar_break('tbvhfs! tbvhfs#'))
+print(Caesar_decrypt('tbvhfs', 1))
+print('sauger' in wordlist_data)
+
+#
+#
+# Part E
+#
+#
+
+# copy_file:
+def copy_file(s:str):
+    "no return in this function"
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'line numbers':
+        counts = 1
+        for line in infile:
+            outfile.write( "{:5d}: ".format(counts)+ line)
+            counts += 1
+        infile.close()
+        outfile.close()
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match232-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    elif s == 'Gutenberg trim':
+        start_copy = False
+        for line in infile:
+            if '*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***' in line:
+                start_copy = True
+                continue
+            
+            if '*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***' in line:
+                start_copy = False
+            
+            if start_copy:
+</FONT>                outfile.write(line)
+    elif s == 'statistics':
+        empty_lines = 0
+        characters = 0
+        counts = 1
+        for line in infile:
+            outfile.write(line)
+            if line == "":
+                empty_lines += 1
+            characters += len(line)
+            counts += 1
+
+        outfile.write('\n\n******************file stats*************************\n')
+        aver_char_per_line = characters / (counts -1)
+        aver_char_per_ne_line = characters / (counts -1 - empty_lines)
+        outfile.write('{:&gt;6}'.format(str(counts-1)) +'   lines in the file\n')
+        outfile.write('{:&gt;6}'.format(str(empty_lines)) +'   empty lines\n')
+        outfile.write('{:&gt;8}'.format(str(str("%.1f" % round(aver_char_per_line,1)))) +' average characters per line\n')
+        outfile.write('{:&gt;8}'.format(str(str("%.1f" % round(aver_char_per_ne_line,1)))) +' average characters per non-empty line\n')
+        infile.close()
+        outfile.close()
+    else:
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+    return
+
+#copy_file('line numbers')
+#copy_file('statistics')
+copy_file('Gutenberg trim')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

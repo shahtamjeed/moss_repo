@@ -1,0 +1,198 @@
+<HTML>
+<HEAD>
+<TITLE>dgdoming/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+dgdoming/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Dominic Domingo 51321752 and . ICS 31 Lab Sec 4. Lab Asst 7.
+from random import randrange
+
+#
+#
+# Part (c)
+#
+#
+
+print()
+print('------Part (c)------')
+print()
+
+# Part (c)(1)
+def grab_name_from_file(file: str) -&gt; str:
+    ''' Grabs a random name from the text file. '''
+    infile = open(file, 'r')
+    namelist = infile.readlines()
+    namesprocessed = []
+    for i in namelist:
+        namesprocessed.append(i.split(sep='\t', maxsplit=1)[0].capitalize())
+        # Splits each line at the first tab,
+        # then appends the name in the line to a new list.
+    name = namesprocessed[randrange(len(namesprocessed))]
+    # Selects a random name from the list of names.
+    infile.close
+    return name
+
+def random_name():
+    ''' Generates single random surname, random choice of Male or Female,
+    and random first name chosen from either Male/Female file. '''
+    surname = grab_name_from_file('surnames.txt')
+    gender = randrange(0,2)
+    if gender == 0: # First name will be male
+        firstname = grab_name_from_file('malenames.txt')
+    else: # First name will be female
+        firstname = grab_name_from_file('femalenames.txt')
+    return surname+', '+firstname
+
+def random_names(n: int) -&gt; list:
+    ''' Generates n random names and returns a list of those names '''
+    result = []
+    for i in range(n):
+        result.append(random_name())
+    return result
+print(random_names(10))
+
+#
+#
+# Part (d)
+#
+#
+
+print()
+print('------Part (d)------')
+print()
+
+# Part (d)(1)
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def rotate_alphabet(n: int) -&gt; str:
+    ''' Rotates alphabet n characters '''
+    if n &gt; 25:
+        n = n%26
+    newAlphabet = ALPHABET[n:] + ALPHABET[0:n]
+    return newAlphabet
+assert rotate_alphabet(1) == 'bcdefghijklmnopqrstuvwxyza'
+
+def Caesar_encrypt(s: str, n: int) -&gt; str:
+    ''' Encrypts a string using a Caesar cipher '''
+    if n &gt; 25:
+        n = n%26
+    table = str.maketrans(ALPHABET, rotate_alphabet(n))
+    encryptedString = s.lower().translate(table)
+    return encryptedString.capitalize()
+assert Caesar_encrypt('The quick brown fox jumped over the lazy dog.', 1) == \
+       'Uif rvjdl cspxo gpy kvnqfe pwfs uif mbaz eph.'
+assert Caesar_encrypt('The quick brown fox', 27) == 'Uif rvjdl cspxo gpy'
+
+def Caesar_decrypt(s: str, n: int) -&gt; str:
+    ''' Decrypts a string with a Caesar cipher '''
+    if n &gt; 25:
+        n = n%26
+    table = str.maketrans(ALPHABET, rotate_alphabet(26-n))
+    decryptedString = s.lower().translate(table)
+    return decryptedString.capitalize()
+assert Caesar_decrypt('Uif rvjdl cspxo gpy kvnqfe pwfs uif mbaz eph.', 1) == \
+       'The quick brown fox jumped over the lazy dog.'
+
+def Caesar_break(cipher: str):
+    ''' Decrypts a string by brute forcing. Returns decrypted string. '''
+    infile = open('wordlist.txt', 'r')
+    wordlist = infile.readlines()
+    decrypttries = []
+    decrypttrieswords = []
+    wordcount = []
+    highwordcount = 0
+    wordcountindex = 0
+    for i in range(len(wordlist)):
+        wordlist[i] = wordlist[i].strip()
+    for i in range(26):
+        decrypttries.append(Caesar_decrypt(cipher, i))
+        decrypttrieswords.append(decrypttries[i].split())
+        wordcount.append(0)
+        for word in decrypttrieswords[i]:
+            if word in wordlist:
+                wordcount[i] += 1
+                # Counts how many words are in the possible decryption.
+        if highwordcount &lt; wordcount[i]:
+            # Compares the current high wordcount to the previous one.
+            highwordcount = wordcount[i]
+            wordcountindex = i
+    return decrypttries[wordcountindex]
+print(Caesar_break('UIF RVJDL CSPXO'))
+print(Caesar_break('Uif rvjdl cspxo gpy kvnqfe pwfs uif mbaz eph.'))       
+        
+#
+#
+# Part (e)
+#
+#
+
+print()
+print('------Part (e)------')
+print()
+
+# Part (e)(1)
+def copy_file(param: str):
+    ''' Copies a file line by line. If "line numbers" is entered, file will have
+    line numbers before every line. If "Gutenberg trim" is entered, file will
+    have only the body of the Gutenberg text in it. If "statistics" is entered,
+    file will have average word count and other statistics printed.'''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match31-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_14.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    infilelist = infile.readlines()
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    start = False
+    for i in range(len(infilelist)):
+        if param == 'line numbers':
+            outfile.write('{0:5}: {1}'.format(i+1, infilelist[i]))
+            # Adds line numbers to each line of the copy.
+        elif param == 'Gutenberg trim':
+            if '*** END' in infilelist[i]:
+                break # Stops writing if line has *** END in it.
+            if start:
+                outfile.write(infilelist[i])
+            if '*** START' in infilelist[i]:
+                start = True # Sets start flag True if line has *** START in it
+        else: # If param doesn't match any of above, just copies file.
+            outfile.write(infilelist[i])
+    if param == 'statistics':
+        stats(infilelist)
+    infile.close()
+    outfile.close()
+
+def average(s: list):
+</FONT>    ''' Totals up values in list and divides by length of list
+    to find average '''
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match31-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    total = 0
+    if len(s) == 0:
+        return 0
+    for i in range(len(s)):
+        total += len(s[i])
+    return total/len(s)
+
+def stats(x: list):
+</FONT>    ''' Prints stats of list '''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match31-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    emptyLines = []
+    nonEmpty = []
+    for i in x:
+        if i == '\n':
+            emptyLines.append(i)
+        if i != '\n':
+            nonEmpty.append(i)
+    print('''
+{0:5} lines in the list
+{1:5} empty lines
+{2:5.1f} average characters per line
+{3:5.1f} average characters per non empty line'''\
+</FONT>          .format(len(x),len(emptyLines),average(x),average(nonEmpty)))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

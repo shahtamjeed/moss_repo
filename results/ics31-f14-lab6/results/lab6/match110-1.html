@@ -1,0 +1,275 @@
+<HTML>
+<HEAD>
+<TITLE>gcgonza1/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ruijund/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Ruijun Deng 15005683.    ICS 31 Lab sec 14.  Lab asst 6.
+print()
+print()
+print('----- Part C -----')
+print()
+print()
+
+def contains(a:str, b:str)-&gt;bool:
+    '''check if the second string occurs in the first string'''
+    return b in a
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+
+letters = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'
+def sentence_stats(a:str)-&gt;str:
+    '''prints out statistics about a string'''
+    a = translate_punctuation_blanks(a)
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match110-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    C = 0
+    C = len(a)
+    W =len(a.split())
+    S = a.count(' ')               
+    A = 0
+    A = (C-S)/W
+</FONT>    
+
+def translate_punctuation_blanks(a:str)-&gt;str:
+    '''translate all the punctuations in a string into space'''
+    b = ''
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match110-0.html#5" TARGET="0"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for i in a:
+        if i in letters:
+            b = b + i
+        else:
+            b = b + ' '
+    return b
+
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+</FONT>
+def initials(a:str)-&gt;str:
+    '''takes a name and returns the initials of the name in all capital letters'''
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match110-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    b = []
+    b = a.split()
+    c = ''
+    for i in b:
+        c = c + i[0].upper()
+    return c
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+</FONT>assert initials('alan turing') == 'AT'
+
+print()
+print()
+print('----- Part D -----')
+print()
+print()
+
+from random import randrange
+'''for i in range(50):
+    i = randrange(11)
+    print(i)
+f
+or i in range(50):
+    i = randrange(1,7)
+    print(i)
+'''
+def roll2dice()-&gt;int:
+    '''simulates the result of rolling two dice at the same time'''
+    d1 = randrange(1,7)
+    d2 = randrange(1,7)
+    s = d1+d2
+    return s
+'''for i in range(50):
+    i = roll2dice()
+    print(i)
+'''
+def distribution_of_rolls(a:int)-&gt;str:
+    '''prints the distribution of the values of a number of rolls'''
+    s2 = 0
+    s3 = 0
+    s4 = 0
+    s5 = 0
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match110-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    s6 = 0
+    s7 = 0
+    s8 = 0
+    s9 = 0
+    s10 = 0
+    s11 = 0
+    s12 = 0
+    for i in range(a):
+        i = roll2dice()
+        if i == 2:
+            s2 += 1
+        elif i == 3:
+            s3 += 1
+        elif i == 4:
+            s4 += 1
+</FONT>        elif i == 5:
+            s5 += 1
+        elif i == 6:
+            s6 += 1
+        elif i == 7:
+            s7 += 1
+        elif i == 8:
+            s8 += 1
+        elif i == 9:
+            s9 += 1
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match110-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        elif i == 10:
+            s10 += 1
+        elif i == 11:
+            s11 += 1
+        elif i == 12:
+            s12 += 1
+    a2 = s2/a*100
+    a3 = s3/a*100
+    a4 = s4/a*100
+    a5 = s5/a*100
+</FONT>    a6 = s6/a*100
+    a7 = s7/a*100
+    a8 = s8/a*100
+<A NAME="6"></A><FONT color = #00FF00><A HREF="match110-0.html#6" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    a9 = s9/a*100
+    a10 = s10/a*100
+    a11 = s11/a*100
+    a12 = s12/a*100
+    print('Distribution of dice rolls\n')
+</FONT><A NAME="0"></A><FONT color = #FF0000><A HREF="match110-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print(' 2:    ' + str(s2) + ' ( ' + str(a2) + '%)   ' + print_stars(s2))
+    print(' 3:    ' + str(s3) + ' ( ' + str(a3) + '%)   ' + print_stars(s3))
+    print(' 4:    ' + str(s4) + ' ( ' + str(a4) + '%)   ' + print_stars(s4))
+    print(' 5:    ' + str(s5) + ' ( ' + str(a5) + '%)   ' + print_stars(s5))
+    print(' 6:    ' + str(s6) + ' ( ' + str(a6) + '%)   ' + print_stars(s6))
+    print(' 7:    ' + str(s7) + ' ( ' + str(a7) + '%)   ' + print_stars(s7))
+    print(' 8:    ' + str(s8) + ' ( ' + str(a8) + '%)   ' + print_stars(s8))
+    print(' 9:    ' + str(s9) + ' ( ' + str(a9) + '%)   ' + print_stars(s9))
+    print('10:    ' + str(s10) + ' ( ' + str(a10) + '%)   ' + print_stars(s10))
+    print('11:    ' + str(s11) + ' ( ' + str(a11) + '%)   ' + print_stars(s11))
+    print('12:    ' + str(s12) + ' ( ' + str(a12) + '%)   ' + print_stars(s12))
+    print('--------------------------------------------')
+    print('       '+ str(a) + '   rolls')
+</FONT>
+'''for i in range(2,13):
+           print(' {}:   {} (  {}  %)    {}'.format(i,si,ai,print_stars(si)))
+     try to do it this way but it takes way more time here, cuz si and ai is not defined here'''
+    
+
+def print_stars(a:int)-&gt;str:
+    '''print a string contains a number of stars'''
+    s = ''
+    for i in range(a):
+        s = s + '*'
+    return s
+
+
+
+print()
+print()
+print('----- Part E -----')
+print()
+print()
+
+ALPHABET = 'abcdefghijklnmopqrstuvwxyz'
+
+def key_correct_range(b:int)-&gt;int:
+    '''correct the range of the key'''
+    c = b%26
+    return c
+
+def rotate_alphabet(a:int)-&gt;str:
+    '''rotate alphabet by a number'''
+    result = ''
+    result = ALPHABET[a:] + ALPHABET[0:a]
+    return result
+
+
+def Caesar_encrypt(a:str,b:int)-&gt;str:
+    '''encrypt a string by a key'''
+    b = key_correct_range(b)
+    ALPHABET_change = ''
+    ALPHABET_change = rotate_alphabet(b)
+    table = str.maketrans(ALPHABET, ALPHABET_change)
+    result = ''
+    result = a.translate(table)
+    return result
+
+
+
+def Caesar_decrypt(a:str, b:int)-&gt;str:
+    '''decrypt a string by a number'''
+    c = ''
+    for i in a:
+        c = c + i.lower()
+    b = key_correct_range(b)
+    ALPHABET_change = ''
+    ALPHABET_change = rotate_alphabet_back(b)
+    table = str.maketrans(ALPHABET, ALPHABET_change)
+    result = ''
+    result = c.translate(table)
+    return result
+
+def rotate_alphabet_back(b:int)-&gt;str:
+    '''rotate alphabet back by a number'''
+    result = ''
+    c = 26 - b
+    result = ALPHABET[c:]+ ALPHABET[0:c]
+    return result
+
+
+
+print()
+print()
+print('----- Part F -----')
+print()
+print()
+
+def print_line_numbers(a:list)-&gt;str:
+    '''print every string in a list perceded by a line number'''
+    b = 0
+    for i in a:
+        b += 1
+        print('{}:   {}'.format(b,i))
+
+
+def stats(a:list)-&gt;str:
+    '''takes a list of strings and prints statistics'''
+    b = len(a)
+    c = 0
+    for i in a:
+        if i == '\n':
+            c += 1
+    d = 0
+    for i in a:
+        d = d + len(i)
+    e = d/b
+    f = d/(b-c)
+    print(str(b)+ '   lines in the list')
+    print(str(c)+ '   empty lines')
+    print(str(e)+ ' average characters per line')
+    print(str(f)+ ' average chaaracters per non-empty line')
+
+
+letters = 'qwertyuiopasdfghjklzxcvbnm'
+def list_of_words(a:list)-&gt;list:
+    '''takes a list of strings and returns a list of individual words with white space and punctunation removed'''
+    b = []
+    for i in a:
+        i = translate_punctuation_blanks(i)
+        b.extend(i.split())
+    return b
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

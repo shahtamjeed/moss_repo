@@ -1,0 +1,281 @@
+<HTML>
+<HEAD>
+<TITLE>ssaltzen/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+yashah/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Korayma Arriaga 76212328 and Yash Shah 57989982 ICS 31 sec. 12 asst. 7
+
+from random import randrange
+
+#
+#
+#Part (C)
+#
+#
+
+print()
+print()
+print("-------- Part (c) ---------")
+print()
+
+#c1
+infile = open("surnames.txt", 'r')
+data = infile.read().split()
+ 
+
+infile2 = open("malenames.txt", 'r')
+data2 = infile2.read().lower().split()
+
+
+infile3 = open("femalenames.txt", 'r')
+data3 = infile3.read().split()
+
+def checkName(theList: list)-&gt; list:
+    '''Removes anything but names from list'''
+    result = []
+    for n in range(0, len(theList)):
+        if theList[n].isalpha() == True:
+            result.append(theList[n])
+    return result
+
+
+def random_name(theList: list)-&gt; str:
+    '''Returns a singular name with a random last name and first name'''
+    result = ''
+    lst1 = checkName(theList)
+    randInt = randrange(0, 1000)
+    result = lst1[randInt][0].upper() + lst1[randInt][1:].lower() 
+    return result
+
+
+def random_names(listCount: int)-&gt; list:
+    '''Returns a list of names'''
+    theName = ''
+    result = []
+
+
+    for n in range(0, listCount):
+        gender = randrange(0,2)
+        if gender == 0:
+            theName = random_name(data) + ', ' + random_name(data3)
+        elif gender == 1:
+            theName = random_name(data) + ', ' + random_name(data2)
+        result.append(theName)
+    
+    infile.close()
+    infile2.close()
+    infile3.close()
+    return result
+
+
+
+print(random_names(5))
+
+
+#
+#
+#Part (D)
+#
+#
+
+print()
+print()
+print("-------- Part (d) ---------")
+print()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+theFile = open("wordlist.txt", 'r', errors = 'ignore')
+datadict = theFile.read().lower().split("\n")
+#datadict = datadict.replace(' ', '')
+theFile.close() 
+
+
+def Caesar_decrypt2(ciphertext: str, keys: int)-&gt;str:
+    '''Returns the plaintext based on the ciphertext and key passed to the
+    function'''
+    plaintext = ''
+    for c in ciphertext.lower():
+        if c in ALPHABET:
+            plaintext += ALPHABET[(ALPHABET.index(c) - keys) % len(ALPHABET)]
+        else:
+            plaintext += c
+    return plaintext
+
+
+
+
+def Caesar_break(ciphertext: str)-&gt; str:
+    '''Returns the plaintext without knowing the key'''
+    plaintext = ''
+    temp = ''
+    check = []    
+    newCount = 0
+    maximum = 0
+    result = ''
+    table = str.maketrans('.,:;!?"','       ')
+    ciphertext = ciphertext.translate(table)
+    
+    for key in range(0, 26):
+        plaintext = Caesar_decrypt2(ciphertext, key)
+        check.append(plaintext)
+        
+    for w in check:
+        newCount = 0
+        for word in w.split():
+            if word in datadict:
+                newCount += 1
+        if newCount &gt; maximum:
+            maximum = newCount
+            result = w
+              
+    
+    return result
+
+assert Caesar_break('ifmmp nz obnf jt') == 'hello my name is'
+assert Caesar_break('ifmmp bou') == 'hello ant'
+
+print(Caesar_break('ifmmp nz obnf jt'))
+
+
+
+
+#d.2
+
+
+#
+#
+#Part (E)
+#
+#
+
+print()
+print()
+print("-------- Part (e) ---------")
+print()
+
+#e.1
+def copy_file():
+    '''Reads and Copies a file'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+
+copy_file()
+
+#e.2
+def copy_file(modify: str):
+    '''Reads and copies a file and copies it with certain
+    conditions with a certain string'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    linenum = 0
+    for line in infile:
+        if modify == 'line numbers':
+            linenum += 1
+            outfile.write("{0:&gt;6}: {1:&gt;80}".format(str(linenum), line))
+        else:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file('line numbers')
+
+
+#e.3
+def copy_file(modify: str):
+    '''Reads and copies a file and copies it with certain
+    conditions with a certain string'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    linenum = 0
+    for line in infile:
+        if modify == 'line numbers':
+            linenum += 1
+            outfile.write("{0:&gt;6}: {1:&gt;80}".format(str(linenum), line))
+       
+        elif modify == 'Gutenberg trim':
+            if '*** START' in line:
+                outfile.write(line)
+            if '*** END' in line:
+                break
+        else:
+            outfile.write(line)
+            
+    infile.close()
+    outfile.close()
+                
+        
+        
+   
+
+copy_file('Gutenberg trim') 
+
+#e.4
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match107-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats(sLst: list):
+    '''Returns statistics about a list of strings'''
+    emptyLines = 0
+    totalChars =0
+    charsNotEmpty = 0
+    for a in range(0, len(sLst)):
+        if sLst[a].isspace() == True:
+            emptyLines += 1
+        else:
+            charsNotEmpty += len(sLst[a])
+        totalChars += len(sLst[a])
+        
+    print("{0:7d} {1:38s}".format(len(sLst), 'lines in the list'))         
+    print("{0:7d} {1:38s}".format(emptyLines, 'empty lines'))
+    print("{0:7.1f} {1:38s}".format((totalChars/len(sLst)), 'average characters per line'))
+    print("{0:7.1f} {1:38s}".format((charsNotEmpty/(len(sLst) - emptyLines)), 'average characters per non-empty line'))
+</FONT>    return
+
+
+def copy_file(modify: str):
+    '''Reads and copies a file and copies it with certain
+    conditions with a certain string'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    data = infile.read().split()
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    linenum = 0
+    if modify == 'statistics':
+        stats(data)
+    for line in data:
+        if modify == 'line numbers':
+            linenum += 1
+            outfile.write("{0:&gt;6}: {1:&gt;80}".format(str(linenum), line))
+       
+        
+        elif modify == 'Gutenberg trim':
+            if '*** START' in line:
+                outfile.write(line)
+            if '*** END' in line:
+                 break
+        else:
+            outfile.write(line)
+
+    infile.close()
+    outfile.close()
+
+copy_file('statistics') 
+</PRE>
+</PRE>
+</BODY>
+</HTML>

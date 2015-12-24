@@ -1,0 +1,209 @@
+<HTML>
+<HEAD>
+<TITLE>bfallan/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jirosenf/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Josh Rosenfeld 45724157 and Xavier Reid 45122100 ICS 31 Lab sec 15
+
+#c.1
+def contains(string1: 'bigger string', string2: 'smaller string') -&gt; bool:
+    "Returns true if string2 is in string1"
+    if string2 in string1:
+        return
+    else:
+        return False
+    
+    assert contains('banana', 'ana')
+    assert not contains('racecar', 'ck')
+    assert contains('Drag','rag')
+    assert not contains('Drag','dra')
+
+#c.2
+def sentence_starts(s: str) -&gt; str:
+    "Returns various information about given string"
+    char = len(s)
+    s = replace_punct(s)
+    s = s.split()
+    total = 0
+    for i in s:
+        total += len(i)
+    total = total/len(s)
+    print("Characters: ",char,"\nWords: ",len(s),"\nAverage Word length: ", total)
+
+def replace_punct(s: str) -&gt; str:
+    "Replaces punctuation with blank space"
+    table = str.maketrans('.,!&gt;:;"?','        ')
+    return s.translate(table)
+
+#c.3
+def initials(name: str) -&gt; str:
+    "Creates initials of name entered as parameter"
+    name = name.split()
+    ini = ''
+    for i in name:
+        ini += i[0]
+    return ini
+assert initials("Josh Rosenfeld") == 'JR'
+assert initials("Xavier Reid") == 'XR'
+assert initials("Rober B. Qwerty") == 'RBQ'
+
+#d.1
+from random import randrange
+
+for i in range(50):
+    print( randrange(11))
+print('---------')
+for i in range(50):
+
+    print (randrange(1,7))
+
+
+#d.2
+def roll2dice()-&gt;int:
+    "returns two random dice rolls"
+    return randrange(1,7) + randrange(1,7)
+for i in range(50):
+    print(roll2dice())
+
+#d.3
+from random import randrange
+def distribution_of_rolls(reps: int):
+    "Prints out stats of outcomes from rolling two dices a specified # of times"
+    two = 0
+    three = 0
+    four = 0
+    five = 0
+    six = 0
+    seven = 0
+    eight = 0
+    nine = 0
+    ten = 0
+    eleven = 0
+    twelve = 0
+    for i in range(reps):
+        current_roll = randrange(1,7) + randrange(1,7)
+        if current_roll == 2:
+            two += 1
+        elif current_roll == 3:
+            three += 1
+        elif current_roll == 4:
+            four += 1
+        elif current_roll == 5:
+            five += 1
+        elif current_roll == 6:
+            six += 1
+        elif current_roll == 7:
+            seven += 1
+        elif current_roll == 8:
+            eight += 1
+        elif current_roll == 9:
+            nine += 1
+        elif current_roll == 10:
+            ten += 1
+        elif current_roll == 11:
+            eleven += 1
+        else:
+            twelve += 1
+    print('Distribution of Dice Rolls')
+    print(' {:2}:{:7} ({:4.2f}%) {}\n'.format(2,two,(two/reps)*100,'*'*two),
+          '{:2}:{:7} ({:4.2f}%) {}\n'.format(3,three,(three/reps)*100,'*'*three),
+          '{:2}:{:7} ({:4.2f}%) {}\n'.format(4,four,(four/reps)*100,'*'*four),
+          '{:2}:{:7} ({:4.2f}%) {}\n'.format(5,five,(five/reps)*100,'*'*five),
+          '{:2}:{:7} ({:4.2f}%) {}\n'.format(6,six,(six/reps)*100,'*'*six),
+          '{:2}:{:7} ({:4.2f}%) {}\n'.format(7,seven,(seven/reps)*100,'*'*seven),
+          '{:2}:{:7} ({:4.2f}%) {}\n'.format(8,eight,(eight/reps)*100,'*'*eight),
+          '{:2}:{:7} ({:4.2f}%) {}\n'.format(9,nine,(nine/reps)*100,'*'*nine),
+          '{:2}:{:7} ({:4.2f}%) {}\n'.format(10,ten,(ten/reps)*100,'*'*ten),
+          '{:2}:{:7} ({:4.2f}%) {}\n'.format(11,eleven,(eleven/reps)*100,'*'*eleven),
+          '{:2}:{:7} ({:4.2f}%) {}'.format(12,twelve,(twelve/reps)*100,'*'*twelve))
+    print('-------------------------------')
+    print(reps,"dice rolls")
+distribution_of_rolls(200)
+#e
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match161-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def rotate(num:int) -&gt; str:
+    "Rotates the beginning of the alphabet by num"
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    if num &gt; 25:
+        num = num%26
+    new_alphabet = alphabet[num:] + alphabet[:num]
+    return new_alphabet
+def Caesar_encrypt(S: str, num: int) -&gt; str:
+    "Creates encryption"
+    new_alpha = rotate(num)
+    alphabet = str.maketrans('abcdefghijklmnopqrstuvwxyz',new_alpha)
+    S = S.lower()
+    S = S.translate(alphabet)
+    return S
+</FONT>assert Caesar_encrypt('aaaa',2) == 'cccc'
+assert Caesar_encrypt('This is a test statement', 23) == 'qefp fp x qbpq pqxqbjbkq'
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match161-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_decrypt(S: str, num: int) -&gt; str:
+    "Decodes encryption"
+    new_alpha = rotate(-num)
+    alphabet = str.maketrans('abcdefghijklmnopqrstuvwxyz',new_alpha)
+    S = S.lower()
+    S = S.translate(alphabet)
+    return S
+</FONT>assert Caesar_decrypt('qefp fp x qbpq pqxqbjbkq',23) == 'this is a test statement'
+
+#f.1
+def print_line_numbers(lines: [str]):
+    "Prints out list of strings with line numbers"
+    result = ''
+    for i in range(len(lines)):
+        result += '{:5}: {} {}'.format(i+1,lines[i],'\n')
+    print(result)
+
+#f.2
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match161-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats(lst: [str]):
+    "Prints out various stats from the strings"
+    spaces = "                                                                                                                                                              "
+    lines = 0
+    empty_lines = 0
+    total_characters = 0
+    total_empty_characters = 0
+    for i in lst:
+        lines += 1
+        for x in i:
+            total_characters += 1
+    for i in lst:
+        if i == spaces[:len(i)]:
+            empty_lines += 1
+            total_empty_characters += len(i)
+    print('{:5}     {}'.format(lines,"Number of lines in the list"))
+</FONT>    print('{:5}     {}'.format(empty_lines,"Number of empty lines in the list"))
+    print('{:8.2f}  {}'.format(total_characters/len(lst),"Average chacters per line"))
+    print('{:8.2f}  {}'.format((total_characters - total_empty_characters)/(len(lst)-empty_lines),"Average characters per non-empty line"))
+
+#f.3
+def remove_punctuation(lst: [str]) -&gt; [str]:
+    "Takes a list of strings and returns the list without the punctuation"
+    result = []
+    for i in lst:
+        check = ''
+        for x in i:
+            if x.isalpha() == True:
+                check += x
+        result.append(check)
+    return result
+          
+def list_of_words(lst: [str]) -&gt; [str]:
+    "Returns a list of words from the given list of strings"
+    result = []
+    for i in lst:
+        i = i.split()
+        for x in i:
+            result.append(x)
+    return remove_punctuation(result)
+</PRE>
+</PRE>
+</BODY>
+</HTML>

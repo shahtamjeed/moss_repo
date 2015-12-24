@@ -1,0 +1,205 @@
+<HTML>
+<HEAD>
+<TITLE>dchung5/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+dchung5/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Daniel Chung 30801074 and Keanu Clark Bacani 94803969. Ics 31 Lab sec 13.
+
+
+# -- PART C
+print()
+print("-- PART C")
+print()
+ 
+infile = open("C:/Users/Owner/Desktop/UCI/ICS 31 LAB/Lab7/surnames.txt", 'r')
+surnames = []
+datalines = infile.readlines()
+for line in datalines:
+    lines = line.split('\t')
+    surnames.append(lines[0])
+print(surnames[1:35])
+infile.close()
+
+
+infile = open("C:/Users/Owner/Desktop/UCI/ICS 31 LAB/Lab7/females.txt", 'r')
+females = []
+data = infile.readlines()
+for girl_name in data:
+    girl = girl_name.split('\t')
+    females.append(girl[0])
+print (females[1:35])
+infile.close()
+
+infile = open("C:/Users/Owner/Desktop/UCI/ICS 31 LAB/Lab7/males.txt", 'r')
+males = []
+men = infile.readlines()
+for male_name in men:
+    male = male_name.split('\t')
+    males.append(male[0])
+print (males[1:35])
+infile.close()
+
+names = males + females
+
+
+
+from random import randrange
+def random_names(x:int) -&gt; list:
+    '''Returns list of random combinations surnames and names'''
+    result = []
+    for name in range(x):
+        s = randrange(1, 1001)
+        last_names = surnames[s]
+        n = randrange(1, 2001)
+        first_names = names[n]
+        full_name = ''
+        full_name = last_names + ',' + first_names
+        result.append(full_name)
+    print(result)
+random_names(3)
+
+s = randrange(1, 1001)
+
+print(surnames[s])
+
+print(randrange(1,2001))
+
+print(surnames)
+
+
+# -- PART D
+print()
+print("-- PART D")
+print()
+
+# -- d.1
+print()
+print("--D.1")
+print()
+
+def rotated_alphabet(key:int) -&gt; str:
+    ''' Returns alphabet with the first 'key' letters of the alphabet moved to
+        the back of the alphabet '''
+    result_lower = 'abcdefghijklmnopqrstuvwxyz'
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match17-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    result_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    result_lower += result_lower[:key]
+    result_lower = result_lower[key:len(result_lower)]
+    result_upper += result_upper[:key]
+    result_upper = result_upper[key:len(result_upper)]
+    return result_lower + result_upper
+
+def Caesar_encrypt(plain_text:str, key:int) -&gt; str:
+</FONT>    '''Returns a ciphertext changing each letter by key '''
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match17-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    table = str.maketrans('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                          rotated_alphabet(key % 26)) # e.3 implemented
+    return plain_text.translate(table)
+
+print(Caesar_encrypt('Nick is cool', 9))
+
+def Caesar_decrypt(ciphertext: str, key: int) -&gt; str:
+</FONT>
+    ''' Returns a plaintext of ciphertext using key '''
+    table = str.maketrans(rotated_alphabet(key % 26),
+                          'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') # e.3 implemented
+    return ciphertext.translate(table)
+
+infile = open("C:/Users/Owner/Desktop/UCI/ICS 31 LAB/Lab7/dictionary.txt", 'r')
+data = infile.read()
+print (data[:90])
+infile.close()
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match17-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_44.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_break(ciphertext:str) -&gt; str:
+    words = 0
+    highest = 0
+    for n in range(26):
+        temp = 0
+        for i in range(len(Caesar_decrypt(ciphertext, n).split())):
+            if Caesar_decrypt(ciphertext, n).split()[i] in data:
+               temp += 1
+        if temp &gt; words:
+            words = temp
+            highest = n
+    return Caesar_decrypt(ciphertext, highest)
+
+print(Caesar_break('Wrlt rb lxxu'))
+
+# -- d.2
+print()
+print("-- d.2")
+print()
+
+# -- PART E
+print()
+print("-- PART E")
+print()
+
+# -- e.2
+print()
+print("-- e.2")
+print()
+
+def copy_file(s:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    file_list = infile.readlines()
+    if s=="line numbers":
+        for i in range(len(file_list)):
+            outfile.write('{:5d}:'.format(i) + (file_list[i]))
+    infile.close()
+    outfile.close()
+
+# -- e.2,3,4
+print()
+print("-- e.2,3,4")
+print()
+def copy_file(s: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    file_list = infile.readlines()
+    if s=="line numbers":
+        for i in range(len(file_list)):
+            outfile.write('{:5d}:'.format(i) + (file_list[i]))
+    elif s=='Gutenberg trim':
+        start = 0
+        end = 0
+        for i in range(len(file_list)):
+            if '*** START' in file_list[i]:
+                start = i
+                break
+        for i in range(len(file_list)):
+            if '*** END' in file_list[i]:
+                end = i
+                break
+        for i in range(start + 1, end):
+            outfile.write(file_list[i])
+    elif s=='statistics':
+        total_chars = 0
+        for line in file_list:
+            total_chars += len(line)
+        print('{:5d}   lines in the file'.format(len(file_list)) + '\n'
+              '{:5d}   empty lines'.format(file_list.count('')) + '\n'
+              '{:7.1f} average characters per line'.format(total_chars / len(file_list)) + '\n'
+              '{:7.1f} average characters per non-empty line'.format(total_chars / (len(file_list) - file_list.count(''))))
+    else:
+        for line in infile:     
+                outfile.write(line)
+    infile.close()
+    outfile.close()
+</FONT>copy_file('statistics')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

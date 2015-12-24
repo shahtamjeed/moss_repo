@@ -1,0 +1,179 @@
+<HTML>
+<HEAD>
+<TITLE>heinricc/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+yuqit1/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Yuqi Tao 44543854 and Alyssa Lingad 33501772.  ICS 31 Lab sec 1.  Lab Asst 2.
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match222-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('c.1')
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  $', rate)
+print('Weekly salary:  $', hours * rate)
+print()
+print('c.2')
+</FONT>a=input('Hello. What is your name?')
+print('Hello,'+a)
+print("It's nice to meet you.")
+b=int(input('How old are you?'))
+print('Next year you will be',b+1,'years old.')
+print('Good-bye!')
+print()
+print('d')
+print('Please provide this information:')
+Bn=input('Business name:')
+euros=float(input('Number of euros:'))
+pounds=float(input('Number of pounds:'))
+dollars=float(input('Number of dollars:'))
+print()
+print('Copenhagen Chamber of Commerce')
+print('Business name: '+Bn)
+ek=euros*7.46
+pk=pounds*8.81
+dk=dollars*5.50
+print(euros,'euros is',ek,'krone')
+print(pounds,'pounds is',pk,'krone')
+print(dollars,'dollars is',dk,'krone')
+print()
+print('Total krone:   ',sum([ek,pk,dk]))
+print()
+print('e')
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+print('e.1')
+print(still_another.title)
+print('e.2')
+booklist=[favorite,another,still_another]
+for x in booklist:
+    if x.title is 'Memoirs of Sherlock Holmes':
+        print(x.price)
+print('e.3')
+print((favorite.price+another.price+still_another.price)/3)
+print('e.4')
+print(int(favorite.year)&lt;1900)
+print('e.5')
+still_another=still_another._replace(price=26.00)
+print('Price of',still_another.title,'has been changed to',still_another.price)
+print('e.6')
+new_price=still_another.price*1.2
+print('Price of Return of Sherlock Holmes has been changed to',new_price)
+print()
+print('f')
+from collections import namedtuple
+Animal = namedtuple('Animal_name', 'species, age, weight, favorite_food')
+Jumbo = Animal('elephant',50, 1000, 'peanuts')
+Perry = Animal('platypus',7, 1.7, 'shrimp')
+print((Jumbo.weight)&lt;(Perry.weight))
+print()
+print('g')
+print('g.1')
+print(booklist[0].price&lt;booklist[1].price)
+print('g.2')
+print(booklist[0].year&gt;booklist[-1].year)
+
+print('h')
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match222-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+print('h.1')
+print(RL[2].name)
+print('h.2')
+print(RL[0].cuisine==RL[3].cuisine)
+print('h.3')
+print(RL[-1].price)
+print('h.4')
+</FONT>def f(Restaurant):
+    return Restaurant.name
+RL.sort(key=f)
+print(RL)
+print('h.5')
+print(RL[-1].dish)
+print('h.6')
+a=sorted([RL[0],RL[1]],key=f)
+b=sorted([RL[-1],RL[-2]],key=f)
+a.extend(b)
+print(a)
+print()
+print('i')
+import tkinter
+
+#(i.1)
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack() 
+my_canvas.create_rectangle(150,150,350,350 )
+tkinter.mainloop()  
+#(i.2)
+import math
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack() 
+my_canvas.create_polygon(200,100,100,math.sqrt(3)*100+100,200,math.sqrt(3)*200+100,300,math.sqrt(3)*100+100)
+tkinter.mainloop()
+#(i.3)
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack() 
+my_canvas.create_polygon(200,100,100,200,300,200,fill='blue')
+my_canvas.create_rectangle(100,200,300,400,fill='orange')
+my_canvas.create_rectangle(125,225,175,275,fill='white')
+my_canvas.create_rectangle(200,400,250,300,fill='brown')
+tkinter.mainloop()
+
+#(i.4)
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack() 
+my_canvas.create_oval(50,50,400,200)
+my_canvas.create_oval(150,50,300,200,fill='blue' )
+my_canvas.create_oval(185,85,265,165, fill='black')
+tkinter.mainloop()
+
+#(i.5)
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack() 
+my_canvas.create_rectangle(100,100,300,440,fill='black')
+my_canvas.create_rectangle(100,130,300,410,fill='grey')
+my_canvas.create_rectangle(190,120,210,124,fill='white')
+my_canvas.create_oval(180,120,184,124,fill='grey')
+my_canvas.create_oval(190,410,210,430,fill='grey')
+tkinter.mainloop()
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

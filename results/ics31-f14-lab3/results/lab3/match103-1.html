@@ -1,0 +1,298 @@
+<HTML>
+<HEAD>
+<TITLE>blink/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+swwillia/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3 finalfinal.py
+###Phi Nguyen 47604490 and Shawn Williams 79146390 ICS 31 Lab 2
+##
+print("c #1")
+print("Enter any string and its first three characters will be returned:")
+def abbreviate (value: str) -&gt; str: 
+    return value[0:3]
+    " Takes the string and return the first three letters " 
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+print (abbreviate(input()))
+
+print("")
+print("c #2")
+print("Enter a number representing the length of one side of a square and the area will be returned:")
+def find_area_square (value: float) -&gt; float:
+    " Squares the number "
+    return value ** 2
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+print (find_area_square(float(input())))
+
+print("")
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match103-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print("c #3")
+print("Enter the radius of a circle and the area of that circle will be returned:")
+def find_area_circle (value: float) -&gt; float:
+    " Find the area of the circle with input as radius "
+    return value ** 2 * 3.14159
+assert find_area_circle(1) == 3.14159
+</FONT>assert find_area_circle(5) == 78.53975
+print (find_area_circle(float(input())))
+
+print("")
+print("c #4")
+def print_even_numbers (value: list):
+    for x in value:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match103-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        if x%2 == 0:
+            print (x)
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+print("")
+print("c #5")
+def calculate_shipping (value: float) -&gt; float:
+</FONT>    if value &lt; 2:
+        print (2.00)
+    elif value &gt;= 2 and value &lt; 10:
+        print (5.00)
+    elif value &gt;= 10:
+        print (12.50)
+    else:
+        print (0)
+calculate_shipping(20)
+
+print("")
+print("c #6 and #7")
+print("Close square to open circle")
+import tkinter             
+my_window = tkinter.Tk()    
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack()          
+def create_square (x, y, z):
+    my_canvas.create_rectangle (x, y, x+z, y+z)
+create_square(100,100,200)
+tkinter.mainloop()
+my_window2 = tkinter.Tk()
+my_canvas1 = tkinter.Canvas(my_window2, width=500, height=500)  
+my_canvas1.pack()          
+def create_circle(x, y, z):
+    my_canvas1.create_oval (x, y, x+z, y+z)
+create_circle(100,100,200)
+tkinter.mainloop()
+
+print("")
+print("d #1")
+from collections import namedtuple    
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+
+def restaurant_price (r: list) -&gt; int:
+    return r.price
+print(restaurant_price(RC[2]))
+print("")
+
+print("d #2")
+print("Restaurants sorted by price using sort() and a key:")
+RC.sort(key=restaurant_price)
+print(RC)
+
+print("")
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match103-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print("d #3")
+print("Most expensive restaurant")
+def costliest (value:list) -&gt; str:
+    value.sort(key=restaurant_price)
+    return value[-1].name
+</FONT>
+print(costliest(RC))
+
+print("")
+print("d #4")
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match103-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print("Most expensive restaurant without sorting list")
+def costliest2 (value:list) -&gt; str:
+    sorted(value, key=restaurant_price)
+    return value[-1].name
+
+print(costliest2(RC))
+</FONT>print("")
+
+Book = namedtuple('Book', 'author title genre year price instock')
+Years = [2000, 1997, 2005, 2011, 1997, 2009]
+BSI = [
+    Book("Ken Sugimori", "Pokemon", "Action", Years[0], 30, 32),
+    Book("JK Rowling", "Harry Potter", "Fantasy", Years[1], 35, 5),
+    Book("Stephenie Meyer", "Twilight", "Fantasy", Years[2], 25, 7),
+    Book("Walter Isaacson", "Steve Jobs", "Technology", Years[3], 20, 18),
+    Book("Clayton Christensen", "The Innovator's Dilemma", "Technology", Years[4], 20, 20),
+    Book("James Dashner", "The Maze Runner", "Action", Years[5], 15, 25)]
+
+print("Title of each book in BSI:")
+print("")
+
+for title in BSI:
+    print(title.title)
+
+def book_title (value: list) -&gt; str:
+    return value.title
+
+print("")
+print("Title of each book in BSI in alphabetical order:")
+print("")
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match103-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+BSI2 = sorted(BSI, key = book_title)
+
+for title1 in BSI2:
+    print(title1.title)
+
+print("")
+print("Prices of each book in BSI:")
+
+for value1 in BSI:
+    print("$", value1.price)
+</FONT>
+print("")
+'''
+Prices2 = []
+
+for values in Prices:
+    Prices2.append (values + (values*(0.1)))
+
+Prices = Prices2
+
+print("Prices of each book in BSI after a 10% increase:")
+for values2 in Prices:
+    print("$", values2)
+print("")
+'''
+Increased_prices = []
+
+print("Prices of each book in BSI after a 10% increase:")
+for bookprices in BSI:
+    Increased_prices.append(bookprices._replace(price=bookprices.price + (bookprices.price * 0.1)))
+
+BSI = Increased_prices
+
+for updatedprice in BSI:
+    print("$", updatedprice.price)
+    
+print("")
+print("Title of each book in BSI whose genre is Technology: ")
+for genre in BSI:
+    if genre.genre == "Technology":
+        print(genre.title)
+
+print("")
+
+Booksbefore2000 = []
+
+for year in Years:
+    if year &lt; 2000:
+        Booksbefore2000.append(year)
+
+print("Books in BSI published before 2000:")
+print(Booksbefore2000)
+print("")
+
+Booksafter2000 = []
+
+for year in Years:
+    if year &gt;= 2000:
+        Booksafter2000.append(year)
+
+print("Books in BSI published in 2000 or later:")
+print(Booksafter2000)
+print("")
+
+if len(Booksbefore2000) &gt; len(Booksafter2000):
+    print("More titles before 2000", "(", len(Booksbefore2000), "vs", len(Booksafter2000), ")")
+else:
+    print("More titles 2000 or later", "(", len(Booksafter2000), "vs", len(Booksbefore2000), ")")
+
+print("")
+print("Function that takes a Book as its argument and returns the value of our inventory of that book:")
+def inventory_value (value:list) -&gt; float:
+    return value.price * value.instock
+print(inventory_value(BSI[2]))
+print("")
+
+Instock_values = []
+
+def top_value (value:list) -&gt; float:
+    sorted_list = sorted(value, key=inventory_value)
+    return sorted_list[-1]
+
+print("The highest-value book is", top_value(BSI).title, "by", top_value(BSI).author, "at a value of", "$", top_value(BSI).price * top_value(BSI).instock, ".")
+
+
+'''
+def top_value (value:list) -&gt; float:
+    for i in value:
+        Instock_values.append((i.price * i.instock))
+        m = max(Instock_values)
+        location = Instock_values.index(m)
+        
+top_value(BSI)        
+print(max(Instock_values))
+max(Instock_values)
+m = max(Instock_values)
+location = Instock_values.index(m)
+print(BSI[location])
+'''
+
+
+my_window = tkinter.Tk()
+my_face = tkinter.Canvas(my_window, width = 500, height = 500)
+my_face.pack()
+def draw_eye(x, y, d, z:float) -&gt; None:
+#Create pair of eyes and irises
+    my_face.create_oval(.2*d + x,.35*z+ y,.35*d +x,.425*z+ y, fill = 'white')
+    my_face.create_oval(.65*d + x,.35*z+ y,.80*d +x,.425*z+ y, fill = 'white')
+    my_face.create_oval(.225*d + x,.35*z+ y,.325*d +x,.425*z+ y, fill = 'brown')
+    my_face.create_oval(.675*d + x,.35*z+ y,.775*d +x,.425*z+ y, fill = 'brown')
+    
+
+def draw_nose(x, y, d, z: float) -&gt; None:
+#Create nose
+    my_face.create_arc(.33*d +x, .5*z + y, .63*d + x, y+.8*z, fill= 'tan')
+    my_face.create_oval(.5*d +x, .615*z + y, .525*d + x, y+.645*z, fill= 'pink')
+    my_face.create_oval(.575*d +x, .615*z + y, .6*d + x, y+.645*z, fill= 'pink')
+def draw_mouth(x, y, d, z: float) -&gt; None:
+#Create aghasted mouth
+    my_face.create_oval (x+.375*d, y+.8*z, x+.675*d, y+.9*z , fill = 'pink')
+
+def draw_face(x, y, d, z: float) -&gt; None:
+#Create face + hair and all of the other functions
+    my_face.create_rectangle(x+.2*d, y+.5*z, x+.8*d, y-.3*z, fill = 'pink')
+    my_face.create_oval(x, y, x+d, y+z, fill = 'tan')
+    draw_eye(x,y,d,z)
+    draw_nose(x,y,d,z)
+    draw_mouth(x,y,d,z)
+
+
+draw_face(100, 100, 200, 250)
+draw_face(10, 300, 100, 100)
+draw_face(300,300,100,150)
+#x and y is the coordinates of the face,  d is the horizontal distance o/ face
+#z is the vertical distance o/ face
+tkinter.mainloop() 
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

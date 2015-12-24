@@ -1,0 +1,248 @@
+<HTML>
+<HEAD>
+<TITLE>alvizoj/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+siddhakd/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Siddhartha Desai 48915305 and  Anh Truong 50408725.  ICS 31 Lab sec 14.  Lab asst 7.
+
+#
+#
+# Part (c)
+#
+#
+
+print()  
+print()
+print('---------- Part (c) ----------')
+print()
+
+from random import randrange
+
+# c(1)
+    
+def return_name(file_name: list) -&gt; str:
+    infile = open(file_name)
+    list_of_names = infile.readlines()
+    result = [ ]
+
+    for ln in list_of_names:
+        temp = ln.split()
+        result.append(temp[0])
+    
+    infile.close()
+
+    random_name = randrange(0, len(result))
+    
+    return result[random_name]
+
+def random_names(num: int) -&gt; 'list of str':
+    list_of_names = [ ]
+    for i in range(num):
+        gender = randrange(0, 2)
+        if gender == 0:
+            firstname = return_name('malenames.txt')
+        else:
+            firstname = return_name('femalenames.txt')
+        surname = return_name('surnames.txt')
+
+        list_of_names.append(surname + ', ' + firstname)
+
+    return list_of_names
+
+print(random_names(10))
+
+#
+#
+# Part (d)
+#
+#
+
+print()  
+print()
+print('---------- Part (d) ----------')
+print()
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match54-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotated_alphabet(key: int) -&gt; str:
+    '''Shift each letter of the alphabet by the key'''
+    return ALPHABET[(key%26):] + ALPHABET[:(key%26)]
+assert rotated_alphabet(5) == 'fghijklmnopqrstuvwxyzabcde'
+assert rotated_alphabet(33) == 'hijklmnopqrstuvwxyzabcdefg'
+
+def Caesar_encrypt(plaintext: str, key: int) -&gt; str:
+    '''Use a Caesar cipher to encrypt plaintext with a key'''
+    table = plaintext.maketrans(ALPHABET, rotated_alphabet(key))
+    return plaintext.lower().translate(table)
+</FONT>assert Caesar_encrypt('Julius Caesar', 5) == 'ozqnzx hfjxfw'
+assert Caesar_encrypt('Chain Block Cipher Byte Flipping Attack', 56) == 'glemr fpsgo gmtliv fcxi jpmttmrk exxego'
+
+
+def Caesar_decrypt(ciphertext: str, key: int) -&gt; str:
+    '''Decrypt a ciphertext using a Caesar decryption algorithm given the key'''
+    table = ciphertext.maketrans(ALPHABET, rotated_alphabet(26 - (key%26)))
+    return ciphertext.lower().translate(table)
+assert Caesar_decrypt('ozqnzx hfjxfw', 5) == 'julius caesar'
+assert Caesar_decrypt('glemr fpsgo gmtliv fcxi jpmttmrk exxego', 56) == 'chain block cipher byte flipping attack'
+
+# d(1)
+def Caesar_break(s : str) -&gt; str:
+    '''Takes a ciphertext string and returns the plaintext for that string, without having the key.'''
+    # Open file and place lines into wordlist
+    infile = open('wordlist.txt')
+    wordlist = infile.readlines()
+
+    max_hits = 0
+    key = 0
+
+    # Decrypt ciphertext using keys 0 – 25
+    for i in range(26):
+        temp = Caesar_decrypt(s, i)
+        decrypt = temp.split()
+        print(decrypt)
+
+        # Find number of hits for key i
+        hits = 0
+        for x in decrypt:
+            if x+'\n' in wordlist:
+                hits += 1
+
+        # Find key that produced the maximum number of hits
+        if hits &gt; max_hits:
+            max_hits = hits
+            key = i
+
+    # Close file to flush buffer and return plaintext
+    infile.close()
+    return Caesar_decrypt(s, key)
+    
+print(Caesar_break('glemr fpsgo gmtliv fcxi jpmttmrk exxego'))
+print()
+
+# d(2)
+print(Caesar_break('Bm wms jgic ngc? G jgic ngc.'))
+print()
+print(Caesar_break('Fmu kylw bywq slrgj Rfyliqegtgle?'))
+
+
+#
+#
+# Part (e)
+#
+#
+
+print()  
+print()
+print('---------- Part (e) ----------')
+print()
+
+def stats(L: 'list of str'):
+    '''Takes a list of strings and prints out the number of lines in the list, number of empty lines, average characters per line, and the average characters per non-empty line
+    '''
+    # find the number of lines in the list
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match54-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    num_lines = len(L)
+
+    # find the number of empty lines
+    num_empty_lines = 0
+    for i in L:
+        if i.strip() == '':
+            num_empty_lines +=1
+
+    # find the total characters of all lines
+    # find the total characters of all non-empty lines
+    total_char = 0
+    total_char_in_non_empty = 0
+    for i in L:
+        total_char += len(i)
+        if i.strip() != '':
+            total_char_in_non_empty += len(i)
+
+    # find the average characters per line
+    # find the average characters per non-empty line
+    # make sure program doesn't divide by 0 when finding averages
+    if num_lines == 0 or num_lines - num_empty_lines == 0:
+        avg_char = 0
+        avg_char_in_non_empty = 0
+    else:
+        avg_char = total_char / num_lines
+        avg_char_in_non_empty = total_char_in_non_empty / (num_lines - num_empty_lines)
+</FONT>
+    return ('''
+{:5}   lines in the list
+{:5}   empty lines
+{:7.1f} average characters per line
+{:7.1f} average characters per non-empty line'''.format(num_lines, num_empty_lines, avg_char, avg_char_in_non_empty))
+
+
+# e(1)
+def copy_file(s: str):
+    '''Takes a string and does the following depending on the parameter:
+      "line numbers" - the copied file includes line numbers at the start of each line
+      "Gutenberg trim" - omits material before "*** START" and after "*** END"
+      "statistics" -  prints out the number of lines in the list, number of empty lines, average characters per line, and the average characters per non-empty line
+    '''
+    # Open read and write files
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w', errors='ignore')
+# e(2)
+    if s == 'line numbers':
+        # Place line numbers in front of lines
+        line_num = 1
+        for line in infile:
+            outfile.write('{:5}: '.format(line_num))
+            outfile.write(line)
+            line_num += 1          
+# e(3)
+    elif s == 'Gutenberg trim':
+        linelist = infile.readlines()
+
+        # Create start and end variables
+        start = 0 
+        end = 0
+
+        # Find indeces of lines that contains '*** START' and '*** END' 
+        for ln in linelist:
+            if '*** START' in ln:
+                break
+            start += 1
+        for ln in linelist:
+            if '*** END' in ln:
+                break
+            end += 1
+        outfile_text = ''.join(linelist[start+1:end])
+        outfile.write(outfile_text)
+
+#    Alternative method:
+#    elif s == 'Gutenberg trim':
+#        infile_string = infile.read()
+#        start = infile_string.find('Produced by an anonymous Project')
+#        end = infile_string.find('*** END')
+#        outfile_string = infile_string[start:end]
+#        outfile.write(outfile_string)
+
+# e(4)
+    elif s == 'statistics':
+        x = infile.read()
+        infile.seek(0)
+        outfile.write(x)
+        outfile.write(stats(infile.readlines()))
+    
+    infile.close()
+    outfile.close()
+    
+copy_file('line numbers')
+copy_file('Gutenberg trim')
+copy_file('statistics')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,252 @@
+<HTML>
+<HEAD>
+<TITLE>dchung5/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+dchung5/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+#  Daniel Chung 30801074 and Kenny Matsudo 28917382.  ICS 31 Lab sec 13.  Lab asst 3.
+
+
+# Part (c)
+#
+#
+#C1
+def abbreviate (n:int):
+    return n[0:3]
+
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+#
+#
+#C2
+#
+def find_area_square (n:int):
+    return n*n
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+#
+#
+#C3
+#
+def find_area_circle (n:int):
+    return n**2*3.14159
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match208-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+#
+#
+#C4
+#
+def print_even_numbers (n:list) -&gt; int:
+    for x in range (len(n)):
+        if n[x] % 2 == 0:
+            print (n[x]) 
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+#
+#
+#C5
+#
+def calculate_shipping (n:float)-&gt; float:
+    if n &lt; 2:
+</FONT>        return 2
+    elif n &lt; 10:
+            return 5
+    else:
+        if n &gt; 10:
+            return 5+(n-10) * 1.5
+
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(8) == 5.00
+assert calculate_shipping(15) == 12.50
+#
+#
+#C6
+#
+def create_square(n:int, m:int, y:int):
+    import tkinter              
+    my_window = tkinter.Tk()    
+    my_canvas = tkinter.Canvas(my_window, width=1200, height=1200)
+    my_canvas.pack()            
+    my_canvas.create_rectangle(n, m, n+y, m+y)
+    tkinter.mainloop()
+    return
+#
+#
+#C7
+#
+def create_circle(x:int, z:int, o:int):
+    import tkinter              
+    my_window = tkinter.Tk()    
+    my_canvas = tkinter.Canvas(my_window, width=1200, height=1200)
+    my_canvas.pack()            
+    my_canvas.create_oval(x, z, x+o, z+o)
+    tkinter.mainloop()
+    return
+
+#
+#
+#
+#d.1
+#
+#
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+def restaurant_price(n:Restaurant)-&gt;float:
+    return n.price
+#
+#
+#d.2
+#
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match208-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+RC.sort(key=restaurant_price)
+print (RC)
+#
+#d.3
+#
+def costliest(n:list)-&gt;str:
+    n.sort(key=restaurant_price)
+    return n[-1].name
+</FONT>#
+#
+#d.4
+#
+def costliest2(n:list)-&gt;str:
+    sorted(n, key=restaurant_price)
+    x = sorted(n, key=restaurant_price)
+    return x[-1].name
+#
+#
+#e
+#
+Book = namedtuple('Book', 'author title genre year price instock')
+
+BSI = [Book("J.K. Rowling", "Harry Potter and the Goblet of Fire", "Thriller", 2000, 23, 10),
+       Book("C.S. Lewis", "The Lion the Witch and the Wardrobe", "Fantasy", 1950, 25, 7),
+       Book("J.D. Salinger", "the Catcher in the Rye", "Fiction", 1951, 13, 9),
+       Book("Rick Riordan", "The Lightning Thief", "Young Adult", 2005, 12.50, 11),
+       Book("Khaled Hosseini", "The Kite Runner", "Drama", 2003, 15.75, 15),
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match208-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+       Book("Mark Z. Danielewski", "House of Leaves", "Horror", 2000, 17.50, 5)]
+#
+#
+#e.1
+#
+for i in range (len(BSI)):
+    print(BSI[i].title)
+#
+#e.2
+#
+def book_title(t:'Book'):
+</FONT>    return t.title
+def book_alpha_order(t:list):
+    for a in range(len(t)):
+        print(sorted(t, key=book_title)[a].title)
+book_alpha_order(BSI)
+#
+#
+#e.3
+#
+for u in range(len(BSI)):
+               BSI[u] = BSI[u]._replace(price = BSI[u].price * 1.1)
+print(BSI[1].price)
+#
+#
+#e.4
+#
+def book_genre(t:'Book'):
+    return t.genre
+def tech_book(t:list):
+    for e in range(len(t)):
+        if t[e].genre == "Technology":
+            print(t[e].title)
+tech_book(BSI)
+#
+#
+#e.5
+#
+After = []
+Before = []
+for f in range(len(BSI)):
+    if BSI[f].year &gt;= 2000:
+        After.append(BSI[f].title)
+    else:
+        Before.append(BSI[f].title)
+if len(After) &gt; len(Before):
+    print("More titles 2000 or later", len(After), "VS", len(Before))
+else:
+    print("More titles before 2000", len(Before), "VS", len(After))
+#
+#
+#e.6
+#
+def inventory_value(t:'Book') -&gt; float:
+    return t.instock * t.price
+def top_value(t:list) -&gt; Book:
+    return sorted(t, key=inventory_value)[-1]
+print ('The highest-value book is', top_value(BSI).title, 'by', top_value(BSI).author,
+       'at a value of', int(inventory_value(top_value(BSI))),'.')
+#
+#
+#f
+#
+    
+
+       
+
+'''def draw_eye():'''    
+import tkinter              
+my_window = tkinter.Tk()    
+my_canvas = tkinter.Canvas(my_window, width=1200, height=1200)
+my_canvas.pack()
+
+def draw_eye():
+    my_canvas.create_oval(550, 150, 250, 250, fill = 'white')
+    my_canvas.create_oval(350, 150, 450, 250, fill = 'red')
+    my_canvas.create_oval(387.5, 185, 412.5, 210, fill = 'brown')
+
+    my_canvas.create_oval(850, 150, 550, 250, fill = 'white')
+    my_canvas.create_oval(650, 150, 750, 250, fill = 'red')
+    my_canvas.create_oval(687.5, 185, 712.5, 210, fill = 'brown')
+
+def draw_nose():
+    my_canvas.create_oval(550, 350, 600, 450, fill = 'red')
+
+def draw_mouth():
+    my_canvas.create_oval(550, 250, 650, 350, fill = 'gray')
+
+def draw_face():
+    my_canvas.create_oval(150, 50, 950, 650)
+    draw_eye()
+    draw_nose()
+    draw_mouth()
+    
+draw_face()
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,268 @@
+<HTML>
+<HEAD>
+<TITLE>galazzah/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ksegarra/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab_7.py
+# Klint Segarra 56157291 and Adrian Sanchez 26569639.
+
+# ICS 31 LAB sec 16. LAB 7
+
+
+from random import randrange
+
+#
+# PART C
+#
+
+def random_names (c: int)-&gt; list:
+    '''creates random list of names in Lname, Fname of length c'''
+    L = []
+    for k in range(c):
+        l_name = get_last_name('surnames.txt').lower()
+        f_name = get_first_name('male_names.txt','female_names.txt').lower()
+        L.append(l_name.capitalize()+', '+ f_name.capitalize())
+    return L
+
+def get_first_name(f: str, m: str)-&gt; list:
+    '''gets first names from .txt of popular first names, 50/50 dude or duddette'''
+    if randrange(2) == 0:
+        return get_name(f)[randrange(1000)]
+    else:
+        return get_name(m)[randrange(1000)]
+    
+def get_last_name(f_name: str)-&gt; list:
+    '''gets last names'''
+    return get_name(f_name)[randrange(1000)]
+    
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match199-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def get_name(f_name: str)-&gt; list:
+    '''extracts names out of .txt'''
+    infile = open(f_name,'r')
+    l_name = infile.readlines()
+    L = []
+    for c in l_name:
+        L.append(c.split()[0])
+</FONT>    infile.close()
+    return L
+
+print('-----PART C------')
+print(random_names(40))
+print('\n\n')
+
+
+#
+# PART D
+#
+
+print('-----PART D------')
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+CAP_ALPHABET = ALPHABET.upper()
+PUNCTUATION = '&lt;&gt;,./?!@#$%^&*()_+:;"'
+
+
+def create_cipher(key: int)-&gt; str:
+    '''creates the cipher str'''
+    return ALPHABET[key%26:len(ALPHABET)] + ALPHABET[0:key%26] + CAP_ALPHABET[key%26:len(CAP_ALPHABET)] + CAP_ALPHABET[0:key%26]
+
+def Caesar_encrypt(ptext: str, key: int)-&gt; str:
+    '''encrypts a message in Caesar, key = key'''
+    return ptext.translate(str.maketrans(ALPHABET + CAP_ALPHABET, create_cipher(key)))
+assert Caesar_encrypt('hi there', 3) == 'kl wkhuh'
+assert Caesar_encrypt('Hi There', 29) == 'Kl Wkhuh'
+
+def Caesar_decrypt(etext: str, key: int)-&gt; str:
+    '''decrypts a message in Caesar, key = key'''
+    return etext.translate(str.maketrans(create_cipher(key), ALPHABET + CAP_ALPHABET))
+assert Caesar_decrypt('kl wkhuh', 3) == 'hi there'
+assert Caesar_decrypt('Kl Wkhuh', 29) == 'Hi There'
+
+def Caesar_break (D:str)-&gt; str:
+    '''attempts to break a decrypted message without a key'''
+    big = 0
+    result = ''
+    infile = open('wordlist.txt', 'r')
+    list_words = Lower_all(infile.readlines())
+    for c in range(26):
+        a = Caesar_decrypt(D, c)
+        k = Word_count(a.strip(PUNCTUATION), list_words)
+        if k &gt; big:
+            result = a
+            big = k
+    infile.close()
+    return result
+
+def Word_count(A: str, list_words: list)-&gt; int:
+    '''how many times words in an str appear in a list'''
+    result = 0
+    for k in A.split():
+        if k.lower() + '\n' in list_words:
+            result += 1
+##    print(A)
+##    print(result)    
+    return result
+
+def Lower_all(L: list)-&gt; list:
+    '''lowercases all strs in a list'''
+    result = []
+    for i in L:
+        result.append(i)
+    return result
+
+#
+#   a faster Caesar_break using binary search
+#
+
+def Faster_Caesar_break(D: str)-&gt;str:
+    '''attempts to break encrypted message'''
+    big = 0
+    result = ''
+    infile = open('wordlist.txt', 'r')
+    l_words = infile.readlines()
+    l_words.sort()
+    for c in range(26):
+        a = Caesar_decrypt(D, c)
+        c = Faster_word_count(a.strip(PUNCTUATION), l_words)
+        if  c &gt; big:
+            result = a
+            big = c
+    infile.close()
+    return result
+
+def Faster_word_count(a: str, l_words: list)-&gt; int:
+    '''same as Word_count except calls In_dictionary_binary_search()'''
+    result = 0
+    for k in a.split():
+        if In_dictionary_binary_search(l_words, k+'\n') or In_dictionary_binary_search(l_words, k.lower()+'\n'):
+        # I think accounting for capitalized with this boolean is faster than using Lower_all() because this list is so big
+            result+=1
+    return result
+
+def In_dictionary_binary_search(l_words, key: str)-&gt;bool:
+    '''an adjusted implentation of binary search returns true if an str--key--is in a list of str else false'''
+    imax = len(l_words)
+    imin = 0
+    while(imax&gt;imin):
+        mid = (imin+imax)//2
+        if key == l_words[mid]:
+            return True
+        elif key &lt; l_words[mid]:
+            imax = mid
+        else:
+            imin = mid+1
+    return False
+
+    
+#infile = open('wordlist.txt', 'r')
+#wordlist = infile.readlines()
+
+encrypted = Caesar_encrypt('Carl the monkey has the Bananas.', randrange(26))
+encrypted2 = Caesar_encrypt('Backpacks? They are strange creatures.', randrange(26))
+encrypted3 = Caesar_encrypt('Why is the rum gone?', randrange(26))
+encrypted4 = Caesar_encrypt('They are taking the hobbits to Isengard.', randrange(26))
+    
+
+#print(Binary_dictionary_search(sorted(wordlist), 'bananas\n'))
+
+##print(encrypted, '\n')
+
+print('-----d.1-----')
+print(Caesar_break(encrypted), '\n')
+print(Caesar_break(encrypted2), '\n')
+print(Caesar_break(encrypted3), '\n')
+print(Caesar_break(encrypted4), '\n')
+
+print('Carl, the monkey, has the Bananas.'.strip(','))
+
+print('\n-----a faster Caesar_break that uses binary instead of linear search-----\n')
+print(Faster_Caesar_break(encrypted), '\n')
+print(Faster_Caesar_break(encrypted2), '\n')
+print(Faster_Caesar_break(encrypted3), '\n')
+print(Faster_Caesar_break(encrypted4), '\n')
+
+print('-----d.2-----')
+
+print(Faster_Caesar_break('De iu bwrknepa wjeiwh eo pda knyw. Wjz iu bwrknepa bkkz: levvw.'))
+
+
+#print(Caesar_decrypt(encrypted2, k))
+
+
+#
+# PART E
+#
+
+print('\n\n-----PART E------\n')
+def copy_file(inp: str)-&gt;None:
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    k = 0
+    temp = infile.readlines()
+    if inp == 'line numbers':
+        for line in infile:
+            k += 1
+            outfile.write('{0:5}:  '.format(k) + line)
+    elif inp == 'Gutenberg trim':
+        L = temp[temp.index('*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n')+1:temp.index('*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n')]
+        for line in L:
+            outfile.write(line)
+    elif inp == 'statistics':
+        for line in temp:
+            outfile.write(line)
+        print(statistics(temp))
+        outfile.write(statistics(temp))
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+
+def count_chars(LS: list)-&gt;int:
+    result  = 0
+    for s in LS:
+        if s[len(s)-1] == '\n':
+            result += len(s)-1
+        else:
+            result += len(s)
+    return result
+
+def statistics(LS: list)-&gt;str:
+    stats_str = """
+
+        ***  Statistics  ***
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match199-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    {0:5}   lines in the file
+    {1:5}   empty lines
+      {2:5.1f} average characters per line
+      {3:5.1f} average characters per non-empty line
+    """
+</FONT>    L_stats = [len(LS), LS.count('\n'), count_chars(LS)/len(LS),
+            count_chars(LS)/(len(LS)-LS.count('\n'))]
+    return stats_str.format(L_stats[0], L_stats[1], L_stats[2], L_stats[3])
+
+print('\n----e.1----\ncopied function copy_file onto my machine')
+
+print('\n----e.2----')
+copy_file('line numbers')
+
+print('\n----e.3----')
+copy_file('Gutenberg trim')
+
+print('\n----e.4----')
+copy_file('statistics')
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

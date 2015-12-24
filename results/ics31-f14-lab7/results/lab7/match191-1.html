@@ -1,0 +1,189 @@
+<HTML>
+<HEAD>
+<TITLE>georgeh2/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+hchansav/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab7.py
+#Jasmin Becirovic 63488873 & Hillary Chansavang 56296542. ICS 31 Lab Sec 3. Lab Asst 7.
+
+#Part C
+
+#c1, c2, and c3
+
+from random import randrange
+
+def random_names(genNumb: 'number of random names to generate') -&gt; 'List of randomly generated names, formated Last, First':
+    '''Takes an integer and returns a list of randomly generated names'''
+    infile = open('surnames.txt', 'r')
+    lineList = infile.readlines()
+    infile.close()
+    #print(lineList)
+    surnames = []
+    for i in lineList:
+        wordList = i.split('\t')
+        surnames.append(wordList[0])
+    #print(surnames)
+ 
+    infile = open('femalenames.txt', 'r')
+    lineList = infile.readlines()
+    infile.close()
+    infile = open('malenames.txt', 'r')
+    lineList1 = (infile.readlines())
+    infile.close()
+    lineList.extend(lineList1)
+    #print(lineList)
+    firstnames = []
+    for i in lineList:
+        wordList = i.split('\t')
+        firstnames.append(wordList[0])
+
+    LastFirst = []
+
+    while len(LastFirst) &lt; (genNumb):
+        LastFirst.append((surnames[randrange(len(surnames))],firstnames[randrange(len(firstnames))]))
+        #LastFirst.append(surnames[randrange(len(surnames))])
+    return LastFirst
+
+
+#d
+def Caesar_encrypt(message: str, key: int) -&gt; 'cyphertext':
+    '''Takes a message and returns the string with the letters shifted
+by the key amount'''
+    #ord() Takes a character and returns integer value
+    #chr() Takes integer and returns unicode value
+    encryptedMessage = ''
+    for i in message:
+        if i in 'abcdefghijklmnopqrstuvwxyz':
+            inew = chr((((ord(i)-97)+(key%26))%26)+97)
+            encryptedMessage += inew
+        elif i in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+            inew = chr((((ord(i)-65)+(key%26))%26)+65)
+            encryptedMessage += inew
+        else:
+            encryptedMessage += i
+    return encryptedMessage
+
+def Caesar_decrypt(message: str, key: int) -&gt;'Plaintext':
+    decryptedMessage = ''
+    for i in message:
+        if i in 'abcdefghijklmnopqrstuvwxyz':
+            inew = chr((((ord(i)-97)-(key%26))%26)+97)
+            decryptedMessage += inew
+        elif i in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+            inew = chr((((ord(i)-65)-(key%26))%26)+65)
+            decryptedMessage += inew
+        else:
+            decryptedMessage += i
+    return decryptedMessage
+
+
+#alpha = 'abcedefghijklmnopqrstuvwxyzABDEFGHIJKLMNOPQRSTUVWXYZ'
+#table = str.maketrans(alpha, Caesar_encrypt(alpha, 2))
+
+def Caesar_break(ciphertext: str) -&gt; 'plaintext':
+    '''Brute forces a Caesar Cipher encrypted message and returns the plaintext decrypted version'''
+    infile = open('wordlist.txt', 'r')
+    content = infile.read()
+    infile.close()
+    foundPlaintext = False
+
+    
+    #while foundPlaintext == False:
+    for i in range(1,27):
+        punctTable = str.maketrans('.,!?;:"','       ')
+        noPunctCiphertext = ciphertext.translate(punctTable)
+       # print(noPunctCiphertext)
+        plaintext = Caesar_decrypt(noPunctCiphertext, i)
+       # print(plaintext)
+        x = plaintext.split()
+       # print(x)
+
+        matchedWords = 0
+
+        for j in x:
+            if j.lower() in content.lower():
+                matchedWords += 1
+               # print(matchedWords)
+
+        if matchedWords == len(x):
+            return Caesar_decrypt(ciphertext, i)
+        
+            
+#Part E
+
+#E1
+
+def copy_file():
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+#E2, E3, E4
+def copy_file(message: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    startCheck = False
+    endCheck = False
+
+    list_of_lines = infile.readlines()
+
+    for thing in list_of_lines:
+        if message == 'line numbers':
+
+            currentLineNumber = 1
+            outfile.write('{:5}: {}'.format(currentLineNumber, thing))
+            currentLineNumber += 1
+            
+        elif message == 'Gutenberg trim':
+            if '*** START' in thing:
+                startCheck = True
+
+            if '*** END' in thing:
+                break
+
+            if startCheck == True and '*** START' not in thing:
+                outfile.write(thing)
+        else:
+            outfile.write(thing)
+
+    if message == 'statistics':
+        stats(list_of_lines)
+                
+    infile.close()
+    outfile.close()
+
+def stats(list_of_str: list):
+    lines=(len(list_of_str))
+    char_amount=0
+    empty_lines = 0
+    for x in list_of_str:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match191-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        if x.strip() == '':
+            empty_lines += 1
+        char_amount+=len(x)
+    average_characters=0
+    for i in range(len(list_of_str)):
+        average_characters+=(len(list_of_str[i]))/(len(list_of_str))
+    non_empty_lines=(len(list_of_str))-(empty_lines)
+    average_for_nonempty=char_amount/non_empty_lines
+    print("{:6d}{:2} lines in the list".format(lines, ""))
+    print("{:6d}{:2} empty lines".format(empty_lines, ""))
+    print("{:8.1f} average characters per line".format(average_characters))
+    print("{:8.1f} average characters per non-empty line".format(average_for_nonempty))
+</FONT>    
+copy_file("statistics")
+</PRE>
+</PRE>
+</BODY>
+</HTML>

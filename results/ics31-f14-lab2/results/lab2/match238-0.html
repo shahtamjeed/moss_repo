@@ -1,0 +1,245 @@
+<HTML>
+<HEAD>
+<TITLE>cmar1/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+cmar1/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Cameron Mar 49573240 and Robert Chicas 67987212. ICS 31 Lab sec 1. Lab Asst 2.
+
+# Part C
+print('Part C')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match238-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('')
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour?'))
+print('This many dollars per hour: $', rate)
+print('Weekly salary: $', hours * rate)
+
+name = input('Hello. What is your name?')
+</FONT>print('Hello, ' + name)
+print('It\'s nice to meet you.')
+age = int(input('How old are you?'))
+print(age)
+print('Next year you will be ' , age + 1 , ' years old')
+print('Good-bye!')
+
+#Part D
+print('')
+print('Part D')
+print('')
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND = 8.81
+KRONE_PER_DOLLAR = 5.50
+print('Please provide this information: ')
+name = input('Business name: ')
+euro = float(input('Number of euros: '))
+pound = float(input('Number of pounds: '))
+dollar = float(input('Number of dollars: '))
+
+print('Copenhagen Chamber of Commerce')
+print('Business name: ' + name)
+print(euro , 'euros is' , euro * KRONE_PER_EURO , 'krone')
+print(pound , 'pounds is' , pound * 8.81 , 'krone')
+print(dollar , 'dollars is', dollar * 5.50, 'krone')
+print ('')
+print('Total krone: ' , euro * KRONE_PER_EURO + pound * KRONE_PER_POUND + dollar * KRONE_PER_DOLLAR)
+
+#Part E
+print('')
+print('Part E')
+print('')
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+#title of the book of still_another
+print(still_another[0])
+#price of book "Memoirs of Sherlock Holmes"
+print(another[3])
+#average price of all 3 books
+avg = (favorite[3] + another[3] + still_another[3]) / 3
+print (avg)
+#Boolean on whether the publication year of the book in favorite is before 1900
+print(favorite [2] &lt; 1900)
+#change price of Return of Sherlock Holmes to $26.00
+stilll_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 26.00)
+#print(stilll_another[3])
+#change price of Return of Sherlock Holmes by increasing it 20%
+stillll_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 26.00 + 26.00 * 0.2)
+#print(stillll_another[3])
+
+#Part G
+print('')
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match238-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Part G')
+print('')
+booklist = [favorite, another, still_another]
+print(booklist[0][3] &lt; booklist[1][3])
+</FONT>print(booklist[0][2] &gt; booklist[-1][2])
+
+#Part F
+print('')
+print('Part F')
+print('')
+Animal = namedtuple('Animal', 'name species age weight food')
+Elephant = Animal('Jumbo', 'elephant', 50, 1000, 'peanuts')
+Platypus = Animal('Perry', 'platypus', 7, 1.7, 'shrimp')
+print(Elephant[3] &lt; Platypus[3])
+
+#Part H
+print('')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match238-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Part H')
+print('')
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+</FONT>    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+print(RL[2][0])
+print(RL[0][1] == RL[3][1])
+print(RL[-1][4])
+RL.sort()
+print(RL)
+print(RL[6][3])
+Small_RL = [RL[0],RL[1],RL[-2],RL[-1]]
+print(Small_RL)
+
+#Part I
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+#square
+my_canvas.create_line(100, 100, 300, 100, fill = 'red') 
+my_canvas.create_line(300, 100, 300, 300, fill = 'red') 
+my_canvas.create_line(300, 300, 100, 300, fill = 'red')
+my_canvas.create_line(100, 300, 100, 100, fill = 'red')
+tkinter.mainloop()
+
+#diamond
+my_window = tkinter.Tk()    
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack()            
+
+my_canvas.create_line(250, 100, 370, 260, fill = 'blue')
+my_canvas.create_line(370, 260, 250, 420, fill = 'blue')
+my_canvas.create_line(250, 420, 130, 260, fill = 'blue')
+my_canvas.create_line(130, 260, 250, 100, fill = 'blue')
+tkinter.mainloop()
+#house
+my_window = tkinter.Tk()    
+my_canvas = tkinter.Canvas(my_window, width=500, height=500) 
+my_canvas.pack()            
+
+my_canvas.create_line(100, 200, 100, 450, fill = 'black')
+my_canvas.create_line(100, 450, 400, 450, fill = 'black')
+my_canvas.create_line(400, 450, 400, 200, fill = 'black')
+my_canvas.create_line(400, 200, 100, 200, fill = 'black')
+#roof
+my_canvas.create_line(100, 200, 250, 100, fill = 'black')
+my_canvas.create_line(250, 100, 400, 200, fill = 'black')
+#door
+my_canvas.create_line(220, 450, 220, 370, fill = 'black')
+my_canvas.create_line(220, 370, 280, 370, fill = 'black')
+my_canvas.create_line(280, 370, 280, 450, fill = 'black')
+my_canvas.create_line(235, 414, 235, 418, fill = 'black')
+my_canvas.create_line(235, 418, 231, 418, fill = 'black')
+my_canvas.create_line(231, 418, 231, 414, fill = 'black')
+my_canvas.create_line(231, 414, 235, 414, fill = 'black')
+#left window
+my_canvas.create_line(150, 250, 150, 300, fill = 'black')
+my_canvas.create_line(150, 300, 200, 300, fill = 'black')
+my_canvas.create_line(200, 300, 200, 250, fill = 'black')
+my_canvas.create_line(200, 250, 150, 250, fill = 'black')
+my_canvas.create_line(175, 250, 175, 300, fill = 'black')
+my_canvas.create_line(150, 275, 200, 275, fill = 'black')
+#right window
+my_canvas.create_line(350, 250, 350, 300, fill = 'black')
+my_canvas.create_line(350, 300, 300, 300, fill = 'black')
+my_canvas.create_line(300, 300, 300, 250, fill = 'black')
+my_canvas.create_line(300, 250, 350, 250, fill = 'black')
+my_canvas.create_line(325, 250, 325, 300, fill = 'black')
+my_canvas.create_line(300, 275, 350, 275, fill = 'black')
+tkinter.mainloop()
+
+#eye
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack()           
+
+my_canvas.create_oval(50, 100, 450, 400, fill = 'white')
+my_canvas.create_oval(175, 175, 325, 325, fill = 'blue')
+my_canvas.create_oval(225, 225, 275, 275, fill = 'black')
+tkinter.mainloop()
+
+#smartphone
+my_window = tkinter.Tk()    
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  
+my_canvas.pack()            
+
+#phone
+my_canvas.create_line(175, 375, 175, 125, fill = 'black')
+my_canvas.create_line(175, 125, 325, 125, fill = 'black')
+my_canvas.create_line(325, 125, 325, 375, fill = 'black')
+my_canvas.create_line(325, 375, 175, 375, fill = 'black')
+#screen
+my_canvas.create_line(180, 350, 180, 150, fill = 'black')
+my_canvas.create_line(180, 150, 320, 150, fill = 'black')
+my_canvas.create_line(320, 150, 320, 350, fill = 'black')
+my_canvas.create_line(320, 350, 180, 350, fill = 'black')
+#home button
+my_canvas.create_oval(242, 353, 258, 369, fill = 'black')
+#camera
+my_canvas.create_oval(247, 130, 253, 136, fill = 'black')
+#speaker
+my_canvas.create_oval(235, 141, 265, 145, fill = 'black')
+#switch
+my_canvas.create_line(175, 150, 173, 150, fill = 'black')
+my_canvas.create_line(173, 150, 173, 164, fill = 'black')
+my_canvas.create_line(173, 164, 175, 164, fill = 'black')
+#volume buttons
+my_canvas.create_line(175, 175, 173, 175, fill = 'black')
+my_canvas.create_line(173, 175, 173, 184, fill = 'black')
+my_canvas.create_line(173, 184, 175, 184, fill = 'black')
+my_canvas.create_line(175, 191, 173, 191, fill = 'black')
+my_canvas.create_line(173, 191, 173, 200, fill = 'black')
+my_canvas.create_line(173, 200, 175, 200, fill = 'black')
+#face
+#head
+my_canvas.create_oval(200, 200, 300, 300, fill = 'white')
+#eyes
+my_canvas.create_oval(225, 225, 230, 230, fill = 'black')
+my_canvas.create_oval(270, 225, 275, 230, fill = 'black')
+#mouth
+my_canvas.create_arc(200, 280, 275, 260, fill = 'black')
+#nose
+my_canvas.create_line(256, 234, 240, 250, fill = 'black')
+my_canvas.create_line(240, 250, 256, 250, fill = 'black')
+tkinter.mainloop()          # Combine all the elements and display the window
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

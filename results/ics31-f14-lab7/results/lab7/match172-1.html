@@ -1,0 +1,279 @@
+<HTML>
+<HEAD>
+<TITLE>cnavasca/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+crabadan/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab7.py
+#Christian Rabadan 95045211 and Alvin Truong 72997823. ICS 31 Lab sec 9. Lab Asst 7
+#==========================================================================
+ 
+from collections import namedtuple
+import tkinter 
+from random import randrange
+from _ast import Str
+ 
+#==========================================================================
+print()  
+print('---------- Part C ----------')
+print()
+#==========================================================================
+print('Here is a list of randomized names')
+def random_names(number: int) -&gt; "list of Random names":
+    '''Returns a list with the indicated amount as random names'''
+    surnames = []
+    first_names = []
+    result = [ ]
+    infile = open("surnames.txt", 'r')
+    temp_sentence = infile.readlines()
+    for t in temp_sentence:
+        temp_name = t.split()
+        surnames.append(temp_name[0])
+
+    infile = open("femalenames.txt", 'r')
+    temp_sentence = infile.readlines()
+    for t in temp_sentence:
+        temp_name = t.split()
+        first_names.append(temp_name[0])
+
+    infile = open("malenames.txt", 'r')
+    temp_sentence = infile.readlines()
+    for t in temp_sentence:
+        temp_name = t.split()
+        first_names.append(temp_name[0])
+
+    for i in range(number):
+        result.append((surnames[randrange(len(surnames))] + ', ' + first_names[randrange(len(first_names))]).title())
+     
+    return result
+
+print(random_names(6))
+print('\nDone.')
+
+#==========================================================================
+print()  
+print('---------- Part D ----------')
+print()
+#==========================================================================
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def check_key(key: int) -&gt; int:
+    '''Return modified key if it is greater than 25 or less than 0'''
+    result_key = key
+    if result_key &gt; 25:
+        result_key = key % 26
+    elif result_key &lt; 0:
+        result_key = 0
+    return result_key
+assert check_key(26) == 0
+assert check_key(-1) == 0
+assert check_key(25) == 25
+assert check_key(0) == 0
+assert check_key(29) == 3
+
+def rotate_alphabet(message: str, key:int) -&gt; str:
+    '''takes a specified number of characters off from the front of the
+        alphabet and adds on to the end of the string'''
+    modified_key = check_key(key)
+    return ALPHABET[modified_key:] + ALPHABET[0:modified_key]
+assert rotate_alphabet(ALPHABET,3) == 'defghijklmnopqrstuvwxyzabc'
+assert rotate_alphabet(ALPHABET,0) == 'abcdefghijklmnopqrstuvwxyz'
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match172-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_encrypt(message: str, key:int) -&gt; str:
+    '''takes a message (str) and a key (int) and returns ciphertext'''
+    lower_message = message.lower()
+    encrypt_table = str.maketrans(ALPHABET, rotate_alphabet(ALPHABET, key))
+    return lower_message.translate(encrypt_table)
+assert Caesar_encrypt('Hi there!', 3) == ('kl wkhuh!')
+</FONT><A NAME="0"></A><FONT color = #FF0000><A HREF="match172-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert Caesar_encrypt('Caesar', 1) == ('dbftbs')
+
+def Caesar_decrypt(message: str, key:int) -&gt; str:
+    '''takes a message (str) and a key (int) and returns plaintext'''
+    lower_message = message.lower()
+    decrypt_table = str.maketrans(rotate_alphabet(ALPHABET, key), ALPHABET)
+    return lower_message.translate(decrypt_table)
+assert Caesar_decrypt('kl wkhuh!', 3) == ('hi there!')
+</FONT>assert Caesar_decrypt('dbftbs', 1) == ('caesar')
+
+def convert_punctuations(s1:str)-&gt;str:
+    """Takes in a string and converts all punctuations to empty sace"""
+    table = str.maketrans('.,!?:;"*&lt;&gt;[]{}\\/',
+                          '                ')
+    return s1.translate(table)
+assert convert_punctuations('Hello!') == 'Hello '
+
+def Caesar_break(message: str) -&gt; str:
+    '''Takes an encrypted message and finds the correct decrpytion'''
+    possible_decryptions = []
+    decrypt_sentence_list = []
+    counter = [0] * 26
+    highest_word_matches = 0
+    closest_match_index = 0
+    for i in range(26):
+        possible_decryptions.append(Caesar_decrypt(message, i))
+    infile = open("wordlist.txt",'r')
+    content = infile.read().split('\n') ##['njcn', 'hsi']
+    
+    for i in range(len(content)):
+        ##content[i] = content[i].rstrip('\n')
+        content[i] = content[i].lower() #do we return a lowercase orr ??? 
+    #print(content[0:10])    
+    for i in possible_decryptions:
+        decrypt_sentence_list.append(i.split())
+        
+    #for i in decrypt_sentence_list:
+        #for word in i:
+    #print(decrypt_sentence_list[0])
+    #print(possible_decryptions)
+    #print(len(decrypt_sentence_list))
+    for x in range(len(decrypt_sentence_list)):
+        for word in decrypt_sentence_list[x]:
+            #if convert_punctuations(word.lower()).replace(" ", "") in content:
+            counter[x] = counter[x] + content.count(convert_punctuations(word.lower()).replace(" ", ""))
+            
+
+    for j in range(len(counter)):
+        if counter[j] &gt; highest_word_matches:
+            closest_match_index = j
+            highest_word_matches = counter[j]
+    return possible_decryptions[closest_match_index]                
+print('Processing...')
+print(Caesar_break("fkulvwldq udedgdq"))
+print('Processing...')
+print("Alvin's secret message 'pynff znxrf... zr guvax gbb zhpu...:\n" +
+      Caesar_break("guvf pynff... znxrf zr guvax gbb zhpu..."))
+
+print('--------------')
+
+print("Christian's message to Alvin Truong: qeb nrxoqbo fp xijlpq lsbo arab...tb'ob xii pzobtba")
+print("Processing...")
+print("Translation:",Caesar_break("qeb nrxoqbo fp xijlpq lsbo arab...tb'ob xii pzobtba"))
+
+print('\nDone.')
+#==========================================================================
+print()  
+print('---------- Part E.1 ----------')
+print()
+#==========================================================================
+def empty_lines(message: [str]) -&gt; int:
+    '''takes a message, returns the number of empty lines'''
+    counter = 0
+    for s in message:
+       if len(s.split()) == 0:
+           counter += 1
+    return counter
+assert empty_lines(["abc", "A"]) == 0
+assert empty_lines(["", "  ", "         ", "abc"]) == 3
+
+def total_chars(message: [str]) -&gt; int:
+    '''Return the number of characters in the message'''
+    num_of_chars = 0
+    for s in message:
+        for word in s.split():
+            num_of_chars += len(word)
+    return (num_of_chars)
+assert total_chars(["ABC", " A B C D E"]) == 8
+assert total_chars(["    Abcde", "ABCDEFG", "    "]) == 12
+assert total_chars([""]) == 0
+
+def avg_char_per_line(message: [str]) -&gt; float:
+    '''Returns the average character per line'''
+    result = 0
+    if len(message) &gt; 0:
+        result = total_chars(message) / len(message)
+    return result
+assert avg_char_per_line(["abc", "def"]) == 3.0
+assert avg_char_per_line(["abcd"]) == 4.0
+assert avg_char_per_line(["abcd", "", "", ""]) == 1.0
+assert avg_char_per_line([]) == 0.0
+
+def avg_char_per_nonempty_line(message: [str]) -&gt; float:
+    '''Returns the average charater per non-empty line'''
+    result = 0
+    if len(message) &gt; 0:
+        result = total_chars(message) / (len(message) - empty_lines(message))
+    return result
+assert avg_char_per_nonempty_line(["abcd", ""," ", "   "]) == 4.0
+assert avg_char_per_nonempty_line(["abc", "abc", " ", " "]) == 3.0
+assert avg_char_per_nonempty_line([]) == 0.0
+
+def stats(words:list) -&gt; None:
+    '''takes a list of strings and prints the statistics'''
+    result = ""
+    result += "{:&gt;6}   lines in the list".format(len(words))
+    result += "\n{:&gt;6}   empty lines".format(empty_lines(words))
+    result += "\n{:&gt;8.1f} average characters per line".format(avg_char_per_line(words))
+    result += "\n{:&gt;8.1f} average characters per non-empty line".format(\
+                                            avg_char_per_nonempty_line(words))
+    return result
+def copy_file(s1:str)-&gt;None:
+    """Takes no parameters and returns no value"""
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    counter = 1
+    s1 = s1.lower()
+    if s1 == 'line numbers':
+        for line in infile:
+            outfile.write("{:5}: {}".format(counter, line))
+            counter += 1
+    #QUESTION: Is it okay for these to be lower case?
+    #QUESTIONS: Does statistic and gutenberg trim print line numbers?
+        
+    elif s1 == 'gutenberg trim':
+        #Read lines and dont keep the strings
+        tempSent = ""
+        tempSent = infile.readline()
+        while(not("*** START" in tempSent)):
+            tempSent = infile.readline()
+##        print(tempSent)
+        #After the useless things are thrown save important things
+        tempSent = infile.readline()
+        while(not("*** END" in tempSent)):
+            outfile.write(tempSent)
+            tempSent = infile.readline()
+    elif s1 == 'statistics':
+        #Are the statistics in shown in the lab assignment right?
+        sentences = []
+        for line in infile:
+            outfile.write(line)
+            sentences.append(line)
+        outfile.write("\n" + stats(sentences))
+    else:
+        for line in infile:
+            outfile.write(line)    
+    infile.close()
+    outfile.close()
+
+#==========================================================================
+print()  
+print('---------- Part E.2 ----------')
+print()
+#==========================================================================
+
+#==========================================================================
+print()  
+print('---------- Part E.3 ----------')
+print()
+#==========================================================================
+#==========================================================================
+print()  
+print('---------- Part E.4 ----------')
+print()
+#==========================================================================
+
+print("Possible file copy options:\n" + "line numbers\n" + "Gutenberg trim\n" +
+      "statistics\n")
+answer = input("Type your option: ")
+copy_file(answer)
+</PRE>
+</PRE>
+</BODY>
+</HTML>

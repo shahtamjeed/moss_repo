@@ -1,0 +1,196 @@
+<HTML>
+<HEAD>
+<TITLE>jchew1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jchew1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Jonathan Chew 28847787 and Jordan Rodriguez 26602300. ICS 31 Lab sec 16. Lab asst 7.
+
+print("---Part C---")
+# Part c
+from random import randrange
+def random_names(x:int)-&gt;list:
+    '''returns an x amount of randomly generated names'''
+    infile1 = open('surnames.txt','r')
+    infile2 = open('femalenames.txt','r')
+    infile3 = open('malenames.txt','r')
+    
+    content1 = infile1.read()
+    content2 = infile2.read()
+    content3 = infile3.read()
+    
+    infile1.close
+    infile2.close
+    infile3.close
+
+    surnames = content1.split()
+    femalenames = content2.split()
+    malenames = content3.split()
+
+    surname_list = []
+    for i in range(0,4000):
+        if i%4 == 0:
+            surname_list.append(surnames[i])
+    firstname_list = []
+    for i in range(0,4000):
+        if i%4 == 0:
+            firstname_list.append(femalenames[i])
+    for i in range(0,4000):
+        if i%4 == 0:
+            firstname_list.append(malenames[i])
+    name_list = []
+    for i in range(0,x):
+        name = ''
+        first = ''
+        first += firstname_list[randrange(0,2000)]
+        first = first[0] + first[1:].lower()
+        last = ''
+        last +=surname_list[randrange(0,1000)]
+        last = last[0] + last[1:].lower()
+        name = last +', '+ first
+        name_list.append(name)
+    return name_list
+
+print("---Part D---")
+# Part d
+Alphabet = 'abcdefghijklmnopqrstuvwxyz'
+alphabet_list = []
+def rotate(x:int)-&gt;str:
+    '''Returns an alphabet rotated according to x'''
+    new_alphabet = ''
+    new_alphabet = Alphabet[x:]+Alphabet[:x]
+    return new_alphabet
+def Caesar_decrypt(x:str,y:int)-&gt;str:
+    '''Returns a decrypted string according to the key given'''
+    table = str.maketrans(Alphabet, rotate(-y))
+    x = x.lower()
+    return x.translate(table)
+def Caesar_break(x:str)-&gt;str:
+    '''Returns a decrypted string regardless of key'''
+    x.lower()
+    for i in range(1,len(Alphabet)):
+        a = rotate(i)
+        alphabet_list.append(a)
+    list = []
+    for i in range(0,26):
+        list.append(Caesar_decrypt(x,i))
+    list2 = []
+    for i in list:
+        a = i.split()
+        list2.append(a)
+    infile = open('wordlist.txt', 'r')
+    content = infile.read()
+    infile.close()
+    list3 = []
+    for v in list2:
+        for q in v:
+            if q in content:
+                list3.append(q)
+    return(list3)
+
+print("---Part E---")
+# Part e
+def line_numbers(x: list):
+    '''Returns the line number before each line'''
+    list = []
+    for i in range(len(x)):
+        list.append('{0:5}: {1}'.format(i,x[i]))
+    return list
+def copy_file(x: str):
+    if x == 'line numbers':
+        '''Returns a copied file with line numbers'''
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        lines = infile.readlines()
+        outfile_name = input("Please enter the name of the new copy: ")
+        outfile = open(outfile_name, 'w')
+        for line in range(len(lines)):
+            line = ('{0:5}: {1}'.format(line,lines[line]))
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+    elif x == 'Gutenberg trim':
+        '''Returns a copied Gutenberg file without housekeeping information'''
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy: ")
+        outfile = open(outfile_name, 'w')
+        file = False
+        for line in infile:
+            if line[0:7] == '*** END':
+                break
+            elif file == True:
+                outfile.write(line)
+            elif line[0:9] == '*** START':
+                file = True
+        infile.close()
+        outfile.close()
+    elif x == 'statistics':
+        '''Returns a copied file with statistics'''
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        lines = infile.readlines()
+        outfile_name = input("Please enter the name of the new copy: ")
+        outfile = open(outfile_name, 'w')
+        for line in lines:
+            outfile.write(line)
+        a = count_lines(lines)
+        b = empty_lines(lines)
+        c = c_per_line(lines)
+        d = c_per_nonempty(lines)
+        outfile.write('\n')
+        outfile.write('{0:10.2f} {1}'.format(a,'lines in the file'))
+        outfile.write('\n')
+        outfile.write('{0:10.2f} {1}'.format(b,'empty lines'))
+        outfile.write('\n')
+        outfile.write('{0:10.2f} {1}'.format(c,'average characters per line'))
+        outfile.write('\n')
+        outfile.write('{0:10.2f} {1}'.format(d,'average characters per non-empty line'))
+        infile.close()
+        outfile.close()
+    else:
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy: ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match139-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def count_lines(x:list)-&gt;int:
+    '''Returns the count of lines in a file'''
+    count = 0
+    for i in x:
+        count += 1
+    return count
+
+def empty_lines(x:list)-&gt;int:
+    '''Returns the count of empty lines in a file'''
+    empty = 0
+    for i in x:
+        if i == '\n':
+            empty += 1
+    return empty
+def c_per_line(x:list)-&gt;int:
+    '''Returns the count of average characters per line'''
+    total = 0
+    for i in x:
+        total += len(i)
+</FONT>    cperline = total/len(x)
+    return cperline
+def c_per_nonempty(x:list)-&gt;int:
+    '''Returns the count of average characters per line excluding empty lines'''
+    total = 0
+    for i in x:
+        total += len(i)
+    cpernonempty = total/(len(x)-empty_lines(x))
+    return cpernonempty
+        
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,173 @@
+<HTML>
+<HEAD>
+<TITLE>akwong2/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jiahuiz3/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab 2.py
+# Jiahui Zhu 56754925 and Jacqueline Tran 30628409. ICS 31 Lab sec 7. Lab Asst 2.
+
+#c
+
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour? $'))
+print('This many dollars per hour:  $', rate)
+print('Weekly salary: $', hours * rate)
+
+
+name = input ('Hello. What is your name?')
+print ('Hello,',name)
+print ("It's nice to meet you.")
+age =int (input ('How old are you?'))
+print ('Next year you will be ', age+1,'years old.')
+print ('Good-bye')
+
+
+#d
+print ('Krone per Euro=7.46')
+name = input ("Business name: ")
+euros = float (input("Number of euros : "))
+pounds = float (input ("Number of pounds: "))
+dollars = float (input ("Number of dollars: "))
+
+print ("Copenhagen Chamber of Commerce")
+print ("Business name: ",name)
+print (euros,"euros is ", euros*7.46," krone")
+print (pounds,"pounds is ", pounds*8.81," krone")
+print (dollars,"dollars is ", dollars*5.5," krone")
+print ("Total krone: ",euros*7.46+pounds*8.81+dollars*5.5)
+
+
+#e
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+print (still_another.title)
+print (another.price)
+print ((favorite.price+another.price+still_another.price)/3)
+print (favorite.year &lt; 1900)
+
+still_another = still_another._replace (price = 26.00)
+print (still_another.price)
+
+still_another_New = Book (still_another.title,still_another.author,still_another.year,still_another.price*1.2)
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match137-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print (still_another_New.price)
+
+
+#f
+from collections import namedtuple
+Animal = namedtuple('Animal','name species age weight favorite_food')
+elephant1 = Animal('Jumbo','elephant',50,1000,'peanut')
+elephant2 = Animal('Perry','elephant',7,1.7,'shrimp')
+print (elephant1.weight&lt;elephant2.weight)
+
+#g
+booklist=[favorite,another,still_another]
+</FONT>print(booklist[0].price &lt; booklist[1].price)
+print (booklist[0].year &gt; booklist[-1].year)
+
+
+#h
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50)]
+print (RC[2].name)
+print (RC[0].cuisine==RC[3].cuisine)
+print (RC[-1].price)
+RC.sort()
+print (RC)
+print (RC[-1])
+
+
+
+
+#i
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(100, 100, 300, 300, fill='orange') # Draw orange line
+my_canvas.create_line(300, 100, 100, 300, fill='blue')   # Draw blue line
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+#square
+my_window = tkinter.Tk()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match137-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+my_canvas = tkinter.Canvas (my_window, width=500,height=500)
+my_canvas.pack()
+my_canvas.create_rectangle(100,100,400,400,fill='purple')
+
+#diamond
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas (my_window, width=600,height=600)
+</FONT>my_canvas.pack()
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match137-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+my_canvas.create_polygon(340,260,220,100,100,260,220,420,fill='orange', outline='black')
+
+
+# house
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas (my_window, width=300,height=300)
+my_canvas.pack()
+</FONT>my_canvas.create_rectangle(20,60,80,120,fill='red')
+my_canvas.create_rectangle(30,90,50,120,fill='blue')
+my_canvas.create_rectangle(55,65,75,85,fill='green')
+my_canvas.create_polygon(50,20,20,60,80,60,fill='yellow', outline='black')
+
+
+
+#eye
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas (my_window, width=300,height=300)
+my_canvas.pack()
+my_canvas.create_oval(120,20,20,80,fill='white')
+my_canvas.create_oval(95,25,45,75,fill= 'brown')
+my_canvas.create_oval(80,40,60,60,fill='black')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

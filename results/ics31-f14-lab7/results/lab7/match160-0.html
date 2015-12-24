@@ -1,0 +1,196 @@
+<HTML>
+<HEAD>
+<TITLE>jcveyna/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jcveyna/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab7.py
+#Justin Veyna 77816926 and Heinrich Chen 55231261. ICS 31 lab sec 12. Lab asst 7.
+#Part C
+
+from random import randrange
+
+print('part c')
+print('Parts 1,2,3')
+#parts 1,2,3
+
+def random_names(num:int)-&gt;list:
+    '''returns a list of names'''
+    names=[]
+    infile=open('surnames.txt')
+    for line in infile:
+        names.append(line.split()[0])
+    infile.close()
+    
+    mnames=[]
+    infile=open('malenames.txt')
+    for line in infile:
+        mnames.append(line.split()[0])
+    infile.close()
+    
+    fnames=[]
+    infile=open('femalenames.txt')
+    for line in infile:
+        fnames.append(line.split()[0])
+    infile.close()
+
+    namelist=[]
+    for i in range(num):
+        tempstr=''
+        tempstr += names[randrange(len(names))].lower().capitalize() + ', '
+        if randrange(2)==0:
+            tempstr += mnames[randrange(len(mnames))].lower().capitalize()
+        else:
+            tempstr += fnames[randrange(len(fnames))].lower().capitalize()
+        namelist.append(tempstr)
+    return namelist
+print(random_names(3))
+
+#Part D
+print('Part D')
+
+def ceasar_encrypt (str1:str, n:int)-&gt;'str':
+    '''encrypts a str with a shift on n'''
+    stra = 'abcdefghijklmnopqrstuvwxyz'
+    str2 = ''
+    for i in range(26):
+        str2+= stra[(i+n)%26]
+    table = str.maketrans(stra, str2)
+    return str1.lower().translate(table)
+assert ceasar_encrypt('Hi there', 3)=='kl wkhuh'
+assert ceasar_encrypt('cat', 1000001) == ceasar_encrypt('cat', 1000001%26)
+
+def ceasar_decrypt (str1:str, n:int)-&gt;'str':
+    '''decrypts a encoded str'''
+    stra = 'abcdefghijklmnopqrstuvwxyz'
+    str2 = ''
+    for i in range(26):
+        str2+= stra[(i-n+26)%26]
+    table = str.maketrans(stra, str2)
+    return str1.lower().translate(table)
+assert ceasar_decrypt('kl wkhuh', 3)=='hi there'
+assert ceasar_decrypt('cat', 1000001)==ceasar_decrypt('cat', 1000001%26)
+
+
+def hits(message:str)-&gt;int:
+    '''number of words in dictionary'''
+    dictionary=[]
+    infile=open('wordlist.txt')
+    for line in infile:
+        dictionary.append(line.strip())
+    infile.close()
+    
+    wordList = message.split()
+    hit = 0
+    for x in wordList:
+        if x in dictionary:
+            hit+=1
+    return hit
+assert hits('let us go')==0
+assert hits("let's goes")==2
+
+def Caesar_break(codes:str)-&gt;str:
+    '''decodes stuff'''
+    max = 0
+    tempor=''
+    for x in range(26):
+        if max &lt; hits(ceasar_decrypt(codes,x)):
+            tempor = ceasar_decrypt(codes,x)
+            max = hits(ceasar_decrypt(codes,x))
+    if max == 0:
+        return'No match'
+    return tempor
+
+#Part 2
+print('Part 2')
+
+print(Caesar_break('zkdw zrugv dfwxdoob dsshdu lq wklv glfwlrqdub'))
+
+
+#part e
+print('part e')
+#Part 1
+
+def copy_file(str1:str):
+    '''copies the file if the input is line nimber then it adds line numbers
+if input is gutenburg strip then it only copies lines between *** START and *** END
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match160-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+if input is statistics then it givs stats for the coppied lines'''
+#Part 2
+    if str1=='line numbers':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        lista = infile.readlines()
+        for s in range(len(lista)):
+            outfile.write('{:5}: {}'.format(s,lista[s]))
+        infile.close()
+        outfile.close()
+#Part 3
+    elif str1=='gutenburg trim':
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+</FONT>        outfile = open(outfile_name, 'w')
+        good = False
+        for line in infile:
+            if '*** END' in line:
+                break
+            if good:
+                outfile.write(line)
+            if '*** START' in line:
+                good=True
+        infile.close()
+        outfile.close()
+#Part 4
+    elif str1 == 'statistics':
+        listOfWords = []
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            listOfWords.append(line.strip())
+        for line in infile:
+            outfile.write(line)
+        stats(listOfWords)
+        infile.close()
+        outfile.close()
+    else:
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+
+def stats(listr:list):
+    '''prints statistics about the list of strings like #lines #empty line avg chars per line and avg chars per non empty line'''
+    print('{:8.1f} lines in the list'.format(len(listr)))
+    empt = 0
+    chars = 0
+    for i in listr:
+        if i == '':
+            empt+=1
+        chars+=len(i)
+    print('{:8d} empty lines'.format(empt))
+    print('{:8.1f} average characters per line'.format((float(chars)/len(listr))))
+    print('{:8.1f} average characters per non-empty line'.format((float(chars)/(len(listr)-empt))))
+        
+
+
+
+    
+
+        
+    
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,156 @@
+<HTML>
+<HEAD>
+<TITLE>chenlo/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+tommyww/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Tommy Wong 71659011 and Avelino Miranda 16732033. ICS Lab sec 5. Lab asst 7.
+
+from random import randrange
+print("\n--------Part C--------\n")
+
+surnames = (open("surnames.txt")).readlines()
+femalenames = (open("femalenames.txt")).readlines()
+malenames = (open("malenames.txt")).readlines()
+
+def random_names(n: int) -&gt; list:
+    ''' Generates a number of random names and returns them as a list of strings'''
+    global surnames
+    global femalenames
+    global malenames
+    result = [ ]
+    for i in range(n) :
+        random = randrange(2)
+        firstname = ""
+        if random == 0:
+            firstname = random_grabber(femalenames)
+        else:
+            firstname = random_grabber(malenames)
+        lastname = random_grabber(surnames)
+        name = lastname + ", " + firstname
+        result.append(name)
+    return result
+    
+
+def random_grabber(name_list: list) -&gt; str:
+    ''' Grabs a random name from the list of names and reformats them'''
+    length = len(name_list)
+    random = randrange(length)
+    name = name_list[random]
+    name_info = name.split()
+    name = name_info[0]
+    return (name.lower()).capitalize()
+
+print(random_names(5))
+
+print("\n--------Part D--------\n")
+
+wordlist = (open("wordlist.txt")).readlines()
+for i in range(len(wordlist)):
+    wordlist[i] = wordlist[i].lower().strip()
+
+print("\nd.1\n")
+
+ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+def rotate_alphabet(n: int) -&gt; str: #From last week's lab
+    ''' Moves over the letters of the alphabet by a number'''
+    n = n%26
+    global ALPHABET
+    return ALPHABET[n:len(ALPHABET)] + ALPHABET[0:n]
+
+
+def Caesar_break(s: str) -&gt; str:
+    ''' Finds 26 possible decryptedion keys and returns the best string after decryption'''
+    global ALPHABET
+    global wordlist
+    decryption_list = [ ]
+    string = ""
+    for i in range(26):
+        decryption_key = rotate_alphabet(i)
+        table = str.maketrans(decryption_key, ALPHABET)
+        decryption_list.append(s.translate(table))
+
+    pre_hits = 0  
+    for decrypted_str in decryption_list: #loops through our 26 possible decrpytions
+        hits = 0
+        for word in decrypted_str.split(): #loops through the decrpyted str
+            for word2 in wordlist: #loops through the dictionary file list
+                if word == word2: #checks if the decrypted word matches a word in the dictionary
+                    hits += 1
+                    break
+        if hits &gt; pre_hits:
+            string = decrypted_str
+            pre_hits = hits #stores previous hits
+    return string
+
+print(Caesar_break("fnix"))
+assert Caesar_break("fnix") == 'aids'
+print(Caesar_break("kgyv kdfc"))
+assert Caesar_break("kgyv kdfc") == "awol atvs"
+print(Caesar_break("wigjonyl augy mwcyhwy"))
+assert Caesar_break("wigjonyl augy mwcyhwy") == "computer game science"
+print(Caesar_break("iwxh xh p ithi: $%^ wtaad'h"))
+assert Caesar_break("iwxh xh p ithi: $%^ wtaad'h") == "this is a test: $%^ hello's"
+print(Caesar_break("ozqs c hr mnv vnqjhmf bnqqdbskx"))
+assert Caesar_break("ozqs c hr mnv vnqjhmf bnqqdbskx") == "part d is now working correctly"
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match200-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print("\n--------Part E--------\n")
+
+
+def copy_file(s: str):
+    ''' Opens a file and makes a copy of the file and does special functions depending on the string'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+</FONT><A NAME="0"></A><FONT color = #FF0000><A HREF="match200-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if s == "line numbers":
+        i = 1
+        for line in infile:
+            outfile.write("{:5}: ".format(i) + line)
+            i += 1
+    elif s == "Gutenberg trim":
+        found_start = False
+        for line in infile:
+            if not line.find("*** START") == -1:
+</FONT>                found_start = True
+            if found_start:
+                outfile.write(line)
+            if not line.find("*** END") == -1:
+                found_start = False
+                break
+    elif s == "statistics":
+        lines = 0
+        empty_lines = 0
+        char = 0
+        for line in infile:
+            outfile.write(line)
+            lines += 1
+            if line == "\n":
+                empty_lines += 1
+            char += len(line)
+        format_str = "{:7.1f}"
+        print(format_str.format(lines), "lines in the list") 
+        print(format_str.format(empty_lines), "empty lines")
+        print(format_str.format(char / lines), "average characters per line")
+        print(format_str.format(char / (lines - empty_lines)), "average characters per non-empty line")
+            
+    else:        
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file("")
+copy_file("line numbers")
+copy_file("Gutenberg trim")
+copy_file("statistics")
+</PRE>
+</PRE>
+</BODY>
+</HTML>

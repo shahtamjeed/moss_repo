@@ -1,0 +1,184 @@
+<HTML>
+<HEAD>
+<TITLE>jasonyc2/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+torreslk/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Sreeja Sthothra Bhashyam 25185345 and Lilyann Torres 31438101. Lab sec 10. Lab asst 7.
+
+print('-------Part C--------')
+print()
+
+import random
+surnames = open("surnames.txt", 'r')
+girlnames = open("femalenames.txt", "r")
+boynames = open("malenames.txt","r")
+
+s = surnames.readlines()
+g = girlnames.readlines()
+b = boynames.readlines()
+
+slist = []
+glist = []
+blist = []
+
+for x in s:
+    temp= x.split('\t')
+    slist.append(temp[0])
+for x in g:
+    temp1= x.split('\t')
+    glist.append(temp1[0])
+for x in b:
+    temp2= x.split('\t')
+    blist.append(temp2[0])
+
+def random_names(n: int) -&gt; [str]:
+    fullnames = []
+    for x in range(0, n):
+        randname = random.choice(slist)
+        if x%2==0:
+            randfirst = random.choice(glist)
+        if x%2==1:
+            randfirst = random.choice(blist)
+        fullname = randname + ', ' + randfirst
+        fullnames.append(fullname)
+    return fullnames
+print(random_names(20))
+
+
+word = open('wordlist.txt', 'r')
+wordopen = word.read()
+word.close()
+wordl = wordopen.split('\n')
+
+
+print('------Part D-----')
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def Caesar_encrypt(ptext: str, n: int) -&gt; str:
+    '''Return ciphertext of message'''
+    if n&gt;25:
+        n=n%26
+    else:
+        n=n
+    shifted_alphabet = alphabet[n:] + alphabet[:n]
+    ptext = ptext.lower()
+    table = str.maketrans(alphabet, shifted_alphabet)
+    return ptext.translate(table)
+assert Caesar_encrypt('APE', 2) == 'crg'
+
+
+def Caesar_decrypt(ctext: str, n: int) -&gt; str:
+    ''' Return plaintext of message '''
+    shifted_alphabet = alphabet[n:] + alphabet[:n]
+    ctext = ctext.lower()
+    table = str.maketrans(shifted_alphabet, alphabet)
+    return ctext.translate(table)
+assert Caesar_decrypt('CRRNG', 2) == 'apple'
+
+
+
+def Caesar_break(s: str) -&gt; str:
+    e_list = []
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match23-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    f_counter = 0
+    f_list = []
+    f_msg = " "
+    d = " ".join(wordl)
+    for i in range(1 , 27):
+        e_list.append(Caesar_decrypt(s, i))  
+    for x in e_list:
+        z = x.split()
+        for s in z:
+            tcounter = 0
+            if s in d:
+                tcounter = tcounter + 1
+        if f_counter &lt; tcounter:
+            f_counter = tcounter
+            f_list = z
+    for i in f_list:
+        f_msg += i + " "
+    return f_msg
+
+print(Caesar_break("j mpwf vdj"))
+
+
+print('---------Part E-----------')
+</FONT>
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match23-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def copy_file(s: str) -&gt; None: 
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfileopen = open(outfile_name, 'r')
+    outfileopener = outfileopen.read()
+    outfile.close()
+    linelist = outfileopener.split('\n')
+    counter = 1
+    if s == 'line numbers':
+</FONT>        for line in linelist:
+            a = line
+            print("{:5}: {:}".format(counter, a))
+            counter+=1    
+    if s == 'Gutenberg trim':
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match23-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        counter = 0
+        counter1 = 0
+        E1 = []
+        E2 = []
+        final_list = []
+        for i in range(len(linelist)):
+            if linelist[i].find("*** START")&gt;=0:
+                E1.append(i)
+</FONT>            if linelist[i].find("*** END")&gt;=0:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match23-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                E2.append(i)
+        for y in range(len(linelist)):
+            if y &gt; E1[0] and y &lt; E2[0]:
+                final_list.append(linelist[y])
+                
+        outfile = open(outfile_name, 'w')
+
+        for line in final_list:
+            outfile.write(line + '\n')
+        outfileopen = open(outfile_name, 'r')
+        outfileopener = outfileopen.read()
+        linelist = outfileopener.split('\n')
+        outfile.close()
+    if s == 'statistics':
+</FONT>        counter2 = 0
+        counter3 = 0
+        for line in linelist:
+            if line == '':
+                counter2 += 1
+                counter3 += 1
+            else:
+                counter2 += 1
+        a = "".join(linelist)
+        z = len(a)/counter2
+        e = len(a)/(counter2 - counter3)
+        print("{:5} {:}".format(counter2, "  lines in the list"))
+        print("{:5} {:}".format(counter3, "  empty lines"))
+        print("{:7.1f} average characters per line".format(z))
+        print("{:7.1f} average characters per non-empty line".format(e))
+        print("\n")
+        
+copy_file('line numbers')
+
+
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

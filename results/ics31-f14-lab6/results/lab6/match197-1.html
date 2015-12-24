@@ -1,0 +1,246 @@
+<HTML>
+<HEAD>
+<TITLE>csardell/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kyaseen/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab 6 (1).py
+# Isabel Silva 35084189 and Komal Yaseen 22674907. ICS 31 Lab sec 10. Lab asst 6
+
+#part c1
+print('---Part C1---')
+print('\n')
+
+def contains (s1: str, s2: str) -&gt; bool:
+    '''Returns true if second string occurs in first string'''
+    return s2 in s1
+
+assert contains('banana', 'ana') 
+assert not contains('racecar', 'ok') 
+assert not contains('hamburger', 'bye') 
+assert contains('icecream', 'ice') 
+
+#part c2
+
+print('---Part C2---')
+print('\n')
+
+def sentence_stats (s:str):
+    '''Returns statistics of string'''
+    table = str.maketrans('.,!?:*;"',
+                          '        ')
+    a = len(s)
+    b = len(s.translate(table).split())
+    print('Characters: ', a)
+    print('Words: ', b)
+    print('Average word length: ', ((a-s.translate(table).count(' '))/b))
+
+sentence_stats(input('What is your word?:'))
+
+print()
+print('---Part C3---')
+print()
+def initials (s:str) -&gt; str:
+    '''Returns capitalized initials of name'''
+    result = ''
+    for i in s.split():
+        result += i[0].upper()
+    return result
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+#part d1
+print('---Part D1---')
+print()
+
+from random import randrange
+for i in range(50): 
+    print(randrange(11))
+print('---')
+for i in range(50):
+    print(randrange(1,7))
+
+print('---Part D2---')
+print()
+from random import randrange
+
+def roll2dice () -&gt; int:
+    '''Returns number reflecting random roll of two dice'''
+    result = []
+    for i in range(50):
+        result.append(randrange(1,7) + randrange(1,7))
+    return result
+
+
+    
+print(roll2dice())
+
+print()
+print('----Part D3----')
+print()
+def roll2dices (a: float) -&gt; int:
+    result = []
+    for i in range(a):
+        result.append(randrange(1,7) + randrange(1,7))
+    return result
+
+def distribution_of_rolls(n: float):
+    print('Distribution of dice rolls')
+    print()
+    a = roll2dices(n)
+    f= '{0:2}: {1:4} ({2:4}%) {3:}'
+    for i in range(2,13):
+        print(f.format(i, a.count(i), ((a.count(i)/len(a)) * 100), 
+              (a.count(i)*'*')))
+    print('------------------------------')
+    print('       ',len(a),'rolls')
+distribution_of_rolls(200)
+
+a = 'abcdefghijklmnopqrstuvwxyz'
+def rotated(string: str, num: float):
+    if num &gt;= 26:
+        num -= 26
+    return string[num:] + string[:num]
+def Caesar_encrypt(m:str, k:int) -&gt; str:
+    ''' entering plaintext returns cipher text'''
+    real_alpha = 'abcdefghijklmnopqrstuvwxyz'
+    real_ALPHA = real_alpha.upper()
+    plus_upper_alpha = real_alpha + real_ALPHA
+    new_alpha = rotated(plus_upper_alpha,k)
+    trans = str.maketrans(plus_upper_alpha, new_alpha)
+    new_string = ''
+    for i in m:
+        new_str = i.translate(trans)
+        new_string += (new_str)  
+    return new_string
+
+def Caesar_decrypt(m:str, k:int) -&gt; str:
+    '''Entering ciphertext and returns plaintext'''
+    real_alpha = 'abcdefghijklmnopqrstuvwxyz'
+    real_ALPHA = real_alpha.upper()
+    plus_upper_alpha = real_alpha + real_ALPHA
+    new_alpha = rotated(plus_upper_alpha,k)
+    trans = str.maketrans(new_alpha, plus_upper_alpha)
+    new_string = ''
+    for i in m:
+        new_str = i.translate(trans)
+        new_string += (new_str)  
+    return new_string
+
+print()
+print('----Part E2----')
+print()
+print(Caesar_encrypt('Hello, my name is Isabel Silva, meet me infront of the lab.', 2))
+print(Caesar_decrypt('Jgnnq, oA pcog ku Kucdgn Uknxc, oggv og kphtqpv qh vjg ncd.',2))
+print(Caesar_encrypt('You are late!',5))
+print(Caesar_decrypt('dtz fwj qfyj!',5))
+print(Caesar_encrypt('cat', 29))
+print(Caesar_encrypt('cat', 3))
+
+print()
+print('----Part F1----')
+print()
+def print_line_numbers (s: list):
+    '''Prints each string preceded by a line number'''
+    n = len(s)
+    f = '{:5}: {}'
+    for i in range(n):
+        print(f.format(i+1, s[i]))
+
+print_line_numbers([ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ])
+
+print()
+print('----Part F2----')
+print()
+
+def stats(s: list):
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match197-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    a = len(s)
+    b = empty_line(s)
+    c = total_characters(s)/a
+    d = total_characters(s)/(a-b)
+    print('{:5}   lines in the list \n{:5}   empty lines \n{:7.1f}\
+average characters per line \n{:7.1f} average characters per non empty\
+</FONT>line'.format(a, b, c, d))
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match197-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def empty_line(s: list) -&gt; int:
+    '''Return number of empty lines in the function'''
+    result = []
+    for i in s:
+        if i == '':
+            result.append(i)
+    return len(result)
+
+def total_characters(s: list) -&gt; int:
+    '''Returns total number of characters in a line'''
+    result = []
+    for i in s:
+        result.append(len(i))
+</FONT>    return sum(result)
+                      
+    
+
+stats([ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ])
+
+print()
+print('---Part F3---')
+print()
+def punct_removed(s: str) -&gt; str:
+    '''Removes punctuation and replaces it with blanks'''
+    a = '*!@#$%^&()-_+=\|]}[{;:.&lt;&gt;?/"'
+    result = ''
+    for i in a:
+        result = s.replace(i, '')
+        s = result 
+    return result
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match197-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def list_of_words(l: list) -&gt; list:
+    '''returns a list of words with all white space and punctuation removed'''
+    result = []
+    for i in l:
+        i = punct_removed(i)
+        result.extend(i.split())
+    return result
+</FONT>        
+print(list_of_words([ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great	    civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+))                     
+
+
+
+        
+          
+        
+
+
+
+        
+
+        
+    
+          
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

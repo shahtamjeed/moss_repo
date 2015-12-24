@@ -1,0 +1,181 @@
+<HTML>
+<HEAD>
+<TITLE>maurog/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+maurog/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7 final.py
+#  Arturo Miguel 33744592 and Mauro Serrano 42096674.  ICS 31 Lab sec 7.  Lab asst 12.
+
+from random import randrange
+#
+# Part (c)
+#
+print()
+print('---------- Part (c) ----------')
+print()
+
+female = open('femalenames.txt')
+male = open('malenames.txt')
+surnames = open('surnames.txt')
+lines1 = female.readlines()
+lines2 = male.readlines()
+lines3 = surnames.readlines()
+
+
+def name(l: list) -&gt; str:
+    y = l[randrange(len(l)+1)].split()
+    return y[0].capitalize()
+
+
+def random_names(n: int) -&gt; list:
+    t = []
+    for i in range(n):
+        if i%2 == True:
+            q = name(lines1) + ' ' + name(lines3)
+            t.append(q)
+        else:
+            r = name(lines2) + ' ' + name(lines3)
+            t.append(r)
+    return t
+
+print(random_names(7))
+
+#
+# Part (d)
+#
+print()
+print('---------- Part (d) ----------')
+print()
+
+word_list = open('wordlist.txt')
+words = word_list.readlines()
+new_words = []
+for i in range(len(words)):
+    m = words[i].replace('\n', '')
+    new_words.append(m)
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def Rotate(n: int) -&gt; str:
+    '''Returns a rotated alphabet witht the specified number of
+       characters taken off the front and added to the end of the str'''
+    m = ALPHABET[n:], ALPHABET[:n]
+    return ''.join(m)
+
+def Caesar_break(s: str) -&gt; str:
+    '''Returns the plaintext'''
+    m = s.lower()
+    t = []
+    for i in range(26):
+        table = str.maketrans(Rotate(i),
+                              ALPHABET)
+        q = m.translate(table)
+        t.append(q)
+    for i in range(len(t)):
+        if t[i] in new_words:
+            return t[i]
+        elif t[i].capitalize() in new_words:
+            return t[i].capitalize()
+        elif t[i].upper() in new_words:
+            return t[i].upper()
+
+assert Caesar_break('hswohila') == 'alphabet'
+assert Caesar_break('Cniqn') == 'Algol'
+assert Caesar_break('CHFE') == 'AFDC'
+print(Caesar_break('Klkqkov'))
+
+
+#
+# Part (e)
+#
+
+print('---------- Part (e) ----------')
+
+ef copy_file():
+    
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match148-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file()
+
+#e2
+def mod_copy_file(s:str):   #if parameter is 'line numbers', includes lines numbers
+    
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+</FONT>    count = 0
+    if s == 'line number':
+        for line in infile:
+            print ('{:5}: {}'.format (count +1, line))
+            count += 1
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match148-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+mod_copy_file('line number')
+
+
+#3
+# This will print only the body of the file
+def copy_file(s: str):
+    
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+</FONT>    data=infile.readlines()
+    infile.close()
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    ''' while index of START is less greater than but less than index of END print'''
+    for line in data:
+        if 'START' in line 
+            print (line)
+        if 'END' in line:
+            print (' gjghjg')
+    outfile.close()
+
+copy_file('Gutenberg trim')
+
+
+#e4
+
+def copy_file(stat:'statistic'):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    
+        
+    print('{:8.1f} lines in the list'.format(len(stat)))
+    empt = 0
+    chars = 0
+    for i in stat:
+    if i == '':
+        empt+=1
+    chars+=len(i)
+    
+    print('{:8d} empty lines'.format(empt))
+    print('{:8.1f} average characters per line'.format((float(chars)/len(stat))))
+    print('{:8.1f} average characters per non-empty line'.format((float(chars)/(len(stat)-empt))))
+
+        
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/gagek/(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/gagek/(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: BandBI.py
+# Kenneth Gage 80472673 and Jonathan Chew 28847787.  ICS 31 Lab sec 16. Lab Asst 8.
+
+def Main_program(file_name:str):
+    '''Main program function. Opens/Reads/Closes file.'''
+    f = open(file_name, 'r')
+    instructions = f.readlines()
+    f.close()
+    Handle_commands(instructions)
+    return
+
+def Handle_commands(com_list:[str]):
+    '''Follows instructions from input file and keeps track of reservations'''
+    reservations = []
+    for line in com_list:
+        if line.split()[0].lower() == 'ab':
+            reservations.append(int(line.split()[1]))
+        elif line.split()[0].lower() == 'bl':
+            print('Number of bedrooms in service: {:2}'.format(len(reservations)))
+            print(36*'-')
+            for br in reservations:
+                print(br)
+        elif line.split()[0].lower() == 'pl':
+            print(' '.join(line.split()[1:]))
+    return
+
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match144-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_52.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+test_file_text = '''** This is a sample command file for the Anteater BandB, Stage I
+PL ***********************************************************
+PL Here is a list of available bedrooms (before adding any!)
+** A well-written program works gracefully with empty lists.
+BL
+PL ***********************************************************
+** Now let's add a bedroom:
+AB 101
+BL
+** And some more:
+AB 104
+** Extra blanks around the command should be ignored
+ab    102
+    AB 201
+    Ab      203
+ BL
+PL Thank you for using the Anteater BandB Reservation System!
+** That's the end of the sample data for Stage I.'''
+</FONT>
+
+#As the test code wasn't given in a named file, and we don't want an error
+#due to naming the test file differently than you, we are bypassing the
+#file input function and passing the file contents as a string for our "test"
+
+#Just remember to call Main_program if you are inputting your own file
+print('TEST: \n')
+Handle_commands(test_file_text.split('\n'))
+print()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

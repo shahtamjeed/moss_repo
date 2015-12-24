@@ -1,0 +1,230 @@
+<HTML>
+<HEAD>
+<TITLE>albertc7/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+albertc7/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Albert Chang 42449659 and Alyssa Lingad 33501772.  ICS 31 Lab sec 1.  Lab asst 3.
+
+# c(1)
+def abbreviate(month:str) -&gt;str:
+    " Return the first three letters of the parameter"
+    return(month[0:3])
+assert abbreviate('January') == 'Jan'
+assert abbreviate('April') == 'Apr'
+assert abbreviate('December') == 'Dec'
+
+# c(2)
+def find_area_square(length:int) -&gt;int:
+    " Return the parameter squared "
+    return(length**2)
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+assert find_area_square(10) == 100
+
+# c(3)
+def find_area_circle(radius:int) -&gt;float:
+    "Return the parameter squared times pi"
+    return((radius**2) * 3.14159)
+assert find_area_circle(1) == 3.14159
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match192-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert find_area_circle(5) == 78.53975
+assert find_area_circle(7) == 153.93791
+
+# c(4) 
+def print_even_numbers(numbers:list) -&gt;list:
+    "Loop through list to find numbers perfectly divisible by 2"
+    for x in range(len(numbers)):
+        if numbers[x] % 2 == 0:
+            print(numbers[x])
+</FONT>    
+List = [2, 47, 31, 99, 20, 19, 23, 105, 710, 1004]
+print_even_numbers( List )
+
+# c(5)
+def calculate_shipping(weight):
+    "Takes in integer variable and returns set price"
+    if weight &lt; 2:
+        price = 2.00
+    elif weight &lt; 10 and weight &gt; 2:
+        price = 5.00
+    else:
+        price = 5 + ((weight - 10) * 1.5)
+    return price
+
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+# c(6)
+import tkinter
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)
+my_canvas.pack()     
+" Syntax to create canvas page to draw on "
+def create_square(x, y, length):
+    my_canvas.create_rectangle(x, y, x+length, y+length)
+    " Creates square with user integer inputs "
+create_square(0,0,450)
+
+
+# c(7)
+my_window_circle = tkinter.Tk()
+my_canvas_circle = tkinter.Canvas(my_window_circle, width = 500, height = 500)
+my_canvas_circle.pack()
+" Syntax to create canvas page to draw on "
+def create_circle(x, y, diameter):
+    my_canvas_circle.create_oval(x, y, x + diameter, y + diameter)
+    " Creates a circle with user integer inputs "
+create_circle(50, 50, 200)
+tkinter.mainloop()
+
+# d(1)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match192-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name price')
+# Restaurant attributes: name, price of that dish
+RL = [
+    Restaurant("Thai Dishes", 12.50),
+    Restaurant("Nobu", 5.50),
+    Restaurant("Nonna", 25.50),
+    Restaurant("Jitlada", 15.50),
+    Restaurant("Nola", 5.50),
+    Restaurant("Noma", 35.50),
+    Restaurant("Addis Ababa", 10.50) ]
+</FONT>" Creates list named RL "
+def restaurant_price(name:Restaurant) -&gt; float:
+    return name.price
+    " Takes in object for parameter and returns object price "
+assert restaurant_price(RL[0]) == 12.50
+assert restaurant_price(RL[-2]) == 35.50
+
+# d(2)
+RL.sort(key=restaurant_price)
+print('Least expensive to most expensive', RL)
+" Sorts list RL by price "
+
+# d(3)
+def costliest(restaurants):
+    restaurants.sort(key=restaurant_price)
+    return restaurants[-1].name
+" Takes a list in as an argument, sorts the list, and then returns last name in list"
+
+# d(4)
+def costliest2(restaurants):
+    new_list = sorted(restaurants, key=restaurant_price)
+    return new_list[-1].name
+" Takes a list in as an argument, sorts the list, and then returns last name in list. Does not permanently change list order. "
+
+# e
+from collections import namedtuple
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book("Ben Chen", "Awesome", "Technology", 1999, 10.00, 100),
+    Book("Kevin Bai", "Beautiful", "Romance", 2001, 20.00, 12),
+    Book("Michelle Lee", "Cool", "Teen-Fiction", 1900, 35.00, 13),
+    Book("Albert Zthang", "Chill", "Technology", 1500, 40.00, 46),
+    Book("Michael Sam", "Elephant", "Sad", 2014, 15.00, 25),
+    Book("George Or", "Fox", "Action", 2000, 6.00, 26) ]
+" Creates nametuple Book and list BSI "
+
+# e(1)
+for x in range(len(BSI)):
+    print( BSI[x].title )
+" Prints the title of all names in BSI, one for each line "
+
+# e(2)
+def return_title(name:Book) -&gt; str:
+    return name.title
+" Returns the title inside a book object "
+
+new_list = sorted(BSI, key=return_title)
+for x in range(len(BSI)):
+    print(new_list[x].title)
+" Sorts BSI list according to title without permanently changing list "
+
+# e(3)
+def return_price(cost:Book) -&gt;float:
+    return cost.price
+" returns the price of a book object "
+
+for x in range(len(BSI)):
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match192-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    BSI[x]= BSI[x]._replace(price = BSI[x].price * 1.1)
+for x in range(len(BSI)):
+    print(BSI[x].price)
+</FONT>" increases the price of all books in BSI and prints new prices out one for each line "
+
+# e(4)
+for x in range(len(BSI)):
+    if(BSI[x].genre == "Technology"):
+        print(BSI[x].title)
+" Prints out the titles for all books with a Technology genre "
+
+# e(5)
+book_titles = [] 
+book_titles2 = []
+" Creates two empty lists "
+
+for x in range(len(BSI)):
+    if(BSI[x].year &lt; 2000):
+        book_titles.append(BSI[x].title)
+    else:
+        book_titles2.append(BSI[x].title)
+" Sorts book titles by year into empty lists "
+print(book_titles)
+print(book_titles2)
+
+# e(6)
+def inventory_value(book:Book) -&gt; float:
+    return book.price * book.instock
+" returns inventory value "
+
+def top_value(books):
+    new_list = sorted(BSI, key=inventory_value)
+    return new_list[-1]
+" returns the book with highest inventory value "
+
+print("The highest-value book is", top_value(BSI).title, "by", top_value(BSI).author, "at a value of $", top_value(BSI).price)
+
+# f
+
+import tkinter
+
+my_window = tkinter.Tk()
+my_face = tkinter.Canvas(my_window, width=500, height=500)
+my_face.pack()
+
+def draw_eye(x,y):
+    my_face.create_oval(x, y, x+150, y+70, fill='white')
+    my_face.create_oval(x+40, y, x+110, y+70, fill='black')
+" A function that takes in 2 integer values to create an eye " 
+    
+def draw_nose(x,y):
+    my_face.create_line(x, y, x+80, y + 70)
+    my_face.create_line(x, y+70, x+80, y +70)
+" A function that takes in 2 integer values to create a nose "
+
+def draw_mouth(x,y):
+    my_face.create_oval(x, y, x+230, y+20, fill='red')
+" A function that takes in 2 integer values to create a mouth "
+
+def draw_face():
+    draw_eye(50,50)
+    draw_eye(250,50)
+    draw_nose(200, 150)
+    draw_mouth(120, 250)
+" A function that, with predefined integers, calls on all functions to draw a face "
+
+draw_face()
+tkinter.mainloop()
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

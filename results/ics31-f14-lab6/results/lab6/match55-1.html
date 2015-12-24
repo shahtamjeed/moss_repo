@@ -1,0 +1,256 @@
+<HTML>
+<HEAD>
+<TITLE>anase/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+carloe1/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab6.py
+#Carlos Estrada 58042643 and Arash Nase 62688355
+#
+# Part (c)
+#
+#
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match55-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('---------- Part (c) ----------')
+
+#c1
+
+def contains(n:str,v:str):
+   return v in n
+
+assert contains('banana', 'ana') == True
+assert not contains('racecar', 'ck') == True
+assert contains('hello', 'hell') == True
+assert not contains('you', 'd') == True
+
+#c2
+
+def sentence_stats(n:str):
+    print('Characters:', len(n) - n.count(' '))
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match55-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print('Words:', len(n.split()))
+    print('Average word length:', (len(n) - n.count(' '))/len(n.split()))
+    
+        
+#c3
+
+def initials(n:str):
+    result = []
+    for i in n.split():
+        result.append(i[0].upper())
+    return ''.join(result)
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+#
+# Part (d)
+#
+#
+print('---------- Part (d) ----------')
+
+#d1
+
+from random import randrange
+for i in range(50):
+    print(randrange(11))
+print()
+print()
+for i in range(50):
+    print(randrange(1,7))
+</FONT>
+#d2
+
+def roll2dice()-&gt;int:
+    result= []
+    result2= []
+    for i in range(50):
+        result.append(randrange(1,7))
+    for i in range(50):
+        result2.append(randrange(1,7))
+    finalresult = [sum(i) for i in zip(result,result2)]
+    return finalresult
+
+#d3
+
+def distribution_of_rolls(n:int):
+    result = []
+    result2 = []
+    finalresult = []
+    count2 = 0
+    count3 = 0
+    count4 = 0
+    count5 = 0
+    count6 = 0
+    count7 = 0
+    count8 = 0
+    count9 = 0
+    count10 = 0
+    count11 = 0
+    count12 = 0
+    for i in range(n):
+        result.append(randrange(1,7))
+    for i in range(n):
+        result2.append(randrange(1,7))
+    finalresult = [sum(i) for i in zip(result,result2)]
+    for i in finalresult:
+        if i == 2:
+            count2 += 1
+    for i in finalresult:
+        if i == 3:
+            count3 += 1       
+    for i in result:
+        if i == 4:
+            count4 += 1               
+    for i in finalresult:
+        if i == 5:
+            count5 += 1   
+    for i in finalresult:
+        if i == 6:
+            count6 += 1
+    for i in finalresult:
+        if i == 7:
+            count7 += 1   
+    for i in finalresult:
+        if i == 8:
+            count8 += 1
+    for i in finalresult:
+        if i == 9:
+            count9 += 1      
+    for i in finalresult:
+        if i == 10:
+            count10 += 1
+    for i in finalresult:
+        if i == 11:
+            count11 += 1
+    for i in finalresult:
+        if i == 12:
+            count12 += 1
+    print('2:', count2, '(',count2/n,')',count2*'*')
+    print('3:', count3, '(',count3/n,')',count3*'*')
+    print('4:', count4, '(',count4/n,')',count4*'*')
+    print('5:', count5, '(',count5/n,')',count5*'*')
+    print('6:', count6, '(',count6/n,')',count6*'*')
+    print('7:', count7, '(',count7/n,')',count7*'*')
+    print('8:', count8, '(',count8/n,')',count8*'*')
+    print('9:', count9, '(',count9/n,')',count9*'*')
+    print('10:', count10, '(',count10/n,')',count10*'*')
+    print('11:', count11, '(',count11/n,')',count11*'*')
+    print('12:', count12, '(',count12/n,')',count12*'*')
+   
+#
+# Part (e)
+#
+#
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match55-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_40.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('---------- Part (e) ----------')
+
+#e1
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def Caesar_encrypt(myString:str, num: int):
+
+      encrypted = ''
+      lowerCase_myString = myString.lower()  #making the string lowerCase
+
+      for j in range(len(myString)):
+         i = ALPHABET.find(lowerCase_myString[j])  #finding the charachters of the string in ALPHABET
+         rule = str.maketrans(ALPHABET[i], ALPHABET[(i+num)%26])  #chaning a specific character in ALPHABET with ALPHABET+KEY
+         encrypted += lowerCase_myString[j].translate(rule)    #Adding the character to empty encrypt message
+
+      return  encrypted
+
+
+#print(Caesar_encrypt("ARASH", 26))
+#print(Caesar_encrypt("carlos7", 1))
+
+def Caesar_decrypt(myString:str, num: int):
+   
+      decrypted = ''
+      lowerCase_myString = myString.lower()
+
+      for j in range(len(myString)):
+         i = ALPHABET.find(lowerCase_myString[j])
+         rule = str.maketrans(ALPHABET[i], ALPHABET[(i-num)%26])
+         decrypted += lowerCase_myString[j].translate(rule)
+
+      return  decrypted
+
+#print(Caesar_decrypt("ARASH", 26))
+#print(Caesar_decrypt("dbsmpt7", 1))
+
+
+#e2
+#We did it, function worked
+
+#e3
+
+'''
+this line in the code did the work:
+str.maketrans(ALPHABET[i], ALPHABET[(i+num)%26])
+'''
+
+#
+# Part (f)
+#
+#
+print('---------- Part (f) ----------')
+
+#f1
+
+flist=[ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+def print_line_numbers(n:list):
+   for j in range(len(n)):
+      print('{:5}:  {:5}'.format(j+1,n[j]))
+       
+print_line_numbers(flist)
+
+#f2
+
+def stats(n:list):
+   print('{:5}  {:5}'.format(len(n), 'lines in the list'))
+   count = 0
+   for i in n:
+      if i == '':
+         count += 1
+   print('{:5}  {:5}'.format(count, 'empty lines in the list'))
+   l = []
+   for i in n:
+      l.append(len(i))
+   print('{:5}  {:5}'.format(sum(l)/len(n) ,'average characters per line'))
+   l2=[]
+   for i in n:
+      if i != '':
+         l2.append(len(i))
+   print('{:5}  {:5}'.format(sum(l2)/len(l2) ,'average characters per non-empty line'))             
+stats(flist)
+
+#f3
+
+def list_of_words(n:list)-&gt;list:
+   lst = []
+   lst2 = []
+   rule = str.maketrans(' .,?;:!','       ') 
+   for i in n:
+      lst.append(i.translate(rule))
+   for i in lst:
+      lst2.extend(i.split())
+   return lst2
+</FONT>
+print(list_of_words(flist))
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,206 @@
+<HTML>
+<HEAD>
+<TITLE>jkandu/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+sijiel2/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Sijie Lu 92684581 and Jason Christian Kandu 23434725.  ICS 31 Lab sec 13.  Lab asst 7
+
+#
+# Part (c)
+#
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match7-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_99.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('\n')
+print('---------- Part (c) ----------')
+print()
+
+
+# Read "surnames.txt" in the program
+
+infile = open("surnames.txt", 'r')
+surnames = infile.readlines()
+infile.close()
+
+# Read "malenames.txt" in the program
+
+infile = open("malenames.txt", 'r')
+malenames = infile.readlines()
+infile.close()
+
+# Read "femalenames.txt" in the program
+
+infile = open("femalenames.txt", 'r')
+femalenames = infile.readlines()
+infile.close()
+
+from random import randrange
+
+def random_name (l:list) -&gt; str:
+    '''takes one of the name lists and returns a name chosen at random
+    '''
+    new = []
+    for i in l:
+        new.append(i.split())
+    a = []
+    for i in new:
+        for b in range(int(float(i[1])*1000)):  # using the frequency percentages
+            a.append(i[0])
+    n = randrange(0, len(a))
+    return a[n]
+
+def gender () -&gt; str:
+    '''returns a random choice of male or female'''
+    gender = ['male', 'female']
+    n = randrange(0,2)
+    return gender[n]
+
+def random_names (i:int) -&gt; list:
+    '''takes an integer and returns a list of that many strings with random names
+    '''
+    names = []
+    for j in range(i):
+        if gender() == 'male':
+            first = random_name (malenames).capitalize()
+        else:
+            first = random_name (femalenames).capitalize()
+        last = random_name (surnames).capitalize()
+        name = '{0}, {1}'.format(last, first)
+        names.append(name)
+    return names
+
+print('&gt;&gt;&gt;&gt; 10 random names &lt;&lt;&lt;&lt;', '\n')
+print(random_names(10))     # function testing
+print('\n', '&gt;&gt;&gt;&gt; 20 random names &lt;&lt;&lt;&lt;', '\n')
+print(random_names(20))     # function testing
+
+#
+#
+# Part (d)
+#
+
+print('\n')
+print('---------- Part (d) ----------')
+print()
+
+# (d.1)
+
+print()
+print('---------- Part (d.1) ----------')
+print()
+
+# Read "wordlist.txt" in the program
+
+infile = open("wordlist.txt", 'r')
+wordlist = infile.readlines()
+infile.close()
+
+new = []
+for i in wordlist:
+    i = i.lower()
+    new.extend(i.split())
+
+def trans_punct (p:str) -&gt; str:
+    change = str.maketrans('.,!?;:"*()',
+                           '          ')
+    return p.translate(change)
+
+def rotated (a:int) -&gt; str:
+    ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+    result = ALPHABET[a: 26] + ALPHABET[:a]
+    return result
+assert rotated(1) == 'bcdefghijklmnopqrstuvwxyza'
+assert rotated(24) == 'yzabcdefghijklmnopqrstuvwx'
+
+def Caesar_break (s:str) -&gt; str:
+    resultlist0 = []
+    for i in range(27):
+        decrypt = str.maketrans(rotated(i), rotated(0))
+        result = s.lower().translate(decrypt)
+        a = 0
+        for i in trans_punct(result).split():
+            if i in new:
+                a += 1
+        resultlist0.append([a, result])
+        resultlist1 = sorted(resultlist0, reverse=True)
+    return resultlist1[0][1]
+        
+print(Caesar_break('xqlyhuvlwb ri fdoliruqld, luylqh') )    # function testing
+
+# (d.2)
+
+print()
+print('---------- Part (d.2) ----------')
+print()
+
+### 
+### My ciphertext is "rkzzi dy gybu gsdr iye" -------&gt; My plaintext is "happy to work with you"
+
+print('My plaintext is', Caesar_break('"rkzzi dy gybu gsdr iye"')) # to print out my plaintext
+print()
+### My partner's ciphertext is "bwqs hc assh mci" -------&gt; My partner's plaintext is "nice to meet you"
+###
+
+print('My partner\'s plaintext is', Caesar_break('"bwqs hc assh mci"')) # to print out my partner's plaintext
+print()
+
+#
+#
+# Part (e)
+#
+
+print('\n')
+print('---------- Part (e) ----------')
+print()
+
+
+def copy_file (s:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    datalines = infile.readlines()
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'line numbers': # part e.2
+        format_str = '{0:5}:  {1}'
+        for i in range(len(datalines)):
+            outfile.write(format_str.format(i+1, datalines[i]))
+    elif s == 'Gutenberg trim': # part e.3
+        for i in range(len(datalines)):
+            if '*** START OF THIS PROJECT' in datalines[i]:
+                a = i
+            if '*** END OF THIS PROJECT' in datalines[i]:
+                b = i
+        outfile.write(''.join(datalines[a:b+1]))
+    elif s == 'statistics': # part e.4
+        a = len(datalines)
+        b = 0
+        c = 0
+        for i in datalines:
+            i = i.strip()
+            if len(i) == 0:
+                b += 1
+            else:
+                c += len(i)
+        stat = ("{:6}   ".format(a) + "lines in the list" + "\n" +
+                "{:6}   ".format(b) + "empty lines" + "\n" +
+                "{:8.1f} ".format(c/a) + "average characters per line" + "\n" +
+                "{:8.1f} ".format(c/(a-b)) + "average characters per non-empty line" + "\n\n")
+        result = ''.join(datalines) + '\n\n' + str(stat)
+        outfile.write(result)
+    else:
+        outfile.write(''.join(datalines))
+    infile.close()
+    outfile.close()
+
+copy_file ('line numbers')  # function test (part e.2)
+copy_file ('Gutenberg trim')  # function test (part e.3)
+copy_file ('statistics')  # function test (part e.4)
+copy_file ('ICS 31')  # function test (part e)
+</FONT>
+</PRE>
+</PRE>
+</BODY>
+</HTML>

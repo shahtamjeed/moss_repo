@@ -1,0 +1,222 @@
+<HTML>
+<HEAD>
+<TITLE>michadt1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+parkinss/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+5# Shawn Parkins 24522866, Jeremy Hobson 68795576 ICS 31 Lab Sec.1
+
+print()
+print()
+print('-----Part(c)-----')
+print()
+print()
+
+import random
+
+#1
+
+def random_names(num: int) -&gt; [str]:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match186-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    '''returns list containing the specified number of random names'''
+    malefile = open('malenames.txt', 'r')
+    femalefile = open('femalenames.txt', 'r')
+    surnamefile = open('surnames.txt', 'r')
+    malenames = malefile.read()
+    femalenames = femalefile.read()
+    surnames = surnamefile.read()
+    table = str.maketrans('1234567890,.', '            ')
+</FONT>    malenames2 = malenames.translate(table).split()
+    femalenames2 = femalenames.translate(table).split()
+    surnames2 = surnames.translate(table).split()
+    namelist = []
+    for i in range(num):
+        last = random.choice(surnames2)
+        gender = random.choice(["male", "female"])
+        if gender == "male":
+            first = random.choice(malenames2)
+        elif gender == "female":
+            first = random.choice(femalenames2)
+        full = last + ", " + first
+        namelist.append(full)
+    malefile.close()
+    femalefile.close()
+    surnamefile.close()
+    return namelist
+
+print(random_names(30))
+"""malefile = open('malenames.txt', 'r')
+femalefile = open('femalenames.txt', 'r')
+surnamefile = open('surnames.txt', 'r')
+malenames = malefile.read().split("\n")
+femalenames = femalefile.read().split("\n")
+surnames = surnamefile.read().split("\n")
+print(len(malenames))
+print(len(femalenames))
+print(len(surnames))
+malefile.close()
+femalefile.close()
+surnamefile.close()"""
+
+print()
+print()
+print('-----Part(d)-----')
+print()
+print()
+
+#1
+
+"""infile = open('dictionary.txt', 'r')
+dictionary = infile.read().split()
+print(len(dictionary))
+infile.close()"""
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate(num: int) -&gt; str:
+    '''returns shifted alphabet by num times'''
+    num = num % 26
+    return ALPHABET[num:]+ALPHABET[0:num]
+    
+
+def Caesar_encrypt(text: str, num: int) -&gt; str:
+    '''translates message num times over on the alphabet'''
+    temp = text.lower()
+    table = temp.maketrans(ALPHABET, rotate(num))
+    return temp.translate(table)
+
+#print(Caesar_encrypt('Hello my name is Shawn Parkins and this is ICS 31 at 8:00 in the morning.', 100))
+
+"""
+def Caesar_break(string: str) -&gt; str:
+    ''' decyphers text by returning string with most words in the dictionary '''
+    infile = open('dictionary.txt', 'r')
+    dictionary = infile.read().split()
+    correct = []
+    for x in range(26):
+        correct_value = 0
+        temp = Caesar_encrypt(string, x)
+        table = string.maketrans('!?*,."/@&%()$', 13 * ' ')
+        newstring = temp.translate(table)
+        for n in newstring:
+            if n in dictionary:
+                correct_value += 1
+        correct.append(correct_value)
+    greatest = correct.index(max(correct)) + 1
+    infile.close()
+    return Caesar_encrypt(string, 26 - greatest)
+
+"""
+def Caesar_break(string: str) -&gt; str:
+    """ decyphers text by returning string with most words in the dictionary """
+    infile = open('dictionary.txt', 'r')
+    dictionary = infile.read().split()
+    correct = []
+    translations = []
+    for x in range(26):
+        temp = Caesar_encrypt(string, x)
+        table = string.maketrans('!?*,."/@&%()$', 13 * ' ')
+        newstring = temp.translate(table)
+        translations.append(newstring)
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match186-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for n in translations:
+        correct_value = 0
+        phrase = n.split()
+        for i in phrase:
+            if i in dictionary:
+                correct_value += 1
+        correct.append(correct_value)
+    greatest = correct.index(max(correct))
+</FONT>    infile.close()
+    return translations[greatest]
+
+print(Caesar_break('yvccf, dp erdv zj avivdp yfsjfe'))
+print(Caesar_break('dahhk iu jwia eo odwsj lwngejo wjz pdeo eo eyo 31 wp 8:00 ej pda iknjejc.'))
+
+print()
+print()
+print('-----Part(e)-----')
+print()
+print()
+
+#1
+"""
+def copy_file(string: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    lines = 1
+    housekeeping = 0
+    for line in infile:
+        if string == 'line numbers':
+            line_with_num = '{0:&gt;5}{1:2}{2:}'.format(str(lines), ": ", line)
+            outfile.write(line_with_num)
+            lines += 1
+        elif string == 'Gutenberg trim':
+            if line == "*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***":
+        else:
+            outfile.write(line)
+"""
+def copy_file(string: str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    lines = 1
+    start = False
+    #housekeeping = 0
+    if string == 'line numbers':
+        for line in infile:
+            line_with_num = '{0:&gt;5}{1:2}{2:}'.format(str(lines), ": ", line)
+            outfile.write(line_with_num)
+            lines += 1
+    elif string == 'Gutenberg trim':
+        for line in infile:
+            #if line == "*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***":
+            if "*** START" in line:
+                start = True
+            #housekeeping += 1
+            elif start:
+                outfile.write(line)
+    elif string == 'statistics':
+        infile_list = infile.readlines()
+        stats(infile_list)
+        for line in infile_list:
+            outfile.write(line)
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+
+
+
+#4
+
+def stats(lst: [str]):
+    '''takes a list of strings and prints the statistics'''
+    num_empty_lines = 0
+    num_characters = 0
+    for i in lst:
+        num_characters += len(i)
+        if i == '\n':
+            num_empty_lines += 1
+    print("{:5} {:5}".format((len(lst)), 'lines in the list'))
+    print("{:5} {:5}".format((num_empty_lines), 'empty lines'))
+    print("{:5.1f} {:5}".format((num_characters/len(lst)), 'average characters per line'))
+    print("{:5.1f} {:5}".format((num_characters/(len(lst)-num_empty_lines)), 'average characters per non-empty line'))
+
+
+copy_file('statistics')
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

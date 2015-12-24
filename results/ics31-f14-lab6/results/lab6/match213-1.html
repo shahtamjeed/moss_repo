@@ -1,0 +1,257 @@
+<HTML>
+<HEAD>
+<TITLE>bryand2/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+lesliec3/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Leslie Chen 78666288 and Jessica Zhao 72513967, ICS 31, Lab 6 sec. 6
+
+#
+#
+# Part (c)
+#
+#
+
+print("----------Part (c)----------")
+
+#c1
+print("c1")
+
+def contains(string1: str, string2: str) -&gt; bool:
+    '''Takes as input two strings, checks if the second string occurs
+    occurs in the first string. If the second string does occur, the
+    function returns True; if not, it returns False'''
+    return string2 in string1
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+assert contains('Mississippi', 'ipp')
+assert not contains('California', 'pho')
+
+#c2
+print("\nc2")
+
+def punctuation_to_blank(string: str) -&gt; str:
+    '''Takes a string and returns that string with all the punctuations
+    replaced with spaces'''
+    table = string.maketrans(''''",.!?:*''','        ')
+    return string.translate(table)
+assert punctuation_to_blank('I love UCI!?...') == 'I love UCI     '
+assert punctuation_to_blank('***The ?! quick brown fox:  jumps over the lazy dog.') == '   The    quick brown fox   jumps over the lazy dog '
+
+def sentence_stats(string: str):
+    '''Takes in a string as a parameter and prints out these statistics
+    about the string: its length in characters, its length in words, and
+    the average length of each word'''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match213-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print("Characters: " + str(len(string)))
+    print("Words: " + str(len(punctuation_to_blank(string).split())))
+    total = 0
+    for word in punctuation_to_blank(string).split():
+        total += len(word)
+    print("Average word length: " + str(total / len(punctuation_to_blank(string).split())))
+</FONT>sentence_stats('I love UCI')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+#c3
+print("\nc3")
+
+def initials(string: str) -&gt; str:
+    '''Takes as input a string representing a full name (e.g.,  Robert B. Qwerty)
+    and returns the initials of the name in all capital letters (e.g., RBQ).'''
+    answer = ''
+    for word in string.split():
+        answer += word[0].upper()
+    return answer
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+#
+#
+# Part (d)
+#
+#
+
+print("\n\n----------Part (d)----------")
+
+#d1
+print("d1")
+
+from random import randrange
+
+for x in range(0,50):
+    print(str(x+1) + ": " + str(randrange(11)))
+
+for x in range(0,50):
+    print(str(x+1) + ": " + str(randrange(1,7)))
+
+#d2
+print("\nd2")
+
+def roll2dice() -&gt; int:
+    "Returns a number that reflects the random roll of two dice"
+    test=0
+    test += randrange(1,7)
+    test += randrange(1,7)
+    return test
+
+for x in range(0,50):
+    print(str(x+1) + ". Roll 2 dice:", roll2dice())
+    
+#d3
+print("\nd3")
+
+def return_stars(num:int) -&gt; str:
+    "returns a string with the given number of stars"
+    answer = ''
+    for x in range(num):
+        answer += '*'
+    return answer
+assert return_stars(5) == '*****'
+assert return_stars(10) == '**********'
+
+def distribution_of_rolls(num:int):
+    '''takes one number—the number of times to roll two dice-
+    and prints the distribution of the values of those rolls'''
+    result=[]
+    for x in range(num):
+        result.append(roll2dice())
+    print("Distribution of dice rolls\n")
+    for x in range(2,13):
+        print(str(x) + ": " + str(result.count(x)) + "(" + str(result.count(x)/num * 100) + "%)" + return_stars(result.count(x)))
+    print("-----------------------------")
+    print(str(num) + " rolls")
+distribution_of_rolls(200)
+    
+#
+#
+# Part (e)
+#
+#
+
+print("\n\n----------Part (e)----------")
+
+#e1
+print("e1")    
+    
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate_alphabet(num: int) -&gt; str:
+    '''Takes a number and produces a "rotated" alphabet with
+    the specified number of characters taken off the front and
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match213-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    added on to the end of the string'''
+    return ALPHABET[num:] + ALPHABET[:num]
+assert rotate_alphabet(1) == 'bcdefghijklmnopqrstuvwxyza'
+
+def Caesar_encrypt(string: str, num: int) -&gt; str:
+    '''Takes a string containing the message and an int for the
+</FONT>    key indicating how far down the alphabet to find each
+    substitute letter. Returns the ciphertext'''
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match213-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    table = str.maketrans(ALPHABET, rotate_alphabet(num))
+    return string.translate(table)
+assert Caesar_encrypt('cat', 1) == 'dbu'
+assert Caesar_encrypt('hi there', 3) == 'kl wkhuh'
+
+def Caesar_decrypt(string: str, num: int) -&gt; str:
+    '''Takes a string containing the encrypted message and an
+</FONT>    int for the key indicating how far down the alphabet to find
+    each substitute letter. Returns the plaintext'''
+    table = str.maketrans(ALPHABET, rotate_alphabet(num * -1))
+    return string.translate(table)
+assert Caesar_decrypt('dbu', 1) == 'cat'
+assert Caesar_decrypt('kl wkhuh', 3) == 'hi there'
+
+#e2
+print("\ne2")
+
+print('''Jessica's encrypted message and key: "arire tbaan tvir lbh hc arire tbaan yrg lbh qbja", 13''')
+print("Jessica's decrypted message: " + Caesar_decrypt("arire tbaan tvir lbh hc arire tbaan yrg lbh qbja", 13))
+
+print('''Leslie's encrypted message and key: "it dtz uqfd xzuutwy", 5''')
+print("Lesie's decrypted message: " + Caesar_decrypt("it dtz uqfd xzuutwy", 5))
+
+#
+#
+# Part (f)
+#
+#
+
+print("\n\n----------Part (f)----------")
+
+L = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+
+#f1
+print("f1")
+
+def print_line_numbers(List:'list of Strings'):
+    "Takes a list of strings and prints each string preceded by a line number"
+    num = 1
+    for string in List:
+        print(('{0:5}' + string).format(str(num) + ":"))
+        num += 1
+print_line_numbers(L)
+
+#f2
+print("\nf2")
+
+def stats(L:list):
+    '''takes a list of strings and prints statistics as follows:
+ 16824   lines in the list
+   483   empty lines
+    53.7 average characters per line
+    65.9 average characters per non-empty line
+    '''
+    print(('{:6}' + '{:3}' + "lines in the list" ).format(len(L),''))
+    X=0
+    for empty in L:
+        if len(empty)==0:
+            X+=1
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match213-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print(('{:6}' + '{:3}' + 'empty lines').format(X,''))
+    total=0
+    for line in L:
+        total+=len(line)
+    average= total/len(L)
+    print(('{:8.1f}' + '{:1}' + 'average characters per line').format(average,''))
+    print(('{:8.1f}' + '{:1}' + 'average characters per non-empty line').format(total/(len(L)-X),''))
+stats(L)
+</FONT>
+#f3
+print("\nf3")
+
+def punctuation_to_blank1(string: str) -&gt; str:
+    '''Takes a string and returns that string with all the punctuations
+    except apostrophes/single quotes replaced with spaces'''
+    table = string.maketrans('''",.!?:*''','       ')
+    return string.translate(table)
+   
+def list_of_words(L: 'list of strings') -&gt; 'list of strings':
+    '''takes a list of strings and returns a list of individual words
+    with all white space and punctuation removed (except for apostrophes/
+    single quotes)'''
+    new_list = []
+    for word in L:
+        new_list.extend(punctuation_to_blank1(word).split())
+    return new_list
+print(list_of_words(L))
+          
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

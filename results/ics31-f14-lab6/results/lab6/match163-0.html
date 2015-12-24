@@ -1,0 +1,334 @@
+<HTML>
+<HEAD>
+<TITLE>jerridd/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jerridd/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+#  Alexander Mui 90915867 Jerrid Domingo 90107901.  ICS 31 Lab sec 7.  Lab asst 6.
+
+
+#c.1
+print('c.1\n\n')
+
+def contains(user_string: str, str1: str) -&gt; bool:
+    '''Checks if a series of characters are in a string '''
+    return str1 in user_string
+
+assert contains('hello', 'hell')
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+assert not contains('qrueiwo', 'ck')
+
+
+#c.2
+print('c.2\n\n')
+
+def sentence_stats(str1: str):
+    '''Prints the statistics of a string '''
+    length = len(str1)
+    table = str.maketrans(".,!?;:*",
+                          "       ")
+    new_list = str1.translate(table).split()
+    list_length = len(new_list)
+    char_length = len(''.join(new_list))
+    average = char_length / list_length
+    print('Characters: ' + str(length))
+    print('Words: '+ str(list_length))
+    print('Average word length :' + str(average))
+
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+print('\n\n')
+
+'''OUTPUT
+Characters: 52
+Words: 9
+Average word length :3.888888888888889
+'''
+
+
+#c.3
+print('c.3\n\n')
+
+def initials(str1: str):
+    '''returns  the first character in each word capatalized '''
+    new_str = ''
+    new_list = str1.title().split()
+    # print(new_list)
+    # initials('adsad qweqw dasd')
+    for i in new_list:
+        new_str += i[0]
+    return new_str
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+assert initials ('adslfkhj adjsfkhl') == 'AA'
+assert initials('') == ''
+
+
+#d.1
+print('d.1\n\n')
+
+from random import randrange
+
+temp_list1 = []
+temp_list2 = []
+
+for i in range(50):
+    temp_list1.append(randrange(0,11))
+    
+for i in range(50):
+    temp_list2.append(randrange(1,7))
+
+print('Random numbers from 0 to 10:')
+for i in range(4, len(temp_list1),5):
+    print('{:&gt;3} {:&gt;3} {:&gt;3} {:&gt;3} {:&gt;3}'.format(temp_list1[i-4],
+                                                 temp_list1[i-3],
+                                                 temp_list1[i-2],
+                                                 temp_list1[i-1],
+                                                 temp_list1[i]))
+
+print('\n\n')
+print('Random numbers from 1 to 6')
+for i in range(4, len(temp_list2),5):
+    print('{:&gt;3} {:&gt;3} {:&gt;3} {:&gt;3} {:&gt;3}'.format(temp_list2[i-4],
+                                                 temp_list2[i-3],
+                                                 temp_list2[i-2],
+                                                 temp_list2[i-1],
+                                                 temp_list2[i]))                                                           
+
+print('\n\n')
+
+'''OUTPUT
+Random numbers from 0 to 10:
+  3   9   6   4   0
+  7   1   0  10   9
+ 10   4   4   4   9
+  0   3   6  10   7
+  1  10   0   5   7
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match163-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+  6   0   3   9   6
+  4   3   6   6  10
+  5   6   1   1   8
+ 10   8   0   1  10
+  1   5   6   3   0
+
+
+
+Random numbers from 1 to 6
+</FONT>  1   2   5   1   6
+  6   1   3   2   5
+  6   6   2   5   1
+  5   6   3   4   2
+  1   6   6   1   6
+  4   2   6   4   1
+  1   4   3   3   6
+  1   1   1   3   4
+  3   5   5   1   6
+  4   1   4   5   4
+'''
+
+
+#d.2
+print('d.2\n\n')
+
+def roll2dice() -&gt; int:
+    '''Returns the roll value of two dice'''
+    return randrange(1,7) + randrange(1,7)
+
+print(roll2dice())
+print()
+
+def distribution_of_rools(num: int) -&gt; None:
+    '''Prints a distribution table of a number of rolls'''
+    temp_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    for i in range(num):
+        temp_list[roll2dice()-2]+= 1
+
+    for i in range(11):
+
+        print(" {:&gt;2}:{:&gt;5} ({:&gt;5.1%})  {}".format(i+2, temp_list[i],(temp_list[i]/num), ("*" * temp_list[i])))
+    print('-'*30)
+    print('{:^30}'.format(str(num) + ' rolls'))
+
+
+distribution_of_rools(200)
+
+print('\n\n')
+
+'''OUTPUT
+4
+
+  2:    4 ( 2.0%)  ****
+  3:    7 ( 3.5%)  *******
+  4:   18 ( 9.0%)  ******************
+  5:   29 (14.5%)  *****************************
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match163-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+  6:   35 (17.5%)  ***********************************
+  7:   31 (15.5%)  *******************************
+</FONT>  8:   26 (13.0%)  **************************
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match163-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+  9:   22 (11.0%)  **********************
+ 10:   10 ( 5.0%)  **********
+</FONT> 11:   12 ( 6.0%)  ************
+ 12:    6 ( 3.0%)  ******
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match163-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+------------------------------
+          200 rolls      
+</FONT>'''
+
+
+#e.1
+print('e.1\n\n')
+
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def Encrypt_alphabet(num: int, encrypt: bool) -&gt; str:
+    '''Encrypts or decrypts based on a bool value'''
+    if encrypt:
+        return ALPHABET[num:] + ALPHABET[0:num]
+    else:
+        return ALPHABET[26-num:] + ALPHABET[:26-num]
+
+
+def Caesar_encrypt(string: str, num: int) -&gt; str:
+    '''Performs a cesar encrypt shift of num'''
+    table = str.maketrans(ALPHABET, Encrypt_alphabet(num, True))
+    return string.lower().translate(table)
+
+def Caesar_dencrypt(string: str, num: int) -&gt; str:
+    '''Performs a cesar decrypt based on key num'''
+    table = str.maketrans(ALPHABET, Encrypt_alphabet(num, False))
+    return string.lower().translate(table)
+
+
+print(Caesar_encrypt("How are you doing z", 20))
+print()
+print(Caesar_dencrypt("biq uly sio xicha t", 20))
+
+print('\n\n')
+
+'''OUTPUT
+biq uly sio xicha t
+
+how are you doing z
+'''
+
+
+#f.1
+print('f.1\n\n')
+
+def print_line_numbers(string_list: list)-&gt; None:
+    for i in range(len(string_list)):
+        print("{:&lt;5}{}".format(str(i+1) + ':', string_list[i]))
+
+        
+print_line_numbers([ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ])
+
+print('\n\n')
+
+'''OUTPUT
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match163-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+1:   Four score and seven years ago, our fathers brought forth on
+2:   this continent a new nation, conceived in liberty and dedicated
+3:   to the proposition that all men are created equal.  Now we are
+4:      engaged in a great 		civil war, testing whether that nation, or any
+5:   nation so conceived and so dedicated, can long endure.      
+</FONT>'''
+
+#f.2
+print('f.2\n\n')
+
+def stats(list_string: list) -&gt; None:
+
+    print("{:&gt;7}   {:}".format(len(list_string), 'lines in the list'))
+    count = 0
+    count_empty_lines = 0
+    count_notempty =0
+    for i in list_string:
+        if i.isspace():
+            count_empty_lines += 1
+        else:
+            count_notempty += len(i)
+        count += len(i)
+    print("{:&gt;7}   {:}".format(count_empty_lines, 'empty lines'))
+    print("{:&gt;9.1f} {:}".format(count/len(list_string), 'average characters per line'))
+    print("{:&gt;9.1f} {:}".format(count_notempty/(len(list_string)-count_empty_lines), 'average characters per line'))
+
+
+stats(["Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ","      " ])
+
+print('\n\n')
+
+'''OUTPUT
+      6   lines in the list
+      1   empty lines
+     53.8 average characters per line
+     63.4 average characters per line
+'''
+
+
+#f.3
+print('f.3\n\n')
+
+def list_of_words(list_of_string: list) -&gt; list:
+    table = str.maketrans(".,!?;:*\n\t",
+                          "         ")
+    temp = " ".join(list_of_string)
+    new_list = temp.translate(table).split()
+    return new_list
+
+print(list_of_words(["Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ","      \n t\t" ]))    
+
+'''OUTPUT
+['Four', 'score', 'and', 'seven', 'years', 'ago', 'our', 'fathers', 'brought', 'forth', 'on', 'this', 'continent',
+'a', 'new', 'nation', 'conceived', 'in', 'liberty', 'and', 'dedicated', 'to', 'the', 'proposition', 'that', 'all', 'men',
+'are', 'created', 'equal', 'Now', 'we', 'are', 'engaged', 'in', 'a', 'great', 'civil', 'war', 'testing', 'whether', 'that',
+'nation', 'or', 'any', 'nation', 'so', 'conceived', 'and', 'so', 'dedicated', 'can', 'long', 'endure', 't']
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+    
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

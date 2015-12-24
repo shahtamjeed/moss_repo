@@ -1,0 +1,203 @@
+<HTML>
+<HEAD>
+<TITLE>dgdoming/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+richmonl/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab 7.py
+# Richmond Liu 32851015 and Ramon Garcia 86388146. ICS 31 Lab sec. 15. Lab asst 7.
+
+print('------PART C------')
+print()
+
+#
+#
+#C
+#
+#
+
+from random import randrange
+import random
+
+
+surnames = open("surnames.txt", 'r')
+data = surnames.readlines()
+
+female_names = open("femalenames.txt", 'r')
+data2 = female_names.readlines()
+
+male_names = open("malenames.txt", 'r')
+data3 = male_names.readlines()
+
+
+
+
+
+
+def random_surname(x: data) -&gt; str:
+    ''' Returns a random surname from variable data '''
+    result = []
+    for i in x:
+        names = i.split("\t")
+        result.append(names[0])
+    return result[randrange(0,1001)]
+
+def random_f_name(x: data2) -&gt; str:
+    ''' Returns a random female name from variable data2 '''
+    result = []
+    for i in x:
+        f_names = i.split("\t")
+        result.append(f_names[0])
+    return result[randrange(0,1001)]
+
+def random_m_name(x: data3) -&gt; str:
+    ''' Returs a random male name from variable data3 '''
+    result = []
+    for i in x:
+        m_names = i.split("\t")
+        result.append(m_names[0])
+    return result[randrange(0,1001)]
+
+def male_or_female() -&gt; str:
+    ''' Returns either a random male or female name based on randomly rolled number'''
+    x = randrange(0,2)
+    if x == 0:
+        return(random_f_name(data2))
+    else:
+        return(random_m_name(data3))
+
+
+def added_names() -&gt; str:
+    ''' Returns a string of a random surname and a random male or female first name '''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match244-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return(random_surname(data) + ', ' + male_or_female())
+
+
+def random_names(num: int) -&gt; list:
+    ''' Returns list of added_names() with num amount of added_names() '''
+    list_of_names = []
+    for i in range(num):
+        list_of_names.append(added_names())
+    return list_of_names
+
+print(random_names(5))
+
+
+print()
+print('------PART D------')
+print()
+
+
+#
+#
+#D1
+#
+#
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def alphabet_rotate(num:int) -&gt; str:
+    '''Takes a number and rotates the characters in the string alphabet by that number'''
+    if num &gt; 26:
+            num = num%26
+</FONT>    alphabet1 = ''
+    alphabet1 += alphabet[num:] + alphabet[:num]
+    return alphabet1
+
+
+def Caesar_encrypt(msg:str,key:int) -&gt; str:
+    '''Takes a string and encrypts it according to the key'''
+    rotate = str.maketrans(alphabet,alphabet_rotate(key))
+    return msg.translate(rotate)
+
+
+dictionary = open("wordlist.txt", 'r')
+data = dictionary.read().split("\n")
+
+
+def Caesar_break(msg: str) -&gt; str:
+    ''' Returns a decrypted message without the use of a key '''
+    result = ''
+    for i in range(26):
+        x = (alphabet_rotate(i))
+        rotate = str.maketrans(x,alphabet)
+        y = msg.translate(rotate).split()
+        for w in y:
+            if w in data:
+                result += (w + ' ')
+    return result
+
+print(Caesar_encrypt('hello there' , 3))
+print(Caesar_break('khoor wkhuh'))
+
+print()
+
+#
+#
+#D2
+#
+#
+
+print(Caesar_encrypt('hello world', 5))
+print('Decrypted messaage: ', Caesar_break('mjqqt btwqi'))
+
+
+
+
+
+print()
+print('------PART E------')
+print()
+
+#
+#
+#E1
+#
+#
+
+def copy_file(s:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'line numbers':
+        i = 0
+        for line in infile:
+            i += 1
+            outfile.write(str(i) + ': ' + line)
+    elif s == 'Gutenberg trim':
+        l = False
+        for line in infile:
+            if '*** END' in line:
+                break
+            elif l:
+                outfile.write(line)
+            elif '*** START' in line:
+                l = True
+    elif s == 'statistics':
+        words = []
+        e_lines = 0
+        char = 0
+        for i in infile:
+            outfile.write(i)
+            x = infile.readline()
+            words.append(x)
+        for i in words:
+            if i == '':
+                e_lines += 1
+        for c in words:
+            char += len(c)
+        print('{:5d} lines in the list'.format(len(words)))
+        print('{:5d} empty lines'.format(e_lines))
+        print('{:7.1f} average characters per line'.format(char/len(words)))
+        print('{:7.1f} average characters per non-empty line'.format(char/(len(words) - e_lines)))
+    infile.close()
+    outfile.close()
+
+copy_file('line numbers')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

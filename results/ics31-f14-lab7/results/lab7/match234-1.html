@@ -1,0 +1,173 @@
+<HTML>
+<HEAD>
+<TITLE>llioe/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+luongad1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+
+#Carlos Estrada 58042643 and Anthony Luong 95736658. Lab asst. 7
+
+#
+#
+#c
+#
+#
+
+import random
+def random_names(n:int)-&gt;list:
+    '''takes int, returns list of that many'''
+    infile = open('surnames.txt')
+    infile2 = open('femalenames.txt')
+
+    infile3 = open('malenames.txt')
+    names =[]
+    surname = []
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match234-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for i in infile2.readlines():
+        v = i.split()
+        names.append(v[0].title())
+    for i in infile3.readlines():
+        v = i.split()
+        names.append(v[0].title())    
+    for i in infile.readlines():
+        v = i.split()
+        surname.append(v[0].title())
+</FONT>    while n &gt; 0:
+        print(random.choice(surname) + ', ' +random.choice(names))
+        n -= 1
+
+#
+#
+#d
+#
+#
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def Caesar_encrypt(myString:str, num: int):
+    encrypted = ''
+    lowerCase_myString = myString.lower()  #making the string lowerCase
+
+    for j in range(len(myString)):
+        i = ALPHABET.find(lowerCase_myString[j])  #finding the charachters of the string in ALPHABET
+        rule = str.maketrans(ALPHABET[i], ALPHABET[(i+num)%26])  #chaning a specific character in ALPHABET with ALPHABET+KEY
+        encrypted += lowerCase_myString[j].translate(rule)    #Adding the character to empty encrypt message
+
+    return  encrypted  
+
+def Caesar_decrypt(myString:str, num: int):
+    'take an encrypted string and decrypt it'
+   
+    decrypted = ''
+    lowerCase_myString = myString.lower()
+
+    for j in range(len(myString)):
+        i = ALPHABET.find(lowerCase_myString[j])
+        rule = str.maketrans(ALPHABET[i], ALPHABET[(i-num)%26])
+        decrypted += lowerCase_myString[j].translate(rule)
+
+    return  decrypted
+
+
+def Caesar_break_one(cyphertxti:str):
+    '''take cyphertext and returns plaintext'''
+    Wordlist = open('wordlist.txt')
+    wordlist = []
+    text= []
+    text_no_pun=[]
+    for i in Wordlist.readlines():
+        v = i.split()
+        wordlist.append(v[0])
+    for i in range(26):
+        text.append(Caesar_encrypt(cyphertxti, i))
+    for i in text:
+        for char in i:
+            if char in " ?.,/:;!":
+                text_no_pun.append(i.replace(char,''))
+    if len(text_no_pun) &gt; 0:
+        for i in text_no_pun:
+            for j in wordlist:
+                if i == j:
+                    return text[text_no_pun.index(i)]
+    if len(text_no_pun) == 0:
+        for i in text:
+            for j in wordlist:
+                if i ==j:
+                    return i
+
+def Caesar_break(cyphertxt:str):
+    cyphertxtsplit = []
+    n = cyphertxt
+    n = n.split()
+    for i in n:
+        cyphertxtsplit.append(Caesar_break_one(i))
+    return ' '.join(cyphertxtsplit)
+
+
+
+
+#
+#
+#e1 -&gt; e4
+#
+#
+def copy_file(n:str):
+    "take a file and copy it and format it"
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if n == 'line numbers':
+        count = 0
+        for line in infile:
+            count += 1
+            outfile.write('{:&gt;5}:'.format(str(count))) + outfile.write(line)
+    elif n == 'Gutenburg trim':
+        switch = False
+        for line in infile:
+            
+            if '*** END' in line:
+                switch = False
+            if switch:
+                outfile.write(line)
+            if '*** START' in line:
+                switch = True
+    empty_list = []
+    if n == 'statistics':
+        for line in infile:
+            outfile.write(line)
+            empty_list += [line]
+        stats(empty_list)
+                  
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+    
+def stats(lst_str: list) -&gt; str:
+    '''format the list, printing the statistics'''
+    num_characters = 0
+    print(len(lst_str), 'lines in the list')
+    print(lst_str.count('\n'), 'empty lines')
+    for i in lst_str:
+        num_characters += len(i)
+        
+    print(num_characters)
+    print(len(lst_str))
+    print(num_characters/len(lst_str), 'average characters per line')
+    print(num_characters/(len(lst_str) - lst_str.count('\n')), 'average characters per non-empty list')
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

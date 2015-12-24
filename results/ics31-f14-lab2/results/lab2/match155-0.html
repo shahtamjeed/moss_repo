@@ -1,0 +1,233 @@
+<HTML>
+<HEAD>
+<TITLE>galac/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+galac/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Jonathan Navarro 83144130 Chris Gala 64338761 ICS 31 Lab sec 7. Lab Asst 2.
+
+# Part C and C.1
+
+
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour?'))
+print('This many dollars per hour: $', rate)
+print('Weekly salary: $', hours * rate)
+
+#Part C.2
+
+user_name = str(input('What is your name?'))
+print('Hello,', user_name)
+print("It's nice to meet you.")
+user_age = int(input('How old are you?'))
+print("Next year you'll be",user_age + 1,"years old.")
+print('Good-bye!')
+
+#Part D
+
+krone_per_euro = 7.46
+krone_per_pound = 8.81
+krone_per_dollar = 5.50
+print('Please provide this information')
+Business_name = str(input('Business name:'))
+number_of_euros = int(input('Number of euros:'))
+number_of_pounds = int(input('Number of pounds:'))
+number_of_dollars = int(input('Number of dollars:'))
+print()
+print('Copenhagen Chamber of Commerce')
+print('Business name:',Business_name)
+print(number_of_euros,'euros is', number_of_euros * 7.46,'Krone')
+print(number_of_pounds,'pounds is', number_of_pounds * 8.81,'Krone')
+print(number_of_dollars,'dollars is', number_of_dollars * 5.50,'Krone')
+print('Total krone:', (number_of_euros * 7.46) + (number_of_pounds * 8.81) + (number_of_dollars * 5.50))
+
+#Part E
+
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+#E.1
+print(still_another.title)
+
+#E.2
+print(another.price)
+
+#E.3
+print((favorite.price + another.price + still_another.price) / 3)
+
+#E.4
+print(favorite.year &lt; 1900)
+
+#E.5
+still_another = still_another._replace(price = 26.00)
+print(still_another.price)
+
+#E.6
+still_another = still_another._replace(price = (still_another.price * 1.2))
+print(still_another.price)
+
+#F
+from collections import namedtuple
+Animal = namedtuple('Animal', 'name species age weight food')
+a1 = Animal('Jumbo', 'elephant', 50, 1000, 'peanuts')
+b1 = Animal('Perry', 'platypus', 7, 1.7, 'shrimp')
+print(not(a1.weight == b1.weight))
+
+#G
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+booklist = [favorite, another, still_another]
+
+#G.1
+print(booklist[0].price &lt; booklist[1].price)
+
+#G.2
+print(booklist[0].year &gt; booklist[-1].year)
+
+#H
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#H.1
+print(RL[2].name)
+
+#H.2
+print(RL[0].cuisine == RL[3].cuisine)
+
+#H.3
+print(RL[-1].price)
+
+#H.4
+RL.sort()
+print(RL)
+
+#H.5
+print(RL[-1].dish)
+
+#H.6
+RL_New = [RL[0], RL[1], RL[-2], RL[-1]]
+print(RL_New)
+
+#Part i
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+#X
+my_canvas.create_line(100, 100, 300, 300, fill='orange') # Draw orange line
+my_canvas.create_line(300, 100, 100, 300, fill='blue')   # Draw blue line'''
+
+#Square
+my_canvas.create_line(50, 100, 50, 300, fill='orange') # Draw orange line
+my_canvas.create_line(250, 100, 250, 300, fill='blue')# Draw blue line
+my_canvas.create_line(50, 100, 250, 100, fill='red')
+my_canvas.create_line(50, 300, 250, 300, fill='purple')
+
+#Diamond
+my_canvas.create_line(50+(100*(2**.5)),50,(50+(100*(2**.5)))+(100*(2**.5)),50+(100*(2**.5)), fill='red')
+my_canvas.create_line(50+(100*(2**.5)),50,50,50+(100*(2**.5)),fill='blue')
+my_canvas.create_line(50,50+(100*(2**.5)),50+(100*(2**.5)),(50+(100*(2**.5)))+100*(2**.5), fill='orange')
+my_canvas.create_line((50+(100*(2**.5))),(50+(100*(2**.5)))+100*(2**.5),(50+(100*(2**.5)))+100*(2**.5),50+(100*(2**.5)), fill='purple')
+
+#House
+my_canvas.create_line(50, 100, 50, 300, fill='orange')
+my_canvas.create_line(250, 100, 250, 300, fill='blue')
+my_canvas.create_line(50, 100, 250, 100, fill='red')
+my_canvas.create_line(50, 300, 250, 300, fill='purple')
+my_canvas.create_line(50, 100, 150, 50, fill='black')
+my_canvas.create_line(150, 50, 250, 100, fill='black')
+my_canvas.create_rectangle(75, 150, 125, 200)
+my_canvas.create_rectangle(130, 300, 170, 240)
+
+#Eye
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match155-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+my_canvas.create_oval(100, 125, 200, 175, fill='white') 
+my_canvas.create_oval(125, 125, 175, 175, fill='blue')
+my_canvas.create_oval(145, 145, 155, 155, fill='black')
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+
+#Answers from above code
+'''
+Python 3.4.1 (v3.4.1:c0e311e010fc, May 18 2014, 10:45:13) [MSC v.1600 64 bit (AMD64)] on win32
+</FONT>Type "copyright", "credits" or "license()" for more information.
+&gt;&gt;&gt; ================================ RESTART ================================
+&gt;&gt;&gt; 
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match155-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+How many hours? 5
+This many hours: 5
+How many dollars per hour? 5
+This many dollars per hour: $ 5
+Weekly salary: $ 25
+</FONT>What is your name? Chris
+Hello,  Chris
+It's nice to meet you.
+How old are you? 18
+Next year you'll be 19 years old.
+Good-bye!
+Please provide this information
+Business name: Google
+Number of euros: 100
+Number of pounds: 200
+Number of dollars: 1000
+
+Copenhagen Chamber of Commerce
+Business name:  Google
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match155-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+100 euros is 746.0 Krone
+200 pounds is 1762.0 Krone
+1000 dollars is 5500.0 Krone
+Total krone: 8008.0
+Return of Sherlock Holmes
+23.5
+23.333333333333332
+</FONT>True
+26.0
+31.2
+True
+True
+False
+Nonna
+True
+10.5
+[Restaurant(name='Addis Ababa', cuisine='Ethiopian', phone='337-4453', dish='Yesiga Tibs', price=10.5), Restaurant(name='Jitlada', cuisine='Thai', phone='324-4433', dish='Paht Woon Sen', price=15.5), Restaurant(name='Nobu', cuisine='Japanese', phone='335-4433', dish='Natto Temaki', price=5.5), Restaurant(name='Nola', cuisine='New Orleans', phone='336-4433', dish='Jambalaya', price=5.5), Restaurant(name='Noma', cuisine='Modern Danish', phone='337-4433', dish='Birch Sap', price=35.5), Restaurant(name='Nonna', cuisine='Italian', phone='355-4433', dish='Stracotto', price=25.5), Restaurant(name='Thai Dishes', cuisine='Thai', phone='334-4433', dish='Mee Krob', price=12.5)]
+Mee Krob
+[Restaurant(name='Addis Ababa', cuisine='Ethiopian', phone='337-4453', dish='Yesiga Tibs', price=10.5), Restaurant(name='Jitlada', cuisine='Thai', phone='324-4433', dish='Paht Woon Sen', price=15.5), Restaurant(name='Nonna', cuisine='Italian', phone='355-4433', dish='Stracotto', price=25.5), Restaurant(name='Thai Dishes', cuisine='Thai', phone='334-4433', dish='Mee Krob', price=12.5)]
+'''
+</PRE>
+</PRE>
+</BODY>
+</HTML>

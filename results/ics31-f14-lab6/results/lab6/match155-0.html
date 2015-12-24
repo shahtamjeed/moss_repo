@@ -1,0 +1,317 @@
+<HTML>
+<HEAD>
+<TITLE>codyh1/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+codyh1/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Cody Han 80197269 and Daniel Solis 33176737. ICS 31 Lab sec 14.
+# LAB 6
+
+###############
+# PART C
+
+# c.1
+
+def contains(x: str, y: str) -&gt; bool:
+    "checks if the second parameter string occurs in the first parameter string"
+    return y in x
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+# c.2
+
+def sentence_stats(x: str) -&gt; str:
+    """ takes in a string as a parameter and prints out these statistics
+    about the string: its length in characters, its length in words, and
+    the average length of each word.
+    """
+    char = len(x)
+    print('Characters:', char)
+    
+    table = str.maketrans("?!.,;:*", '       ')
+    x = x.translate(table)
+    
+    words = len(x.split())
+    print('Words:', words)
+    
+    x = x.replace(' ', '')
+    
+    print('Average word length: ', len(x)/words)
+
+print('-c.2-')
+sentence_stats('I love UCI')
+print()
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+         
+# c.3
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match155-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def initials(name: str) -&gt; 'initials':
+    '''takes as input a string representing a full name (e.g., Robert B.
+    Qwerty) and returns the initials of the name in all capital letters
+    (e.g., RBQ).
+    '''
+    name = name.split()
+    result = ''
+    for i in name:
+        result += (i[0].upper())
+</FONT>    return result
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+########
+# PART D
+print('\n---PART D---\n')
+
+
+# d.1
+
+print('-d.1-')
+print('Numbers between 0 and 50, inclusive:')
+from random import randrange
+for i in range(50):
+   print(randrange(0, 11))
+
+print('\nNumbers between 1 and 6, inclusive:')
+for i in range(50):
+   print(randrange(1, 7))
+print()
+
+# d.2
+
+def roll2dice() -&gt; int:
+    "returns a number that reflects the random roll of two dice"
+    return randrange(1, 7) + randrange(1, 7)
+
+# d.3
+
+print('\n-d.3-')
+
+def distribution_of_rolls(n: int) -&gt; str:
+    """
+    takes n and prints the results of rolling two dice n amount of times
+    """
+    dicerolls = []
+    for i in range(n):
+        dicerolls.append(roll2dice())
+    
+    for i in range(2, 13):
+        count = dicerolls.count(i)
+        perc = (count/len(dicerolls))*100
+        bar = count * '*'
+        print('{:2}:\t{:2} ({:5.1f}%)\t{}'.format(i, count, perc, bar))
+    print('--------------------------\n', n, 'rolls')
+
+distribution_of_rolls(200)
+
+
+
+#########
+# PART E
+
+# e.1
+
+def makekey(ALPHA, n: int) -&gt; 'BETA': # BETA is the new alphabet
+    '''Takes the alphabet and n and moves each letter in the
+    alphabet over n times
+    '''
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match155-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    key = ALPHA[n:] + ALPHA[:n]
+    return key
+
+def Caesar_encrypt(message: str, n: int) -&gt; str:
+    '''Takes message and key and encrypts message by changing each
+</FONT>    character according to key
+    '''
+    while n &gt; 25: # wraps n around 25 until n is lower than 25
+        n = n % 25
+        
+    message = message.lower()
+    ALPHA = 'abcdefghijklmnopqrstuvwxyz'
+    BETA = makekey(ALPHA, n) # BETA will be the translation
+    
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match155-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    table = str.maketrans(ALPHA, BETA)
+    
+    message = message.translate(table) # the actual encrypting
+    return message
+assert Caesar_encrypt('poop', 2) == 'rqqr'
+assert Caesar_encrypt('poop', 27) == 'rqqr'
+
+def Caesar_decrypt(message: str, n: int) -&gt; str:
+</FONT>    return Caesar_encrypt(message, -n)
+
+assert Caesar_decrypt('rqqr', 2) == 'poop'
+
+#########
+# PART F
+print('\n\n---PART F---')
+# f.1
+
+print('\n-f.1-\n')
+def print_line_numbers(stringlist: list):
+    '''
+    takes a list of strings and prints each string preceded by a line number:
+    '''
+    # Make the digit spaces only as small as amount of digits needed
+    digits = len(str(len(stringlist)))
+    formatstring = '{:' + str(digits) + '} :'
+    
+    for i in range(len(stringlist)):
+        print(formatstring.format(i+1), stringlist[i])
+
+
+print_line_numbers(["Four score and seven years ago, our fathers brought forth on",
+                    "this continent a new nation, conceived in liberty and dedicated",
+                    "to the proposition that all men are created equal.  Now we are",
+                    "   engaged in a great 		civil war, testing whether that nation, or any",
+                    "nation so conceived and so dedicated, can long endure.        " ])
+
+
+# f.2
+
+print('\n-f.2-')
+print()
+def stats(stringlist: list):
+    """
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match155-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    takes a list of strings and prints statistics as follows:
+ 16824   lines in the list
+   483   empty lines
+    53.7 average characters per line
+    65.9 average characters per non-empty line
+</FONT>    """
+    # lines in the list
+    LINECOUNT = len(stringlist)
+    
+    # empty lines
+    nonEmptyList = []
+    EmptyList = []  
+    for line in stringlist:
+        if line == '':
+            EmptyList.append(line)
+        else:
+            nonEmptyList.append(line)
+    EMPTYLINES = len(EmptyList)
+
+    # average characters per line
+    avg_CHAR = len(''.join(stringlist))/len(stringlist)
+
+    # average characters per non-empty line
+    avg_CHAR_NONEMPTY = len(''.join(stringlist))/len(nonEmptyList)
+
+    variableList = [LINECOUNT, EMPTYLINES, avg_CHAR, avg_CHAR_NONEMPTY]
+    descList = ['lines in the list',
+                'empty lines',
+                'average characters per line',
+                'average characters per non-empty line']
+    # display
+    for v, d in zip(variableList, descList): 
+        if type(v) == float:
+            print('{:6.1f} '.format(v), d)
+        else: # an int
+            print('{:4} '.format(v), ' ', d)
+            
+##  alternatively:
+##    print('{:4} '.format(variableList[0]), descList[0])
+##    print('{:4} '.format(variableList[1]), descList[1])
+##    print('{:6.1f} '.format(variableList[2]), descList[2])
+##    print('{:6.1f} '.format(variableList[3]), descList[3])
+
+
+stats([ "Four score and seven years ago, our fathers brought forth on",
+        "this continent a new nation, conceived in liberty and dedicated",
+        "to the proposition that all men are created equal.  Now we are",
+        "   engaged in a great 		civil war, testing whether that nation, or any",
+        "nation so conceived and so dedicated, can long endure.        " ])
+
+print()
+
+# f.3
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match155-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def list_of_words(lst: list) -&gt; list:
+    ''' takes a list of strings as above and returns a list of
+    individual words with all white space and punctuation removed
+    (except for apostrophes/single quotes).
+</FONT>    '''
+    words = ''
+    table = str.maketrans('!"#$%&\()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~',
+                          '                                ')
+    for string in lst:
+        words += string.translate(table)
+    return words.split()
+
+assert list_of_words(['asdf asdf', 'asdf!@#asdf ', 'fds d']) == \
+       ['asdf', 'asdfasdf', 'asdf', 'fds', 'd']
+
+
+
+
+
+
+
+      
+                           
+        
+        
+
+       
+    
+
+    
+                
+        
+        
+        
+    
+
+    
+    
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        
+        
+
+    
+
+        
+
+
+
+
+    
+          
+
+    
+
+    
+
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

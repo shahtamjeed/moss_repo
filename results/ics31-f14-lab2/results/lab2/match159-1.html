@@ -1,0 +1,256 @@
+<HTML>
+<HEAD>
+<TITLE>bradd/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+nguyenjj/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Nina Hua 84186703 and Jasmine Nguyen 32506859. ICS 31 Lab sec 3. Lab Asst 2.
+
+#c.1
+
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  ', rate)
+print('Weekly salary:  ', hours * rate)
+
+
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour? $'))
+print('This many dollars per hour:  $', rate)
+print('Weekly salary: $', hours * rate)
+
+#c.2
+name = str(input('Hello. What is your name? '))
+print('Hello,', name)
+print('It\'s nice to meet you.')
+age = int(input('How old are you? '))
+print('Next year you will be', age + 1, 'years old.')
+print('Good-bye!')
+
+
+#d
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND = 8.81
+KRONE_PER_DOLLAR = 5.50
+
+print('Please provide this information:')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match159-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+business_name = str(input('Business name: '))
+number_of_euros = int(input('Number of euros: '))
+number_of_pounds = int(input('Number of pounds: '))
+number_of_dollars = int(input('Number of dollars: '))
+print()
+print("Copenhagen Chamber of Commerce")
+print("Business name:", business_name)
+euros_to_krone = number_of_euros * KRONE_PER_EURO
+print(number_of_euros , "euros is", euros_to_krone, "krone")
+</FONT>pounds_to_krone = number_of_pounds * KRONE_PER_POUND
+print(number_of_pounds, "pounds is", pounds_to_krone, "krone")
+dollars_to_krone = number_of_dollars * KRONE_PER_DOLLAR 
+print(number_of_dollars, "dollars is", dollars_to_krone, "krone")
+print()
+total_krone = euros_to_krone + pounds_to_krone + dollars_to_krone
+print('Total krone:', total_krone)
+
+#e
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+booklist = [favorite, another, still_another]
+
+#e.1
+print(still_another.title)
+#e.2
+print(another.price)
+#e.3
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match159-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print((favorite.price + another.price + still_another.price)/(3))
+#e.4
+print(favorite.year &lt; 1900)
+
+#e.5
+new_book = Book(still_another.title, still_another.author, still_another.year, 26.00)
+print(new_book)
+</FONT>
+#e.6
+another_book = Book(still_another.title, still_another.author, still_another.year, ((still_another.price * 0.2) + still_another.price))
+print(another_book)
+
+#f
+Animal = namedtuple('Animal', 'name species age weight food')
+Jumbo = Animal('Jumbo', 'elephant', 50, 1000, 'peanuts')
+Perry = Animal('Perry', 'platypus', 7, 1.7, 'shrimp')
+print(Jumbo.weight &lt; Perry.weight) #Directions state that the value is true if the weight of first animal is less than the weight of the second animal.
+                                    #However, it turns out to be false instead. Regardless, Jumbo still weighs more than Perry.
+
+#g.1
+print(booklist[0].price &lt; booklist[1].price)
+#g.2
+print(booklist[0].year &gt; booklist[-1].year) #It asks if the first book on the list (1892) is more recently published than the last book (1905).
+                                            #This is false; however, the directions state the value should be true.
+
+
+#h
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#h.1
+print(RL[2].name)
+#h.2
+print(RL[0].cuisine == RL[3].cuisine)
+#h.3
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match159-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(RL[-1].price)
+#h.4
+RL.sort()
+print(RL)
+
+#h.5
+print(RL[-1].dish)
+
+#h.6
+rl_two = [ ]
+RL.sort()
+rl_two.append(RL[0])
+</FONT>rl_two.append(RL[1])
+rl_two.append(RL[-2])
+rl_two.append(RL[-1])
+print(rl_two)
+
+#i
+import tkinter              # Load the library; do this just once per program
+
+
+my_window = tkinter.Tk()    # Create the graphics window
+square_window = tkinter.Tk()
+diamond_window = tkinter.Tk()
+house_window = tkinter.Tk()
+eye_window = tkinter.Tk()
+optional_window = tkinter.Tk()
+
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+
+my_canvas_1 = tkinter.Canvas(square_window, width=500, height=500)  
+my_canvas_1.pack()
+
+
+my_canvas_2 = tkinter.Canvas(diamond_window, width=500, height=500)  
+my_canvas_2.pack()
+
+
+my_canvas_3 = tkinter.Canvas(house_window, width=500, height=500)  
+my_canvas_3.pack()
+
+
+my_canvas_4 = tkinter.Canvas(eye_window, width=500, height=500)  
+my_canvas_4.pack()
+
+
+my_canvas_5 = tkinter.Canvas(optional_window, width=500, height=500)  
+my_canvas_5.pack()
+
+my_canvas.create_line(100, 100, 300, 300, fill='orange') # Draw orange line
+my_canvas.create_line(300, 100, 100, 300, fill='blue')   # Draw blue line      
+
+
+#i-1
+          
+my_canvas_1.create_line(200, 10, 200, 200, fill='black') 
+my_canvas_1.create_line(10, 200, 200, 200, fill='black')
+my_canvas_1.create_line(10, 10, 200, 10, fill='black')
+my_canvas_1.create_line(10, 10, 10, 200, fill='black')
+
+
+#i-2         
+
+my_canvas_2.create_line(200, 10, 10, 200, fill='black')
+my_canvas_2.create_line(200, 400, 400, 200, fill='black')
+my_canvas_2.create_line(200, 10, 400, 200, fill='black')
+my_canvas_2.create_line(10, 200, 200, 400, fill='black') 
+
+#i-3
+
+#House Wall
+my_canvas_3.create_line(250, 100, 250, 250, fill='black') 
+my_canvas_3.create_line(100, 250, 250, 250, fill='black')
+my_canvas_3.create_line(100, 100, 250, 100, fill='black')
+my_canvas_3.create_line(100, 100, 100, 250, fill='black')
+
+
+#Roof
+my_canvas_3.create_line(180, 50, 100, 100, fill='black')
+my_canvas_3.create_line(180, 50, 250, 100, fill='black')
+
+
+#Window 1
+my_canvas_3.create_line(125, 130, 125, 160, fill='black') 
+my_canvas_3.create_line(150, 130, 150, 160, fill='black')
+my_canvas_3.create_line(125, 130, 150, 130, fill='black')
+my_canvas_3.create_line(125, 160, 150, 160, fill='black')
+my_canvas_3.create_line(125, 145, 150, 145, fill='black')
+my_canvas_3.create_line(137, 130, 137, 160, fill='black') 
+
+
+#Window 2
+my_canvas_3.create_line(200, 130, 200, 160, fill='black') 
+my_canvas_3.create_line(225, 130, 225, 160, fill='black')
+my_canvas_3.create_line(200, 130, 225, 130, fill='black')
+my_canvas_3.create_line(200, 160, 225, 160, fill='black')
+my_canvas_3.create_line(200, 145, 225, 145, fill='black')
+my_canvas_3.create_line(213, 130, 213, 160, fill='black') 
+
+
+#Door
+my_canvas_3.create_line(200, 180, 200, 250, fill='black') 
+my_canvas_3.create_line(155, 180, 200, 180, fill='black')
+my_canvas_3.create_line(155, 180, 155, 250, fill='black') 
+my_canvas_3.create_oval(190, 215, 195, 220, fill='red')
+     
+#i-4
+        
+my_canvas_4.create_oval(190, 300, 300, 250)
+my_canvas_4.create_oval(210, 300, 280, 250, fill="red")
+my_canvas_4.create_oval(230, 290, 265, 260, fill="black")
+
+#i-5
+my_canvas_5.create_oval(300, 190, 200, 300)
+my_canvas_5.create_oval(220, 265, 225, 260, fill='black')
+my_canvas_5.create_oval(270, 265, 275, 260, fill='black')
+my_canvas_5.create_line(225, 280, 275, 280)
+my_canvas_5.create_arc(195, 250, 230, 260)
+my_canvas_5.create_arc(240, 250, 285, 260)
+
+
+tkinter.mainloop()
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

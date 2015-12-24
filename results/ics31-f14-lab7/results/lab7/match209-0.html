@@ -1,0 +1,209 @@
+<HTML>
+<HEAD>
+<TITLE>dsandil/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+dsandil/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Diana Sandil 10443456 and Katie Yeh 70905151. ICS 31 Lab sec 8. Lab asst 8.
+
+# Could not finish lab.
+#
+# Part (c)
+#
+#
+
+print("\n---Part(c)---\n")
+from random import randrange
+
+# C.2
+infile = open("surnames.txt", 'r')
+data = infile.read()
+datalines = data.split()
+surnames = datalines[::4]
+infile.close()
+        
+infile = open("femalenames.txt", 'r')
+fdata = infile.read()
+fdatalines = fdata.split()
+fnames = fdatalines[::4]
+infile.close()
+
+infile = open("malenames.txt", 'r')
+mdata = infile.read()
+mdatalines = mdata.split()
+mnames = mdatalines[::4]
+infile.close()
+
+# C.3
+fnames.extend(mnames)
+all_last_names = surnames
+
+# random_name() -&gt; None
+def random_name():
+    '''Takes a random surname, a random choice of male or female, and a
+       random first name chosen from that list'''
+    return (get_last_name(surnames).title()) + ', ' + get_first_name(fnames).title()
+
+# get_first_name   first: list  -&gt; str
+def get_first_name(first: list) -&gt; str:
+    return fnames[(randrange(len(first)))]
+
+# get_last_name  last: list -&gt; str
+def get_last_name(last: list) -&gt; str:
+    return all_last_names[(randrange(len(last)))]
+
+# C.1
+print("\n'(c.1)'\n")
+# random_names   num: int  -&gt; list
+def random_names(num: int) -&gt; list:
+    '''Takes an integer and returns a list of that many strings with
+       each string a randomly generated name as described above'''
+    result = []
+    for x in range(num):
+        result.append(random_name())
+    return  result
+print(random_names(5))
+print(random_names(10))
+
+#
+#
+# Part (d)
+#
+#
+
+print("\n---Part(d)---\n")
+
+
+print("\n'(d.1)'\n")
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate_alpha(k: int) -&gt; str:
+    '''Return rotated alphabet according to k'''
+    ALPHABET2 = ''
+    ALPHABET2 += ALPHABET[k%26:] + ALPHABET[:k%26]
+    return ALPHABET2
+
+def Caesar_decrypt(m: str, k: int) -&gt; str:
+    '''Takes ciphertext message and a key and returns plaintext'''
+    table = str.maketrans(rotate_alpha(k), ALPHABET)
+    return m.translate(table)
+
+#Caesar_break  ciphertext: str -&gt; str:
+def Caesar_break(ciphertext: str) -&gt; str:
+    '''Takes a string, the ciphertext, and returns a string, the plaintext,
+       without having the key'''
+    matches = 0
+    comparematches = 0
+    frequent = []
+    result = ''
+    infile = open("wordlist.txt", 'r')
+    word_data = infile.readlines()
+    infile.close()
+    for n in range(26):
+        decrypt = Caesar_decrypt(ciphertext, n)
+        for message in decrypt:
+            words = message.split()
+            if words in word_data:
+                matches += 1
+        if comparematches &lt; matches:
+            comparematches = matches
+            frequent.append(decrypt)
+            for i in frequent:
+                result += i
+            matches = 0
+    return result
+
+print(Caesar_break('idmmp'))
+
+
+print('------------------Part E---------------------')
+
+print()
+print('Part E.1')
+print()
+
+def copy_file(A: str)-&gt;None:
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open('{0}.txt'.format(infile_name), 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy (.txt):  ")
+    outfile = open(outfile_name, 'w')
+    n = infile.readlines()
+    result=''
+    beginning = '*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n'
+    end = '*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n'
+    if A == 'line numbers':
+        for i in range(len(n)):
+            result = ("{:5}: {}".format(i+1, n[i]))
+            outfile.write(result)
+    elif A == 'Gutenberg trim':
+        count = 0
+        for i in n:
+            if i == beginning:
+                count = 1
+            elif i == end:
+                count = 0
+            elif count == 1:
+                outfile.write(i)
+    elif A == 'statistics':
+        for line in n:
+            outfile.write(line)
+        count=0
+        for i in n:
+            if i == '\n':
+                count += 1
+
+        E=[]
+        for m in n:
+            E.append(len(m))
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match209-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        outfile.write("\n{:6}   lines in the file \n{:6}   empty lines \n{:8.1f} \
+average characters per line \n{:8.1f} average characters per non-empty line ".format(\
+</FONT>            len(n), count, sum(E)/len(n), (sum(E))/(len(n)-count)))
+        
+    infile.close()
+    outfile.close()
+
+print()
+print('Part E.2')
+print()
+
+def copy_file(A: str) -&gt;None:
+    infile = open('SHERLOCK.txt', 'r')
+    n= infile.readlines()
+    infile.close()
+    result = []
+    if A == 'line numbers':
+        for i in range(len(n)):
+            result.append("{:5}: {}".format(i+1, n[i]))
+        return ''.join(result)
+    elif A == 'Gutenberg trim':
+        return ''.join(n[19:12693])
+    elif A == 'statistics':
+        count=0
+        for i in n:
+            if i == '\n':
+                count += 1
+
+        E=[]
+        for m in n:
+            E.append(len(m))
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match209-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        return("{:6}   lines in the file \n{:6}   empty lines \n{:8.1f} \
+average characters per line \n{:8.1f} average characters per non-empty line ".format(\
+</FONT>            len(n), count, sum(E)/len(n), (sum(E))/(len(n)-count)))
+    else:
+        return ''.join(n)
+
+    
+
+print(copy_file('line numbers'))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

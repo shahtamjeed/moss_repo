@@ -1,0 +1,282 @@
+<HTML>
+<HEAD>
+<TITLE>kogw/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kogw/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# &lt;Victoria Lai 49451704&gt; and &lt;Geoffrey Ko 95975359&gt;. ICS 31 Lab sec 8. Lab asst 7.
+
+#
+#
+# Part c
+#
+#
+print('----------Part C----------')
+print()
+print()
+
+# c.1
+print('-----c.1-----')
+from random import randrange
+
+def random_names(n: int) -&gt; [str]:
+    ''' Returns a list of n strings, each with a randomly generated name '''
+    infile_surnames = open("surnames.txt", 'r')
+    infile_femalenames = open("femalenames.txt", 'r')
+    infile_malenames = open("malenames.txt", 'r')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match188-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    surnames = []
+    for line in infile_surnames:
+        name = line.split()
+        surnames.append(name[0])
+        
+    female = []
+    for line in infile_femalenames:
+        fname = line.split()
+        female.append(fname[0])
+        
+    male = []
+    for line in infile_malenames:
+        mname = line.split()
+        male.append(mname[0])
+        
+    generated_names = []
+</FONT>    for i in range(n):
+        if randrange(0,2) == 0:
+            generated_names.append(surnames[randrange(0, len(surnames))].capitalize() +
+                                   ', ' + male[randrange(0, len(male))].capitalize())
+        else:
+            generated_names.append(surnames[randrange(0, len(surnames))].capitalize() +
+                                   ', ' + female[randrange(0, len(female))].capitalize())
+    infile_surnames.close()
+    infile_femalenames.close()
+    infile_malenames.close()
+    
+    return generated_names
+
+print(random_names(10))
+
+
+#
+#
+# Part d
+#
+#
+print()
+print('----------Part D----------')
+print()
+print()
+
+# d.1
+print('-----d.1-----')
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def rotate_alpha(n: int) -&gt; str:
+    ''' Rotates the alphabet by n '''
+    alphabet2 = ''
+    alphabet2 += alphabet[n % 26:] + alphabet[:n % 26]
+    return alphabet2
+
+def Caesar_encrypt(s: str, n: int)-&gt; str:
+    ''' Returns an encrypted message '''
+    table = str.maketrans(alphabet, rotate_alpha(n))
+    return s.lower().translate(table)
+assert Caesar_encrypt('abc', 2) == 'cde'
+
+def Caesar_decrypt(s: str, n: int)-&gt; str:
+    ''' Returns a decrypted message '''   
+    table = str.maketrans(rotate_alpha(n), alphabet)
+    return s.lower().translate(table)
+assert Caesar_decrypt('cde', 2) == 'abc'
+
+def remove_not_alpha(s: str) -&gt; str:
+    '''Return string containing ONLY letters'''
+    alpha_only_msg = ''
+    for char in s.lower():
+        if char in alphabet:
+            alpha_only_msg += char   
+        else:
+            alpha_only_msg += ' '
+    return alpha_only_msg
+
+from collections import namedtuple
+
+msg_stats = namedtuple('msg_stats', 'dsentence rwords rword_count')                         
+
+def real_word_count(l: list) -&gt; int:
+    '''Return count of real words (rword_count item in namedtuple)'''
+    return l.rword_count
+
+def Caesar_break(s: str) -&gt; str:
+    '''Generate decryption alphabets for 26 keys, decrypt ciphertext using
+       all 26 generated alphabets,
+       Returns the plaintext for s, without providing a specific key
+    '''
+    list_of_keys = range(26)
+    decryption_alphabets = []
+    decrypted_messages = []
+    real_words = []
+    stats = []
+    
+    ## Produces list of all possible rotated alphabets
+    for key in list_of_keys:
+        decryption_alphabets.append(rotate_alpha(key)) 
+
+    ## Produces list of possible decryptions of s, according to each rotated alphabets 
+    for i in decryption_alphabets:
+        table = str.maketrans(i, alphabet)
+        decrypted_messages.append(s.translate(table))
+        
+    ## Searches for individual words of each message in dictionary
+    infile_wordlist = open('wordlist.txt', 'r')
+    wordlist = infile_wordlist.read().replace('\n',' ').lower()
+    for message in decrypted_messages:
+        for word in remove_not_alpha(message).split():
+            if word in wordlist.split():
+                real_words.append(word)
+        stats.append(msg_stats(dsentence= message, rwords= real_words, rword_count= len(real_words)))
+        real_words = []
+    stats = sorted(stats, key=real_word_count, reverse=True)[0]
+
+    infile_wordlist.close()
+    return stats.dsentence
+
+
+# print(Caesar_break(Caesar_encrypt('Hello! My name is!! Victoria!', 7)))
+print(Caesar_break(Caesar_encrypt("YOYO what's up homie-g?!", 4)))
+
+print(Caesar_break(Caesar_encrypt("hey victoria what's up holla!@!@", 9)))
+
+#
+#
+# Part e
+#
+#
+print()
+print('----------Part E----------')
+print()
+print()
+
+# e.1
+print('-----e.1-----')
+
+def copy_file():
+    ''' Copies a file '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file()
+
+# e.2
+print('-----e.2-----')
+
+def copy_file(x: str):
+    ''' Copies a file '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    count = 1
+    for line in infile:
+        if x == "line numbers":
+            outfile.write(str(count) + ': ' + line)
+            count += 1
+        else:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file('line numbers')
+
+# e.3
+print('-----e.3-----')
+
+def copy_file(s: str):
+    ''' Copies a file '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    linecount = 0
+    start = 0
+    end = 99999
+    
+
+    for line in infile:
+        if s == "Gutenberg trim":
+            if "*** START " in line:
+                start = linecount
+            if "*** END" in line:
+                end = linecount
+
+            if linecount &gt; start and linecount &lt; end:
+                outfile.write(line)
+                
+            linecount += 1
+            
+        else:
+            outfile.write(line)
+    
+    infile.close()
+    outfile.close()
+
+copy_file("Gutenberg trim")
+
+# e.4
+print('-----e.4-----')
+
+def copy_file(s: str):
+    ''' Copies a file '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    lines = 0
+    empty = 0
+    total = 0
+    total_nonempty = 0
+
+    if s == 'statistics':
+        for line in infile:
+            lines += 1
+            total += len(line)
+
+            if line.isspace() or line == '':
+                empty += 1
+            else:
+                total_nonempty += len(line)
+
+            outfile.write(line)
+
+        avg = total / lines
+        avg_nonempty = total_nonempty / (lines - empty)
+
+        print('{:5d} lines in the file'.format(lines))
+        print(' {:3d} empty lines'.format(empty))
+        print('   {:4.1f} average characters per line'.format(avg))
+        print('   {:4.1f} average characters per non-empty line'.format(avg_nonempty))
+            
+    else:
+        for line in infile:
+            outfile.write(line)
+
+    infile.close()
+    outfile.close()
+
+copy_file('statistics')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

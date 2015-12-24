@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/jjlin4/(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/jjlin4/(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: BandBI.py
+# Jonathan Lin &lt;25132303&gt; ICS 31. Lab 8. 8 AM.
+
+'''
+sample.txt is a text file with the sample input on the BandB webpage:
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match114-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_58.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+** This is a sample command file for the Anteater BandB, Stage I
+PL ***********************************************************
+PL Here is a list of available bedrooms (before adding any!)
+** A well-written program works gracefully with empty lists.
+BL
+PL ***********************************************************
+** Now let's add a bedroom:
+AB 101
+BL
+** And some more:
+AB 104
+** Extra blanks around the command should be ignored
+ab    102
+    AB 201
+    Ab      203
+ BL
+PL Thank you for using the Anteater BandB Reservation System!
+** That's the end of the sample data for Stage I.
+</FONT>'''
+
+input = open('sample.txt')
+inputList = input.readlines()
+bedRoomList = []
+
+for lines in inputList:
+    tempLine = lines.strip()
+    if tempLine[:2].lower() == 'ab':
+        tempLine2 = tempLine.replace(" ", "")
+        bedRoomList.append(tempLine2[2:])
+        
+    elif tempLine[:2].lower() == 'bl':
+        print('Number of bedrooms in service: ' + str(len(bedRoomList)))
+        print('------------------------------------')
+        for room in bedRoomList:
+            print(room)
+    elif tempLine[:2].lower() == 'pl':
+        print(tempLine[3:])
+
+
+        
+    
+    
+
+    
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

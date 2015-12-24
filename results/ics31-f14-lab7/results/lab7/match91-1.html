@@ -1,0 +1,163 @@
+<HTML>
+<HEAD>
+<TITLE>luhanzhl/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+shuntiay/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Shuntian Yao 33974005 and Hassan Namankani 74111341.   ICS 31 Lab sec12, LAB ASST 7
+print('\n')
+print('-----c-----')
+print('\n')
+infile = open('femalenames.txt','r')
+femalenames=infile.read()
+infile.close()
+infile=open('malenames.txt','r')
+malenames=infile.read()
+infile.close()
+infile=open('surnames.txt','r')
+surnames=infile.read()
+infile.close()
+lower = str('abcdefghijklmnopqrstuvwxyz')
+upper = str('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+
+from random import randrange
+def ext(names:str)-&gt;str:
+    'extracting names'
+    names2=''
+    for name in names:
+        if name not in upper:
+            names2 += ' '
+        else:
+            names2 += i
+    return names2
+
+def fix(names:str)-&gt;[str]:
+    'fixxing capitalizations'
+    cap=[]
+    uncap=file.split()
+    for s in uncap:
+        cap.append(s.lower().capitalize())
+    return cap
+
+def random_names(num:int)-&gt;[str]:
+    'return random names'
+    result=[]
+    for i in range(num):
+        result.append(single_random_name(fix(ext(malenames))),fix(ext(femalenames)))
+    return result
+def single_random_name(malenames:[str],femalenames:[str])-&gt;str:
+    'single random name'
+    gender=randrange(2)
+    surname=random_name(fix(ext(surnames)))
+    if gender==0:
+        firstname = random_name(malenames)
+    else:
+        firstname = random_name(femalenames)
+    return surname+' '+firstname
+def random_name(names:[str])-&gt;str:
+    'return a random name from the list'
+    return names[randrange(len(names))]
+print('\n')
+print('-----d-----')
+print('\n')
+alphabet = lower + upper
+def encrypt (plaintext: str, key: int) -&gt; str:
+    cyphertext =''
+    table = str.maketrans(lower,lower[key%26:] + lower[:key%26])
+    cyphertext = plaintext.translate(table)
+    return cyphertext
+
+def decrypt (plaintext: str, key: int) :
+    cyphertext =''
+    table = str.maketrans(lower,lower[-key%26:] + lower[:-key%26])
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match91-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    cyphertext = plaintext.translate(table)
+    return cyphertext
+
+def Caesar_break(text:str)-&gt;str:
+    infile=open('wordlist.txt','r')
+    wordlist=infile.readlines()
+    wordlist2=[]
+    for word in wordlist:
+        wordlist2.append(word[:-1])
+    infile.close()
+    split = text.split()
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match91-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    plaintext = ''
+    for word in split:
+        lowerword = word.lower()
+        for key in range(26):
+            before = decrypt(lowerword,key)
+            after = before.capitalize()
+            if after in wordlist2:
+                plaintext += after
+    return plaintext
+
+print(Caesar_break('bejebt'))
+</FONT>            
+print('\n')
+print('-----e-----')
+print('\n')
+def copy_file(x):
+    infile = open('pg1661.txt', 'r')
+    outfile = open('copy.txt', 'w')
+    lines = infile.readline()
+    if x == 'line numbers':
+        print_line_numbers(lines)
+    elif x=='statistics':
+        stats_list (lines)
+        
+    infile.close()
+    outfile.close()
+
+def print_line_numbers(strings: list) -&gt;str:
+    for everystring in strings:
+        for i in range (len(strings)):
+            print('{0}{1}{2}{3}'.format(i+1, ':', '\t',everystring))
+
+def stats_list ( strings: list) -&gt; str:
+    chr_all_lines =[]
+    emptyL= []
+    chr_NEL =[]
+    stripped = []
+    WPL =0
+    WPNEL=0
+    
+    for stuff in strings:
+        stripped.append(stuff.strip())
+
+    for things in strings:
+        chr_all_lines.append(things)
+        
+    for things in strings:
+        if things in ' '*9999:
+            emptyL.append(things)
+            
+    for things in stripped:
+        if things !='':
+            chr_NEL.append (things)
+
+
+    for stuff in chr_all_lines:
+        WPL += len(stuff)
+    for stuff in chr_NEL:
+        WPNEL += len(stuff)
+        
+    print ('{0:} {1}'.format(len(chr_all_lines), 'Lines in the list \n'),
+           '{0:0} {1}{2}'.format(len(emptyL), 'Empty lines','\n'),
+           '{0:3.1f} {1}'.format(WPL/len(chr_all_lines), 'Average character per Line \n'),
+           '{0:3.1f} {1}'.format(WPNEL/len(chr_NEL), 'Average character per none empty line \n'))
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

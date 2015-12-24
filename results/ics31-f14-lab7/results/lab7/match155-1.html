@@ -1,0 +1,142 @@
+<HTML>
+<HEAD>
+<TITLE>rooconno/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+tstaana/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Tracy Sta. Ana 80115436 and Whitney Tran 77187709. ICS 31 Lab sec 16. Lab asst 7.
+
+#C
+print('Part C.')
+from random import randrange
+infile = open("surnames.txt", 'r')
+surnames = infile.read().split("\n")
+infile.close()
+male = open("malenames.txt", 'r')
+mnames = male.read().split("\n")
+male.close()
+female = open("femalenames.txt", 'r')
+fnames = female.read().split("\n")
+female.close()
+mixednames = mnames + fnames
+
+
+def single_name(names : list) -&gt; str:
+    '''takes a name list and returns a name chosen at random from that list'''
+    name = names[randrange(0,len(names)+1)]
+    n = name.split("\t")
+    return n[0]
+#print(single_name(surnames))
+
+def random_name() -&gt; str:
+    '''generates a random single name'''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match155-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return str(single_name(mixednames)) + " " + str(single_name(surnames))
+#print(random_name())
+
+def random_names(x: int) -&gt; list:
+    '''takes an integer and returns a list of that many strings, which are randomly generated names'''
+    names = []
+    for i in range(x):
+        r = random_name()
+        names.append(r)
+</FONT>    return names
+#print(random_names(3))
+
+#D
+print('Part D.')
+dictionary = open("wordlist.txt", 'r')
+words = dictionary.read().split("\n")
+dictionary.close()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def rotated_Alph(n:int)-&gt;str:
+    '''takes the alphabet and shifts it n spaces'''
+    result = ''
+    n = n%26 
+    for i in range(26):
+        if i+n &lt; 26:
+            result += ALPHABET[i+n]
+        else:
+            result += ALPHABET[i+n-26]
+    return result
+
+def Caesar_break(cipher: str) -&gt; str:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match155-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    '''takes a ciphertext string and returns the plaintext for the string'''
+    decrypted = []
+    count = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    for k in range(27):
+        table = str.maketrans(rotated_Alph(k),
+</FONT>                              ALPHABET)
+        table2 = str.maketrans('.,!?;:"*/\@#$%&',
+                               '               ')
+        lower_cased = cipher.lower()
+        trans = lower_cased.translate(table)
+        decrypted.append(trans)
+    for l in decrypted:
+        no_punc = l.translate(table2)
+        look_up = no_punc.split(' ')
+        for w in look_up:
+            if w in words:
+                count[decrypted.index(l)] += 1
+    for n in range(len(count)):
+        if count[n] == max(count):
+            return decrypted[n]
+assert Caesar_break('fnncaxd fnnadqr!') == 'goodbye goobers!'
+assert Caesar_break('jkdcejk vcuvgu iqqf!') == 'hibachi tastes good!'
+assert Caesar_break('phgldv phgldq, phgldoob.!') == 'medias median, medially.!'
+
+#E
+print('Part E.\n')
+def copy_file(command : str):
+    '''copies a file'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    t = infile.read()
+    textlist = t.split("\n")
+    if command == 'line numbers': #E.2
+         for i in range(len(textlist)):
+                outfile.write("{:5} {:}".format((str(i+1)+":"), textlist[i])+ "\n")
+    elif command == 'Gutenberg trim': #E.3
+        x = t.find('*** START')
+        y = t.find('*** END')
+        new = t[x:y]
+        outfile.write(new)
+    elif command == 'statistics': #E.4
+        for line in t:
+            outfile.write(line)
+        empty = 0
+        sumAll = 0
+        for i in textlist:
+            sumAll += len(i)
+            if i == '':
+                   empty+=1
+        outfile.write(("{:7}  lines in the list".format(len(textlist)))+"\n")
+        outfile.write(("{:7}  empty lines".format(empty))+"\n")
+        outfile.write(("{:7.2f}  average characters per line".format(sumAll/len(textlist)))+"\n")
+        outfile.write(("{:7.2f}  average characters per non-empty line".format(sumAll/(len(textlist)-empty))))
+    else:
+        for line in t:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file('line numbers')
+copy_file('x')
+copy_file('Gutenberg trim')
+copy_file('statistics')
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

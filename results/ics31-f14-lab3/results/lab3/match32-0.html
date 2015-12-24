@@ -1,0 +1,566 @@
+<HTML>
+<HEAD>
+<TITLE>jdquinn/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jdquinn/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+#&lt;Chris Christian 52697582&gt; and &lt;Justin Quinn 84512432&gt;: ICS 31 Lab 8
+
+#
+#
+# Part (c)
+#
+#
+
+# Print section header
+print('-' * 10, '(c)', '-' * 10)
+
+
+#
+# Part (c.1)
+#
+
+# Print subsection header
+print()
+print('-' * 10, '(c.1)', '-' * 10, '\n')
+
+# Define funcition 'abbreviate'
+def abbreviate(value: str) -&gt; str:
+    'Takes name of a month as input and returns its three-letter abbreviation.'
+    return value[0:3]
+
+# Print return from function 'abbreviate'
+print('The three character abbreviation of \"January\" is', abbreviate('January'))
+print('The three character abbreviation of \"May\" is', abbreviate('May'))
+print('The three character abbreviation of \"December\" is', abbreviate('December'))
+
+# Test function 'abbreviate'
+assert abbreviate('January') == 'Jan'
+assert abbreviate('May') == 'May'
+assert abbreviate('December') == 'Dec'
+
+
+#
+# Part (c.2)
+#
+
+# Print subsection header
+print()
+print('-' * 10, '(c.2)', '-' * 10, '\n')
+
+# Define funcition 'find_area_square'
+def find_area_square(value: float) -&gt; float:
+    'Takes a number as input representing one side of a square and returns the area of that square.'
+    return value ** 2
+
+# Print return from function 'find_area_square'
+print('The area of a square with sides of length 1 is', find_area_square(1))
+print('The area of a square with sides of length 5 is', find_area_square(5))
+
+# Test function 'find_area_square'
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+
+
+#
+# Part (c.3)
+#
+
+# Print subsection header
+print()
+print('-' * 10, '(c.3)', '-' * 10, '\n')
+
+# Define funcition 'find_area_circle'
+def find_area_circle(value: float) -&gt; float:
+    'Takes a number as input representing the radius of a circle and returns the area of that circle.'
+    PI = 3.14159
+    return PI * value ** 2
+
+# Print return from function 'find_area_circle'
+print('The area of a circle with radius 1 is', find_area_circle(1))
+print('The area of a circle with radius 5 is', find_area_circle(5))
+
+# Test function 'find_area_circle'
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+
+#
+# Part (c.4)
+#
+
+# Print subsection header
+print()
+print('-' * 10, '(c.4)', '-' * 10, '\n')
+
+# Define funcition 'print_even_numbers'
+def print_even_numbers(intList: list):
+    'Takes a list of integers as input and prints each even number in the list.'
+    index = 0
+    for index in range(len(intList)):
+        if intList[index] % 2 == 0:
+            print (intList[index])
+
+# Print message and pass list of integers to function 'print_even_numbers'
+print('The even numbers in the list 2, 47, 31, 99, 20, 19, 23, 105, 710, 1004 are:')
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+
+#
+# Part (c.5)
+#
+
+# Print subsection header
+print()
+print('-' * 10, '(c.5)', '-' * 10, '\n')
+
+# Define funcition 'calculate_shipping'
+def calculate_shipping(weight: float) -&gt; float:
+    'Takes the weight of an object as input and calcualtes and returns the price of shipping for that object.'
+    rate = '$'
+
+    if(weight &lt; 2):
+        rate += str(2.00)
+    elif(weight &gt;= 10):
+        rate += str(5.00 + ((weight - 10) * 1.50))
+    else:
+        rate += str(5.00)
+
+    return rate
+
+# Print return from function 'calculate_shipping'
+print('The shipping price for an object of weight 1.5 is', calculate_shipping(1.5))
+print('The shipping price for an object of weight 7 is', calculate_shipping(7))
+print('The shipping price for an object of weight 15 is', calculate_shipping(15))
+
+# Test function 'calculate_shipping'
+assert calculate_shipping(1.5) == '$2.0'
+assert calculate_shipping(7) == '$5.0'
+assert calculate_shipping(15) == '$12.5'
+
+
+#
+# Part (c.6)
+#
+
+# Print subsection header
+print()
+print('-' * 10, '(c.6)', '-' * 10, '\n')
+
+# Load tkinter library
+import tkinter
+
+# Define function 'create_square'
+def create_square(x: int, y: int, length: int):
+    'Takes the initial x and y coordinates and length of a side of a square as input then draws that square.'
+    # Create a graphics window
+    window_c6 = tkinter.Tk()
+    window_c6.title("c.6")
+
+    # Create a 500x500 canvas to draw on
+    canvas_c6 = tkinter.Canvas(window_c6, width=500, height=500)
+
+    # Put the canvas into the window
+    canvas_c6.pack()
+
+    # Draw rectangle
+    canvas_c6.create_rectangle(x, y, (x + length), (y + length))
+
+# Test function 'create_square'
+create_square(0, 0, 100)
+create_square(100, 100, 75)
+create_square(100, 200, 75)
+
+# Print message
+print('See window(s) \"c.6\" for results.')
+
+
+#
+# Part (c.7)
+#
+
+# Print subsection header
+print()
+print('-' * 10, '(c.7)', '-' * 10, '\n')
+
+# Define function 'create_circle'
+def create_circle(x: int, y: int, length: int):
+    'Takes the initial x and y coordinates and length of a side of a square as input, then draws a circle whose diameter is equal to the length of that square.'
+    # Create a graphics window
+    window_c7 = tkinter.Tk()
+    window_c7.title("c.7")                                       
+
+    # Create a 500x500 canvas to draw on
+    canvas_c7 = tkinter.Canvas(window_c7, width=500, height=500)
+
+    # Put the canvas into the window
+    canvas_c7.pack()
+
+    # Draw circle
+    canvas_c7.create_oval(x, y, (x + length), (y + length))
+
+# Test function 'create_circle'
+create_circle(0, 0, 100)
+create_circle(100, 100, 75)
+create_circle(100, 200, 75)
+
+# Print message
+print('See window(s) \"c.7\" for results.')
+
+
+
+
+
+#
+#
+# Part (d)
+#
+#
+
+# Print section header
+print()
+print()
+print()
+print('-' * 10, 'Part (d)', '-' * 10, '\n')
+
+
+#
+# Part (d.1)
+#
+
+# Print subsection header
+print()
+print('-' * 10, '(d.1)', '-' * 10, '\n')
+
+# Load namedtuple from collections library
+from collections import namedtuple
+
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+
+RL = [Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+      Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+      Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+      Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+      Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+      Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+      Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50)]
+
+# Define function 'restaurant_price'
+def restaurant_price(Restaurant: namedtuple) -&gt; float :
+    'Takes a Restaurant object (namedtuple) as input and returns the price value of that object.'
+    return Restaurant.price
+
+# Print return from function 'restaurant_price'
+print('The price of the best dish at', RL[0].name, 'is', restaurant_price(RL[0]))
+print('The price of the best dish at', RL[2].name, 'is', restaurant_price(RL[2]))
+print('The price of the best dish at', RL[6].name, 'is', restaurant_price(RL[6]))
+
+# Test function 'restaurant_price' 
+assert restaurant_price(RL[0]) == 12.50
+assert restaurant_price(RL[2]) == 25.50
+assert restaurant_price(RL[6]) == 10.50
+
+
+#
+# Part (d.2)
+#
+
+# Print subsection header
+print()
+print('-' * 10, '(d.2)', '-' * 10, '\n')
+
+# Sort list 'RL' from least expensive to most expensive, based on returned value from function 'restaurant_price'
+RL.sort(key=restaurant_price)
+
+# Print list 'RL'
+print(RL, '\n')
+
+# Test that list 'RL' was sorted correctly
+assert RL == [Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+              Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+              Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50),
+              Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+              Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+              Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+              Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50)]
+
+
+#
+# Part (d.3)
+#
+
+# Print subsection header
+print()
+print('-' * 10, '(d.3)', '-' * 10, '\n')             
+
+
+# Define function 'costliest'
+def costliest(RL: list) -&gt; str:
+    'Takes a list of Restaurant namedtuples as input and returns the name of the Restaurant with the costliest dish.'
+    # Sort list of Restaurants 'RL' from least expensive to most expensive, based on returned value from function 'restaurant_price'
+    RL.sort(key=restaurant_price)
+    
+    # Return name of Restaurant with costliest dish
+    return RL[-1].name
+
+# Print return from function 'costliest'
+print(costliest(RL), '\n')
+
+# Test function 'costliest'
+assert costliest(RL) == 'Noma'
+
+
+#
+# Part (d.4)
+#
+
+# Print subsection header
+print()
+print('-' * 10, '(d.4)', '-' * 10, '\n')
+
+# Redefine list of Restaurant namedtuples 'RL'
+RL = [Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+      Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+      Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+      Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+      Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+      Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+      Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50)]
+
+
+# Define function 'costliest2'
+def costliest2(RL: list) -&gt; str:
+    'Takes a list of Restaurant namedtuples as input and returns the name of the Restaurant with the costliest dish.'
+
+    # Get copy of Restaurants 'RCL sorted from least expensive to most expensive, based on returned value from function 'restaurant_price'
+    RL_sorted = sorted(RL, key=restaurant_price)
+    
+    # Return name of Restaurant with costliest dish
+    return RL_sorted[-1].name
+
+# Print return from function 'costliest2'
+print(costliest2(RL))
+
+# Test function 'costliest2'
+assert costliest2(RL) == 'Noma'
+
+
+
+
+
+#
+#
+# Part (e)
+#
+#
+
+# Print section header
+print()
+print()
+print()
+print('-' * 10, 'Part (e)', '-' * 10, '\n')
+
+#
+# Part (e.1)
+#
+
+# Print subsection header
+print()
+print('-' * 10, '(e.1)', '-' * 10, '\n')
+
+# Book attributes: author, title, genre, year published, price, quantity in stock
+Book = namedtuple('Book', 'author title genre year price instock')
+
+# Define list 'BSI' of Book namedtuples
+BSI = [Book('George Orwell', '1984', 'Dystopia', 1949, 12.00, 2000),
+       Book('Isaac Asimov', 'I,Robot', 'Technology', 1950, 15.00, 1000),
+       Book('Alduous Huxley', 'Brave New World', 'Science Fiction', 1932, 17.00, 3000),
+       Book('J.R.R. Tolkein', 'The Hobbit', 'Fantasy', 1937, 20.00, 5000),
+       Book('Arthur C. Clarke', '2001: A Space Odyssey', 'Science Fiction', 1968, 22.00, 6000),
+       Book('Stephanie Meyer', 'Twilight', 'Romance', 2005, 8.00, 10)]
+
+# Print title of each Book object in list 'BSI'
+i = 0
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match32-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+for i in range (len(BSI)):
+    print(BSI[i].title)
+
+
+#
+# Part (e.2)
+#
+
+# Print subsection header
+print()
+print('-' * 10, '(e.2)', '-' * 10, '\n')
+
+# Define function 'book_title'
+def book_title(BSI: namedtuple) -&gt; str:
+    'Takes a Book namedtuple as input and returns the title of that Book.'
+    return BSI.title
+</FONT>
+# Sort list 'BSI' by Book title in alphabetical order, and assign this list to 'BSI_sorted'
+for i in range(len(BSI)):
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match32-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    BSI_sorted = sorted(BSI, key=book_title)
+
+# Print list 'BSI_sorted'   
+for i in range(len(BSI)):
+    print(BSI_sorted[i].title)
+
+
+#
+# Part (e.3)
+#
+
+# Print subsection header
+print()
+print('-' * 10, '(e.3)', '-' * 10, '\n')
+
+# Increase price of each Book in list 'BSI' by 10%
+for i in range(len(BSI)):
+    
+    # Increase price of Book at current index
+    BSI[i] = BSI[i]._replace(price = BSI[i].price * 1.1)
+</FONT>    
+    # Print price of Book at current index
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match32-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print(BSI[i].price)
+
+
+#
+# Part (e.4)
+#
+
+# Print subsection header
+print()
+print('-' * 10, '(e.4', '-' * 10, '\n')
+
+# Print title of each Book in list 'BSI' whose genre is 'Technology' 
+for i in range(len(BSI)):
+    if BSI[i].genre == 'Technology':
+        print(BSI[i].title)
+
+
+#
+# Part (e.5)
+#
+
+# Print subsection header
+print()
+print('-' * 10, '(e.5)', '-' * 10, '\n')
+
+# Create and initialize two lists
+BSI_1 = []
+BSI_2 = []
+
+# For each Book in list 'BSI', assign Book to one of two lists based on the year it was published
+for i in range (len(BSI)):
+    if BSI[i].year &lt; 2000:
+        BSI_1.append(BSI[i])
+    else:
+        BSI_2.append(BSI[i])
+
+        
+if len(BSI_1) &gt; len(BSI_2):
+    print("More titles before 2000 (",len(BSI_1),"Versus",len(BSI_2),")")
+else:
+    print("More titles 2000 or later (",len(BSI_2),"Versus",len(BSI_1),")")
+
+# e.6
+def inventory_value(Book:namedtuple) -&gt; float:
+    'Returns total value of the inventory of a specific book'
+    return Book.price*Book.instock
+
+def top_value(BSI:list) -&gt; Book:
+</FONT>    'Takes a list of object Book as input and returns the object Book with the highest inventory value.'
+
+    topValue = 0
+    index = 0
+    topValueIndex = 0
+    
+    for index in range(len(BSI)):
+        if inventory_value(BSI[index]) &gt; topValue:
+            topValue = inventory_value(BSI[index])
+            topValueIndex = index
+        
+    return BSI[topValueIndex]
+
+topValueBook = top_value(BSI)
+
+print('The highest-value book is', topValueBook.title, 'by', topValueBook.author, 'at a value of $', int(inventory_value(topValueBook)))
+
+#
+#
+# Part (f)
+#
+#
+
+# Print section header
+print()
+print()
+print()
+print('-' * 10, 'Part (f)', '-' * 10, '\n')  
+
+    
+# Create a graphics window
+window_f = tkinter.Tk()
+window_f.title('f')
+
+# Create a 500x500 canvas to draw on
+canvas_f = tkinter.Canvas(window_f, width=500, height=500)
+
+# Put the canvas into the window
+canvas_f.pack()
+
+
+# Function to draw an eye
+def draw_eye(x, y: int, my_canvas: tkinter.Canvas) -&gt; None:
+    'Takes two integers as input and uses them to draw an "eye" on a tkinter canvas.'
+    my_canvas.create_oval(x, y, x + 80, y + 30)
+    my_canvas.create_oval(x + 25, y, x + 55, y + 30, fill='blue')
+    my_canvas.create_oval(x + 30, y + 5, x + 50, y + 25, fill='black')
+
+# Function to draw a nose
+def draw_nose(x, y: int, my_canvas: tkinter.Canvas) -&gt; None:
+    'Takes two integers as input and uses them to draw a "nose" on a tkinter canvas.'
+    my_canvas.create_line(x, y, x + 25, y - 120)
+    my_canvas.create_line(x + 35, y - 120, x + 55, y)
+
+# Function to draw a mouth
+def draw_mouth(x, y: int, my_canvas: tkinter.Canvas) -&gt; None:
+    'Takes two integers as input and uses them to draw a "mouth" on a tkinter canvas.'
+    my_canvas.create_line(x, y, x + 100, y)
+
+# Function to draw a face
+def draw_face(my_canvas: tkinter.Canvas) -&gt; None:
+    'Takes two integers as input and uses them to draw a "face" on a tkinter canvas.'
+    
+    # Draw left eye 
+    draw_eye(100, 100, my_canvas)
+
+    # Draw right eye
+    draw_eye(300, 100, my_canvas)
+
+    # Draw nose
+    draw_nose(220, 280, my_canvas)
+    
+    # Draw mouth
+    draw_mouth(200, 350, my_canvas)
+
+
+# Draw face on canvas
+draw_face(canvas_f)
+
+# Combine all the tkinter elements from each exercise and display all the windows
+tkinter.mainloop()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

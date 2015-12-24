@@ -1,0 +1,287 @@
+<HTML>
+<HEAD>
+<TITLE>huiyimt/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ydtian/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2_v4.py
+# Dennis Tian 32422520 and Melvyn Kim 24612409. ICS 31 Lab sec13. Lab Asst. 2
+# Section C
+
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  $', rate)
+print('Weekly salary:  $', hours * rate)
+
+# Section C.1
+
+hours = int(input( 'How many hours?' ))
+print('This many hours: ', hours )
+rate = int(input( 'How many dollars per hour?' ))
+print('This many dollars per hour: $', rate )
+print( 'Weekly salary: $', hours * rate )
+
+# Section C.2
+
+name = input('Hello.  What is your name? ')
+print('Hello, ', name)
+print('It\'s nice to meet you.')
+age = int(input('How old are you? '))
+print('Next year you will be ', age + 1, 'years old.')
+print('Good-bye!')
+
+# Section D
+
+print( 'Please provide this information: ' )
+business_name = input( 'Business name: ')
+euros = int(input( 'Number of euros: '))
+pounds = int(input( 'Number of pounds: '))
+dollars = int(input( 'Number of dollars: '))
+
+print('')
+
+print( 'Copenhagen Chamber of Commerce' )
+print( 'Business name:  ', business_name )
+print( euros ,'euros is', ( euros * 7.46 ), 'krone' )
+print( pounds,'pounds is', ( euros * 8.81), 'krone' )
+print( dollars,'dollars is', ( dollars * 5.50), 'krone' )
+
+print('')
+
+print( 'Total Krone:', ( dollars * 5.5) + ( pounds * 8.81 ) + ( euros * 7.46 ) )
+
+# Section E
+
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match62-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+# Section E1
+print(still_another[0])
+
+# Section E2
+print(another[3])
+
+# Section E3
+average = ((favorite[3] + another[3] + still_another[3]) / 3)
+print(average)
+
+# Section E4
+print(favorite[2] &lt; 1900)
+
+# Section E5
+still_another = Book('Return of Sherlock Holmes',
+</FONT>                     'Arthur Conan Doyle', 1905, 26.00)
+
+# Section E6
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 31.20)
+
+#Section F
+
+from collections import namedtuple
+
+Animal = namedtuple('Animal', 'species age weight food')
+
+Jumbo = Animal( 'Elephant', 50, 1000, 'peanuts')
+
+Perry = Animal( 'Platypus', 7, 1.7, 'shrimp')
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match62-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print( Jumbo[2] &lt; Perry[2] )
+
+# Section G
+booklist = [favorite, another, still_another]
+
+# Section G.1
+print(booklist[0][3] &lt; booklist[1][3])
+
+# Section G.2
+print(booklist[0][2] &gt; booklist[-1][2])
+
+# Section H
+
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+</FONT>    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+# Section H.1
+
+print(RL[2][0])
+
+# Section H.2
+
+print(RL[0][1] == RL[3][1])
+
+# Section H.3
+
+print(RL[-1][4])
+
+# Section H.4
+
+RL.sort()
+print(RL)
+
+# Section H.5
+
+list_of_best_dish = [RL[0][3], RL[1][3], RL[2][3], RL[3][3], RL[4][3],
+                     RL[5][3], RL[6][3]]
+list_of_best_dish.sort()
+print(list_of_best_dish)
+
+# Section H.6
+list_of_four_restaurant = []
+list_of_four_restaurant.extend(RL[0])
+list_of_four_restaurant.extend(RL[1])
+list_of_four_restaurant.extend(RL[-1])
+list_of_four_restaurant.extend(RL[-2])
+print(list_of_four_restaurant)
+
+# Section I.1
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas_i1 = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas_i1.pack()            # Put the canvas into the window
+
+my_canvas_i1.create_line(100, 100, 100, 300, fill='black') # Draw orange line
+my_canvas_i1.create_line(100, 100, 300, 100, fill='blue')   # Draw blue line
+my_canvas_i1.create_line(300, 100, 300, 300, fill='red')   # Draw blue line
+my_canvas_i1.create_line(100, 300, 300, 300, fill='purple')   # Draw blue line
+
+# Section I.2
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas_i2 = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas_i2.pack()            # Put the canvas into the window
+
+my_canvas_i2.create_line(220, 100, 340, 260, fill='black') # Draw orange line
+my_canvas_i2.create_line(340, 260, 220, 420, fill='blue')   # Draw blue line
+my_canvas_i2.create_line(220, 420, 100, 260, fill='red')   # Draw blue line
+my_canvas_i2.create_line(100, 260, 220, 100, fill='purple')   # Draw blue line
+
+# Section I.3
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas_i3 = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas_i3.pack()            # Put the canvas into the window
+
+my_canvas_i3.create_line(220, 100, 340, 260, fill='black') # Draw orange line
+my_canvas_i3.create_line(100, 260, 220, 100, fill='purple')   # Draw blue line
+my_canvas_i3.create_line(100, 260, 340, 260, fill='blue')   # Draw blue line
+my_canvas_i3.create_line(100, 260, 100, 460, fill='blue')   # Draw blue line
+my_canvas_i3.create_line(340, 260, 340, 460, fill='blue')   # Draw blue line
+my_canvas_i3.create_line(100, 460, 340, 460, fill='blue')   # Draw blue line
+
+# Section I.4
+def getPoint(limitFloor, limitCeiling):
+	# get x, y limit coordination with restriction 
+	xCoordinate = getRandomPoint(limitFloor, limitCeiling)
+	yCoordinate = getRandomPoint(limitFloor, limitCeiling)
+
+	logcatDebug(xCoordinate)
+	logcatDebug(yCoordinate)
+
+	# assign x,y to point
+	Point =  collections.namedtuple('Point', ['x', 'y'])
+	mPoint = Point(xCoordinate, yCoordinate)
+	logcatDebug(mPoint)
+
+	return mPoint
+
+def getRandomPoint(limitFloor, limitCeiling):
+	numRandom = random.randrange(limitFloor, limitCeiling)
+	return numRandom
+
+def logcatDebug(var1):
+	# print('var1: ', var1)
+	return
+
+# def drawCanvas():
+# 	my_window = tkinter.Tk()    # Create the graphics window
+# 	my_canvas_i4 = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+# 	my_canvas_i4.pack() 
+
+# def drawEye():
+# 	my_canvas_i4.create_oval(100, 100, 400, 200, fill='white')
+# 	my_canvas_i4.create_oval(200, 120, 280, 200, fill='black')
+
+
+def drawEye(my_canvas_i4):
+	my_canvas_i4.create_oval(100, 100, 400, 200, fill='white')
+	my_canvas_i4.create_oval(200, 120, 280, 200, fill='black')
+	return my_canvas_i4
+
+def drawBloodshot(my_canvas_i4):
+	for numberOfBloodshot in range(0, MAX_NUM_BLOODSHOT):
+		startPoint = getPoint(limitFloor, limitCeiling)
+		endPoint = getPoint(limitFloor, limitCeiling)
+		my_canvas_i4.create_line(startPoint.x, startPoint.y, 
+							  endPoint.x, endPoint.y, fill='red')   # Draw blue line
+
+import random
+import collections
+import tkinter              # Load the library; do this just once per program
+
+MAX_NUM_BLOODSHOT = 20
+limitFloor =120
+limitCeiling = 180
+
+# draw canvas
+my_window = tkinter.Tk() 
+my_canvas_i4 = tkinter.Canvas(my_window, width=500, height=500)
+
+drawEye(my_canvas_i4)
+drawBloodshot(my_canvas_i4)
+my_canvas_i4.pack() 
+
+# Section I.5
+
+# Smartphone
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas_i1 = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas_i1.pack()
+
+my_canvas_i1.create_rectangle(100, 100, 300, 450, fill='black')
+my_canvas_i1.create_rectangle(105, 125, 295, 410, fill='grey')
+my_canvas_i1.create_rectangle(185, 110, 215, 120, fill='white')
+my_canvas_i1.create_oval(190, 418, 210, 438, fill='white')
+my_canvas_i1.create_rectangle(105, 300, 295, 410, fill='blue')
+my_canvas_i1.create_rectangle(120, 250, 170, 300, fill='orange')
+my_canvas_i1.create_polygon(265, 250, 236.1324, 300, 293.8675, 300, fill='black')
+
+
+tkinter.mainloop()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

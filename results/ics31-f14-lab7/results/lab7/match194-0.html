@@ -1,0 +1,210 @@
+<HTML>
+<HEAD>
+<TITLE>btluong1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+btluong1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Brandon Luong 76775564 and Matthew Nguyen 19432693.  ICS 31 Lab sec 8.  Lab asst 7.
+
+#Part (c1,2,3)
+print('---- Part (c1,2,3) ----')
+print()
+    
+from random import randrange
+
+def random_name()-&gt; str:
+    '''Returns a single randomly generated list
+    '''
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match194-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    infile = open("malenames.txt", 'r')
+    data = infile.readlines()
+    firstnames = []
+    for w in data:
+        l = w.split('\t')
+        firstnames.append(l[0])
+    
+    infile = open("femalenames.txt", 'r')
+</FONT>    data2 = infile.readlines()
+    for w in data:
+        l = w.split('\t')
+        firstnames.append(l[0])
+        
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match194-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    infile = open("surnames.txt", 'r')
+    data3 = infile.readlines()
+    surnames = []
+    for w in data:
+        l = w.split('\t')
+        surnames.append(l[0])
+    
+    l = randrange(0,len(surnames))
+</FONT>    f = randrange(0, len(firstnames))
+    w = surnames[l] + ", " + firstnames[f]
+
+    infile.close() 
+   return w
+ 
+def random_names (i:int) -&gt; list:
+    '''Returns a list of randomly generated names
+    '''
+    result = []
+    for q in range(i):
+        result.append(random_name())
+
+    return result
+
+print(random_names(10 ))
+    
+#Part (d.1,2)
+print()
+print('---- Part (d.1,2) ----')
+print()
+
+global Alphabet
+Alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def shift_alphabet (key: int) -&gt; str:
+    '''Takes input as integer representing a key and returns a list
+    representing the shifted alphabet
+    '''
+    alphabetShifted = [''] * 26
+    shift = 0
+    for index in range(len(Alphabet)):
+        shift = (index + key)%26
+        alphabetShifted[index] = Alphabet[shift]
+    return alphabetShifted
+assert shift_alphabet(2) == ['c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+                             'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+                             's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                             'a', 'b']
+
+
+
+        
+def Caesar_break(cipher_text:str) -&gt; str:
+    '''Returns the deciphered version of the given text
+    '''
+    shift = 0
+    highest = 0
+    total = 0
+
+    infile = open("wordlist.txt", 'r')
+    data = infile.read().split()
+    for i in range(len(data)):
+        data[i] = data[i].lower()
+               
+    for i in range(1,len(Alphabet)):
+        s = shift_alphabet(i)
+        t = ''
+
+        for char in cipher_text.lower():
+            if char in Alphabet:
+                t += s[Alphabet.find(char.lower())]
+            elif char == ' ' or char == '\'':
+                t += char
+
+        words = t.split(' ')
+        for w in words:
+            if w in data:
+                total +=1
+    
+        if total &gt; highest:
+            highest = total
+            shift = i
+        total = 0
+
+    result = ''
+    s2 = shift_alphabet(shift)
+
+    for char in cipher_text:
+        if char.lower() in Alphabet:
+            if char == char.lower():
+                 result += s2[Alphabet.find(char)]
+            else:
+                result += s2[Alphabet.find(char.lower())].upper()
+        else:
+            result += char
+    infile.close()
+    return result
+
+assert Caesar_break('Btbq Bcfm Ejob') == 'Asap Abel Dina'
+assert Caesar_break('Ddehuj') == 'Aaberg'
+assert Caesar_break('CCTgp') == 'AARen'
+
+print (Caesar_break('Btbq Bcfm Ejob'))
+print (Caesar_break('Ddehuj'))
+print (Caesar_break('CCTgp'))
+    
+#Part (e.1,2,3)
+print()
+print('---- Part (e.1,2,3) ----')
+print()
+
+def copy_file(s:str) -&gt; None:
+    '''Prompts user and reads and writes files
+    '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    data = infile.readlines()
+    in_body = False
+    total_lines = len(data)
+    empty_lines = 0
+    total_characters = 0
+     
+    for line in range(len(data)):
+        if s == 'line numbers':
+            outfile.write("{:5d}: {:s}".format(line + 1, data[line]))
+        elif s == 'Gutenberg trim':
+            if data[line].startswith('*** END'):
+                in_body = False
+            if in_body:
+                outfile.write(data[line])
+            if data[line].startswith('*** START OF'):
+                in_body = True
+        elif s == 'statistics':
+            if data[line] == '\n':
+                empty_lines+=1
+            for char in data[line]:
+                total_characters += 1           
+            outfile.write(data[line])
+        else:
+            outfile.write(data[line])
+    if s == 'statistics':
+        outfile.write('{:5d}   {:s}\n'.format(total_lines, 'lines in the file'))
+        outfile.write('{:5d}   {:s}\n'.format(empty_lines, 'empty lines'))
+        outfile.write('{:7.1f} {:s}\n'.format(total_characters/total_lines, 'average characters per line'))
+        outfile.write('{:7.1f} {:s}\n'.format(total_characters/(total_lines-empty_lines), 'average characters per non-empty line'))
+              
+    infile.close()
+    outfile.close()
+    
+copy_file('statistics')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

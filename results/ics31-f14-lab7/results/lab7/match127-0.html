@@ -1,0 +1,179 @@
+<HTML>
+<HEAD>
+<TITLE>ksam1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+ksam1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Kevin Sam 11117641 & Kam Lee 96109555. ICS 31 Lab Section 10. Khanwalkar
+
+print()
+print()
+print('---------- Part (c.1) ----------')
+print()
+
+#
+#
+# Part (c.1)
+#
+#
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match127-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+infile = open("surnames.txt", 'r')
+last_names = infile.read()
+list_of_surnames = last_names.split()
+all_surnames =list_of_surnames[::4]
+infile.close()
+
+infile = open("femalenames.txt", 'r')
+femalenames = infile.read()
+list_of_femalenames = femalenames.split()
+all_femalenames = list_of_femalenames[::4]
+infile.close()
+
+infile = open("malenames.txt", 'r')
+malenames = infile.read()
+list_of_malenames = malenames.split()
+all_malenames = list_of_malenames[::4]
+infile.close()
+</FONT>
+    
+from random import randrange
+
+def random_names(num: int) -&gt; list:
+    '''Returns a list of random names of how many is given'''
+    lists=[]
+    for z in range(num):
+        lists.append(random_name())
+    return lists
+
+        
+def random_name() -&gt; str:
+    '''Returns a random name generated from a huge list of names'''
+    name = ""
+    name_indices = []
+    for i in range(2):
+        name_indices.append(randrange(0,1000))
+    name += (all_surnames[name_indices[0]].capitalize() + ", ")
+    boy_or_girl = randrange(0,2)
+    if boy_or_girl == 0:
+        name += all_malenames[name_indices[1]].capitalize()
+    else:
+        name += all_femalenames[name_indices[1]].capitalize()
+    return name
+
+print()
+print()
+print('---------- Part (d.1) ----------')
+print()
+
+#
+#
+# Part (d.1)
+#
+#
+infile = open("wordlist.txt", 'r')
+dictionary = infile.read()
+infile.close()
+
+ALPHABET='abcdefghijklmnopqrstuvwxyz'
+
+def change_punc(s: str) -&gt; str:
+    '''Changes punctuation and symbols into black spaces'''
+    table = str.maketrans("'.!,@#$%:^&*()?", '               ')
+    return s.translate(table)
+
+def Caesar_encrypt(text: str, key: int) -&gt; str:
+    '''Takes a string and an int, which tells how far down the alphabet to substitute'''
+    text = text.lower()
+    key = key % 26
+    cipher = str.maketrans(ALPHABET, ALPHABET[key:]+ALPHABET[:key])
+    return text.translate(cipher)
+
+def Caesar_decrypt(text: str, key: int) -&gt; str:
+    '''Does the opposite of encrypt, takes an encrypted string and turns it back to original word'''
+    cipher = str.maketrans(ALPHABET[key:]+ALPHABET[:key], ALPHABET)
+    return text.translate(cipher)
+
+def Caesar_break(text: str) -&gt; str:
+    '''Returns a decrypted encrypted string without a key'''
+    listofhits = []
+    textwords = text.split()
+    listofdecrypts = []
+    for i in range(27):
+        listofdecrypts.append(Caesar_decrypt(text.lower(), i))
+    for i in listofdecrypts:
+        hits = 0
+        splitwords = i.split()
+        for word in splitwords:
+            if word in dictionary.lower():
+                hits += 1
+        listofhits.append(hits)
+    for i in range(len(listofhits)):
+        if listofhits[i] == max(listofhits):
+            key = i
+    return Caesar_decrypt(text, key)
+
+print(Caesar_break(Caesar_encrypt("pizza am is very good", 6)))
+
+print()
+print()
+print('---------- Part (e) ----------')
+print()
+
+#
+#
+# Part (e)
+#
+#
+
+def stats(L: list):
+    '''Takes a list of strings and prints the stats(lines in list, empty lines, avg. character per line, average character per non-empty line)'''
+    print("{0:7} lines in the list".format(len(L)))
+    count = 0
+    char_per_line = 0
+    len_of_nonempty = 0
+    for item in L:
+        if item == '':
+            count += 1
+        char_per_line += len(item)
+        if item != '':
+            len_of_nonempty += 1
+    print("{0:7} empty lines".format(count))
+    print("{0:7.1f} average characters per line".format(char_per_line/(len(L))))
+    print("{0:7.1f} average characters per non-empty line".format(char_per_line/len_of_nonempty))
+
+def copy_file(a: str):
+    '''Copies a given file, if parameter is line numbers, gutenberg trim, or statistics, it modifies the copied file'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    linenumber = 1
+    for line in infile:
+        if a == 'line numbers':
+            outfile.write("{0:5}: {1:}".format(linenumber, line))
+            linenumber += 1
+        elif a == 'Gutenberg trim':
+            infiletext = infile.read()
+            beginning = infiletext.find('*** START')
+            end = infiletext.find('*** END')
+            outfile.write(infiletext[beginning:end])
+        elif a == 'statistics':
+            outfile.write(line)
+            stats(infile.read().split('\n'))
+        else:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+
+            
+        
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,270 @@
+<HTML>
+<HEAD>
+<TITLE>csardell/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+csardell/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Cody Sardella 51852709 Lukas Lohden 23739798 ICS 31 Lab 14
+
+print('Part C')
+print()
+
+#
+#
+# Part C
+#
+#
+
+from random import randrange
+import random
+
+def remove_punc(S: str) -&gt; str:
+    """ Removes punctuation from given string 
+    """
+    word = ''
+    for c in S:
+        if c.isalpha() == True:
+            word += c
+    return word
+assert remove_punc('B/a/n/a/n/a') == 'Banana'
+assert remove_punc('A/p/p/l/e') == 'Apple'
+
+def remove_non_letters(line: str) -&gt; str:
+    """ Removes punctuation from given string 
+    """
+    word = ''
+    for c in line:
+        if c.isalpha() == True:
+            word += c
+    return word
+assert remove_non_letters('B/a/n/a/n/a') == 'Banana'
+assert remove_non_letters('A/p/p/l/e') == 'Apple'
+
+def random_names(list_length: int) -&gt; list:
+    """ Returns a list of randomly selected names of input length
+    """
+    last_names = []
+    first_names = []
+    result= []
+    select = []
+    
+    infile = open('surnames.txt', 'r')
+    surnames = infile.readlines()
+    infile.close()
+    for v in range(len(surnames)):
+        surnames[v] = surnames[v].lower()
+        surnames[v] = surnames[v].capitalize()
+    random.shuffle(surnames)
+    
+    infile = open('malenames.txt', 'r')
+    malenames = infile.readlines()
+    infile.close()
+    for b in range(len(malenames)):
+        malenames[b] = malenames[b].lower()
+        malenames[b] = malenames[b].capitalize()
+
+    infile = open('femalenames.txt', 'r')
+    femalenames = infile.readlines()
+    infile.close()
+    for t in range(len(femalenames)):
+        femalenames[t] = femalenames[t].lower()
+        femalenames[t] = femalenames[t].capitalize()
+        
+    for i in range(0, list_length):
+        roll = randrange(0, 2)
+        select.append(roll)
+    for r in select:
+        if r == 0:
+            random.shuffle(malenames)
+            first_names.append(remove_non_letters(malenames[0]))
+        elif r == 1:
+            random.shuffle(femalenames)
+            first_names.append(remove_non_letters(femalenames[0]))
+            
+    for l in surnames[0:list_length]:
+        last_names.append(remove_non_letters(l))
+                
+    for n in range(0, list_length):
+        result.append(str(last_names[n]) + ', ' + str(first_names[n]))
+    return result
+
+print('random_names(0,25):')
+print(random_names(25))
+
+print()
+print()
+print("Part D:")
+print()
+print()
+
+#
+#
+# Part D
+#
+#
+
+def alphabet_shift() -&gt; list:
+    ''' Shifts the alphabet by given amount to be used in encryption function
+    '''
+    key = []
+    shifted_list = []
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    for i in range(0, 26):
+        key.append(i + 1)
+        shifted_1 = alphabet[0:key[i]]
+        shifted_2 = alphabet [key[i]:26]
+        shifted_list.append(shifted_2 + shifted_1)
+    return shifted_list
+
+def Caesar_break(ciphertext: str) -&gt; str:
+    '''Takes a message and decyphers it'''
+    infile = open("wordlist.txt", "r")
+    wordlist = infile.readlines()
+    infile.close()
+    
+    lowered = ciphertext.lower()
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    alphabets = alphabet_shift()
+    cipher_list = []
+    possible_decrypt = []
+    score = []
+    result = ''
+    
+    for i in range(0, 26):
+        table = str.maketrans(alphabets[i], alphabet)
+        new = lowered.translate(table)
+        cipher_list.append(new)
+    for s in cipher_list:
+        str_list = s.split()
+        possible_decrypt.append(str_list)
+    for message in possible_decrypt:
+        message_score = 0
+        for word in message:
+            word = remove_punc(word)
+            if (word + '\n') in wordlist:
+                message_score += 1
+            else:
+                message_score = 0
+        score.append(message_score)
+    max_index = 0
+    for t in score:
+        if t == max(score):
+            max_index += score.index(t)
+    for n in possible_decrypt[max_index]:
+        result += n + ' '
+    return result
+
+print(Caesar_break('evdl ivou'))
+
+print()
+
+print(Caesar_break('olssv, tf mypluk! ovd ohcl fvb illu? ovd dhz fvby aypw?'))
+print()
+print(Caesar_break('dkmyc! nomvkbo? gkbdswo/ qkbqkxdekx: tkoqob.'))
+
+print()
+print()
+print('Part E')
+print()
+print()
+
+#
+#
+# Part E:
+#
+#
+
+def find_empty_line(strlist:list)-&gt;int:
+    '''takes a list of strings and finds the number of empty lines'''
+    emptystr = []
+    for x in strlist:
+        if x == '\n':
+            emptystr.append(x)
+    return len(emptystr)
+
+def count_characters(strlist:list)-&gt;int:
+    '''finds the amount of characters in the list'''
+    characterlen = []
+    for x in strlist:
+       characterlen.append(len(x))
+    return sum(characterlen)
+
+def stats(strlist:list)-&gt;str:
+    '''Takes a list of strings and gvies statistics about the list'''
+    lines = len(strlist)
+    empty_lines = find_empty_line(strlist)
+    average_chars = count_characters(strlist)/lines
+    average_without = count_characters(strlist)/ (lines - empty_lines)
+    new_stats = '{:5}   lines in the list \n{:5}   empty lines \n{:7.1f} \
+average characters per line \n{:7.1f} average characters per\
+non-empty line'.format(lines, empty_lines, average_chars, average_without)
+    return new_stats
+
+def copy_file(select: str):
+    """ Makes a copy of a file the user selects
+    """
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    counter = 0
+    
+    if select == 'line numbers':
+        outfile_name = input("Please enter the name of the new copy with line numbers:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            counter += 1
+            mod_line = '{:5d}: '.format(counter) + line
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match87-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            outfile.write(mod_line)
+
+            
+    elif select == 'Gutenberg trim':
+        reader = infile.readlines()
+        outfile_name = input("Please enter the name of the trimmed copy:  ")
+        outfile = open(outfile_name, 'w')
+        
+        for line in range(len(reader)):
+            if "*** START" in reader[line]:
+                first_break = line
+                break
+            
+        for line in range(len(reader)):
+            if "*** END" in reader[line]:
+                end_break = line
+                break
+
+        for line in range(first_break + 1, end_break):
+            outfile.write(reader[line])
+</FONT>
+
+    elif select == 'statistics':
+        reader = infile.readlines()
+        outfile_name = input('Please enter the name of the new Copy: ')
+        outfile = open(outfile_name, 'w')
+        for line in reader:
+            outfile.write(line)
+        print()
+        print('The Statistics of the book: ')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match87-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        print(stats(reader))
+        
+
+        
+    else:
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in infile:
+            outfile.write(line)
+    outfile.close()
+    infile.close()
+</FONT>
+copy_file('statistics')
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

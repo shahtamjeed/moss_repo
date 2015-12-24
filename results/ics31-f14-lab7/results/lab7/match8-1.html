@@ -1,0 +1,178 @@
+<HTML>
+<HEAD>
+<TITLE>karenkw1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kyounis/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Khaleel Younis and Sue Lynn Pak 91309880 ICS 31 Lab sec 3 asst 7
+
+print()
+print('----Part C (Parts 1, 2, and 3)----')
+print()
+
+from random import randrange
+
+def random_names(a:int)-&gt;list:
+    '''Takes an integer and returns a list of many strings
+    with each string assigned a randomly generated name.'''
+    nam=[]
+    infile=open('surnames.txt')
+    surnames=infile.readlines()
+    infile=open('malenames.txt')
+    malenames=infile.readlines()
+    infile=open('femalenames.txt')
+    femalenames=infile.readlines()
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match8-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for i in range(a):
+        rand=randrange(0,999)
+        su=surnames[rand].split()
+        last=su[0]
+        gend=randrange(0,2)
+        if gend==0:
+            fe=femalenames[rand].split()
+            first=fe[0]
+        elif gend==1:
+            ma=malenames[rand].split()
+            first=ma[0]
+        namee="{},{}".format(last.capitalize(),first.capitalize())
+        nam.append(namee)
+    return nam
+
+print(random_names(15))
+
+print()
+</FONT><A NAME="0"></A><FONT color = #FF0000><A HREF="match8-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_33.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('------Part D.1-------')
+print()
+
+ALPHABET='abcdefghijklmnopqrstuvwxyz'
+
+def rotated(n:int)-&gt;str:
+    '''Takes a key and outputs the corresponding alphabet.'''
+    newalpha=''
+    for letter in range(len(ALPHABET)):
+        newalpha=newalpha+ALPHABET[(letter+n)%26]
+    return newalpha
+    
+
+def Caesar_encrypt(x:str,key:int)-&gt;str:
+    '''Takes a message in x and a key indicating how far down
+    the alphabet to find each substitute letter. The function
+    returns the ciphertext.'''
+    inp='abcdefghijklmnopqrstuvwxyz'
+    out=rotated(key)
+    transf=str.maketrans(inp,out)
+    return((x.lower()).translate(transf))
+
+def Caesar_decrypt(x1:str,key:int)-&gt;str:
+    '''Takes a message in x1 and a key and returns a decrypts
+    and an encrypted message and returns the plain text.'''
+    inp=rotated(key)
+    out='abcdefghijklmnopqrstuvwxyz'
+    transf=str.maketrans(inp,out)
+    return((x1.lower()).translate(transf))
+
+def Caesar_break(c:str)-&gt;str:
+    '''Takes an encrypted message and returns the plain text
+    without having the key.'''
+    infile=open('wordlist.txt')
+    dic=infile.read()
+    match=[]
+    for i in range(len(ALPHABET)):
+        dec=Caesar_decrypt(c,i)
+        decrypt=dec.split()
+        wrds=0
+        for wrd in decrypt:
+            if wrd in dic:
+                wrds += 1
+        match.append(wrds)
+    mat=max(match)
+    ind=match.index(mat)
+    final=Caesar_decrypt(c, ind)
+    return final
+
+print()
+print('--------Part D.2------')
+</FONT>print()
+
+assert Caesar_break('m pmoi xs iex rsshpiw.')=='i like to eat noodles.'
+assert Caesar_break('m pmoi xs iex giviep.')=='i like to eat cereal.'
+assert Caesar_break('pb idyrulwh fhuhdo lv krqhbfrpe.')=='my favorite cereal is honeycomb.'
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match8-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+print('-------Part E(Parts 1, 2, 3, and 4)--------')
+print()
+
+def stats(str1:list):
+    '''Takes a list of strings and prints statistics of the lines in the list,
+    empty lines, average characters per line, and average characters per non-empty
+    line'''
+    stringl=[]
+    strings_not_empty=stringl
+    count=0
+    for letter in str1:
+        stringl.append(len(letter))
+    for letter in strings_not_empty:
+        if letter is ' ':
+            strings_not_empty=strings_not_empty.replace('')
+        
+    averagechar=sum(stringl)/len(str1)
+    averagenonemp=sum(strings_not_empty)/len(str1)
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match8-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_23.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print('{} Lines in the list'.format(len(str1)))
+    print('{} Empty Lines'.format(str1.count(' ')))
+    print('{} Average Characters Per Line'.format(averagechar))
+    print('{} Average Characters Per Non Empty Line'.format(averagenonemp))
+    return 'Stats'
+
+def print_line_numbers(line:list)-&gt;None:
+    '''Takes a list of strings and prints each string preceded by a line
+    number.'''
+    for place in range(len(line)):
+        print('{}:{}'.format(place+1,line[place]))
+
+def copy_file(r:str):
+    '''If the function takes no parameters, then the function
+    returns nothing. If the function takes a 'line numbers,' then
+    the copied file includes line numbers at the start of each line.
+    If the parameter is 'Gutenberg trim,' it will only copy the body
+    of the Project Gutenberg file, omitting the housekeeping material.
+    If the parameter is 'statistics,'it prints out the statistics of the
+    text'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r') 
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if r=='line numbers':
+        txt=infile.readlines()    
+        print(print_line_numbers(txt)) 
+        for l in infile:
+            outfile.write(l)
+</FONT>            number += 1
+        print(print_line_numbers(txt)) 
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match8-0.html#4" TARGET="0"><IMG SRC="../../bitmaps/tm_4_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    elif r=='Gutenberg trim':
+        txt=infile.read()
+        srt=txt.find('*** START')
+        end=txt.find('*** END')
+        outfile.write(txt[srt:end])
+        print(txt[srt:end])
+    elif r== 'statistics':
+        txt=infile.readlines()
+        stats(txt)
+    infile.close()
+    outfile.close()
+</FONT>    
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

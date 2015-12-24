@@ -87,8 +87,7 @@ class User extends Database
 		else
 			throw new Exception("User->create_user: id_key ($id_key) must be a key in values");
 
-		$cols = implode(",", array_keys($values));
-		$vals = "'" . implode("','", $values) . "'";
+		list($cols,$vals) = $this->query_prep($values);
 
 		$q = "insert into users ($cols) values ($vals)";
 

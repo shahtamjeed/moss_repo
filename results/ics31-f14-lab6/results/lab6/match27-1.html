@@ -1,0 +1,275 @@
+<HTML>
+<HEAD>
+<TITLE>keungh/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+keungh/(g)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Testing 6.py
+
+
+
+__author__ = 'dgk'
+
+# RESTAURANT COLLECTION PROGRAM
+# ICS 31, UCI, David G. Kay, Fall 2012
+
+# Implement Restaurant as a namedtuple, collection as a list
+
+##### MAIN PROGRAM (CONTROLLER)
+
+def restaurants():  # nothing -&gt; interaction
+    """ Main program
+    """
+    print("Welcome to the restaurants program!")
+    our_rests = Collection_new()
+    our_rests = handle_commands(our_rests)
+    print("\nThank you.  Good-bye.")
+
+MENU = """
+Restaurant Collection Program --- Choose one
+ a:  Add a new restaurant to the collection
+ r:  Remove a restaurant from the collection
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match27-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ s:  Search the collection for selected restaurants
+ p:  Print all the restaurants
+ c:  Change prices for the dishes served
+ f:  Find restaurants with the an inputted cuisine
+ d:  Find restaurants that serve the dish
+ q:  Quit
+"""
+
+def handle_commands(C: list) -&gt; list:
+    """ Display menu, accept and process commands.
+</FONT>    """
+    while True:
+        response = input(MENU)
+        if response=="q":
+            return C
+        elif response=='a':
+            r = Restaurant_get_info()
+            C = Collection_add(C, r)
+        elif response=='r':
+            n = input("Please enter the name of the restaurant to remove:  ")
+            C = Collection_remove_by_name(C, n)
+        elif response=='p':
+            print(Collection_str(C))
+        elif response=='s':
+            n = input("Please enter the name of the restaurant to search for:  ")
+            for r in Collection_search_by_name(C, n):
+                print(Restaurant_str(r))
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match27-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        elif response=="c":
+            num = float(input("Enter a percentage to change prices by "))
+            C = Collection_change_price(C, num)
+        elif response=="f":
+            a = input("Enter a cuisine to find ")
+            Collection_find_cuisine(C,a)
+        elif response=="d":
+            s = input("Enter a word or phrase that is part of a dish ")
+</FONT>            Collection_search_dish(C, s)
+        else:
+            invalid_command(response)
+
+def invalid_command(response):  # string -&gt; interaction
+    """ Print message for invalid menu command.
+    """
+    print("Sorry; '" + response + "' isn't a valid command.  Please try again.")
+
+
+
+
+##### Restaurant
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone menu')
+# menu is list of dishes
+
+# Constructor:   r1 = Restaurant('Taillevent', 'French', '01-11-22-33-44', 'Escargots', 23.50)
+
+def Restaurant_str(self: Restaurant) -&gt; str:
+    return (
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match27-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        "Name:     " + self.name + "\n" +
+        "Cuisine:  " + self.cuisine + "\n" +
+        "Phone:    " + self.phone + "\n" +
+        Menu_str(self)+  "\n" )
+
+def Restaurant_get_info() -&gt; Restaurant:
+    """ Prompt user for fields of Restaurant; create and return.
+    """
+    return Restaurant(
+        input("Please enter the restaurant's name:  "),
+        input("Please enter the kind of food served:  "),
+        input("Please enter the phone number:  "), 
+        Menu_enter())
+
+def Restaurant_change_price(rest: Restaurant, num: float)-&gt; Restaurant:
+    rest = rest._replace(menu = Menu_change_price(rest.menu, num))
+    return rest
+
+
+
+#### COLLECTION
+# A collection is a list of restaurants
+
+def Collection_new() -&gt; list:
+    ''' Return a new, empty collection
+</FONT>    '''
+    return [ ]
+
+def Collection_str(C: list) -&gt; str:
+    ''' Return a string representing the collection
+    '''
+    s = ""
+    for r in C:
+        s = s + Restaurant_str(r)
+    return s
+
+def Collection_search_by_name(C: list, name: str) -&gt; list:
+    """ Return list of Restaurants in input list whose name matches input string.
+    """
+    result = [ ]
+    for r in C:
+        if r.name == name:
+            result.append(r)
+    return result
+    # alternative (using a list comprehension):
+    # return [r for r in C if r.name == name]
+
+def Collection_add(C: list, R: Restaurant) -&gt; list:
+    """ Return list of Restaurants with input Restaurant added at end.
+    """
+    C.append(R)
+    return C
+
+def Collection_remove_by_name(C: list, name: str) -&gt; list:
+    """ Given name, remove all Restaurants with that name from collection.
+    """
+    result = [ ]
+    for r in C:
+        if r.name != name:
+            result.append(r)
+    return result
+    #    Alternative:
+    #    return [r for r in self.rests if r.name != name]
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match27-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_43.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Collection_change_price(C: list, num: float)-&gt; list:
+    "changes prices in collection by price inputted"
+    for rest in range(len(C)):
+        C[rest] = Restaurant_change_price(C[rest], num)
+    return C
+
+
+
+        
+
+#### Menus
+def Menu_enter()-&gt; list:
+    "repeatedly asks for user to input a dish"
+    newList = []
+    while True:
+        response = input("Do you want to add a new dish? (yes/no) ")
+        if response == "yes":
+            newList.append(Dish_get_info())
+        elif response == "no":
+            return newList
+        else:
+            invalid_command(response)
+
+def Menu_str(r: Restaurant)-&gt; str:
+    "prints out the menu"
+    newStr = ''
+    for dish in r[-1]:
+        newStr = newStr + Dish_str(dish)
+    
+    return newStr + '\n' + Menu_avgs(r)
+
+def Menu_change_price(menu: list, num: float)-&gt; Restaurant:
+    "changes price for all dishes in a menu"
+    for dish in range(len(menu)):
+        menu[dish] = Dish_change_price(menu[dish], num)
+    return menu
+
+
+
+
+#### Dishes
+Dish = namedtuple("Dish", "name price cal")
+def Dish_str(s: Dish)-&gt; str:
+    "returns a string in the form specified"
+    return "Name: " + s.name + " ($" + str(s.price) + "): " + str(s.cal) + "cal." + "\n"
+
+def Dish_get_info() -&gt; Dish:
+    """ Prompt user for fields of Restaurant; create and return.
+    """
+    return Dish(
+        input("Please enter the dish's name:  "),
+        float(input("Please enter the price of the dish:  ")),
+        float(input("Please enter the calores of that dish:  ")))
+
+def Dish_change_price(d: Dish, num: float)-&gt; Dish:
+    "replaces the price of a dish and number by input specified"
+    d = Dish(d.name, (d.price * (1 + num/100)), d.cal)
+    return d
+    
+
+#
+#
+#G.1
+#
+#
+
+
+
+def Menu_avgs(r: Restaurant)-&gt; str:
+    "returns the average prices and calories of a menu in str format"
+    return "Average Price: ${:0}.  Average Calories: {:0}".format(Menu_avg_price(r), Menu_avg_cal(r))
+
+def Menu_avg_price(r: Restaurant)-&gt; float: 
+    "returns avg price of a menu"
+    price = 0
+    for dish in r[-1]:
+        price = price + dish.price
+    return price/len(r[-1])
+
+def Menu_avg_cal(r: Restaurant)-&gt; float:
+    "returns the average cal of a menu"
+    cal = 0
+    for dish in r[-1]:
+        cal = cal + dish.cal
+    return cal/len(r[-1])
+
+#
+#
+#G.2
+#
+#
+def Collection_find_cuisine(C: list, cuisine: str)-&gt; str:
+    "searches and displays the restuarants with the inputted cuisine"
+    for r in range(len(C)):
+        if C[r].cuisine == cuisine:     
+            print( "The restaurant(s) with this cuisine : \
+{}, Average Price: ${}".format(C[r].name, Menu_avg_price(C[r])))
+
+#
+#
+#G.3
+#
+#
+def Collection_search_dish(C: list, s: str)-&gt; str:
+    "searches for a dish in a restaurant list"
+    for rest in C:                       # for restaurants in list C
+        for dish in rest[-1]:            # for dishes in Menu
+            if s in dish.name:           # if inputted word/phrase is part of list
+                print(Restaurant_str(rest))
+</FONT>restaurants()
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

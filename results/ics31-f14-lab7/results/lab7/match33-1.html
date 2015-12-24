@@ -1,0 +1,173 @@
+<HTML>
+<HEAD>
+<TITLE>liey1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+zamirr/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab 7.py
+# Zamir Ramirez 85878173, Chai Vue 11157637 Lab 7 sec 2
+
+print()
+print("-"*8, "C.1", "-"*8)
+print()
+from random import randrange
+
+Last = open("Surnames_list.txt", "r")
+Ldata = Last.readlines()
+Last.close()
+
+Male = open("Male_names.txt", "r")
+Mdata = Male.readlines()
+Male.close()
+
+Female = open("Female_names.txt", "r")
+Fdata = Female.readlines()
+Female.close()
+
+def Names(l:'list of string'):
+    '''takes in a list of strings and removes
+    non-alphabetical characters'''
+    names_list  = []
+    for i in l:
+        i = i.split("\t")
+        names_list.append(i[0])
+    return names_list
+
+New_last = Names(Ldata)
+New_female = Names(Fdata)
+New_male = Names(Mdata)
+
+New_firsts = New_female.extend(New_male)
+
+def Name_combo(L:list, FM:list):
+    '''takes in a list of strings and combines their elements'''
+    RFM = FM[randrange(2000)] 
+    RL = L[randrange(1000)]
+    return RL + "," + RFM
+    
+
+def random_names (n:int) -&gt; 'list of strings':
+    '''takes int and returns list of that name strngs,
+    each containing a randomly generated name'''
+    New_list = []
+    for i in range(0,n):
+       New_list.append(Name_combo(New_last, New_female))
+    return New_list
+
+print(random_names(8))
+ 
+print()
+print("-"*8, "D.1", "-"*8)
+print()
+
+infile = open('Dictionary.txt', 'r')
+data = infile.read()
+dictionary = data.split('\n')
+infile.close()
+
+Alpha = 'abcdefghijklmnopqrstuvwxyz'
+
+def Caeser_decrypt(m:str, n:int):
+    '''decrypts the str utilizing the int as key'''
+    n = n%26
+    Ciph = Alpha[n:] + Alpha[0:n]
+    b = m.lower()
+    a = b.maketrans(Ciph,Alpha)
+    return b.translate(a)
+
+
+def Caeser_break(code:str) -&gt;str:
+    '''takes in a coded cipher and returns the uncoded string'''
+    Dictionary_ref = []
+    counter_list = []
+    table = str.maketrans('`~!@#$%^&*()_+{}|\][:;&lt;?&gt;&lt;,./"',
+                          '                              ')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match33-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    code = code.translate(table)
+    for i in range(26):
+        Dictionary_ref.append(Caeser_decrypt(code, i))
+    for v in range(26):
+        counter = 0
+        word_list = Dictionary_ref[v].split()
+        for word in word_list:
+            if word in dictionary:
+                counter += 1
+        counter_list.append(counter)
+    highest_count = counter_list.index(max(counter_list))
+</FONT>    return Caeser_decrypt(code,(highest_count))
+            
+print (Caeser_break("hipzph gftvapjhssf"))
+    
+print()
+print("-"*8, "E.1", "-"*8)
+print()
+
+def stats (string:list):
+    '''takes a list of str and prints stats on the list'''
+    blank = 0
+    char = 0
+    count = len(string)
+    print ('{:8} Lines in the list'.format(count))
+    for i in range(count):
+        if i == '':
+            blank += 1
+    print('{:8} Empty lines'.format(blank))
+    for i in string:
+        for v in i:
+            char += 1
+    print('{:8.3} Average characters per line'.format(char/count))
+    for i in string:
+        for v in i:
+           x = count - blank
+    print("{:8.3} Average characters per non-empty line".format(char/x))
+
+def copy_file(string: str)-&gt;None:
+    infile_name = input("Please enter the name of the file to copy: ")
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match33-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    line_number = 1
+    for line in infile:
+        if string == 'line numbers':
+            outfile.write('{:6}: '.format(line_number) + line)
+            line_number += 1
+        elif string == 'Gutenberg trim':
+            data = infile.readlines()
+</FONT><A NAME="0"></A><FONT color = #FF0000><A HREF="match33-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_15.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            new_data = []
+            for i in range(len(data)):
+                index = data[i].find('*** START OF THIS PROJECT GUTENBERG EBOOK')
+                if index != -1:
+                    new_data = data[(i + 1):]
+            for v in range(len(data)):
+                index = data[v].find('*** END OF THIS PROJECT GUTENBERG EBOOK')
+                if index != -1:
+                    new_data = new_data[:v]
+            book_str = '\n'.join(new_data)
+            outfile.write(book_str)
+        elif string == 'statistics':
+            outfile.write(line)
+            data = infile.readlines()
+            stats(data)
+        else:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+</FONT>
+copy_file('line numbers')
+
+
+
+    
+    
+    
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

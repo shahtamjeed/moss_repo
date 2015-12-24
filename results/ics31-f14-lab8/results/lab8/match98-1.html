@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<TITLE>Submissions/lab8/codyh1/(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+Submissions/lab8/jbecirov/(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: BandBI.py
+#Jasmin Becirovic 62488873 & Fransiskus Derian 82691258. ICS 31 Lab Sect 3.Assignment 8.
+
+
+#Anteater Bed and Breakfast
+
+#STAGE I
+
+infile = open('BandB1Sample.txt', 'r')
+content = infile.read().split('\n')
+noWS = []
+for i in content:
+    noWS.append(i.strip())
+#print(noWS)
+
+
+"""
+AB
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match98-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_45.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+(for "add a new bedroom") followed by an integer room number (in the range 1–999).
+    Add a new bedroom with the specified room number.
+BL
+(for "bedroom list"). Print a list of the bedrooms currently available.
+    The input file may contain any number of these commands in any order;
+    each BL command prints a list of available bedrooms based on what has been added as of that point. See the sample output below for the format of the printed bedroom list. For this stage, it doesn't matter what order the bedrooms appear in.
+PL
+(for "print line"), followed by any text. Simply print (or "echo") a line,
+    copying the input (not counting the PL and leading whitespace) to the output.
+    You'll find it useful in testing, and it's also a simple way to make the program's reports clearer or fancier.
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match98-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+**
+Comment, followed by any text. Like comments in a program,
+    comment lines don't have any effect on the program's behavior; they just serve as annotations in the command file.
+"""
+
+availableRooms = []
+</FONT>
+for line in noWS:
+    #print(line)
+    cmd = line[:2].upper()
+    #print(cmd)
+    if cmd == 'AB':
+        s = line.split()
+        #print(s)
+        #x = line.replace(' ', '')
+        #print(x)
+        availableRooms.append(s[1])
+        #print(availableRooms)
+    elif cmd == 'BL':
+        print('Number of rooms in service: {}'.format(len(availableRooms)))
+        print('-'*32)
+        for room in availableRooms:
+            print(room)
+    elif cmd == 'PL':
+        splitLine = line.split()
+        toPrint = ''
+        for word in splitLine[1:]:
+            toPrint += word + ' '
+        print(toPrint)
+
+        
+</PRE>
+</PRE>
+</BODY>
+</HTML>

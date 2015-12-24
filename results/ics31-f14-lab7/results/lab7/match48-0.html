@@ -1,0 +1,168 @@
+<HTML>
+<HEAD>
+<TITLE>anuragr/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+anuragr/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab7.py
+#John Tang 10498725 and Anurag Rai 35164072 ICS Lab sec 15. Lab asst 7
+print('\n')
+print('-----(C)------')
+print('\n')
+print('\n')
+from random import randrange
+def random_names(n:int)-&gt;list:
+
+    result = ''
+    x = []
+    d = []
+    y = []
+    f = []
+    z = []
+    m = []
+    infile = open('surnames.txt','r')
+    data = infile.readlines()
+    for i in range(n):
+        x.append((randrange(len(data))))
+    for p in x:
+        d.append(data[p+1].split('\t')[0].lower().title())
+    infile.close()
+    for i in range(n):
+        if randrange(2) == 1:
+            infile = open('malenames.txt','r')
+            data = infile.readlines()
+            z.append((randrange(len(data))))
+        else:
+            infile = open('femalenames.txt','r')
+            data = infile.readlines()
+            y.append((randrange(len(data))))
+    for p in z:
+         m.append(data[p+1].split('\t')[0].lower().title())
+    for p in y:
+         f.append(data[p+1].split('\t')[0].lower().title())
+    for i in f:
+        m.append(i)
+    for i,v in zip(m,d):
+        result+=('{}, {}\n'.format(i,v))
+    return result
+print(random_names(3))
+
+print('\n')
+print('-----(d)------')
+print('\n')
+print('\n')                      
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match48-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+al='abcdefghijlmnopqrstuvwxyz'
+def Caesar_encrypt(r:str,p:int)-&gt;str:
+    a=''
+    for i in r.lower():
+        c=al.find(i)
+        if c == -1:
+            a+=i
+        elif (c+p)&gt;=25:
+            x=(c+p)%26
+            a+=al[x]
+        else:
+            
+            x=(c+p)
+            a+=al[x]
+    return a
+</FONT>print(Caesar_encrypt('i like pie',4))
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match48-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_decrypt(r:str,p:int)-&gt;str:
+    a=''
+    for i in r.lower():
+        c=al.find(i)
+        if c == -1:
+            a+=i
+</FONT>        elif (c-p)&lt;=0:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match48-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            x=(c-p)%25
+            a+=al[x]
+        else:
+            x=(c-p)
+            a+=al[x]
+    return a
+def Caesar_break(n:str)-&gt;str:
+    infile = open('wordlist.txt', 'r')
+</FONT>    data = infile.read().lower().split('\n')
+    result = []
+    p=0
+    last=''
+    table = str.maketrans('?!.', '   ')
+    split_str=n.translate(table)
+    for z in range(25):
+        result.append((Caesar_decrypt(n,z)))
+    for i in range(len(result)):
+        z=0
+        hi=result[i].split()
+        for w in hi:
+            if w in data:
+                z+=1
+        if z&gt;p:
+            p=0
+            last=result[i]
+    infile.close()
+    return last
+print(Caesar_break('n pnki tni'))
+
+print('\n')
+print('-----(e)------')
+print('\n\n')
+def stats(r:str):
+    x=0
+    empty=0
+    u=str(empty)
+    full=0
+    for i in r:
+        x+=len(i)
+        if len(i)==0:
+            empty+=1
+        if len(i) !=0:
+            full+=1
+    print('{:7s} lines in list\n {:6s} empty lines\n{:7.1f} average characters per line\n{:7.1f} average characters per non-empty line'.format(str(len(r)),str(empty),x/len(r),x/full))
+def copy_file(n:str):
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+ ##   n = input('Any special formatting? : ')
+    dataline = infile.read().split('\n')
+    c = []
+    s=""
+    z=[]
+    if n == 'line numbers':
+        for i in range(len(dataline)):
+            c.append(str(i+1))
+        for i,x in zip(dataline,c):
+            s+=('{}: {} \n'.format(x,i))
+        outfile.write(s)
+        infile.close()
+        outfile.close()
+    elif n == 'Gutenberg trim':
+        for i in dataline:
+            if "***" not in i:
+                s+=(i+'\n')
+        outfile.write(s)
+        infile.close()
+        outfile.close()
+    elif n== 'statistics':
+        for line in infile:
+            outfile.write(line)
+        stats(dataline)
+        infile.close()
+        outfile.close()
+    else:
+        for line in infile:
+            outfile.write(line)
+        infile.close()
+        outfile.close()
+copy_file('statistics')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

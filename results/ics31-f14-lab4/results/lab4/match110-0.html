@@ -1,0 +1,417 @@
+<HTML>
+<HEAD>
+<TITLE>chiud3/(c)-(g)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+chiud3/(c)-(g)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab4.py
+# Daniel Chiu 59413420 Akihiro Izumi 69616804 ICS 31 Section 12
+
+#
+# PART C
+#
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c) ----------')
+print()
+#1
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.1) ----------')
+print()
+def test_number(n: int, s: str) -&gt; bool:
+    ''' evaluates whether a number has the property indicated by the string
+    '''
+    if s == "even":
+        return n % 2 == 0
+    elif s == "odd":
+        return n % 2 == 1
+    elif s == "positive":
+        return n &gt; 0
+    elif s == "negative":
+        return n &lt; 0
+
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match110-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert(test_number(14, "even"))
+assert(not test_number(100, "odd"))
+assert(test_number(33, "positive"))
+assert(not test_number(100, "negative"))
+#2
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.2) ----------')
+print()
+def display():
+    '''asks the user for a string and then prints out every character in the string, one per line
+</FONT>    '''
+    s = input("Enter a word: ")
+    for l in s:
+        print(l)
+
+display()
+#3
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.3) ----------')
+print()
+def square_list(L: "list&lt;int&gt;"):
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match110-1.html#5" TARGET="1"><IMG SRC="../../bitmaps/tm_0_1.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    '''prints out each integer squared in the list'''
+    for i in L:
+        print(i**2)
+
+square_list([2, 3, 4, 10])
+#4
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.4) ----------')
+print()
+def match_first_letter(c: "char", l: "list&lt;string&gt;"):
+</FONT>    '''prints out strings in the list that starts with the specified character'''
+    for s in l:
+        if s[0] == c:
+            print(s)
+
+match_first_letter("I", ["Iron Man", "Iron Man 2", "The Avengers", "Superman", "I Am Legend"])
+#5
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.5) ----------')
+print()
+def match_area_code(area_codes: "list of 3-digit area codes", phone_numbers: "list of phone numbers"):
+    '''prints the phone numbers whose area code is on the list of area codes'''
+    for phone_number in phone_numbers:
+        for area_code in area_codes:
+            if phone_number[1:4] == area_code:
+                print(phone_number)
+
+match_area_code(['949', '714'], ['(714)824-1234', '(419)312-8732', '(949)555-1234'])
+#6
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (c.6) ----------')
+print()
+def matching_area_code(area_codes: "list of 3-digit area codes", phone_numbers: "list of phone numbers") -&gt; "list of phone numbers":
+    '''returns a list of phone numbers whose area code is on the list of area codes'''
+    result = []
+    for phone_number in phone_numbers:
+        for area_code in area_codes:
+            if phone_number[1:4] == area_code:
+                result.append(phone_number)
+    return result
+print(matching_area_code(['949', '714'], ['(714)824-1234', '(419)312-8732', '(949)555-1234']))
+
+#
+# PART D
+#
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (d) ----------')
+print()
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (d.1) ----------')
+print()
+
+def is_vowel(c: "chara") -&gt; bool:
+    ''' checks if the given character is a vowel '''
+    return c.lower() in ['a', 'e', 'i', 'o', 'u']
+
+print(is_vowel('i'))
+
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (d.2) ----------')
+print()
+
+def print_nonvowels(s: str):
+    ''' prints out all the characters in the string that are not vowels '''
+    for i in s:
+        if not is_vowel(i):
+            print(i)
+
+print_nonvowels("python")
+
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (d.3) ----------')
+print()
+
+def nonvowels(s:str) -&gt; str:
+    ''' returns all the characters in the string that are not vowels '''
+    result = ''
+    for i in s:
+        if not is_vowel(i):
+            result += i
+    return result
+
+##assert double(0) == 0
+##assert double(17.5) == 35
+##assert double(-223344) == -446688
+assert is_vowel('a') 
+assert is_vowel('U')
+assert not is_vowel('X')
+assert not is_vowel('?')
+
+assert nonvowels('Python') == 'Pythn'
+
+print()
+print()
+print('---------- Part (d.4) ----------')
+print()
+
+import string
+def consonants(s: str) -&gt; str:
+    ''' returns a string containing all the letters in the parameter string that are not vowels '''
+    result = ''
+    for i in s:
+        if i in string.ascii_letters:
+            if not is_vowel(i):
+                result += i
+    return result
+
+assert consonants('Python') == 'Pythn'
+assert consonants('Python2') == 'Pythn' 
+    
+print()
+print()
+print('---------- Part (d.5) ----------')
+print()
+
+def select_letters(s1: str, s2: str) -&gt; str:
+    ''' takes two parameters, both strings, and returns a string of vowels or consonants '''
+    result = ''
+    if s1 == 'v':
+        for i in s2:
+            if is_vowel(i):
+                result += i
+    elif s1 == 'c':
+        result = consonants(s2)
+    return result
+
+assert select_letters('v', 'facetiously') == 'aeiou'
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match110-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assert select_letters('c', 'facetiously') == 'fctsly'
+
+
+print()
+print()
+print('---------- Part (d.6) ----------')
+print()
+
+def hide_vowels(s: str) -&gt; str:
+    ''' takes a string and returns a string in which every vowel in the parameter is replaced with a hyphen ("-") and all other characters remain unchanged. '''
+    result = ''
+    for i in s:
+</FONT>        if not is_vowel(i):
+            result += i
+        else:
+            result += '-'
+    return result
+
+assert hide_vowels('Python') == 'Pyth-n'
+
+#
+# PART E
+#
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (e) ----------')
+print()
+
+from collections import namedtuple
+
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+def Restaurant_replace_price(r: Restaurant, p: float) -&gt; Restaurant:
+    '''returns a restaurant object with the same contents as the parameter except that the price has been increased by the specified number'''
+    return r._replace(price = r.price + p)
+
+r = Restaurant("Taillevent", "French", "343-3434", "Escargots", 24.50)
+print(Restaurant_replace_price(r, 10))
+
+#
+# PART F
+#
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (f) ----------')
+print()
+
+R1 = Restaurant("Taillevent", "French", "343-3434", "Escargots", 24.50)
+R2 = Restaurant("La Tour D'Argent", "French", "343-3344", "Ris de Veau", 48.50)
+R3 = Restaurant("Pascal", "French", "333-4444", "Bouillabaisse", 32.00)
+R4 = Restaurant("Thai Touch", "Thai", "444-3333", "Mee Krob", 10.95)
+R5 = Restaurant("Thai Dishes", "Thai", "333-4433", "Paht Woon Sen",  8.50)
+R6 = Restaurant("Thai Spoon", "Thai", "334-3344", "Mussamun", 9.00)
+R7 = Restaurant("McDonald's", "Burgers", "333-4443", "Big Mac", 3.95)
+R8 = Restaurant("Burger King", "Burgers", "444-3344", "Whopper", 3.75)
+R9 = Restaurant("Wahoo's", "Fish Tacos", "443-4443", "Mahi Mahi Burrito", 7.50)
+R10 = Restaurant("In-N-Out Burger", "Burgers", "434-3344", "Cheeseburger", 2.50)
+R11 = Restaurant("The Shack", "Burgers", "333-3334", "Hot Link Burger", 4.50)
+R12 = Restaurant("Gina's", "Pizza", "334-4433", "Combo Pizza", 12.95)
+R13 = Restaurant("Peacock, Room", "Indian", "333-4443", "Rogan Josh", 12.50)
+R14 = Restaurant("Gaylord", "Indian", "333-3433", "Tandoori Chicken", 13.50)
+R15 = Restaurant("Mr. Chow", "Chinese", "222-3333", "Peking Duck", 24.50)
+R16 = Restaurant("Chez Panisse", "California", "222-3322", "Grilled Duck Breast", 25.00)
+R17 = Restaurant("Spago", "California", "333-2222", "Striped Bass", 24.50)
+R18 = Restaurant("Sriped Bass", "Seafood", "333-2233", "Cedar Plank Salmon", 21.50)
+R19 = Restaurant("Golden Pagoda", "Chinese", "232-3232", "Egg Foo Young", 8.50)
+R20 = Restaurant("Langer's", "Delicatessen", "333-2223", "Pastrami Sandwich", 11.50)
+R21 = Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50)
+R22 = Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50)
+R23 = Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50)
+R24 = Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50)
+R25 = Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50)
+R26 = Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) 
+
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match110-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+RL = [R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16,
+	R17, R18, R19, R20, R21, R22, R23, R24, R25, R26]
+#1
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (f.1) ----------')
+print()
+def restaurant_name(r: Restaurant) -&gt; str:
+    '''returns the name of a given restaurant'''
+    return r.name
+</FONT>def alphabetical(l: "list&lt;Restaurant&gt;") -&gt; "list&lt;Restaurant&gt;":
+    '''returns a list of restaurants sorted in alphabetical order by name'''
+    return sorted(l, key = restaurant_name)
+
+print(alphabetical(RL))
+#2
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (f.2) ----------')
+print()
+def alphabetical_names(l: "list&lt;Restaurant&gt;") -&gt; "list&lt;str&gt;":
+    '''returns an alphabetical list of restaurant names'''
+    RC = alphabetical(l)
+    names = []
+    for r in RC:
+        names.append(r.name)
+    return names
+
+print(alphabetical_names(RL))
+#3
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (f.3) ----------')
+print()
+def all_Thai(l:"list&lt;Restaurants&gt;") -&gt; "list&lt;Restaurant&gt;":
+    '''returns a list of all the thai restaurants'''
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match110-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    result = []
+    for r in l:
+        if r.cuisine == "Thai":
+            result.append(r)
+    return result
+
+print(all_Thai(RL))
+#4
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (f.4) ----------')
+print()
+def select_cuisine(l:"list&lt;Restaurants&gt;", cuisine: str) -&gt; "list&lt;Restaurant&gt;":
+</FONT>    '''returns a list of all restaurants that serve the specified cuisine'''
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match110-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    result = []
+    for r in l:
+        if r.cuisine == cuisine:
+            result.append(r)
+    return result
+
+print(select_cuisine(RL, "Burgers"))
+#5
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (f.5) ----------')
+print()
+def select_cheaper(l:"list&lt;Restaurants&gt;", price: float) -&gt; "list&lt;Restaurant&gt;":
+</FONT>    '''returns a list of all restaurats whose price is lower than the specified number'''
+    result = []
+    for r in l:
+        if r.price &lt; price:
+            result.append(r)
+    return result
+
+print(select_cheaper(RL, 20))
+#6
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (f.6) ----------')
+print()
+def average_price(l:"list&lt;Restaurants&gt;") -&gt; float:
+    '''returns the average price of the restaurants'''
+    total = 0
+    for r in l:
+        total += r.price
+    return total / len(l)
+print(average_price(RL))
+#7
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (f.7) ----------')
+print()
+print(average_price(select_cuisine(RL, "Indian")))
+#8
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (f.8) ----------')
+print()
+print(average_price(select_cuisine(RL, "Chinese") + select_cuisine(RL, "Thai")))
+#9
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (f.9) ----------')
+print()
+print(alphabetical_names(select_cheaper(RL, 15.00)))
+
+#
+# PART G
+#
+
+print()  # Leaves a blank line.  print('\n') leaves two blank lines.
+print()
+print('---------- Part (g) ----------')
+print()
+
+print("If you can't see the window, check to see if it is behind another window or minimized")
+
+import tkinter
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas(my_window, width = 500, height = 500)
+my_canvas.pack()
+
+def create_rectangle_from_center(x: int, y: int, w: int, h: int):
+    '''draws a rectangle with the given center (x, y) with dimensions(w, h)'''
+    my_canvas.create_rectangle(x-w/2, y-h/2, x+w/2, y+h/2)
+
+create_rectangle_from_center(250, 250, 100, 50)
+
+tkinter.mainloop()
+
+
+    
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

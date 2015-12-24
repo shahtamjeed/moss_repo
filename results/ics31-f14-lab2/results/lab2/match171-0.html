@@ -1,0 +1,258 @@
+<HTML>
+<HEAD>
+<TITLE>davidhn3/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+davidhn3/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# David Nguyen 32738360 and Lazaro Vargas 38358487. ICS 31 Lab sec 10. Lab Asst 2.
+
+# problem c.1
+hours = int(input('How many hours? '))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hours? $'))
+print('This many dollars per hour:  ', '$', rate)
+print('Weekly salary:', '$', hours * rate)
+
+# problem c.2
+name = (input('Hello. What is your name? '))
+print('Hello,', name)
+print("It's nice to meet you.")
+age = int(input('How old are you? '))
+year = eval('1 + age')
+print('Next year you will be', year, 'years old.')
+print('Good-bye!')
+
+
+# problem d
+KRONE_PER_EURO = 7.60
+KRONE_PER_POUND = 8.81
+KRONE_PER_DOLLAR = 5.50
+name = (input('Business name: '))
+euros = int(input('Number of euros: '))
+pounds = int(input('Number of pounds: '))
+dollars = int(input('Number of dollars: '))
+EUROS_TO_KRONE = eval('KRONE_PER_EURO * euros') # convert euros to krone
+POUNDS_TO_KRONE = eval('KRONE_PER_POUND * pounds') # convert pounds to krone
+DOLLARS_TO_KRONE = eval('KRONE_PER_DOLLAR * dollars') # convert dollars to krone
+total = (EUROS_TO_KRONE + POUNDS_TO_KRONE + DOLLARS_TO_KRONE) # total amount of krone
+print() # leaving space between the input and the output
+print('Copenhagen Chamber of Commerce')
+print('Business name:', name)
+print(euros, 'euros is', EUROS_TO_KRONE, 'krone')
+print(pounds, 'pounds is', POUNDS_TO_KRONE, 'krone')
+print(dollars, 'dollars is', DOLLARS_TO_KRONE, 'krone')
+print('Total krone:', total)
+
+
+# problem e
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes',
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+# problem e.1
+print(still_another.title)
+
+# problem e.2
+print(another.price)
+
+# problem e.3
+average = eval('(favorite.price + another.price + still_another.price) / 3')
+print('The average price of all three book is $', average)
+
+# problem e.4
+print(favorite.year &lt; 1900)
+
+# problem e.5
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 26.00)
+
+#still_another._replace(price=26)
+print(still_another)
+
+# problem e.6
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, (26.00 * 0.20) + 26)
+print(still_another)
+
+
+# problem f
+from collections import namedtuple
+Animal = namedtuple('Animal', 'name species age weight favorite_food')
+# Animal attributes: animal's name, species, age, weight in kg, favorite food
+first = Animal('Jumbo',
+               'elephant', 50, 1000, 'peanuts')
+second = Animal('Perry',
+                'platypus', 7, 1.7, 'shrimp')
+print(not(first.weight &lt; second.weight))
+
+
+# problem g
+booklist = [favorite, another, still_another]
+
+# problem g.1
+if booklist[0].price &lt; booklist[1].price:
+    print('True: The first book is cheaper than the second book.')
+
+else:
+    print("False: The first book is not cheaper than the second book.")
+
+
+# problem g.2
+print(not(booklist[0].year &gt; booklist[-1].year))
+
+
+# problem h
+from collections import namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]                 
+
+# problem h.1
+print(RL[2].name)
+
+# problem h.2
+print(RL[0].cuisine == RL[3].cuisine)
+
+# problem h.3
+print(RL[-1].price)
+
+# problem h.4
+RL.sort()
+print(RL)
+
+# problem h.5
+RL.sort()
+print(RL[-1].dish)
+
+#problem h.6
+RL.sort()
+RC = [RL[0],RL[1], RL[-2], RL[-1]]
+print(RC)
+
+
+# prbolem i
+# problem 1.
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window        
+
+my_canvas.create_line(200, 200, 200, 400, fill='orange')
+my_canvas.create_line(200, 400, 400, 400, fill = 'orange')
+my_canvas.create_line(400, 400, 400, 200, fill = 'orange')
+my_canvas.create_line(400, 200, 200, 200, fill = 'orange')
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+# problem 2.
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(200, 200, 341.4214, 341.4214, fill = 'black') # add sqrt(20000) to x and y
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match171-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+my_canvas.create_line(341.4214, 341.4214, 200, 482.8427, fill = 'black')
+my_canvas.create_line(200, 482.8427, 58.5786, 341.4214, fill = 'black')
+my_canvas.create_line(58.5786, 341.4214, 200, 200, fill = 'black')
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+# problem 3.
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+</FONT>my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_rectangle(175, 200, 425, 375, fill = 'light blue') # building of the house
+my_canvas.create_polygon(175, 200, 300, 75, 425, 200, fill = 'brown') # roof
+my_canvas.create_rectangle(281, 375, 319, 300, fill = 'teal') # door
+my_canvas.create_rectangle(181, 327.5, 275, 265.5, fill = 'yellow') # window
+my_canvas.create_rectangle(325, 327.5, 419, 265.5, fill = 'yellow') # window
+my_canvas.create_oval(308, 334.5, 314, 340.5, fill = 'black') # door knob
+my_canvas.create_rectangle(226, 327.5, 230, 265.5, fill = 'white') # window frame
+my_canvas.create_rectangle(181, 294.5, 275, 298.5, fill = 'white') # window frame
+my_canvas.create_rectangle(370, 327.5, 374, 265.5, fill = 'white') # window frame
+my_canvas.create_rectangle(325, 294.5, 419, 298.5, fill = 'white') # window frame
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+# problem 4.
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_oval(50, 200, 450, 400, fill = 'white') # eye shape
+my_canvas.create_oval(150, 200, 350, 400, fill = 'light blue') # iris
+my_canvas.create_oval(225, 275, 275, 325, fill = 'black') # pupil
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+# problem 5.
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(200, 50, 200, 450, fill ='black') # frame
+my_canvas.create_line(450, 50, 450, 450, fill ='black') # frame
+my_canvas.create_line(250, 2, 400, 2, fill ='black') # frame
+my_canvas.create_line(250, 500, 400, 500, fill ='black') # frame
+my_canvas.create_line(200, 50, 210, 30, 220, 20, 230, 10, 240, 5, 250, 2, fill = 'black', smooth = 'true') # corner
+my_canvas.create_line(450, 50, 440, 30, 430, 20, 420, 10, 410, 5, 400, 2, fill = 'black', smooth = 'true') # corner
+my_canvas.create_line(200, 450, 210, 470, 220, 480, 230, 490, 240, 495, 250, 500, fill = 'black', smooth = 'true') # corner
+my_canvas.create_line(450, 450, 440, 470, 430, 480, 420, 490, 410, 495, 400, 500, fill = 'black', smooth = 'true') # corner
+my_canvas.create_rectangle(207, 50, 443, 450, fill ='black') # screen
+my_canvas.create_oval(305, 455, 345, 495, fill = 'grey') # home button
+my_canvas.create_oval(308, 458, 342, 492, fill = 'white') # home button
+my_canvas.create_rectangle(300, 25, 350, 27, fill = 'grey') # speaker
+my_canvas.create_oval(281, 21.5, 290, 30.5, fill = 'grey') # camera
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match171-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+my_canvas.create_oval(283, 23.5, 288, 28.5, fill = 'deep sky blue') # camera
+my_canvas.create_oval(322, 9.5, 328, 15.5, fill = 'black') # sensor
+my_canvas.create_rectangle(198, 60, 200, 80, fill = 'white') # button
+my_canvas.create_rectangle(198, 103, 200, 133, fill = 'white') # button
+</FONT>my_canvas.create_rectangle(198, 140, 200, 170, fill = 'white') # button 
+my_canvas.create_rectangle(452, 103, 450, 133, fill = 'white') # button
+
+tkinter.mainloop()          # Combine all the elements and display the window
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

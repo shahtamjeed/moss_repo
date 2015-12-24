@@ -1,0 +1,154 @@
+<HTML>
+<HEAD>
+<TITLE>akihiroi/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+danght1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Aaron Ching 58532401 and  Hung Dang 36055322 ICS 31 Lab sec 3. asst 7
+
+#### Part C
+print('\n---------- Part (C) ----------\n')
+import random
+def list_name(s: str) -&gt; list:
+    '''Get the name into the list '''
+    infile = open(s, 'r')
+    result = []
+    l = infile.readlines()
+    
+    for i in l:
+        temp = ''
+        for c in i:
+            if(c != '\t'):
+                temp += c
+            else:
+                result.append(temp)
+                break
+    infile.close()
+    return result  
+
+surnameL = list_name('surnames.txt')
+femaleName = list_name('femalenames.txt')
+maleName = list_name('malenames.txt')
+firstName = femaleName + maleName
+
+def random_names(num: int)-&gt; list:
+    ''' takes an integer and returns a list of that many strings,
+     with each string a randomly generated name as described above'''
+    result = []
+    name = ''
+    for n in range(num):
+        name = (surnameL[random.randrange(0,len(surnameL))]) +', '  +firstName[random.randrange(0,len(firstName))]
+        result.append(name)
+    return result
+print (random_names(5))
+
+#### Part D
+print('\n---------- Part (D) ----------\n')
+
+dictionary = []
+alphabet = "abcdefghijklmnopqrstuvwxyz"
+
+def rotation(key: int)-&gt;str:
+    table = alphabet.maketrans(alphabet, alphabet[key:] + alphabet[:key])
+    return alphabet.translate(table)
+
+assert rotation(2) == 'cdefghijklmnopqrstuvwxyzab'
+assert rotation(5) == 'fghijklmnopqrstuvwxyzabcde'
+assert rotation(1) == 'bcdefghijklmnopqrstuvwxyza'
+
+def Caesar_break(s: str) -&gt; str:
+    '''Decrypted the ceasar code '''
+    possible = []
+    countPossible = []
+    infile = open("wordlist.txt", 'r')
+    d = infile.readlines()
+    infile.close()
+    for num in range(27):
+        count = 0;
+        decrypt = ''
+        rotated = rotation(num)
+        decrypted = s.translate(s.maketrans(rotated,alphabet))
+        possible.append(decrypted)
+        
+        checked = decrypted.split()
+        infile = open("wordlist.txt", 'r')
+        for word in checked:
+            for line in d:
+                if (line.strip('\n').lower() == word):
+                    count += 1
+           
+        countPossible.append(count)
+        count = 0
+            
+    rightKey = 0;
+    for i in range(len(countPossible)):
+        if (countPossible[i] &gt; countPossible[rightKey]):
+            rightKey = i 
+    return s.translate(s.maketrans(rotation(rightKey),alphabet))
+
+assert Caesar_break('avkhf p ivbnoa vtlnh ybif huk pa pz hdlzvtllll') == 'today i bought omega ruby and it is awesomeeee'
+assert Caesar_break('igtgyzkx') == 'canaster'
+assert Caesar_break('Hello World') == 'Hello World'
+
+#### Part E
+print('\n---------- Part (E) ----------\n')
+
+#e.1
+def copy_file(s: str) -&gt; None:
+    '''asks user to get name of the file copied and ''' 
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+#e.2    
+    if(s == 'line numbers'):
+        n = 1
+        for line in infile:
+            outfile.write('{:5d}:  {:}'.format(n,line))
+            n += 1
+#e.3
+    
+    elif(s == 'Gutenberg trim'):
+        startCopy = False
+        for line in infile:
+            if ('*** END' in line):
+                stratCopy = False
+                break
+            elif('*** START' in line):
+                startCopy = True
+            elif(startCopy):
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match141-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                outfile.write(line)
+#e4
+    elif( s == 'statistics'):
+        lineNum = 0
+        emptyLine = 0
+        numChar = 0;
+        for line in infile:
+            outfile.write(line)
+            lineNum +=1
+            if(line.strip() == ''):
+                emptyLine += 1
+</FONT>            
+            a = line.strip('\n')
+            numChar += len(a)   
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match141-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        print("{:5d}   lines in the file".format(lineNum))
+        print("{:5d}   empty lines".format(emptyLine))
+        print("{:7.2f} average characters per line".format(numChar/lineNum))
+        print("{:7.2f} average characters per non-empty line".format(numChar/(lineNum - emptyLine)))
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+</FONT>    outfile.close()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

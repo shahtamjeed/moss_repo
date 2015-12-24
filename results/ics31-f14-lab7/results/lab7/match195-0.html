@@ -1,0 +1,174 @@
+<HTML>
+<HEAD>
+<TITLE>asheffle/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+asheffle/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Adam Cook 80291221 Alyssa Sheffler 59321028  ICS 31 sec 2 Lab asst: 7
+print('-------part C-------')
+print('\n')
+#part C
+filename = 'surnames.txt'
+filename2 = 'femalenames.txt'
+filename3 = 'malenames.txt'
+fin= open(filename,'r')
+fin2= open(filename2,'r')
+fin3= open(filename3,'r')
+L1 = fin.readlines()
+L2 = fin2.readlines()
+L3 = fin3.readlines()
+#part c.1
+print('----part c.1----')
+from random import randrange       
+    
+def corrected_line(L:list)-&gt;list:
+    '''fixes the case and removes the statistics'''
+    results=[]
+    for i in range(len(L)):
+        table = L[i].maketrans(".,0123456789\n\t" , "              ")
+        q=L[i].translate(table)
+        r = q.lower().strip()
+        name = r.capitalize()
+        results.append(name)
+    return results
+
+def random_names(n:int)-&gt;str:
+    ''' creates a random name from the lists'''
+    firstlist = []
+    lastlist = []
+    name = []
+    a = corrected_line(L1)
+    b = corrected_line(L2)
+    c = corrected_line(L3)
+    firstlist.extend(b + c)
+    lastlist.extend(a)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match195-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for i in range(n):
+        r = randrange(0,len(firstlist))
+        q = randrange(0,len(lastlist))
+        name.append(lastlist[q]+', '+firstlist[r])
+    return name
+print(random_names(5))
+print()
+print('----part d----')
+print('---d.1---')
+</FONT>#d.1
+dictionary = 'wordlist.txt'
+diction = open(dictionary,'r')
+Dlist= diction.readlines()
+
+for i in range(len(Dlist)):
+    Dlist[i] = Dlist[i].replace('\n', '')
+
+def Caesar_decrypt(smessage:str, key:int)-&gt;str:
+    '''Decrypts message using Caesar cipher as defined by key'''
+    if key &gt; 26:           
+        key = key % 26
+    Alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    smessage = smessage.lower()
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match195-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    alphabetshift = Alphabet[key:] + Alphabet[:key]
+    table = str.maketrans(alphabetshift, Alphabet)
+    newmessage = smessage.translate(table)
+
+    return newmessage
+</FONT>
+def Caesar_encrypt (message:str, key:int)-&gt;str:
+    '''Encrypts message using Caesar cipher as defined by key'''
+    if key &gt; 25:           
+        key = key % 25
+    Alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    message = message.lower()
+    alphabetshift = Alphabet[key:] + Alphabet[:key]
+    table = str.maketrans(Alphabet, alphabetshift)
+    newmessage = message.translate(table)
+
+    return newmessage
+
+print(Caesar_encrypt ('underpowered, underpraise, underpraised, underpraises, underpraising, underpreparation',15))
+
+def Caesar_break(s:str)-&gt;str:
+    '''breaks the encrypted code and prints the actual message'''
+    for i in range (1,27):
+        newmessage = Caesar_decrypt(s,i)
+        a = newmessage.split(',')
+        for n in a:
+            if n in Dlist:
+                results = 1
+                if results == 1:
+                    print(newmessage)
+            
+Caesar_break("jcstgedltgts, jcstgegpxht, jcstgegpxhts, jcstgegpxhth, jcstgegpxhxcv, jcstgegtepgpixdc")
+   
+print('-------part e--------')
+
+
+
+def copy_file(s:str) -&gt; None:
+    '''copies a file as defined by the user with line numbers'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    count = 0
+    if s == 'line numbers':
+        for line in infile:
+            formatstr = '{0:5} {1:} {2:}'
+            count+=1
+            outfile.write(formatstr.format(count, ':', line, '\n'))
+    if s == 'Gutenburg trim':
+        n=[]
+        topstrip=[]
+        bottomstrip=[]
+        for line in infile:
+            n.append(line)
+        for i in range(len(n)):
+            if n[i].startswith('*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***'):
+                topstrip = n[i:]
+        for n in range(len(topstrip)):
+            if topstrip[n].startswith('*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***'):
+                bottomstrip = topstrip[:n]
+        for lines in range(len(bottomstrip)):
+            outfile.write(bottomstrip[lines])
+       
+    if s == 'statistics':
+        n = []
+        for line in infile:
+            n.append(line)
+            outfile.write(line)
+        formatstr = '{0:8.2f} {1:} {2:6.2f} {3:} {4:6.2f} {5:} {6:6.2f} {7:}'
+        total_lines = 0
+        total_lines += len(n)
+        empty_lines = 0
+       
+        for i in n:
+            b= i.strip()
+            if b == '':
+                empty_lines += 1
+        avg_char_line = 0
+        for i in n:
+            avg_char_line += len(i)/len(n)
+        avg_char_non_empty_line = 0
+        for i in n:
+            avg_char_non_empty_line += len(i)/(len(n) - empty_lines)
+        outfile.write(formatstr.format(total_lines, '\nlines in the list\n',
+            empty_lines, 'empty lines\n',
+            avg_char_line, 'average character per line\n',
+            avg_char_non_empty_line, 'average character per non-empty line\n'))
+        
+    infile.close()
+    outfile.close()
+    
+copy_file('line numbers')
+copy_file('Gutenburg trim')
+copy_file('statistics')
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,249 @@
+<HTML>
+<HEAD>
+<TITLE>kelassaa/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+vvikhlia/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Melissa Soto 55039796 and Valeria Vikhliantseva 12831698. ICS 31 Lab sec 13.  Lab Asst 7.
+#
+#
+# Part (c)
+#
+#
+print()  
+print('---------- Part (c) ----------')
+print()
+from random import randrange
+#Here we separate and capitalize the names from the files and put them into lists
+number = '0123456789!@#$%^&*()_+=-`{}|[]\\:;&lt;&gt;?,./\n\t~'
+infile = open('surnames.txt', 'r')
+content = infile.read()
+infile.close()
+for char in number:
+    content = content.replace(char,"")
+    newcontent = content.lower()
+surnameList = newcontent.split()
+for word in range(len(surnameList)):
+    capitalized = surnameList[word].capitalize()
+    surnameList[word] = surnameList[word].replace(surnameList[word],capitalized)
+infile = open('femalenames.txt', 'r')
+content2 = infile.read()
+infile.close()
+for char in number:
+    content2 = content2.replace(char,"")
+    newcontent2 = content2.lower()
+femaleList = newcontent2.split()
+for word in range(len(femaleList)):
+    capitalized = femaleList[word].capitalize()
+    femaleList[word] = femaleList[word].replace(femaleList[word],capitalized)
+infile = open('malenames.txt', 'r')
+content3 = infile.read()
+infile.close()
+for char in number:
+    content3 = content3.replace(char,"")
+    newcontent3 = content3.lower()
+maleList = newcontent3.split()
+for word in range(len(maleList)):
+    capitalized = maleList[word].capitalize()
+    maleList[word] = maleList[word].replace(maleList[word],capitalized)
+#Now we work on the actual function(s)
+print('---A single value from a given list:---')
+def randvalue (l: list) -&gt; str:
+    '''Return a random value from the list'''
+    length = len(l)
+    number = randrange(1,length)
+    return l[number]
+print(randvalue(femaleList))
+print('---A single randomly generated name:---')
+import random
+def single_random_name() -&gt; str:
+    '''Return a single random name'''
+    maleandfemale = [femaleList, maleList]
+    maleorfemale = maleandfemale[random.randrange(len(maleandfemale))]
+    return randvalue(surnameList) + ',' + randvalue(maleorfemale)
+print(single_random_name())
+print('---Finally, the actual random_name function:---')
+def random_name(x:int) -&gt; list:
+    results = []
+    '''Return a list of names'''
+    for number in range(x):
+        results.append(single_random_name())
+    return results
+print(random_name(5))
+print(random_name(100))
+
+
+#
+# Part (d)
+#
+#
+print()  
+print('---------- Part (d) ----------')
+print()
+
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match26-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_encrypt(plaintext:str, key:int) -&gt; str:
+    """ Returns plaintext encrypted by Caesarian cipher with given key"""
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    key_alphabet = alphabet
+    for x in range(key):
+        key_alphabet = key_alphabet[1:] + key_alphabet[0]
+    ciphertext = ""
+    for char in plaintext:
+        if char.lower() in alphabet:
+            if char.lower() == char:
+                ciphertext += key_alphabet[alphabet.find(char)]
+            else:
+                ciphertext += key_alphabet[alphabet.find(char.lower())].upper()
+        else:
+            ciphertext += char
+</FONT>    return ciphertext
+
+print("This is a test message")
+encrypted = Caesar_encrypt("This is a test message",6)
+print(encrypted)
+
+def Caesar_decrypt(ciphertext:str, key:int) -&gt; str:
+    """ Returns plaintext decrypted by Caesarian cipher with given key and ciphertext"""
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    key_alphabet = alphabet
+    for x in range(key):
+        key_alphabet = key_alphabet[-1] + key_alphabet[:-1]
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match26-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    plaintext = ""
+    for char in ciphertext:
+        if char.lower() in alphabet:
+            if char.lower() == char:
+                plaintext += key_alphabet[alphabet.find(char)]
+            else:
+                plaintext += key_alphabet[alphabet.find(char.lower())].upper()
+        else:
+            plaintext += char
+</FONT>    return plaintext
+
+print('Decrypting the encrypted text without a key:')
+def Caesar_break(ciphertext:str) -&gt; str:
+    """Returns plaintext decrypted by Caesarian cipher without a given key"""
+    possible_encryptions = []
+    hitlist = []
+    infile = open('wordlist.txt', 'r')
+    content = infile.read()
+    c = content.strip()
+    dictionary=c.split()
+    for i in range(26):
+        possible_encryptions.append(Caesar_decrypt(ciphertext, i))
+    for entry in possible_encryptions:
+        all_words = entry.split()
+        for word in all_words:
+            if word in dictionary:
+                return entry
+print(Caesar_break(encrypted))
+
+print('----- d.2 -----')
+print('Done')
+
+
+
+#
+# Part (e)
+#
+#
+print()  
+print('---------- Part (e) ----------')
+print()
+print('----- e.1 -----')
+infile = open('pg1661.txt', 'r')
+def copy_file():
+    """Return a new copied file"""
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+    return
+copy_file()
+
+print('----- e.2, e.3, e.4 -----')
+def print_line_numbers(string_list:[str]):
+    """ Prints each string in a list on a separate line"""
+    result = ""
+    blank_spaces = str(len(str(len(string_list))))
+    for x in range(len(string_list)):
+        result +=("{0:"+blank_spaces+"}:  {1}").format(x+1,string_list[x])
+    return result
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match26-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def stats(string_list:[str]):
+    """ Prints stats about the list of strings """
+    empty_lines = 0
+    characters = 0
+    for string in string_list:
+        characters += len(string)
+        if string == "":
+            empty_lines += 1
+    print(("{0:"+str(len(str(len(string_list))))+"}\t{1}").format(len(string_list),"lines in the list"))
+    print(("{0:"+str(len(str(len(string_list))))+"}\t{1}").format(empty_lines,"empty lines"))
+    print(("{0:"+str(len(str(len(string_list)))+2)+".1f}\t{1}").format(characters/len(string_list),"average characters per line"))
+    print(("{0:"+str(len(str(len(string_list)))+2)+".1f}\t{1}").format(characters/(len(string_list)-empty_lines),"average characters per non-empty line"))
+</FONT>
+infile = open('pg1661.txt', 'r')
+content = infile.readlines()
+def copy_file(txtfile: str):
+    """Return a new copied file"""
+    parameter = input("Input the parameter for copying:")
+    # e.2
+    if parameter == 'line numbers':
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        infilewithnumbers = print_line_numbers(txtfile)
+        for line in infilewithnumbers:
+            outfile.write(line)
+        outfile.close()
+    # e.3
+    elif parameter == 'Gutenberg trim':
+        outfile_name = input("Please enter the name of the new copy:  ")
+        d=0
+        e=0
+        for a in range(len(txtfile)):
+            if '*** START' in txtfile[a]:
+                c=a
+                break
+        for b in range(len(txtfile)):
+            #print(txtfile[b])
+            if '*** END' in txtfile[b]:
+                e=b
+                break
+        d=c+1
+        txtfile2 = txtfile[d:e]
+        outfile = open(outfile_name, 'w')
+        for line in txtfile2:
+            outfile.write(line)
+        outfile.close()
+    # e.4
+    elif parameter == 'statistics':
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in txtfile:
+            outfile.write(line)
+        stats(txtfile)
+        outfile.close()
+    else:
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        for line in txtfile:
+            outfile.write(line)
+        outfile.close()
+    return
+copy_file(content)
+</PRE>
+</PRE>
+</BODY>
+</HTML>

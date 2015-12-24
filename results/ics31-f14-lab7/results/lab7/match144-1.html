@@ -1,0 +1,190 @@
+<HTML>
+<HEAD>
+<TITLE>davidhn3/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+hyliu1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+print('--------------(c.(1,2,3))-------------------')
+from random import randrange
+
+def random_names(n: int)-&gt; list:
+    '''takes an integer and returns a list of that many
+    strings, with each string a randomly generated name'''
+    L=[]
+    for i in range(n):
+        L.append(random())
+        return L
+    
+def random()-&gt;str:
+    '''Returns a single random first and last name'''
+    compare=True
+    newstr=''
+    surname = open("surname.txt", 'r')
+    malename = open("malename.txt", 'r')
+    femalename = open("femalename.txt", 'r')
+    data1 = surname.read().split()
+    data2 = malename.read().split()
+    data3 = femalename.read().split()
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match144-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    S1=[]
+    S2=[]
+    S3=[]
+    for i in range(len(data1)):
+        if i%4 == 0:
+            S1.append(data1[i])
+    for i in range(len(data2)):
+        if i%4 == 0:
+            S2.append(data2[i])
+    for i in range(len(data3)):
+        if i%4 == 0:
+            S3.append(data3[i])
+    s=randrange(0,1000)
+</FONT>    if gender() == 1:
+        newstr = S1[s] + " " + S2[s]
+    else:
+        newstr = S1[s] + " " + S3[s]
+    return(newstr)
+    infile.close()
+def random_names(n: int)-&gt; list:
+    '''takes an integer and returns a list of that many
+    strings, with each string a randomly generated name'''
+    L=[]
+    for i in range(n):
+        L.append(random())
+    return L
+def gender()-&gt;int:
+    '''Randomly picks 1 or 2 to represent a gender'''
+    s= randrange(1,3)
+    return s
+
+
+
+
+print('-------------(d)--------------------')
+print()
+
+import string
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+
+def rotation(n: int) -&gt; str:
+    '''Rotates the alphabet, starting it at given number index'''
+    B = ALPHABET[n:] + ALPHABET[0:]
+    return B
+    
+
+def Caesar_encrypt(message: str, num: int) -&gt; str:
+    ''' Takes a string and encrypts it by a number shift in the alphabet '''
+    x = str.maketrans(ALPHABET, rotation(num))
+    return message.lower().translate(x)
+
+def Caesar_decrypt(message: str, num: int) -&gt; str:
+    ''' Takes a string and decrypts it by a number shift in the alphabet '''
+    x = str.maketrans(rotation(num), ALPHABET)
+    return message.translate(x)
+
+def rotation26() -&gt; list:
+    '''Returns a list of 26 rotated alphabets'''
+    L = []
+    for i in range(26):
+        L.append(rotation(i))
+    return(L)
+
+alpha_list = rotation26()
+
+def Caesar_break(message: str)-&gt; str:
+    '''Takes an encrypted string and brute-force
+    decrypts the message, returns said message'''
+    A = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    L = []
+    data = open("wordlist.txt", 'r')
+    data = data.read().split()
+    for i in range(26):
+        x = str.maketrans(alpha_list[i], ALPHABET)
+        L.append(message.translate(x))
+    for x in range(26):
+        for word in L[x].split():
+            if word in data:
+                A[x] = A[x]+1
+    z = A.index(max(A))
+    return newlist[z]
+
+print('-------------(e)--------------------')
+print('---------(e.1)--------------')
+def copy_file():
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+print('---------(e.2)--------------')
+def copy_file():
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    d=infile.readlines()
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    for i in range(len(d)):
+        n="{:5}".format(i+1)+':'+' '+d[i]
+        outfile.write(n)
+    infile.close()
+    outfile.close() 
+
+print('---------(e.3)--------------')
+def copy_file():
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    d=infile.readlines()
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    string1='*** START'
+    string2='*** END'
+    line.find('*** START')
+    
+    for i in range(len(d)):
+        n="{:5}".format(i+1)+':'+' '+d[i]
+        outfile.write(n)
+    infile.close()
+    outfile.close() 
+
+
+print('---------(e.4)--------------')
+def copy_file():
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    d=infile.readlines()
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    a=d.count('')
+    num_lines = 0
+    num_words = 0
+    num_chars = 0
+
+    n=''
+    for line in d:
+        words = line.split()
+        num_lines += 1
+        num_words += len(words)
+        num_chars += len(line)
+        n=('{:6.1f}, {}'.format(len(d),'lines in the file'),'\n',
+        '{:6.1f}, {}'.format(a,'empty lines'),'\n',
+        '{:6.1f}, {}'.format(num_chars/len(d),'average characters per line'),'\n',
+        '{:6.1f}, {}'.format(num_chars/(len(d)-a),'average characters per non-empty line'),'\n'
+    outfile.write(n)
+    infile.close()
+    outfile.close() 
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

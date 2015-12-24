@@ -1,0 +1,283 @@
+<HTML>
+<HEAD>
+<TITLE>avouraki/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+avouraki/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Andres Vourakis 90269441 and Jun Hui Li 92867000.  ICS 31 Lab sec 4.  Lab asst 3.
+
+# Part C
+print('')
+print('---------- Part (c) ----------')
+print('')
+
+# C1
+
+def abbreviate(name: str) -&gt; str:
+    '''make a 3 letter abbreviation for a word'''
+    abbrev = ''
+    abbrev = name[0] + name[1] + name[2]
+    return abbrev
+
+assert abbreviate('February') == 'Feb'
+assert abbreviate('Decemenber') == 'Dec'
+
+# C2
+
+def find_area_square(side: int) -&gt; int:
+    '''returns the area of a square given a side length'''
+    area = side**2
+    return area
+
+assert find_area_square(4) == 16
+assert find_area_square(6) == 36
+
+# C3
+
+def find_area_circle(rad: int) -&gt; float:
+    '''returns the area of a circle given the length of the raidus'''
+    area = (3.14)*(rad**2)
+    return area
+assert find_area_circle(3) == 28.27 or 28.26  # to account for rounding errors
+assert find_area_circle(5) == 78.54 or 78.53
+
+# C4
+
+def print_even_numbers(n: list):
+    '''print the even numbers in a list'''
+    for i in range (len(n)):
+        if(n[i]%2 == 0):
+            print(n[i])
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004]) 
+
+# C5
+
+def calculate_shipping(weight: float) -&gt; float:
+    '''caculate the shipping fees given the weight of the shipment'''
+    if(weight &lt; 2):
+        result = 2.00
+    elif (weight == 2):
+        result = 5.00
+    elif (weight &lt; 10):
+        result = 5.00
+    elif(weight &gt;= 10):
+        result = 5.00 + (weight - 10) * 1.5
+
+    return result
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+         
+
+
+'''
+#tkinter
+'''
+
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=1500, height=1000)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+# C6
+def create_square(n: list):
+    '''create a square on the canvas given the coordinates of its upper-left corner and the length of a side'''
+    my_canvas.create_rectangle(n[0], n[1], n[0] + n[2], n[1] + n[2])
+create_square([100, 100, 100])
+
+# C7
+def create_circle(n: list):
+    '''create a circle on the canvas given the coordinates of its upper-left corner of the square that encloses the circle and the length of the diameter'''
+    my_canvas.create_oval(n[0], n[1], n[0] + n[2], n[1] + n[2])
+create_circle([100, 100, 100])
+
+
+
+# Part d
+print('')
+print('---------- Part (d) ----------')
+print('')
+
+
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match145-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+# d1
+def restaurant_price(Restaurant) -&gt; float:
+    '''returns the price of the best dish of a restaurant given a restaurant's namedtuple'''
+    return Restaurant.price
+assert restaurant_price(RC[0]) == 12.50
+assert restaurant_price(RC[4]) ==  5.50
+</FONT>
+
+# d2
+''' sorts the RC list from lowest to highest dish price'''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match145-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+RC.sort(key = restaurant_price)
+print(RC)
+
+#d3
+
+def costliest(Restaurant) -&gt; str:
+    '''returns the name of the restaurant with the most expensive dish''' 
+    RC.sort(key = restaurant_price)
+    return RC[-1].name
+</FONT>print(costliest(RC))
+
+assert costliest(RC) == 'Noma'
+
+
+#d4
+
+print(RC)
+def costliest2(Restaurant) -&gt; str:
+    '''returns the name of the restaurant with the most expensive dish without any side effects'''
+    sorted_list = sorted(RC, key = restaurant_price)
+    return sorted_list[-1].name
+print(costliest2(RC))
+
+assert costliest2(RC) == 'Noma'
+
+print(RC)
+
+
+# Part e
+print('')
+print('---------- Part (e) ----------')
+print('')
+
+Book = namedtuple('Book', 'author title genre year price instock')
+BSI = [
+    Book('Herman Hesse', 'Siddhartha', 'Religious', 1978, 9.99, 100),
+    Book('Steve Wozniak', 'iWoz', 'Technology', 2002, 9.98, 200),
+    Book('Steven D. Levitt', 'Freakonomics', 'Economics', 2005, 8.99, 100),
+    Book('Aldous Huxley', 'Brave New World', 'Fiction', 2001, 10.99, 160),
+    Book('John Smith', 'My World', 'Biography', 2004, 13.99, 300),
+    Book('Bob Wim', 'Nature', 'Adventure', 1999, 12.99, 12) ]
+
+# e1
+''' Prints out the title of every book in the BSI list '''
+for i in range(len(BSI)):
+    print(BSI[i].title)
+
+#e2
+def book_title(Book) -&gt; str:
+    '''returns the title of a book'''
+    return Book.title
+
+assert book_title(BSI[0]) == 'Siddhartha'
+
+
+
+for i in range(len(BSI)):
+    sorted_list = sorted(BSI, key = book_title)
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match145-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print(sorted_list[i].title)
+
+
+#e3
+for i in range(len(BSI)):
+    BSI[i] = BSI[i]._replace(price = BSI[i].price*1.1)
+</FONT>
+print(BSI[0])
+    
+#e4
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match145-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+for i in range(len(BSI)):
+    if BSI[i].genre == 'Technology':
+        print(BSI[i].title)
+
+#e5
+old_books = []
+</FONT>new_books = []
+
+''' Searches for books published before the year 2000 and saves them into a list'''
+for i in range(len(BSI)):
+    if BSI[i].year &lt; 2000:
+        old_books.append( BSI[i].title)
+''' Searches for books published on and after the year 2000 and saves them into a list'''
+    if BSI[i].year &gt;= 2000:
+        new_books.append(BSI[i].title)
+if len(old_books) &gt; len(new_books):
+    print('More titles before 2000', '(', len(old_books),'vs', len(new_books), ')')
+if len(old_books) &lt; len(new_books):
+    print('More titles 2000 or later', '(', len(new_books),'vs', len(old_books), ')')
+
+#e6
+def inventory_value(Book) -&gt; float:
+    '''calculate the inventory value of a book'''
+    total = Book.price * Book.instock
+    return total
+
+assert inventory_value(BSI[0]) == 1098.9
+
+
+def top_value(BSI) -&gt; Book:
+    ''' Returns the Book object with the highest inventory value given a book's named tuple'''
+    value = 0
+    answer = ''
+    for i in range(len(BSI)):
+        if inventory_value(BSI[i]) &gt; value:
+            value = inventory_value(BSI[i])
+    for i in range(len(BSI)):
+        if inventory_value(BSI[i]) == value:
+            return(BSI[i])
+
+assert top_value(BSI) == BSI[4]
+
+print('The highest-value book is', top_value(BSI).title, 'by',
+      top_value(BSI).author, 'at a value of $',
+      inventory_value(top_value(BSI)))
+#f
+
+def draw_eye(n: list):
+    my_canvas.create_oval(n[0]+100,n[1]+60,n[0]+300,n[1]+160) # most outer oval
+    my_canvas.create_oval(n[0]+160,n[1]+60,n[0]+240,n[1]+160,fill='blue') # outer oval
+    my_canvas.create_oval(n[0]+180,n[1]+90,n[0]+220,n[1]+130,fill='black') # inner oval
+def draw_nose(n:list):
+    my_canvas.create_oval(n[0]+300,n[1]+200,n[0]+400,n[1]+300,fill='red')
+def draw_mouth(n:list):
+    my_canvas.create_oval(n[0]+100,n[1]+400,n[0]+600,n[1]+500,fill='red')
+
+def draw_face(n: list):
+    my_canvas.create_oval(n[0],n[1],n[0]+700,n[1]+600,fill='white')
+    draw_eye([n[0],n[1]])
+    draw_eye([n[0]+300,n[1]])
+    draw_nose([n[0],n[1]])
+    draw_mouth([n[0],n[1]])
+
+''' Draws a face by calling the draw_face function wich calls 3 other functions '''
+draw_face([50,200])
+draw_face([800,100])
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

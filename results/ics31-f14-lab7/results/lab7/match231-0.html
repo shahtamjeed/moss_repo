@@ -1,0 +1,181 @@
+<HTML>
+<HEAD>
+<TITLE>nadelros/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+nadelros/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Nerissa del Rosario 93635758 and Christy Nguyen 70397668. ICS 31 Lab sec 3.
+
+#C
+print('\n')
+print('----C----')
+
+infile = open("surnames.txt", 'r')
+surnames = infile.readlines()
+infile.close() 
+    
+infile2 = open("femalenames.txt", 'r')
+femalenames = infile2.readlines()
+infile2.close()
+
+infile3 = open("malenames.txt", 'r')
+malenames = infile3.readlines()
+infile3.close()
+
+import random
+
+def random_names(a:int)-&gt;'list of strings':
+    '''takes a number and returns a list of that many strings, with each string a randomly generated name'''
+    surlist = []
+    for i in surnames:
+        new = i.split()
+        surlist.append(new[0])
+    firstlist = []
+    for i in femalenames:
+        new = i.split()
+        firstlist.append(new[0])
+    for i in malenames:
+        new = i.split()
+        firstlist.append(new[0])
+    final = []
+    for i in range(a):
+        final.append(random.choice(surlist) + ', ' + random.choice(firstlist))
+    return final
+
+print(random_names(8))
+
+#D
+print('\n')
+print('----D----')
+
+infile4 = open("wordlist.txt", 'r')
+dictionary = infile4.readlines()
+infile4.close()
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match231-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+def Cesar_encrypt(plaintext: str, key: int)-&gt; str:
+    '''takes string, moves it by key on the alphabet, then returns new text'''
+    key2 = key%26
+    table = str.maketrans(ALPHABET,ALPHABET[key2:]+ALPHABET[:key2])
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match231-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return plaintext.translate(table)
+
+def Cesar_decrypt(plaintext: str, key: int)-&gt; str:
+    '''takes string, moves it by key on the alphabet, then returns new text'''
+    table = str.maketrans(ALPHABET,ALPHABET[-key:]+ALPHABET[:-key])
+</FONT>    return plaintext.translate(table)
+
+assert Cesar_decrypt('cdef',1) == 'bcde'
+assert Cesar_decrypt('cdef',2) == 'abcd'
+
+def Cesar_break(a: str)-&gt;str:
+    '''takes string and takes a ciphertext string and returns the plaintext for that string'''
+    lowerstring = a.lower()
+    result = []
+    newdictionary = []
+    for word in dictionary:
+        newdictionary.append(word.lower())
+    for i in range(26):
+        new = Cesar_decrypt(lowerstring, i+1)
+        result.append(new)
+    for r in result:
+        for n in newdictionary:
+            if r in n:
+                return r
+
+print(Cesar_break('DBU'))
+
+    
+#E
+print('\n')
+print('----E----')
+
+def bodyonly(a: list, file):
+    '''takes a list of strings (new), and takes out everything before start, and deletes everything after start'''
+    w = False
+    for line in a:
+        if line.startswith("*** START"):
+            w = True
+        if line.startswith("*** END"):
+            break
+        if w:
+            file.write(line)
+    
+def print_line_numbers(a, file): #E3
+    '''takes a list of strings and prints each string with a line number'''
+    for i in range(len(a)):
+        file.write('{:5}: {}'.format(i+1, a[i]))
+
+def stats(a: 'list of string', file): #E4
+    '''takes a lsit of string and prints statistics'''
+    file.write('{:6} lines in the list'.format(len(a)))
+    file.write('\n')
+    file.write('{:6} empty lines'.format(a.count("")))
+    file.write('\n')
+    result = 0
+    emptystringcount = 0
+    for i in a:
+        result += len(i)
+        if i == "":
+            emptystringcount += 1
+    file.write('{:6.1f} average characters per line'.format(result/len(a)))
+    file.write('\n')
+    file.write('{:6.1f} average characters per non-empty line'.format(result/(len(a)-emptystringcount)))
+    file.write('\n')
+        
+def copyfiles(): #E1
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+def copy_file(a:str): ##E2 new is a list of stings
+    '''' if a= line numbers add linenumbers, otherwise copy'''
+    if a == 'line numbers':
+        infile_name = input("Please enter the name of the file to add line numbers: ")
+        infile = open(infile_name, 'r', errors = 'ignore')
+        new = infile.readlines()
+        outfile_name = input("Please enter the name of the new copy with line numbers:  ")
+        outfile = open(outfile_name, 'w')
+        print_line_numbers(new, outfile)
+        infile.close()
+        outfile.close()
+    elif a == 'Gutenberg trim':
+        infile_name = input("Please enter the name of the file to trim: ")
+        infile = open(infile_name, 'r', errors = 'ignore')
+        new = infile.readlines() 
+        outfile_name = input("Please enter the name of the new trimmed copy:  ")
+        outfile = open(outfile_name, 'w')
+        bodyonly(new, outfile)
+        infile.close()
+        outfile.close()
+    elif a == 'statistics':
+        infile_name = input("Please enter the name of the file to get statistics: ")
+        infile = open(infile_name, 'r', errors = 'ignore')
+        new = infile.readlines()
+        outfile_name = input("Please enter the name of the new copy and the statistics:  ")
+        outfile = open(outfile_name, 'w')
+        stats(new, outfile) 
+        for line in new:
+            outfile.write(line) 
+        infile.close()
+        outfile.close()
+    else:
+        copyfiles()
+
+copy_file('Gutenberg trim')
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

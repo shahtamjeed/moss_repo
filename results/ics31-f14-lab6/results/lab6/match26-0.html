@@ -1,0 +1,267 @@
+<HTML>
+<HEAD>
+<TITLE>abisbee/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+abisbee/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+#  Kyle Mamiit 84015575 and Ashleigh Bisbee 47909497.  ICS 31 Lab sec 7.  Lab asst 6.
+
+#c1
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match26-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_99.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print()
+print()
+print('------------------c1------------------')
+print()
+print()
+def contains(x: str, y: str)-&gt;bool:
+    return y in x
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+#c2
+print()
+print()
+print('------------------c2------------------')
+print()
+print()
+alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+def blank_spaces(x: str)-&gt;str:
+    for i in x:
+        if i not in alphabet:
+            x = x.replace(i, ' ')
+    return x
+    
+message = "I*! love UCI!"
+print(blank_spaces(message))
+
+
+def sentence_stats(x: str)-&gt;None:
+    x = blank_spaces(x)
+    result = x.split()
+    print(result)
+    total = 0
+    for i in result:
+        z = len(i)
+        total += z
+    print('Characters: ', len(x), 'Words:', len(result), 'Average word length:', total/len(result), sep='\n')
+
+sentence_stats('I love UCI')
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+
+
+#c3
+print()
+print()
+print('------------------c3------------------')
+print()
+print()
+def initials(name: str)-&gt;str:
+    result = name.split()
+    total = ''
+    for i in result:
+        x = i[0].capitalize()
+        total += x
+    return total
+
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+#d1
+print()
+print()
+print('------------------d1------------------')
+print()
+print()
+from random import randrange
+for x in range(0, 50):
+    print(randrange(11))
+
+print()
+print('---------------six-sided dice----------------')
+print()
+
+for x in range(0, 50):
+    print(randrange(1, 7))
+
+#d2
+print()
+print()
+print('------------------d2------------------')
+print()
+print()
+
+def roll2dice()-&gt;int:
+    dice1 = randrange(1, 7)
+    dice2 = randrange(1, 7)
+    random = dice1 + dice2
+    return random
+
+print(roll2dice())
+for num in range(0, 50):
+    print(roll2dice())
+
+#d3
+print()
+print()
+print('------------------d3------------------')
+print()
+print()
+
+def distribution_of_rolls(num: int):
+    result = []     #empty result list
+    for i in range(num):    #for every number in the input num (ex: 200) it runs through the for loop
+        result.append(roll2dice())  #calls the roll2dice function that returns the number of each dice added together (200 times)
+    print('Distribution of dice rolls') 
+    for i in range(2, 13):  #This loop starts at i = 2 and goes to i = 3,...., and ends at i = 12
+        result_i = result.count(i)  #for each time it goes through the loop (i=2,3,4,etc.) result.count(i) checks for all the i in the list
+                                    #Ex: for the first loop i = 2 and result.count(i) counts all the 2's in the reuslt list.  
+        print('{:&gt;3}, {}, {:&gt;3}, {:&gt;7f}, {:}'.format(i, '\t', result_i, ((result_i/num)*100)), '\t', (result_i*'*'))   #now it prints the formated information for each i in the loop
+    print('------------------------------')
+    print('\t', num, 'rolls')
+distribution_of_rolls(200)
+
+#e1
+print()
+print()
+print('------------------e1------------------')
+print()
+print()
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def rotated(num: int)-&gt;str:
+    alphabet = ''
+    alphabet += ALPHABET[num:]
+    alphabet += ALPHABET[0:num]
+    return alphabet
+
+print(ALPHABET)
+print(rotated(3))
+
+
+
+def Caesar_encrypt(plaintext: str, num: int)-&gt;str:
+    table = plaintext.maketrans('abcdefghijklmnopqrstuvwxyz', rotated(num))
+    return plaintext.translate(table)
+
+print(Caesar_encrypt('hi there', 3))
+
+def Caesar_decrypt(ciphertext: str, num: int)-&gt;str:
+    table = ciphertext.maketrans('abcdefghijklmnopqrstuvwxyz', rotated(-num))
+    return ciphertext.translate(table)
+
+print(Caesar_decrypt('kl wkhuh', 3))
+
+
+#e2
+print()
+print()
+print('------------------e2------------------')
+print()
+print()
+#Ashleigh's Encrypted Message = 'eph'
+print(Caesar_decrypt('eph', 1))
+#Kyle's Encrypted Message = 'gex'
+print(Caesar_decrypt('gex', 4))
+
+#e3
+print()
+print()
+print('------------------e3------------------')
+print()
+print()
+
+#f
+print()
+print()
+print('------------------f------------------')
+print()
+print()
+
+speech = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+
+#f1
+print()
+print()
+print('------------------f1------------------')
+print()
+print()
+
+
+def print_line_numbers(list_of_str: list)-&gt;None:
+    k = 0
+    for i in list_of_str:
+        k +=1
+        #print(k, ':', i)
+        print('{:2}: {:5s}'.format(k, i))
+
+print_line_numbers(speech)
+
+#f2
+print()
+print()
+print('------------------f2------------------')
+print()
+print()
+
+def stats(list_of_str: list)-&gt;None:
+    total_length = 0
+    for line in list_of_str:
+        length = len(line)
+        total_length += length
+        average_line = total_length/len(list_of_str)
+        average_non_empty_line =  total_length/(len(list_of_str) - list_of_str.count(''))      
+    print('{:&gt;5}{:&gt;24}{}{:&gt;5}{:&gt;18}{}{:&gt;7.1f}{:&gt;32}{}{:&gt;7.1f}{:&gt;42}'.format(len(list_of_str), 'lines in the list','\n',  list_of_str.count(''), 'empty lines', '\n', average_line, 'average characters per line', '\n', average_non_empty_line, 'average characters per non-empty line'))
+
+#f3
+print()
+print()
+print('------------------f3------------------')
+print()
+print()
+
+
+message = "I*! love UCI's mascot!"
+
+
+alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqr'stuvwxyz"
+def apostrophe(x: str)-&gt;str:
+    for i in x:
+        if i not in alphabet:
+            x = x.replace(i, ' ')
+    return x
+    
+print(apostrophe(message))
+
+def list_of_words(lst: list)-&gt;list:
+    result = []
+    for line in lst:
+        x = apostrophe(line)
+        result2 = x.split()
+        for y in result2:
+            result.append(y)
+    return result
+
+
+
+print(list_of_words(speech))
+
+#g
+print()
+print()
+</FONT>print('------------------g------------------')
+print()
+print()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

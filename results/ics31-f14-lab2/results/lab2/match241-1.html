@@ -1,0 +1,164 @@
+<HTML>
+<HEAD>
+<TITLE>blenz/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jiahang/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+#  Eric Cho 45658719 and Jiahan Ge 78424398.  ICS 31 Lab sec 5.  Lab Asst 2.
+#C.1-----------------------------------------------------------------------------
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hour?')
+rate = int(input())
+print('This many dollars per hour:  $', rate)
+print('Weekly salary:  $', hours * rate)
+
+print('####')
+hours = int(input('How many hours?'))
+print('This many hours:', hours)
+rate = int(input('How many dollars per hour? $'))
+print('This many dollars per hour:  $', rate)
+print('Weekly salary:  $', hours * rate)
+
+#C.2-----------------------------------------------------------------------------
+name = input('Hello. What is your name? ')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match241-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Hello,', name, '\nIt\'s nice to meet you.')
+age = int(input('How old are you? '))
+print('Next year you will be', age+1, 'years old.\nGood-bye')
+
+#D-----------------------------------------------------------------------------
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND = 8.81
+KRONE_PER_DOLLAR = 5.50
+
+print('Please provide this information:')
+business_name = input('Business name: ')
+number_of_euro = int(input('Number of euro: '))
+number_of_pounds = int(input('Number of pounds: '))
+number_of_dollars = int(input('Number of dollars: '))
+
+print('Copenhagen Chamber of Commerce')
+print('Business name:', business_name)
+print(number_of_euro, 'euro is', number_of_euro * KRONE_PER_EURO, 'krone')
+print(number_of_pounds, 'pounds is', number_of_pounds * KRONE_PER_POUND, 'krone')
+print(number_of_dollars, 'dollars is', number_of_dollars * KRONE_PER_DOLLAR, 'krone')
+
+print('Total krone:', number_of_euro * KRONE_PER_EURO + number_of_pounds * KRONE_PER_POUND + number_of_dollars * KRONE_PER_DOLLAR, 'krone')
+
+
+#E-----------------------------------------------------------------------------
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+</FONT>another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+print(still_another.title)
+print(another.price)
+print('The average price of the three books:', (favorite.price + another.price + still_another.price)/3)
+print(favorite.year &lt; 1900)
+
+still_another = still_another._replace(price = 26.00)
+print(still_another)
+still_another = still_another._replace(price = still_another.price*1.2)
+print(still_another)
+
+#F-----------------------------------------------------------------------------
+Animal = namedtuple('Animal', 'name species age weight favorite_food')
+jumbo = Animal('Jumbo', 'elephant', 50, 1000, 'peanuts')
+perry = Animal('Perry', 'platypus', 7, 1.7, 'shrimp')
+
+print(jumbo.weight &lt; perry.weight)
+
+#G-----------------------------------------------------------------------------
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+booklist = [favorite, another, still_another]
+print(booklist[0].price &lt; booklist[1].price)
+print(booklist[0].year &gt; booklist[-1].year)
+
+#H-----------------------------------------------------------------------------
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+print(RL[2].name)
+print(RL[0].cuisine == RL[3].cuisine)
+print(RL[-1].price)
+RL.sort()
+for x in range(0, len(RL)):
+    print(RL[x])
+print(RL[-1].dish)
+RL1 = [RL[0], RL[1], RL[-2], RL[-1]]
+for x in range(0, len(RL1)):
+    print(RL1[x])
+
+#I-----------------------------------------------------------------------------
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+'''
+my_canvas.create_line(100, 100, 300, 300, fill='orange') # Draw orange line
+my_canvas.create_line(300, 100, 100, 300, fill='blue')   # Draw blue line
+#tkinter.mainloop()          # Combine all the elements and display the window
+'''
+
+my_canvas.create_line(200, 150, 200, 350, fill='blue') 
+my_canvas.create_line(200, 350, 400, 350, fill='blue')
+my_canvas.create_line(400, 350, 400, 150, fill='blue')
+my_canvas.create_line(400, 150, 200, 150, fill='blue')
+
+import math
+my_canvas.create_line(200, 100, 200 - (100*math.sqrt(2)), 100 + (100*math.sqrt(2)) , fill='blue') 
+my_canvas.create_line(200 - (100*math.sqrt(2)), 100 + (100*math.sqrt(2)), 200, 100 + (200*math.sqrt(2)), fill='blue')
+my_canvas.create_line(200, 100 + (200*math.sqrt(2)), 200 + (100*math.sqrt(2)), 100 + (100*math.sqrt(2)), fill='blue')
+my_canvas.create_line(200 + (100*math.sqrt(2)), 100 + (100*math.sqrt(2)), 200, 100, fill='blue')
+
+my_canvas.create_rectangle(75, 100, 125, 200)
+my_canvas.create_polygon(100, 50, 50, 100, 150, 100)
+my_canvas.create_rectangle(90, 200, 100, 180)
+my_canvas.create_rectangle(100, 105, 105, 110)
+'''
+my_canvas.create_oval(150,100,350,200, fill='white')
+my_canvas.create_oval(200,100,300,200, fill='brown')
+my_canvas.create_oval(225,100,275,200, fill='black')
+'''
+my_canvas.create_oval(200,100,300,150, fill='white')
+my_canvas.create_oval(225,100,275,150, fill='brown')
+my_canvas.create_oval(240,100,260,150, fill='black')
+
+my_canvas.create_oval(325,100,425,150, fill='white')
+my_canvas.create_oval(350,100,400,150, fill='brown')
+my_canvas.create_oval(365,100,385,150, fill='black')
+
+my_canvas.create_polygon(325,200,350,215,325,215)
+
+my_canvas.create_rectangle(275,250,350,300,fill='black')
+
+my_canvas.create_oval(150,50,475,400)
+</PRE>
+</PRE>
+</BODY>
+</HTML>

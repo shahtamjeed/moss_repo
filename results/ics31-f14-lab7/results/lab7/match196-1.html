@@ -1,0 +1,204 @@
+<HTML>
+<HEAD>
+<TITLE>akluong/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+suhangj/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7_v2.py
+#Suhang Jiang 75029385 Brianna Hernandez 68945346 session 6
+
+print('---c---')
+from random import randrange
+
+#create the namelist function which returns the namelist of the three files
+def namelist(filename):
+    """return the name list of the file"""
+    infile=open(filename,'r')
+    linelist=infile.readlines()
+    infile.close()
+    result=[]
+    for line in linelist:
+        wordlist=line.split('\t')
+        result.append(wordlist[0].lower().capitalize())
+    return result
+
+#store the three namelists in surname,femalename, and malename respectively.
+surname=namelist("surnames.txt")
+femalename=namelist("femalenames.txt")
+malename=namelist("malenames.txt")
+firstname=femalename+malename
+
+def single_random(list):
+    """take a namelist as a parameter and return a name chosen at random"""
+    return list[randrange(0,101)]
+print(single_random(surname))
+print(single_random(femalename))
+print(single_random(malename))
+
+
+def random_name(int):
+    """take an integer and return a list of that many strings"""
+    result=[]
+    for i in range(int):
+        ran=single_random(surname)+', '+single_random(firstname)
+        result.append(ran)
+    return result
+print(random_name(3))
+
+print()
+print('---d---')
+print()
+
+infile=open("wordlist.txt")
+wordlist=infile.read().lower().split('\n')
+infile.close()
+alphabet='abcdefghijklmnopqrstuvwxyz'
+def rotated_alphabet(n):
+    return alphabet[n:]+alphabet[:n]
+print(rotated_alphabet(1))
+
+def Caesar_encrypt(message: str, key: int)-&gt; str:
+    """returns the ciphertext-encrypted message"""
+    encrypt = message.maketrans(alphabet, rotated_alphabet(key))
+    return message.translate(encrypt)
+
+print(Caesar_encrypt('Brianna',20))
+print(Caesar_encrypt('chasm',1))
+
+def Caesar_decrypt(message: str, key:int)-&gt; str:
+    """Returns the plaintext-each letter in the original message"""
+    encrypt = message.maketrans(rotated_alphabet(key), alphabet)
+    return message.translate(encrypt)
+print(Caesar_decrypt('dibtn',1))
+
+def Caesar_break(cipher):
+    """ takes a ciphertext string and returns the plaintext for that string
+    without having the key"""
+    result=[]
+    for i in range(1,27):
+        result.append(Caesar_decrypt(cipher,i))
+    count=0
+    index=0
+    maximum_count=0
+    for i in result:
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match196-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        word_list=i.split()
+        for word in word_list:
+            if word in wordlist:
+                count+=1
+        if count&gt;maximum_count:
+            maximum_count=count
+            index=result.index(i)
+    return result[index]
+</FONT>
+#print(Caesar_break("btjb't"))    
+print(Caesar_break("btjb't btjb't"))
+print(Caesar_break("dibtn btjb't"))
+
+
+print()
+print('----e---')
+print()
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match196-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('----e.1---')
+def copy_file():
+    """copy a txt file"""
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+</FONT>        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+copy_file()
+
+print()
+print('----e.2---')
+print()
+
+def copy_file(s:str):
+    """take a string. If the parameter is 'line numbers',
+    the copied file includes line numbers at the start of each line"""
+    infile_name = input("Please enter the name of the file to copy: ")        
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    linelist = infile.readlines()
+    if s=="line numbers":
+        for linenum in range(len(linelist)):
+            l = "{:5}: {}".format(linenum+1,linelist[linenum])
+            outfile.write(l)
+    infile.close()
+    outfile.close()
+copy_file("line numbers")
+    
+
+print('----e.3---')
+def copy_file(s:str):
+    """ If the parameter is 'Gutenberg trim' it copies only the body of a Project Gutenberg file,
+     omitting the "housekeeping" material at the front and end."""
+    infile_name = input("Please enter the name of the file to copy: ")        
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        if "*** START" in line:
+            break
+    for line in infile:
+        if "*** END" in line:
+            break
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+copy_file("Gutenberg trim")
+
+print()
+print('----e.4---')
+print()
+
+def copy_file():
+    """its parameter is 'statistics' it will copy the file as before but
+    also print out these statistics (which should be familiar) about the
+    text in the file, following the formatting shown:
+    16824   lines in the file
+      483   empty lines
+      53.7 average characters per line
+      65.9 average characters per non-empty line"""
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    content=infile.readlines()
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in content:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+    line_num=len(content)
+    empty=0
+    char=0
+    for line in content:
+        if line.strip()=="":
+            empty+=1
+    for line in content:
+        char+=len(line.split())
+    ave_per_line=char/line_num
+    ave_per_no_empty=char/(line_num-empty)
+    print ( '{:5}   {}\n{:5}   {}\n{:7.1f} {}\n{:7.1f} {}'.format(line_num,'line in the file',empty,'empty lines',ave_per_line,'average characters per line',ave_per_no_empty,'average characters per non-empty line'))
+  
+copy_file()      
+    
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

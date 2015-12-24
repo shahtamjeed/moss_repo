@@ -1,0 +1,214 @@
+<HTML>
+<HEAD>
+<TITLE>cayuso/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+cayuso/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Christopher Ayuso 27096088 and Jimmy Yue 77128072.  ICS 31 Lab sec 14.  Lab asst 7.
+
+print('----Part.c----')
+print()
+
+#2
+from random import randrange
+
+surnames = open("surnames.txt")
+femalenames = open("femalenames.txt")
+malenames = open("malenames.txt")
+
+contentS = surnames.read()
+contentF = femalenames.read()
+contentM = malenames.read()
+
+WordlistS = contentS.split()
+WordlistF = contentF.split()
+WordlistM = contentM.split()
+
+def sorter(L: list, n: int)-&gt;list:
+    '''Takes a Wordlist and returns every n string
+    '''
+    L1 = []
+    tempv = 0
+    for i in range(len(L)):
+        tempv = n*i
+        if tempv &lt; len(L):
+            L1.append(L[tempv])
+    return L1
+
+def proper(L:list)-&gt;list:
+    '''Converts names in list to lowercase then capitalizes
+    first letter'''
+    L1 = []
+    for i in L:
+        L1.append(i.lower().title())
+    return L1
+
+SURNAMES = proper(sorter(WordlistS, 4))
+FEMALENAMES = proper(sorter(WordlistF, 4))
+MALENAMES = proper(sorter(WordlistM, 4))
+
+
+#1, #3
+
+def random_names(n:int)-&gt;list:
+    '''Takes an integer and returns a list of
+    that many strings, with each string randomly generated'''
+    L1 = []
+    temp = 0
+    tempS = 0
+    tempF = 0
+    tempM = 0
+    for i in range(n):
+        tempstr = ''
+        temp = randrange(1,3)
+        tempS = randrange(0,len(SURNAMES))
+        tempF = randrange(0,len(FEMALENAMES))
+        tempM = randrange(0,len(MALENAMES))
+        if temp == 1:
+            tempstr += SURNAMES[tempS] + ', ' + FEMALENAMES[tempF]
+            L1.append(tempstr)
+        elif temp == 2:
+            tempstr += SURNAMES[tempS] + ', ' + MALENAMES[tempM]
+            L1.append(tempstr)
+    return L1
+print(random_names(10))
+            
+print()
+print('----Part.d----')
+print()
+
+#1, #2
+
+Alph = 'abcdefghijklmnopqrstuvwxyz'
+
+def Rotated_alphabet(n: int) -&gt; str:
+    '''Creates a rotated alphabet with inputed int
+    '''
+    Alph = 'abcdefghijklmnopqrstuvwxyz'
+    if n&gt;=26:
+        Alph = Alph.replace(Alph[:n%26],'')+ Alph[:n%26]
+    else:
+        Alph = Alph.replace(Alph[:n],'')+ Alph[:n]
+    return Alph
+
+def Caesar_decrypt(m: str, k:int):
+    '''Decrypts the inputed string with the given int key
+    '''
+    table2 = str.maketrans(Rotated_alphabet(k), Alph)
+    return m.lower().translate(table2)
+
+Wordlist = open("wordlist.txt")
+DICTIONARY = Wordlist.read().split()
+
+
+
+def Caesar_break(word: str)-&gt;str:
+    '''Takes a ciphertext string and returns the plaintext
+    '''
+    L1 = []
+    prevHit = 0
+    currentHit = 0
+    decrypt = ''
+    for i in range(26):
+        temp = ''
+        oWord = word
+        tempList = []
+        currentHit = 0
+        temp = Caesar_decrypt(oWord, i)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match173-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        L1.insert(i,Rotated_alphabet(i))
+        tempList = temp.split()
+        for x in tempList:
+            for oWord in DICTIONARY:
+                if x == oWord:
+                    currentHit += 1
+                    break
+        if currentHit &gt; prevHit:
+            decrypt = temp
+            prevHit = currentHit
+    return decrypt
+print(Caesar_break('epht'))
+</FONT>
+#2
+print(Caesar_break('eatpht strgnei iwxh bthhpvt rdst'))
+
+print()
+print('----Part.e----')
+print()
+
+#1, #2, #3
+
+def stats(L: list):
+    '''Takes a list and prints the line statistics for that list
+    '''
+    data = [0, 0, 0, 0]
+    str_data = ['lines in the file', 'empty lines', 'average characters per line', 'average characters per non-empty line']
+    total = 0
+    totaln = 0
+    for i in range(len(L)):
+        total += len(L[i])
+        if L[i] == "\n":
+            data[1] += 1
+        else:
+            totaln += len(L[i])
+    data[0] = len(L)
+    data[2] = (total/len(L))
+    data[3] = (totaln/(len(L)-data[1]))
+    for i in range(0,2):
+        print("{0:5}   {1}".format(data[i],str_data[i]))
+    for i in range(0,2):
+        print("{0:7.1f} {1}".format(data[i+2],str_data[i+2]))
+        
+def copy_file(s: str):
+    '''Prompts the user to enter a string modifier, name of a file and the name
+    of the copy then creates the copy in the same directory modified depending
+    on the first response.'''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if s == 'line numbers':
+        i = 0
+        for line in infile:
+            i += 1
+            outfile.write("{:5}: {:1}".format(i, line))
+    elif s == 'Gutenberg trim':
+        for line in infile:
+            if '*** START' in line:
+                for line in infile:
+                    if '*** END' in line:
+                        break
+                    else:
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match173-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                        outfile.write(line)
+    elif s == 'statistics':
+        L = []
+        for line in infile:
+            outfile.write(line)
+            L.append(line)
+        stats(L)
+    else:
+</FONT>        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+copy_file(input("Enter string: "))
+
+        
+    
+    
+
+
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

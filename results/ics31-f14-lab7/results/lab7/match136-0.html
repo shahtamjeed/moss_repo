@@ -1,0 +1,226 @@
+<HTML>
+<HEAD>
+<TITLE>kevinw9/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kevinw9/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Kevin Wu 58234052 and John Janecek 74946660.  ICS 31 Lab sec 10.  Lab asst 7.
+
+#Part (c)
+
+print('\n\n---------- Part (c) ----------\n')
+
+#c
+from random import randrange
+
+def random_names(size: int)-&gt;list:
+    'Generates list of random names'
+    fem = load_female_list()
+    male = load_male_list()
+    sur = load_surname_list()
+    result = []
+    for x in range(size):
+        temp_name = ''
+        gender = random_gender()
+        randint1 = randrange(len(sur))
+        temp_name += sur[randint1] + ', '
+        if gender == 'male':
+            randint = randrange(len(male))
+            temp_name += male[randint]
+        else:
+            randint = randrange(len(fem))
+            temp_name += fem[randint]
+        result.append(temp_name)
+    return result
+        
+
+def random_gender() -&gt; str:
+    "Returns a random gender in form 'male' or 'female'"
+    x = randrange(2)
+    if (x == 0):
+        return 'male'
+    else:
+        return 'female'
+
+def load_female_list() -&gt; list:
+    "Load the files info into the list and returns it."
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match136-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    infile = open("femalenames.txt",'r')
+    data = infile.read()
+    datalines = data.split('\n')
+    femaletempList = []
+    for i in datalines:
+        temp = ''
+</FONT>        for z in i:
+            if z.isalpha():
+                temp += z
+        femaletempList.append(temp)
+    infile.close()
+    return femaletempList
+
+def load_male_list() -&gt; list:
+    "Load the files info into the list and returns it."
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match136-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    infile = open("malenames.txt",'r')
+    data = infile.read()
+    datalines = data.split('\n')
+    maletempList = []
+    for i in datalines:
+        temp = ''
+</FONT>        for z in i:
+            if z.isalpha():
+                temp += z
+        maletempList.append(temp)
+    infile.close()
+    return maletempList
+
+def load_surname_list() -&gt; list:
+    "Load the files info into the list and returns it."
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match136-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    infile = open("surnames.txt",'r')
+    data = infile.read()
+    datalines = data.split('\n')
+    surnametempList = []
+    for i in datalines:
+        temp = ''
+</FONT>        for z in i:
+            if z.isalpha():
+                temp += z
+        surnametempList.append(temp)
+    infile.close()
+    return surnametempList
+    
+#Part (d)
+
+print('\n\n---------- Part (d) ----------\n')
+
+#d.1
+import string
+
+def Caesar_break(coded: str)-&gt;str:
+    'Decrypt the Caesar code'
+    words = load_words()
+    for x in range(len(words)):
+        words[x] = words[x].lower()
+    all_decrypted = []
+    for x in range(1, 26, 1):
+        all_decrypted.append(Caesar_decrypt(coded, x))
+    for s in all_decrypted:
+        tempList = s.split(' ')
+        for w in tempList:
+            if w.lower() in words:
+                return s
+
+def load_words()-&gt;list:
+    'Return a list with all words'
+    infile = open('words.txt', 'r')
+    data = infile.read()
+    datalines = data.split('\n')
+    infile.close()
+    return datalines
+
+ALPHABETtranslator = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+def Caesar_encrypt(message: str, key: int)-&gt; str:
+    "This message uses the key to return the cipher of the message."
+
+    #e3 is here
+    if (key &gt; 26):
+        key = key % 26
+    temp = ''
+    for i in range(26):
+        temp += ALPHABETtranslator[key+i]           
+    table1 = str.maketrans(ALPHABET,temp)
+    return message.lower().translate(table1)
+assert Caesar_encrypt("hi there",3) == "kl wkhuh"
+assert(Caesar_encrypt("Hello",2)) == "jgnnq"
+
+def Caesar_decrypt(message: str, key: int) -&gt; str:
+    "This message decrypts the message and uses it to return the original message."
+    #e3 is here also
+    if (key &gt; 26):
+        key = key % 26
+    temp = ''
+    for i in range(26,52,1):
+        temp += ALPHABETtranslator[i-key]
+    table2 = str.maketrans(ALPHABET,temp)
+    return message.lower().translate(table2)
+
+assert Caesar_decrypt("kl wkhuh",3) == "hi there"
+assert(Caesar_decrypt("jgnnq",2)) == "hello"
+
+
+#Part (e)
+
+print('\n\n---------- Part (e) ----------\n')
+
+#e.1
+def copy_file(param: str):
+    'Copies a file'
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if param == 'line numbers':
+        dataLines = infile.read().split("\n")
+        for x in range(len(dataLines)):
+            stemp = ''
+            stemp = '{:5d}: {} {}'.format((x+1),dataLines[x],'\n')
+            outfile.write(stemp)
+    elif param == 'Gutenberg trim':
+        begin = 0
+        end = 0
+        dataLines = infile.read().split("\n")
+        for x in range(len(dataLines)):
+            if ('*** START ' in dataLines[x]):
+                begin = x
+            if ('*** END' in dataLines[x]):
+                end = x
+        for x in range(begin, end):
+            stemp = ''
+            stemp = '{:5d}: {} {}'.format((x+1),dataLines[x],'\n')
+            outfile.write(stemp)
+    elif param == 'statistics':
+
+        ls = infile.read().split("\n")
+        
+        print ("{:6}    lines in the list".format(len(ls)))
+    
+        empty = []
+        for x in ls:
+            if x == '':
+                empty.append(x)
+        print ("{:6}    empty lines".format(len(empty)))
+
+        total = 0
+        for x in ls:
+            total += len(x)
+        print ("{:8.1f}  average characters per line".format(total/len(ls)))
+
+        total2 = 0
+        times = ls.count('')
+        for x in range(times):
+            ls.remove('')
+        for x in ls:
+            total2 += len(x)
+        print ("{:8.1f}  average characters per non-empty line".format(total2/len(ls)))
+
+        for s in ls:
+            outfile.write(s + '\n')
+            
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+    
+copy_file(input('Enter "statistics", "Gutenberg trim", or "line numbers": '))
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,318 @@
+<HTML>
+<HEAD>
+<TITLE>dcpoon/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+dcpoon/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# David Poon 66729498 and Tracy Sta. Ana 80115436 ICS 31 Lab Sec 16 Lab ass 3
+
+
+#C.1
+
+print('---Part (c.1)---')
+
+def abbreviate(month: str) -&gt;str:
+    "Abbreviate the month"
+    return month[0] + month[1] + month[2]
+assert abbreviate('January') == 'Jan'
+assert abbreviate('February') == 'Feb'
+
+#C.2
+
+print('---Part (c.2)---')
+
+def find_area_square(value: int) -&gt; int:
+    "find the area of the square"
+    return value * value
+assert find_area_square(3) == 9
+assert find_area_square(4) == 16
+
+#C.3
+
+print('---Part (c.3)---')
+
+def find_area_circle(radius: float) -&gt; float:
+    "Find the area of the circle"
+    return radius *radius* 3.14159
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+
+#C.4
+
+print('---Part (c.4)---')
+
+def print_even_numbers(numbers: list)-&gt; list:
+    "Print the even numbers"
+    for x in numbers:
+        if x%2 == 0:
+            print (x)
+    return
+print_even_numbers([1,2,3,5])
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+#C.5
+
+print('---Part (c.5)---')
+
+def calculate_shipping(weight: float) -&gt; float:
+    "Prints the rate of shipping"
+    if weight &lt; 2:
+        rate = (2.00)
+    elif weight &lt; 10 and weight &gt;=2:
+        rate = (5.00)
+    elif weight &gt;= 10:
+        rate = 5.00 + (weight-10)*1.5
+    return rate
+
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+
+#C.6
+
+print('---Part(c.6)---')
+
+def create_square(x1,y1,length: int) -&gt;int:
+    "creates a square starting with the x1 and y1 coordinate and making it a certain length"
+    x2 = x1 + length
+    y2 = y1 + length
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match124-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    return my_canvas.create_rectangle(x1, y1, x2, y2)
+
+
+             
+import tkinter             
+my_window = tkinter.Tk()
+
+my_canvas = tkinter.Canvas(my_window, width=1200, height=600)
+my_canvas.pack()
+
+create_square(100, 100, 200)
+</FONT>
+#c.7
+
+print('----Part (c.7)---')
+
+def create_circle(x1, y1, diameter: int) -&gt; int:
+    "create a circle with x1 and y1 and the diameter"
+    x2 = x1 + diameter
+    y2 = y1 + diameter
+    return my_canvas.create_oval(x1, y1, x2, y2)
+create_circle(100, 100, 200)
+
+#d.1
+
+print('---Part (d.1)---')
+
+def Restaurant_price( Restaurant: float) -&gt; float:
+    "show the price field of the Restaurant"
+    return Restaurant.price
+
+from collections import namedtuple     
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match124-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+assert Restaurant_price(RC[0]) == 12.50
+assert Restaurant_price(RC[1]) == 5.50
+</FONT>
+#d.2
+
+print('--- Part (d.2)---')
+
+##RC2 = RC.sort(key=restaurant_price)
+##print(RC2)
+
+#d.3
+
+print('---Part (d.3)---')
+
+def costliest(Restaurants: str) -&gt; str:
+    " list the restaruant by name in order of costliest"
+    Restaurants.sort(key=Restaurant_price)
+    return Restaurants[-1].name
+print(costliest(RC))
+
+#d.4
+
+print('---Part(d.4)---')
+
+def costliest2(Restaurants: list) -&gt; str:
+    "list the restaurant by name in order of costliest without reordering the list by price"
+    sorted(Restaurants, key=Restaurant_price)
+    return Restaurants[-1].name
+
+print(costliest2(RC))
+
+#e
+print('---Part(e)---')
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match124-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+Book = namedtuple('Book', 'author title genre year price instock')
+
+BSI= [
+    Book("Michael Chrieton","Sphere","Academic","1994",20.00, 20),
+    Book("Jacson Wan", "LOL", "Technology","2012", 35.00, 3),
+    Book("Neilson Wong", "I Don't Know","Self-help","2011", 15.00, 15),
+    Book("Thresh Pent", "Supporting", "Academic","2013", 15.70,14),
+    Book("Kellie Won", "Only 28 Easy Recipies","Non-fiction","2007", 20.00, 28),
+    Book("Helmet Bro", "Sacrifice", "Non-fiction","2006", 50.00, 5)]
+</FONT>#e.1
+
+print('---Part(e.1)---')
+
+for i in range(0, len(BSI)):
+    print(BSI[i].title)
+
+#e.2
+
+print('---Part(e.2)---')
+
+def alphabetize(title: list)-&gt; list:
+    "alphabetize by title"
+    BSI2 = []
+    for book in BSI:
+        title = book.title
+        BSI2.append(title)
+    print(sorted(BSI2))
+        
+alphabetize(BSI)
+
+#e.3
+
+print('---Part(e.3)---')
+
+def price_increase(price: float)-&gt; float:
+    BSI3 = []
+    for book in BSI:
+        
+        price = book.price *1.1
+        BSI3.append(price) 
+    print(BSI3)
+price_increase(BSI)
+
+#e.4
+
+print('---Part(e.4)---')
+
+def techno(genre: str)-&gt;str:
+    "find technology in genres"
+    for book in BSI:
+        genre = book.genre
+        if genre == 'Technology':
+            print(book.title)
+techno(BSI)
+
+#e.5
+
+print('---Part(e.5)---')
+
+def years(years: int)-&gt; int:
+    "Finding how many books are published before or after 2000"
+    BSI4 =[]
+    BSI5 =[]
+    for book in BSI:
+        year = book.year
+        if year &lt; "2000":
+            BSI4.append(book.title)
+        else:
+            BSI5.append(book.title)
+    if len(BSI4)&gt; len(BSI5):
+        print('More titles before 2000','(',len(BSI4),'vs.', len(BSI5),')')
+    else:
+        print('More titles 2000 or later','(',len(BSI5),'vs.', len(BSI4),')')
+    
+years(BSI)    
+        
+#e.6
+
+print('---Part(e.6)---')
+
+def inventory_value(Book: list)-&gt; float:
+    "gives the value of the book"
+    BSI9 = []
+    for x in BSI:
+        x = Book.instock * Book.price
+        BSI9.append(x)
+    return x
+assert inventory_value(Book("Jacson Wan", "LOL", "Technology","2012", 35.00, 3)) == 105
+
+def top_value(books: list)-&gt; Book:
+    "gives the name of the top value of a book"
+    print
+
+top_value(BSI)
+    
+def highestbookvalue(book: Book) -&gt; str:
+    highestbookvalue = B[0]
+    for b in book:
+        if inventory_value(b) &gt; inventory_value(highestbookvalue):
+            highestbookvalue = b
+        return highestbookvalue
+    
+
+##print('The highest-value book is',top_value(BSI),'by',top_value(BSI)[0],'at a value of',highestbookvalue(BSI))
+
+#f
+
+print('---Part(f)---')
+
+def draw_eye(x1,y1 :int)-&gt;int:
+    "creates the eyes"
+    x2 = x1 + 50
+    y2 = y1 + 75
+    return my_canvas.create_oval(x1, y1, x2, y2)
+
+def draw_pupil(x1,y1: int)-&gt; int:
+    "draws the pupil for the eye"
+    x2 = x1 + 19
+    y2 = y1 + 19
+    return my_canvas.create_oval(x1, y1, x2, y2)
+
+def draw_nose(x1,y1 :int) -&gt; int:
+    "creates the nose"
+    x2 = x1 + 25
+    y2 = y1 - 25
+    x3 = x1 + 50
+    return my_canvas.create_polygon(x1, y1, x2, y2, x3, y1)
+
+def draw_mouth(x1, y1: int)-&gt; int:
+    "draw a mouth"
+    x2 = x1 + 125
+    return my_canvas.create_line(x1, y1, x2, y1)
+
+x1 = draw_eye(725, 125)
+x2 = draw_eye(800, 125)
+x3 = draw_pupil(750, 150)
+x4 = draw_pupil(825, 150)
+y = draw_nose(775,225)
+z = draw_mouth(725, 250)
+
+def draw_face(x1, x2, x3, x4, y, z: int)-&gt; int:
+    "draws a circular face"
+    x1 = draw_eye(725, 125)
+    x2 = draw_eye(800, 125)
+    x3 = draw_pupil(750, 150)
+    x4 = draw_pupil(825, 150)
+    y = draw_nose(775,225)
+    z = draw_mouth(725, 250)
+    return my_canvas.create_polygon(x1, x2, x3, x4, y, z)
+draw_face(x1, x2, x3, x4, y, z)
+tkinter.mainloop()
+</PRE>
+</PRE>
+</BODY>
+</HTML>

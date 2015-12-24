@@ -1,0 +1,199 @@
+<HTML>
+<HEAD>
+<TITLE>gcgonza1/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+gcgonza1/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Gonzalo Gonzalez Calvario 50237661
+#c1
+'''Takes variable y and check if it's in variable x; returns bool'''
+def contains(x: str , y: str) -&gt; bool:
+    if y in x:
+        return (True)
+    else:
+        return (False)
+
+assert contains('banana', 'ana') == True
+assert contains('hotdog', 'dog') == True
+assert not contains('corndog', 'cat') == True
+assert not contains('racecar', 'ck') == True
+
+#c2
+'''Takes a string and returns a new string stats'''
+letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+def sentence_stats(s: str) -&gt; str:
+    s = trans_punct_blanks(s)
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match110-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    C = 0
+    C = len(s)
+    W = len(s.split())
+    x = s.count(' ')
+    A = 0
+    A = (C - x)/ W
+</FONT>    print('Characters:  '+ str(C))
+    print('Words:  '+ str(W))
+    print('Average word length:   '+ str(A))
+'''Takes a string and returns a new string'''
+def trans_punct_blanks(s: str) -&gt; str:
+    b = ''
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match110-1.html#5" TARGET="1"><IMG SRC="../../bitmaps/tm_0_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    for i in s:
+        if i in letters:
+            b = b + i
+        else:
+            b = b + ' '
+    return b
+
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+</FONT>
+#c3
+'''Takes a string and returns index[0] of substirngs'''
+def initials(a: str)-&gt; str:
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match110-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    l = []
+    l = a.split()
+    p = ''
+    for i in l:
+        p = p + i[0].upper()
+    return p
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+</FONT>assert initials('alan turing') == 'AT'
+
+###########################################################################################
+
+
+#d1
+from random import randrange
+for i in range(50):
+    i = randrange(11)
+    h = randrange(7)
+    print (i)
+    print (h)
+
+
+#d2
+'''Takes no parameters and returns a random integer'''
+def roll2dice()-&gt; int:
+    dice1 = randrange(1,7)
+    dice2 = randrange(1,7)
+    total = (dice1 + dice2)
+    return total
+for i in range(50):
+    z = roll2dice()
+    print(z)
+
+#d3
+'''Takes list of numbers and returns them to there list'''
+def distrubution_of_rolls(num: int)-&gt;str:
+    n2 = 0
+    n3 = 0
+    n4 = 0
+    n5 = 0
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match110-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    n6 = 0
+    n7 = 0
+    n8 = 0
+    n9 = 0
+    n10 = 0
+    n11 = 0
+    n12 = 0
+    for i in range(num):
+        i = roll2dice()
+        if i == 2:
+            n2 += 1
+        elif i == 3:
+            n3 += 1
+        elif i == 4:
+            n4 += 1
+</FONT>        elif i == 5:
+            n5 += 1
+        elif i == 6:
+            n6 += 1
+        elif i == 7:
+            n7 += 1
+        elif i == 8:
+            n8 += 1
+        elif i == 9:
+            n9 += 1
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match110-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        elif i == 10:
+            n10 += 1
+        elif i == 11:
+            n11 += 1
+        elif i == 12:
+            n12 += 1
+    
+    average2 = n2/num*100
+    average3 = n3/num*100
+    average4 = n4/num*100
+    average5 = n5/num*100
+</FONT>    average6 = n6/num*100
+    average7 = n7/num*100
+    average8 = n8/num*100
+<A NAME="6"></A><FONT color = #00FF00><A HREF="match110-1.html#6" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    average9 = n9/num*100
+    average10 = n10/num*100
+    average11 = n11/num*100
+    average12 = n12/num*100
+    
+    
+    print('2:  ' + str(n2) + ' (' +    str(average2)    +  '%)    ' + print_astrids(n2))
+</FONT><A NAME="0"></A><FONT color = #FF0000><A HREF="match110-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    print('3:  ' + str(n3) + ' (' +    str(average3)    +  '%)    ' + print_astrids(n3))
+    print('4:  ' + str(n4) + ' (' +    str(average4)    +  '%)    ' + print_astrids(n4))
+    print('5:  ' + str(n5) + ' (' +    str(average5)    +  '%)    ' + print_astrids(n5))
+    print('6:  ' + str(n6) + ' (' +    str(average6)    +  '%)    ' + print_astrids(n6))
+    print('7:  ' + str(n7) + ' (' +    str(average7)    +  '%)    ' + print_astrids(n7))
+    print('8:  ' + str(n8) + ' (' +    str(average8)    +  '%)    ' + print_astrids(n8))
+    print('9:  ' + str(n9) + ' (' +    str(average9)    +  '%)    ' + print_astrids(n9))
+    print('10:  ' + str(n10) + ' (' +    str(average10)    +  '%)    ' + print_astrids(n10))
+    print('11:  ' + str(n11) + ' (' +    str(average11)    +  '%)    ' + print_astrids(n11))
+    print('12:  ' + str(n12) + ' (' +    str(average12)    +  '%)    ' + print_astrids(n12))
+    print('-------------------------------------------------------------------------')
+    print('              '+str(num)+ '           rolls')
+</FONT>'''Returns a string of integer'''
+def print_astrids(num: int)-&gt; str:
+    v = ''
+    for i in range(num):
+        v = v + '*'
+    return v
+distrubution_of_rolls(200)
+
+##########################################################################################
+#e1
+'''Takes sting and int and returns a string'''
+##def caesar_encrypt(x: str, y: int) -&gt; str:
+x = input('Enter a Sentence: ')
+y = input('Enter a Number: ')
+s = int(y)
+l = list(x)
+msg  = '' 
+
+alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m',
+          'n','o','p','q','r','s','t','u','v','w','x','y','z']
+
+for letter in l:
+    if letter in alphabet:
+        index1 = alphabet.index(letter)
+        index2 = (index1 + s) % len(alphabet)
+        letter2 = alphabet[index2]
+    else:
+        letter2 = letter
+    msg += letter2
+    print(msg)
+
+        
+</PRE>
+</PRE>
+</BODY>
+</HTML>

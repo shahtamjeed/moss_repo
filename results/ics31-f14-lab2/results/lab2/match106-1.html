@@ -1,0 +1,313 @@
+<HTML>
+<HEAD>
+<TITLE>amansoor/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+mcatangh/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Vanessa Kao 46529418 Margarette Catanghal 90338978 ICS Lab sec 6 Lab Asst 2.
+
+#c
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match106-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('How many hours?')
+hours = int(input())
+print('This many hours:', hours)
+print('How many dollars per hours?')
+rate = int(input())
+print('This many dollars per hour:', rate)
+print('Weekly salary:  ', hours * rate)
+print()
+
+#c.1) Modify c
+hours = int(input('How many hours? '))
+print('This many hours: ', hours)
+rate = int(input('How many dollars per hour? '))
+print('This many dollars per hour:  ', rate)
+print('Weekly salary:  ', hours * rate)
+print()
+#i. user types on same line
+#ii. combine, more concise / less lines
+
+#c.1 with dollar signs
+hours = int(input('How many hours? '))
+</FONT>print('This many hours:', hours)
+rate = int(input('How many dollars per hour? $'))
+print('This many dollars per hour:  $', rate)
+print('Weekly salary:  $', hours * rate)
+print()
+
+
+#c.2 user types on same line
+name = input('Hello. What is your name? ')
+print('Hello,', name)
+print('It\'s nice to meet you.')
+age = int(input('How old are you? '))
+new_age = int(age + 1)
+print('Next year you will be ', new_age, ' years old.')
+print('Good-bye!')
+print()
+
+#d Foreign currency conversion
+'''Krone constants'''
+KRONE_PER_EURO = 7.46
+KRONE_PER_POUND = 8.81
+KRONE_PER_DOLLAR = 5.50
+''''''''''''''''''''''''
+
+'''user inputs information'''
+print('Please provide this information:')
+business_name = input('Business name: ')
+num_euros = int(input('Number of euros: '))
+num_pounds = int(input('Number of pounds: '))
+num_dollars = int(input('Number of dollars: '))
+print()
+
+print('Copenhagen Chamber of Commerce')
+print('Business name: ', business_name)
+
+euro_to_krone = num_euros * KRONE_PER_EURO
+pounds_to_krone = num_pounds * KRONE_PER_POUND
+dollars_to_krone = num_dollars * KRONE_PER_DOLLAR
+
+print(num_euros, 'euros is', euro_to_krone, 'krone')
+print(num_pounds, 'pounds is', pounds_to_krone, 'krone')
+print(num_dollars, 'dollars is', dollars_to_krone, 'krone')
+print()
+
+total_krone = euro_to_krone + pounds_to_krone + dollars_to_krone
+print('Total krone:', total_krone)
+print()
+
+
+#e book namedtuple
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+
+print('Part e')
+
+#e.1 print book title
+print('The title of the book in the variable still_another is ', still_another.title)
+
+#e.2 print book price
+print('The price of the book Memoirs of Sherlock Holmes is ', another.price)
+
+#e.3 average three books
+averageThreeBooks = (favorite.price + another.price + still_another.price)/3
+print('The average price of all three books is ', averageThreeBooks)
+
+#e.4 
+'''True or False, publication year of the book in the variable
+                  favorite is before 1900.'''
+print(favorite.year &lt;= 1900)
+
+#e.5 change price of book
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 26.00)
+print('Return of Sherlock Holmes new price: ', still_another.price)
+
+#e.6 change price by increasing it 20%
+twenty_percent = still_another.price *.20
+new_price = still_another.price + twenty_percent
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, new_price)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match106-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print('Return of Sherlock Holmes new price: ', still_another.price)
+print()
+
+
+#f animal namedtuple
+from collections import namedtuple
+Animal = namedtuple('Animal', 'name species age weight favfood')
+#(i)
+elephant = Animal('Jumbo', 'elephant', 50, 1000, 'peanuts')
+#(ii)
+platypus = Animal('Perry', 'platypus', 7, 1.7, 'shrimp')
+
+print(elephant.weight &lt; platypus.weight)
+print()
+
+#g create list of books objects
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+</FONT>still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+booklist = [favorite, another, still_another]
+print()
+
+#g.1 compare book prices
+print(booklist[0].price &lt; booklist[1].price)
+print()
+
+#g.2 compare book publication year
+print(booklist[0].year &lt; booklist[-1].year)
+print()
+
+#h Restaurant namedtuple
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+#h.1 print name of third restaurant
+print(RL[2].name)
+print()
+
+#h.2 compare cuisine
+print(RL[0].cuisine == RL[3].cuisine)
+print()
+
+#h.3 price of best dish of the last restaurant
+print(RL[-1].price)
+print()
+
+#h.4 sort alphabetically
+RL.sort()
+print(RL)
+print()
+
+#h.5  The best dish at the restaurant whose name is alphabetically last
+RL.sort()
+print(RL[-1].dish)
+print()
+
+#h.6  A new list containing 4 restaurants: the first two alphabetically and the last two alphabetically 
+RL.sort()
+NewList = list((RL[0], RL[1], RL[-2], RL[-1]))
+print(NewList)
+print()
+
+print('Part i')
+
+#i.1
+'''square'''
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_rectangle(0, 200, 200, 0, fill='orange') # Draw orange rectangles
+
+#tkinter.mainloop()          # Combine all the elements and display the window
+
+#i.2
+'''diamond'''
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=1000, height=1000)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(300, 100, 100, 300, fill='orange') # Draw orange line
+my_canvas.create_line(300, 100, 500, 300, fill='blue') # Draw blue line
+my_canvas.create_line(100, 300, 300, 500, fill='red') # Draw red line
+my_canvas.create_line(500, 300, 300, 500, fill='black') # Draw black line
+
+
+#tkinter.mainloop()          # Combine all the elements and display the window
+
+#i.3
+'''house'''
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=1000, height=1000)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_line(300, 100, 100, 300, fill='orange') # Draw orange line
+my_canvas.create_line(300, 100, 500, 300, fill='blue') # Draw blue line
+my_canvas.create_rectangle(100, 300, 500, 500, fill='white') # Draw wall rectangle
+my_canvas.create_rectangle(250, 350, 350, 500, fill='white') #draw door rectangle
+my_canvas.create_rectangle(120, 320, 220, 370, fill='white') #draw window rectangle
+#tkinter.mainloop()          # Combine all the elements and display the window
+
+#i.4
+'''eye'''
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=500, height=500)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_oval(100, 200, 400, 400, fill = 'white') #outline of the eye
+my_canvas.create_oval(180, 200, 320, 400, fill = 'blue') #iris
+my_canvas.create_oval(200, 250, 300, 350, fill = 'black') #pupil
+    
+
+#i.5 OPTIONAL
+'''iPhone 4s'''
+import tkinter              # Load the library; do this just once per program
+
+my_window = tkinter.Tk()    # Create the graphics window
+
+my_canvas = tkinter.Canvas(my_window, width=800, height=800)  # Create a 500x500 canvas to draw on
+my_canvas.pack()            # Put the canvas into the window
+
+my_canvas.create_rectangle(50, 100, 300, 500, fill='white') #phone outline
+my_canvas.create_rectangle(70, 150, 280, 450, fill='white') #screen
+my_canvas.create_rectangle(150, 125, 200, 130, fill='white') #speaker
+my_canvas.create_oval(135, 125, 140, 130, fill='black') #camera
+my_canvas.create_oval(155, 455, 190, 490, fill='white') #home button
+my_canvas.create_rectangle(165, 465, 180, 480, fill='white') #home button square
+
+'''enter password button'''
+my_canvas.create_oval(105, 250, 140, 285, fill='white') #button 1
+my_canvas.create_text(123, 268, text = '1')
+
+my_canvas.create_oval(155, 250, 190, 285, fill='white') #button 2
+my_canvas.create_text(173, 268, text = '2')
+
+my_canvas.create_oval(205, 250, 240, 285, fill='white') #button 3
+my_canvas.create_text(223, 268, text = '3')
+
+my_canvas.create_oval(105, 300, 140, 335, fill='white') #button 4
+my_canvas.create_text(123, 318, text = '4')
+
+my_canvas.create_oval(155, 300, 190, 335, fill='white') #button 5
+my_canvas.create_text(173, 318, text = '5')
+
+my_canvas.create_oval(205, 300, 240, 335, fill='white') #button 6
+my_canvas.create_text(223, 318, text = '6')
+
+my_canvas.create_oval(105, 350, 140, 385, fill='white') #button 7
+my_canvas.create_text(123, 368, text = '7')
+
+my_canvas.create_oval(155, 350, 190, 385, fill='white') #button 8
+my_canvas.create_text(173, 368, text = '8')
+
+my_canvas.create_oval(205, 350, 240, 385, fill='white') #button 9
+my_canvas.create_text(223, 368, text = '9')
+
+my_canvas.create_oval(155, 400, 190, 435, fill='white') #button 0
+my_canvas.create_text(173, 418, text = '0')
+
+my_canvas.create_text(170, 235, text = 'Enter password')
+
+tkinter.mainloop()          # Combine all the elements and display the window
+</PRE>
+</PRE>
+</BODY>
+</HTML>

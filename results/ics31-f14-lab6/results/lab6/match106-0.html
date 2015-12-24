@@ -1,0 +1,331 @@
+<HTML>
+<HEAD>
+<TITLE>pbgalici/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+pbgalici/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Patrick Galicia 61968926 and Calvin Nguyen 74051347. ICS 31 Lab sec 7. Lab asst 6.
+
+#c
+print('------- Part (c) -------')
+print()
+
+#c.1
+print('~c.1~')
+print()
+def contains(a:str, b:str)-&gt;str:
+    ''' Take the second str and return True if that series of letters is in first str '''
+    return b in a
+print(contains('banana', 'ana'))
+print(contains('racecar', 'ck'))
+print(contains('apple', 'ple'))
+print(contains('speedy', 'pea'))
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+assert contains('apple', 'ple')
+assert not contains('speedy', 'pea')
+
+print()
+
+#c.2
+print('~c.2~')
+print()
+def no_punctuation(a:str)-&gt;str:
+    ''' Removing the punctuation in a str '''
+    a = a.replace('*', '')
+    a = a.replace('?', '')
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match106-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    a = a.replace('!', '')
+    a = a.replace(':', '')
+    a = a.replace('  ', ' ')
+    a = a.replace('.', '')
+    return a
+
+def average_word_length(a:str, b:int)-&gt;float:
+    ''' Return the average word length '''
+</FONT><A NAME="0"></A><FONT color = #FF0000><A HREF="match106-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    new = []
+    x = 0
+    y = 0
+    length = 0
+    while (y != -1):
+         y = a.find(' ',x + 1)
+         if(y == -1):
+             new.append(a[x:].strip())
+         else:
+             new.append(a[x:y].strip())
+         x = y     
+    for i in range(b):
+        length += len(new[i])
+    answer = length/b
+    return answer
+</FONT>
+def sentence_stats(a:str):
+    ''' Return the str's length of characters, length of words, and average word length '''
+    word = no_punctuation(a)
+    length = word.count(" ") + 1
+    print('Characters: ' + str(len(a)))
+    print('Words: ' + str(length))
+    print('Average word length: ' + str(average_word_length(word,length)))
+    
+
+
+sentence_stats('I love UCI')
+print()
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+
+print()
+
+#c.3
+print('~c.3~')
+print()
+def initials(a:str)-&gt;str:
+    ''' Return the initials of someone's name '''
+    result = ''
+    for x in a.split():
+        result += x[0]
+    return result.upper()
+print(initials('Bill Cosby'))
+print(initials('Guido van Rossum'))
+print(initials('alan turning'))
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+print()
+
+#d
+print('------- Part (d) -------')
+print()
+
+#d.1
+print('~d.1~')
+print()
+from random import randrange
+print('Print 50 random numbers ranging from 0 to 10')
+for x in range(0, 50):
+    print(randrange(0, 11), end = ' ')
+
+print('\n')
+
+print('Print 50 random numbers ranging from 0 to 6')
+for x in range(0, 50):
+    print(randrange(0, 7), end = ' ')
+
+print('\n')
+
+#d.2
+print('~d.2~')
+print()
+def roll2dice()-&gt;int:
+    ''' Print 1 random number from 2 to 12 '''
+    return randrange(1, 7) + randrange(1, 7)
+print(roll2dice())
+
+print()
+
+#d.3
+print('~d.3~')
+print()
+def distribution_of_rolls(a:int)-&gt;str:
+    ''' Takes the number of rolls and show how many times that number showed up in a roll '''
+    result = [ ]
+    print ('Distribution of dice rolls \n')
+    for x in range(0, a):
+        result.append(roll2dice())
+    for i in range(2, 13):
+        number = result.count(i)
+        print ('{0:4}:   {1:4}  ( {2:4}%)  {3:5}'.format(i, number, number/a, '*' * number))
+    print('-----------------------------')
+    print('         ' + str(a) + ' rolls')
+distribution_of_rolls(200)
+
+print()
+
+#e
+print('------- Part (e) -------')
+print()
+
+#e.1
+print('~e.1~')
+print()
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def Caesar_encrypt (x: str, y: int) -&gt; str:
+    'Return a Caesar cipher of the string'
+    change = str.maketrans(alphabet, alphabet[y:26] + alphabet[0:y])
+    return x.translate(change)
+        
+print(Caesar_encrypt('i have diamond underwear', 1))
+print(Caesar_encrypt('i am michael jackson', 12))
+print(Caesar_encrypt('to beat hitler, we ust use caesar cipher', 20))
+
+assert Caesar_encrypt('i have diamond underwear', 1) == 'j ibwf ejbnpoe voefsxfbs'
+assert Caesar_encrypt('i am michael jackson', 12) == 'u my yuotmqx vmoweaz'
+assert Caesar_encrypt('to beat hitler, we ust use caesar cipher', 20) == 'ni vyun bcnfyl, qy omn omy wuymul wcjbyl'
+
+print()
+
+def Caesar_decrypt (x: str, y: int) -&gt; str:
+    'Returns decrypted message'
+    change = str.maketrans(alphabet[y:26] + alphabet[0:y], alphabet)
+    return x.translate(change)
+
+print(Caesar_decrypt('j ibwf ejbnpoe voefsxfbs', 1))
+print(Caesar_decrypt('u my yuotmqx vmoweaz', 12))
+print(Caesar_decrypt('ni vyun bcnfyl, qy omn omy wuymul wcjbyl', 20))
+
+assert Caesar_decrypt('j ibwf ejbnpoe voefsxfbs', 1) == 'i have diamond underwear'
+assert Caesar_decrypt('u my yuotmqx vmoweaz', 12) == 'i am michael jackson'
+assert Caesar_decrypt('ni vyun bcnfyl, qy omn omy wuymul wcjbyl', 20) == 'to beat hitler, we ust use caesar cipher'
+
+print()
+
+#e.2
+print('~e.2~')
+print()
+print('E.2 IS DONE ONLINE AS A TEST IF MY PARTNER CAN FIGURE OUT MY CODE(ENCRYPTION)')
+print()
+
+#e.3
+print('~e.3~')
+print()
+def Caesar_encrypt (x: str, y: int) -&gt; str:
+    'Return a Caesar cipher of the string'
+    y = y%26
+    change = str.maketrans(alphabet, alphabet[y:26] + alphabet[0:y])
+    return x.translate(change)
+        
+print(Caesar_encrypt('i wish my school has a football team', 27))
+print(Caesar_encrypt('my cousin wants to skip school', 30))
+print(Caesar_encrypt('my gf does not want to go back home', 45))
+
+assert Caesar_encrypt('i wish my school has a football team', 27) == 'j xjti nz tdippm ibt b gppucbmm ufbn'
+assert Caesar_encrypt('my cousin wants to skip school', 30) == 'qc gsywmr aerxw xs womt wglssp'
+assert Caesar_encrypt('my gf does not want to go back home', 45) == 'fr zy whxl ghm ptgm mh zh utvd ahfx'
+
+print()
+
+def Caesar_decrypt (x: str, y: int) -&gt; str:
+    'Returns decrypted message'
+    y = y%26
+    change = str.maketrans(alphabet[y:26] + alphabet[0:y], alphabet)
+    return x.translate(change)
+print (Caesar_decrypt('j xjti nz tdippm ibt b gppucbmm ufbn', 27))
+print (Caesar_decrypt('qc gsywmr aerxw xs womt wglssp', 30))
+print (Caesar_decrypt('fr zy whxl ghm ptgm mh zh utvd ahfx', 45))
+
+assert Caesar_decrypt('j xjti nz tdippm ibt b gppucbmm ufbn', 27) == 'i wish my school has a football team'
+assert Caesar_decrypt('qc gsywmr aerxw xs womt wglssp', 30) == 'my cousin wants to skip school'
+assert Caesar_decrypt('fr zy whxl ghm ptgm mh zh utvd ahfx', 45) == 'my gf does not want to go back home'
+
+print()
+
+#f
+print('------- Part (f) -------')
+print()
+quote = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+
+print()
+
+
+#f.1
+print('~f.1~')
+print()
+def print_line_numbers(a:list)-&gt;str:
+    ''' Prints each string preceded by a line number '''
+    for x in range(0, len(a)):
+        print('{:2}: {:2}'.format(x + 1, a[x]))
+print_line_numbers(quote)
+
+print()
+
+#f.2
+print('~f.2~')
+print()
+def character(a:list)-&gt;list:
+    ''' Return just the characters '''
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match106-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    result = [ ]
+    for i in range(len(a)):
+        result.append(a[i].replace(' ',''))
+        result[i] = a[i].replace('\t','') and no_punctuation(a[i].strip())
+</FONT>    return result
+
+def stats(a:list)-&gt;str:
+    ''' Print this: lines in the list, empty lines, average characters per line, average characters per non-empty line '''
+    whole_list = ' '
+    number_of_lines = len(a)
+    empty_lines = 0
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match106-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    my_list = character(a)
+    for i in range(len(a)):
+        if a[i].isspace():
+            empty_lines += 1
+        whole_list += my_list[i]
+    print('{0:5} lines in the list'.format(number_of_lines))
+    print('{0:5} empty lines'.format(empty_lines))
+    print('{0:5} average characters per line'.format(len(whole_list) / number_of_lines + empty_lines))
+    print('{0:5} average characters per non-empty line'.format(len(whole_list) / number_of_lines))
+</FONT>
+stats(quote)
+
+print()
+
+#f.3
+print('~f.3~')
+print()
+
+def list_of_words(a:list)-&gt;list:
+    ''' Return the list but just the words, no punctuation '''
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match106-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    new = character(a)
+    result = [ ]
+    for i in new:
+        x = 0
+        y = 0
+        for j in range(len(a)):
+            while (y != -1):
+                y = i.find(' ',x + 1)
+                if(y == -1):
+                    result.append(i[x:].strip())
+                else:
+                    result.append(i[x:y].strip())
+                x = y
+    return result
+
+print(list_of_words(quote))
+</FONT>
+print()
+    
+
+
+
+
+
+
+
+
+
+
+
+       
+</PRE>
+</PRE>
+</BODY>
+</HTML>

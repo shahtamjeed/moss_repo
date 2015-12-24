@@ -1,0 +1,230 @@
+<HTML>
+<HEAD>
+<TITLE>annievt1/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+annievt1/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# David Santana 69455174 and Annie Tran 33579687. ICS 31 Lab sec 3. Lab asst 7.
+
+# Note to Grader: c.1 comes after c.2 and c.3
+
+#
+#
+# Part c.2 and c.3
+#
+#
+
+print('\n\n')
+print('-----Part c.2 and c.3-----')
+print('\n\n')
+
+def random_namehelper(x:'One of the three name lists') -&gt; 'Randomly generated name':
+    ''' Randomly generates a name from one of the list given'''
+    from random import randrange
+    return x[randrange(0,(len(x)))]
+
+def random_name() -&gt; 'randomly generated fullname':
+    ''' Generates a single random name—a random surname, a random choice of
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match153-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        male or female, and a random first name chosen from that list.'''
+
+    infile = open('surnames.txt','r')
+    surnames = infile.readlines()
+    infile.close()
+
+    infile = open('femalenames.txt','r')
+    femalenames = infile.readlines()
+    infile.close()
+
+    infile = open('malenames.txt','r')
+    malenames = infile.readlines()
+    infile.close()
+
+    surname_result = [] 
+    for i in surnames:
+</FONT>        x = i.split()
+        surname_result.append(x[0].title())
+        
+    femalenames_result = []
+    for i in femalenames:
+        x = i.split()
+        femalenames_result.append(x[0].title())
+        
+    malenames_result = []
+    for i in malenames:
+        x = i.split()
+        malenames_result.append(x[0].title())
+
+    from random import randrange
+    sex = randrange(0,2)
+    space = ' '
+    if sex == 0:
+        fullname = random_namehelper(malenames_result) + space + random_namehelper(surname_result)
+    else:
+        fullname = random_namehelper(femalenames_result) + space + random_namehelper(surname_result)
+    return fullname
+
+#
+#
+# Part c.1
+#
+#
+
+print('\n\n')
+print('-----Part c.1-----')
+print('\n\n')
+
+result = []
+def random_names(x:int)-&gt; 'List with that many strings':
+    ''' Takes an integer and returns a list of that many strings,
+        with each string a randomly generated name as described above.'''
+    for i in range(x):
+        result.append(random_name())
+    return result
+    
+#
+#
+# Part d.1
+#
+#
+
+print('\n\n')
+print('-----Part d.1-----')
+print('\n\n')
+
+
+
+alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+
+def rotated_alphabet(x:str,y:int)-&gt; str:
+    '''Returns x with its letters moved down the alphabet by y letters'''
+    result = ''
+    change = len(x)
+    for i in range(change):
+        if y + i &lt; change:
+            result += x[y + i]
+        if y + i &gt;= change:
+            result += x[y + i - change]
+    return result.lower()
+
+def Caesar_encrypt(x:str, y:int)-&gt;str:
+    '''Takes two arguments - a string containing the message and an int for
+    the key indicating how far down the alphabet to find each substitute letter.
+    Returns the ciphertext'''
+    table = str.maketrans(alphabet, rotated_alphabet(alphabet,y))
+    return x.translate(table).lower()
+
+def Caesar_break(x: str) -&gt; str:
+    '''Takes a ciphertext string and returns the plaintext for that string
+    without having the key'''
+
+    infile = open("wordlist.txt", 'r')
+    wordlist = []
+    for word in infile.readlines():
+        wordlist.append(word.strip())
+    infile.close()
+
+    table = str.maketrans(".,!?'", '     ')
+    x = x.translate(table)
+    x.split() 
+
+    for i in range(26): 
+        if Caesar_encrypt(x, i) in wordlist:
+            return Caesar_encrypt(x, i)
+        
+print(Caesar_encrypt('apple', 10))
+
+print(Caesar_break('kzzvo'))
+
+        
+#
+#
+# Part d.2
+#
+#
+
+print('\n\n')
+print('-----Part d.2-----')
+print('\n\n')
+
+
+#David's encrypted message: chjon = input
+print(Caesar_break('chjon'))
+
+print()
+
+#Annie's encrypted message: ivkpwdqma = anchovies
+print(Caesar_break('ivkpwdqma')) 
+
+
+#
+#
+# Part e.1 through e.4
+#
+#
+
+print('\n\n')
+print('-----Part e.1 through e.4-----')
+print('\n\n')
+
+
+def copyfile(x:str):
+    ''' Take one parameter, a string. If the parameter is 'line numbers',
+        the copied file includes line numbers at the start of each line '''
+
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match153-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    outfile = open(outfile_name, 'w')
+
+    if x == 'line numbers':
+        w = infile.readlines()
+        for i in range(len(w)):
+            outfile.write('{:5}: {}'.format(i+1, w[i]))
+</FONT>
+    elif x == 'Gutenberg trim':
+        beg = 0
+        end = 0
+        w = infile.readlines()
+        for i in range(len(w)):
+            if '*** START' in w[i]:
+                beg = i
+            if '*** END' in w[i]:
+                end = i
+                break
+        for i in w[beg+1:end]:
+            outfile.write(i)
+
+    elif x == 'statistics':
+      characters = 0
+      w = infile.readlines()
+      for c in w:
+         characters += len(c)
+      if len(w) &gt; 0:
+         average_lines = characters/(len(w))
+         average_of_non_empty = characters/(len(w)-w.count(""))
+      else:
+         average_lines = 0
+         average_of_non_empty = 0
+      print("{0:5}   lines in the list\n{1:5}   empty lines\n{2:7.1f} average characters per line\n{3:7.1f} average characters per non-empty line".format(len(w), w.count(""), average_lines, average_of_non_empty))
+      with open(infile_name) as d:
+         for string in d:
+            outfile.write(string)
+        
+    else:
+        for line in infile:
+            outfile.write(line)
+
+    infile.close()
+    outfile.close()
+
+copyfile('statistics')
+</PRE>
+</PRE>
+</BODY>
+</HTML>

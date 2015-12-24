@@ -1,0 +1,187 @@
+<HTML>
+<HEAD>
+<TITLE>kevanhn/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+kevanhn/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Kevan Hong-Nhan Nguyen 71632979 and Elisha Chen 15173135.  ICS 31 Lab sec 16.  Lab asst 7.
+
+print()
+print()
+print('---------- Part (c) ----------')
+print()
+
+from random import randrange
+
+infile = open('surnames.txt', 'r')
+surnames = infile.readlines()
+infile = open('femalenames.txt', 'r')
+femalenames = infile.readlines()
+infile = open('malenames.txt', 'r')
+malenames = infile.readlines()
+infile.close()
+
+def random_names(num: int) -&gt; [str]:
+    ''' Returns a list of specified number of random names '''
+    namelist = []
+
+    for i in range(num):
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match131-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        lastname = surnames[randrange(len(surnames))].split()[0]
+        rand = randrange(2) # 0 for male name, 1 for female name
+        if rand == 0:
+            firstname = malenames[randrange(len(malenames))].split()[0]
+        else:
+            firstname = femalenames[randrange(len(femalenames))].split()[0]
+        name = lastname + ', ' + firstname
+</FONT>        namelist.append(name)
+
+    return namelist
+
+print('List of 5 random names:')
+print(random_names(5))
+print()
+print('List of 20 random names:')
+print(random_names(20))
+    
+
+    
+
+print()
+print()
+print('---------- Part (d) ----------')
+print()
+
+from string import *    # Imported to use its maketrans() function
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+infile = open('wordlist.txt', 'r')
+wordlist = infile.read().split()
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match131-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def rotated_alphabet(num: int) -&gt; str:
+    ''' Returns a rotated alphabet with specified number of characters taken off front '''
+    return ALPHABET[num%26:] + ALPHABET[:num%26]
+
+def Caesar_encrypt(str1: str, num: int) -&gt; str:
+    ''' Returns the ciphertext of the given plaintext '''
+    str1 = str1.lower()
+</FONT>    return str1.translate(str1.maketrans(ALPHABET, rotated_alphabet(num)))
+            
+def Caesar_decrypt(str1: str, num: int) -&gt; str:
+    ''' Returns the plaintext of the given ciphertext '''
+    return str1.translate(str1.maketrans(rotated_alphabet(num), ALPHABET))
+
+
+def Caesar_break(ciphertext: str) -&gt; str:
+    ''' Converts ciphertext into plaintext without given key'''
+    rotation_number = 0
+    hits = 0
+    for i in range(26):
+        temp_hits = 0
+        for word in Caesar_decrypt(ciphertext, i).split():
+            if word in wordlist:
+                temp_hits += 1
+        if temp_hits &gt; hits:
+            hits = temp_hits
+            rotation_number = i
+
+    return Caesar_decrypt(ciphertext, rotation_number)
+
+test1 = 'hello sir, how are you doing today?'
+print('Plaintext:', test1)
+ciphertext1 = Caesar_encrypt(test1, 9)
+print('Ciphertext (key = 9):', ciphertext1)
+print('Caesar_break results:', Caesar_break(ciphertext1))
+print()
+test2 = 'really glad to meet a person like yourself'
+print('Plaintext:', test2)
+ciphertext2 = Caesar_encrypt(test2, 17)
+print('Ciphertext (key = 17):', ciphertext2)
+print('Caesar_break results:', Caesar_break(ciphertext2))
+
+
+
+
+print()
+print()
+print('---------- Part (e) ----------')
+print()
+
+def stats(str_list: list) -&gt; None:
+    '''Takes a list of strings and prints the number of lines in the list,
+    the number of empty lines, the average characters per line,
+    and average characters per non-empty line'''
+    print('{:6d}   lines in the file'.format(len(str_list)))
+    empty = str_list.count('\n')
+    empty += str_list.count('')
+    print('{:6d}   empty lines'.format(empty))
+    total = 0
+    for line in str_list:
+        total += len(line)
+    print('{:8.1f} average characters per line'.format(total/len(str_list)))
+    print('{:8.1f} average characters per non-empty line'.format(total/(len(str_list)-empty)))
+
+def copy_file() -&gt; None:
+    ''' Copies a file, line by line '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+def copy_file(string: str) -&gt; None:
+    ''' copy_file() function with more features. Varies from the original
+        copy_file() function if the given string parameter is either
+        'line numbers', 'Gutenberg trim', or 'statistics' '''
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors = 'ignore')
+    outfile_name = input("Please enter the name of the new copy: ")
+    outfile = open(outfile_name, 'w')
+    
+    if string == 'line numbers':
+        index = 1
+        for line in infile:
+            outfile.write('{:5d}: '.format(index))
+            outfile.write(line)
+            index += 1
+    elif string == 'Gutenberg trim':
+        can_copy = False
+        for line in infile:
+            if '*** START' in line:
+                can_copy = True
+                continue
+            elif '*** END' in line:
+                break
+            if can_copy:
+                outfile.write(line)
+            
+    elif string == 'statistics':
+        temp_file = []
+        for line in infile:
+            temp_file.append(line)
+            outfile.write(line)
+        stats(temp_file)
+    else:
+        for line in infile:
+            outfile.write(line)
+
+    infile.close()
+    outfile.close()
+
+
+### TESTING THE copy_file() FUNCTION ###
+string = input("Please enter the type of copy_file() you'd like\n('line numbers', 'Gutenberg trim', 'statistics', or any string for default): ")
+copy_file(string)
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

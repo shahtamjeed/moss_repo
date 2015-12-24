@@ -1,0 +1,243 @@
+<HTML>
+<HEAD>
+<TITLE>rjmcgrat/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+rjmcgrat/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab3.py
+# Jimmy Yue 77128072 and Rodney McGrath 55352053. ICS 31 sec 14. Lab asst 3.
+#
+#
+#Part (C)
+#
+#
+print('\n')
+print('----- Part (c) -----')
+print()
+
+#1
+def abbreviate(month: str) -&gt; str:
+    return month[:3]
+assert abbreviate('January') == 'Jan'
+assert abbreviate('abril') == 'abr'
+'''print(abbreviate('February'))'''
+#print statements are for extra testing
+
+#2 
+def find_area_square(side: int) -&gt; int:
+    return side * side
+assert find_area_square(1) == 1
+assert find_area_square(5) == 25
+'''print(find_area_square(3))'''
+
+#3
+def find_area_circle(radius: int) -&gt; float:
+    return 3.14159 * (radius ** 2)
+assert find_area_circle(1) == 3.14159
+assert find_area_circle(5) == 78.53975
+'''print(find_area_circle(2))'''
+
+#4
+def print_even_numbers(iList: int):
+    for x in iList:
+        if x % 2 == 0:
+            print(x)
+    return
+print_even_numbers([2, 47, 31, 99, 20, 19, 23, 105, 710, 1004])
+
+#5
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match111-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def calculate_shipping(weight: float) -&gt; float:
+    if weight &lt; 2:
+        return 2.00
+    elif weight &gt;= 2 and weight &lt; 10:
+        return 5.00
+</FONT>    else:
+        return 5.00 + (weight - 10) * 1.50
+assert calculate_shipping(1.5) == 2.00
+assert calculate_shipping(7) == 5.00
+assert calculate_shipping(15) == 12.50
+assert calculate_shipping(2) == 5.00
+'''print(calculate_shipping(4))'''
+
+#6
+import tkinter
+my_window = tkinter.Tk()
+my_canvas = tkinter.Canvas (my_window, width=500, height=500)
+my_canvas.pack()
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match111-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def create_square(x: int, y: int, side: int):
+    my_canvas.create_rectangle(x, y, x + side, y + side)
+    # tkinter.mainloop() # disabled so that square and circle will launch at same time
+    return
+create_square(100, 100, 200)
+</FONT>
+#7
+#You must close the square tkinter window for the circle to pop up
+my_window1 = tkinter.Tk()
+my_canvas1 = tkinter.Canvas (my_window1, width=500, height=500)
+my_canvas1.pack()
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match111-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def create_circle(x: int, y: int, diameter: int):
+    my_canvas1.create_oval(x, y, x + diameter, y + diameter)
+    #tkinter.mainloop()
+    return
+create_circle(100, 100, 200)
+</FONT>
+#
+#
+# Part (d)
+#
+#
+print('\n')
+print('----- Part (d) -----')
+print()
+
+#d.1
+from collections import namedtuple     
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RC = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+
+def restaurant_price(restaurant: Restaurant) -&gt; float:
+    return restaurant.price
+assert restaurant_price(Restaurant("Asdf", "asdf", "asdf", "asdf", 5.00)) == 5.00
+
+for r in RC:
+    print (restaurant_price(r))
+    
+#d.2
+RC.sort(key = restaurant_price)
+for r in RC:
+    print (restaurant_price(r))
+
+#d.3
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match111-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def costliest(restaurant: Restaurant) -&gt; str:
+    restaurant.sort(key = restaurant_price)
+    restaurant.reverse()
+    return restaurant[0].name
+print(costliest(RC))
+</FONT>assert costliest(RC) == 'Noma'
+
+#d.4
+def costliest2(restaurant: Restaurant) -&gt; str: 
+    return sorted(restaurant, key = restaurant_price, reverse = True)[0].name
+print(costliest2(RC))
+assert costliest2(RC) == 'Noma'
+
+#
+#
+# Part (e)
+#
+#
+print('\n')
+print('----- Part (e) -----')
+print()
+
+#e.1
+Book = namedtuple ('Book', 'author title genre year price instock')
+BSI = [Book('Steinbeck', 'Of Mice and Men', 'Historical Fiction', 1910, 50.00, 5),
+       Book('Shakespeare', 'Hamlet', 'Play', 1700, 20.00, 6),
+       Book('Smith', 'Johnny', 'Nonfiction', 2001, 65.65, 2),
+       Book('Rogers', 'The Crow', 'Short Story', 2006, 10.50, 1),
+       Book('Arkens', 'The Lily', 'Poem', 1400, 1.25, 20),
+       Book('Harron', 'People Illustrated', 'Technology', 1986, 2.50, 25) ]
+for book in BSI:
+    print (book.title)
+
+#e.2
+def book_name (book:Book) -&gt; str:
+    return book.title
+for book in sorted(BSI, key = book_name):
+    print (book.title)
+
+#e.3
+for book in BSI:
+    book = book._replace (price = book.price * 1.1)
+    print (book.price)
+
+#e.4
+for book in BSI:
+    if book.genre == 'Technology':
+        print (book.title)
+
+#e.5
+post2000 = []
+pre2000 = []
+sumPre = 0
+sumPost = 0
+for book in BSI:
+    if book.year &lt; 2000:
+        pre2000.append(book)
+    if book.year &gt;= 2000:
+        post2000.append(book)
+for book in pre2000:
+    sumPre = sumPre + book.instock
+for book in post2000:
+    sumPost = sumPost + book.instock
+if sumPre &gt; sumPost:
+    print("More titles before 2000 (", sumPre, " vs. ", sumPost, ")", sep='')
+if sumPost &gt;= sumPre:
+    print("More titles 2000 or later (", sumPost, " vs. ", sumPre, ")", sep='')
+
+#e.6
+def inventory_value(book: Book)-&gt; float:
+    return book.price * book.instock
+def top_value(BL: Book)-&gt; Book:
+    return sorted(BL, key = inventory_value, reverse = True)[0]
+print("The highest-value book is ", top_value(BSI).title, " by ", top_value(BSI).author," at a value of $ ", "%.2f" % inventory_value(top_value(BSI)),".", sep='')
+
+#f
+my_window3 = tkinter.Tk()
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match111-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_2.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+my_canvas3 = tkinter.Canvas (my_window3, width=1200, height=1200)
+my_canvas3.pack()
+def draw_eye(x1: int, y1: int, x2: int, y2: int):
+    my_canvas3.create_oval(x1, y1, x2, y2, fill = 'white')
+</FONT>    my_canvas3.create_oval(x1 * 1.5, y1 * 1.5, x2 * .75, y2 * .75, fill = 'brown')
+    #my_canvas3.create_oval(x1 * 1.75 + (.25 * x1), y1 * 1.75 + ((1/12) * y1), x2 * .5 + (.25 * x2), y2 * .5 + ((1/12) * y2), fill = 'black')
+    #Pupil does not convert universally
+    my_canvas3.create_oval(x1 + 300, y1, x2 + 300, y2, fill = 'white')
+    my_canvas3.create_oval(x1 * 1.5 + 300, y1 * 1.5, x2 * .75 + 300, y2 * .75, fill = 'brown')
+    #my_canvas3.create_oval(x1 * 1.75 + 300 + (.25 * x1), y1 * 1.75 + (.1 * y1), x2 * .5 + 300 (.25 * x2), y2 * .5 + (.1 * y2), fill = 'black')
+
+def draw_mouth(x1: int, y1: int, x2: int, y2: int):
+    my_canvas3.create_oval((x2 + x1 + 300)/2 - (x1 * .5), (x2 + x1 + 300)/2 - (x1 * .5), (x2 + x1 + 300)/2 + (x1 * .5), (x2 + x1 + 300)/2 - (x1 * .5))
+
+def draw_nose(x1: int, y1: int, x2: int, y2: int):
+    my_canvas3.create_oval((x2 + x1 + 300)/2 - (x1 * .25), (x2 + x1 + 300)/2 - (x1 * .25) - (y1 * .5), (x2 + x1 + 300)/2 + (x1 * .25), (x2 + x1 + 300)/2 + (x1 * .25) - (y2 * .5), fill = "blue")
+    
+def draw_face(x1: int, y1: int, x2: int, y2: int):
+    draw_eye(x1, y1, x2, y2)
+    draw_mouth(x1, y1, x2, y2)
+    draw_nose(x1, y1, x2, y2)
+    
+draw_face(100, 100, 300, 300)
+draw_face(50, 50, 150, 150)
+# draws two faces that overlap
+    
+    
+        
+    
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

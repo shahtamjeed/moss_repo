@@ -1,0 +1,180 @@
+<HTML>
+<HEAD>
+<TITLE>andyhl3/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+philn1/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: Lab 6.py
+# Phi Nguyen 47604490
+print('''---- C.1 ---- ''')
+def contains (x:str, y:str) -&gt; bool:
+    return y in x
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+print(contains("doge", "dog"))
+
+print('''---- C.2 ----''')
+def sentence_stats(x:str):
+    s = punctuation(x)
+    y =s.split()
+    average = sum(len(word) for word in y)/len(y)
+    return ('''Characters: {}
+Words: {}
+Average word length: {}'''.format(len(x), len(y), average))
+
+def punctuation(x:str):
+    punctuations = x.maketrans(",.?!*:",
+                               "      ")
+    return x.translate(punctuations)
+print(sentence_stats('I love UCI'))
+print(punctuation('I love UCI'))
+print(sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.'))
+print(punctuation('***The ?! quick brown fox:  jumps over the lazy dog.'))
+print('''---- C.3 ----''')
+def initials(x:str):
+    y = x.split(' ') #Splits each word in the sentence and put it in a list
+    result =[] #Creates a list for the first letters of the each word
+    for word in y:
+        result.append(word[0].upper())
+    return ''.join(result)
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+        
+print(initials("Super man Pie"))
+
+print(''' ---- D.1 ---- ''')
+from random import randrange
+
+for i in range(50):
+    print(randrange(1,5))
+print(''' ---- D.2 ---- ''')
+def roll2dice (x:None) -&gt;float:
+    return randrange(1,7) + randrange(1,7)
+
+print(roll2dice(None))
+print(''' ---- D.3 ---- ''')
+def distribution_of_rolls(x:int) -&gt; str:
+    result=[]
+    for i in range(0,x):
+        y = roll2dice(None)
+        result.append(y)
+    for i in range(2,13):
+        print ('''{}:   {}({:2.4})'''.format(i,result.count(i),str(100*result.count(i)/len(result)) + "%"), result.count(i)*'*')
+    print("--------------------------")
+    print("       ", x,"rolls")
+distribution_of_rolls(200)
+
+
+
+print('''---- E.1 ----''')
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def Caesar_encrypt(x:str, y:int):
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match183-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if y&gt;25:
+        y = y%26 #If the key is greater than 25, the function wraps around
+    changed = str.maketrans(alphabet,#Maketrans changes input to output
+                            alphabet[y:] + alphabet[:y])#Alphabet is changed
+    #to an output that is an alphabet that starts with y and ends at the y
+    changed2 = str.maketrans(alphabet.upper(),
+                             alphabet.upper()[y:] + alphabet.upper()[:y])
+    #Translation for the uppercased letters
+    #The string is translated
+    lower_gone = x.translate(changed)
+    #lower_gone is the function with all lower letters translated
+    return lower_gone.translate(changed2) #translates the uppers and returns 
+
+print(Caesar_encrypt("ZoGe",27))
+
+def Caesar_decrypt(x:str, y:int): #Reverses the encryption
+</FONT><A NAME="1"></A><FONT color = #00FF00><A HREF="match183-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    if y&gt;25:
+        y = y%26
+    changed = str.maketrans(alphabet[y:] + alphabet[:y],
+                            alphabet)
+    changed2 = str.maketrans(alphabet.upper()[y:] + alphabet.upper()[:y],
+                             alphabet.upper())
+    lower_gone = x.translate(changed)
+    return lower_gone.translate(changed2)
+
+print(Caesar_decrypt("ApHf",1))
+
+print('''----E3----''')
+</FONT>print(Caesar_encrypt("cat", 29))
+print(Caesar_encrypt("cat", 3))
+
+print('''----F.1----''')
+S = [ "Four score and seven years ago, our fathers brought forth on",
+      "                                               ",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ",
+  "                                                         "]
+
+def print_line_numbers(x:S)-&gt; str:
+    for line in range(0,len(x)):
+        print ("{:}: {}".format(line+1, x[line]))
+
+print_line_numbers(S)
+
+print('''----F.2----''')
+def empty_line(x:S)-&gt;list:
+    empty = 0
+    for sentence in x:
+        if sentence.isspace() == True:
+            empty+=1
+    return empty
+def avg_characters (x:S) -&gt; list:
+    result = 0
+    for sentence in x:
+        result+=len(sentence)
+    return result
+def avg_characters_no_space(x:S) -&gt; list:
+    result = 0
+    for sentence in x:
+        if sentence.isspace() == False:
+            result+=len(sentence)
+    return result
+def stats(x:S)-&gt;str:
+    print( '''{:5}   lines in the list
+{:5}   empty lines
+{:5.3}   average characters per line
+{:5.3}   average characters per non-empty line'''.format(len(x), empty_line(x),
+                                                       avg_characters(x)/len(x), avg_characters_no_space(x)/len(x)))
+
+stats(S)
+
+print('''----F.3----''')
+def list_of_words(x:list):
+    result =[]
+    for sentences in x:
+        result+=str.split(punctuation(sentences))#split every string after using punctuation function and using that as the split factor
+    return result
+
+print(list_of_words(S))
+
+
+
+        
+
+
+
+    
+
+
+
+        
+    
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

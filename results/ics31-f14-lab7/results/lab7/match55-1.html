@@ -1,0 +1,228 @@
+<HTML>
+<HEAD>
+<TITLE>reynagaa/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+whiteks/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+# Kevin White 20768097 and David Aldarondo 50177475 Lab 6 Assignment 7
+
+from random import randrange
+
+def random_names(n: int) -&gt; list:
+    ''' return a list of n random names '''
+    randomized_names = []
+    for i in range(n):
+        f = ''
+        n = randrange(0,2)
+        if n == 0:
+            f += get_random_name('malenames.txt')
+        else:
+            f += get_random_name('femalenames.txt')
+        l = get_random_name('surnames.txt')
+        randomized_names.append('{}, {}'.format(l, f))
+    return randomized_names        
+
+def get_random_name(source: str) -&gt; str:
+    infile = open(source)
+    name_list = infile.readlines()
+    infile.close()
+    n = randrange(0, len(name_list))
+    nameline = name_list[n]
+#    print(nameline)
+    name = nameline[0: nameline.find('\t')]
+    name = name.lower().capitalize()
+    return name
+
+# random_names(1)
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match55-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print(random_names(20))
+
+    
+# d
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def create_rotated_alphabet(a: str, n: int) -&gt; str:
+    ''' create a version of the alphabet that is n spaces away for use in
+    the Caesar cypher '''
+    rotated_alphabet = ''
+    for i in range(26):
+        if i+n &lt; 26:
+            rotated_alphabet += a[i+n]
+        elif i+n &lt; 0:
+            rotated_alphabet += a[i+n + 26]
+        else:
+            rotated_alphabet += a[i+n - 26]
+    return rotated_alphabet
+</FONT>
+infile = open('wordlist.txt')
+words = infile.read()
+infile.close()
+
+def Caesar_break(ct: str) -&gt; str:
+    ''' return a decrypted version of the input cyphertext '''
+    # create a range of potential keys using create_rotated_alphabet
+    keys = []
+    for i in range(len(alphabet)):
+        keys.append(create_rotated_alphabet(alphabet, i))
+#    print(keys)
+    # try cyphertext against each key
+    decrypts = []
+    for i in range(len(keys)):
+        table = str.maketrans(alphabet, keys[i])
+        decrypts.append(ct.translate(table))
+#    print(decrypts)
+    # compare dictionary words to each try
+    wordcount = []
+#    print(words)
+    for i in decrypts:
+        wordcount.append( word_count(i) )
+    print(wordcount)
+        
+    # return text with the most matches
+    most_words = 0
+    index = 0
+    for i in range(len(wordcount)):
+        if wordcount[i] &gt; most_words:
+            most_words = wordcount[i]
+            index = i
+            
+    return decrypts[index]
+
+def word_count(line: str) -&gt; int:
+    ''' return number of dictionary matches in line '''
+    count = 0
+    k = line.split()
+    for i in k:
+        if i in words:
+           count += 1
+    return count
+ 
+print( Caesar_break('Ttue qzodkbfuaz ue zaf hqdk saap'))
+
+
+# e
+
+# e.1
+
+def copy_file():
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    for line in infile:
+        outfile.write(line)
+    infile.close()
+    outfile.close()
+
+#e.2
+
+
+def copy_file1(pr: str):    
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if pr == 'line numbers':
+        n = 1
+        for line in infile:
+            outfile.write('{:5d}: {}'.format(n,line))
+            n+=1
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+
+
+#e.3
+
+def copy_file2(pr: str):    
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    if pr == 'line numbers':
+        n = 1
+        for line in infile:
+            outfile.write('{:5d}: {}'.format(n,line))
+            n+=1
+    elif pr == 'Gutenberg trim':
+        read = False
+        for line in infile:
+            if '*** END' in line:
+                read = False
+            if read:
+                outfile.write(line)
+            if '*** START' in line:
+                read = True
+            
+    else:
+        for line in infile:
+            outfile.write(line)
+    infile.close()
+    outfile.close()
+    
+
+#e.4
+
+def copy_file3(pr: str):
+    if pr == 'statistics':
+        infile_name = input("Please enter the name of the file to get statistics for: ")
+        infile = open(infile_name, 'r')
+        lines = 0
+        emptylines = 0
+        characters = 0
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match55-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+        for line in infile:
+            lines +=1
+            if line == '\n':
+                emptylines +=1
+            for c in line:
+                characters +=1
+        print('{:6d}   lines in the file'.format(lines))
+        print('{:6d}   empty lines'.format(emptylines))
+        print('{:8.1f} average characters per line'.format(characters / lines))
+        print('{:8.1f} average characters per non-empty line'.format(characters / (lines - emptylines)))
+</FONT>    else:
+        infile_name = input("Please enter the name of the file to copy: ")
+        infile = open(infile_name, 'r')
+        outfile_name = input("Please enter the name of the new copy:  ")
+        outfile = open(outfile_name, 'w')
+        if pr == 'line numbers':
+            n = 1
+            for line in infile:
+                outfile.write('{:5d}: {}'.format(n,line))
+                n+=1
+        elif pr == 'Gutenberg trim':
+            read = False
+            for line in infile:
+                if '*** END' in line:
+                    read = False
+                if read:
+                    outfile.write(line)
+                if '*** START' in line:
+                    read = True
+        
+        else:
+            for line in infile:
+                outfile.write(line)
+        infile.close()
+        outfile.close()
+
+copy_file3('statistics')
+#copy_file3('line numbers')
+#copy_file3('Gutenberg trim')
+#copy_file3('no value')
+
+
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

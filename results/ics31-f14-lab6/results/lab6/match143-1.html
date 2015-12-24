@@ -1,0 +1,207 @@
+<HTML>
+<HEAD>
+<TITLE>cwpham/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+lawrenh1/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Lawrence Huang 32104927 and Hatef Kasraei 33573109. ICS 31 Lab sec 8. Lab asst 6.
+
+#c1
+
+def contains(string1, string2):
+    return string2 in string1
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+
+#c2
+
+def sentence_stats(string):
+    
+    result = ""
+    for i in range(len(string)):
+        if (check_punctuation(string[i]) == False):
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match143-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+            result = result + string[i]         
+    result = "".join(result.split())
+    spaces = count_spaces(result)
+    print("\""+ result +"\" statistics:")
+    print("\tCharacters: " + str(len(string)))
+    print("\tWords: " + str((spaces + 1)))
+    print("\tAverage word length: " + str((len(result) - spaces)/(spaces + 1)))
+</FONT>        
+sentence_stats("Hey, what's up?")
+sentence_stats("I love UCI")
+sentence_stats('***The ?! quick brown fox:  jumps over the lazy dog.')
+
+#c3
+
+abc = "abcdefghijklmnopqrstuvwxyz"
+def initials(string):
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match143-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    result = ""
+    string = string.title()
+    for i in string:
+        for j in abc:
+            if (i == j.upper()):
+                result = result + i
+</FONT>    return result
+
+assert initials('Bill Cosby') == 'BC'
+assert initials('Guido van Rossum') == 'GVR'
+assert initials('alan turing') == 'AT'
+
+#d1
+from random import randrange
+
+for i in range(51):
+    print(str(randrange(11)))
+
+for j in range(51):
+    print(randrange(7))
+
+#d2
+def roll2dice():
+    return randrange(7) + randrange(7)
+
+print(roll2dice())
+
+#d3
+from collections import namedtuple
+from math import trunc
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match143-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_21.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def distribution_of_rolls(string):
+    
+    num = namedtuple('number', 'value rolled')
+    result = []
+    star = "*"
+    
+    for i in range(11):
+        result.append(num(i + 2, 0))
+    for j in range(string):
+        tempNum = (randrange(1,7)) + (randrange(1,7))
+        for k in range(len(tempList)):
+            if result[k].value == tempNum:
+                      result[k] = result[k]._replace(rolled = result[k].rolled + 1)
+    print(result)
+    
+    sum = 0
+    
+    for x in result:
+        sum += x.rolled
+        print(sum)
+    for y in result:
+        print(str(y.value) + ": " + str(y.rolled) + " ("+str(trunc((y.rolled/sum * 10000))/100)+"%)", star * y.rolled)
+
+distribution_of_rolls(200)
+</FONT>
+#e1
+
+alphabet = "abcdefghijklmnopqrstuvwxyz"
+
+def Caesar_encrypt(text, key):
+    return text.lower().translate(str.maketrans(alphabet, alphabet_rotate(key)))
+    
+def Caesar_decrypt(text, key):
+    return text.lower().translate(str.maketrans(alphabet_rotate(key), alphabet))
+
+def rotate(x):
+    return alphabet[x:] + alphabet[:x]
+
+print(alphabet_rotate(2))
+print(Caesar_encrypt("Hi Mom, I love you", 3))
+print(Caesar_decrypt(Caesar_encrypt("Hey baby, you cute", 2), 3))
+
+
+#f
+
+lines = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ",
+          "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ",
+         "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a greatcivil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        ",
+          "     "]
+
+#f1
+print('Part f1:\n')
+
+def print_line_numbers(L: list) -&gt; None:
+    '''takes a list of strings and prints them out by line number '''
+    for i in range(len(L)):
+        print('{0:5d}'.format(i+1) , ': ', L[i])
+
+print_line_numbers(lines)
+
+print('\n') #making space
+
+#f2
+print('Part f2:\n')
+
+def stats(L:list) -&gt; None:
+    ''' takes a list of strings and reporst back the stats of that function'''
+    empty = 0
+    ch = 0
+    emptyLine_ch = 0
+    for i in range(len(L)):
+        if len(L[i].strip()) == 0:
+            'counting empty lines'
+            empty = empty + 1
+        for x in L[i]:
+            'counting all characters'
+            ch = ch + 1
+            if len(L[i].strip()) == 0:
+                'county empty lines characters'
+                emptyLine_ch = emptyLine_ch + 1
+    'calculating averages'
+    av_char = ch / len(L)
+    av_char_non_empty = (ch - emptyLine_ch) / (len(L) - empty)
+    print('{0:5d}'.format(len(L)), '\tlines in the list')
+    print('{0:5d}'.format(empty), '\tempty lines')
+    print('{:7.1f}'.format(av_char), 'average characters per line')
+    print('{:7.1f}'.format(av_char_non_empty), 'average characters per non-empty line')
+
+stats(lines)
+print('\n') #making space
+
+#f3
+print('Part f3:\n')
+
+lines2 = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated"]
+
+def list_of_words(L:list) -&gt; list:
+    '''takes a string list and returns a list consist of individual words '''
+    newList = []
+    word = ''
+    for i in L:
+        for x in i:
+            if x not in ['\n', '\r\n', ' ', '']:
+                word = word + x
+            elif word != '':
+                newList.append(word)
+                word = ''
+    return newList
+
+print(list_of_words(lines))
+print('\n') #making space
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

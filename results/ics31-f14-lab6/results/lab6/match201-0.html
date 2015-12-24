@@ -1,0 +1,174 @@
+<HTML>
+<HEAD>
+<TITLE>davidl12/(c)-(f)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+davidl12/(c)-(f)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab6.py
+# Chang Shin Lee 45754269, David Liu 76711634, Lab assignment 6, section 16
+
+print('---part.c1---')
+def contains(x:str, y:str) -&gt; bool:
+    '''Checks if second string is in first string'''
+    return y in x
+
+assert contains('banana', 'ana')
+assert not contains('racecar', 'ck')
+print(contains('banana', 'ana'))
+print(contains('saturday', 'aes'))
+print(contains('lcslab6', 'sla'))
+
+print('---part.c2---')
+def sentence_stats(x: str) -&gt; str:
+    '''Returns amount of characters, words, and average word length of the string entered'''
+    print('Characters:', len(x))
+    print('Words:', len(x.split()))
+    joined = ' '.join(x)
+    print('Average word length:', len(joined.replace(' ',''))/len(x.split()))
+
+print('---part.c3---')
+def initials(x:str) -&gt; str:
+    '''returns the initials of the name in all capital letters'''
+    y = x.upper().split()
+    z = ''
+    for name in y:
+        z += name[0]
+    return z
+
+print('---part.d1---')
+from random import randrange
+
+print('Number ranges from 1-10')
+for i in range(0,50):
+    print(randrange(11))
+print('Number ranges from 1-6')
+for x in range(0,50):
+    print(randrange(1,7))
+    
+print('---part.d2---')
+def roll2dice() -&gt; int:
+    '''Rolls 2 dice and gives the sum of the 2 dice rolled'''
+    dice1 = randrange(1,7)
+    dice2 = randrange(1,7)
+    dicetotal = dice1 + dice2
+    return dicetotal
+
+print('Testing rolling 2 dices.......50x')
+for y in range(0,50):
+    print(roll2dice())
+
+print('---part.d3---')
+def distribution_of_rolls(x:int):
+    '''prints the possible number of rolls for each number'''
+    result = [0,0,0,0,0,0,0,0,0,0,0,0,0]
+    
+    for i in range(x):
+        
+        result[roll2dice()] += 1
+        
+    print('Distribution of dice rolls \n')
+    for j in range(11):
+        asterick = ''
+        for y in range(result[j + 2]):
+            asterick += '*'
+        print("{:2}:    {:2}  ({:4.1f}%)  {}'.".format(j + 2, result[j + 2], 100 * (result[j + 2] / x), asterick))
+    print('-----------------------------')
+    print("       {} Rolls".format(x))
+
+distribution_of_rolls(200)
+
+print('----part.e1----')
+def Ceaser_encrypt (x:str, y:int) -&gt; str:
+    '''Takes a string and an interger and ceaser cipher the string by the indicated key'''
+    lowercase = 'abcdefghijklmnopqrstuvwxyz'
+    upperx = x.upper()
+    if y &gt; 26:
+        y = y % 26
+    z = lowercase[y:] + lowercase[0:y]
+    table = upperx.maketrans('ABCDEFGHIJKLMNOPQRSTUVWXYZ', z)
+    print(upperx.translate(table))
+
+def Ceaser_decrypt (x:str, y:int) -&gt; str:
+    '''Takes a string and an interger and ceaser cipher the string by the indicated key'''
+    lowercase = 'abcdefghijklmnopqrstuvwxyz'
+    upperx = x.upper()
+    z = lowercase[-y:] + lowercase[0:-y]
+    table = upperx.maketrans('ABCDEFGHIJKLMNOPQRSTUVWXYZ', z)
+    print(upperx.translate(table))
+
+print('----part.e2----')
+# David to Chang with a key of 21
+#Original message: This is so fun!!!
+Ceaser_decrypt('ocdn dn nj api!!!', 21)
+
+# Change to David with a key of 7
+#Original message: We have a midterm next week
+Ceaser_decrypt('dl ohcl h tpkalyt ulea dllr', 7)
+
+print('----part.e3----')
+# added onto part e.1
+
+#f
+four = [ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]
+
+print('----part.f1----')
+def print_line_numbers (x:list):
+    '''Numbers each line in the list'''
+    for lines in range(len(x)):
+        print(lines + 1, ': ', x[lines])
+
+print('----part.f2----')
+def stats(x: list):
+    '''Prints statistics of list of strings'''
+    print(len(x), 'lines in the list')
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match201-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    empty = 0
+    anyline = 0
+    something = 0
+    for i in x:
+        anyline = anyline + len(i)
+        if i == '':
+            empty = empty + 1
+        else:
+            something = something + len(i)
+</FONT>    print(empty, 'empty lines')
+    print(anyline/len(x), 'average characters per line')
+    print(something/(len(x)- empty), 'average characters per non-empty line')
+
+stats(four)
+
+print('----part.f3----')
+def list_of_words(x:list) -&gt; list:
+    '''Removes all white space and puctuation in a list and just returns a list of words'''
+    punctuation = str.maketrans('.,?!:;" ','        ')
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match201-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_14.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    result = []
+    for i in x:
+        s = 0
+        i = i.translate(punctuation)
+        for j in range(len(i)):
+            
+            if i[j] == ' ':
+                if not j == len(i) - 1:
+                    if not i[j+1] == ' ':
+                        s = j+1
+            else:
+                if j == len(i) - 1:
+                    result.append(i[s:])
+                elif i[j+1] == ' ':
+                    result.append(i[s:j+1])
+    return result
+</FONT>
+print(list_of_words(four))
+    
+</PRE>
+</PRE>
+</BODY>
+</HTML>

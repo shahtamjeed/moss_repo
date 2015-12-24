@@ -1,0 +1,179 @@
+<HTML>
+<HEAD>
+<TITLE>hlhughes/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+hlhughes/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Nick Prendergast 19367502 and Hudson Hughes 12712020
+
+#
+#
+# Part C
+#
+#
+
+#c.1
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match6-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_99.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+from random import randrange
+
+def random_names(total: int)-&gt; list:
+    last_names = open('surnames.txt', 'r')
+    last_list = last_names.readlines()
+    last_names.close()
+    female_first = open('femalenames.txt', 'r')
+    female_list = female_first.readlines()
+    female_first.close()
+    male_first = open('malenames.txt', 'r')
+    male_list = male_first.readlines()
+    male_first.close()
+    result = []
+    for i in range(total):
+        result.append(random_name(male_list, female_list, last_list))
+    return result
+
+def random_name(male: list, female: list, last:list)-&gt;str:
+    lastnum = randrange(0, len(last))
+    mf = randrange(0, 2)
+    if mf == 0:
+        firstnum = randrange(0, len(male))
+        entry = male[firstnum].split()
+        firstname = entry[0].capitalize()
+    else:
+        firstnum = randrange(0, len(female))
+        entry = female[firstnum].split()
+        firstname = entry[0].capitalize()
+    surname = last[lastnum].split()[0].capitalize()
+    return surname + ', ' + firstname
+      
+print(random_names(10))
+
+#
+#
+# Part D
+#
+#
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def Caesar_decrypt(text: str, cipher: int)-&gt; str:
+     result = ''
+     for char in text:
+        if char in ALPHABET:
+            result += chr((ord(char)-cipher-97)%26+97)
+        else:
+            result += char
+     return result
+
+def contains(str1: str, str2: str)-&gt; bool:
+    return str2 in str1
+
+def list_of_words(strings: list)-&gt;list:
+    result = []
+    for string in strings:
+        temp = ''
+        for char in string:
+            if not contains('?!.,:*', char):
+                temp+=char
+        words = temp.split()
+        result.extend(words)
+    return result
+
+def Caesar_break(ciphertext: str)-&gt; str:
+    infile = open('wordlist.txt', 'r')
+    dictionary = infile.readlines()
+    infile.close()
+    shift = 0
+    best = 0
+    for i in range(1, 27):
+        count = 0
+        clear_text = Caesar_decrypt(ciphertext, i)
+        words = list_of_words([clear_text])
+        print (words)
+        for word in words:
+            if in_dictionary(word, dictionary):
+                count += 1
+        if count &gt; best:
+            best = count
+            shift = i
+    infile.close()
+    return Caesar_decrypt(ciphertext, shift)
+
+def in_dictionary(word: str, dictionary: list)-&gt;bool:
+    for entry in dictionary:
+        if entry[:-1] == word.capitalize():
+            return True
+    return False
+
+#print(Caesar_break('ymnx nx f rjxxflj')) #This is a message
+
+#
+#
+# Part E
+#
+#
+def stats(l:list):
+    empty=0
+    num_char=0
+    num_char_non=0
+    print("%(lines)7d   lines in the list" %{"lines":len(l)})
+    for s in l:
+        num_char+=len(s)
+        if s == '\n':
+            empty+=1
+        else:
+            num_char_non+=len(s.replace('\n',''))
+        num_char+=len(s.replace('\n',''))
+    print("%(empt)7d   empty lines" %{"empt":empty})
+    print("%(avpl)9.1f average characters per line" %{"avpl":(num_char/len(l))})
+    print("%(avpnel)9.1f average characters per non-empty line" %{"avpnel":(num_char_non/(len(l)-empty))})
+
+def copy_file(param: str)-&gt; None:
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+    line_list = []
+    if param == 'line numbers':
+        l = 1
+        for line in infile:
+            print ('{:5d}: {}'.format(l, line))
+            outfile.write('{:5d}: {}'.format(l, line))
+            l += 1
+    elif param == 'Gutenberg trim':
+        start = 0
+        end = 0
+        for line in infile:
+            line_list.append(line)
+        for line in line_list:
+            if "*** START" not in line:
+                start += 1
+            else:
+                break
+        for i in range(len(line_list) - 1, -1, -1):
+            if "*** END" in line_list[i]:
+                end = i
+                break
+        for i in range(start, end+1):
+            outfile.write(line_list[i])
+            
+    elif param == 'statistics':
+        for line in infile:
+            outfile.write(line)
+            line_list.append(line)
+        print (line_list[0])
+        stats(line_list)
+    else:
+        for line in infile:
+            print (line)
+            outfile.write(line)
+            
+    infile.close()
+    outfile.close()
+
+copy_file('Gutenberg trim')
+</FONT></PRE>
+</PRE>
+</BODY>
+</HTML>

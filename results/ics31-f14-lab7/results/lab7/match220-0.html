@@ -1,0 +1,205 @@
+<HTML>
+<HEAD>
+<TITLE>jtmayer/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+jtmayer/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#Ryan Gonzales 77784482 Jonathan Mayer 66268081 ICS 31 Lab sect 6, Lab asst 7
+
+print("!!!!Lab 7!!!!")
+print("")
+'------------------------------------------------------------------------'
+#Exercise C
+print("****Exercise C****")
+print("")
+
+#C.1
+from random import randrange
+print("1)")
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match220-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def random_names(n: int) -&gt; [str]:
+    '''Takes an integer and returns a list of that many strings'''
+
+    # Opens all the files that need to be read
+    surname_file = open("surnames.txt", 'r')
+    female_name_file = open("femalenames.txt", 'r')
+    male_name_file = open("malenames.txt", 'r')
+
+    #Copes all the name files to a corresponding list
+    surnames = []
+    for line in surname_file:
+        surnames.append(surname_file.readline().split("\t")[0])
+</FONT>
+    female_names = []
+    for line in female_name_file:
+        female_names.append(female_name_file.readline().split("\t")[0])
+
+    male_names = []
+    for line in male_name_file:
+        male_names.append(male_name_file.readline().split("\t")[0])
+
+    first_names = female_names + male_names # Creates a list of first names by combining male names and female names
+
+    # Closes all the files used
+    surname_file.close()
+    female_name_file.close()
+    male_name_file.close()
+
+    # Generates a list of randomly generated names
+    result = []
+    for i in range(n):
+        result.append("{}, {}".format(surnames[randrange(0,len(surnames))].title(), first_names[randrange(0,len(first_names))].title()))
+
+    return result
+
+print(random_names(10)) # Tests random_names()
+print("")
+
+#Exercise D
+print("****Exercise D****")
+print("")
+
+#D.1
+print("1)")
+def Caesar_break(s: 'ciphertext string') -&gt; "Plaintext":
+    '''Takes a ciphertext string and returns the plaintext for that string
+    without having the key'''
+
+    # Copies wordlist.txt to a list of strings
+    wordlist = open("wordlist.txt", 'r')
+    dictionary = wordlist.read().lower().split()
+    wordlist.close()
+    
+    alphabet = "abcdefghijklmnopqrstuvwxyz' " # Alphabet used to clean-up the string
+    decrypt_alphabet = "abcdefghijklmnopqrstuvwxyz" # Alphabet used to decrypt the string
+
+    # Initializes local variables
+    clean_string = ''
+    result = ''
+
+    # Generates a clean string that is all lowercase and contains only specific characters
+    for i in s.lower():
+        if i in alphabet:
+            clean_string += i
+
+    for integer in range(len(decrypt_alphabet)): # Cracks the code using a brute force method
+
+        # Generates a temporary string that contain the decrypted message
+        tempstring = ''
+        for n in clean_string:
+            for index in range(len(decrypt_alphabet)):
+                if n == decrypt_alphabet[index]:
+                    tempstring += decrypt_alphabet[(index + integer) % len(decrypt_alphabet)]
+            if n == ' ':
+                tempstring += ' '
+            elif n == "'":
+                tempstring += "'"
+
+        # Checks if the temporary string makes sense
+        not_gibberish = True
+        for word in tempstring.split():
+            if not word in dictionary:
+                not_gibberish = False
+        if not_gibberish:
+            result = tempstring
+
+    # Gives an error if result comes out empty        
+    if result == '':
+        result = "Error: One or more words is missing from wordlist.txt"
+            
+    return result
+
+
+assert Caesar_break('npvtf') == 'mouse'
+assert Caesar_break('ifmmp xpsme') == 'hello world'
+assert Caesar_break("drsc") == 'this'
+assert Caesar_break("dbo'u") == "can't"
+assert Caesar_break("Rovvy Tyrx, mywzedob.") == 'hello john computer'
+assert Caesar_break("lic vcer lsace hsmr") == 'Error: One or more words is missing from wordlist.txt'
+
+'-------------------------------------------------------------------------------------------------------------------------------------'
+print("")
+#Exercise E
+print("****Exercise E****")
+print("")
+
+#E.1, E.2, E.3, and E.4
+def copy_file(s: str):
+    '''Copies a file, line by line'''
+
+    # Opens the files that are needed to be read from and written to
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match220-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    # Initializes all the local variables
+    lines = 0
+    empty_lines = 0
+    total_characters = 0
+    body = False
+</FONT>
+    for line in infile: # Iterates through each line, modifying the file based on the argument passed
+
+        # Ends the loop if the line starts with "*** END" and "gutenberg trim" is passed in the argument
+        if 'gutenberg trim' in s and (line[:len('*** END')] == "*** END"):
+            break
+
+        if (not 'gutenberg trim' in s) or ('gutenberg trim' in s and body == True):
+            ''' Writes to the file if gutenberg trim is not an argument or if it is an argument, and has
+            permission to write depending on the body flag'''
+
+            lines += 1 # Counts the current line
+            
+            # Adds the line number if "line numbers" is passed in the argument
+            if 'line numbers' in s:
+                line = ('{:5}: {}'.format(lines, line))
+                
+            outfile.write(line) # Writes the contents of line to the file
+            
+        # Changes the body flag to allow writing to the output file, if "gutenberg trim" is passed in the argument and the line starts with "*** START"
+        if 'gutenberg trim' in s and (line[:len('*** START')] == "*** START"):
+                body = True
+
+        # Counts the number of empty lines if "statistics" is passed in the argument
+        if 'statistics' in s:
+            total_characters += len(line)
+            if line in '':
+                empty_lines += 1
+
+    # Prints statistics if the statistics argument is passed            
+    if 'statistics' in s:
+        print("{:6}   lines in the file".format(lines))
+        print("{:6}   empty lines".format(empty_lines))
+        print("{:6.1f} average characters per line".format(total_characters/lines))
+        print("{:6.1f} average characters per non-empty line".format(total_characters/(lines-empty_lines)))
+        
+    # Closes the used files
+    infile.close()
+    outfile.close()
+    
+#E.2
+copy_file('')
+
+#E.3
+copy_file('gutenberg trim')
+copy_file('line numbers gutenberg trim')
+
+#E.4
+copy_file('statistics ')
+copy_file('gutenberg trim statistics')
+copy_file('line numbers gutenberg trim statistics')
+
+            
+
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

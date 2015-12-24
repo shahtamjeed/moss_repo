@@ -1,0 +1,257 @@
+<HTML>
+<HEAD>
+<TITLE>feyzif/(c)-(e)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+feyzif/(c)-(e)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab7.py
+#  Farshad Feyzi 35573143 and Albert Vu 35695286.  ICS 31 Lab sec 12.  Lab asst 7.
+
+print()  
+print()
+print('---------- Part (c) ----------')
+print()
+
+from random import randrange
+
+def single_random_name() -&gt; str:
+    '''Generates and returns a random name'''
+
+    male = open('malenames.txt')
+    list_male = male.readlines()
+    female = open('femalenames.txt')
+    list_female = female.readlines()
+    surnames = open('surnames.txt')
+    list_surnames = surnames.readlines()
+
+    surname = list_surnames[randrange(0,1000)].split()[0]
+    if randrange(2) == 0:
+        firstname = list_male[randrange(0,1000)].split()[0]
+    else:
+        firstname = list_female[randrange(0,1000)].split()[0]
+
+    male.close()
+    female.close()
+    surnames.close()
+
+    return '{0}, {1}'.format(surname.capitalize(), firstname.capitalize())
+
+def random_names(number: int) -&gt; list:
+    '''Returns a list of random names'''
+    
+    names = []
+
+    for i in range(number):
+        names.append(single_random_name())
+
+    return names
+
+print(random_names(10))
+
+print()  
+print()
+print('---------- Part (d) ----------')
+print()
+
+print()  
+print()
+print('---------- Part (d.1) ----------')
+print()
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match43-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+def replace_letter(letter: str, key: int) -&gt; str:
+    '''Takes one letter and replaces it with its encrypted equivalent'''
+    if letter in ALPHABET: #lowercase
+        num = ALPHABET.find(letter)
+        return ALPHABET[(num + key)%26]
+    elif letter.lower() in ALPHABET: #capital letter
+        num = ALPHABET.find(letter.lower())
+        letter_upper = ALPHABET[(num + key)%26].upper()
+        return letter_upper
+    else:
+</FONT>        return letter
+
+assert replace_letter('b', 5) == 'g'
+assert replace_letter('G', 6) == 'M'
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match43-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_encrypt(message: str, key: int) -&gt; str:
+    '''Takes in a message and a key, adds each letter by the key
+    and returns the encrypted message'''
+    result = ''
+    index = 0
+    for index in range(len(message)):
+        result += replace_letter(message[index], key)
+</FONT>    return result
+
+assert Caesar_encrypt('Computer Science', 4) == 'Gsqtyxiv Wgmirgi'
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match43-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+def Caesar_decrypt(message: str, key: int) -&gt; str:
+    '''Takes in a message and a key, subtracts each letter by the key
+    and returns the original message'''
+    result = ''
+    index = 0
+    for index in range(len(message)):
+        result += replace_letter(message[index], -key)
+    return result
+</FONT>
+assert Caesar_decrypt('MacBook Pro', 2) == 'KyaZmmi Npm'
+
+def translate_punctuation(sentence:str)-&gt; str:
+    '''Takes in a sentence, removes the punctuation from it, and returns the
+    new sentence'''
+    table = str.maketrans("!@#$%^&*,.?:", '            ')
+    replace = sentence.translate(table)
+    x = replace.split()
+    return ' '.join(x)
+
+assert translate_punctuation('Hi! @$%I am Bob?:') == 'Hi I am Bob'
+
+def Caesar_break(encrypt: str) -&gt; str:
+    '''Tests every decryption possible and returns the one with the most words
+    within the wordlist'''
+    decrypt = []
+    decrypt_message = []
+    
+    for i in range(26):
+        decrypt.append(replace_letter(encrypt, i))
+
+    for i in range(26):
+        decrypt_message.append(Caesar_decrypt(encrypt,i))
+        
+    wordlist_text = open('wordlist.txt')
+    words = wordlist_text.readlines()
+
+    new_words = []
+    for i in words:
+        new_words.append(i[:len(i)-1])
+
+    number_of_hits = []
+    
+    for i in decrypt_message:
+        hits = 0
+        for word in translate_punctuation(i).split():
+            if word in new_words:
+                hits += 1
+        number_of_hits.append(hits)
+    key = number_of_hits.index(max(number_of_hits))
+
+    return Caesar_decrypt(encrypt, key)
+
+print(Caesar_break(Caesar_encrypt('hello, my NAM!E is Albert', 13)))
+print(Caesar_break(Caesar_encrypt('Hello my name is Albert', 13)))
+print(Caesar_break(Caesar_encrypt('My name is Farshad', 3)))
+assert Caesar_break(Caesar_encrypt('I like to code in Python', 6)) == 'I like to code in Python'
+assert Caesar_break(Caesar_encrypt('Welcome to the university', 10)) == 'Welcome to the university'
+
+print()  
+print()
+print('---------- Part (d.2) ----------')
+print()
+
+'''Message encrypted by Albert and decrypted by Farshad'''
+assert Caesar_break(Caesar_encrypt('My favorite sport is soccer', 9)) == 'My favorite sport is soccer'
+
+'''Message encrypted by Farshad and decrypted by Albert'''
+assert Caesar_break(Caesar_encrypt('I like to spend time with my friends', 15)) == 'I like to spend time with my friends'
+
+print()  
+print()
+print('---------- Part (e) ----------')
+print()
+
+print()  
+print()
+print('---------- Part (e.1) ----------')
+print()
+
+def copy_file(parameter: str) -&gt; None:
+    '''Copies the file according to the parameter it is given'''
+
+    infile_name = input("Please enter the name of the file to copy: ")
+    infile = open(infile_name, 'r', errors='ignore')
+    outfile_name = input("Please enter the name of the new copy:  ")
+    outfile = open(outfile_name, 'w')
+
+    infile_lines = infile.readlines()
+    
+    line_num = 0
+
+    start = '*** START OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n'
+    end = '*** END OF THIS PROJECT GUTENBERG EBOOK THE ADVENTURES OF SHERLOCK HOLMES ***\n'
+    
+    if parameter == 'line numbers':
+        for line in infile_lines:
+            line_num += 1
+            outfile.write("{:5d}: {:s}".format(line_num, line))
+    elif parameter == 'Gutenberg trim':
+        for index in range(infile_lines.index(start)+1, infile_lines.index(end)):
+            outfile.write(infile_lines[index])
+    elif parameter == 'statistics':
+        empty_count = 0
+        for line in infile_lines:
+            if line == '\n':
+                empty_count += 1
+
+        total_char = 0
+        for line in infile_lines:
+            if line != '\n':
+                total_char += len(line)
+
+        average = total_char / len(infile_lines)
+
+        nonempty_lines = []
+        for line in infile_lines:
+            if line != '\n':
+                nonempty_lines.append(line)
+        
+        average_nonempty = total_char / len(nonempty_lines)
+
+        outfile.write('{:5d}   lines in the file'.format(len(infile_lines)) + '\n') 
+        outfile.write('{:5d}   empty lines'.format(empty_count) + '\n')
+        outfile.write('{:7.1f} average characters per line'.format(average) + '\n')
+        outfile.write('{:7.1f} average characters per non-empty line'.format(average_nonempty) + '\n')
+        outfile.write('' + '\n')
+
+        for line in infile_lines:
+            outfile.write(line)
+    else:
+        for line in infile_lines:
+            outfile.write(line)
+        
+    infile.close()
+    outfile.close()
+
+copy_file('hi')
+
+print()  
+print()
+print('---------- Part (e.2) ----------')
+print()
+
+copy_file('line numbers')
+
+print()  
+print()
+print('---------- Part (e.3) ----------')
+print()
+
+copy_file('Gutenberg trim')
+
+print()  
+print()
+print('---------- Part (e.4) ----------')
+print()
+
+copy_file('statistics')
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

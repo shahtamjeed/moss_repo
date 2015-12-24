@@ -1,0 +1,147 @@
+<HTML>
+<HEAD>
+<TITLE>cayuso/(c)-(i)/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+csardell/(c)-(i)/<p><PRE>
+&gt;&gt;&gt;&gt; file: lab2.py
+# Cody Sardella 51852709 and Christopher Ayuso 2709608. ICS 31 Lab sec 14
+
+# Part C
+hours = int(input('How many hours?'))
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match1-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_49.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+print ('This many hours:', hours)
+rate = int(input('How many dollars per hour?'))
+print ('This many dollars per hour: ', rate)
+print ('Weekly Salary: ', hours * rate)
+print ('')
+
+name = str(input('Hello. What is your name?'))
+print ('Hello,', name)
+print ("It's nice to meet you")
+age = int(input('How old are you?'))
+print ('Next year you will be', age + 1)
+print ('Good-bye')
+print ('')
+
+# Part D
+Krone_per_Euro = float(7.46)
+Krone_per_Pound = float(8.81)
+Krone_per_USD = float(5.50)
+
+business = str(input('Business Name: '))
+pounds = int(input('Number of Pounds: '))
+euros = int(input('Number of Euros: '))
+USD = int(input('Number of US Dollars: '))
+
+print('')
+print ('Copenhagen Chamber of Commerce')
+print ('Business Name: ', business)
+print (euros, 'euros is', euros * Krone_per_Euro, 'Krone')
+print (pounds, 'pounds is', pounds * Krone_per_Pound, 'Krone')
+print (USD, 'US Dollars is', USD * Krone_per_USD, 'Krone')
+print ('')
+
+# Part E
+from collections import namedtuple
+Book = namedtuple('Book', 'title author year price')
+favorite = Book('Adventures of Sherlock Holmes',
+                'Arthur Conan Doyle', 1892, 21.50)
+another = Book('Memoirs of Sherlock Holmes', 
+               'Arthur Conan Doyle', 1894, 23.50)
+still_another = Book('Return of Sherlock Holmes',
+                     'Arthur Conan Doyle', 1905, 25.00)
+print (still_another[0])
+print ('The price of the book Memoires of Sherlock Holmes is', another[3])
+print ('The average price for the books is', \
+       (float(favorite[3]) + float(another[3]) + float(still_another[3])) / 3)
+print ('The Adventures of Sherlock Holmes was printed before 1900:',\
+       1900 &gt;= favorite[2])
+still_another = still_another._replace(price = 26.00)
+print (still_another[3])
+still_another = still_another._replace(price = still_another[3] * 1.2)
+print (still_another[3])
+print('')
+
+# Part F
+
+from collections import namedtuple
+Animal = namedtuple('Animal', 'name species age weight food')
+Elephant = Animal('Jumbo', 'Elephant', 50, 1000, 'Peanuts')
+Platypus = Animal('Perry', 'Platypus', 7, 1.7, 'Shrimp')
+print ('Jumbo weighs less than Perry:', Elephant[3] &lt;= Platypus[3])
+print('')
+
+# Part G
+
+booklist = [favorite, another, still_another]
+print ('The Adventures of Sherlock Holmes is cheaper than Memoirs of Sherlock Holmes:',\
+       booklist[0].price &lt;= booklist[1].price)
+print ('The Adventures of Sherlock Holmes is more recent than Memoires of Sherlock Holmes',\
+       booklist[0].year &gt;= booklist[-1].year)
+print('')
+
+# Part H
+
+from collections import namedtuple     # If this line is in your file already, you don't need it again
+Restaurant = namedtuple('Restaurant', 'name cuisine phone dish price')
+# Restaurant attributes: name, kind of food served, phone number, best dish, price of that dish
+RL = [
+    Restaurant("Thai Dishes", "Thai", "334-4433", "Mee Krob", 12.50),
+</FONT>    Restaurant("Nobu", "Japanese", "335-4433", "Natto Temaki", 5.50),
+    Restaurant("Nonna", "Italian", "355-4433", "Stracotto", 25.50),
+    Restaurant("Jitlada", "Thai", "324-4433", "Paht Woon Sen", 15.50),
+    Restaurant("Nola", "New Orleans", "336-4433", "Jambalaya", 5.50),
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match1-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_25.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    Restaurant("Noma", "Modern Danish", "337-4433", "Birch Sap", 35.50),
+    Restaurant("Addis Ababa", "Ethiopian", "337-4453", "Yesiga Tibs", 10.50) ]
+print (RL[2].name)
+print (RL[0].name, 'and', RL[3].name, 'serve the same cuisine:',\
+       RL[0].cuisine == RL[3].cuisine)
+print ('The price of Yesiga Tibs is', RL[-1].price, 'dollars.')
+RL.sort()
+print(RL)
+print (RL[-1].dish)
+
+RG = [
+    RL[0],
+    RL[1],
+    RL[-2],
+    RL[-1] ]
+RG.sort()
+print (RG)
+print('')
+
+#Part I
+
+import tkinter
+my_window = tkinter.Tk()
+
+my_canvas = tkinter.Canvas(my_window, width = 1000, height = 1000)
+my_canvas.pack()
+
+
+my_canvas.create_line( 10, 10, 210, 10, 210, 210, 10, 210, 10, 10, fill = 'blue')
+
+my_canvas.create_line(400, 10, 500, 183, 400, 356, 300, 183, 400, 10, fill = 'purple')
+
+my_canvas.create_rectangle(325, 425, 365, 700, fill = 'brown')
+my_canvas.create_polygon(400, 450, 525, 550, 275, 550, 400, 450, fill = 'red')
+</FONT>my_canvas.create_rectangle(300, 550, 500, 700, fill = 'teal')
+my_canvas.create_rectangle(375, 625, 425, 700, fill = 'magenta')
+my_canvas.create_oval(405, 665, 415, 675, fill = 'black')
+my_canvas.create_oval(325, 575, 365, 615, fill = 'white')
+my_canvas.create_line(345, 575, 345, 615, fill = 'black')
+my_canvas.create_line(325, 595, 365, 595, fill = 'black')
+
+my_canvas.create_oval(600, 10, 800, 210, fill = 'white')
+my_canvas.create_oval(645, 55, 755, 165, fill = 'green')
+my_canvas.create_oval(675, 85, 725, 135, fill = 'black')
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>
