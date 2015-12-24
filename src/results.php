@@ -30,7 +30,7 @@ class Results extends Database
 	public function unzip_and_save($file, $values, $save_as="")
 	{
 		if ($this->unzip($file, $save_as))
-			$this->create_db_entry($values);
+			$this->create($values);
 		else
 			throw new Exception("Results->unzip_and_save: there was a problems unzipping file $file");
 	}
@@ -51,16 +51,9 @@ class Results extends Database
 	}
 
 
-	public function create_db_entry($values)
+	public function create($values)
 	{
-		if (array_key_exists("quarter", $values))
-			$values["quarter"] = $this->handle_quarter($values["quarter"]);
-
-		$cols = implode(",", array_keys($values));
-		$vals = "'" . implode("','", $values) . "'";
-
-		$q =  "insert into results ($cols) values ($vals)";
-		$this->query($q);
+		$this->insert("results", $values);
 	}
 
 
@@ -81,7 +74,12 @@ class Results extends Database
 
 
 $r = new Results();
-var_dump($r->get(array("name" => "lab2")));
+// var_dump($r->get(array("name" => "lab2")));
+//$r->create(array("name" => "Assign. 1",
+//				 "year" => 2015,
+//				 "quarter" => 1,
+//				 "location" => "results/assign1",
+//				 "uploaded_by" => 1));
 
 
 ?>

@@ -138,6 +138,14 @@ class Database
 	}
 
 
+	public function insert($table, $values)
+	{
+		list($cols,$vals) = $this->query_prep($values);
+		$q = "insert into $table ($cols) values ($vals)";
+		$this->query($q);
+	}
+
+
 	private function json($data)
 	{
 		$result = array();
