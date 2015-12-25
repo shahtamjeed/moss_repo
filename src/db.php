@@ -105,11 +105,11 @@ class Database
 		switch ($format)
 		{
 			case "array":
-				return (gettype($result) == "boolean") ? $result : $result->fetch_all();
+				return (gettype($result) == "boolean") ? $result : $this->build_assoc($result);
 			case "assoc":
 				return (gettype($result) == "boolean") ? $result : $result->fetch_assoc();
 			case "json":
-				return (gettype($result) == "boolean") ? $result : json_encode($this->json($result));
+				return (gettype($result) == "boolean") ? $result : json_encode($this->build_assoc($result));
 			default:
 				return $result;
 		}
@@ -198,7 +198,7 @@ class Database
 	}
 
 
-	private function json($data)
+	private function build_assoc($data)
 	{
 		$result = array();
 

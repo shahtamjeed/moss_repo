@@ -88,11 +88,6 @@ class Results extends Database
 $r = new Results();
 //var_dump($r->get());
 
-//$r->create(array("name" => "Assign. 1",
-//				 "year" => 2015,
-//				 "quarter" => 1,
-//				 "location" => "results/assign1",
-//				 "uploaded_by" => 1));
-//
+//var_dump($r->get(array("year" => "2015", "quarter" => "1")));
 
 ?>
