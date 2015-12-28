@@ -136,7 +136,9 @@
 							<td class="text-center">{{ r.ucinetid }}</td>
 							<?php if ($user->is_admin()) { ?>
 								<td class="text-center">
-									<span class="label alert" ng-click="delete(r.location, false)"><a href="#">Delete</a></span>
+									<span class="label alert" ng-click="delete(r.location, <?php echo $user->get("id"); ?>, false)">
+										<a href="#">Delete</a>
+									</span>
 								</td>
 							<?php } ?>
 						</tr>
@@ -188,7 +190,9 @@
 								<td class="text-center">{{ u.ucinetid }}</td>
 								<td class="text-center">{{ u.type_name | capitalize }}</td>
 								<td class="text-center">
-									<span class="label alert" ng-click="delete(u.ucinetid, <?php echo $user->get("id"); ?>)"><a href="#">Delete</a></span>
+									<span class="label alert" ng-click="delete(u.ucinetid, <?php echo $user->get("id"); ?>, true)">
+										<a href="#">Delete</a>
+									</span>
 								</td>
 							</tr>
 						</table>

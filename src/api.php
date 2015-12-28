@@ -59,14 +59,22 @@ else if (isset($_POST['new_upload']))
 		}
 	}
 }
-else if (!isset($_GET['admin']) && isset($_GET['delete']))
+else if (isset($_GET['admin']) && isset($_GET['delete']) && $_GET['user'] == 'false')
 {
+	$uid = $_GET['admin'];
+	$u = new User($uid, "id");
+
+	if (!$u->is_admin())
+	{
+		return;
+	}
+
 	$location = $_GET['delete'];
 	$dir = $r->get(array("location" => $location), "*", "and", "assoc")["dir_name"];
 	if ($r->delete_dir(Config::get("results_dir") . $dir))
 		$r->delete_entry(array("location" => $location));
 }
-else if (isset($_GET['admin']) && isset($_GET['delete']))
+else if (isset($_GET['admin']) && isset($_GET['delete']) && $_GET['user'] == 'true')
 {
 	$uid = $_GET['admin'];
 	$u = new User($uid, "id");
