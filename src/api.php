@@ -57,6 +57,13 @@ else if (isset($_POST['new_upload']))
 		}
 	}
 }
+else if (isset($_GET['delete']))
+{
+	$location = $_GET['delete'];
+	$dir = $r->get(array("location" => $location), "*", "and", "assoc")["dir_name"];
+	if ($r->delete_dir(Config::get("results_dir") . $dir))
+		$r->delete_entry(array("location" => $location));
+}
 else 
 {
 	$results = $r->get();

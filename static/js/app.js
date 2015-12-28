@@ -56,7 +56,7 @@ app.controller('getData', function($scope, $http) {
      * record to delete.
 	 */
 	$scope.delete = function(to_delete) {
-		$http.get("src/api.php?delete=" + JSON.stringify(to_delete)).then(function(response) {
+		$http.get("src/api.php?delete=" + String(to_delete)).then(function(response) {
 			$scope.reset();
 		}, function(failure) {
 			console.log(failure);

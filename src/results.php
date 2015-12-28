@@ -20,7 +20,7 @@ class Results extends Database
 
 	public function get($values=array(), $cols="*", $type="AND", $format="json")
 	{
-		$q = $this->select_query("results", $values, $cols, $type, $format);
+		$q = $this->select_query("results", $values, $cols, $type);
 		$join =  "join (quarters,users,courses) on results.quarter=quarters.id and users.id=results.uploaded_by";
 		$join .= " and results.course=courses.id";
 
@@ -40,12 +40,31 @@ class Results extends Database
 	{
 		$this->insert("results", $values);
 	}
+
+
+	public function delete_entry($values=array(), $type="and", $format="json")
+	{
+		return $this->delete("results", $values, "", $type, $format);
+	}
+
+
+	public function delete_dir($dir) 
+	{
+		system('rm -rf ' . escapeshellarg($dir), $retval);
+		if ($retval != 0) 
+		{
+			$msg =  "Results->delete_dir: there was a problem deleting $file; ";
+			$msg .= error_get_last()["message"];
+			throw new Exception($msg);
+
+		}
+		return true;
+	}
 }
 
 
 $r = new Results();
+$r->delete_entry(array("id" => "27"));
 
-//var_dump($r->get());
-//var_dump($r->get(array("year" => "2015", "quarter" => "1")));
 
 ?>

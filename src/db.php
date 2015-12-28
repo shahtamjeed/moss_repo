@@ -116,13 +116,10 @@ class Database
 	}
 
 
-	public function select_query($table, $values=array(), $cols="*", $type="and", $format="json")
+	public function base_query($query, $table, $values=array(), $cols="", $type="and")
 	{
-		if (!isset($table))
-			throw new Exception("Database->select: select require a value for table");
-
 		$cols = (gettype($cols) == "array") ? implode(",", $cols) : $cols;
-		$q = "select $cols from $table";
+		$q = "$query $cols from $table";
 
 		if (count($values) > 0)
 		{
@@ -138,10 +135,36 @@ class Database
 	}
 
 
+	public function select_query($table, $values=array(), $cols="*", $type="and")
+	{
+		if (!isset($table))
+			throw new Exception("Database->select_query: select_query requires a value for table");
+
+		return $this->base_query("select", $table, $values, $cols, $type);
+	}
+
+
 	public function select($table, $values=array(), $cols="*", $type="and", $format="json")
 	{
 		
 		$q = $this->select_query($table, $values, $cols, $type, $format);
+		return $this->query($q, $format);
+	}
+
+
+	public function delete_query($table, $values=array(), $cols="", $type="and")
+	{
+		if (!isset($table))
+			throw new Exception("Database->delete_query: delete_query requires a value for table");
+
+		return $this->base_query("delete", $table, $values, $cols, $type);
+	}
+
+
+	public function delete($table, $values=array(), $cols="", $type="and", $format="json")
+	{
+		
+		$q = $this->delete_query($table, $values, $cols, $type);
 		return $this->query($q, $format);
 	}
 

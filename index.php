@@ -54,8 +54,7 @@
 					</div>
 					<div class="small-2 columns">
 						<span class="label">Name</span>
-						<input name="name" type="text" ng-model="filters.name"
-						ng-change="filter(filters)" value="<?php echo $user->get('ucinetid'); ?>">
+						<input name="name" type="text" ng-model="filters.name" ng-change="filter(filters)">
 					</div>
 					<div class="small-2 columns">
 						<span class="label">Course</span>
@@ -124,7 +123,7 @@
 								<th class="text-center">
 									Delete
 								</th>
-							<?php } ?>;
+							<?php } ?>
 						</tr>
 
 						<tr ng-repeat="r in results|orderBy:orderByField:reverseSort">
@@ -136,7 +135,7 @@
 							<td class="text-center">{{ r.ucinetid }}</td>
 							<?php if ($user->is_admin()) { ?>
 								<td class="text-center">
-									<span class="label alert" ng-click="delete(r)"><a href="#">Delete</a></span>
+									<span class="label alert" ng-click="delete(r.location)"><a href="#">Delete</a></span>
 								</td>
 							<?php } ?>
 						</tr>
