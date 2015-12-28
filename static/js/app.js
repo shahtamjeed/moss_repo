@@ -1,17 +1,15 @@
-//angular.module('app', [])
-//  .controller('getData', ['$scope', '$http', function($scope, $http) {
-//    $scope.user    = {};
-//    $scope.results = [];
-//
-//    $scope.search = function(url) {
-//      $http.get(url, { params: user },
-//        function(response) { $scope.results = response; },
-//        function(failure) { console.log("failed :(", failure); });
-//    });
-//  });
+
+////////////////////////////////////////////////////////////////////////////////
+// App Declaration /////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 
 var app = angular.module('app', []);
+
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -21,6 +19,10 @@ var app = angular.module('app', []);
 
 app.controller('getData', function($scope, $http) {
 
+	/**
+	 * Function to fetch filtered results data.
+	 * @params {object} filters - Object that contains filter names and values.
+	 */ 
 	$scope.filter = function(filters) {
 		$http.get("src/api.php?filters=" + JSON.stringify(filters)).then(function(response) {
 			$scope.results = response.data;
@@ -30,10 +32,14 @@ app.controller('getData', function($scope, $http) {
 		});
 	};
 
+
+	/**
+	 * Function that initializes app by fecthing results, course, and quarter data.
+	 */
 	$scope.reset = function() {
 		$scope.filters = {};
 
-		$http.get("src/api.php?start=true").then(function(response) {
+		$http.get("src/api.php").then(function(response) {
 			$scope.results = response.data.results;
 			$scope.courses = response.data.courses;
 			$scope.quarters = response.data.quarters;
@@ -43,8 +49,23 @@ app.controller('getData', function($scope, $http) {
 		});
 	};
 
-	$scope.reset();
 
+	/**
+	 * Function that deletes one results record.
+	 * @params {object} to_delete - Object that contains info used for selecting
+     * record to delete.
+	 */
+	$scope.delete = function(to_delete) {
+		$http.get("src/api.php?delete=" + JSON.stringify(to_delete)).then(function(response) {
+			$scope.reset();
+		}, function(failure) {
+			console.log(failure);
+		});
+	};
+
+
+	// init app
+	$scope.reset();
 });
 
 
@@ -70,6 +91,34 @@ app.filter('date', function() {
 		return new Date();
 	}
 });
+
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Helpers /////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+
+/*
+ * Function that returns the lenght of an object.
+ * @params {object} obj - Object whose length is to be found.
+ * @returns {int} - Length of obj.
+ */
+Object.size = function(obj) {
+	var size = 0;
+	
+	for (var key in obj)
+	{
+		if (obj.hasOwnProperty(key))
+			++size;
+	}
+
+	return size;
+};
 
 
 ////////////////////////////////////////////////////////////////////////////////

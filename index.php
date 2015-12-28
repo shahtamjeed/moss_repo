@@ -24,7 +24,7 @@
 		<nav class="top-bar" data-topbar role="navigation">
 			<ul class="title-area">
 				<li class="name">
-					<h1><a href="/">Moss Archive</a></h1>
+					<h1><a href="/moss">Moss Archive</a></h1>
 				</li>
 			</ul>
 
@@ -33,6 +33,7 @@
 					<?php if ($user->is_admin()) { ?>
 						<li class="active"><a href="#">Admin</a></li>
 					<?php } ?>
+					<li><a href="#" data-reveal-id="upload_modal">Upload</a></li>
 				</ul>
 				<ul class="right">
 				</ul>
@@ -50,6 +51,11 @@
 				<form>
 					<div class="small-2 columns">
 						<h2>Filters:</h2>
+					</div>
+					<div class="small-2 columns">
+						<span class="label">Name</span>
+						<input name="name" type="text" ng-model="filters.name"
+						ng-change="filter(filters)" value="<?php echo $user->get('ucinetid'); ?>">
 					</div>
 					<div class="small-2 columns">
 						<span class="label">Course</span>
@@ -71,11 +77,6 @@
 						<span class="label">Year</span>
 						<input name="year" type="number" ng-model="filters.year"
 						ng-change="filter(filters)" value="<?php echo date('Y'); ?>">
-					</div>
-					<div class="small-2 columns">
-						<span class="label">Uploaded By</span>
-						<input name="uploaded_by" type="text" ng-model="filters.uploaded_by"
-						ng-change="filter(filters)" value="<?php echo $user->get('ucinetid'); ?>">
 					</div>
 					<div class="small-2 columns">
 						<input class="button expand" type="submit" value="Reset" 
@@ -119,6 +120,11 @@
 									Uploaded By
 								</a>
 							</th>
+							<?php if ($user->is_admin()) { ?>
+								<th class="text-center">
+									Delete
+								</th>
+							<?php } ?>;
 						</tr>
 
 						<tr ng-repeat="r in results|orderBy:orderByField:reverseSort">
@@ -128,7 +134,13 @@
 							<td class="text-center">{{ r.year }}</td>
 							<td class="text-center">{{ r.created }}</td>
 							<td class="text-center">{{ r.ucinetid }}</td>
+							<?php if ($user->is_admin()) { ?>
+								<td class="text-center">
+									<span class="label alert" ng-click="delete(r)"><a href="#">Delete</a></span>
+								</td>
+							<?php } ?>
 						</tr>
+						<!-- new results row (currently hidden) -->
 						<tr hidden>
 							<td>
 								<input name="new_name" type="text">
@@ -160,6 +172,61 @@
 					</table>
 				</div>
 			</div>
+
+			<!-- upload modal -->
+			<div id="upload_modal" class="reveal-modal medium" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+				<h2 class="text-center">Upload New Results</h2>
+				<form method="POST" action="src/api?uid=<?php echo $user->get("id"); ?>" enctype="multipart/form-data">
+					<div class="row">
+						<div class="small-6 columns">
+							<div class="row">
+								<span class="label">Name</span>
+								<input name="new_name" type="text" required>
+								<span class="label">Year</span>
+								<input name="new_year" type="number" value="<?php echo Date('Y'); ?>" required>
+								<span class="label">Name of Results File</span>
+								<input name="new_file" type="text" value="index.html" required>
+							</div>
+						</div>
+						<div class="small-6 columns">
+							<span class="label">Quarter</span>
+							<select name="new_quarter" required>
+								<option ng-repeat="quarter in quarters" value="{{ quarter.id }}">
+									{{ quarter.quarter_name | capitalize }}
+								</option>
+							</select>
+							<span class="label">Course</span>
+							<select name="new_course" required>
+								<option ng-repeat="course in courses" value="{{ course.id }}">
+									{{ course.course_name | uppercase }}
+								</option>
+							</select>
+							<span class="label">Results Zip</span>
+							<input name="new_results" type="file" required>
+						</div>
+						<br>
+						</div>
+					<div class="row">
+						<div class="small-6 small-centered columns">
+							<input class="button expand" name="new_upload" type="submit" value="Upload">
+						</div>
+					<div>
+				</form>
+				<a class="close-reveal-modal" aria-label="Close">&#215;</a>
+				<div class="row">
+					<div class="small-12 columns">
+						<span class="label warning">Note</span>
+						<h6>
+							Zip files should contain ONE folder, which should contain
+							files that contain the results of the plagiarism detection test you wish 
+							to store. Among those files should be a 'main' file that links to the results
+							of the plagiarism test.  For MOSS results, this file will be called 'index.html',
+							and it will be stored in the 'results' subdirectory of the MOSS download.
+						</h6>
+					</div>
+				</div>
+			</div>
+
 		</div>
 
 		<!-- include angular app -->

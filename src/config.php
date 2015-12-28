@@ -15,10 +15,11 @@ $settings["db_name"] = "moss";
 ## App Variables ###############################################################
 
 
-$settings["doc_root"] = "/Library/WebServer/Documents/moss/";
 $settings["app_root"] = "127.0.0.1/";
+$settings["doc_root"] = "/Library/WebServer/Documents/moss/";
 $settings["static_root"] = "static/";
 $settings["results_dir"] = $settings["doc_root"] . "results/";
+$settings["staging_dir"] = $settings["doc_root"] . "staging/";
 
 
 ################################################################################
