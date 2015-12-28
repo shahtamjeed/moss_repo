@@ -53,18 +53,17 @@ class Results extends Database
 		system('rm -rf ' . escapeshellarg($dir), $retval);
 		if ($retval != 0) 
 		{
-			$msg =  "Results->delete_dir: there was a problem deleting $file; ";
+			$msg =  "Results->delete_dir: there was a problem deleting $dir; ";
 			$msg .= error_get_last()["message"];
 			throw new Exception($msg);
-
 		}
 		return true;
 	}
 }
 
 
-$r = new Results();
-$r->delete_entry(array("id" => "27"));
+//$r = new Results();
+//$r->delete_entry(array("id" => "27"));
 
 
 ?>

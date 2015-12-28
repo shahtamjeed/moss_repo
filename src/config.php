@@ -33,7 +33,7 @@ class Config
 	Class that abstracts getting/setting configs.
 */
 
-	public function get($setting)
+	static public function get($setting)
 	{
 	/*
 		General accessor for config values.
@@ -59,7 +59,7 @@ class Config
 	}
 
 
-	public function get_db_info()
+	static public function get_db_info()
 	{
 	/*
 		Accessor for DB settings.

@@ -17,11 +17,11 @@ var app = angular.module('app', []);
 ////////////////////////////////////////////////////////////////////////////////
 
 
-app.controller('getData', function($scope, $http) {
+app.controller('mainController', function($scope, $http) {
 
 	/**
 	 * Function to fetch filtered results data.
-	 * @params {object} filters - Object that contains filter names and values.
+	 * @param {object} filters - Object that contains filter names and values.
 	 */ 
 	$scope.filter = function(filters) {
 		$http.get("src/api.php?filters=" + JSON.stringify(filters)).then(function(response) {
@@ -38,6 +38,7 @@ app.controller('getData', function($scope, $http) {
 	 */
 	$scope.reset = function() {
 		$scope.filters = {};
+		$scope.users;
 
 		$http.get("src/api.php").then(function(response) {
 			$scope.results = response.data.results;
@@ -52,15 +53,46 @@ app.controller('getData', function($scope, $http) {
 
 	/**
 	 * Function that deletes one results record.
-	 * @params {object} to_delete - Object that contains info used for selecting
+	 * @param {object} to_delete - Object that contains info used for selecting
      * record to delete.
+	 * @param {bool,string} is_user
 	 */
-	$scope.delete = function(to_delete) {
-		$http.get("src/api.php?delete=" + String(to_delete)).then(function(response) {
+	$scope.delete = function(to_delete, is_user) {
+		var url = "src/api.php?delete=" + String(to_delete);
+		url += (is_user) ? "&admin=" + String(is_user) : "";
+
+		$http.get(url).then(function(response) {
 			$scope.reset();
+			
+			if (is_user)
+				$scope.loadAdmin(is_user, false);
+
 		}, function(failure) {
 			console.log(failure);
 		});
+	};
+
+
+	/*
+	 * Function that inits admin UI by fetching user data.
+	 * @param {int,string} uid - ID of user making the request.
+	 */
+	$scope.loadAdmin = function(uid, delete_call) {
+		if (delete_call)
+		{
+			$("#standard_ui").toggle();
+			$("#admin_ui").toggle();
+			$("#filter_form").toggle();
+		}
+
+		if ($scope.users === undefined || !delete_call)
+		{
+			$http.get("src/api.php?admin=" + String(uid)).then(function(response) {
+				$scope.users = response.data;
+			}, function(failure) {
+				console.log(failure);
+			});
+		}
 	};
 
 
@@ -105,7 +137,7 @@ app.filter('date', function() {
 
 /*
  * Function that returns the lenght of an object.
- * @params {object} obj - Object whose length is to be found.
+ * @param {object} obj - Object whose length is to be found.
  * @returns {int} - Length of obj.
  */
 Object.size = function(obj) {

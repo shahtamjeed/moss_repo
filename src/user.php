@@ -10,13 +10,11 @@ class User extends Database
 	{
 		parent::__construct();
 
-		$this->id_val = $id_val;
-		$this->id_key = $id_key;
 		$this->user_data = NULL;
 
 		if (!is_null($id_val))
 		{
-			$this->user_data = $this->query("select * from users where $id_key='$id_val'", $format="assoc");
+			$this->user_data = $this->select("users", array($id_key => $id_val), "*", "and", $format="assoc");
 			$this->user_data = (is_null($this->user_data)) ? array() : $this->user_data;
 		}
 	}
@@ -96,9 +94,29 @@ class User extends Database
 	}
 
 
-	public function delete_user()
+	public function delete_user($values=array(), $type="and", $format="json")
 	{
-		;
+		return $this->delete("users", $values, "", $type, $format);
+	}
+
+
+	public function get_users($values=array(), $cols="*", $type="AND", $format="json")
+	{
+		if (!is_null($this->user_data) && count($this->user_data) > 0)
+			throw new Exception("User->get_users: cannot get users if user data is present");
+
+		$q = $this->select_query("users", $values, $cols, $type);
+		$join =  "join (user_types) on users.user_type=user_types.id";
+
+		if (count($values) > 0)
+		{
+			$q = explode("where", $q);
+			$q = $q[0] . $join . " where" . $q[1];
+		}
+		else
+			$q .= " $join";
+
+		return $this->query($q, $format);
 	}
 }
 

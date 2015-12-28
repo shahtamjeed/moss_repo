@@ -5,9 +5,27 @@ require_once('config.php');
 
 class Database
 {
+/*
+	Class that abstracts database interaction.
+*/
 
 	function __construct()
 	{
+	/*
+		Constructor that inits DB object. If no args are provided, the 
+		constructor uses values from Config.
+
+		Parameters
+		----------
+		$servername : string (optional)
+			Database server name.
+		$username : string (optional)
+			Username for database sign in.
+		$password : string (optional)
+			Password for database sign in.
+		$db_name : string (optional)
+			Name of database to use.
+	*/
 		$args = func_get_args();
 
 		if (count($args) == 0)
@@ -28,6 +46,9 @@ class Database
 
 	function __destruct()
 	{
+	/*
+		Destructor that closes the database connection. 
+	*/
 		if (!is_null($this->conn))
 			$this->conn->close();
 	}
@@ -35,6 +56,14 @@ class Database
 
 	public function connect($servername=NULL, $username=NULL, $password=NULL)
 	{
+	/*
+		Method that initializes connection to the database. See constructor for
+		arguments.
+
+		Returns
+		-------
+		$conn : mysqli object
+	*/
 		$servername = (is_null($servername)) ? $this->servername : $servername;
 		$username = (is_null($username)) ? $this->username : $username;
 		$password = (is_null($password)) ? $this->password : $password;
@@ -51,6 +80,9 @@ class Database
 
 	public function disconnect()
 	{
+	/*
+		Method that disconnects connection to database.
+	*/
 		if (is_null($this->conn))
 			throw new Exception("Database->disconnect: there is no active database connection");
 
@@ -70,6 +102,14 @@ class Database
 
 	public function select_db($db_name=Null)
 	{
+	/*
+		Method that select database to use.
+
+		Parameters
+		----------
+		$db_name : string (optional)
+			Name of database to connect to.
+	*/
 		if (is_null($this->conn))
 			throw new Exception("Database->select_db: there is no active database connection");
 
@@ -89,6 +129,8 @@ class Database
 
 	public function query($q, $format="array")
 	{
+	/*
+	*/
 		if (is_null($this->conn))
 			throw new Exception("Database->query: there is no active database connection");
 

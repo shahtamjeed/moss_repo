@@ -20,34 +20,34 @@
  	</head>
 
 	<body>
-		<!-- begin nav bar -->
-		<nav class="top-bar" data-topbar role="navigation">
-			<ul class="title-area">
-				<li class="name">
-					<h1><a href="/moss">Moss Archive</a></h1>
-				</li>
-			</ul>
-
-			<section class="top-bar-section">
-				<ul class="left">
-					<?php if ($user->is_admin()) { ?>
-						<li class="active"><a href="#">Admin</a></li>
-					<?php } ?>
-					<li><a href="#" data-reveal-id="upload_modal">Upload</a></li>
-				</ul>
-				<ul class="right">
-				</ul>
-			</section>
-		</nav>
-		<!-- end nav bar -->
-
 		<!-- init angular app -->
-		<div ng-app="app" ng-controller="getData">
+		<div ng-app="app" ng-controller="mainController">
+
+			<!-- begin nav bar -->
+			<nav class="top-bar" data-topbar role="navigation">
+				<ul class="title-area">
+					<li class="name">
+						<h1><a href="/moss">Moss Archive</a></h1>
+					</li>
+				</ul>
+
+				<section class="top-bar-section">
+					<ul class="left">
+						<?php if ($user->is_admin()) { ?>
+							<li class="active"><a href="#" ng-click="loadAdmin(<?php echo $user->get("id"); ?>, true)">Admin</a></li>
+						<?php } ?>
+						<li><a href="#" data-reveal-id="upload_modal">Upload</a></li>
+					</ul>
+					<ul class="right">
+					</ul>
+				</section>
+			</nav>
+			<!-- end nav bar -->
 
 			<br>
 
 			<!-- filter form -->
-			<div class="row fullwidth">
+			<div id="filter_form" class="row fullwidth">
 				<form>
 					<div class="small-2 columns">
 						<h2>Filters:</h2>
@@ -83,11 +83,12 @@
 					</div>
 				</form>
 			</div>
+			<!-- end filter form -->
 
-			<!-- results table -->
-			<div class="row fullwidth">
+			<!-- results table (UI for standard users) -->
+			<div id="standard_ui" class="row fullwidth">
 				<div class="small-12 panel">
-					<table>
+					<table id="results_table">
 						<tr>
 							<th class="text-center">
 								<a href="#" ng-click="orderByField='name'; reverseSort = !reverseSort">
@@ -135,42 +136,67 @@
 							<td class="text-center">{{ r.ucinetid }}</td>
 							<?php if ($user->is_admin()) { ?>
 								<td class="text-center">
-									<span class="label alert" ng-click="delete(r.location)"><a href="#">Delete</a></span>
+									<span class="label alert" ng-click="delete(r.location, false)"><a href="#">Delete</a></span>
 								</td>
 							<?php } ?>
-						</tr>
-						<!-- new results row (currently hidden) -->
-						<tr hidden>
-							<td>
-								<input name="new_name" type="text">
-							</td>
-							<td>
-								<select name="new_course">
-									<option ng-repeat="course in courses" value="{{ course.id }}">
-										{{ course.course_name | uppercase }}
-									</option>
-								</select>
-							</td>
-							<td>
-								<select name="new_quarter">
-									<option ng-repeat="quarter in quarters" value="{{ quarter.id }}">
-										{{ quarter.quarter_name | capitalize }}
-									</option>
-								</select>
-							</td>
-							<td>
-								<input name="new_year" type="number">
-							</td>
-							<td class="text-center">
-								<?php echo Date("Y-m-d H:i:s"); ?>
-							</td>
-							<td class="text-center">
-								<?php echo $user->get("ucinetid"); ?>
-							</td>
 						</tr>
 					</table>
 				</div>
 			</div>
+			<!-- end results table -->
+
+			<?php if ($user->is_admin()) { ?>
+				<!-- users table (UI for admin users) -->
+				<div id="admin_ui" class="row fullwidth" hidden>
+					<div class="small-12 panel">
+						<table id="users_table">
+							<tr>
+								<th class="text-center">
+									<a href="#" ng-click="orderByField='firstname'; reverseSort = !reverseSort">
+										Firstname
+									</a>
+								</th>
+								<th class="text-center">
+									<a href="#" ng-click="orderByField='lastname'; reverseSort = !reverseSort">
+										Lastname
+									</a>
+								</th>
+								<th class="text-center">
+									<a href="#" ng-click="orderByField='email'; reverseSort = !reverseSort">
+										 Email
+									</a>
+								</th>
+								<th class="text-center">
+									<a href="#" ng-click="orderByField='ucinetid'; reverseSort = !reverseSort">
+										UCInetID
+									</a>
+								</th>
+								<th class="text-center">
+									<a href="#" ng-click="orderByField='user_type'; reverseSort = !reverseSort">
+										User Type
+									</a>
+								</th>
+								<th class="text-center">
+									Delete
+								</th>
+							</tr>
+
+							<tr ng-repeat="u in users|orderBy:orderByField:reverseSort">
+								<td class="text-center">{{ u.firstname | capitalize }}</td>
+								<td class="text-center">{{ u.lastname | capitalize }}</td>
+								<td class="text-center">{{ u.email }}</td>
+								<td class="text-center">{{ u.ucinetid }}</td>
+								<td class="text-center">{{ u.type_name | capitalize }}</td>
+								<td class="text-center">
+									<span class="label alert" ng-click="delete(u.ucinetid, <?php echo $user->get("id"); ?>)"><a href="#">Delete</a></span>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<!-- end users table -->
+			<?php } ?>
+
 
 			<!-- upload modal -->
 			<div id="upload_modal" class="reveal-modal medium" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
@@ -225,8 +251,10 @@
 					</div>
 				</div>
 			</div>
+			<!-- end upload modal -->
 
 		</div>
+		<!-- end angular app -->
 
 		<!-- include angular app -->
 		<script src="<?php echo $static_root; ?>js/app.js"></script>

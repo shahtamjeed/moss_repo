@@ -2,6 +2,8 @@
 
 // include results API (DB API included with it)
 require_once("results.php");
+// include user API
+require_once("user.php");
 // include upload class
 require_once("upload.php");
 
@@ -57,12 +59,39 @@ else if (isset($_POST['new_upload']))
 		}
 	}
 }
-else if (isset($_GET['delete']))
+else if (!isset($_GET['admin']) && isset($_GET['delete']))
 {
 	$location = $_GET['delete'];
 	$dir = $r->get(array("location" => $location), "*", "and", "assoc")["dir_name"];
 	if ($r->delete_dir(Config::get("results_dir") . $dir))
 		$r->delete_entry(array("location" => $location));
+}
+else if (isset($_GET['admin']) && isset($_GET['delete']))
+{
+	$uid = $_GET['admin'];
+	$u = new User($uid, "id");
+
+	if (!$u->is_admin())
+	{
+		return;
+	}
+
+	$user = $_GET['delete'];
+	$u->delete_user(array("ucinetid" => $user));
+}
+else if  (isset($_GET['admin']))
+{
+	$uid = $_GET['admin'];
+	$u = new User($uid, "id");
+
+	if (!$u->is_admin())
+	{
+		return;
+	}
+
+	$users = new User();
+	$content = $users->get_users();
+	echo $content;
 }
 else 
 {
@@ -72,5 +101,6 @@ else
 	$content = "{\"results\": $results, \"quarters\": $quarters, \"courses\": $courses}";
 	echo $content;
 }
+
 
 ?>
