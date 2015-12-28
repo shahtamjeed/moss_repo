@@ -85,12 +85,8 @@ class User extends Database
 		else
 			throw new Exception("User->create_user: id_key ($id_key) must be a key in values");
 
-		list($cols,$vals) = $this->query_prep($values);
-
-		$q = "insert into users ($cols) values ($vals)";
-
-		$this->query($q);
-		$this->user_data = $this->query("select * from users where $id_key='$id_val'", $format="assoc");
+		$this->insert("users", $values);
+		$this->user_data = $this->select("users", array($id_key => $id_val), "*", "and", "assoc");
 	}
 
 
