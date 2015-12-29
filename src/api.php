@@ -126,4 +126,40 @@ else
 }
 
 
+//class API 
+//{
+//	function public __construct($db, $r)
+//	{
+//		$this->db = $db;
+//		$this->r = $r;
+//	}
+//
+//
+//	function public dispatch()
+//	{
+//		$args = func_get_args();
+//		$query_type = (count($args) == 0) ? "init": $args[0];
+//
+//		if (count($args) > 0)
+//		{
+//			$query_type = $args[0];
+//			$args = array_slice($args, 1);
+//		}
+//
+//		switch ($query_type)
+//		{
+//			$this->filter_results();
+//		}
+//	}
+//
+//
+//	private function filter_results()
+//	{
+//		$filters = json_decode(file_get_contents('php://input'), $assoc=true);
+//		$results = $r->get($filters);
+//		echo $results;
+//	}
+//}
+
+
 ?>
