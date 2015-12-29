@@ -195,7 +195,40 @@
 									</span>
 								</td>
 							</tr>
+							<tr id="add_user_row" ng-show="showUserAddRow">
+								<td class="text-center">
+									<input type="text" ng-model="new_user.firstname">
+								</td>
+								<td class="text-center">
+									<input type="text" ng-model="new_user.lastname">
+								</td>
+								<td class="text-center">
+									<input type="text" ng-model="new_user.email">
+								</td>
+								<td class="text-center">
+									<input type="text" ng-model="new_user.ucinetid">
+								</td>
+								<td class="text-center">
+									<select ng-model="new_user.user_type">
+										<option ng-repeat="ut in user_types" value="{{ ut.id }}">
+											{{ ut.type_name | capitalize }}
+										</option>
+									</select>
+								</td>
+								<td class="text-center">
+									<span class="label" ng-click="saveUser(new_user, <?php echo $user->get("id"); ?>)">
+										<a href="#">Save</a>
+									</span>
+								</td>
+							</tr>
 						</table>
+						<div class="row">
+							<div class="small-1 small-centered columns">
+								<a href="#" ng-click="showUserAddRow = !showUserAddRow">
+									<img class="add_icon" src="static/img/plus-icon.png">
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
 				<!-- end users table -->

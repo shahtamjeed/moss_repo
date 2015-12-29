@@ -15,10 +15,9 @@ $r = new Results();
 header('Content-Type: application/json');
 
 // handle API requests
-if (isset($_GET['filters']))
+if (isset($_GET['query']) && $_GET['query'] == 'filter_results')
 {
-	$filters = html_entity_decode($_GET['filters']);
-	$filters = json_decode($filters, $assoc=true);
+	$filters = json_decode(file_get_contents('php://input'), $assoc=true);
 	$results = $r->get($filters);
 	echo $results;
 }
@@ -87,7 +86,21 @@ else if (isset($_GET['admin']) && isset($_GET['delete']) && $_GET['user'] == 'tr
 	$user = $_GET['delete'];
 	$u->delete_user(array("ucinetid" => $user));
 }
-else if  (isset($_GET['admin']))
+else if (isset($_GET['admin']) && isset($_GET['new_user']))
+{
+	$uid = $_GET['admin'];
+	$u = new User($uid, "id");
+
+	if (!$u->is_admin())
+	{
+		return;
+	}
+	$new_user = html_entity_decode($_GET['new_user']);
+	$new_user = json_decode($new_user, $assoc=true);
+	$new_u = new User();
+	$new_u->create_user($new_user);
+}
+else if (isset($_GET['admin']))
 {
 	$uid = $_GET['admin'];
 	$u = new User($uid, "id");
@@ -98,7 +111,9 @@ else if  (isset($_GET['admin']))
 	}
 
 	$users = new User();
-	$content = $users->get_users();
+	$user_list = $users->get_users();
+	$user_types = $db->select("user_types");
+	$content = "{\"users\": $user_list, \"user_types\": $user_types}";
 	echo $content;
 }
 else 
