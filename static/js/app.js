@@ -60,8 +60,9 @@ app.controller('mainController', function($scope, $http) {
 	 * @param {bool} is_user
 	 */
 	$scope.delete = function(to_delete, admin, is_user) {
-		var url = "src/api.php?delete=" + String(to_delete);
-		url += "&admin=" + String(admin) + "&user=" + String(is_user);
+		var url = "src/api.php?query="; 
+		url += (is_user) ? "delete_user": "delete_result";
+		url += "&delete=" + String(to_delete) + "&admin=" + String(admin);
 		
 		$http.get(url).then(function(response) {
 			$scope.reset();
@@ -93,7 +94,7 @@ app.controller('mainController', function($scope, $http) {
 
 		if ($scope.users === undefined || !show_call)
 		{
-			$http.get("src/api.php?admin=" + String(uid)).then(function(response) {
+			$http.get("src/api.php?query=load_admin&admin=" + String(uid)).then(function(response) {
 				$scope.users = response.data.users;
 				$scope.user_types = response.data.user_types;
 			}, function(failure) {
@@ -113,7 +114,7 @@ app.controller('mainController', function($scope, $http) {
 		if (Object.size(new_user) != 5)
 			return;
 
-		var url = "src/api.php?admin=" + String(admin);
+		var url = "src/api.php?query=new_user&admin=" + String(admin);
 		url += "&new_user=" + JSON.stringify(new_user);
 
 		$http.post(url, new_user).then(function(response) {

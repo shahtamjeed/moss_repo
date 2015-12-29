@@ -44,13 +44,15 @@ class Database
 	}
 
 
-	function __destruct()
+	public function __destruct()
 	{
 	/*
 		Destructor that closes the database connection. 
 	*/
 		if (!is_null($this->conn))
+		{
 			$this->conn->close();
+		}
 	}
 
 

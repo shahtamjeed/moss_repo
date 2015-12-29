@@ -75,7 +75,7 @@ class User extends Database
 	}
 
 
-	public function create_user($values, $id_key="ucinetid")
+	public function create_user($values, $id_key="ucinetid", $init=true)
 	{
 		if (!is_null($this->user_data) && count($this->user_data) > 0)
 			throw new Exception("User->create_user: cannot create user that already exists");
@@ -86,7 +86,9 @@ class User extends Database
 			throw new Exception("User->create_user: id_key ($id_key) must be a key in values");
 
 		$this->insert("users", $values);
-		$this->user_data = $this->select("users", array($id_key => $id_val), "*", "and", "assoc");
+
+		if ($init)
+			$this->user_data = $this->select("users", array($id_key => $id_val), "*", "and", "assoc");
 	}
 
 
