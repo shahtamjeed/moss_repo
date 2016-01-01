@@ -234,11 +234,10 @@
 				<!-- end users table -->
 			<?php } ?>
 
-
 			<!-- upload modal -->
 			<div id="upload_modal" class="reveal-modal medium" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
 				<h2 class="text-center">Upload New Results</h2>
-				<form method="POST" action="src/api?uid=<?php echo $user->get("id"); ?>" enctype="multipart/form-data">
+				<form method="POST" action="src/api?query=upload_result&uid=<?php echo $user->get("id"); ?>" enctype="multipart/form-data">
 					<div class="row">
 						<div class="small-6 columns">
 							<div class="row">
